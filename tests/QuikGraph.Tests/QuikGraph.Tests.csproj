@@ -78,4 +78,7 @@
   <ItemGroup Condition="!$(UseQuikGraphSerializationNuget)">
     <ProjectReference Include="..\..\src\QuikGraph.Serialization\QuikGraph.Serialization.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="NUnit" Version="3.13.0" />
+  </ItemGroup>
 </Project>
