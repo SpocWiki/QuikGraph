@@ -5,9 +5,7 @@ using static QuikGraph.QuikGraphHelpers;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// Extensions for populating graph data structures.
-    /// </summary>
+    /// <summary> Extensions for populating graph data structures. </summary>
     public static class GraphExtensions
     {
         #region Delegate graphs
@@ -59,7 +57,8 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/> is <see langword="null"/>.</exception>
         [Pure]
         [NotNull]
-        public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge, TEdges>(
+        public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge,
+            TEdges>(
             [NotNull] this IDictionary<TVertex, TEdges> dictionary)
             where TEdge : IEdge<TVertex>
             where TEdges : IEnumerable<TEdge>
@@ -80,7 +79,8 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="keyValueToOutEdges"/> is <see langword="null"/>.</exception>
         [Pure]
         [NotNull]
-        public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge, TValue>(
+        public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge,
+            TValue>(
             [NotNull] this IDictionary<TVertex, TValue> dictionary,
 #if SUPPORTS_CONVERTER
             [NotNull] Converter<KeyValuePair<TVertex, TValue>, IEnumerable<TEdge>> keyValueToOutEdges)
@@ -166,7 +166,8 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="tryGetInEdges"/> is <see langword="null"/>.</exception>
         [Pure]
         [NotNull]
-        public static DelegateBidirectionalIncidenceGraph<TVertex, TEdge> ToDelegateBidirectionalIncidenceGraph<TVertex, TEdge>(
+        public static DelegateBidirectionalIncidenceGraph<TVertex, TEdge> ToDelegateBidirectionalIncidenceGraph<TVertex,
+            TEdge>(
             [NotNull] this TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges,
             [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetInEdges)
             where TEdge : IEdge<TVertex>

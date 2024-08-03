@@ -65,15 +65,11 @@ namespace QuikGraph.Graphviz
                 return Graphviz.Generate(dot, outputFilePath);
             }
 
-            #region Local function
-
             IDisposable GenerationScope()
             {
                 Initialize();
                 return DisposableHelpers.Finally(Clean);
             }
-
-            #endregion
         }
     }
 }
