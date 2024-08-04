@@ -139,12 +139,12 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         public void OneComponent()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 Edge.Create(1, 2),
                 Edge.Create(2, 3),
                 Edge.Create(3, 1)
-            });
+            ]);
 
             var algorithm = new StronglyConnectedComponentsAlgorithm<int, Edge<int>>(graph);
             algorithm.Compute();
@@ -168,14 +168,14 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         public void ThreeComponents()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 Edge.Create(1, 2),
                 Edge.Create(2, 3),
                 Edge.Create(2, 4),
                 Edge.Create(3, 1),
                 Edge.Create(4, 5)
-            });
+            ]);
 
             var algorithm = new StronglyConnectedComponentsAlgorithm<int, Edge<int>>(graph);
             algorithm.Compute();
@@ -207,8 +207,8 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         public void MultipleComponents()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 Edge.Create(1, 2),
                 Edge.Create(2, 3),
                 Edge.Create(2, 4),
@@ -223,7 +223,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 Edge.Create(7, 8),
                 Edge.Create(8, 6),
                 Edge.Create(8, 7)
-            });
+            ]);
             graph.AddVertex(10);
 
             var algorithm = new StronglyConnectedComponentsAlgorithm<int, Edge<int>>(graph);

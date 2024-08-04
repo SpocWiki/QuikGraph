@@ -69,12 +69,12 @@ namespace QuikGraph.MSAGL.Tests
         public void VertexId()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 Edge.Create(1, 2),
                 Edge.Create(2, 3)
-            });
-            graph.AddVertexRange(new[] { 5, 6 });
+            ]);
+            graph.AddVertexRange([5, 6]);
 
             var populator = new MsaglIdentifiableGraphPopulator<int, Edge<int>>(graph, vertex => $"MyTestId{vertex}");
             populator.Compute();

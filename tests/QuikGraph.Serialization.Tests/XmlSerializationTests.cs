@@ -213,12 +213,11 @@ namespace QuikGraph.Serialization.Tests
             };
 
             graph.AddVerticesAndEdgeRange(
-                new TaggedEdge<Person, string>[]
-                {
+                [
                     new(jacob, john, jacob.ChildRelationshipText),
                     new(john, jonathon, john.ChildRelationshipText),
                     new(jonathon, emanuel, jonathon.ChildRelationshipText)
-                });
+                ]);
 
             SerializeAndRead(
                 writer => graph.SerializeToXml(
@@ -403,11 +402,10 @@ namespace QuikGraph.Serialization.Tests
         {
             AssertHasVertices(
                 graph,
-                new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
+                ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]);
             AssertHasEdges(
                 graph,
-                new[]
-                {
+                [
                     edgeFactory("1", "2", 6.0),
                     edgeFactory("1", "4", 11.0),
                     edgeFactory("1", "5", 5.0),
@@ -433,7 +431,7 @@ namespace QuikGraph.Serialization.Tests
                     edgeFactory("9", "10", 19.0),
                     edgeFactory("10", "12", 2.0),
                     edgeFactory("11", "12", 7.0)
-                });
+                ]);
         }
 
         #endregion

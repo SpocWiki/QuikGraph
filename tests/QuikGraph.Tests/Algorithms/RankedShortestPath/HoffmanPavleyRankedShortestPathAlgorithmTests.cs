@@ -254,7 +254,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             const int end = 1;
 
             var graph = new BidirectionalGraph<int, Edge<int>>();
-            graph.AddVertexRange(new[] { start, end });
+            graph.AddVertexRange([start, end]);
             var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1.0);
 
             Assert.DoesNotThrow(() => algorithm.Compute(start, end));
@@ -325,7 +325,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             var graph = new BidirectionalGraph<int, Edge<int>>();
             var weights = new Dictionary<Edge<int>, double>();
             int[] data = 
-            {
+            [
                 1, 4, 3,
                 4, 1, 3,
 
@@ -369,7 +369,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
                 8, 7, 4,
 
                 9, 8, 5
-            };
+            ];
 
             int i = 0;
             for (; i + 2 < data.Length; i += 3)

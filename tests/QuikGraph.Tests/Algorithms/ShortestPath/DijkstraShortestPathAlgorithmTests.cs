@@ -261,10 +261,10 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             var edge34 = Edge.Create(3, 4);
 
             var negativeWeightGraph = new AdjacencyGraph<int, Edge<int>>();
-            negativeWeightGraph.AddVerticesAndEdgeRange(new[]
-            {
+            negativeWeightGraph.AddVerticesAndEdgeRange(
+            [
                 edge12, edge23, edge34
-            });
+            ]);
 
             var algorithm = new DijkstraShortestPathAlgorithm<int, Edge<int>>(
                 negativeWeightGraph,

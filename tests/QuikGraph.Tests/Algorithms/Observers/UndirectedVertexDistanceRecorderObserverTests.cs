@@ -79,7 +79,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new UndirectedVertexDistanceRecorderObserver<int, Edge<int>>(_ => 1.0);
 
                 var graph = new UndirectedGraph<int, Edge<int>>();
-                graph.AddVertexRange(new[] { 1, 2 });
+                graph.AddVertexRange([1, 2]);
 
                 var dfs = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
                 using (recorder.Attach(dfs))
@@ -100,10 +100,10 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var edge34 = Edge.Create(3, 4);
                 var edge42 = Edge.Create(4, 2);
                 var graph = new UndirectedGraph<int, Edge<int>>();
-                graph.AddVerticesAndEdgeRange(new[]
-                {
+                graph.AddVerticesAndEdgeRange(
+                [
                     edge12, edge14, edge31, edge33, edge34, edge42
-                });
+                ]);
 
                 var dfs = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
                 using (recorder.Attach(dfs))

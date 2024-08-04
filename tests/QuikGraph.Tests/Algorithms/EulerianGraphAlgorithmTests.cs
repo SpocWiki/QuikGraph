@@ -46,24 +46,24 @@ namespace QuikGraph.Tests.Algorithms
         public void IsEulerianOneComponent()
         {
             // Eulerian
-            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(new[]
-            {
+            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(
+            [
                 new Vertices(1, 2),
                 new Vertices(2, 3),
                 new Vertices(1, 3)
-            });
+            ]);
 
             AssertIsEulerian(true, graph);
 
             // Not Eulerian
-            graph = CreateUndirectedGraph(new[]
-            {
+            graph = CreateUndirectedGraph(
+            [
                 new Vertices(1, 2),
                 new Vertices(2, 3),
                 new Vertices(3, 4),
                 new Vertices(1, 4),
                 new Vertices(1, 3)
-            });
+            ]);
 
             AssertIsEulerian(false, graph);
         }
@@ -72,12 +72,12 @@ namespace QuikGraph.Tests.Algorithms
         public void IsEulerianManyComponents()
         {
             // Eulerian
-            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(new[]
-            {
+            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(
+            [
                 new Vertices(1, 2),
                 new Vertices(2, 3),
                 new Vertices(1, 3)
-            });
+            ]);
 
             graph.AddVertex(4);
             graph.AddVertex(5);
@@ -85,15 +85,15 @@ namespace QuikGraph.Tests.Algorithms
             AssertIsEulerian(true, graph);
 
             // Not Eulerian
-            graph = CreateUndirectedGraph(new[]
-            {
+            graph = CreateUndirectedGraph(
+            [
                 new Vertices(1, 2),
                 new Vertices(2, 3),
                 new Vertices(1, 3),
                 new Vertices(4, 5),
                 new Vertices(5, 6),
                 new Vertices(4, 6)
-            });
+            ]);
 
             graph.AddVertex(7);
 
@@ -103,10 +103,10 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void IsEulerianOneVertexWithLoop()
         {
-            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(new[]
-            {
+            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(
+            [
                 new Vertices(1, 1)
-            });
+            ]);
 
             AssertIsEulerian(true, graph);
         }
@@ -114,11 +114,11 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void IsEulerianOneVertexWithTwoLoops()
         {
-            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(new[]
-            {
+            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(
+            [
                 new Vertices(1, 1),
                 new Vertices(1, 1)
-            });
+            ]);
 
             AssertIsEulerian(true, graph);
         }
@@ -126,11 +126,11 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void IsEulerianTwoVertices()
         {
-            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(new[]
-            {
+            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(
+            [
                 new Vertices(1, 2),
                 new Vertices(2, 2)
-            });
+            ]);
 
             AssertIsEulerian(false, graph);
         }
@@ -138,11 +138,11 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void IsEulerianTwoVerticesWithLoops()
         {
-            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(new[]
-            {
+            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(
+            [
                 new Vertices(1, 1),
                 new Vertices(2, 2)
-            });
+            ]);
 
             AssertIsEulerian(false, graph);
         }
@@ -150,10 +150,10 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void IsEulerianTwoVerticesOneEdge()
         {
-            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(new[]
-            {
+            UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(
+            [
                 new Vertices(1, 2)
-            });
+            ]);
 
             AssertIsEulerian(false, graph);
         }

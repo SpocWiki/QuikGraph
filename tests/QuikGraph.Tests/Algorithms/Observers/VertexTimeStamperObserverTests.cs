@@ -103,7 +103,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new VertexTimeStamperObserver<int>();
 
                 var graph = new AdjacencyGraph<int, Edge<int>>();
-                graph.AddVertexRange(new[] {1, 2});
+                graph.AddVertexRange([1, 2]);
 
                 var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(graph);
                 using (recorder.Attach(dfs))
@@ -132,12 +132,12 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new VertexTimeStamperObserver<int>();
 
                 var graph = new AdjacencyGraph<int, Edge<int>>();
-                graph.AddVerticesAndEdgeRange(new[]
-                {
+                graph.AddVerticesAndEdgeRange(
+                [
                     Edge.Create(1, 2),
                     Edge.Create(2, 2),
                     Edge.Create(3, 4)
-                });
+                ]);
 
                 var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(graph);
                 using (recorder.Attach(dfs))

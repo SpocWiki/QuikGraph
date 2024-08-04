@@ -42,10 +42,10 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         public void OneStronglyConnectedComponent()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 Edge.Create(1, 2), Edge.Create(2, 3), Edge.Create(3, 1)
-            });
+            ]);
 
             IMutableBidirectionalGraph<AdjacencyGraph<int, Edge<int>>, CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>> condensedGraph =
                 graph.CondensateStronglyConnected<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>();
@@ -76,11 +76,11 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             var edge87 = Edge.Create(8, 7);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 edge12, edge23, edge24, edge25, edge31, edge34, edge46,
                 edge56, edge57, edge64, edge75, edge78, edge86, edge87
-            });
+            ]);
             graph.AddVertex(10);
 
             IMutableBidirectionalGraph<AdjacencyGraph<int, Edge<int>>, CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>> condensedGraph =

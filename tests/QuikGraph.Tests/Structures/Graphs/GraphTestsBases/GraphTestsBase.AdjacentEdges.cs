@@ -20,7 +20,7 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
             var edge41 = Edge.Create(4, 1);
 
-            graph.AddVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge24, edge33, edge41 });
+            graph.AddVerticesAndEdgeRange([edge11, edge12, edge13, edge24, edge33, edge41]);
 
             Assert.AreSame(edge11, graph.AdjacentEdge(1, 0));
             Assert.AreSame(edge13, graph.AdjacentEdge(1, 2));
@@ -41,7 +41,7 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
             var edge41 = Edge.Create(4, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge24, edge33, edge41 });
+            wrappedGraph.AddVerticesAndEdgeRange([edge11, edge12, edge13, edge24, edge33, edge41]);
             IImplicitUndirectedGraph<int, Edge<int>> graph = createGraph();
 
             Assert.AreSame(edge11, graph.AdjacentEdge(1, 0));
@@ -116,12 +116,12 @@ namespace QuikGraph.Tests.Structures
             AssertNoAdjacentEdge(graph, 1);
 
             graph.AddVertex(5);
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
+            graph.AddVerticesAndEdgeRange([edge12, edge13, edge14, edge24, edge31, edge33]);
 
-            AssertHasAdjacentEdges(graph, 1, new[] { edge12, edge13, edge14, edge31 });
-            AssertHasAdjacentEdges(graph, 2, new[] { edge12, edge24 });
-            AssertHasAdjacentEdges(graph, 3, new[] { edge13, edge31, edge33 }, 4);  // Has self edge counting twice
-            AssertHasAdjacentEdges(graph, 4, new[] { edge14, edge24 });
+            AssertHasAdjacentEdges(graph, 1, [edge12, edge13, edge14, edge31]);
+            AssertHasAdjacentEdges(graph, 2, [edge12, edge24]);
+            AssertHasAdjacentEdges(graph, 3, [edge13, edge31, edge33], 4);  // Has self edge counting twice
+            AssertHasAdjacentEdges(graph, 4, [edge14, edge24]);
             AssertNoAdjacentEdge(graph, 5);
         }
 
@@ -141,13 +141,13 @@ namespace QuikGraph.Tests.Structures
             AssertNoAdjacentEdge(graph, 1);
 
             wrappedGraph.AddVertex(5);
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
+            wrappedGraph.AddVerticesAndEdgeRange([edge12, edge13, edge14, edge24, edge31, edge33]);
             graph = createGraph();
 
-            AssertHasAdjacentEdges(graph, 1, new[] { edge12, edge13, edge14, edge31 });
-            AssertHasAdjacentEdges(graph, 2, new[] { edge12, edge24 });
-            AssertHasAdjacentEdges(graph, 3, new[] { edge13, edge31, edge33 }, 4);  // Has self edge counting twice
-            AssertHasAdjacentEdges(graph, 4, new[] { edge14, edge24 });
+            AssertHasAdjacentEdges(graph, 1, [edge12, edge13, edge14, edge31]);
+            AssertHasAdjacentEdges(graph, 2, [edge12, edge24]);
+            AssertHasAdjacentEdges(graph, 3, [edge13, edge31, edge33], 4);  // Has self edge counting twice
+            AssertHasAdjacentEdges(graph, 4, [edge14, edge24]);
             AssertNoAdjacentEdge(graph, 5);
         }
 

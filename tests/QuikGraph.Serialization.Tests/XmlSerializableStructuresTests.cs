@@ -67,12 +67,12 @@ namespace QuikGraph.Serialization.Tests
         public void SerializeToXml()
         {
             var wrappedGraph = new AdjacencyGraph<int, XmlSerializableEdge<int>>();
-            wrappedGraph.AddVerticesAndEdgeRange(new[]
-            {
+            wrappedGraph.AddVerticesAndEdgeRange(
+            [
                 new XmlSerializableEdge<int> { Source = 1, Target = 2 },
                 new XmlSerializableEdge<int> { Source = 1, Target = 3 },
                 new XmlSerializableEdge<int> { Source = 2, Target = 2 },
-            });
+            ]);
             wrappedGraph.AddVertex(4);
 
             var graph = new XmlSerializableGraph<int, XmlSerializableEdge<int>, AdjacencyGraph<int, XmlSerializableEdge<int>>>(wrappedGraph);
@@ -159,14 +159,14 @@ namespace QuikGraph.Serialization.Tests
 
             var edge12 = Edge.Create(1, 2);
             var edge22 = Edge.Create(2, 2);
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge22 });
+            graph.AddVerticesAndEdgeRange([edge12, edge22]);
 
             CollectionAssert.AreEqual(
                 new[] { 1, 2 },
                 vertexList);
 
             graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge22 });
+            graph.AddVerticesAndEdgeRange([edge12, edge22]);
             vertexList = new XmlSerializableGraph<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>.XmlVertexList(graph);
 
             CollectionAssert.AreEqual(
@@ -223,14 +223,14 @@ namespace QuikGraph.Serialization.Tests
 
             var edge12 = Edge.Create(1, 2);
             var edge22 = Edge.Create(2, 2);
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge22 });
+            graph.AddVerticesAndEdgeRange([edge12, edge22]);
 
             CollectionAssert.AreEqual(
                 new[] { edge12, edge22 },
                 edgeList);
 
             graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge22 });
+            graph.AddVerticesAndEdgeRange([edge12, edge22]);
             edgeList = new XmlSerializableGraph<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>.XmlEdgeList(graph);
 
             CollectionAssert.AreEqual(

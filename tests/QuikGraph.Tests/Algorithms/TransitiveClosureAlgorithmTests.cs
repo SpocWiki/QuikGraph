@@ -42,39 +42,37 @@ namespace QuikGraph.Tests.Algorithms
         {
             // Test 1
             var graph = new AdjacencyGraph<int, SEquatableEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 new SEquatableEdge<int>(1, 2),
                 new SEquatableEdge<int>(2, 3)
-            });
+            ]);
 
             BidirectionalGraph<int, SEquatableEdge<int>> result = graph.ComputeTransitiveClosure((u, v) => new SEquatableEdge<int>(u, v));
-            AssertHasVertices(result, new[] { 1, 2, 3 });
+            AssertHasVertices(result, [1, 2, 3]);
             AssertHasEdges(
                 result,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(2, 3)
-                });
+                ]);
 
             // Test 2
             graph = new AdjacencyGraph<int, SEquatableEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 new SEquatableEdge<int>(1, 2),
                 new SEquatableEdge<int>(2, 3),
                 new SEquatableEdge<int>(3, 4),
                 new SEquatableEdge<int>(3, 5)
-            });
+            ]);
 
             result = graph.ComputeTransitiveClosure((u, v) => new SEquatableEdge<int>(u, v));
-            AssertHasVertices(result, new[] { 1, 2, 3, 4, 5 });
+            AssertHasVertices(result, [1, 2, 3, 4, 5]);
             AssertHasEdges(
                 result,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(1, 4),
@@ -84,7 +82,7 @@ namespace QuikGraph.Tests.Algorithms
                     new SEquatableEdge<int>(2, 5),
                     new SEquatableEdge<int>(3, 4),
                     new SEquatableEdge<int>(3, 5)
-                });
+                ]);
         }
 
         [Test]
@@ -92,39 +90,37 @@ namespace QuikGraph.Tests.Algorithms
         {
             // Test 1
             var graph = new AdjacencyGraph<int, EquatableEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 new EquatableEdge<int>(1, 2),
                 new EquatableEdge<int>(2, 3)
-            });
+            ]);
 
             BidirectionalGraph<int, EquatableEdge<int>> result = graph.ComputeTransitiveClosure((u, v) => new EquatableEdge<int>(u, v));
-            AssertHasVertices(result, new[] { 1, 2, 3 });
+            AssertHasVertices(result, [1, 2, 3]);
             AssertHasEdges(
                 result,
-                new[]
-                {
+                [
                     new EquatableEdge<int>(1, 2),
                     new EquatableEdge<int>(1, 3),
                     new EquatableEdge<int>(2, 3)
-                });
+                ]);
 
             // Test 2
             graph = new AdjacencyGraph<int, EquatableEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 new EquatableEdge<int>(1, 2),
                 new EquatableEdge<int>(2, 3),
                 new EquatableEdge<int>(3, 4),
                 new EquatableEdge<int>(3, 5)
-            });
+            ]);
 
             result = graph.ComputeTransitiveClosure((u, v) => new EquatableEdge<int>(u, v));
-            AssertHasVertices(result, new[] { 1, 2, 3, 4, 5 });
+            AssertHasVertices(result, [1, 2, 3, 4, 5]);
             AssertHasEdges(
                 result,
-                new[]
-                {
+                [
                     new EquatableEdge<int>(1, 2),
                     new EquatableEdge<int>(1, 3),
                     new EquatableEdge<int>(1, 4),
@@ -134,7 +130,7 @@ namespace QuikGraph.Tests.Algorithms
                     new EquatableEdge<int>(2, 5),
                     new EquatableEdge<int>(3, 4),
                     new EquatableEdge<int>(3, 5)
-                });
+                ]);
         }
 
         [Test]
@@ -148,19 +144,18 @@ namespace QuikGraph.Tests.Algorithms
             var edge23 = new EquatableEdge<string>(vertex2, vertex3);
 
             var graph = new AdjacencyGraph<string, EquatableEdge<string>>();
-            graph.AddVertexRange(new[] { vertex1, vertex2, vertex3, vertex4 });
-            graph.AddEdgeRange(new[] { edge12, edge23 });
+            graph.AddVertexRange([vertex1, vertex2, vertex3, vertex4]);
+            graph.AddEdgeRange([edge12, edge23]);
 
             BidirectionalGraph<string, EquatableEdge<string>> result = graph.ComputeTransitiveClosure((u, v) => new EquatableEdge<string>(u, v));
-            AssertHasVertices(result, new[] { vertex1, vertex2, vertex3, vertex4 });
+            AssertHasVertices(result, [vertex1, vertex2, vertex3, vertex4]);
             AssertHasEdges(
                 result,
-                new[]
-                {
+                [
                     edge12,
                     new EquatableEdge<string>(vertex1, vertex3),
                     edge23
-                });
+                ]);
         }
     }
 }

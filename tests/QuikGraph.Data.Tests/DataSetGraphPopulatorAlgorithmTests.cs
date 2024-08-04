@@ -78,7 +78,7 @@ namespace QuikGraph.Data.Tests
             algorithm = new DataSetGraphPopulatorAlgorithm(graph, dataSet);
             algorithm.Compute();
 
-            AssertHasVertices(graph, new[]{ customers, orders });
+            AssertHasVertices(graph, [customers, orders]);
             AssertNoEdge(graph);
 
             // Table with relations
@@ -110,15 +110,14 @@ namespace QuikGraph.Data.Tests
             algorithm = new DataSetGraphPopulatorAlgorithm(graph, dataSet);
             algorithm.Compute();
 
-            AssertHasVertices(graph, new[]{ addresses, customers, orders });
+            AssertHasVertices(graph, [addresses, customers, orders]);
             AssertHasRelations(
                 graph,
-                new[]
-                {
+                [
                     new DataRelationEdge(customerOrders),
                     new DataRelationEdge(customersAddresses),
                     new DataRelationEdge(warehousesAddresses)
-                });
+                ]);
         }
     }
 }

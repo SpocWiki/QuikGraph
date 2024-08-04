@@ -107,12 +107,12 @@ namespace QuikGraph.MSAGL.Tests
             var nullFormatProvider = new NullVertexTestFormatProvider();
             var formatProvider = new VertexTestFormatProvider();
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 Edge.Create(1, 2),
                 Edge.Create(2, 3)
-            });
-            graph.AddVertexRange(new[] { 5, 6 });
+            ]);
+            graph.AddVertexRange([5, 6]);
 
             // No special format
             var populator = new MsaglToStringGraphPopulator<int, Edge<int>>(graph);

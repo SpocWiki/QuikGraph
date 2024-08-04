@@ -117,20 +117,20 @@ namespace QuikGraph.Tests.Algorithms.Condensation
                 var edge82 = Edge.Create(8, 2);
 
                 var graph1 = new BidirectionalGraph<int, Edge<int>>();
-                graph1.AddVerticesAndEdgeRange(new[]
-                {
+                graph1.AddVerticesAndEdgeRange(
+                [
                     edge12, edge13, edge23, edge42, edge43, edge45,
                     edge56, edge57, edge76, edge71, edge89, edge82
-                });
+                ]);
 
                 yield return new TestCaseData(graph1);
 
                 var graph2 = new BidirectionalGraph<int, Edge<int>>();
-                graph2.AddVerticesAndEdgeRange(new[]
-                {
+                graph2.AddVerticesAndEdgeRange(
+                [
                     edge12, edge13, edge23, edge42, edge43,
                     edge56, edge57, edge76, edge89
-                });
+                ]);
 
                 yield return new TestCaseData(graph2);
             }
@@ -173,11 +173,11 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             var edge82 = Edge.Create(8, 2);
 
             var graph = new BidirectionalGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 edge12, edge13, edge23, edge38, edge42, edge43, edge44,
                 edge45, edge56, edge57, edge76, edge71, edge89, edge82
-            });
+            ]);
 
             IMutableBidirectionalGraph<int, MergedEdge<int, Edge<int>>> condensedGraph =
                 graph.CondensateEdges(v => v == 4 || v == 8);

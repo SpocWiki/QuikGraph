@@ -719,7 +719,7 @@ namespace QuikGraph.Tests.Extensions
             var edge1 = Edge.Create(1, 2);
             CollectionAssert.AreEqual(
                 new[] { new SReversedEdge<int, Edge<int>>(edge1) },
-                EdgeExtensions.ReverseEdges<int, Edge<int>>(new[] { edge1 }));
+                EdgeExtensions.ReverseEdges<int, Edge<int>>([edge1]));
 
             var edge2 = Edge.Create(2, 2);
             var edge3 = Edge.Create(3, 1);
@@ -730,7 +730,7 @@ namespace QuikGraph.Tests.Extensions
                     new SReversedEdge<int, Edge<int>>(edge2),
                     new SReversedEdge<int, Edge<int>>(edge3)
                 },
-                EdgeExtensions.ReverseEdges<int, Edge<int>>(new[] { edge1, edge2, edge3 }));
+                EdgeExtensions.ReverseEdges<int, Edge<int>>([edge1, edge2, edge3]));
         }
 
         [Test]

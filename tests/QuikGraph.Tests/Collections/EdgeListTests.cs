@@ -40,11 +40,11 @@ namespace QuikGraph.Tests.Collections
             clonedList = (EdgeList<int, EquatableEdge<int>>)((ICloneable)list).Clone();
             CollectionAssert.IsEmpty(clonedList);
 
-            list.AddRange(new[]
-            {
+            list.AddRange(
+            [
                 new EquatableEdge<int>(1, 2),
                 new EquatableEdge<int>(2, 3)
-            });
+            ]);
             clonedList = list.Clone();
             CollectionAssert.AreEqual(list, clonedList);
 

@@ -19,8 +19,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             VertexFactory<int> vertexFactory = () => 1;
             EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
-            int[] sourceToVertices = { 1, 2 };
-            int[] verticesToSink = { 1, 2 };
+            int[] sourceToVertices = [1, 2];
+            int[] verticesToSink = [1, 2];
 
             var algorithm = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, Edge<int>>(
                 graph,
@@ -83,8 +83,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             VertexFactory<int> vertexFactory = () => 1;
             EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
-            int[] sourceToVertices = { 1, 2 };
-            int[] verticesToSink = { 1, 2 };
+            int[] sourceToVertices = [1, 2];
+            int[] verticesToSink = [1, 2];
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
@@ -219,12 +219,12 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void CreateAndSetSuperSource()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVertexRange(new[] { 3, 4, 5 });
+            graph.AddVertexRange([3, 4, 5]);
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
-            int[] sourceToVertices = { 3, 4 };
-            int[] verticesToSink = { 3, 5 };
+            int[] sourceToVertices = [3, 4];
+            int[] verticesToSink = [3, 5];
 
             var algorithm = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, Edge<int>>(graph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory);
 
@@ -235,12 +235,12 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void CreateAndSetSuperSink()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVertexRange(new[] { 3, 4, 5 });
+            graph.AddVertexRange([3, 4, 5]);
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
-            int[] sourceToVertices = { 3, 4 };
-            int[] verticesToSink = { 3, 5 };
+            int[] sourceToVertices = [3, 4];
+            int[] verticesToSink = [3, 5];
 
             var algorithm = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, Edge<int>>(graph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory);
 
@@ -254,8 +254,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
-            int[] sourceToVertices = { 3, 4 };
-            int[] verticesToSink = { 3, 5 };
+            int[] sourceToVertices = [3, 4];
+            int[] verticesToSink = [3, 5];
 
             var algorithm = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, Edge<int>>(graph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory);
             Assert.Throws<VertexNotFoundException>(() => algorithm.Compute());
@@ -281,8 +281,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 return 0;
             };
             EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
-            int[] sourceToVertices = { };
-            int[] verticesToSink = { 4 };
+            int[] sourceToVertices = [];
+            int[] verticesToSink = [4];
 
             RunAugmentation_Test(
                 graph => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, Edge<int>>(graph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory),
@@ -293,12 +293,12 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void RunAugmentation_Throws()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVertexRange(new[] { 3, 4 });
+            graph.AddVertexRange([3, 4]);
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
-            int[] sourceToVertices = { 3, 4 };
-            int[] verticesToSink = { };
+            int[] sourceToVertices = [3, 4];
+            int[] verticesToSink = [];
 
             var algorithm = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, Edge<int>>(graph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory);
 

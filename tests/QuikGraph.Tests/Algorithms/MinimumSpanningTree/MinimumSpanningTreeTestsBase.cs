@@ -163,23 +163,23 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
         [Test]
         public void DelegateComparePrimKruskal()
         {
-            int[] vertices = { 1, 2, 3, 4 };
+            int[] vertices = [1, 2, 3, 4];
             var graph = vertices.ToDelegateUndirectedGraph(
                 (int vertex, out IEnumerable<EquatableEdge<int>> adjacentEdges) =>
                 {
                     switch (vertex)
                     {
                         case 1:
-                            adjacentEdges = new[] { new EquatableEdge<int>(1, 2), new EquatableEdge<int>(1, 4) };
+                            adjacentEdges = [new EquatableEdge<int>(1, 2), new EquatableEdge<int>(1, 4)];
                             break;
                         case 2:
-                            adjacentEdges = new[] { new EquatableEdge<int>(1, 2), new EquatableEdge<int>(3, 1) };
+                            adjacentEdges = [new EquatableEdge<int>(1, 2), new EquatableEdge<int>(3, 1)];
                             break;
                         case 3:
-                            adjacentEdges = new[] { new EquatableEdge<int>(3, 2), new EquatableEdge<int>(3, 4) };
+                            adjacentEdges = [new EquatableEdge<int>(3, 2), new EquatableEdge<int>(3, 4)];
                             break;
                         case 4:
-                            adjacentEdges = new[] { new EquatableEdge<int>(1, 4), new EquatableEdge<int>(3, 4) };
+                            adjacentEdges = [new EquatableEdge<int>(1, 4), new EquatableEdge<int>(3, 4)];
                             break;
                         default:
                             adjacentEdges = null;

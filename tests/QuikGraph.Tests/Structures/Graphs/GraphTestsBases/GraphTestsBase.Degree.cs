@@ -18,7 +18,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(3, 2);
             var edge6 = Edge.Create(3, 3);
 
-            graph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            graph.AddVerticesAndEdgeRange([edge1, edge2, edge3, edge4, edge5, edge6]);
             graph.AddVertex(5);
 
             Assert.AreEqual(3, graph.Degree(1));
@@ -39,7 +39,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(3, 2);
             var edge6 = Edge.Create(3, 3);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            wrappedGraph.AddVerticesAndEdgeRange([edge1, edge2, edge3, edge4, edge5, edge6]);
             wrappedGraph.AddVertex(5);
             IBidirectionalIncidenceGraph<int, Edge<int>> graph = createGraph();
 
@@ -60,7 +60,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(3, 2);
             var edge6 = Edge.Create(3, 3);
 
-            graph.AddEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            graph.AddEdgeRange([edge1, edge2, edge3, edge4, edge5, edge6]);
 
             Assert.AreEqual(0, graph.Degree(0));
             Assert.AreEqual(3, graph.Degree(1));
@@ -80,7 +80,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(3, 2);
             var edge6 = Edge.Create(3, 3);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            wrappedGraph.AddVerticesAndEdgeRange([edge1, edge2, edge3, edge4, edge5, edge6]);
             wrappedGraph.AddVertex(5);
             IBidirectionalIncidenceGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
 
