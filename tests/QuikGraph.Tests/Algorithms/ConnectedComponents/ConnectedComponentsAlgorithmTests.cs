@@ -112,11 +112,11 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 3),
-                new Edge<int>(4, 2),
-                new Edge<int>(4, 3)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 3),
+                Edge.Create(4, 2),
+                Edge.Create(4, 3)
             });
 
             var algorithm = new ConnectedComponentsAlgorithm<int, Edge<int>>(graph);
@@ -140,15 +140,15 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 3),
-                new Edge<int>(4, 2),
-                new Edge<int>(4, 3),
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 3),
+                Edge.Create(4, 2),
+                Edge.Create(4, 3),
 
-                new Edge<int>(5, 6),
-                new Edge<int>(5, 7),
-                new Edge<int>(7, 6)
+                Edge.Create(5, 6),
+                Edge.Create(5, 7),
+                Edge.Create(7, 6)
             });
 
             var algorithm = new ConnectedComponentsAlgorithm<int, Edge<int>>(graph);
@@ -175,17 +175,17 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 3),
-                new Edge<int>(4, 2),
-                new Edge<int>(4, 3),
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 3),
+                Edge.Create(4, 2),
+                Edge.Create(4, 3),
 
-                new Edge<int>(5, 6),
-                new Edge<int>(5, 7),
-                new Edge<int>(7, 6),
+                Edge.Create(5, 6),
+                Edge.Create(5, 7),
+                Edge.Create(7, 6),
 
-                new Edge<int>(8, 9)
+                Edge.Create(8, 9)
             });
             graph.AddVertex(10);
 

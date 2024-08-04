@@ -16,12 +16,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IImplicitGraph<int, Edge<int>> graph,
             [NotNull, InstantHandle] Action<IEnumerable<Edge<int>>> addVerticesAndEdgeRange)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge33 = new Edge<int>(3, 3);
-            var edge41 = new Edge<int>(4, 1);
+            var edge11 = Edge.Create(1, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge33 = Edge.Create(3, 3);
+            var edge41 = Edge.Create(4, 1);
 
             addVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge24, edge33, edge41 });
 
@@ -44,12 +44,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, Edge<int>>> createGraph)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge33 = new Edge<int>(3, 3);
-            var edge41 = new Edge<int>(4, 1);
+            var edge11 = Edge.Create(1, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge33 = Edge.Create(3, 3);
+            var edge41 = Edge.Create(4, 1);
 
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge24, edge33, edge41 });
             IImplicitGraph<int, Edge<int>> graph = createGraph();
@@ -65,12 +65,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, SEquatableEdge<int>>> createGraph)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge33 = new Edge<int>(3, 3);
-            var edge41 = new Edge<int>(4, 1);
+            var edge11 = Edge.Create(1, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge33 = Edge.Create(3, 3);
+            var edge41 = Edge.Create(4, 1);
 
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge24, edge33, edge41 });
             IImplicitGraph<int, SEquatableEdge<int>> graph = createGraph();
@@ -85,12 +85,12 @@ namespace QuikGraph.Tests.Structures
         protected static void OutEdge_ImmutableVertices_Test(
             [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge33 = new Edge<int>(3, 3);
-            var edge41 = new Edge<int>(4, 1);
+            var edge11 = Edge.Create(1, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge33 = Edge.Create(3, 3);
+            var edge41 = Edge.Create(4, 1);
 
             graph.AddEdgeRange(new[] { edge11, edge12, edge13, edge24, edge33, edge41 });
 
@@ -105,13 +105,13 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge21 = new Edge<int>(2, 1);
-            var edge24 = new Edge<int>(2, 4);
-            var edge33 = new Edge<int>(3, 3);
-            var edge41 = new Edge<int>(4, 1);
+            var edge11 = Edge.Create(1, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge21 = Edge.Create(2, 1);
+            var edge24 = Edge.Create(2, 4);
+            var edge33 = Edge.Create(3, 3);
+            var edge41 = Edge.Create(4, 1);
 
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge21, edge24, edge33, edge41 });
             IImplicitGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
@@ -148,7 +148,7 @@ namespace QuikGraph.Tests.Structures
             addVertex(vertex2);
             AssertIndexOutOfRange(() => graph.OutEdge(vertex1, 0));
 
-            addEdge(new Edge<int>(1, 2));
+            addEdge(Edge.Create(1, 2));
             AssertIndexOutOfRange(() => graph.OutEdge(vertex1, 5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -180,7 +180,7 @@ namespace QuikGraph.Tests.Structures
             graph = createGraph();
             AssertIndexOutOfRange(() => graph.OutEdge(vertex1, 0));
 
-            wrappedGraph.AddEdge(new Edge<int>(1, 2));
+            wrappedGraph.AddEdge(Edge.Create(1, 2));
             graph = createGraph();
             AssertIndexOutOfRange(() => graph.OutEdge(vertex1, 5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -193,7 +193,7 @@ namespace QuikGraph.Tests.Structures
             Assert.Throws<VertexNotFoundException>(() => graph.OutEdge(-1, 0));
             Assert.Throws<VertexNotFoundException>(() => graph.OutEdge(4, 0));
 
-            graph.AddEdge(new Edge<int>(1, 2));
+            graph.AddEdge(Edge.Create(1, 2));
             AssertIndexOutOfRange(() => graph.OutEdge(1, 5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -215,7 +215,7 @@ namespace QuikGraph.Tests.Structures
             graph = createGraph();
             AssertIndexOutOfRange(() => graph.OutEdge(vertex1, 0));
 
-            wrappedGraph.AddEdge(new Edge<int>(1, 2));
+            wrappedGraph.AddEdge(Edge.Create(1, 2));
             graph = createGraph();
             AssertIndexOutOfRange(() => graph.OutEdge(vertex1, 5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -226,12 +226,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull, InstantHandle] Action<int> addVertex,
             [NotNull, InstantHandle] Action<IEnumerable<Edge<int>>> addVerticesAndEdgeRange)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
 
             addVertex(1);
             AssertNoOutEdge(graph, 1);
@@ -257,12 +257,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, Edge<int>>> createGraph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
 
             wrappedGraph.AddVertex(1);
             IImplicitGraph<int, Edge<int>> graph = createGraph();
@@ -281,12 +281,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, SEquatableEdge<int>>> createGraph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
 
             wrappedGraph.AddVertex(1);
             IImplicitGraph<int, SEquatableEdge<int>> graph = createGraph();
@@ -322,12 +322,12 @@ namespace QuikGraph.Tests.Structures
         protected static void OutEdges_ImmutableVertices_Test(
             [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
         {
-            var edge01 = new Edge<int>(0, 1);
-            var edge02 = new Edge<int>(0, 2);
-            var edge03 = new Edge<int>(0, 3);
-            var edge13 = new Edge<int>(1, 3);
-            var edge20 = new Edge<int>(2, 0);
-            var edge22 = new Edge<int>(2, 2);
+            var edge01 = Edge.Create(0, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge03 = Edge.Create(0, 3);
+            var edge13 = Edge.Create(1, 3);
+            var edge20 = Edge.Create(2, 0);
+            var edge22 = Edge.Create(2, 2);
 
             AssertNoOutEdge(graph, 1);
 
@@ -343,12 +343,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge33 = new Edge<int>(3, 3);
-            var edge34 = new Edge<int>(3, 4);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge33 = Edge.Create(3, 3);
+            var edge34 = Edge.Create(3, 4);
 
             wrappedGraph.AddVertex(1);
             IImplicitGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();

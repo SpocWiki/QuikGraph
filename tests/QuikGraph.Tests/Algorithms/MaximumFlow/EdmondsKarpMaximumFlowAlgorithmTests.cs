@@ -65,7 +65,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
             Func<Edge<int>, double> capacities = _ => 1.0;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
             var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph, edgeFactory);
 
             var algorithm = new EdmondsKarpMaximumFlowAlgorithm<int, Edge<int>>(
@@ -124,7 +124,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph1 = new AdjacencyGraph<int, Edge<int>>();
             var graph2 = new AdjacencyGraph<int, Edge<int>>();
             Func<Edge<int>, double> capacities = _ => 1.0;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
             var reverseEdgesAlgorithm1 = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph1, edgeFactory);
             var reverseEdgesAlgorithm2 = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph2, edgeFactory);
 
@@ -354,11 +354,11 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void GetVertexColor()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
             graph.AddVertex(3);
 
             Func<Edge<int>, double> capacities = _ => 1.0;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
             var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph, edgeFactory);
             reverseEdgesAlgorithm.AddReversedEdges();
 

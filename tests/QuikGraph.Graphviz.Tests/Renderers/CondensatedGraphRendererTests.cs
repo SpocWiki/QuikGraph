@@ -49,25 +49,25 @@ namespace QuikGraph.Graphviz.Tests
                 var subGraph1 = new AdjacencyGraph<int, Edge<int>>();
                 subGraph1.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 3),
-                    new Edge<int>(3, 1)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 3),
+                    Edge.Create(3, 1)
                 });
 
                 var subGraph2 = new AdjacencyGraph<int, Edge<int>>();
                 subGraph2.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 1),
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 3),
-                    new Edge<int>(3, 2)
+                    Edge.Create(1, 1),
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 3),
+                    Edge.Create(3, 2)
                 });
 
                 var subGraph3 = new AdjacencyGraph<int, Edge<int>>();
                 subGraph3.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 4),
-                    new Edge<int>(2, 4)
+                    Edge.Create(1, 4),
+                    Edge.Create(2, 4)
                 });
                 subGraph3.AddVertex(3);
 
@@ -95,34 +95,34 @@ namespace QuikGraph.Graphviz.Tests
                 subGraph1 = new AdjacencyGraph<int, Edge<int>>();
                 subGraph1.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 3),
-                    new Edge<int>(3, 1)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 3),
+                    Edge.Create(3, 1)
                 });
 
                 subGraph2 = new AdjacencyGraph<int, Edge<int>>();
                 subGraph2.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 1),
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 3),
-                    new Edge<int>(3, 2)
+                    Edge.Create(1, 1),
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 3),
+                    Edge.Create(3, 2)
                 });
 
                 subGraph3 = new AdjacencyGraph<int, Edge<int>>();
                 subGraph3.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 4),
-                    new Edge<int>(2, 4)
+                    Edge.Create(1, 4),
+                    Edge.Create(2, 4)
                 });
                 subGraph3.AddVertex(3);
 
                 graph = new AdjacencyGraph<AdjacencyGraph<int, Edge<int>>, CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>>();
                 var condensedEdge1 = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(subGraph1, subGraph2);
-                condensedEdge1.Edges.Add(new Edge<int>(1, 2));
+                condensedEdge1.Edges.Add(Edge.Create(1, 2));
                 var condensedEdge2 = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(subGraph1, subGraph3);
-                condensedEdge2.Edges.Add(new Edge<int>(2, 1));
-                condensedEdge2.Edges.Add(new Edge<int>(3, 4));
+                condensedEdge2.Edges.Add(Edge.Create(2, 1));
+                condensedEdge2.Edges.Add(Edge.Create(3, 4));
                 var condensedEdge3 = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(subGraph2, subGraph3);
                 graph.AddVerticesAndEdgeRange(new[] { condensedEdge1, condensedEdge2, condensedEdge3 });
 

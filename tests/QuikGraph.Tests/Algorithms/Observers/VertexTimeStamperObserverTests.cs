@@ -134,9 +134,9 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 2),
-                    new Edge<int>(3, 4)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 2),
+                    Edge.Create(3, 4)
                 });
 
                 var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(graph);

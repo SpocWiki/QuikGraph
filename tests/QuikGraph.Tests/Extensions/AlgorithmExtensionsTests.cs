@@ -89,9 +89,9 @@ namespace QuikGraph.Tests.Extensions
             var graph1 = new AdjacencyGraph<int, Edge<int>>();
             EdgeIdentity<int, Edge<int>> edgeIdentity1 = AlgorithmExtensions.GetEdgeIdentity(graph1);
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(2, 3);
-            var edge3 = new Edge<int>(1, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(2, 3);
+            var edge3 = Edge.Create(1, 2);
             Assert.AreEqual("0", edgeIdentity1(edge1));
             Assert.AreEqual("1", edgeIdentity1(edge2));
             Assert.AreEqual("2", edgeIdentity1(edge3));
@@ -132,12 +132,12 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void TreeBreadthFirstSearch()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge35 = new Edge<int>(3, 5);
-            var edge36 = new Edge<int>(3, 6);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge35 = Edge.Create(3, 5);
+            var edge36 = Edge.Create(3, 6);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -174,12 +174,12 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void TreeDepthFirstSearch()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge35 = new Edge<int>(3, 5);
-            var edge36 = new Edge<int>(3, 6);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge35 = Edge.Create(3, 5);
+            var edge36 = Edge.Create(3, 6);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -216,21 +216,21 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void TreeCyclePoppingRandom()
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 1);
-            var edge4 = new Edge<int>(2, 3);
-            var edge5 = new Edge<int>(2, 4);
-            var edge6 = new Edge<int>(3, 2);
-            var edge7 = new Edge<int>(3, 5);
-            var edge8 = new Edge<int>(3, 6);
-            var edge9 = new Edge<int>(4, 1);
-            var edge10 = new Edge<int>(4, 2);
-            var edge11 = new Edge<int>(4, 5);
-            var edge12 = new Edge<int>(4, 6);
-            var edge13 = new Edge<int>(5, 6);
-            var edge14 = new Edge<int>(6, 2);
-            var edge15 = new Edge<int>(6, 3);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 1);
+            var edge4 = Edge.Create(2, 3);
+            var edge5 = Edge.Create(2, 4);
+            var edge6 = Edge.Create(3, 2);
+            var edge7 = Edge.Create(3, 5);
+            var edge8 = Edge.Create(3, 6);
+            var edge9 = Edge.Create(4, 1);
+            var edge10 = Edge.Create(4, 2);
+            var edge11 = Edge.Create(4, 5);
+            var edge12 = Edge.Create(4, 6);
+            var edge13 = Edge.Create(5, 6);
+            var edge14 = Edge.Create(6, 2);
+            var edge15 = Edge.Create(6, 3);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -283,20 +283,20 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void ShortestPaths_Dijkstra_AStar_BellmanFord_Dag()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge18 = new Edge<int>(1, 8);
-            var edge24 = new Edge<int>(2, 4);
-            var edge25 = new Edge<int>(2, 5);
-            var edge26 = new Edge<int>(2, 6);
-            var edge34 = new Edge<int>(3, 4);
-            var edge45 = new Edge<int>(4, 5);
-            var edge46 = new Edge<int>(4, 6);
-            var edge56 = new Edge<int>(5, 6);
-            var edge67 = new Edge<int>(6, 7);
-            var edge810 = new Edge<int>(8, 10);
-            var edge95 = new Edge<int>(9, 5);
-            var edge109 = new Edge<int>(10, 9);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge18 = Edge.Create(1, 8);
+            var edge24 = Edge.Create(2, 4);
+            var edge25 = Edge.Create(2, 5);
+            var edge26 = Edge.Create(2, 6);
+            var edge34 = Edge.Create(3, 4);
+            var edge45 = Edge.Create(4, 5);
+            var edge46 = Edge.Create(4, 6);
+            var edge56 = Edge.Create(5, 6);
+            var edge67 = Edge.Create(6, 7);
+            var edge810 = Edge.Create(8, 10);
+            var edge95 = Edge.Create(9, 5);
+            var edge109 = Edge.Create(10, 9);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -340,9 +340,9 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void ShortestPaths_BellmanFord_NegativeCycle()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge24 = new Edge<int>(2, 4);
-            var edge41 = new Edge<int>(4, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge24 = Edge.Create(2, 4);
+            var edge41 = Edge.Create(4, 1);
             
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -477,14 +477,14 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void ShortestPaths_UndirectedDijkstra()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge18 = new Edge<int>(1, 8);
-            var edge45 = new Edge<int>(4, 5);
-            var edge46 = new Edge<int>(4, 6);
-            var edge56 = new Edge<int>(5, 6);
-            var edge67 = new Edge<int>(6, 7);
-            var edge810 = new Edge<int>(8, 10);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge18 = Edge.Create(1, 8);
+            var edge45 = Edge.Create(4, 5);
+            var edge46 = Edge.Create(4, 6);
+            var edge56 = Edge.Create(5, 6);
+            var edge67 = Edge.Create(6, 7);
+            var edge810 = Edge.Create(8, 10);
 
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -536,22 +536,22 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void RankedShortestPathHoffmanPavley()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge18 = new Edge<int>(1, 8);
-            var edge21 = new Edge<int>(2, 1);
-            var edge24 = new Edge<int>(2, 4);
-            var edge25 = new Edge<int>(2, 5);
-            var edge26 = new Edge<int>(2, 6);
-            var edge33 = new Edge<int>(3, 3);
-            var edge34 = new Edge<int>(3, 4);
-            var edge45 = new Edge<int>(4, 5);
-            var edge46 = new Edge<int>(4, 6);
-            var edge56 = new Edge<int>(5, 6);
-            var edge67 = new Edge<int>(6, 7);
-            var edge810 = new Edge<int>(8, 10);
-            var edge95 = new Edge<int>(9, 5);
-            var edge109 = new Edge<int>(10, 9);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge18 = Edge.Create(1, 8);
+            var edge21 = Edge.Create(2, 1);
+            var edge24 = Edge.Create(2, 4);
+            var edge25 = Edge.Create(2, 5);
+            var edge26 = Edge.Create(2, 6);
+            var edge33 = Edge.Create(3, 3);
+            var edge34 = Edge.Create(3, 4);
+            var edge45 = Edge.Create(4, 5);
+            var edge46 = Edge.Create(4, 6);
+            var edge56 = Edge.Create(5, 6);
+            var edge67 = Edge.Create(6, 7);
+            var edge810 = Edge.Create(8, 10);
+            var edge95 = Edge.Create(9, 5);
+            var edge109 = Edge.Create(10, 9);
 
             var graph = new BidirectionalGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -640,16 +640,16 @@ namespace QuikGraph.Tests.Extensions
                 createGraph(),
                 Enumerable.Empty<int>());
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge14 = new Edge<int>(1, 4);
-            var edge22 = new Edge<int>(2, 2);
-            var edge23 = new Edge<int>(2, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge25 = new Edge<int>(2, 5);
-            var edge35 = new Edge<int>(3, 5);
-            var edge41 = new Edge<int>(4, 1);
-            var edge45 = new Edge<int>(4, 5);
-            var edge46 = new Edge<int>(4, 6);
+            var edge12 = Edge.Create(1, 2);
+            var edge14 = Edge.Create(1, 4);
+            var edge22 = Edge.Create(2, 2);
+            var edge23 = Edge.Create(2, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge25 = Edge.Create(2, 5);
+            var edge35 = Edge.Create(3, 5);
+            var edge41 = Edge.Create(4, 1);
+            var edge45 = Edge.Create(4, 5);
+            var edge46 = Edge.Create(4, 6);
 
             IMutableVertexAndEdgeSet<int, Edge<int>> cycleGraph = createGraph();
             cycleGraph.AddVerticesAndEdgeRange(new[]
@@ -738,16 +738,16 @@ namespace QuikGraph.Tests.Extensions
                 createGraph(),
                 Enumerable.Empty<int>());
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge14 = new Edge<int>(1, 4);
-            var edge22 = new Edge<int>(2, 2);
-            var edge23 = new Edge<int>(2, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge25 = new Edge<int>(2, 5);
-            var edge35 = new Edge<int>(3, 5);
-            var edge41 = new Edge<int>(4, 1);
-            var edge45 = new Edge<int>(4, 5);
-            var edge46 = new Edge<int>(4, 6);
+            var edge12 = Edge.Create(1, 2);
+            var edge14 = Edge.Create(1, 4);
+            var edge22 = Edge.Create(2, 2);
+            var edge23 = Edge.Create(2, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge25 = Edge.Create(2, 5);
+            var edge35 = Edge.Create(3, 5);
+            var edge41 = Edge.Create(4, 1);
+            var edge45 = Edge.Create(4, 5);
+            var edge46 = Edge.Create(4, 6);
 
             IMutableVertexAndEdgeSet<int, Edge<int>> cycleGraph = createGraph();
             cycleGraph.AddVerticesAndEdgeRange(new[]
@@ -872,17 +872,17 @@ namespace QuikGraph.Tests.Extensions
                     new BidirectionalGraph<int, Edge<int>>(),
                     Enumerable.Empty<int>());
 
-                var edge12 = new Edge<int>(1, 2);
-                var edge14 = new Edge<int>(1, 4);
-                var edge22 = new Edge<int>(2, 2);
-                var edge23 = new Edge<int>(2, 3);
-                var edge24 = new Edge<int>(2, 4);
-                var edge26 = new Edge<int>(2, 6);
-                var edge35 = new Edge<int>(3, 5);
-                var edge36 = new Edge<int>(3, 6);
-                var edge41 = new Edge<int>(4, 1);
-                var edge45 = new Edge<int>(4, 5);
-                var edge46 = new Edge<int>(4, 6);
+                var edge12 = Edge.Create(1, 2);
+                var edge14 = Edge.Create(1, 4);
+                var edge22 = Edge.Create(2, 2);
+                var edge23 = Edge.Create(2, 3);
+                var edge24 = Edge.Create(2, 4);
+                var edge26 = Edge.Create(2, 6);
+                var edge35 = Edge.Create(3, 5);
+                var edge36 = Edge.Create(3, 6);
+                var edge41 = Edge.Create(4, 1);
+                var edge45 = Edge.Create(4, 5);
+                var edge46 = Edge.Create(4, 6);
 
                 var cycleGraph = new BidirectionalGraph<int, Edge<int>>();
                 cycleGraph.AddVerticesAndEdgeRange(new[]
@@ -967,13 +967,13 @@ namespace QuikGraph.Tests.Extensions
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 4),
-                new Edge<int>(3, 1),
-                new Edge<int>(3, 5),
-                new Edge<int>(5, 7),
-                new Edge<int>(6, 3),
-                new Edge<int>(6, 7)
+                Edge.Create(1, 2),
+                Edge.Create(2, 4),
+                Edge.Create(3, 1),
+                Edge.Create(3, 5),
+                Edge.Create(5, 7),
+                Edge.Create(6, 3),
+                Edge.Create(6, 7)
             });
 
             CollectionAssert.AreEqual(
@@ -987,12 +987,12 @@ namespace QuikGraph.Tests.Extensions
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 4),
-                new Edge<int>(3, 1),
-                new Edge<int>(3, 5),
-                new Edge<int>(5, 7),
-                new Edge<int>(6, 7)
+                Edge.Create(1, 2),
+                Edge.Create(2, 4),
+                Edge.Create(3, 1),
+                Edge.Create(3, 5),
+                Edge.Create(5, 7),
+                Edge.Create(6, 7)
             });
 
             CollectionAssert.AreEqual(
@@ -1020,13 +1020,13 @@ namespace QuikGraph.Tests.Extensions
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 4),
-                new Edge<int>(3, 1),
-                new Edge<int>(3, 5),
-                new Edge<int>(5, 7),
-                new Edge<int>(6, 3),
-                new Edge<int>(6, 7)
+                Edge.Create(1, 2),
+                Edge.Create(2, 4),
+                Edge.Create(3, 1),
+                Edge.Create(3, 5),
+                Edge.Create(5, 7),
+                Edge.Create(6, 3),
+                Edge.Create(6, 7)
             });
 
             CollectionAssert.AreEqual(
@@ -1040,12 +1040,12 @@ namespace QuikGraph.Tests.Extensions
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 4),
-                new Edge<int>(3, 1),
-                new Edge<int>(3, 5),
-                new Edge<int>(5, 7),
-                new Edge<int>(6, 7)
+                Edge.Create(1, 2),
+                Edge.Create(2, 4),
+                Edge.Create(3, 1),
+                Edge.Create(3, 5),
+                Edge.Create(5, 7),
+                Edge.Create(6, 7)
             });
 
             CollectionAssert.AreEqual(
@@ -1073,13 +1073,13 @@ namespace QuikGraph.Tests.Extensions
             var graph = new BidirectionalGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 4),
-                new Edge<int>(3, 1),
-                new Edge<int>(3, 5),
-                new Edge<int>(5, 7),
-                new Edge<int>(6, 3),
-                new Edge<int>(6, 7)
+                Edge.Create(1, 2),
+                Edge.Create(2, 4),
+                Edge.Create(3, 1),
+                Edge.Create(3, 5),
+                Edge.Create(5, 7),
+                Edge.Create(6, 3),
+                Edge.Create(6, 7)
             });
 
             CollectionAssert.AreEqual(
@@ -1121,16 +1121,16 @@ namespace QuikGraph.Tests.Extensions
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 4),
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 1),
-                new Edge<int>(4, 5),
-                new Edge<int>(5, 6),
-                new Edge<int>(6, 7),
-                new Edge<int>(7, 5),
+                Edge.Create(1, 2),
+                Edge.Create(1, 4),
+                Edge.Create(2, 3),
+                Edge.Create(3, 1),
+                Edge.Create(4, 5),
+                Edge.Create(5, 6),
+                Edge.Create(6, 7),
+                Edge.Create(7, 5),
 
-                new Edge<int>(8, 9)
+                Edge.Create(8, 9)
             });
 
             var components = new Dictionary<int, int>();
@@ -1181,15 +1181,15 @@ namespace QuikGraph.Tests.Extensions
                 KeyValuePair<int, IDictionary<int, int>> current = getComponents();
                 Assert.AreEqual(4, current.Key);
 
-                graph.AddEdge(new Edge<int>(0, 1));
+                graph.AddEdge(Edge.Create(0, 1));
                 current = getComponents();
                 Assert.AreEqual(3, current.Key);
 
-                graph.AddEdge(new Edge<int>(2, 3));
+                graph.AddEdge(Edge.Create(2, 3));
                 current = getComponents();
                 Assert.AreEqual(2, current.Key);
 
-                graph.AddEdge(new Edge<int>(1, 3));
+                graph.AddEdge(Edge.Create(1, 3));
                 current = getComponents();
                 Assert.AreEqual(1, current.Key);
 
@@ -1213,14 +1213,14 @@ namespace QuikGraph.Tests.Extensions
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 4),
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 1),
-                new Edge<int>(4, 5),
-                new Edge<int>(5, 6),
-                new Edge<int>(6, 7),
-                new Edge<int>(7, 5)
+                Edge.Create(1, 2),
+                Edge.Create(1, 4),
+                Edge.Create(2, 3),
+                Edge.Create(3, 1),
+                Edge.Create(4, 5),
+                Edge.Create(5, 6),
+                Edge.Create(6, 7),
+                Edge.Create(7, 5)
             });
 
             var components = new Dictionary<int, int>();
@@ -1264,16 +1264,16 @@ namespace QuikGraph.Tests.Extensions
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 4),
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 1),
-                new Edge<int>(4, 5),
-                new Edge<int>(5, 6),
-                new Edge<int>(6, 7),
-                new Edge<int>(7, 5),
+                Edge.Create(1, 2),
+                Edge.Create(1, 4),
+                Edge.Create(2, 3),
+                Edge.Create(3, 1),
+                Edge.Create(4, 5),
+                Edge.Create(5, 6),
+                Edge.Create(6, 7),
+                Edge.Create(7, 5),
                 
-                new Edge<int>(8, 9)
+                Edge.Create(8, 9)
             });
 
             var components = new Dictionary<int, int>();
@@ -1360,17 +1360,17 @@ namespace QuikGraph.Tests.Extensions
                     new AdjacencyGraph<int, Edge<int>>(),
                     Enumerable.Empty<int>());
 
-                var edge12 = new Edge<int>(1, 2);
-                var edge14 = new Edge<int>(1, 4);
-                var edge22 = new Edge<int>(2, 2);
-                var edge23 = new Edge<int>(2, 3);
-                var edge24 = new Edge<int>(2, 4);
-                var edge25 = new Edge<int>(2, 5);
-                var edge26 = new Edge<int>(2, 6);
-                var edge35 = new Edge<int>(3, 5);
-                var edge41 = new Edge<int>(4, 1);
-                var edge45 = new Edge<int>(4, 5);
-                var edge46 = new Edge<int>(4, 6);
+                var edge12 = Edge.Create(1, 2);
+                var edge14 = Edge.Create(1, 4);
+                var edge22 = Edge.Create(2, 2);
+                var edge23 = Edge.Create(2, 3);
+                var edge24 = Edge.Create(2, 4);
+                var edge25 = Edge.Create(2, 5);
+                var edge26 = Edge.Create(2, 6);
+                var edge35 = Edge.Create(3, 5);
+                var edge41 = Edge.Create(4, 1);
+                var edge45 = Edge.Create(4, 5);
+                var edge46 = Edge.Create(4, 6);
 
                 var cycleGraph = new AdjacencyGraph<int, Edge<int>>();
                 cycleGraph.AddVerticesAndEdgeRange(new[]
@@ -1456,21 +1456,21 @@ namespace QuikGraph.Tests.Extensions
                 ExpectedResult = true
             };
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge16 = new Edge<int>(1, 6);
-            var edge22 = new Edge<int>(2, 2);
-            var edge23 = new Edge<int>(2, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge25 = new Edge<int>(2, 5);
-            var edge31 = new Edge<int>(3, 1);
-            var edge34 = new Edge<int>(3, 4);
-            var edge35 = new Edge<int>(3, 5);
-            var edge41 = new Edge<int>(4, 1);
-            var edge44 = new Edge<int>(4, 4);
-            var edge52 = new Edge<int>(5, 2);
-            var edge56 = new Edge<int>(5, 6);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge16 = Edge.Create(1, 6);
+            var edge22 = Edge.Create(2, 2);
+            var edge23 = Edge.Create(2, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge25 = Edge.Create(2, 5);
+            var edge31 = Edge.Create(3, 1);
+            var edge34 = Edge.Create(3, 4);
+            var edge35 = Edge.Create(3, 5);
+            var edge41 = Edge.Create(4, 1);
+            var edge44 = Edge.Create(4, 4);
+            var edge52 = Edge.Create(5, 2);
+            var edge56 = Edge.Create(5, 6);
 
             // Not empty acyclic
             var adjacencyGraph1 = createGraph();
@@ -1588,7 +1588,7 @@ namespace QuikGraph.Tests.Extensions
 
             Assert.Throws<ArgumentNullException>(
                 () => ((IEnumerable<Edge<int>>)null).IsDirectedAcyclicGraph<int, Edge<int>>());
-            var edges = new[] { new Edge<int>(1, 2), null, new Edge<int>(1, 3) };
+            var edges = new[] { Edge.Create(1, 2), null, Edge.Create(1, 3) };
             Assert.Throws<ArgumentNullException>(
                 () => edges.IsDirectedAcyclicGraph<int, Edge<int>>());
             // ReSharper restore AssignNullToNotNullAttribute
@@ -1607,15 +1607,15 @@ namespace QuikGraph.Tests.Extensions
                     ExpectedResult = true
                 };
 
-                var edge12 = new Edge<int>(1, 2);
-                var edge14 = new Edge<int>(1, 4);
-                var edge16 = new Edge<int>(1, 6);
-                var edge22 = new Edge<int>(2, 2);
-                var edge23 = new Edge<int>(2, 3);
-                var edge24 = new Edge<int>(2, 4);
-                var edge25 = new Edge<int>(2, 5);
-                var edge35 = new Edge<int>(3, 5);
-                var edge56 = new Edge<int>(5, 6);
+                var edge12 = Edge.Create(1, 2);
+                var edge14 = Edge.Create(1, 4);
+                var edge16 = Edge.Create(1, 6);
+                var edge22 = Edge.Create(2, 2);
+                var edge23 = Edge.Create(2, 3);
+                var edge24 = Edge.Create(2, 4);
+                var edge25 = Edge.Create(2, 5);
+                var edge35 = Edge.Create(3, 5);
+                var edge56 = Edge.Create(5, 6);
 
                 // Not empty acyclic
                 var undirectedGraph1 = new UndirectedGraph<int, Edge<int>>();
@@ -1709,7 +1709,7 @@ namespace QuikGraph.Tests.Extensions
 
             Assert.Throws<ArgumentNullException>(
                 () => ((IEnumerable<Edge<int>>)null).IsUndirectedAcyclicGraph<int, Edge<int>>());
-            var edges = new[] { new Edge<int>(1, 2), null, new Edge<int>(1, 3) };
+            var edges = new[] { Edge.Create(1, 2), null, Edge.Create(1, 3) };
             Assert.Throws<ArgumentNullException>(
                 () => edges.IsUndirectedAcyclicGraph<int, Edge<int>>());
             // ReSharper restore AssignNullToNotNullAttribute
@@ -1724,16 +1724,16 @@ namespace QuikGraph.Tests.Extensions
 
             Assert.AreEqual(0, AlgorithmExtensions.ComputePredecessorCost(predecessors, edgeCosts, 1));
 
-            var edge12 = new Edge<int>(1, 2);
+            var edge12 = Edge.Create(1, 2);
             predecessors[2] = edge12;
             edgeCosts[edge12] = 12;
             Assert.AreEqual(0, AlgorithmExtensions.ComputePredecessorCost(predecessors, edgeCosts, 1));
             Assert.AreEqual(12, AlgorithmExtensions.ComputePredecessorCost(predecessors, edgeCosts, 2));
 
-            var edge31 = new Edge<int>(3, 1);
+            var edge31 = Edge.Create(3, 1);
             predecessors[1] = edge31;
             edgeCosts[edge31] = -5;
-            var edge34 = new Edge<int>(3, 4);
+            var edge34 = Edge.Create(3, 4);
             predecessors[4] = edge34;
             edgeCosts[edge34] = 42;
 
@@ -1790,9 +1790,9 @@ namespace QuikGraph.Tests.Extensions
 
             graph.AddEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(1, 4)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(1, 4)
             });
             graph.AddVertex(5);
             disjointSet = graph.ComputeDisjointSet();
@@ -1888,7 +1888,7 @@ namespace QuikGraph.Tests.Extensions
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVertexRange(new[] { 1, 2 });
             Func<Edge<int>, double> capacities = _ => 1.0;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
             var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph, edgeFactory);
 
             Assert.Throws<ArgumentException>(

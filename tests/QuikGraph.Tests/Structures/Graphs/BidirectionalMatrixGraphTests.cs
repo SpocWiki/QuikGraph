@@ -70,11 +70,11 @@ namespace QuikGraph.Tests.Structures
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.AddEdge(null));
 
-            graph.AddEdge(new Edge<int>(0, 1));
-            Assert.Throws<ParallelEdgeNotAllowedException>(() => graph.AddEdge(new Edge<int>(0, 1)));
+            graph.AddEdge(Edge.Create(0, 1));
+            Assert.Throws<ParallelEdgeNotAllowedException>(() => graph.AddEdge(Edge.Create(0, 1)));
 
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(new Edge<int>(1, 2)));
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(new Edge<int>(2, 1)));
+            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(1, 2)));
+            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(2, 1)));
         }
 
         [Test]
@@ -335,9 +335,9 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(0);
 
-            graph.AddEdge(new Edge<int>(0, 1));
-            graph.AddEdge(new Edge<int>(1, 2));
-            graph.AddEdge(new Edge<int>(2, 0));
+            graph.AddEdge(Edge.Create(0, 1));
+            graph.AddEdge(Edge.Create(1, 2));
+            graph.AddEdge(Edge.Create(2, 0));
 
             graph.Clear();
 
@@ -345,10 +345,10 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(3);
 
-            graph.AddEdge(new Edge<int>(0, 1));
-            graph.AddEdge(new Edge<int>(2, 1));
-            graph.AddEdge(new Edge<int>(2, 0));
-            graph.AddEdge(new Edge<int>(2, 2));
+            graph.AddEdge(Edge.Create(0, 1));
+            graph.AddEdge(Edge.Create(2, 1));
+            graph.AddEdge(Edge.Create(2, 0));
+            graph.AddEdge(Edge.Create(2, 2));
 
             graph.Clear();
 
@@ -392,8 +392,8 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(0);
 
-            var edge01 = new Edge<int>(0, 1);
-            var edge12 = new Edge<int>(1, 2);
+            var edge01 = Edge.Create(0, 1);
+            var edge12 = Edge.Create(1, 2);
             graph.AddEdgeRange(new[] { edge01, edge12 });
 
             // Clear out 0
@@ -402,9 +402,9 @@ namespace QuikGraph.Tests.Structures
             AssertHasEdges(graph, new[] { edge12 });
             CheckCounter(1);
 
-            var edge02 = new Edge<int>(0, 2);
-            var edge20 = new Edge<int>(2, 0);
-            var edge21 = new Edge<int>(2, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge20 = Edge.Create(2, 0);
+            var edge21 = Edge.Create(2, 1);
             graph.AddEdgeRange(new[] { edge01, edge02, edge20, edge21 });
 
             // Clear out 2
@@ -462,8 +462,8 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(0);
 
-            var edge01 = new Edge<int>(0, 1);
-            var edge12 = new Edge<int>(1, 2);
+            var edge01 = Edge.Create(0, 1);
+            var edge12 = Edge.Create(1, 2);
             graph.AddEdgeRange(new[] { edge01, edge12 });
 
             // Clear in 1
@@ -472,9 +472,9 @@ namespace QuikGraph.Tests.Structures
             AssertHasEdges(graph, new[] { edge12 });
             CheckCounter(1);
 
-            var edge02 = new Edge<int>(0, 2);
-            var edge20 = new Edge<int>(2, 0);
-            var edge21 = new Edge<int>(2, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge20 = Edge.Create(2, 0);
+            var edge21 = Edge.Create(2, 1);
             graph.AddEdgeRange(new[] { edge01, edge02, edge20, edge21 });
 
             // Clear in 2
@@ -532,8 +532,8 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(0);
 
-            var edge01 = new Edge<int>(0, 1);
-            var edge12 = new Edge<int>(1, 2);
+            var edge01 = Edge.Create(0, 1);
+            var edge12 = Edge.Create(1, 2);
             graph.AddEdgeRange(new[] { edge01, edge12 });
 
             // Clear 1
@@ -542,9 +542,9 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(2);
 
-            var edge02 = new Edge<int>(0, 2);
-            var edge20 = new Edge<int>(2, 0);
-            var edge21 = new Edge<int>(2, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge20 = Edge.Create(2, 0);
+            var edge21 = Edge.Create(2, 1);
             graph.AddEdgeRange(new[] { edge01, edge02, edge20, edge21 });
 
             // Clear 2
@@ -589,9 +589,9 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(graph, new[] { 0 });
             AssertNoEdge(graph);
 
-            var edge1 = new Edge<int>(0, 1);
-            var edge2 = new Edge<int>(0, 2);
-            var edge3 = new Edge<int>(1, 2);
+            var edge1 = Edge.Create(0, 1);
+            var edge2 = Edge.Create(0, 2);
+            var edge3 = Edge.Create(1, 2);
             graph = new BidirectionalMatrixGraph<Edge<int>>(3);
             graph.AddEdgeRange(new[] { edge1, edge2, edge3 });
             AssertHasVertices(graph, new[] { 0, 1, 2 });

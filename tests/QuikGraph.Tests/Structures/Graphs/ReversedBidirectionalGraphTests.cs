@@ -70,7 +70,7 @@ namespace QuikGraph.Tests.Structures
             var wrappedGraph = new BidirectionalGraph<int, Edge<int>>();
             var graph = new ReversedBidirectionalGraph<int, Edge<int>>(wrappedGraph);
 
-            var edge = new Edge<int>(1, 2);
+            var edge = Edge.Create(1, 2);
             wrappedGraph.AddVertex(1);
             wrappedGraph.AddVertex(2);
             wrappedGraph.AddEdge(edge);

@@ -97,9 +97,9 @@ namespace QuikGraph.Graphviz.Tests
             // With edges
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 1)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(3, 1)
             });
             algorithm = new GraphvizAlgorithm<int, Edge<int>>(graph);
             notFormattedVertices = RegisterOnFormatVertex(algorithm, graph.Vertices);
@@ -127,7 +127,7 @@ namespace QuikGraph.Graphviz.Tests
             ClusteredAdjacencyGraph<int, Edge<int>> subGraph1 = clusteredGraph.AddCluster();
             subGraph1.AddVertexRange(new[] { 4, 5 });
             ClusteredAdjacencyGraph<int, Edge<int>> subGraph2 = clusteredGraph.AddCluster();
-            subGraph2.AddVerticesAndEdge(new Edge<int>(1, 6));
+            subGraph2.AddVerticesAndEdge(Edge.Create(1, 6));
             algorithm = new GraphvizAlgorithm<int, Edge<int>>(clusteredGraph);
             notFormattedVertices = RegisterOnFormatVertex(algorithm, clusteredGraph.Vertices);
             notFormattedEdges = RegisterOnFormatEdge(algorithm, clusteredGraph.Edges);
@@ -209,9 +209,9 @@ namespace QuikGraph.Graphviz.Tests
             // With edges
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 1)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(3, 1)
             });
             TestGenerate(graph);
 
@@ -223,7 +223,7 @@ namespace QuikGraph.Graphviz.Tests
             ClusteredAdjacencyGraph<int, Edge<int>> subGraph1 = clusteredGraph.AddCluster();
             subGraph1.AddVertexRange(new[] { 4, 5 });
             ClusteredAdjacencyGraph<int, Edge<int>> subGraph2 = clusteredGraph.AddCluster();
-            subGraph2.AddVerticesAndEdge(new Edge<int>(1, 6));
+            subGraph2.AddVerticesAndEdge(Edge.Create(1, 6));
             TestGenerate(clusteredGraph);
 
             #region Local function
@@ -295,9 +295,9 @@ namespace QuikGraph.Graphviz.Tests
                 graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 3),
-                    new Edge<int>(3, 1)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 3),
+                    Edge.Create(3, 1)
                 });
                 yield return new TestCaseData(graph)
                 {
@@ -315,9 +315,9 @@ namespace QuikGraph.Graphviz.Tests
                 undirectedGraph = new UndirectedGraph<int, Edge<int>>();
                 undirectedGraph.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 3),
-                    new Edge<int>(3, 1)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 3),
+                    Edge.Create(3, 1)
                 });
                 yield return new TestCaseData(undirectedGraph)
                 {
@@ -352,11 +352,11 @@ namespace QuikGraph.Graphviz.Tests
                 ClusteredAdjacencyGraph<int, Edge<int>> subGraph1 = clusteredGraph.AddCluster();
                 subGraph1.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(3, 4),
-                    new Edge<int>(4, 1)
+                    Edge.Create(3, 4),
+                    Edge.Create(4, 1)
                 });
                 ClusteredAdjacencyGraph<int, Edge<int>> subGraph2 = clusteredGraph.AddCluster();
-                subGraph2.AddVerticesAndEdge(new Edge<int>(1, 5));
+                subGraph2.AddVerticesAndEdge(Edge.Create(1, 5));
                 yield return new TestCaseData(clusteredGraph)
                 {
                     ExpectedResult =
@@ -403,33 +403,33 @@ namespace QuikGraph.Graphviz.Tests
                 // Fill graphs
                 wrappedGraph.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 2)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 2)
                 });
                 wrappedGraph.AddVertex(3);
 
-                subClusteredGraph1.AddVerticesAndEdge(new Edge<int>(4, 5));
+                subClusteredGraph1.AddVerticesAndEdge(Edge.Create(4, 5));
                 subClusteredGraph1.AddVertex(6);
 
-                subClusteredGraph2.AddVerticesAndEdge(new Edge<int>(7, 8));
+                subClusteredGraph2.AddVerticesAndEdge(Edge.Create(7, 8));
                 subClusteredGraph2.AddVertex(9);
 
-                nestedSubClusteredGraph2_1.AddVerticesAndEdge(new Edge<int>(10, 11));
+                nestedSubClusteredGraph2_1.AddVerticesAndEdge(Edge.Create(10, 11));
                 nestedSubClusteredGraph2_1.AddVertex(12);
 
-                nestedSubClusteredGraph2_2.AddVerticesAndEdge(new Edge<int>(13, 14));
+                nestedSubClusteredGraph2_2.AddVerticesAndEdge(Edge.Create(13, 14));
                 nestedSubClusteredGraph2_2.AddVertex(15);
 
-                subClusteredGraph3.AddVerticesAndEdge(new Edge<int>(16, 17));
+                subClusteredGraph3.AddVerticesAndEdge(Edge.Create(16, 17));
                 subClusteredGraph3.AddVertex(18);
 
-                subClusteredGraph4.AddVerticesAndEdge(new Edge<int>(19, 20));
+                subClusteredGraph4.AddVerticesAndEdge(Edge.Create(19, 20));
                 subClusteredGraph4.AddVertex(21);
 
-                nestedSubClusteredGraph4_1.AddVerticesAndEdge(new Edge<int>(22, 23));
+                nestedSubClusteredGraph4_1.AddVerticesAndEdge(Edge.Create(22, 23));
                 nestedSubClusteredGraph4_1.AddVertex(24);
 
-                nestedSubClusteredGraph4_2.AddVerticesAndEdge(new Edge<int>(25, 26));
+                nestedSubClusteredGraph4_2.AddVerticesAndEdge(Edge.Create(25, 26));
                 nestedSubClusteredGraph4_2.AddVertex(27);
 
                 yield return new TestCaseData(rootClusteredGraph)
@@ -517,33 +517,33 @@ namespace QuikGraph.Graphviz.Tests
                 // Fill graphs
                 wrappedGraph.AddVerticesAndEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 2)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 2)
                 });
                 wrappedGraph.AddVertex(3);
 
-                subClusteredGraph1.AddVerticesAndEdge(new Edge<int>(4, 5));
+                subClusteredGraph1.AddVerticesAndEdge(Edge.Create(4, 5));
                 subClusteredGraph1.AddVertex(6);
 
-                subClusteredGraph2.AddVerticesAndEdge(new Edge<int>(7, 8));
+                subClusteredGraph2.AddVerticesAndEdge(Edge.Create(7, 8));
                 subClusteredGraph2.AddVertex(9);
 
-                nestedSubClusteredGraph2_1.AddVerticesAndEdge(new Edge<int>(10, 11));
+                nestedSubClusteredGraph2_1.AddVerticesAndEdge(Edge.Create(10, 11));
                 nestedSubClusteredGraph2_1.AddVertex(12);
 
-                nestedSubClusteredGraph2_2.AddVerticesAndEdge(new Edge<int>(13, 14));
+                nestedSubClusteredGraph2_2.AddVerticesAndEdge(Edge.Create(13, 14));
                 nestedSubClusteredGraph2_2.AddVertex(15);
 
-                subClusteredGraph3.AddVerticesAndEdge(new Edge<int>(16, 17));
+                subClusteredGraph3.AddVerticesAndEdge(Edge.Create(16, 17));
                 subClusteredGraph3.AddVertex(18);
 
-                subClusteredGraph4.AddVerticesAndEdge(new Edge<int>(19, 20));
+                subClusteredGraph4.AddVerticesAndEdge(Edge.Create(19, 20));
                 subClusteredGraph4.AddVertex(21);
 
-                nestedSubClusteredGraph4_1.AddVerticesAndEdge(new Edge<int>(22, 23));
+                nestedSubClusteredGraph4_1.AddVerticesAndEdge(Edge.Create(22, 23));
                 nestedSubClusteredGraph4_1.AddVertex(24);
 
-                nestedSubClusteredGraph4_2.AddVerticesAndEdge(new Edge<int>(25, 26));
+                nestedSubClusteredGraph4_2.AddVerticesAndEdge(Edge.Create(25, 26));
                 nestedSubClusteredGraph4_2.AddVertex(27);
 
                 // Collapse graphs
@@ -616,13 +616,13 @@ namespace QuikGraph.Graphviz.Tests
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(3, 2),
-                new Edge<int>(3, 4),
-                new Edge<int>(4, 6),
-                new Edge<int>(5, 2),
-                new Edge<int>(5, 5)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(3, 2),
+                Edge.Create(3, 4),
+                Edge.Create(4, 6),
+                Edge.Create(5, 2),
+                Edge.Create(5, 5)
             });
             graph.AddVertex(7);
             var clusteredGraph = new ClusteredAdjacencyGraph<int, Edge<int>>(graph);
@@ -631,9 +631,9 @@ namespace QuikGraph.Graphviz.Tests
             ClusteredAdjacencyGraph<int, Edge<int>> subGraph2 = clusteredGraph.AddCluster();
             subGraph2.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(11, 12),
-                new Edge<int>(11, 13),
-                new Edge<int>(12, 13)
+                Edge.Create(11, 12),
+                Edge.Create(11, 13),
+                Edge.Create(12, 13)
             });
 
             var algorithm = new GraphvizAlgorithm<int, Edge<int>>(clusteredGraph);

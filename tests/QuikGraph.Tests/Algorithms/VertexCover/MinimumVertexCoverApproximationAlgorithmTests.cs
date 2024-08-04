@@ -56,9 +56,9 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
 
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 2),
-                new Edge<int>(3, 1)
+                Edge.Create(1, 2),
+                Edge.Create(2, 2),
+                Edge.Create(3, 1)
             });
             algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph, new Random(123456));
             algorithm.Compute();
@@ -75,7 +75,7 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
 
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(5, 2)
+                Edge.Create(5, 2)
             });
             algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph, new Random(123456));
             algorithm.Compute();
@@ -85,9 +85,9 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
 
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(6, 7),
-                new Edge<int>(7, 8),
-                new Edge<int>(9, 8)
+                Edge.Create(6, 7),
+                Edge.Create(7, 8),
+                Edge.Create(9, 8)
             });
             algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph, new Random(123456));
             algorithm.Compute();

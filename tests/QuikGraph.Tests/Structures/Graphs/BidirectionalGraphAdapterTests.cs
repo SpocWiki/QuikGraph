@@ -32,10 +32,10 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(graph, new[] { 1, 2, 3 });
             AssertNoEdge(graph);
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(2, 2);
-            var edge3 = new Edge<int>(3, 4);
-            var edge4 = new Edge<int>(1, 4);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(2, 2);
+            var edge3 = Edge.Create(3, 4);
+            var edge4 = Edge.Create(1, 4);
 
             // Graph has updated content but in-edges properties are broken
             // after updates of the wrapped graph
@@ -280,10 +280,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AdapterLimits()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge33 = Edge.Create(3, 3);
 
             var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge23, edge33 });
@@ -294,9 +294,9 @@ namespace QuikGraph.Tests.Structures
             AssertHasOutEdges(graph, 3, new[] { edge33 });
             AssertHasInEdges(graph, 3, new[] { edge13, edge23, edge33 });
 
-            var edge35 = new Edge<int>(3, 5);
+            var edge35 = Edge.Create(3, 5);
             // Update wrapped graph => breaking change
-            var edge43 = new Edge<int>(4, 3);
+            var edge43 = Edge.Create(4, 3);
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge35, edge43 });
 
             AssertHasVertices(graph, new[] { 1, 2, 3, 4, 5 });                  // Vertices data are up to date

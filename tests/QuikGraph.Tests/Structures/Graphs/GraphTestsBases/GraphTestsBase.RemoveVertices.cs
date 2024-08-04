@@ -30,12 +30,12 @@ namespace QuikGraph.Tests.Structures
                 ++edgesRemoved;
             };
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
 
             Assert.IsFalse(graph.RemoveVertex(5));
@@ -76,12 +76,12 @@ namespace QuikGraph.Tests.Structures
         protected static void RemoveVertex_Clusters_Test(
             [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
 
             Assert.IsFalse(graph.RemoveVertex(5));
@@ -183,12 +183,12 @@ namespace QuikGraph.Tests.Structures
                 ++edgesRemoved;
             };
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
 
             Assert.AreEqual(0, graph.RemoveVertexIf(vertex => vertex > 10));
@@ -237,12 +237,12 @@ namespace QuikGraph.Tests.Structures
                 ++edgesRemoved;
             };
 
-            var edge11 = new Edge<int>(1, 1);
-            var edge13 = new Edge<int>(1, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge32 = new Edge<int>(3, 2);
-            var edge34 = new Edge<int>(3, 4);
+            var edge11 = Edge.Create(1, 1);
+            var edge13 = Edge.Create(1, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge32 = Edge.Create(3, 2);
+            var edge34 = Edge.Create(3, 4);
             graph.AddVerticesAndEdgeRange(new[] { edge11, edge13, edge24, edge31, edge32, edge34 });
 
             Assert.AreEqual(2, graph.RemoveVertexIf(vertex => vertex == 1 || vertex  == 3));
@@ -266,12 +266,12 @@ namespace QuikGraph.Tests.Structures
         protected static void RemoveVertexIf_Clusters_Test(
             [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
 
             Assert.AreEqual(0, graph.RemoveVertexIf(vertex => vertex > 10));
@@ -287,12 +287,12 @@ namespace QuikGraph.Tests.Structures
         protected static void RemoveVertexIf_Clusters_Test2(
             [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge13 = new Edge<int>(1, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge32 = new Edge<int>(3, 2);
-            var edge34 = new Edge<int>(3, 4);
+            var edge11 = Edge.Create(1, 1);
+            var edge13 = Edge.Create(1, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge32 = Edge.Create(3, 2);
+            var edge34 = Edge.Create(3, 4);
             graph.AddVerticesAndEdgeRange(new[] { edge11, edge13, edge24, edge31, edge32, edge34 });
 
             Assert.AreEqual(2, graph.RemoveVertexIf(vertex => vertex == 1 || vertex == 3));

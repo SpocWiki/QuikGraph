@@ -55,17 +55,17 @@ namespace QuikGraph.Tests.Predicates
             Assert.IsTrue(predicate.Test(2));
 
             graph.AddVertex(3);
-            graph.AddEdge(new Edge<int>(1, 3));
+            graph.AddEdge(Edge.Create(1, 3));
             Assert.IsFalse(predicate.Test(1));
             Assert.IsTrue(predicate.Test(2));
             Assert.IsTrue(predicate.Test(3));
 
-            graph.AddEdge(new Edge<int>(1, 2));
+            graph.AddEdge(Edge.Create(1, 2));
             Assert.IsFalse(predicate.Test(1));
             Assert.IsTrue(predicate.Test(2));
             Assert.IsTrue(predicate.Test(3));
 
-            var edge23 = new Edge<int>(2, 3);
+            var edge23 = Edge.Create(2, 3);
             graph.AddEdge(edge23);
             Assert.IsFalse(predicate.Test(1));
             Assert.IsFalse(predicate.Test(2));

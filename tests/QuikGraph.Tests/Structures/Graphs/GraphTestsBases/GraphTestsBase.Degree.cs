@@ -11,12 +11,12 @@ namespace QuikGraph.Tests.Structures
         protected static void Degree_Test(
             [NotNull] IMutableBidirectionalGraph<int, Edge<int>> graph)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(1, 4);
-            var edge4 = new Edge<int>(2, 4);
-            var edge5 = new Edge<int>(3, 2);
-            var edge6 = new Edge<int>(3, 3);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(1, 4);
+            var edge4 = Edge.Create(2, 4);
+            var edge5 = Edge.Create(3, 2);
+            var edge6 = Edge.Create(3, 3);
 
             graph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
             graph.AddVertex(5);
@@ -32,12 +32,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, Edge<int>>> createGraph)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(1, 4);
-            var edge4 = new Edge<int>(2, 4);
-            var edge5 = new Edge<int>(3, 2);
-            var edge6 = new Edge<int>(3, 3);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(1, 4);
+            var edge4 = Edge.Create(2, 4);
+            var edge5 = Edge.Create(3, 2);
+            var edge6 = Edge.Create(3, 3);
 
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
             wrappedGraph.AddVertex(5);
@@ -53,12 +53,12 @@ namespace QuikGraph.Tests.Structures
         protected static void Degree_ImmutableVertices_Test(
             [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(1, 4);
-            var edge4 = new Edge<int>(2, 4);
-            var edge5 = new Edge<int>(3, 2);
-            var edge6 = new Edge<int>(3, 3);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(1, 4);
+            var edge4 = Edge.Create(2, 4);
+            var edge5 = Edge.Create(3, 2);
+            var edge6 = Edge.Create(3, 3);
 
             graph.AddEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
 
@@ -73,12 +73,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(1, 4);
-            var edge4 = new Edge<int>(2, 4);
-            var edge5 = new Edge<int>(3, 2);
-            var edge6 = new Edge<int>(3, 3);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(1, 4);
+            var edge4 = Edge.Create(2, 4);
+            var edge5 = Edge.Create(3, 2);
+            var edge6 = Edge.Create(3, 3);
 
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
             wrappedGraph.AddVertex(5);

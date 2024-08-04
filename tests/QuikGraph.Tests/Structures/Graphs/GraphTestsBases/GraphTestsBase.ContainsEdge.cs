@@ -12,11 +12,11 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IEdgeSet<int, Edge<int>> graph,
             [NotNull, InstantHandle] Action<Edge<int>> addVerticesAndEdge)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 1);
-            var edge4 = new Edge<int>(2, 2);
-            var otherEdge1 = new Edge<int>(1, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 1);
+            var edge4 = Edge.Create(2, 2);
+            var otherEdge1 = Edge.Create(1, 2);
 
             Assert.IsFalse(graph.ContainsEdge(edge1));
             Assert.IsFalse(graph.ContainsEdge(edge2));
@@ -60,11 +60,11 @@ namespace QuikGraph.Tests.Structures
             Assert.IsTrue(graph.ContainsEdge(otherEdge1));
 
             // Both vertices not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(0, 10)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(0, 10)));
             // Source not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(0, 1)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(0, 1)));
             // Target not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(1, 0)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(1, 0)));
         }
 
         protected static void ContainsEdge_Test(
@@ -81,11 +81,11 @@ namespace QuikGraph.Tests.Structures
         {
             IEdgeSet<int, Edge<int>> graph = createGraph();
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 1);
-            var edge4 = new Edge<int>(2, 2);
-            var otherEdge1 = new Edge<int>(1, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 1);
+            var edge4 = Edge.Create(2, 2);
+            var otherEdge1 = Edge.Create(1, 2);
 
             Assert.IsFalse(graph.ContainsEdge(edge1));
             Assert.IsFalse(graph.ContainsEdge(edge2));
@@ -134,11 +134,11 @@ namespace QuikGraph.Tests.Structures
             Assert.IsTrue(graph.ContainsEdge(otherEdge1));
 
             // Both vertices not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(0, 10)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(0, 10)));
             // Source not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(0, 1)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(0, 1)));
             // Target not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(1, 0)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(1, 0)));
         }
 
         protected static void ContainsEdge_ImmutableGraph_Test(
@@ -147,15 +147,15 @@ namespace QuikGraph.Tests.Structures
         {
             IEdgeSet<int, SEquatableEdge<int>> graph = createGraph();
 
-            var edge1 = new Edge<int>(1, 2);
+            var edge1 = Edge.Create(1, 2);
             var equatableEdge1 = new SEquatableEdge<int>(edge1.Source, edge1.Target);
-            var edge2 = new Edge<int>(1, 3);
+            var edge2 = Edge.Create(1, 3);
             var equatableEdge2 = new SEquatableEdge<int>(edge2.Source, edge2.Target);
-            var edge3 = new Edge<int>(2, 1);
+            var edge3 = Edge.Create(2, 1);
             var equatableEdge3 = new SEquatableEdge<int>(edge3.Source, edge3.Target);
-            var edge4 = new Edge<int>(2, 2);
+            var edge4 = Edge.Create(2, 2);
             var equatableEdge4 = new SEquatableEdge<int>(edge4.Source, edge4.Target);
-            var otherEdge1 = new Edge<int>(1, 2);
+            var otherEdge1 = Edge.Create(1, 2);
             var equatableOtherEdge1 = new SEquatableEdge<int>(otherEdge1.Source, otherEdge1.Target);
 
             Assert.IsFalse(graph.ContainsEdge(equatableEdge1));
@@ -215,11 +215,11 @@ namespace QuikGraph.Tests.Structures
         protected static void ContainsEdge_EdgesOnly_Test(
             [NotNull] EdgeListGraph<int, Edge<int>> graph)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 1);
-            var edge4 = new Edge<int>(2, 2);
-            var otherEdge1 = new Edge<int>(1, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 1);
+            var edge4 = Edge.Create(2, 2);
+            var otherEdge1 = Edge.Create(1, 2);
 
             Assert.IsFalse(graph.ContainsEdge(edge1));
             Assert.IsFalse(graph.ContainsEdge(edge2));
@@ -263,21 +263,21 @@ namespace QuikGraph.Tests.Structures
             Assert.IsTrue(graph.ContainsEdge(otherEdge1));
 
             // Both vertices not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(0, 10)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(0, 10)));
             // Source not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(0, 1)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(0, 1)));
             // Target not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(1, 0)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(1, 0)));
         }
 
         protected static void ContainsEdge_ForbiddenParallelEdges_ImmutableVertices_Test(
             [NotNull] IMutableEdgeListGraph<int, Edge<int>> graph)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 1);
-            var edge4 = new Edge<int>(2, 2);
-            var otherEdge1 = new Edge<int>(1, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 1);
+            var edge4 = Edge.Create(2, 2);
+            var otherEdge1 = Edge.Create(1, 2);
 
             Assert.IsFalse(graph.ContainsEdge(edge1));
             Assert.IsFalse(graph.ContainsEdge(edge2));
@@ -314,11 +314,11 @@ namespace QuikGraph.Tests.Structures
             Assert.IsTrue(graph.ContainsEdge(otherEdge1));
 
             // Both vertices not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(10, 11)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(10, 11)));
             // Source not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(10, 1)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(10, 1)));
             // Target not in graph
-            Assert.IsFalse(graph.ContainsEdge(new Edge<int>(1, 10)));
+            Assert.IsFalse(graph.ContainsEdge(Edge.Create(1, 10)));
         }
 
         protected static void ContainsEdge_ImmutableGraph_ReversedTest(
@@ -327,15 +327,15 @@ namespace QuikGraph.Tests.Structures
         {
             IEdgeSet<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
 
-            var edge1 = new Edge<int>(1, 2);
+            var edge1 = Edge.Create(1, 2);
             var reversedEdge1 = new SReversedEdge<int, Edge<int>>(edge1);
-            var edge2 = new Edge<int>(1, 3);
+            var edge2 = Edge.Create(1, 3);
             var reversedEdge2 = new SReversedEdge<int, Edge<int>>(edge2);
-            var edge3 = new Edge<int>(2, 1);
+            var edge3 = Edge.Create(2, 1);
             var reversedEdge3 = new SReversedEdge<int, Edge<int>>(edge3);
-            var edge4 = new Edge<int>(2, 2);
+            var edge4 = Edge.Create(2, 2);
             var reversedEdge4 = new SReversedEdge<int, Edge<int>>(edge4);
-            var otherEdge1 = new Edge<int>(1, 2);
+            var otherEdge1 = Edge.Create(1, 2);
             var reversedOtherEdge1 = new SReversedEdge<int, Edge<int>>(otherEdge1);
 
             Assert.IsFalse(graph.ContainsEdge(reversedEdge1));
@@ -388,17 +388,17 @@ namespace QuikGraph.Tests.Structures
             Assert.IsFalse(
                 graph.ContainsEdge(
                     new SReversedEdge<int, Edge<int>>(
-                        new Edge<int>(0, 10))));
+                        Edge.Create(0, 10))));
             // Source not in graph
             Assert.IsFalse(
                 graph.ContainsEdge(
                     new SReversedEdge<int, Edge<int>>(
-                        new Edge<int>(0, 1))));
+                        Edge.Create(0, 1))));
             // Target not in graph
             Assert.IsFalse(
                 graph.ContainsEdge(
                     new SReversedEdge<int, Edge<int>>(
-                        new Edge<int>(1, 0))));
+                        Edge.Create(1, 0))));
         }
 
         protected static void ContainsEdge_EquatableEdge_Test(
@@ -727,9 +727,9 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IIncidenceGraph<int, Edge<int>> graph,
             [NotNull, InstantHandle] Action<Edge<int>> addVerticesAndEdge)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 2);
 
             Assert.IsFalse(graph.ContainsEdge(1, 2));
             Assert.IsFalse(graph.ContainsEdge(2, 1));
@@ -766,9 +766,9 @@ namespace QuikGraph.Tests.Structures
         {
             IIncidenceGraph<int, TEdge> graph = createGraph();
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 2);
 
             Assert.IsFalse(graph.ContainsEdge(1, 2));
             Assert.IsFalse(graph.ContainsEdge(2, 1));
@@ -796,9 +796,9 @@ namespace QuikGraph.Tests.Structures
         protected static void ContainsEdge_SourceTarget_ForbiddenParallelEdges_Test(
             [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 2);
 
             Assert.IsFalse(graph.ContainsEdge(1, 2));
             Assert.IsFalse(graph.ContainsEdge(2, 1));
@@ -826,9 +826,9 @@ namespace QuikGraph.Tests.Structures
         {
             IIncidenceGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 2);
 
             Assert.IsFalse(graph.ContainsEdge(1, 2));
             Assert.IsFalse(graph.ContainsEdge(2, 1));
@@ -856,9 +856,9 @@ namespace QuikGraph.Tests.Structures
         protected static void ContainsEdge_SourceTarget_UndirectedGraph_Test(
             [NotNull] IMutableUndirectedGraph<int, Edge<int>> graph)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 2);
 
             Assert.IsFalse(graph.ContainsEdge(1, 2));
             Assert.IsFalse(graph.ContainsEdge(2, 1));
@@ -884,9 +884,9 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitUndirectedGraph<int, Edge<int>>> createGraph)
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 2);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 2);
 
             IImplicitUndirectedGraph<int, Edge<int>> graph = createGraph();
             Assert.IsFalse(graph.ContainsEdge(1, 2));

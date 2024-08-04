@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Cliques;
@@ -13,8 +13,6 @@ namespace QuikGraph.Tests.Algorithms.Cliques
     [TestFixture]
     internal sealed class MaximumCliqueAlgorithmTests
     {
-        #region Test classes
-
         private class TestMaximumCliqueAlgorithm<TVertex, TEdge> : MaximumCliqueAlgorithmBase<TVertex, TEdge>
             where TEdge : IEdge<TVertex>
         {
@@ -34,8 +32,6 @@ namespace QuikGraph.Tests.Algorithms.Cliques
                 throw new NotImplementedException();
             }
         }
-
-        #endregion
 
         [Test]
         public void Constructor()

@@ -276,12 +276,12 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         [Test]
         public void RandomWalkWithPredicate()
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 3);
-            var edge4 = new Edge<int>(3, 4);
-            var edge5 = new Edge<int>(4, 5);
-            var edge6 = new Edge<int>(5, 4);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 3);
+            var edge4 = Edge.Create(3, 4);
+            var edge5 = Edge.Create(4, 5);
+            var edge6 = Edge.Create(5, 4);
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {

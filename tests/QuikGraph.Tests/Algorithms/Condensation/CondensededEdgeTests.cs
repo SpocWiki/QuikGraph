@@ -12,7 +12,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
     internal sealed class CondensedEdgeTests : EdgeTestsBase
     {
         [Test]
-        public void Construction()
+        public void TestConstruction()
         {
             var graph1 = new AdjacencyGraph<int, Edge<int>>();
             var graph2 = new AdjacencyGraph<int, Edge<int>>();
@@ -64,7 +64,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         }
 
         [Test]
-        public void Edges()
+        public void TestEdges()
         {
             var graph1 = new AdjacencyGraph<int, Edge<int>>();
             var graph2 = new AdjacencyGraph<int, Edge<int>>();
@@ -72,7 +72,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             var edge = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph1, graph2);
             CollectionAssert.IsEmpty(edge.Edges);
 
-            var subEdge = new Edge<int>(1, 2);
+            var subEdge = Edge.Create(1, 2);
             edge.Edges.Add(subEdge);
             CollectionAssert.AreEqual(new[] { subEdge }, edge.Edges);
 
@@ -81,7 +81,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         }
 
         [Test]
-        public void Equals()
+        public void TestEquals()
         {
             var graph1 = new AdjacencyGraph<int, Edge<int>>();
             var graph2 = new AdjacencyGraph<int, Edge<int>>();
@@ -91,7 +91,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             var edge3 = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph2, graph1);
             var edge4 = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph1, graph2);
 
-            var subEdge = new Edge<int>(1, 2);
+            var subEdge = Edge.Create(1, 2);
             edge4.Edges.Add(subEdge);
 
             Assert.AreEqual(edge1, edge1);

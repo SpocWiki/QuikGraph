@@ -71,8 +71,8 @@ namespace QuikGraph.MSAGL.Tests
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3)
             });
             graph.AddVertexRange(new[] { 5, 6 });
 

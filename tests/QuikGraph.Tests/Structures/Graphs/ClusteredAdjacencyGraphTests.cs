@@ -654,9 +654,9 @@ namespace QuikGraph.Tests.Structures
                 g.Clear();
                 AssertEmptyGraph(g);
 
-                g.AddVerticesAndEdge(new Edge<int>(1, 2));
-                g.AddVerticesAndEdge(new Edge<int>(2, 3));
-                g.AddVerticesAndEdge(new Edge<int>(3, 1));
+                g.AddVerticesAndEdge(Edge.Create(1, 2));
+                g.AddVerticesAndEdge(Edge.Create(2, 3));
+                g.AddVerticesAndEdge(Edge.Create(3, 1));
 
                 g.Clear();
                 AssertEmptyGraph(g);
@@ -693,17 +693,17 @@ namespace QuikGraph.Tests.Structures
                 AssertHasVertices(g, new[] { 1 });
                 AssertNoEdge(g);
 
-                var edge12 = new Edge<int>(1, 2);
-                var edge23 = new Edge<int>(2, 3);
+                var edge12 = Edge.Create(1, 2);
+                var edge23 = Edge.Create(2, 3);
                 g.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
 
                 // Clear 1
                 g.ClearOutEdges(1);
                 AssertHasEdges(g, new[] { edge23 });
 
-                var edge13 = new Edge<int>(1, 3);
-                var edge31 = new Edge<int>(3, 1);
-                var edge32 = new Edge<int>(3, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge31 = Edge.Create(3, 1);
+                var edge32 = Edge.Create(3, 2);
                 g.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge31, edge32 });
 
                 // Clear 3

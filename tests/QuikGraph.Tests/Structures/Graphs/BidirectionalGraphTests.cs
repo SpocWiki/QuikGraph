@@ -533,7 +533,7 @@ namespace QuikGraph.Tests.Structures
         {
             var graph1 = new BidirectionalGraph<int, Edge<int>>();
             Assert.Throws<VertexNotFoundException>(
-                () => graph1.MergeVertex(1, (source, target) => new Edge<int>(source, target)));
+                () => graph1.MergeVertex(1, (source, target) => Edge.Create(source, target)));
 
             var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             Assert.Throws<ArgumentNullException>(
@@ -717,7 +717,7 @@ namespace QuikGraph.Tests.Structures
         {
             var graph = new BidirectionalGraph<int, Edge<int>>();
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, (source, target) => new Edge<int>(source, target)));
+            Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, (source, target) => Edge.Create(source, target)));
             Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(_ => true, null));
             Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
@@ -857,18 +857,18 @@ namespace QuikGraph.Tests.Structures
             AssertEmptyGraph(graph);
             CheckCounters(0, 0);
 
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
-            graph.AddVerticesAndEdge(new Edge<int>(2, 3));
-            graph.AddVerticesAndEdge(new Edge<int>(3, 1));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(2, 3));
+            graph.AddVerticesAndEdge(Edge.Create(3, 1));
 
             graph.Clear();
             AssertEmptyGraph(graph);
             CheckCounters(3, 3);
 
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
-            graph.AddVerticesAndEdge(new Edge<int>(3, 2));
-            graph.AddVerticesAndEdge(new Edge<int>(3, 1));
-            graph.AddVerticesAndEdge(new Edge<int>(3, 3));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(3, 2));
+            graph.AddVerticesAndEdge(Edge.Create(3, 1));
+            graph.AddVerticesAndEdge(Edge.Create(3, 3));
 
             graph.Clear();
             AssertEmptyGraph(graph);
@@ -914,8 +914,8 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(0);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
 
             // Clear out 1
@@ -924,9 +924,9 @@ namespace QuikGraph.Tests.Structures
             AssertHasEdges(graph, new[] { edge23 });
             CheckCounter(1);
 
-            var edge13 = new Edge<int>(1, 3);
-            var edge31 = new Edge<int>(3, 1);
-            var edge32 = new Edge<int>(3, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge31 = Edge.Create(3, 1);
+            var edge32 = Edge.Create(3, 2);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge31, edge32 });
 
             // Clear out 3
@@ -993,8 +993,8 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(0);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
 
             // Clear in 2
@@ -1003,9 +1003,9 @@ namespace QuikGraph.Tests.Structures
             AssertHasEdges(graph, new[] { edge23 });
             CheckCounter(1);
 
-            var edge13 = new Edge<int>(1, 3);
-            var edge31 = new Edge<int>(3, 1);
-            var edge32 = new Edge<int>(3, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge31 = Edge.Create(3, 1);
+            var edge32 = Edge.Create(3, 2);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge31, edge32 });
 
             // Clear in 3
@@ -1072,8 +1072,8 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(0);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
 
             // Clear 2
@@ -1082,9 +1082,9 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
             CheckCounter(2);
 
-            var edge13 = new Edge<int>(1, 3);
-            var edge31 = new Edge<int>(3, 1);
-            var edge32 = new Edge<int>(3, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge31 = Edge.Create(3, 1);
+            var edge32 = Edge.Create(3, 2);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge31, edge32 });
 
             // Clear 3
@@ -1151,9 +1151,9 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
             AssertNoEdge(clonedGraph);
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 3);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3 });
             AssertHasVertices(graph, new[] { 1, 2, 3 });
             AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
@@ -1206,9 +1206,9 @@ namespace QuikGraph.Tests.Structures
 
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(1, 4)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(1, 4)
             });
 
             Assert.DoesNotThrow(() => graph.TrimEdgeExcess());

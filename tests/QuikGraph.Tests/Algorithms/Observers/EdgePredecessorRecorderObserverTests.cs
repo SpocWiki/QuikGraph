@@ -27,7 +27,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
 
             predecessors = new Dictionary<Edge<int>, Edge<int>>
             {
-                [new Edge<int>(3, 2)] = new Edge<int>(2, 1)
+                [Edge.Create(3, 2)] = Edge.Create(2, 1)
             };
             recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>(predecessors);
             Assert.AreSame(predecessors, recorder.EdgesPredecessors);
@@ -80,13 +80,13 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph without cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
@@ -118,14 +118,14 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph with cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
-                var edge41 = new Edge<int>(4, 1);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
+                var edge41 = Edge.Create(4, 1);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
@@ -175,7 +175,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 {
                     dfs.Compute();
 
-                    var edge12 = new Edge<int>(1, 2);
+                    var edge12 = Edge.Create(1, 2);
                     // Not in the graph => return the edge itself
                     CollectionAssert.AreEqual(
                         new[] { edge12 },
@@ -187,13 +187,13 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph without cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
@@ -219,14 +219,14 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph with cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
-                var edge41 = new Edge<int>(4, 1);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
+                var edge41 = Edge.Create(4, 1);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
@@ -281,13 +281,13 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph without cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
@@ -314,14 +314,14 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph with cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
-                var edge41 = new Edge<int>(4, 1);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
+                var edge41 = Edge.Create(4, 1);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
@@ -357,7 +357,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 {
                     dfs.Compute();
 
-                    var edge12 = new Edge<int>(1, 2);
+                    var edge12 = Edge.Create(1, 2);
                     var colors = new Dictionary<Edge<int>, GraphColor>
                     {
                         [edge12] = GraphColor.Black
@@ -378,13 +378,13 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph without cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
@@ -417,14 +417,14 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph with cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
-                var edge41 = new Edge<int>(4, 1);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
+                var edge41 = Edge.Create(4, 1);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
@@ -463,12 +463,12 @@ namespace QuikGraph.Tests.Algorithms.Observers
             Assert.Throws<ArgumentNullException>(
                 () => recorder.MergedPath(null, new Dictionary<Edge<int>, GraphColor>()));
             Assert.Throws<ArgumentNullException>(
-                () => recorder.MergedPath(new Edge<int>(1, 2), null));
+                () => recorder.MergedPath(Edge.Create(1, 2), null));
             Assert.Throws<ArgumentNullException>(
                 () => recorder.MergedPath(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
 
-            var edge = new Edge<int>(1, 2);
+            var edge = Edge.Create(1, 2);
             Assert.Throws<KeyNotFoundException>(
                 () => recorder.MergedPath(edge, new Dictionary<Edge<int>, GraphColor>()));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -495,13 +495,13 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph without cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
@@ -528,14 +528,14 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new EdgePredecessorRecorderObserver<int, Edge<int>>();
 
                 // Graph with cycle
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge14 = new Edge<int>(1, 4);
-                var edge24 = new Edge<int>(2, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
-                var edge41 = new Edge<int>(4, 1);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge14 = Edge.Create(1, 4);
+                var edge24 = Edge.Create(2, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
+                var edge41 = Edge.Create(4, 1);
                 var graph = new AdjacencyGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {

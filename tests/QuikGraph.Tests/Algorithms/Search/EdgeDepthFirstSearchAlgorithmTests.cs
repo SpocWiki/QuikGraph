@@ -251,15 +251,15 @@ namespace QuikGraph.Tests.Algorithms.Search
         [TestCase(true)]
         public void ProcessAllComponents(bool processAll)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge21 = new Edge<int>(2, 1);
-            var edge24 = new Edge<int>(2, 4);
-            var edge25 = new Edge<int>(2, 5);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge21 = Edge.Create(2, 1);
+            var edge24 = Edge.Create(2, 4);
+            var edge25 = Edge.Create(2, 5);
 
-            var edge67 = new Edge<int>(6, 7);
-            var edge68 = new Edge<int>(6, 8);
-            var edge86 = new Edge<int>(8, 6);
+            var edge67 = Edge.Create(6, 7);
+            var edge68 = Edge.Create(6, 8);
+            var edge86 = Edge.Create(8, 6);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]

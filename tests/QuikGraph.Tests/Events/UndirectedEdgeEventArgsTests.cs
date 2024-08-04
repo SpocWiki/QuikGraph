@@ -11,7 +11,7 @@ namespace QuikGraph.Tests.Events
         [Test]
         public void Constructor()
         {
-            var edge = new Edge<int>(1, 2);
+            var edge = Edge.Create(1, 2);
 
             var args = new UndirectedEdgeEventArgs<int, Edge<int>>(edge, false);
             Assert.IsFalse(args.Reversed);

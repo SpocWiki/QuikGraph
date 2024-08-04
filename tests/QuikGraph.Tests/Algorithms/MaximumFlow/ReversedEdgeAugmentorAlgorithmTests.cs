@@ -17,7 +17,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
             var algorithm = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph, edgeFactory);
             Assert.AreSame(graph, algorithm.VisitedGraph);
@@ -31,7 +31,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void Constructor_Throws()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
@@ -51,7 +51,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             [UsedImplicitly]
             get
             {
-                EdgeFactory<int, Edge<int>> edgeFactory1 = (source, target) => new Edge<int>(source, target);
+                EdgeFactory<int, Edge<int>> edgeFactory1 = (source, target) => Edge.Create(source, target);
                 yield return new TestCaseData(edgeFactory1);
 
 
@@ -110,7 +110,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void AddReversedEdges_Throws()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
             var algorithm = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph, edgeFactory);
             Assert.DoesNotThrow(() => algorithm.AddReversedEdges());
@@ -120,10 +120,10 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         [Test]
         public void RemoveReversedEdges()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge32 = new Edge<int>(3, 2);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge32 = Edge.Create(3, 2);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -133,7 +133,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
             var algorithm = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(
                 graph,
-                (source, target) => new Edge<int>(source, target));
+                (source, target) => Edge.Create(source, target));
             algorithm.AddReversedEdges();
 
             Assert.IsTrue(algorithm.Augmented);
@@ -159,7 +159,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void RemoveReversedEdges_Throws()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
             var algorithm = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph, edgeFactory);
             Assert.Throws<InvalidOperationException>(() => algorithm.RemoveReversedEdges());
@@ -169,7 +169,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void Dispose()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
             var algorithm = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph, edgeFactory);
             CollectionAssert.IsEmpty(algorithm.AugmentedEdges);
@@ -180,10 +180,10 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 2)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 3),
+                Edge.Create(3, 2)
             });
             algorithm = new ReversedEdgeAugmentorAlgorithm<int, Edge<int>>(graph, edgeFactory);
             algorithm.AddReversedEdges();

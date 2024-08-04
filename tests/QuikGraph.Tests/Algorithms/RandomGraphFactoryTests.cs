@@ -65,11 +65,11 @@ namespace QuikGraph.Tests.Algorithms
         public void GetEdge()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge35 = new Edge<int>(3, 5);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge35 = Edge.Create(3, 5);
             graph.AddVerticesAndEdgeRange(new[]
             {
                 edge12, edge13, edge23, edge24, edge35
@@ -115,7 +115,7 @@ namespace QuikGraph.Tests.Algorithms
             Assert.Throws<InvalidOperationException>(() => RandomGraphFactory.GetEdge<int, Edge<int>>(Enumerable.Empty<Edge<int>>(), 1, random));
             Assert.Throws<InvalidOperationException>(
                 () => RandomGraphFactory.GetEdge<int, Edge<int>>(
-                    new[] { new Edge<int>(1, 2), new Edge<int>(1, 3) },
+                    new[] { Edge.Create(1, 2), Edge.Create(1, 3) },
                     10,
                     new Random(123456)));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -264,14 +264,14 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     (IMutableVertexAndEdgeListGraph<int, Edge<int>>)null,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     null,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -285,14 +285,14 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     null,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
                 () => RandomGraphFactory.Create(
                     (IMutableVertexAndEdgeListGraph<int, Edge<int>>)null,
                     null,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -306,7 +306,7 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     (IMutableVertexAndEdgeListGraph<int, Edge<int>>)null,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     null,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -320,7 +320,7 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     graph,
                     null,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     null,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -348,7 +348,7 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     (IMutableVertexAndEdgeListGraph<int, Edge<int>>)null,
                     null,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     null,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -370,35 +370,35 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     -1, 1, false));
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     0, 1, false));
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     1, -1, false));
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     0, 0, false));
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     -1, -1, false));
         }
@@ -546,14 +546,14 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     (IMutableUndirectedGraph<int, Edge<int>>)null,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     null,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -567,14 +567,14 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     null,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
                 () => RandomGraphFactory.Create(
                     (IMutableUndirectedGraph<int, Edge<int>>)null,
                     null,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -588,7 +588,7 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     (IMutableUndirectedGraph<int, Edge<int>>)null,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     null,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -602,7 +602,7 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     graph,
                     null,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     null,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -630,7 +630,7 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     (IMutableUndirectedGraph<int, Edge<int>>)null,
                     null,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     null,
                     1, 1, false));
             Assert.Throws<ArgumentNullException>(
@@ -652,35 +652,35 @@ namespace QuikGraph.Tests.Algorithms
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     -1, 1, false));
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     0, 1, false));
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     1, -1, false));
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     0, 0, false));
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => RandomGraphFactory.Create(
                     graph,
                     () => 1,
-                    (source, target) => new Edge<int>(source, target),
+                    (source, target) => Edge.Create(source, target),
                     random,
                     -1, -1, false));
         }

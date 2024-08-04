@@ -227,7 +227,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void GetVertexColor()
         {
             var graph = new UndirectedGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
 
             var algorithm = new UndirectedDijkstraShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1.0);
             algorithm.Compute(1);

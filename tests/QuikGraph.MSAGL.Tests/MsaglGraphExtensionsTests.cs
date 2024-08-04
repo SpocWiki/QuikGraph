@@ -82,11 +82,11 @@ namespace QuikGraph.MSAGL.Tests
             graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(2, 5),
-                new Edge<int>(3, 4),
-                new Edge<int>(4, 3)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(2, 5),
+                Edge.Create(3, 4),
+                Edge.Create(4, 3)
             });
             graph.AddVertex(6);
             ToMsaglGraph_Test(graph);
@@ -94,11 +94,11 @@ namespace QuikGraph.MSAGL.Tests
             var undirectedGraph = new UndirectedGraph<int, Edge<int>>();
             undirectedGraph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(2, 5),
-                new Edge<int>(3, 4),
-                new Edge<int>(4, 3)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(2, 5),
+                Edge.Create(3, 4),
+                Edge.Create(4, 3)
             });
             undirectedGraph.AddVertex(6);
             ToMsaglGraph_Test(undirectedGraph);

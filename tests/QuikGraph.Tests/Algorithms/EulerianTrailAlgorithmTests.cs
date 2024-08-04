@@ -215,7 +215,7 @@ namespace QuikGraph.Tests.Algorithms
 
                 var moreVerticesThanEdgesGraph = new AdjacencyGraph<int, Edge<int>>();
                 moreVerticesThanEdgesGraph.AddVertexRange(new[] { 1, 2 });
-                moreVerticesThanEdgesGraph.AddEdge(new Edge<int>(1, 2));
+                moreVerticesThanEdgesGraph.AddEdge(Edge.Create(1, 2));
                 yield return new TestCaseData(moreVerticesThanEdgesGraph)
                 {
                     ExpectedResult = 0
@@ -225,8 +225,8 @@ namespace QuikGraph.Tests.Algorithms
                 sameVerticesAndEdgesCountGraph.AddVertexRange(new[] { 1, 2 });
                 sameVerticesAndEdgesCountGraph.AddEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 1)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 1)
                 });
                 yield return new TestCaseData(sameVerticesAndEdgesCountGraph)
                 {
@@ -237,9 +237,9 @@ namespace QuikGraph.Tests.Algorithms
                 sameVerticesAndEdgesCountGraph2.AddVertexRange(new[] { 1, 2, 3 });
                 sameVerticesAndEdgesCountGraph2.AddEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 1),
-                    new Edge<int>(1, 3)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 1),
+                    Edge.Create(1, 3)
                 });
                 yield return new TestCaseData(sameVerticesAndEdgesCountGraph2)
                 {
@@ -250,13 +250,13 @@ namespace QuikGraph.Tests.Algorithms
                 moreEdgesThanEdgesGraph.AddVertexRange(new[] { 1, 2, 3, 4, 5 });
                 moreEdgesThanEdgesGraph.AddEdgeRange(new[]
                 {
-                    new Edge<int>(1, 2),
-                    new Edge<int>(2, 1),
-                    new Edge<int>(1, 3),
-                    new Edge<int>(1, 4),
-                    new Edge<int>(3, 4),
-                    new Edge<int>(3, 4),
-                    new Edge<int>(1, 5)
+                    Edge.Create(1, 2),
+                    Edge.Create(2, 1),
+                    Edge.Create(1, 3),
+                    Edge.Create(1, 4),
+                    Edge.Create(3, 4),
+                    Edge.Create(3, 4),
+                    Edge.Create(1, 5)
                 });
                 yield return new TestCaseData(moreEdgesThanEdgesGraph)
                 {
@@ -531,15 +531,15 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SingleEulerianTrailGraph3()
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(2, 1);
-            var edge3 = new Edge<int>(1, 3);
-            var edge4 = new Edge<int>(3, 1);
-            var edge5 = new Edge<int>(2, 4);
-            var edge6 = new Edge<int>(4, 2);
-            var edge7 = new Edge<int>(3, 4);
-            var edge8 = new Edge<int>(4, 3);
-            var edge9 = new Edge<int>(4, 4);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(2, 1);
+            var edge3 = Edge.Create(1, 3);
+            var edge4 = Edge.Create(3, 1);
+            var edge5 = Edge.Create(2, 4);
+            var edge6 = Edge.Create(4, 2);
+            var edge7 = Edge.Create(3, 4);
+            var edge8 = Edge.Create(4, 3);
+            var edge9 = Edge.Create(4, 4);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -549,7 +549,7 @@ namespace QuikGraph.Tests.Algorithms
 
             ComputeTrails(
                 graph,
-                (s, t) => new Edge<int>(s, t),
+                (s, t) => Edge.Create(s, t),
                 out ICollection<Edge<int>>[] trails,
                 out Edge<int>[] circuit);
 
@@ -565,14 +565,14 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void MultipleEulerianTrailsGraph()
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(2, 1);
-            var edge3 = new Edge<int>(1, 3);
-            var edge4 = new Edge<int>(3, 1);
-            var edge5 = new Edge<int>(4, 2);
-            var edge6 = new Edge<int>(3, 4);
-            var edge7 = new Edge<int>(4, 3);
-            var edge8 = new Edge<int>(4, 4);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(2, 1);
+            var edge3 = Edge.Create(1, 3);
+            var edge4 = Edge.Create(3, 1);
+            var edge5 = Edge.Create(4, 2);
+            var edge6 = Edge.Create(3, 4);
+            var edge7 = Edge.Create(4, 3);
+            var edge8 = Edge.Create(4, 4);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -582,7 +582,7 @@ namespace QuikGraph.Tests.Algorithms
 
             ComputeTrails(
                 graph,
-                (s, t) => new Edge<int>(s, t),
+                (s, t) => Edge.Create(s, t),
                 out ICollection<Edge<int>>[] trails,
                 out Edge<int>[] circuit);
 
@@ -663,15 +663,15 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SingleRootedEulerianTrailGraph2()
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(2, 1);
-            var edge3 = new Edge<int>(1, 3);
-            var edge4 = new Edge<int>(3, 1);
-            var edge5 = new Edge<int>(2, 4);
-            var edge6 = new Edge<int>(4, 2);
-            var edge7 = new Edge<int>(3, 4);
-            var edge8 = new Edge<int>(4, 3);
-            var edge9 = new Edge<int>(4, 4);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(2, 1);
+            var edge3 = Edge.Create(1, 3);
+            var edge4 = Edge.Create(3, 1);
+            var edge5 = Edge.Create(2, 4);
+            var edge6 = Edge.Create(4, 2);
+            var edge7 = Edge.Create(3, 4);
+            var edge8 = Edge.Create(4, 3);
+            var edge9 = Edge.Create(4, 4);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -682,7 +682,7 @@ namespace QuikGraph.Tests.Algorithms
             ComputeTrails(
                 graph,
                 4,
-                (s, t) => new Edge<int>(s, t),
+                (s, t) => Edge.Create(s, t),
                 out ICollection<Edge<int>>[] trails,
                 out Edge<int>[] circuit);
 

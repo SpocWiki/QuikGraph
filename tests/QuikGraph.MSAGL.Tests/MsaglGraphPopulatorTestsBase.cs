@@ -34,9 +34,9 @@ namespace QuikGraph.MSAGL.Tests
             graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 3)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 3)
             });
             graph.AddVertexRange(new[] { 5, 6 });
             populator = createPopulator(graph);
@@ -47,11 +47,11 @@ namespace QuikGraph.MSAGL.Tests
             graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 4),
-                new Edge<int>(3, 1),
-                new Edge<int>(4, 1)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 4),
+                Edge.Create(3, 1),
+                Edge.Create(4, 1)
             });
             populator = createPopulator(graph);
             populator.Compute();
@@ -61,10 +61,10 @@ namespace QuikGraph.MSAGL.Tests
             graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 2),
-                new Edge<int>(3, 1)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 2),
+                Edge.Create(3, 1)
             });
             populator = createPopulator(graph);
             populator.Compute();
@@ -74,10 +74,10 @@ namespace QuikGraph.MSAGL.Tests
             var undirectedGraph = new UndirectedGraph<int, Edge<int>>();
             undirectedGraph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 4),
-                new Edge<int>(3, 1)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 4),
+                Edge.Create(3, 1)
             });
             populator = createPopulator(undirectedGraph);
             populator.Compute();
@@ -111,9 +111,9 @@ namespace QuikGraph.MSAGL.Tests
             CollectionAssert.IsEmpty(expectedVerticesAdded);
 
             // With vertices and edges
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge23 = Edge.Create(2, 3);
             graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge23 });
             graph.AddVertexRange(new[] { 5, 6 });

@@ -123,7 +123,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
             int[] sourceToVertices = { 1, 2 };
             int[] verticesToSink = { 1, 2 };
@@ -169,7 +169,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
             int[] sourceToVertices = { 1, 2 };
             int[] verticesToSink = { 1, 2 };

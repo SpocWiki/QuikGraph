@@ -293,9 +293,9 @@ namespace QuikGraph.Tests.Structures
             AssertEmptyGraph(graph);
             CheckCounter(0);
 
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
-            graph.AddVerticesAndEdge(new Edge<int>(2, 3));
-            graph.AddVerticesAndEdge(new Edge<int>(3, 1));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(2, 3));
+            graph.AddVerticesAndEdge(Edge.Create(3, 1));
 
             graph.Clear();
             AssertEmptyGraph(graph);
@@ -328,9 +328,9 @@ namespace QuikGraph.Tests.Structures
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 3);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3 });
             AssertHasVertices(graph, new[] { 1, 2, 3 });
             AssertHasEdges(graph, new[] { edge1, edge2, edge3 });

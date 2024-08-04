@@ -29,18 +29,18 @@ namespace QuikGraph.Tests.Structures
                 ++edgesRemoved;
             };
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
-            var edgeNotInGraph = new Edge<int>(3, 4);
-            var edgeWithVertexNotInGraph1 = new Edge<int>(2, 10);
-            var edgeWithVertexNotInGraph2 = new Edge<int>(10, 2);
-            var edgeWithVerticesNotInGraph = new Edge<int>(10, 11);
-            var edgeNotEquatable = new Edge<int>(1, 2);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
+            var edgeNotInGraph = Edge.Create(3, 4);
+            var edgeWithVertexNotInGraph1 = Edge.Create(2, 10);
+            var edgeWithVertexNotInGraph2 = Edge.Create(10, 2);
+            var edgeWithVerticesNotInGraph = Edge.Create(10, 11);
+            var edgeNotEquatable = Edge.Create(1, 2);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
             Assert.IsFalse(graph.RemoveEdge(edgeNotInGraph));
@@ -102,15 +102,15 @@ namespace QuikGraph.Tests.Structures
                 ++edgesRemoved;
             };
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
-            var edgeNotInGraph = new Edge<int>(3, 4);
-            var edgeNotEquatable = new Edge<int>(1, 2);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
+            var edgeNotInGraph = Edge.Create(3, 4);
+            var edgeNotEquatable = Edge.Create(1, 2);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
             Assert.IsFalse(graph.RemoveEdge(edgeNotInGraph));
@@ -161,17 +161,17 @@ namespace QuikGraph.Tests.Structures
                 ++edgesRemoved;
             };
 
-            var edge01 = new Edge<int>(0, 1);
-            var edge02 = new Edge<int>(0, 2);
-            var edge03 = new Edge<int>(0, 3);
-            var edge13 = new Edge<int>(1, 3);
-            var edge20 = new Edge<int>(2, 0);
-            var edge22 = new Edge<int>(2, 2);
-            var edgeNotInGraph = new Edge<int>(2, 3);
-            var edgeWithVertexNotInGraph1 = new Edge<int>(2, 10);
-            var edgeWithVertexNotInGraph2 = new Edge<int>(10, 2);
-            var edgeWithVerticesNotInGraph = new Edge<int>(10, 11);
-            var edgeNotEquatable = new Edge<int>(0, 1);
+            var edge01 = Edge.Create(0, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge03 = Edge.Create(0, 3);
+            var edge13 = Edge.Create(1, 3);
+            var edge20 = Edge.Create(2, 0);
+            var edge22 = Edge.Create(2, 2);
+            var edgeNotInGraph = Edge.Create(2, 3);
+            var edgeWithVertexNotInGraph1 = Edge.Create(2, 10);
+            var edgeWithVertexNotInGraph2 = Edge.Create(10, 2);
+            var edgeWithVerticesNotInGraph = Edge.Create(10, 11);
+            var edgeNotEquatable = Edge.Create(0, 1);
             graph.AddEdgeRange(new[] { edge01, edge02, edge03, edge13, edge20, edge22 });
 
             Assert.IsFalse(graph.RemoveEdge(edgeNotInGraph));
@@ -222,18 +222,18 @@ namespace QuikGraph.Tests.Structures
         protected static void RemoveEdge_Clusters_Test(
             [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
-            var edgeNotInGraph = new Edge<int>(3, 4);
-            var edgeWithVertexNotInGraph1 = new Edge<int>(2, 10);
-            var edgeWithVertexNotInGraph2 = new Edge<int>(10, 2);
-            var edgeWithVerticesNotInGraph = new Edge<int>(10, 11);
-            var edgeNotEquatable = new Edge<int>(1, 2);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
+            var edgeNotInGraph = Edge.Create(3, 4);
+            var edgeWithVertexNotInGraph1 = Edge.Create(2, 10);
+            var edgeWithVertexNotInGraph2 = Edge.Create(10, 2);
+            var edgeWithVerticesNotInGraph = Edge.Create(10, 11);
+            var edgeNotEquatable = Edge.Create(1, 2);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
             Assert.IsFalse(graph.RemoveEdge(edgeNotInGraph));
@@ -590,13 +590,13 @@ namespace QuikGraph.Tests.Structures
                 ++edgesRemoved;
             };
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVertexRange(new[] { 1, 2, 3, 4 });
             graph.AddEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
@@ -638,13 +638,13 @@ namespace QuikGraph.Tests.Structures
                 ++edgesRemoved;
             };
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
             Assert.AreEqual(0, graph.RemoveEdgeIf(edge => edge.Target == 5));
@@ -673,13 +673,13 @@ namespace QuikGraph.Tests.Structures
         protected static void RemoveEdgeIf_Clusters_Test(
             [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVertexRange(new[] { 1, 2, 3, 4 });
             graph.AddEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
@@ -734,13 +734,13 @@ namespace QuikGraph.Tests.Structures
             CheckCounters(0);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
             Assert.AreEqual(3, graph.RemoveOutEdgeIf(1, edge => edge.Target >= 3));
@@ -787,12 +787,12 @@ namespace QuikGraph.Tests.Structures
             CheckCounter(0);
             AssertNoEdge(graph);
 
-            var edge01 = new Edge<int>(0, 1);
-            var edge02 = new Edge<int>(0, 2);
-            var edge03 = new Edge<int>(0, 3);
-            var edge13 = new Edge<int>(1, 3);
-            var edge20 = new Edge<int>(2, 0);
-            var edge22 = new Edge<int>(2, 2);
+            var edge01 = Edge.Create(0, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge03 = Edge.Create(0, 3);
+            var edge13 = Edge.Create(1, 3);
+            var edge20 = Edge.Create(2, 0);
+            var edge22 = Edge.Create(2, 2);
             graph.AddEdgeRange(new[] { edge01, edge02, edge03, edge13, edge20, edge22 });
 
             Assert.AreEqual(2, graph.RemoveOutEdgeIf(0, edge => edge.Target >= 2));
@@ -824,13 +824,13 @@ namespace QuikGraph.Tests.Structures
             Assert.AreEqual(0, graph.RemoveOutEdgeIf(1, _ => true));
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
             Assert.AreEqual(3, graph.RemoveOutEdgeIf(1, edge => edge.Target >= 3));
@@ -902,13 +902,13 @@ namespace QuikGraph.Tests.Structures
             CheckCounters(0);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
             Assert.AreEqual(2, graph.RemoveInEdgeIf(3, edge => edge.Source == 1));
@@ -955,12 +955,12 @@ namespace QuikGraph.Tests.Structures
             CheckCounter(0);
             AssertNoEdge(graph);
 
-            var edge01 = new Edge<int>(0, 1);
-            var edge02 = new Edge<int>(0, 2);
-            var edge03 = new Edge<int>(0, 3);
-            var edge13 = new Edge<int>(1, 3);
-            var edge20 = new Edge<int>(2, 0);
-            var edge22 = new Edge<int>(2, 2);
+            var edge01 = Edge.Create(0, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge03 = Edge.Create(0, 3);
+            var edge13 = Edge.Create(1, 3);
+            var edge20 = Edge.Create(2, 0);
+            var edge22 = Edge.Create(2, 2);
             graph.AddEdgeRange(new[] { edge01, edge02, edge03, edge13, edge20, edge22 });
 
             Assert.AreEqual(1, graph.RemoveInEdgeIf(2, edge => edge.Source == 0));
@@ -1028,13 +1028,13 @@ namespace QuikGraph.Tests.Structures
             CheckCounters(0);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge13Bis = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge13Bis = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
 
             Assert.AreEqual(4, graph.RemoveAdjacentEdgeIf(1, edge => edge.Source >= 3 || edge.Target >= 3));

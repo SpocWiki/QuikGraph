@@ -87,13 +87,13 @@ namespace QuikGraph.Tests.Algorithms
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(4, 2),
-                new Edge<int>(4, 5),
-                new Edge<int>(5, 6),
-                new Edge<int>(7, 5),
-                new Edge<int>(7, 8)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(4, 2),
+                Edge.Create(4, 5),
+                Edge.Create(5, 6),
+                Edge.Create(7, 5),
+                Edge.Create(7, 8)
             });
 
             var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
@@ -112,10 +112,10 @@ namespace QuikGraph.Tests.Algorithms
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(0, 1),
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(3, 4)
+                Edge.Create(0, 1),
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(3, 4)
             });
 
             var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
@@ -134,12 +134,12 @@ namespace QuikGraph.Tests.Algorithms
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(0, 1),
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(3, 4),
+                Edge.Create(0, 1),
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(3, 4),
 
-                new Edge<int>(5, 6)
+                Edge.Create(5, 6)
             });
 
             var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
@@ -158,12 +158,12 @@ namespace QuikGraph.Tests.Algorithms
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(0, 1),
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 3),
-                new Edge<int>(2, 2),
-                new Edge<int>(3, 4)
+                Edge.Create(0, 1),
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 3),
+                Edge.Create(2, 2),
+                Edge.Create(3, 4)
             });
 
             var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
@@ -204,10 +204,10 @@ namespace QuikGraph.Tests.Algorithms
             var cyclicGraph = new UndirectedGraph<int, Edge<int>>();
             cyclicGraph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(1, 4),
-                new Edge<int>(3, 1)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(1, 4),
+                Edge.Create(3, 1)
             });
 
             var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, Edge<int>>(cyclicGraph);

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.Msagl.Drawing;
 using NUnit.Framework;
 
@@ -12,8 +12,8 @@ namespace QuikGraph.MSAGL.Tests
         [Test]
         public void Constructor()
         {
-            var edge = new Edge<int>(1, 2);
-            var msaglEdge = new Edge(new Node("1"), new Node("2"), ConnectionToGraph.Disconnected);
+            var edge = Edge.Create(1, 2);
+            var msaglEdge = new Microsoft.Msagl.Drawing.Edge(new Node("1"), new Node("2"), ConnectionToGraph.Disconnected);
             var args = new MsaglEdgeEventArgs<int, Edge<int>>(edge, msaglEdge);
 
             Assert.AreSame(edge, args.Edge);
@@ -23,8 +23,8 @@ namespace QuikGraph.MSAGL.Tests
         [Test]
         public void Constructor_Throws()
         {
-            var edge = new Edge<int>(1, 2);
-            var msaglEdge = new Edge(new Node("1"), new Node("2"), ConnectionToGraph.Disconnected);
+            var edge = Edge.Create(1, 2);
+            var msaglEdge = new Microsoft.Msagl.Drawing.Edge(new Node("1"), new Node("2"), ConnectionToGraph.Disconnected);
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute

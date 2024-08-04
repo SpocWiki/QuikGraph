@@ -15,7 +15,6 @@ namespace QuikGraph.Tests.Algorithms.Condensation
     [TestFixture]
     internal sealed class EdgeMergeCondensationGraphAlgorithmTests
     {
-        #region Test helpers
 
         private static void RunEdgesCondensationAndCheck<TVertex, TEdge>(
             [NotNull] IBidirectionalGraph<TVertex, TEdge> graph,
@@ -39,8 +38,6 @@ namespace QuikGraph.Tests.Algorithms.Condensation
                 Assert.Contains(edge.Edges.Last().Target, vertices);
             }
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -101,23 +98,23 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             [UsedImplicitly]
             get
             {
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge23 = new Edge<int>(2, 3);
-                var edge42 = new Edge<int>(4, 2);
-                var edge43 = new Edge<int>(4, 3);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge23 = Edge.Create(2, 3);
+                var edge42 = Edge.Create(4, 2);
+                var edge43 = Edge.Create(4, 3);
 
-                var edge45 = new Edge<int>(4, 5);
+                var edge45 = Edge.Create(4, 5);
 
-                var edge56 = new Edge<int>(5, 6);
-                var edge57 = new Edge<int>(5, 7);
-                var edge76 = new Edge<int>(7, 6);
+                var edge56 = Edge.Create(5, 6);
+                var edge57 = Edge.Create(5, 7);
+                var edge76 = Edge.Create(7, 6);
 
-                var edge71 = new Edge<int>(7, 1);
+                var edge71 = Edge.Create(7, 1);
 
-                var edge89 = new Edge<int>(8, 9);
+                var edge89 = Edge.Create(8, 9);
 
-                var edge82 = new Edge<int>(8, 2);
+                var edge82 = Edge.Create(8, 2);
 
                 var graph1 = new BidirectionalGraph<int, Edge<int>>();
                 graph1.AddVerticesAndEdgeRange(new[]
@@ -155,25 +152,25 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void EdgeCondensationSomeVertices()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge38 = new Edge<int>(3, 8);
-            var edge42 = new Edge<int>(4, 2);
-            var edge43 = new Edge<int>(4, 3);
-            var edge44 = new Edge<int>(4, 4);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge38 = Edge.Create(3, 8);
+            var edge42 = Edge.Create(4, 2);
+            var edge43 = Edge.Create(4, 3);
+            var edge44 = Edge.Create(4, 4);
 
-            var edge45 = new Edge<int>(4, 5);
+            var edge45 = Edge.Create(4, 5);
 
-            var edge56 = new Edge<int>(5, 6);
-            var edge57 = new Edge<int>(5, 7);
-            var edge76 = new Edge<int>(7, 6);
+            var edge56 = Edge.Create(5, 6);
+            var edge57 = Edge.Create(5, 7);
+            var edge76 = Edge.Create(7, 6);
 
-            var edge71 = new Edge<int>(7, 1);
+            var edge71 = Edge.Create(7, 1);
 
-            var edge89 = new Edge<int>(8, 9);
+            var edge89 = Edge.Create(8, 9);
 
-            var edge82 = new Edge<int>(8, 2);
+            var edge82 = Edge.Create(8, 2);
 
             var graph = new BidirectionalGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]

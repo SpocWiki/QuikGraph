@@ -34,9 +34,9 @@ namespace QuikGraph.Tests.Predicates
             var predicate = new ResidualEdgePredicate<int, Edge<int>>(
                 new Dictionary<Edge<int>, double>());
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge31 = new Edge<int>(3, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge31 = Edge.Create(3, 1);
             predicate.ResidualCapacities.Add(edge12, -12);
             predicate.ResidualCapacities.Add(edge13, 0);
             predicate.ResidualCapacities.Add(edge31, 1);
@@ -56,7 +56,7 @@ namespace QuikGraph.Tests.Predicates
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => predicate.Test(null));
 
-            var edge12 = new Edge<int>(1, 2);
+            var edge12 = Edge.Create(1, 2);
             Assert.Throws<KeyNotFoundException>(() => predicate.Test(edge12));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }

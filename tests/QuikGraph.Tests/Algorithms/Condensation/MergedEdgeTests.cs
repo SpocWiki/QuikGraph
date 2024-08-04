@@ -45,7 +45,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             var edge = new MergedEdge<int, Edge<int>>(1, 2);
             CollectionAssert.IsEmpty(edge.Edges);
 
-            var subEdge1 = new Edge<int>(1, 2);
+            var subEdge1 = Edge.Create(1, 2);
             edge.Edges.Add(subEdge1);
             CollectionAssert.AreEqual(new[] { subEdge1 }, edge.Edges);
 
@@ -65,9 +65,9 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         {
             var emptyEdge1 = new MergedEdge<int, Edge<int>>(1, 2);
             var emptyEdge2 = new MergedEdge<int, Edge<int>>(1, 2);
-            var subEdge1 = new Edge<int>(1, 2);
-            var subEdge2 = new Edge<int>(1, 2);
-            var subEdge3 = new Edge<int>(1, 2);
+            var subEdge1 = Edge.Create(1, 2);
+            var subEdge2 = Edge.Create(1, 2);
+            var subEdge3 = Edge.Create(1, 2);
             var edge1 = new MergedEdge<int, Edge<int>>(1, 2);
             edge1.Edges.Add(subEdge1);
             var edge2 = new MergedEdge<int, Edge<int>>(1, 2);

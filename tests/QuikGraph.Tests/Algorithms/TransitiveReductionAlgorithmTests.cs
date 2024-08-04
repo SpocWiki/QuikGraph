@@ -84,14 +84,14 @@ namespace QuikGraph.Tests.Algorithms
         public void TransitiveReduction_ReferenceType()
         {
             // Test 1
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge15 = new Edge<int>(1, 5);
-            var edge24 = new Edge<int>(2, 4);
-            var edge34 = new Edge<int>(3, 4);
-            var edge35 = new Edge<int>(3, 5);
-            var edge45 = new Edge<int>(4, 5);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge15 = Edge.Create(1, 5);
+            var edge24 = Edge.Create(2, 4);
+            var edge34 = Edge.Create(3, 4);
+            var edge35 = Edge.Create(3, 5);
+            var edge45 = Edge.Create(4, 5);
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
@@ -106,14 +106,14 @@ namespace QuikGraph.Tests.Algorithms
                 new[] { edge12, edge13, edge24, edge34, edge45 });
 
             // Test 2
-            var edge01 = new Edge<int>(0, 1);
-            var edge02 = new Edge<int>(0, 2);
-            var edge03 = new Edge<int>(0, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge25 = new Edge<int>(2, 5);
-            var edge65 = new Edge<int>(6, 5);
-            var edge67 = new Edge<int>(6, 7);
-            var edge74 = new Edge<int>(7, 4);
+            var edge01 = Edge.Create(0, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge03 = Edge.Create(0, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge25 = Edge.Create(2, 5);
+            var edge65 = Edge.Create(6, 5);
+            var edge67 = Edge.Create(6, 7);
+            var edge74 = Edge.Create(7, 4);
             graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {

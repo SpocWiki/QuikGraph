@@ -21,9 +21,9 @@ namespace QuikGraph.Graphviz.Tests
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 1)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(3, 1)
             });
             graph.AddVertexRange(new[] { 4, 5 });
 
@@ -52,13 +52,13 @@ namespace QuikGraph.Graphviz.Tests
                 {
                     if (vertex == 1)
                     {
-                        outEdges = new[] { new Edge<int>(1, 2), new Edge<int>(1, 3) };
+                        outEdges = new[] { Edge.Create(1, 2), Edge.Create(1, 3) };
                         return true;
                     }
 
                     if (vertex == 2)
                     {
-                        outEdges = new[] { new Edge<int>(2, 4) };
+                        outEdges = new[] { Edge.Create(2, 4) };
                         return true;
                     }
 
@@ -138,9 +138,9 @@ namespace QuikGraph.Graphviz.Tests
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 1)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(3, 1)
             });
             graph.AddVertexRange(new[] { 4, 5 });
 
@@ -176,20 +176,20 @@ namespace QuikGraph.Graphviz.Tests
             var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
             wrappedGraph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 4)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 4)
             });
             wrappedGraph.AddVertex(5);
             var clusteredGraph = new ClusteredAdjacencyGraph<int, Edge<int>>(wrappedGraph);
             ClusteredAdjacencyGraph<int, Edge<int>> subGraph1 = clusteredGraph.AddCluster();
             subGraph1.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(6, 7),
-                new Edge<int>(7, 8)
+                Edge.Create(6, 7),
+                Edge.Create(7, 8)
             });
             ClusteredAdjacencyGraph<int, Edge<int>> subGraph2 = clusteredGraph.AddCluster();
-            subGraph2.AddVerticesAndEdge(new Edge<int>(9, 10));
+            subGraph2.AddVerticesAndEdge(Edge.Create(9, 10));
             subGraph2.AddVertex(11);
 
             string expectedDot =
@@ -236,9 +236,9 @@ namespace QuikGraph.Graphviz.Tests
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 4)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 4)
             });
             graph.AddVertex(5);
 
@@ -277,9 +277,9 @@ namespace QuikGraph.Graphviz.Tests
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 4)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 4)
             });
             graph.AddVertex(5);
 
@@ -336,9 +336,9 @@ namespace QuikGraph.Graphviz.Tests
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 4)
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 4)
             });
             graph.AddVertex(5);
 
@@ -503,9 +503,9 @@ namespace QuikGraph.Graphviz.Tests
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 1)
+                Edge.Create(1, 2),
+                Edge.Create(2, 3),
+                Edge.Create(3, 1)
             });
             graph.AddVertexRange(new[] { 4, 5 });
             return graph;

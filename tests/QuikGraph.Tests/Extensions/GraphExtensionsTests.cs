@@ -28,8 +28,8 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<VertexNotFoundException>(() => graph.OutEdges(1));
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             tryGetEdges =
                 (int vertex, out IEnumerable<Edge<int>> outEdges) =>
                 {
@@ -117,8 +117,8 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<VertexNotFoundException>(() => graph.OutEdges(1));
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             getEdges =
                 vertex =>
                 {
@@ -188,8 +188,8 @@ namespace QuikGraph.Tests.Extensions
             >();
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             dictionary.Add(1, new[] { edge12 });
             AssertHasVertices(graph, new[] { 1 });
             AssertNoEdge(graph);    // Vertex 2 is not in graph, so edge is skipped
@@ -224,8 +224,8 @@ namespace QuikGraph.Tests.Extensions
             DelegateVertexAndEdgeListGraph<int, Edge<int>> graph = dictionary.ToDelegateVertexAndEdgeListGraph(_ => Enumerable.Empty<Edge<int>>());
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             graph = dictionary.ToDelegateVertexAndEdgeListGraph(pair =>
             {
                 if (pair.Value == 1)
@@ -281,8 +281,8 @@ namespace QuikGraph.Tests.Extensions
                 });
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             graph = vertices.ToDelegateVertexAndEdgeListGraph(
                 (int vertex, out IEnumerable<Edge<int>> outEdges) =>
                 {
@@ -384,8 +384,8 @@ namespace QuikGraph.Tests.Extensions
             DelegateVertexAndEdgeListGraph<int, Edge<int>> graph = vertices.ToDelegateVertexAndEdgeListGraph<int, Edge<int>>(_ => null);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             graph = vertices.ToDelegateVertexAndEdgeListGraph(
                 vertex =>
                 {
@@ -476,7 +476,7 @@ namespace QuikGraph.Tests.Extensions
             Assert.Throws<VertexNotFoundException>(() => graph.InEdges(1));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
-            var edge12 = new Edge<int>(1, 2);
+            var edge12 = Edge.Create(1, 2);
             tryGetOutEdges =
                 (int vertex, out IEnumerable<Edge<int>> outEdges) =>
                 {
@@ -520,8 +520,8 @@ namespace QuikGraph.Tests.Extensions
             AssertHasInEdges(graph, 2, new[] { edge12 });
 
             // Graph can evolve based on the delegate
-            var edge21 = new Edge<int>(2, 1);
-            var edge23 = new Edge<int>(2, 3);
+            var edge21 = Edge.Create(2, 1);
+            var edge23 = Edge.Create(2, 3);
             tryGetOutEdges =
                 (int vertex, out IEnumerable<Edge<int>> outEdges) =>
                 {
@@ -621,8 +621,8 @@ namespace QuikGraph.Tests.Extensions
                 });
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             graph = vertices.ToDelegateUndirectedGraph(
                 (int vertex, out IEnumerable<Edge<int>> adjacentEdges) =>
                 {
@@ -649,7 +649,7 @@ namespace QuikGraph.Tests.Extensions
 
             // Graph can evolve based on the delegate
             vertices.Add(3);
-            var edge23 = new Edge<int>(2, 3);
+            var edge23 = Edge.Create(2, 3);
             graph = vertices.ToDelegateUndirectedGraph(
                 (int vertex, out IEnumerable<Edge<int>> adjacentEdges) =>
                 {
@@ -710,8 +710,8 @@ namespace QuikGraph.Tests.Extensions
             DelegateUndirectedGraph<int, Edge<int>> graph = vertices.ToDelegateUndirectedGraph<int, Edge<int>>(_ => null);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             graph = vertices.ToDelegateUndirectedGraph(
                 vertex =>
                 {
@@ -733,7 +733,7 @@ namespace QuikGraph.Tests.Extensions
 
             // Graph can evolve based on the delegate
             vertices.Add(3);
-            var edge23 = new Edge<int>(2, 3);
+            var edge23 = Edge.Create(2, 3);
             graph = vertices.ToDelegateUndirectedGraph(
                 vertex =>
                 {
@@ -842,15 +842,15 @@ namespace QuikGraph.Tests.Extensions
             graph = edges.ToAdjacencyGraph<int, Edge<int>>(false);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             edges.AddRange(new[] { edge12, edge21 });
             graph = edges.ToAdjacencyGraph<int, Edge<int>>();
             AssertHasVertices(graph, new[] { 1, 2 });
             AssertHasEdges(graph, new[] { edge12, edge21 });
 
             // Graph cannot dynamically evolve
-            var edge12Bis = new Edge<int>(1, 2);
+            var edge12Bis = Edge.Create(1, 2);
             edges.Add(edge12Bis);
             AssertHasVertices(graph, new[] { 1, 2 });
             AssertHasEdges(graph, new[] { edge12, edge21 });
@@ -914,9 +914,9 @@ namespace QuikGraph.Tests.Extensions
                 false);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge12Bis = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge12Bis = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             vertices.AddRange(new[] { 1, 2 });
             graph = vertices.ToAdjacencyGraph(
                 vertex =>
@@ -974,8 +974,8 @@ namespace QuikGraph.Tests.Extensions
             ArrayAdjacencyGraph<int, Edge<int>> graph = wrappedGraph.ToArrayAdjacencyGraph();
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
             graph = wrappedGraph.ToArrayAdjacencyGraph();
             AssertHasVertices(graph, new[] { 1, 2, 3 });
@@ -1003,9 +1003,9 @@ namespace QuikGraph.Tests.Extensions
             AssertEmptyGraph(graph);
             Assert.AreSame(initialGraph2, graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
+            var edge23 = Edge.Create(2, 3);
 
             // Graph can dynamically evolve but it will not work when dealing with in-edges
             // stuff when the initial is not a bidirectional graph
@@ -1054,15 +1054,15 @@ namespace QuikGraph.Tests.Extensions
             graph = edges.ToBidirectionalGraph<int, Edge<int>>(false);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             edges.AddRange(new[] { edge12, edge21 });
             graph = edges.ToBidirectionalGraph<int, Edge<int>>();
             AssertHasVertices(graph, new[] { 1, 2 });
             AssertHasEdges(graph, new[] { edge12, edge21 });
 
             // Graph cannot dynamically evolve
-            var edge12Bis = new Edge<int>(1, 2);
+            var edge12Bis = Edge.Create(1, 2);
             edges.Add(edge12Bis);
             AssertHasVertices(graph, new[] { 1, 2 });
             AssertHasEdges(graph, new[] { edge12, edge21 });
@@ -1126,9 +1126,9 @@ namespace QuikGraph.Tests.Extensions
                 false);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge12Bis = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge12Bis = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             vertices.AddRange(new[]{ 1, 2 });
             graph = vertices.ToBidirectionalGraph(
                 vertex =>
@@ -1186,9 +1186,9 @@ namespace QuikGraph.Tests.Extensions
             BidirectionalGraph<int, Edge<int>> graph = initialGraph.ToBidirectionalGraph();
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
+            var edge23 = Edge.Create(2, 3);
 
             // Graph cannot dynamically evolve
             initialGraph.AddVerticesAndEdgeRange(new[] { edge12, edge21 });
@@ -1221,8 +1221,8 @@ namespace QuikGraph.Tests.Extensions
             ArrayBidirectionalGraph<int, Edge<int>> graph = wrappedGraph.ToArrayBidirectionalGraph();
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
             graph = wrappedGraph.ToArrayBidirectionalGraph();
             AssertHasVertices(graph, new[] { 1, 2, 3 });
@@ -1248,15 +1248,15 @@ namespace QuikGraph.Tests.Extensions
             graph = edges.ToUndirectedGraph<int, Edge<int>>(false);
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge21 = new Edge<int>(2, 1);
+            var edge12 = Edge.Create(1, 2);
+            var edge21 = Edge.Create(2, 1);
             edges.AddRange(new[] { edge12, edge21 });
             graph = edges.ToUndirectedGraph<int, Edge<int>>();
             AssertHasVertices(graph, new[] { 1, 2 });
             AssertHasEdges(graph, new[] { edge12, edge21 });
 
             // Graph cannot dynamically evolve
-            var edge12Bis = new Edge<int>(1, 2);
+            var edge12Bis = Edge.Create(1, 2);
             edges.Add(edge12Bis);
             AssertHasVertices(graph, new[] { 1, 2 });
             AssertHasEdges(graph, new[] { edge12, edge21 });
@@ -1314,8 +1314,8 @@ namespace QuikGraph.Tests.Extensions
             ArrayUndirectedGraph<int, Edge<int>> graph = wrappedGraph.ToArrayUndirectedGraph();
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
             graph = wrappedGraph.ToArrayUndirectedGraph();
             AssertHasVertices(graph, new[] { 1, 2, 3 });
@@ -1338,8 +1338,8 @@ namespace QuikGraph.Tests.Extensions
             CompressedSparseRowGraph<int> graph = wrappedGraph.ToCompressedRowGraph();
             AssertEmptyGraph(graph);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
             graph = wrappedGraph.ToCompressedRowGraph();
             AssertHasVertices(graph, new[] { 1, 2, 3 });

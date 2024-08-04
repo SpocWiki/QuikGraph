@@ -233,7 +233,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void GetVertexColor()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
 
             var algorithm = new DijkstraShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1.0);
             algorithm.Compute(1);
@@ -256,9 +256,9 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void Dijkstra_Throws()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
-            var edge34 = new Edge<int>(3, 4);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
+            var edge34 = Edge.Create(3, 4);
 
             var negativeWeightGraph = new AdjacencyGraph<int, Edge<int>>();
             negativeWeightGraph.AddVerticesAndEdgeRange(new[]
@@ -392,8 +392,8 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             graph.AddVertex(2);
             graph.AddVertex(3);
 
-            graph.AddEdge(new Edge<int>(1, 2));
-            graph.AddEdge(new Edge<int>(2, 3));
+            graph.AddEdge(Edge.Create(1, 2));
+            graph.AddEdge(Edge.Create(2, 3));
 
             var algorithm = new DijkstraShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1);
             algorithm.Compute(1);
@@ -411,8 +411,8 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             graph.AddVertex(2);
             graph.AddVertex(3);
 
-            var e12 = new Edge<int>(1, 2); graph.AddEdge(e12);
-            var e23 = new Edge<int>(2, 3); graph.AddEdge(e23);
+            var e12 = Edge.Create(1, 2); graph.AddEdge(e12);
+            var e23 = Edge.Create(2, 3); graph.AddEdge(e23);
 
             var algorithm = new DijkstraShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1);
             var vis = new VertexPredecessorRecorderObserver<int, Edge<int>>();
@@ -439,9 +439,9 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             graph.AddVertex(2);
             graph.AddVertex(3);
 
-            var e12 = new Edge<int>(1, 2); graph.AddEdge(e12);
-            var e23 = new Edge<int>(2, 3); graph.AddEdge(e23);
-            var e13 = new Edge<int>(1, 3); graph.AddEdge(e13);
+            var e12 = Edge.Create(1, 2); graph.AddEdge(e12);
+            var e23 = Edge.Create(2, 3); graph.AddEdge(e23);
+            var e13 = Edge.Create(1, 3); graph.AddEdge(e13);
 
             var algorithm = new DijkstraShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1);
             algorithm.Compute(1);
@@ -459,9 +459,9 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             graph.AddVertex(2);
             graph.AddVertex(3);
 
-            var e12 = new Edge<int>(1, 2); graph.AddEdge(e12);
-            var e23 = new Edge<int>(2, 3); graph.AddEdge(e23);
-            var e13 = new Edge<int>(1, 3); graph.AddEdge(e13);
+            var e12 = Edge.Create(1, 2); graph.AddEdge(e12);
+            var e23 = Edge.Create(2, 3); graph.AddEdge(e23);
+            var e13 = Edge.Create(1, 3); graph.AddEdge(e13);
 
             var algorithm = new DijkstraShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1);
             var vis = new VertexPredecessorRecorderObserver<int, Edge<int>>();

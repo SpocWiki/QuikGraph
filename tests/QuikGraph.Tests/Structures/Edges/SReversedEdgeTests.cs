@@ -13,9 +13,9 @@ namespace QuikGraph.Tests.Structures
         public void Construction()
         {
             // Value type
-            CheckEdge(new SReversedEdge<int, Edge<int>>(new Edge<int>(1, 2)), 2, 1);
-            CheckEdge(new SReversedEdge<int, Edge<int>>(new Edge<int>(2, 1)), 1, 2);
-            CheckEdge(new SReversedEdge<int, Edge<int>>(new Edge<int>(1, 1)), 1, 1);
+            CheckEdge(new SReversedEdge<int, Edge<int>>(Edge.Create(1, 2)), 2, 1);
+            CheckEdge(new SReversedEdge<int, Edge<int>>(Edge.Create(2, 1)), 1, 2);
+            CheckEdge(new SReversedEdge<int, Edge<int>>(Edge.Create(1, 1)), 1, 1);
 
             // Struct break the contract with their implicit default constructor
             var defaultEdge = default(SReversedEdge<int, Edge<int>>);
@@ -56,11 +56,11 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Equals()
         {
-            var wrappedEdge = new Edge<int>(1, 2);
+            var wrappedEdge = Edge.Create(1, 2);
             var edge1 = new SReversedEdge<int, Edge<int>>(wrappedEdge);
             var edge2 = new SReversedEdge<int, Edge<int>>(wrappedEdge);
-            var edge3 = new SReversedEdge<int, Edge<int>>(new Edge<int>(1, 2));
-            var edge4 = new SReversedEdge<int, Edge<int>>(new Edge<int>(2, 1));
+            var edge3 = new SReversedEdge<int, Edge<int>>(Edge.Create(1, 2));
+            var edge4 = new SReversedEdge<int, Edge<int>>(Edge.Create(2, 1));
 
             Assert.AreEqual(edge1, edge1);
 
@@ -117,11 +117,11 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Hashcode()
         {
-            var wrappedEdge = new Edge<int>(1, 2);
+            var wrappedEdge = Edge.Create(1, 2);
             var edge1 = new SReversedEdge<int, Edge<int>>(wrappedEdge);
             var edge2 = new SReversedEdge<int, Edge<int>>(wrappedEdge);
-            var edge3 = new SReversedEdge<int, Edge<int>>(new Edge<int>(1, 2));
-            var edge4 = new SReversedEdge<int, Edge<int>>(new Edge<int>(2, 1));
+            var edge3 = new SReversedEdge<int, Edge<int>>(Edge.Create(1, 2));
+            var edge4 = new SReversedEdge<int, Edge<int>>(Edge.Create(2, 1));
 
             Assert.AreEqual(edge1.GetHashCode(), edge2.GetHashCode());
             Assert.AreNotEqual(edge1.GetHashCode(), edge3.GetHashCode());
@@ -140,8 +140,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ObjectToString()
         {
-            var edge1 = new SReversedEdge<int, Edge<int>>(new Edge<int>(1, 2));
-            var edge2 = new SReversedEdge<int, Edge<int>>(new Edge<int>(2, 1));
+            var edge1 = new SReversedEdge<int, Edge<int>>(Edge.Create(1, 2));
+            var edge2 = new SReversedEdge<int, Edge<int>>(Edge.Create(2, 1));
             var edge3 = new SReversedEdge<int, UndirectedEdge<int>>(new UndirectedEdge<int>(1, 2));
 
             Assert.AreEqual("R(1 -> 2)", edge1.ToString());

@@ -374,7 +374,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             int i = 0;
             for (; i + 2 < data.Length; i += 3)
             {
-                var edge = new Edge<int>(data[i + 0], data[i + 1]);
+                var edge = Edge.Create(data[i + 0], data[i + 1]);
                 graph.AddVerticesAndEdge(edge);
                 weights[edge] = data[i + 2];
             }

@@ -124,8 +124,8 @@ namespace QuikGraph.Serialization.Tests
                 graph.Vertices);
             CollectionAssert.IsEmpty(graph.Edges);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge22 = new Edge<int>(2, 2);
+            var edge12 = Edge.Create(1, 2);
+            var edge22 = Edge.Create(2, 2);
             var edges = new XmlSerializableGraph<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>.XmlEdgeList(wrappedGraph)
             {
                 edge12, edge22
@@ -157,8 +157,8 @@ namespace QuikGraph.Serialization.Tests
 
             CollectionAssert.IsEmpty(vertexList);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge22 = new Edge<int>(2, 2);
+            var edge12 = Edge.Create(1, 2);
+            var edge22 = Edge.Create(2, 2);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge22 });
 
             CollectionAssert.AreEqual(
@@ -221,8 +221,8 @@ namespace QuikGraph.Serialization.Tests
 
             CollectionAssert.IsEmpty(edgeList);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge22 = new Edge<int>(2, 2);
+            var edge12 = Edge.Create(1, 2);
+            var edge22 = Edge.Create(2, 2);
             graph.AddVerticesAndEdgeRange(new[] { edge12, edge22 });
 
             CollectionAssert.AreEqual(
@@ -255,14 +255,14 @@ namespace QuikGraph.Serialization.Tests
             
             CollectionAssert.IsEmpty(edgeList);
 
-            var edge12 = new Edge<int>(1, 2);
+            var edge12 = Edge.Create(1, 2);
             edgeList.Add(edge12);
 
             CollectionAssert.AreEqual(
                 new[] { edge12 },
                 edgeList);
 
-            var edge22 = new Edge<int>(2, 2);
+            var edge22 = Edge.Create(2, 2);
             edgeList.Add(edge22);
 
             CollectionAssert.AreEqual(

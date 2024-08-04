@@ -6,7 +6,7 @@ using QuikGraph.Algorithms.ConnectedComponents;
 namespace QuikGraph.Algorithms.Condensation
 {
     /// <summary>
-    /// Algorithm that condensate a graph with strongly (or not) components.
+    /// Algorithm that condensate a graph with strongly (or not) connected components.
     /// </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>

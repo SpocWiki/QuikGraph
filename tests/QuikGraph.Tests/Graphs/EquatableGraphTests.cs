@@ -112,7 +112,7 @@ namespace QuikGraph.Tests.Structures
                     ExpectedResult = true
                 };
 
-                var edge12 = new Edge<int>(1, 2);
+                var edge12 = Edge.Create(1, 2);
                 var adjacencyGraph3 = new AdjacencyGraph<int, Edge<int>>();
                 adjacencyGraph3.AddVerticesAndEdge(edge12);
 
@@ -152,7 +152,7 @@ namespace QuikGraph.Tests.Structures
                     ExpectedResult = false
                 };
 
-                var edge12Bis = new Edge<int>(1, 2);
+                var edge12Bis = Edge.Create(1, 2);
                 var adjacencyGraph6 = new AdjacencyGraph<int, Edge<int>>();
                 adjacencyGraph6.AddVerticesAndEdge(edge12Bis);
 
@@ -166,7 +166,7 @@ namespace QuikGraph.Tests.Structures
                     ExpectedResult = true
                 };
 
-                var edge13 = new Edge<int>(1, 3);
+                var edge13 = Edge.Create(1, 3);
                 var adjacencyGraph7 = new AdjacencyGraph<int, Edge<int>>();
                 adjacencyGraph7.AddVerticesAndEdge(edge13);
 
@@ -298,8 +298,8 @@ namespace QuikGraph.Tests.Structures
 
                 #region Graph not constructed the same way
 
-                var edge34 = new Edge<int>(3, 4);
-                var edge42 = new Edge<int>(4, 2);
+                var edge34 = Edge.Create(3, 4);
+                var edge42 = Edge.Create(4, 2);
                 var adjacencyGraph8 = new AdjacencyGraph<int, Edge<int>>();
                 adjacencyGraph8.AddVertex(1);
                 adjacencyGraph8.AddVertex(6);
@@ -587,8 +587,8 @@ namespace QuikGraph.Tests.Structures
                     ExpectedResult = false
                 };
 
-                var edge21 = new Edge<int>(2, 1);
-                var edge43 = new Edge<int>(4, 3);
+                var edge21 = Edge.Create(2, 1);
+                var edge43 = Edge.Create(4, 3);
                 var adjacencyGraph10 = new AdjacencyGraph<int, Edge<int>>();
                 adjacencyGraph10.AddVertexRange(new[] { 0, 1, 2, 3, 4 });
                 adjacencyGraph10.AddEdgeRange(new[] { edge12, edge21, edge34, edge43 });
@@ -798,7 +798,7 @@ namespace QuikGraph.Tests.Structures
                     ExpectedResult = true
                 };
 
-                var edge12 = new Edge<int>(1, 2);
+                var edge12 = Edge.Create(1, 2);
                 var adjacencyGraph3 = new AdjacencyGraph<int, Edge<int>>();
                 adjacencyGraph3.AddVerticesAndEdge(edge12);
 
@@ -838,7 +838,7 @@ namespace QuikGraph.Tests.Structures
                     ExpectedResult = false
                 };
 
-                var edge12Bis = new Edge<int>(1, 2);
+                var edge12Bis = Edge.Create(1, 2);
                 var adjacencyGraph6 = new AdjacencyGraph<int, Edge<int>>();
                 adjacencyGraph6.AddVerticesAndEdge(edge12Bis);
 
@@ -957,8 +957,8 @@ namespace QuikGraph.Tests.Structures
 
                 #region Graph not constructed the same way
 
-                var edge34 = new Edge<int>(3, 4);
-                var edge42 = new Edge<int>(4, 2);
+                var edge34 = Edge.Create(3, 4);
+                var edge42 = Edge.Create(4, 2);
                 var adjacencyGraph7 = new AdjacencyGraph<int, Edge<int>>();
                 adjacencyGraph7.AddVertex(1);
                 adjacencyGraph7.AddVertex(6);
@@ -1246,8 +1246,8 @@ namespace QuikGraph.Tests.Structures
                     ExpectedResult = false
                 };
 
-                var edge21 = new Edge<int>(2, 1);
-                var edge43 = new Edge<int>(4, 3);
+                var edge21 = Edge.Create(2, 1);
+                var edge43 = Edge.Create(4, 3);
                 var adjacencyGraph9 = new AdjacencyGraph<int, Edge<int>>();
                 adjacencyGraph9.AddVertexRange(new[] { 0, 1, 2, 3, 4 });
                 adjacencyGraph9.AddEdgeRange(new[] { edge12, edge21, edge34, edge43 });
@@ -1372,8 +1372,8 @@ namespace QuikGraph.Tests.Structures
             [UsedImplicitly]
             get
             {
-                var edge12 = new Edge<int>(1, 2);
-                var edge34 = new Edge<int>(3, 4);
+                var edge12 = Edge.Create(1, 2);
+                var edge34 = Edge.Create(3, 4);
 
                 var bidirectionalGraph1 = new BidirectionalGraph<int, Edge<int>>();
                 bidirectionalGraph1.AddVertexRange(new[] { 0, 1, 2, 3, 4 });

@@ -113,23 +113,23 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void OneWeaklyConnectedComponent()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge42 = new Edge<int>(4, 2);
-            var edge43 = new Edge<int>(4, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge42 = Edge.Create(4, 2);
+            var edge43 = Edge.Create(4, 3);
 
-            var edge45 = new Edge<int>(4, 5);
+            var edge45 = Edge.Create(4, 5);
 
-            var edge56 = new Edge<int>(5, 6);
-            var edge57 = new Edge<int>(5, 7);
-            var edge76 = new Edge<int>(7, 6);
+            var edge56 = Edge.Create(5, 6);
+            var edge57 = Edge.Create(5, 7);
+            var edge76 = Edge.Create(7, 6);
 
-            var edge71 = new Edge<int>(7, 1);
+            var edge71 = Edge.Create(7, 1);
 
-            var edge89 = new Edge<int>(8, 9);
+            var edge89 = Edge.Create(8, 9);
 
-            var edge82 = new Edge<int>(8, 2);
+            var edge82 = Edge.Create(8, 2);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -151,17 +151,17 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void MultipleWeaklyConnectedComponents()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge42 = new Edge<int>(4, 2);
-            var edge43 = new Edge<int>(4, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge42 = Edge.Create(4, 2);
+            var edge43 = Edge.Create(4, 3);
 
-            var edge56 = new Edge<int>(5, 6);
-            var edge57 = new Edge<int>(5, 7);
-            var edge76 = new Edge<int>(7, 6);
+            var edge56 = Edge.Create(5, 6);
+            var edge57 = Edge.Create(5, 7);
+            var edge76 = Edge.Create(7, 6);
 
-            var edge89 = new Edge<int>(8, 9);
+            var edge89 = Edge.Create(8, 9);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]

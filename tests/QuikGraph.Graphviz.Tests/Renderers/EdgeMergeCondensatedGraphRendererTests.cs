@@ -48,17 +48,17 @@ namespace QuikGraph.Graphviz.Tests
                 graph = new AdjacencyGraph<int, MergedEdge<int, Edge<int>>>();
                 graph.AddVertexRange(new[] { 4, 8 });
 
-                var edge12 = new Edge<int>(1, 2);
-                var edge13 = new Edge<int>(1, 3);
-                var edge23 = new Edge<int>(2, 3);
-                var edge38 = new Edge<int>(3, 8);
-                var edge42 = new Edge<int>(4, 2);
-                var edge43 = new Edge<int>(4, 3);
-                var edge44 = new Edge<int>(4, 4);
-                var edge45 = new Edge<int>(4, 5);
-                var edge57 = new Edge<int>(5, 7);
-                var edge71 = new Edge<int>(7, 1);
-                var edge82 = new Edge<int>(8, 2);
+                var edge12 = Edge.Create(1, 2);
+                var edge13 = Edge.Create(1, 3);
+                var edge23 = Edge.Create(2, 3);
+                var edge38 = Edge.Create(3, 8);
+                var edge42 = Edge.Create(4, 2);
+                var edge43 = Edge.Create(4, 3);
+                var edge44 = Edge.Create(4, 4);
+                var edge45 = Edge.Create(4, 5);
+                var edge57 = Edge.Create(5, 7);
+                var edge71 = Edge.Create(7, 1);
+                var edge82 = Edge.Create(8, 2);
 
                 var mergeEdge1 = new MergedEdge<int, Edge<int>>(8, 8);
                 mergeEdge1.Edges.Add(edge82);

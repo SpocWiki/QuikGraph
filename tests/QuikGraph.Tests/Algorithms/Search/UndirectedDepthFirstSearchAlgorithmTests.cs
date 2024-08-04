@@ -263,7 +263,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void GetVertexColor()
         {
             var graph = new UndirectedGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
 
             var algorithm = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
             // Algorithm not run
@@ -294,15 +294,15 @@ namespace QuikGraph.Tests.Algorithms.Search
             var graph = new UndirectedGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(2, 1),
-                new Edge<int>(2, 4),
-                new Edge<int>(2, 5),
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(2, 1),
+                Edge.Create(2, 4),
+                Edge.Create(2, 5),
 
-                new Edge<int>(6, 7),
-                new Edge<int>(6, 8),
-                new Edge<int>(8, 6)
+                Edge.Create(6, 7),
+                Edge.Create(6, 8),
+                Edge.Create(8, 6)
             });
 
             var algorithm = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph)

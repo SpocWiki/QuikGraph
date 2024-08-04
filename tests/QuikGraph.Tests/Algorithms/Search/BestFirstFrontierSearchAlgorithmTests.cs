@@ -252,12 +252,12 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void SameStartAndEnd()
         {
             var graph = new BidirectionalGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdge(new Edge<int>(1, 3));
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
-            graph.AddVerticesAndEdge(new Edge<int>(2, 5));
-            graph.AddVerticesAndEdge(new Edge<int>(2, 4));
-            graph.AddVerticesAndEdge(new Edge<int>(5, 6));
-            graph.AddVerticesAndEdge(new Edge<int>(5, 7));
+            graph.AddVerticesAndEdge(Edge.Create(1, 3));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(2, 5));
+            graph.AddVerticesAndEdge(Edge.Create(2, 4));
+            graph.AddVerticesAndEdge(Edge.Create(5, 6));
+            graph.AddVerticesAndEdge(Edge.Create(5, 7));
 
             var algorithm = new BestFirstFrontierSearchAlgorithm<int, Edge<int>>(
                 graph, _ => 1.0, DistanceRelaxers.ShortestDistance);

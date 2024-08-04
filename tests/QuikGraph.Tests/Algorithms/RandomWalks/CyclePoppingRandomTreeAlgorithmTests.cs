@@ -234,7 +234,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         public void GetVertexColor()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
             var chain = new NormalizedMarkovEdgeChain<int, Edge<int>>();
 
             var algorithm = new CyclePoppingRandomTreeAlgorithm<int, Edge<int>>(graph, chain);
@@ -263,7 +263,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
                 for (int j = 0; j < 2; ++j)
                 {
                     graph.AddEdge(
-                        new Edge<int>(i * 3 + j, i * 3 + j + 1));
+                        Edge.Create(i * 3 + j, i * 3 + j + 1));
                 }
             }
 
@@ -273,13 +273,13 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
                 for (int j = 0; j < 3; ++j)
                 {
                     graph.AddEdge(
-                        new Edge<int>(i * 3 + j, (i + 1) * 3 + j));
+                        Edge.Create(i * 3 + j, (i + 1) * 3 + j));
                 }
             }
 
             // Create cross edges 
             foreach (Edge<int> edge in graph.Edges)
-                graph.AddEdge(new Edge<int>(edge.Target, edge.Source));
+                graph.AddEdge(Edge.Create(edge.Target, edge.Source));
 
             // Breaking graph apart
             for (int i = 0; i < 3; ++i)
@@ -312,10 +312,10 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(0, 1),
-                new Edge<int>(1, 0),
-                new Edge<int>(1, 2),
-                new Edge<int>(2, 1)
+                Edge.Create(0, 1),
+                Edge.Create(1, 0),
+                Edge.Create(1, 2),
+                Edge.Create(2, 1)
             });
 
             RunCyclePoppingRandomTreeAndCheck(graph, 0);
@@ -394,7 +394,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             AdjacencyGraph<int, Edge<int>> graph = new AdjacencyGraph<int, Edge<int>>(true);
             graph.AddVertex(0);
             graph.AddVertex(1);
-            graph.AddEdge(new Edge<int>(0, 1));
+            graph.AddEdge(Edge.Create(0, 1));
 
             var algorithm = new CyclePoppingRandomTreeAlgorithm<int, Edge<int>>(graph);
             algorithm.RandomTreeWithRoot(0);

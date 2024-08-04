@@ -14,10 +14,10 @@ namespace QuikGraph.Tests.Structures
         protected static void InEdge_Test(
             [NotNull] IMutableBidirectionalGraph<int, Edge<int>> graph)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge13 = new Edge<int>(1, 3);
-            var edge21 = new Edge<int>(2, 1);
-            var edge41 = new Edge<int>(4, 1);
+            var edge11 = Edge.Create(1, 1);
+            var edge13 = Edge.Create(1, 3);
+            var edge21 = Edge.Create(2, 1);
+            var edge41 = Edge.Create(4, 1);
 
             graph.AddVerticesAndEdgeRange(new[] { edge11, edge13, edge21, edge41 });
 
@@ -30,10 +30,10 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, Edge<int>>> createGraph)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge13 = new Edge<int>(1, 3);
-            var edge21 = new Edge<int>(2, 1);
-            var edge41 = new Edge<int>(4, 1);
+            var edge11 = Edge.Create(1, 1);
+            var edge13 = Edge.Create(1, 3);
+            var edge21 = Edge.Create(2, 1);
+            var edge41 = Edge.Create(4, 1);
 
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge13, edge21, edge41 });
             IBidirectionalIncidenceGraph<int, Edge<int>> graph = createGraph();
@@ -46,12 +46,12 @@ namespace QuikGraph.Tests.Structures
         protected static void InEdge_ImmutableVertices_Test(
             [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge14 = new Edge<int>(1, 4);
-            var edge21 = new Edge<int>(2, 1);
-            var edge31 = new Edge<int>(3, 1);
-            var edge33 = new Edge<int>(3, 3);
-            var edge42 = new Edge<int>(4, 2);
+            var edge11 = Edge.Create(1, 1);
+            var edge14 = Edge.Create(1, 4);
+            var edge21 = Edge.Create(2, 1);
+            var edge31 = Edge.Create(3, 1);
+            var edge33 = Edge.Create(3, 3);
+            var edge42 = Edge.Create(4, 2);
 
             graph.AddEdgeRange(new[] { edge11, edge14, edge21, edge31, edge33, edge42 });
 
@@ -66,10 +66,10 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
         {
-            var edge11 = new Edge<int>(1, 1);
-            var edge31 = new Edge<int>(3, 1);
-            var edge32 = new Edge<int>(3, 2);
-            var edge34 = new Edge<int>(3, 4);
+            var edge11 = Edge.Create(1, 1);
+            var edge31 = Edge.Create(3, 1);
+            var edge32 = Edge.Create(3, 2);
+            var edge34 = Edge.Create(3, 4);
 
             wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge31, edge32, edge34 });
             IBidirectionalIncidenceGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
@@ -102,7 +102,7 @@ namespace QuikGraph.Tests.Structures
             graph.AddVertex(vertex2);
             AssertIndexOutOfRange(() => graph.InEdge(vertex1, 0));
 
-            graph.AddEdge(new Edge<int>(1, 2));
+            graph.AddEdge(Edge.Create(1, 2));
             AssertIndexOutOfRange(() => graph.InEdge(vertex1, 5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -123,7 +123,7 @@ namespace QuikGraph.Tests.Structures
             graph1 = createGraph();
             AssertIndexOutOfRange(() => graph1.InEdge(vertex1, 0));
 
-            wrappedGraph.AddEdge(new Edge<int>(1, 2));
+            wrappedGraph.AddEdge(Edge.Create(1, 2));
             graph1 = createGraph();
             AssertIndexOutOfRange(() => graph1.InEdge(vertex1, 5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -136,7 +136,7 @@ namespace QuikGraph.Tests.Structures
             Assert.Throws<VertexNotFoundException>(() => graph.InEdge(-1, 0));
             Assert.Throws<VertexNotFoundException>(() => graph.InEdge(4, 0));
 
-            graph.AddEdge(new Edge<int>(2, 1));
+            graph.AddEdge(Edge.Create(2, 1));
             AssertIndexOutOfRange(() => graph.InEdge(1, 5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -157,7 +157,7 @@ namespace QuikGraph.Tests.Structures
             graph = createGraph();
             AssertIndexOutOfRange(() => graph.InEdge(vertex1, 0));
 
-            wrappedGraph.AddEdge(new Edge<int>(1, 2));
+            wrappedGraph.AddEdge(Edge.Create(1, 2));
             graph = createGraph();
             AssertIndexOutOfRange(() => graph.InEdge(vertex1, 5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -166,12 +166,12 @@ namespace QuikGraph.Tests.Structures
         protected static void InEdges_Test(
             [NotNull] IMutableBidirectionalGraph<int, Edge<int>> graph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge32 = new Edge<int>(3, 2);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge32 = Edge.Create(3, 2);
+            var edge33 = Edge.Create(3, 3);
 
             graph.AddVertex(1);
             AssertNoInEdge(graph, 1);
@@ -194,12 +194,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, Edge<int>>> createGraph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge24 = new Edge<int>(2, 4);
-            var edge32 = new Edge<int>(3, 2);
-            var edge33 = new Edge<int>(3, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge24 = Edge.Create(2, 4);
+            var edge32 = Edge.Create(3, 2);
+            var edge33 = Edge.Create(3, 3);
 
             wrappedGraph.AddVertex(1);
             IBidirectionalIncidenceGraph<int, Edge<int>> graph = createGraph();
@@ -223,12 +223,12 @@ namespace QuikGraph.Tests.Structures
         protected static void InEdges_ImmutableVertices_Test(
             [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
         {
-            var edge02 = new Edge<int>(0, 2);
-            var edge10 = new Edge<int>(1, 0);
-            var edge20 = new Edge<int>(2, 0);
-            var edge22 = new Edge<int>(2, 2);
-            var edge30 = new Edge<int>(3, 0);
-            var edge31 = new Edge<int>(3, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge10 = Edge.Create(1, 0);
+            var edge20 = Edge.Create(2, 0);
+            var edge22 = Edge.Create(2, 2);
+            var edge30 = Edge.Create(3, 0);
+            var edge31 = Edge.Create(3, 1);
 
             AssertNoInEdge(graph, 1);
 
@@ -244,12 +244,12 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge33 = new Edge<int>(3, 3);
-            var edge34 = new Edge<int>(3, 4);
-            var edge43 = new Edge<int>(4, 3);
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge33 = Edge.Create(3, 3);
+            var edge34 = Edge.Create(3, 4);
+            var edge43 = Edge.Create(4, 3);
 
             wrappedGraph.AddVertex(1);
             IBidirectionalIncidenceGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();

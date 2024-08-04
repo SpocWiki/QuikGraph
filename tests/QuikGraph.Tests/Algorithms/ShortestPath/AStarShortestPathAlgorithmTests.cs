@@ -278,7 +278,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void GetVertexColor()
         {
             var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
 
             var algorithm = new AStarShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1.0, _ => 0.0);
             algorithm.Compute(1);
@@ -301,9 +301,9 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void AStar_Throws()
         {
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
-            var edge34 = new Edge<int>(3, 4);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
+            var edge34 = Edge.Create(3, 4);
 
             var negativeWeightGraph = new AdjacencyGraph<int, Edge<int>>();
             negativeWeightGraph.AddVerticesAndEdgeRange(new[]
@@ -330,12 +330,12 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void AStar_HeuristicCalls()
         {
-            var edge01 = new Edge<int>(0, 1);
-            var edge02 = new Edge<int>(0, 2);
-            var edge03 = new Edge<int>(0, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge23 = new Edge<int>(2, 3);
-            var edge34 = new Edge<int>(3, 4);
+            var edge01 = Edge.Create(0, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge03 = Edge.Create(0, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge23 = Edge.Create(2, 3);
+            var edge34 = Edge.Create(3, 4);
 
             var graph = new AdjacencyGraph<int, Edge<int>>();
             graph.AddVerticesAndEdgeRange(new[]
@@ -393,10 +393,10 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             var lineGraph = new AdjacencyGraph<int, Edge<int>>();
             lineGraph.AddVerticesAndEdgeRange(new[]
             {
-                new Edge<int>(2, 3),
-                new Edge<int>(3, 4),
-                new Edge<int>(2, 1),
-                new Edge<int>(1, 0)
+                Edge.Create(2, 3),
+                Edge.Create(3, 4),
+                Edge.Create(2, 1),
+                Edge.Create(1, 0)
             });
 
             const int root = 2;

@@ -93,12 +93,12 @@ namespace QuikGraph.Tests.Algorithms.Observers
             {
                 var recorder = new UndirectedVertexDistanceRecorderObserver<int, Edge<int>>(_ => 1.0);
 
-                var edge12 = new Edge<int>(1, 2);
-                var edge14 = new Edge<int>(1, 4);
-                var edge31 = new Edge<int>(3, 1);
-                var edge33 = new Edge<int>(3, 3);
-                var edge34 = new Edge<int>(3, 4);
-                var edge42 = new Edge<int>(4, 2);
+                var edge12 = Edge.Create(1, 2);
+                var edge14 = Edge.Create(1, 4);
+                var edge31 = Edge.Create(3, 1);
+                var edge33 = Edge.Create(3, 3);
+                var edge34 = Edge.Create(3, 4);
+                var edge42 = Edge.Create(4, 2);
                 var graph = new UndirectedGraph<int, Edge<int>>();
                 graph.AddVerticesAndEdgeRange(new[]
                 {
