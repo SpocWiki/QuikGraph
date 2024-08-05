@@ -63,4 +63,7 @@
   <ItemGroup Condition="!$(UseQuikGraphDataNuget)">
     <ProjectReference Include="..\..\src\QuikGraph.Data\QuikGraph.Data.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="NUnit" Version="3.14.0" />
+  </ItemGroup>
 </Project>

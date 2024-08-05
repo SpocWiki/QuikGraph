@@ -98,15 +98,14 @@ namespace QuikGraph.Tests.Algorithms.Assignment
             Assert.AreEqual(2, tasks[2]);
 
             Assert.AreEqual(3, iterations.Length);
-            CollectionAssert.AreEqual(
+            Assert.That(
                 new[]
                 {
                     new[,] { { 0, 1, 2 }, { 0, 0, 0 }, { 1, 1, 0 } },
                     new[,] { { 0, 1, 2 }, { 0, 0, 0 }, { 1, 1, 0 } },
                     new[,] { { 0, 1, 2 }, { 0, 0, 0 }, { 1, 1, 0 } }
-                },
-                iterations.Select(iteration => iteration.Matrix));
-            CollectionAssert.AreEqual(
+                }, Is.EqualTo(iterations.Select(iteration => iteration.Matrix)));
+            Assert.AreEqual(
                 new[]
                 {
                     new[,] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } },

@@ -47,4 +47,7 @@
   <ItemGroup Condition="!$(UseQuikGraphMSAGLNuget)">
     <ProjectReference Include="..\..\src\QuikGraph.MSAGL\QuikGraph.MSAGL.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="NUnit" Version="3.14.0" />
+  </ItemGroup>
 </Project>
