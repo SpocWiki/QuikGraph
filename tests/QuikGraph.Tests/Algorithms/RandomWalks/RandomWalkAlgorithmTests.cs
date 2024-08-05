@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.RandomWalks;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
 
 namespace QuikGraph.Tests.Algorithms.RandomWalks
 {
@@ -15,9 +14,9 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
     [TestFixture]
     internal sealed class RandomWalkAlgorithmTests : RootedAlgorithmTestsBase
     {
-        #region Test helpers
 
-        private static void RunRandomWalkAndCheck<TVertex, TEdge>(
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
+        public static void RunRandomWalkAndCheck<TVertex, TEdge>(
             [NotNull] IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
@@ -135,8 +134,6 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
 
             #endregion
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -265,13 +262,6 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         }
 
         #endregion
-
-        [Test]
-        public void RandomWalk()
-        {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_All())
-                RunRandomWalkAndCheck(graph);
-        }
 
         [Test]
         public void RandomWalkWithPredicate()

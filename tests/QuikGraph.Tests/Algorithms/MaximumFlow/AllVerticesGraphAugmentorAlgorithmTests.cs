@@ -12,9 +12,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
     [TestFixture]
     internal sealed class AllVerticesGraphAugmentorAlgorithmTests : GraphAugmentorAlgorithmTestsBase
     {
-        #region Test helpers
-
-        private static void RunAugmentationAndCheck(
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
+        public static void RunAugmentationAndCheck(
             [NotNull] IMutableVertexAndEdgeListGraph<string, Edge<string>> graph)
         {
             int vertexCount = graph.VertexCount;
@@ -81,8 +80,6 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 Assert.IsTrue(graph.ContainsEdge(vertex, augmentor.SuperSink));
             }
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -211,11 +208,5 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
         #endregion
 
-        [Test]
-        public void AllVerticesAugmentor()
-        {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_All())
-                RunAugmentationAndCheck(graph);
-        }
     }
 }

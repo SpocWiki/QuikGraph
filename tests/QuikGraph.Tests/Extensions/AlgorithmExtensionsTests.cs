@@ -813,22 +813,12 @@ namespace QuikGraph.Tests.Extensions
             CollectionAssert.AreEquivalent(expectedRoots, graph.Roots());
         }
 
-        [Test]
-        public void AdjacencyGraphRoots()
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
+        public void AdjacencyGraphRoots<T>(IVertexAndEdgeListGraph<T, Edge<T>> graph)
         {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_All())
-                CheckRoots(graph);
-
-            #region Local function
-
-            void CheckRoots<T>(IVertexAndEdgeListGraph<T, Edge<T>> graph)
-            {
-                var roots = new HashSet<T>(graph.Roots());
-                foreach (Edge<T> edge in graph.Edges)
-                    Assert.IsFalse(roots.Contains(edge.Target));
-            }
-
-            #endregion
+            var roots = new HashSet<T>(graph.Roots());
+            foreach (Edge<T> edge in graph.Edges)
+                Assert.IsFalse(roots.Contains(edge.Target));
         }
 
         [NotNull, ItemNotNull]

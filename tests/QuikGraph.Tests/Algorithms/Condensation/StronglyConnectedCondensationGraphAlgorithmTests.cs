@@ -13,7 +13,8 @@ namespace QuikGraph.Tests.Algorithms.Condensation
     [TestFixture]
     internal sealed class StronglyConnectedCondensationGraphAlgorithmTests : CondensationGraphAlgorithmTestsBase
     {
-        private static void RunStronglyConnectedCondensationAndCheck<TVertex, TEdge>(
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
+        public static void RunStronglyConnectedCondensationAndCheck<TVertex, TEdge>(
             [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
@@ -125,12 +126,5 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             CollectionAssert.IsEmpty(condensedGraph.Vertices.ElementAt(3).Edges);
         }
 
-        [Test]
-        [Category(TestCategories.LongRunning)]
-        public void StronglyConnectedCondensation()
-        {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_All())
-                RunStronglyConnectedCondensationAndCheck(graph);
-        }
     }
 }

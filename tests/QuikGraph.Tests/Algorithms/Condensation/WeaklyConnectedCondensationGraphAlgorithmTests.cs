@@ -6,7 +6,6 @@ using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Condensation;
 using QuikGraph.Algorithms.ConnectedComponents;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
 
 namespace QuikGraph.Tests.Algorithms.Condensation
 {
@@ -16,9 +15,8 @@ namespace QuikGraph.Tests.Algorithms.Condensation
     [TestFixture]
     internal sealed class WeaklyConnectedCondensationGraphAlgorithmTests : CondensationGraphAlgorithmTestsBase
     {
-        #region Test helpers
-
-        private static void RunWeaklyConnectedCondensationAndCheck<TVertex, TEdge>(
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
+        public static void RunWeaklyConnectedCondensationAndCheck<TVertex, TEdge>(
             [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
@@ -196,14 +194,6 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             CollectionAssert.AreEquivalent(
                 new[] { edge89 },
                 condensedGraph.Vertices.ElementAt(2).Edges);
-        }
-
-        [Test]
-        [Category(TestCategories.LongRunning)]
-        public void WeaklyConnectedCondensation()
-        {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_All())
-                RunWeaklyConnectedCondensationAndCheck(graph);
         }
     }
 }

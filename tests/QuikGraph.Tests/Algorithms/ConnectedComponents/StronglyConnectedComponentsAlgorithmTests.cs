@@ -10,6 +10,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
     [TestFixture]
     internal sealed class StronglyConnectedComponentsAlgorithmTests
     {
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
         public void RunStronglyConnectedComponentsAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
@@ -258,12 +259,5 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 algorithm.Graphs[3].Vertices);
         }
 
-        [Test]
-        [Category(TestCategories.LongRunning)]
-        public void StronglyConnectedComponents()
-        {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_All())
-                RunStronglyConnectedComponentsAndCheck(graph);
-        }
     }
 }

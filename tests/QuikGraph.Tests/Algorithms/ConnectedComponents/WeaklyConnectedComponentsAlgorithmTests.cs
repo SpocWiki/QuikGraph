@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.ConnectedComponents;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
 
 namespace QuikGraph.Tests.Algorithms.ConnectedComponents
 {
@@ -13,8 +12,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
     [TestFixture]
     internal sealed class WeaklyConnectedComponentsAlgorithmTests
     {
-        #region Test helpers
-
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
         public void RunWeaklyConnectedComponentsAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
@@ -44,8 +42,6 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 }
             }
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -231,14 +227,6 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             CollectionAssert.AreEquivalent(
                 new[] { 10 },
                 algorithm.Graphs[3].Vertices);
-        }
-
-        [Test]
-        [Category(TestCategories.LongRunning)]
-        public void WeaklyConnectedComponents()
-        {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_All())
-                RunWeaklyConnectedComponentsAndCheck(graph);
         }
     }
 }

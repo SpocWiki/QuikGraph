@@ -4,20 +4,17 @@ using System.Text;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.TopologicalSort;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
 using static QuikGraph.Tests.QuikGraphUnitTestsHelpers;
 
 namespace QuikGraph.Tests.Algorithms
 {
-    /// <summary>
-    /// Tests for <see cref="TopologicalSortAlgorithm{TVertex,TEdge}"/>.
-    /// </summary>
+    /// <summary> Tests for <see cref="TopologicalSortAlgorithm{TVertex,TEdge}"/>. </summary>
     [TestFixture]
     internal sealed class TopologicalSortAlgorithmTests
     {
-        #region Test helpers
 
-        private static void RunTopologicalSortAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
+        public static void RunTopologicalSortAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
             var algorithm = new TopologicalSortAlgorithm<TVertex, TEdge>(graph);
@@ -26,8 +23,6 @@ namespace QuikGraph.Tests.Algorithms
             Assert.IsNotNull(algorithm.SortedVertices);
             Assert.AreEqual(graph.VertexCount, algorithm.SortedVertices.Length);
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -167,13 +162,6 @@ namespace QuikGraph.Tests.Algorithms
 
             var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
-        }
-
-        [Test]
-        public void TopologicalSort()
-        {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_All())
-                RunTopologicalSortAndCheck(graph);
         }
 
         [Test]
