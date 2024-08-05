@@ -4,9 +4,7 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.Condensation
 {
-    /// <summary>
-    /// An edge that merge several other edges.
-    /// </summary>
+    /// <summary> An edge that merge several other edges. </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
 #if SUPPORTS_SERIALIZATION
@@ -36,31 +34,27 @@ namespace QuikGraph.Algorithms.Condensation
         [NotNull, ItemNotNull]
         public IList<TEdge> Edges => _edges;
 
-        /// <summary>
-        /// Merges the given two edges.
-        /// </summary>
-        /// <param name="inEdge">First edge.</param>
-        /// <param name="outEdge">Second edge.</param>
-        /// <returns>The merged edge.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="inEdge"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="outEdge"/> is <see langword="null"/>.</exception>
+        /// <summary> Merges the <paramref name="mergedInEdge"/> and the <paramref name="mergedOutEdge"/>. </summary>
+        /// <remarks>
+        ///
+        /// </remarks>
         [Pure]
         [NotNull]
         public static MergedEdge<TVertex, TEdge> Merge(
-            [NotNull] MergedEdge<TVertex, TEdge> inEdge,
-            [NotNull] MergedEdge<TVertex, TEdge> outEdge)
+            [NotNull] MergedEdge<TVertex, TEdge> mergedInEdge,
+            [NotNull] MergedEdge<TVertex, TEdge> mergedOutEdge)
         {
-            if (inEdge is null)
-                throw new ArgumentNullException(nameof(inEdge));
-            if (outEdge is null)
-                throw new ArgumentNullException(nameof(outEdge));
+            if (mergedInEdge is null)
+                throw new ArgumentNullException(nameof(mergedInEdge));
+            if (mergedOutEdge is null)
+                throw new ArgumentNullException(nameof(mergedOutEdge));
 
-            var newEdge = new MergedEdge<TVertex, TEdge>(inEdge.Source, outEdge.Target)
+            var newEdge = new MergedEdge<TVertex, TEdge>(mergedInEdge.Source, mergedOutEdge.Target)
             {
-                _edges = new List<TEdge>(inEdge.Edges.Count + outEdge.Edges.Count)
+                _edges = new List<TEdge>(mergedInEdge.Edges.Count + mergedOutEdge.Edges.Count)
             };
-            newEdge._edges.AddRange(inEdge._edges);
-            newEdge._edges.AddRange(outEdge._edges);
+            newEdge._edges.AddRange(mergedInEdge._edges);
+            newEdge._edges.AddRange(mergedOutEdge._edges);
 
             return newEdge;
         }

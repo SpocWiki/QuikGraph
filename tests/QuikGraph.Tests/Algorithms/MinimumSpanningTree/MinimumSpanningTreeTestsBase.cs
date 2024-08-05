@@ -150,7 +150,7 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
         [Test]
         public void SimpleComparePrimKruskal()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
+            var graph = new UndirectedGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdge(Edge.Create(1, 2));
             graph.AddVerticesAndEdge(Edge.Create(3, 2));
             graph.AddVerticesAndEdge(Edge.Create(3, 4));

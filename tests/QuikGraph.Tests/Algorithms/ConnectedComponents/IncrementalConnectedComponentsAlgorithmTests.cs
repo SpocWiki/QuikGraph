@@ -16,12 +16,12 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, Edge<int>>(graph);
-            AssertAlgorithmState(algorithm, graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
+            algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new IncrementalConnectedComponentsAlgorithm<int, Edge<int>>(null, graph);
-            AssertAlgorithmState(algorithm, graph);
+            algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm.AssertAlgorithmState(graph);
         }
 
         [Test]
@@ -30,10 +30,10 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new IncrementalConnectedComponentsAlgorithm<int, Edge<int>>(null));
+                () => new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new IncrementalConnectedComponentsAlgorithm<int, Edge<int>>(null, null));
+                () => new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -41,8 +41,8 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         [Test]
         public void InvalidUse()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
 
             Assert.Throws<InvalidOperationException>(() => { int _ = algorithm.ComponentCount; });
             Assert.Throws<InvalidOperationException>(() => algorithm.GetComponents());
@@ -51,10 +51,10 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         [Test]
         public void IncrementalConnectedComponent()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVertexRange([0, 1, 2, 3]);
 
-            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
 
             Assert.AreEqual(4, algorithm.ComponentCount);
@@ -143,7 +143,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         [Test]
         public void IncrementalConnectedComponent_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             var edge13 = Edge.Create(1, 3);
             graph.AddVerticesAndEdgeRange(
             [
@@ -163,8 +163,8 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         [Test]
         public void IncrementalConnectedComponentMultiRun()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             Assert.DoesNotThrow(() =>
             {
                 algorithm.Compute();
@@ -175,11 +175,11 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         [Test]
         public void Dispose()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             Assert.DoesNotThrow(() => algorithm.Dispose());
 
-            algorithm = new IncrementalConnectedComponentsAlgorithm<int, Edge<int>>(graph);
+            algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
             Assert.DoesNotThrow(() => algorithm.Dispose());
         }

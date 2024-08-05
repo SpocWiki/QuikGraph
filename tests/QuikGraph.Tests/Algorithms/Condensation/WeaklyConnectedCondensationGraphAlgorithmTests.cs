@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -46,20 +46,20 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm1 = new CondensationGraphAlgorithm<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm1 = new CondensationGraphAlgorithm<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph);
             AssertAlgorithmProperties(algorithm1, graph);
 
-            algorithm1 = new CondensationGraphAlgorithm<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph)
+            algorithm1 = new CondensationGraphAlgorithm<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph)
             {
                 StronglyConnected = false
             };
             AssertAlgorithmProperties(algorithm1, graph, false);
 
-            var algorithm2 = new CondensationGraphAlgorithm<int, Edge<int>, BidirectionalGraph<int, Edge<int>>>(graph);
+            var algorithm2 = new CondensationGraphAlgorithm<int, IEdge<int>, BidirectionalGraph<int, IEdge<int>>>(graph);
             AssertAlgorithmProperties(algorithm2, graph);
 
-            algorithm2 = new CondensationGraphAlgorithm<int, Edge<int>, BidirectionalGraph<int, Edge<int>>>(graph)
+            algorithm2 = new CondensationGraphAlgorithm<int, IEdge<int>, BidirectionalGraph<int, IEdge<int>>>(graph)
             {
                 StronglyConnected = false
             };
@@ -74,7 +74,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
                 where TEdge : IEdge<TVertex>
                 where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 Assert.AreEqual(stronglyConnected, algo.StronglyConnected);
                 Assert.IsNull(algo.CondensedGraph);
             }
@@ -85,27 +85,27 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             var components = new Dictionary<int, int>();
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, Edge<int>>(null));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, Edge<int>>(graph, null));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, Edge<int>>(null, components));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, Edge<int>>(null, null));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, Edge<int>>(null, graph, null));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, graph, null));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, Edge<int>>(null, null, components));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, components));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, Edge<int>>(null, null, null));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -131,15 +131,15 @@ namespace QuikGraph.Tests.Algorithms.Condensation
 
             var edge82 = Edge.Create(8, 2);
 
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 edge12, edge13, edge23, edge42, edge43, edge45,
                 edge56, edge57, edge76, edge71, edge89, edge82
             ]);
 
-            IMutableBidirectionalGraph<AdjacencyGraph<int, Edge<int>>, CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>> condensedGraph =
-                graph.CondensateWeaklyConnected<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>();
+            IMutableBidirectionalGraph<AdjacencyGraph<int, IEdge<int>>, CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>> condensedGraph =
+                graph.CondensateWeaklyConnected<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>();
 
             Assert.IsNotNull(condensedGraph);
             Assert.AreEqual(1, condensedGraph.VertexCount);
@@ -163,15 +163,15 @@ namespace QuikGraph.Tests.Algorithms.Condensation
 
             var edge89 = Edge.Create(8, 9);
 
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 edge12, edge13, edge23, edge42, edge43,
                 edge56, edge57, edge76, edge89
             ]);
 
-            IMutableBidirectionalGraph<AdjacencyGraph<int, Edge<int>>, CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>> condensedGraph =
-                graph.CondensateWeaklyConnected<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>();
+            IMutableBidirectionalGraph<AdjacencyGraph<int, IEdge<int>>, CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>> condensedGraph =
+                graph.CondensateWeaklyConnected<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>();
 
             Assert.IsNotNull(condensedGraph);
             Assert.AreEqual(3, condensedGraph.VertexCount);

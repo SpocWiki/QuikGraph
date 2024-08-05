@@ -155,7 +155,7 @@ namespace QuikGraph.Serialization.Tests
             [UsedImplicitly]
             get
             {
-                var emptyGraph = new AdjacencyGraph<int, Edge<int>>();
+                var emptyGraph = new AdjacencyGraph<int, IEdge<int>>();
                 var emptyCompressedGraph = CompressedSparseRowGraph<int>.FromGraph(emptyGraph);
                 yield return new TestCaseData(emptyCompressedGraph);
 

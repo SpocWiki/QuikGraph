@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using QuikGraph.Algorithms.VertexCover;
 using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
@@ -14,13 +14,13 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
         [Test]
         public void Constructor()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
-            var algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph);
-            AssertAlgorithmState(algorithm, graph);
+            var graph = new UndirectedGraph<int, IEdge<int>>();
+            var algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph);
+            algorithm.AssertAlgorithmState(graph);
             Assert.IsNull(algorithm.CoverSet);
 
-            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph, new Random(123));
-            AssertAlgorithmState(algorithm, graph);
+            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph, new Random(123));
+            algorithm.AssertAlgorithmState(graph);
             Assert.IsNull(algorithm.CoverSet);
         }
 
@@ -30,13 +30,13 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(null));
+                () => new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(null));
             Assert.Throws<ArgumentNullException>(
-                () => new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(null, new Random(123)));
+                () => new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(null, new Random(123)));
             Assert.Throws<ArgumentNullException>(
-                () => new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(new UndirectedGraph<int, Edge<int>>(), null));
+                () => new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(new UndirectedGraph<int, IEdge<int>>(), null));
             Assert.Throws<ArgumentNullException>(
-                () => new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(null, null));
+                () => new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -44,13 +44,13 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
         [Test]
         public void Cover()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
-            var algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph);
+            var graph = new UndirectedGraph<int, IEdge<int>>();
+            var algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
             CollectionAssert.IsEmpty(algorithm.CoverSet);
 
             graph.AddVertexRange([1, 2, 3]);
-            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph);
+            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
             CollectionAssert.IsEmpty(algorithm.CoverSet);
 
@@ -60,14 +60,14 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
                 Edge.Create(2, 2),
                 Edge.Create(3, 1)
             ]);
-            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph, new Random(123456));
+            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph, new Random(123456));
             algorithm.Compute();
             CollectionAssert.AreEquivalent(
                 new[] { 1, 2 },
                 algorithm.CoverSet);
 
             graph.AddVertex(4);
-            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph, new Random(123456));
+            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph, new Random(123456));
             algorithm.Compute();
             CollectionAssert.AreEquivalent(
                 new[] { 1, 2 },
@@ -77,7 +77,7 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
             [
                 Edge.Create(5, 2)
             ]);
-            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph, new Random(123456));
+            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph, new Random(123456));
             algorithm.Compute();
             CollectionAssert.AreEquivalent(
                 new[] { 1, 2 },
@@ -89,14 +89,14 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
                 Edge.Create(7, 8),
                 Edge.Create(9, 8)
             ]);
-            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph, new Random(123456));
+            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph, new Random(123456));
             algorithm.Compute();
             CollectionAssert.AreEquivalent(
                 new[] { 2, 3, 7, 9 },
                 algorithm.CoverSet);
 
             // Other seed give other results
-            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, Edge<int>>(graph, new Random(456789));
+            algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph, new Random(456789));
             algorithm.Compute();
             CollectionAssert.AreEquivalent(
                 new[] { 1, 2, 7, 8 },

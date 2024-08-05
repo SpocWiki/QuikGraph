@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -45,11 +45,11 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(null, graph);
+            algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(null, graph);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -59,7 +59,7 @@ namespace QuikGraph.Tests.Algorithms
                 IVertexListGraph<TVertex, TEdge> g)
                 where TEdge : IEdge<TVertex>
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 CollectionAssert.IsEmpty(algo.Ancestors);
             }
 
@@ -72,9 +72,9 @@ namespace QuikGraph.Tests.Algorithms
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(null));
+                () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(null));
             Assert.Throws<ArgumentNullException>(
-                () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(null, null));
+                () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -84,16 +84,16 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void TryGetRootVertex()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             TryGetRootVertex_Test(algorithm);
         }
 
         [Test]
         public void SetRootVertex()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             SetRootVertex_Test(algorithm);
         }
 
@@ -108,25 +108,25 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void ClearRootVertex()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             ClearRootVertex_Test(algorithm);
         }
 
         [Test]
         public void ComputeWithoutRoot_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             ComputeWithoutRoot_Throws_Test(
-                () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(graph));
+                () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph));
         }
 
         [Test]
         public void ComputeWithRoot()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVertexRange([0, 1]);
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             algorithm.SetVertexPairs([new SEquatableEdge<int>(0, 1)]);
             ComputeWithRoot_Test(algorithm);
         }
@@ -144,8 +144,8 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void TryGetVertexPairs()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             Assert.IsFalse(algorithm.TryGetVertexPairs(out _));
 
             graph.AddVertexRange([1, 2]);
@@ -159,9 +159,9 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SetVertexPairs()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVertexRange([1, 2]);
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
 
             var pairs = new[]
             {
@@ -177,8 +177,8 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SetVertexPairs_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
 
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.SetVertexPairs(null));

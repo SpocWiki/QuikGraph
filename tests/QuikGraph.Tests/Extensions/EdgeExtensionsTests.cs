@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -159,29 +159,29 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void IsPath()
         {
-            Assert.IsTrue(Enumerable.Empty<Edge<int>>().IsPath<int, Edge<int>>());
+            Assert.IsTrue(Enumerable.Empty<IEdge<int>>().IsPath<int, IEdge<int>>());
 
             var edge1 = Edge.Create(1, 1);
             // 1 -> 1
-            Assert.IsTrue(new[] { edge1 }.IsPath<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge1 }.IsPath<int, IEdge<int>>());
 
             var edge2 = Edge.Create(1, 2);
             // 1 -> 2
-            Assert.IsTrue(new[] { edge2 }.IsPath<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge2 }.IsPath<int, IEdge<int>>());
 
             var edge3 = Edge.Create(2, 1);
             // 1 -> 2 -> 1
-            Assert.IsTrue(new[] { edge2, edge3 }.IsPath<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge2, edge3 }.IsPath<int, IEdge<int>>());
             // 1 -> 1 -> 2 -> 1 -> 1
-            Assert.IsTrue(new[] { edge1, edge2, edge3, edge1 }.IsPath<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge1, edge2, edge3, edge1 }.IsPath<int, IEdge<int>>());
 
             var edge4 = Edge.Create(1, 4);
             // 1 -> 2 -> 1 -> 4
-            Assert.IsTrue(new[] { edge2, edge3, edge4 }.IsPath<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge2, edge3, edge4 }.IsPath<int, IEdge<int>>());
             // 1 -> 2 -> 1 -> 4-1 -> 2
-            Assert.IsFalse(new[] { edge2, edge3, edge4, edge2 }.IsPath<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge2, edge3, edge4, edge2 }.IsPath<int, IEdge<int>>());
             // 2 -> 1 -> 4-1 -> 2
-            Assert.IsFalse(new[] { edge3, edge4, edge2 }.IsPath<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge3, edge4, edge2 }.IsPath<int, IEdge<int>>());
 
 
             var v1 = new TestVertex("1");
@@ -233,27 +233,27 @@ namespace QuikGraph.Tests.Extensions
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Edge<int>>)null).IsPath<int, Edge<int>>());
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).IsPath<int, IEdge<int>>());
         }
 
         [Test]
         public void HasCycles()
         {
-            Assert.IsFalse(Enumerable.Empty<Edge<int>>().HasCycles<int, Edge<int>>());
+            Assert.IsFalse(Enumerable.Empty<IEdge<int>>().HasCycles<int, IEdge<int>>());
 
             var edge1 = Edge.Create(1, 1);
             // 1 -> 1
-            Assert.IsTrue(new[] { edge1 }.HasCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge1 }.HasCycles<int, IEdge<int>>());
 
             var edge2 = Edge.Create(1, 2);
             // 1 -> 2
-            Assert.IsFalse(new[] { edge2 }.HasCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge2 }.HasCycles<int, IEdge<int>>());
 
             var edge3 = Edge.Create(2, 1);
             // 1 -> 2 -> 1
-            Assert.IsTrue(new[] { edge2, edge3 }.HasCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge2, edge3 }.HasCycles<int, IEdge<int>>());
             // 2 -> 1 -> 2
-            Assert.IsTrue(new[] { edge3, edge2 }.HasCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge3, edge2 }.HasCycles<int, IEdge<int>>());
 
             var edge4 = Edge.Create(1, 4);
             var edge5 = Edge.Create(2, 3);
@@ -262,23 +262,23 @@ namespace QuikGraph.Tests.Extensions
             var edge8 = Edge.Create(3, 3);
             var edge9 = Edge.Create(4, 3);
             // 1 -> 2 -> 1 -> 4
-            Assert.IsTrue(new[] { edge2, edge3, edge4 }.HasCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge2, edge3, edge4 }.HasCycles<int, IEdge<int>>());
             // 2 -> 1 -> 4 -> 3
-            Assert.IsFalse(new[] { edge3, edge4, edge9 }.HasCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge3, edge4, edge9 }.HasCycles<int, IEdge<int>>());
             // 2 -> 1 -> 4 -> 3 -> 1
-            Assert.IsTrue(new[] { edge3, edge4, edge9, edge7 }.HasCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge3, edge4, edge9, edge7 }.HasCycles<int, IEdge<int>>());
             // 2 -> 3 -> 4 -> 3 -> 3
-            Assert.IsTrue(new[] { edge5, edge6, edge9, edge8 }.HasCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge5, edge6, edge9, edge8 }.HasCycles<int, IEdge<int>>());
 
             var edge10 = Edge.Create(2, 4);
             var edge11 = Edge.Create(3, 2);
             var edge12 = Edge.Create(2, 5);
             // 1 -> 4 -> 3 -> 2 -> 5
-            Assert.IsFalse(new[] { edge4, edge9, edge11, edge12 }.HasCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge4, edge9, edge11, edge12 }.HasCycles<int, IEdge<int>>());
             // 1 -> 2 -> 4 -> 3 -> 2 -> 5
-            Assert.IsTrue(new[] { edge2, edge10, edge9, edge11, edge12 }.HasCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge2, edge10, edge9, edge11, edge12 }.HasCycles<int, IEdge<int>>());
             // 1 -> 4 -> 3 -> 3 -> 2 -> 5
-            Assert.IsTrue(new[] { edge4, edge9, edge8, edge11, edge12 }.HasCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge4, edge9, edge8, edge11, edge12 }.HasCycles<int, IEdge<int>>());
 
 
             var v1 = new TestVertex("1");
@@ -350,7 +350,7 @@ namespace QuikGraph.Tests.Extensions
             var edge14 = Edge.Create(1, 4); 
             var edge21 = Edge.Create(2, 1); 
             var edge43 = Edge.Create(4, 3); 
-            Assert.IsTrue(new[] { edge14, edge21, edge43 }.HasCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge14, edge21, edge43 }.HasCycles<int, IEdge<int>>());
         }
 
         [Test]
@@ -358,27 +358,27 @@ namespace QuikGraph.Tests.Extensions
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Edge<int>>)null).HasCycles<int, Edge<int>>());
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).HasCycles<int, IEdge<int>>());
         }
 
         [Test]
         public void IsPathWithoutCycles()
         {
-            Assert.IsTrue(Enumerable.Empty<Edge<int>>().IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsTrue(Enumerable.Empty<IEdge<int>>().IsPathWithoutCycles<int, IEdge<int>>());
 
             var edge1 = Edge.Create(1, 1);
             // 1 -> 1
-            Assert.IsFalse(new[] { edge1 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge1 }.IsPathWithoutCycles<int, IEdge<int>>());
 
             var edge2 = Edge.Create(1, 2);
             // 1 -> 2
-            Assert.IsTrue(new[] { edge2 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge2 }.IsPathWithoutCycles<int, IEdge<int>>());
 
             var edge3 = Edge.Create(2, 1);
             // 1 -> 2 -> 1
-            Assert.IsFalse(new[] { edge2, edge3 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge2, edge3 }.IsPathWithoutCycles<int, IEdge<int>>());
             // 2 -> 1 -> 2
-            Assert.IsFalse(new[] { edge3, edge2 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge3, edge2 }.IsPathWithoutCycles<int, IEdge<int>>());
 
             var edge4 = Edge.Create(1, 4);
             var edge5 = Edge.Create(2, 3);
@@ -387,26 +387,26 @@ namespace QuikGraph.Tests.Extensions
             var edge8 = Edge.Create(3, 3);
             var edge9 = Edge.Create(4, 3);
             // 1 -> 2 -> 1 -> 4
-            Assert.IsFalse(new[] { edge2, edge3, edge4 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge2, edge3, edge4 }.IsPathWithoutCycles<int, IEdge<int>>());
             // 2 -> 1 -> 4 -> 3
-            Assert.IsTrue(new[] { edge3, edge4, edge9 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge3, edge4, edge9 }.IsPathWithoutCycles<int, IEdge<int>>());
             // 2 -> 1 -> 4 -> 3 -> 1
-            Assert.IsFalse(new[] { edge3, edge4, edge9, edge7 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge3, edge4, edge9, edge7 }.IsPathWithoutCycles<int, IEdge<int>>());
             // 2 -> 3 -> 4 -> 3 -> 3
-            Assert.IsFalse(new[] { edge5, edge6, edge9, edge8 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge5, edge6, edge9, edge8 }.IsPathWithoutCycles<int, IEdge<int>>());
 
             var edge10 = Edge.Create(2, 4);
             var edge11 = Edge.Create(3, 2);
             var edge12 = Edge.Create(2, 5);
             // 1 -> 4 -> 3 -> 2 -> 5
-            Assert.IsTrue(new[] { edge4, edge9, edge11, edge12 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsTrue(new[] { edge4, edge9, edge11, edge12 }.IsPathWithoutCycles<int, IEdge<int>>());
             // 1 -> 2 -> 4 -> 3 -> 2 -> 5
-            Assert.IsFalse(new[] { edge2, edge10, edge9, edge11, edge12 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge2, edge10, edge9, edge11, edge12 }.IsPathWithoutCycles<int, IEdge<int>>());
             // 1 -> 4 -> 3 -> 3 -> 2 -> 5
-            Assert.IsFalse(new[] { edge4, edge9, edge8, edge11, edge12 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge4, edge9, edge8, edge11, edge12 }.IsPathWithoutCycles<int, IEdge<int>>());
 
             // Not a path: 1 -> 2-4 -> 3
-            Assert.IsFalse(new[] { edge2, edge9 }.IsPathWithoutCycles<int, Edge<int>>());
+            Assert.IsFalse(new[] { edge2, edge9 }.IsPathWithoutCycles<int, IEdge<int>>());
 
 
             var v1 = new TestVertex("1");
@@ -475,7 +475,7 @@ namespace QuikGraph.Tests.Extensions
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Edge<int>>)null).IsPathWithoutCycles<int, Edge<int>>());
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).IsPathWithoutCycles<int, IEdge<int>>());
         }
 
         [Test]
@@ -504,7 +504,7 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void IsPredecessor()
         {
-            var predecessors = new Dictionary<int, Edge<int>>();
+            var predecessors = new Dictionary<int, IEdge<int>>();
             Assert.IsFalse(predecessors.IsPredecessor(1, 2));
 
             predecessors.Add(1, Edge.Create(0, 1));
@@ -560,7 +560,7 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void TryGetPath()
         {
-            var predecessors = new Dictionary<int, Edge<int>>();
+            var predecessors = new Dictionary<int, IEdge<int>>();
             Assert.IsFalse(predecessors.TryGetPath(2, out _));
 
             var edge1 = Edge.Create(0, 1);
@@ -569,7 +569,7 @@ namespace QuikGraph.Tests.Extensions
 
             var edge2 = Edge.Create(0, 2);
             predecessors.Add(2, edge2);
-            Assert.IsTrue(predecessors.TryGetPath(2, out IEnumerable<Edge<int>> path));
+            Assert.IsTrue(predecessors.TryGetPath(2, out IEnumerable<IEdge<int>> path));
             CollectionAssert.AreEqual(
                 new[] { edge2 },
                 path);
@@ -714,23 +714,23 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void ReverseEdges()
         {
-            CollectionAssert.IsEmpty(EdgeExtensions.ReverseEdges<int, Edge<int>>(Enumerable.Empty<Edge<int>>()));
+            CollectionAssert.IsEmpty(EdgeExtensions.ReverseEdges<int, IEdge<int>>(Enumerable.Empty<IEdge<int>>()));
 
             var edge1 = Edge.Create(1, 2);
             CollectionAssert.AreEqual(
-                new[] { new SReversedEdge<int, Edge<int>>(edge1) },
-                EdgeExtensions.ReverseEdges<int, Edge<int>>([edge1]));
+                new[] { new SReversedEdge<int, IEdge<int>>(edge1) },
+                EdgeExtensions.ReverseEdges<int, IEdge<int>>([edge1]));
 
             var edge2 = Edge.Create(2, 2);
             var edge3 = Edge.Create(3, 1);
             CollectionAssert.AreEqual(
                 new[]
                 {
-                    new SReversedEdge<int, Edge<int>>(edge1),
-                    new SReversedEdge<int, Edge<int>>(edge2),
-                    new SReversedEdge<int, Edge<int>>(edge3)
+                    new SReversedEdge<int, IEdge<int>>(edge1),
+                    new SReversedEdge<int, IEdge<int>>(edge2),
+                    new SReversedEdge<int, IEdge<int>>(edge3)
                 },
-                EdgeExtensions.ReverseEdges<int, Edge<int>>([edge1, edge2, edge3]));
+                EdgeExtensions.ReverseEdges<int, IEdge<int>>([edge1, edge2, edge3]));
         }
 
         [Test]
@@ -739,7 +739,7 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => EdgeExtensions.ReverseEdges<int, Edge<int>>(null));
+                () => EdgeExtensions.ReverseEdges<int, IEdge<int>>(null));
         }
     }
 }

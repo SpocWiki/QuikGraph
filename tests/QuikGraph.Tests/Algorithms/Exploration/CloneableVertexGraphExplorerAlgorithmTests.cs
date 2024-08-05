@@ -77,7 +77,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
                 where TVertex : ICloneable
                 where TEdge : IEdge<TVertex>
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 Assert.IsNotNull(algo.AddVertexPredicate);
                 Assert.IsNotNull(algo.AddEdgePredicate);
                 Assert.IsNotNull(algo.ExploreVertexPredicate);

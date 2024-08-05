@@ -15,9 +15,9 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new TransitiveReductionAlgorithm<int, Edge<int>>(graph);
-            AssertAlgorithmState(algorithm, graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new TransitiveReductionAlgorithm<int, IEdge<int>>(graph);
+            algorithm.AssertAlgorithmState(graph);
             Assert.IsNotNull(algorithm.TransitiveReduction);
         }
 
@@ -27,7 +27,7 @@ namespace QuikGraph.Tests.Algorithms
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new TransitiveReductionAlgorithm<int, Edge<int>>(null));
+                () => new TransitiveReductionAlgorithm<int, IEdge<int>>(null));
         }
 
         [Test]
@@ -92,14 +92,14 @@ namespace QuikGraph.Tests.Algorithms
             var edge34 = Edge.Create(3, 4);
             var edge35 = Edge.Create(3, 5);
             var edge45 = Edge.Create(4, 5);
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 edge12, edge13, edge14, edge15,
                 edge24, edge34, edge35, edge45
             ]);
 
-            BidirectionalGraph<int, Edge<int>> result = graph.ComputeTransitiveReduction();
+            BidirectionalGraph<int, IEdge<int>> result = graph.ComputeTransitiveReduction();
             AssertHasVertices(result, [1, 2, 3, 4, 5]);
             AssertHasEdges(
                 result,
@@ -114,7 +114,7 @@ namespace QuikGraph.Tests.Algorithms
             var edge65 = Edge.Create(6, 5);
             var edge67 = Edge.Create(6, 7);
             var edge74 = Edge.Create(7, 4);
-            graph = new AdjacencyGraph<int, Edge<int>>();
+            graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 edge01, edge02, edge03, edge23,

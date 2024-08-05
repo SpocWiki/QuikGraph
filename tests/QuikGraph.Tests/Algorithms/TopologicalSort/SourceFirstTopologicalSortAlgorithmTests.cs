@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.TopologicalSort;
@@ -32,17 +32,17 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(graph, -10);
+            algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, -10);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(graph, 0);
+            algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, 0);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(graph, 10);
+            algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, 10);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -52,7 +52,7 @@ namespace QuikGraph.Tests.Algorithms
                 IVertexAndEdgeListGraph<TVertex, TEdge> g)
                 where TEdge : IEdge<TVertex>
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 Assert.IsNull(algo.SortedVertices);
                 CollectionAssert.IsEmpty(algo.InDegrees);
             }
@@ -66,13 +66,13 @@ namespace QuikGraph.Tests.Algorithms
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(null));
+                () => new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(null));
         }
 
         [Test]
         public void SimpleGraph()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(1, 2),
@@ -86,7 +86,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(7, 8)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
@@ -97,7 +97,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SimpleGraphOneToAnother()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(0, 1),
@@ -107,7 +107,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
@@ -118,7 +118,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void ForestGraph()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(0, 1),
@@ -130,7 +130,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(5, 6)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
@@ -141,7 +141,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void GraphWithSelfEdge_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(0, 1),
@@ -152,7 +152,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
         }
 
@@ -173,7 +173,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SourceFirstTopologicalSort_Throws()
         {
-            var cyclicGraph = new AdjacencyGraph<int, Edge<int>>();
+            var cyclicGraph = new AdjacencyGraph<int, IEdge<int>>();
             cyclicGraph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(1, 2),
@@ -182,7 +182,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 1)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, Edge<int>>(cyclicGraph);
+            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using static QuikGraph.QuikGraphHelpers;
 
@@ -589,5 +590,16 @@ namespace QuikGraph
         }
 
         #endregion
+
+        /// <summary> Params makes it easier to add Nodes via Code </summary>
+        public static int AddVerticesAndEdgeRange<TVertex, TEdge>(this IMutableVertexAndEdgeSet<TVertex, IEdge<TVertex>> graph
+            , params TEdge[] edges)
+            where TEdge : IEdge<TVertex> => graph.AddVerticesAndEdgeRange((IEnumerable<IEdge<TVertex>>)edges.AsEnumerable());
+
+        /// <summary> Params makes it easier to add Nodes via Code </summary>
+        public static int AddVerticesAndEdgeRange<TVertex, TEdge>(this IMutableVertexAndEdgeSet<TVertex, TEdge> graph
+            , params TEdge[] edges)
+            where TEdge : IEdge<TVertex> => graph.AddVerticesAndEdgeRange(edges.AsEnumerable());
+
     }
 }

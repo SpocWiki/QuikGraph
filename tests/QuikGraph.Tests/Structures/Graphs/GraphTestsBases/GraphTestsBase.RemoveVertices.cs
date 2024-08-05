@@ -10,7 +10,7 @@ namespace QuikGraph.Tests.Structures
         #region Remove Vertices
 
         protected static void RemoveVertex_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> graph)
         {
             int verticesRemoved = 0;
             int edgesRemoved = 0;
@@ -74,7 +74,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveVertex_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph)
         {
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -103,9 +103,9 @@ namespace QuikGraph.Tests.Structures
 
 
             // With cluster
-            ClusteredAdjacencyGraph<int, Edge<int>> cluster1 = graph.AddCluster();
-            ClusteredAdjacencyGraph<int, Edge<int>> cluster2 = graph.AddCluster();
-            ClusteredAdjacencyGraph<int, Edge<int>> cluster3 = graph.AddCluster();
+            ClusteredAdjacencyGraph<int, IEdge<int>> cluster1 = graph.AddCluster();
+            ClusteredAdjacencyGraph<int, IEdge<int>> cluster2 = graph.AddCluster();
+            ClusteredAdjacencyGraph<int, IEdge<int>> cluster3 = graph.AddCluster();
 
             cluster1.AddVertexRange([1, 2]);
             AssertHasVertices(cluster1, [1, 2]);
@@ -163,7 +163,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveVertexIf_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> graph)
         {
             int verticesRemoved = 0;
             int edgesRemoved = 0;
@@ -217,7 +217,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveVertexIf_Test2(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> graph)
         {
             int verticesRemoved = 0;
             int edgesRemoved = 0;
@@ -264,7 +264,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveVertexIf_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph)
         {
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -285,7 +285,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveVertexIf_Clusters_Test2(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph)
         {
             var edge11 = Edge.Create(1, 1);
             var edge13 = Edge.Create(1, 3);

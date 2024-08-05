@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Observers;
@@ -15,18 +15,18 @@ namespace QuikGraph.Tests.Algorithms.Observers
         [Test]
         public void Constructor()
         {
-            var recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>();
+            var recorder = new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>();
             CollectionAssert.IsEmpty(recorder.VerticesPredecessors);
 
-            var predecessors = new Dictionary<int, Edge<int>>();
-            recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>(predecessors);
+            var predecessors = new Dictionary<int, IEdge<int>>();
+            recorder = new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>(predecessors);
             Assert.AreSame(predecessors, recorder.VerticesPredecessors);
 
-            predecessors = new Dictionary<int, Edge<int>>
+            predecessors = new Dictionary<int, IEdge<int>>
             {
                 [1] = Edge.Create(2, 1)
             };
-            recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>(predecessors);
+            recorder = new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>(predecessors);
             Assert.AreSame(predecessors, recorder.VerticesPredecessors);
         }
 
@@ -35,7 +35,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>(null));
         }
 
         [Test]
@@ -44,11 +44,11 @@ namespace QuikGraph.Tests.Algorithms.Observers
             // Undirected DFS is used for tests but result may change if using another search algorithm
             // or another starting point
             {
-                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>();
+                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>();
 
-                var graph = new UndirectedGraph<int, Edge<int>>();
+                var graph = new UndirectedGraph<int, IEdge<int>>();
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -58,12 +58,12 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>();
+                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>();
 
-                var graph = new UndirectedGraph<int, Edge<int>>();
+                var graph = new UndirectedGraph<int, IEdge<int>>();
                 graph.AddVertexRange([1, 2]);
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -73,7 +73,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>();
+                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>();
 
                 var edge12 = Edge.Create(1, 2);
                 var edge14 = Edge.Create(1, 4);
@@ -81,19 +81,19 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var edge33 = Edge.Create(3, 3);
                 var edge34 = Edge.Create(3, 4);
                 var edge42 = Edge.Create(4, 2);
-                var graph = new UndirectedGraph<int, Edge<int>>();
+                var graph = new UndirectedGraph<int, IEdge<int>>();
                 graph.AddVerticesAndEdgeRange(
                 [
                     edge12, edge14, edge31, edge33, edge34, edge42
                 ]);
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
 
                     CollectionAssert.AreEqual(
-                        new Dictionary<int, Edge<int>>
+                        new Dictionary<int, IEdge<int>>
                         {
                             [2] = edge12,
                             [3] = edge34,
@@ -107,18 +107,18 @@ namespace QuikGraph.Tests.Algorithms.Observers
         [Test]
         public void Attach_Throws()
         {
-            Attach_Throws_Test(new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>());
+            Attach_Throws_Test(new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>());
         }
 
         [Test]
         public void TryGetPath()
         {
             {
-                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>();
+                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>();
 
-                var graph = new UndirectedGraph<int, Edge<int>>();
+                var graph = new UndirectedGraph<int, IEdge<int>>();
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -129,12 +129,12 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>();
+                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>();
 
-                var graph = new UndirectedGraph<int, Edge<int>>();
+                var graph = new UndirectedGraph<int, IEdge<int>>();
                 graph.AddVertexRange([1, 2]);
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -144,7 +144,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, Edge<int>>();
+                var recorder = new UndirectedVertexPredecessorRecorderObserver<int, IEdge<int>>();
 
                 var edge12 = Edge.Create(1, 2);
                 var edge14 = Edge.Create(1, 4);
@@ -152,18 +152,18 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var edge33 = Edge.Create(3, 3);
                 var edge34 = Edge.Create(3, 4);
                 var edge42 = Edge.Create(4, 2);
-                var graph = new UndirectedGraph<int, Edge<int>>();
+                var graph = new UndirectedGraph<int, IEdge<int>>();
                 graph.AddVerticesAndEdgeRange(
                 [
                     edge12, edge14, edge31, edge33, edge34, edge42
                 ]);
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
 
-                    Assert.IsTrue(recorder.TryGetPath(4, out IEnumerable<Edge<int>> path));
+                    Assert.IsTrue(recorder.TryGetPath(4, out IEnumerable<IEdge<int>> path));
                     CollectionAssert.AreEqual(new[] { edge12, edge42 }, path);
                 }
             }

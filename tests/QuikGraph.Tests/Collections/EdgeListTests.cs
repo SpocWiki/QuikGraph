@@ -14,8 +14,8 @@ namespace QuikGraph.Tests.Collections
         public void Constructors()
         {
             // ReSharper disable ObjectCreationAsStatement
-            Assert.DoesNotThrow(() => new EdgeList<int, Edge<int>>());
-            Assert.DoesNotThrow(() => new EdgeList<int, Edge<int>>(12));
+            Assert.DoesNotThrow(() => new EdgeList<int, IEdge<int>>());
+            Assert.DoesNotThrow(() => new EdgeList<int, IEdge<int>>(12));
             var list = new EdgeList<int, EquatableEdge<int>>
             {
                 new EquatableEdge<int>(1, 2),

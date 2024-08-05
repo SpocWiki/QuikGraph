@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace QuikGraph
 {
@@ -6,7 +6,7 @@ namespace QuikGraph
     /// Represents a directed edge.
     /// </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
-    public interface IEdge<out TVertex>
+    public interface IEdge<out TVertex> //: IEquatable<IEdge<TVertex>>
     {
         /// <summary>
         /// Gets the source vertex.

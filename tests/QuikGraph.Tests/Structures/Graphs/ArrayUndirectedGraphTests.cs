@@ -16,14 +16,14 @@ namespace QuikGraph.Tests.Structures
             EdgeEqualityComparer<int> comparer = (edge, source, target) =>
                 edge.Source.Equals(source) && edge.Target.Equals(target);
 
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
 
-            var graph = new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph);
+            var graph = new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph);
             AssertEmptyGraph(graph);
 
             wrappedGraph.AddVertexRange([2, 3, 1]);
-            graph = new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph);
+            graph = new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph);
             AssertHasVertices(graph, [1, 2, 3]);
             AssertNoEdge(graph);
@@ -33,20 +33,20 @@ namespace QuikGraph.Tests.Structures
             var edge3 = Edge.Create(3, 4);
             var edge4 = Edge.Create(1, 4);
             wrappedGraph.AddVerticesAndEdgeRange([edge1, edge2, edge3, edge4]);
-            graph = new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph);
+            graph = new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph);
             AssertHasVertices(graph, [1, 2, 3, 4]);
             AssertHasEdges(graph, [edge1, edge2, edge3, edge4]);
 
-            wrappedGraph = new UndirectedGraph<int, Edge<int>>(false);
+            wrappedGraph = new UndirectedGraph<int, IEdge<int>>(false);
             wrappedGraph.AddVerticesAndEdgeRange([edge1, edge1, edge2, edge3, edge4]);
-            graph = new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph);
+            graph = new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph, false);
             AssertHasVertices(graph, [1, 2, 3, 4]);
             AssertHasEdges(graph, [edge1, edge2, edge3, edge4]);
 
-            wrappedGraph = new UndirectedGraph<int, Edge<int>>(true, comparer);
-            graph = new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph);
+            wrappedGraph = new UndirectedGraph<int, IEdge<int>>(true, comparer);
+            graph = new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph);
             AssertEmptyGraph(graph);
 
@@ -70,7 +70,7 @@ namespace QuikGraph.Tests.Structures
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new ArrayUndirectedGraph<int, Edge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => new ArrayUndirectedGraph<int, IEdge<int>>(null));
         }
 
         #region Add Vertex => no effect
@@ -78,10 +78,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertex()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
             AddVertex_ImmutableGraph_NoUpdate(
                 wrappedGraph,
-                () => new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph));
+                () => new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         #endregion
@@ -91,10 +91,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
             AddEdge_ImmutableGraph_NoUpdate(
                 wrappedGraph,
-                () => new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph));
+                () => new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         #endregion
@@ -134,10 +134,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
             ContainsEdge_ImmutableGraph_Test(
                 wrappedGraph, 
-                () => new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph));
+                () => new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
@@ -152,10 +152,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_SourceTarget()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
             ContainsEdge_SourceTarget_ImmutableGraph_UndirectedGraph_Test(
                 wrappedGraph,
-                () => new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph));
+                () => new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
@@ -186,19 +186,19 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AdjacentEdge()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
             AdjacentEdge_ImmutableGraph_Test(
                 wrappedGraph,
-                () => new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph));
+                () => new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
         public void AdjacentEdge_Throws()
         {
-            var wrappedGraph1 = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph1 = new UndirectedGraph<int, IEdge<int>>();
             AdjacentEdge_Throws_ImmutableGraph_Test(
                 wrappedGraph1, 
-                () => new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph1));
+                () => new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph1));
 
             var wrappedGraph2 = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
             var graph2 = new ArrayUndirectedGraph<TestVertex, Edge<TestVertex>>(wrappedGraph2);
@@ -208,10 +208,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AdjacentEdges()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
             AdjacentEdges_ImmutableGraph_Test(
                 wrappedGraph,
-                () => new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph));
+                () => new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
@@ -229,10 +229,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
             TryGetEdge_ImmutableGraph_UndirectedGraph_Test(
                 wrappedGraph,
-                () => new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph));
+                () => new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
@@ -248,21 +248,21 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Clone()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
 
-            var graph = new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph);
+            var graph = new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph);
             AssertEmptyGraph(graph);
 
             var clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
-            clonedGraph = (ArrayUndirectedGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (ArrayUndirectedGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
             wrappedGraph.AddVertexRange([1, 2, 3]);
-            graph = new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph);
+            graph = new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph);
             AssertHasVertices(graph, [1, 2, 3]);
             AssertNoEdge(graph);
 
@@ -271,7 +271,7 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertNoEdge(clonedGraph);
 
-            clonedGraph = (ArrayUndirectedGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (ArrayUndirectedGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertNoEdge(clonedGraph);
@@ -281,7 +281,7 @@ namespace QuikGraph.Tests.Structures
             var edge3 = Edge.Create(2, 3);
             wrappedGraph.AddVerticesAndEdgeRange([edge1, edge2, edge3]);
 
-            graph = new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph);
+            graph = new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph);
             AssertHasVertices(graph, [1, 2, 3]);
             AssertHasEdges(graph, [edge1, edge2, edge3]);
 
@@ -290,13 +290,13 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
-            clonedGraph = (ArrayUndirectedGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (ArrayUndirectedGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
             wrappedGraph.AddVertex(4);
-            graph = new ArrayUndirectedGraph<int, Edge<int>>(wrappedGraph);
+            graph = new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph);
             AssertHasVertices(graph, [1, 2, 3, 4]);
             AssertHasEdges(graph, [edge1, edge2, edge3]);
 
@@ -305,7 +305,7 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(clonedGraph, [1, 2, 3, 4]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
-            clonedGraph = (ArrayUndirectedGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (ArrayUndirectedGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertHasVertices(clonedGraph, [1, 2, 3, 4]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);

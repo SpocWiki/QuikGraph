@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using QuikGraph.Predicates;
@@ -16,8 +16,8 @@ namespace QuikGraph.Tests.Predicates
         {
             Assert.DoesNotThrow(
                 // ReSharper disable once ObjectCreationAsStatement
-                () => new ResidualEdgePredicate<int, Edge<int>>(
-                    new Dictionary<Edge<int>, double>()));
+                () => new ResidualEdgePredicate<int, IEdge<int>>(
+                    new Dictionary<IEdge<int>, double>()));
         }
 
         [Test]
@@ -25,14 +25,14 @@ namespace QuikGraph.Tests.Predicates
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new ResidualEdgePredicate<int, Edge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => new ResidualEdgePredicate<int, IEdge<int>>(null));
         }
 
         [Test]
         public void Predicate()
         {
-            var predicate = new ResidualEdgePredicate<int, Edge<int>>(
-                new Dictionary<Edge<int>, double>());
+            var predicate = new ResidualEdgePredicate<int, IEdge<int>>(
+                new Dictionary<IEdge<int>, double>());
 
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -49,8 +49,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Predicate_Throws()
         {
-            var predicate = new ResidualEdgePredicate<int, Edge<int>>(
-                new Dictionary<Edge<int>, double>());
+            var predicate = new ResidualEdgePredicate<int, IEdge<int>>(
+                new Dictionary<IEdge<int>, double>());
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable once AssignNullToNotNullAttribute

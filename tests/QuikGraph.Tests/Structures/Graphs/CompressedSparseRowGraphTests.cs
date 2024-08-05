@@ -13,7 +13,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Construction()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             var graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
             AssertGraphProperties(graph);
             AssertEmptyGraph(graph);
@@ -116,7 +116,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             ContainsEdge_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -125,7 +125,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_SourceTarget()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             ContainsEdge_SourceTarget_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -147,7 +147,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             OutEdge_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -160,7 +160,7 @@ namespace QuikGraph.Tests.Structures
             var graph1 = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph1);
             OutEdge_NullThrows_Test(graph1);
 
-            var wrappedGraph2 = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph2 = new AdjacencyGraph<int, IEdge<int>>();
             OutEdge_Throws_ImmutableGraph_Test(
                 wrappedGraph2,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph2));
@@ -169,7 +169,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdges()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             OutEdges_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -194,7 +194,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             TryGetEdge_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -211,7 +211,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdges()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             TryGetEdges_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -228,7 +228,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             TryGetOutEdges_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -247,7 +247,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Clone()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             var graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
             AssertEmptyGraph(graph);
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -250,14 +250,14 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         [Test]
         public void Constructor_WeightedMarkovEdgeChains()
         {
-            var weights = new Dictionary<Edge<int>, double>();
-            var chain1 = new WeightedMarkovEdgeChain<int, Edge<int>>(weights);
+            var weights = new Dictionary<IEdge<int>, double>();
+            var chain1 = new WeightedMarkovEdgeChain<int, IEdge<int>>(weights);
             Assert.AreSame(weights, chain1.Weights);
 
-            var chain2 = new VanishingWeightedMarkovEdgeChain<int, Edge<int>>(weights);
+            var chain2 = new VanishingWeightedMarkovEdgeChain<int, IEdge<int>>(weights);
             Assert.AreSame(weights, chain2.Weights);
 
-            chain2 = new VanishingWeightedMarkovEdgeChain<int, Edge<int>>(weights, 2.0);
+            chain2 = new VanishingWeightedMarkovEdgeChain<int, IEdge<int>>(weights, 2.0);
             Assert.AreSame(weights, chain2.Weights);
         }
 
@@ -267,11 +267,11 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new WeightedMarkovEdgeChain<int, Edge<int>>(null));
+                () => new WeightedMarkovEdgeChain<int, IEdge<int>>(null));
             Assert.Throws<ArgumentNullException>(
-                () => new VanishingWeightedMarkovEdgeChain<int, Edge<int>>(null));
+                () => new VanishingWeightedMarkovEdgeChain<int, IEdge<int>>(null));
             Assert.Throws<ArgumentNullException>(
-                () => new VanishingWeightedMarkovEdgeChain<int, Edge<int>>(null, 2.0));
+                () => new VanishingWeightedMarkovEdgeChain<int, IEdge<int>>(null, 2.0));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

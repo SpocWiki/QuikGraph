@@ -14,13 +14,13 @@ namespace QuikGraph.Tests.Algorithms.Observers
         [Test]
         public void Constructor()
         {
-            var recorder = new EdgeRecorderObserver<int, Edge<int>>();
+            var recorder = new EdgeRecorderObserver<int, IEdge<int>>();
             CollectionAssert.IsEmpty(recorder.Edges);
 
             var edge12 = Edge.Create(1, 2);
             var edge22 = Edge.Create(2, 2);
             var edge31 = Edge.Create(3, 1);
-            recorder = new EdgeRecorderObserver<int, Edge<int>>(
+            recorder = new EdgeRecorderObserver<int, IEdge<int>>(
             [
                 edge12, edge22, edge31
             ]);
@@ -34,7 +34,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new EdgeRecorderObserver<int, Edge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => new EdgeRecorderObserver<int, IEdge<int>>(null));
         }
 
         [Test]
@@ -43,11 +43,11 @@ namespace QuikGraph.Tests.Algorithms.Observers
             // DFS is used for tests but result may change if using another search algorithm
             // or another starting point
             {
-                var recorder = new EdgeRecorderObserver<int, Edge<int>>();
+                var recorder = new EdgeRecorderObserver<int, IEdge<int>>();
 
-                var graph = new AdjacencyGraph<int, Edge<int>>();
+                var graph = new AdjacencyGraph<int, IEdge<int>>();
 
-                var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -57,12 +57,12 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new EdgeRecorderObserver<int, Edge<int>>();
+                var recorder = new EdgeRecorderObserver<int, IEdge<int>>();
 
-                var graph = new AdjacencyGraph<int, Edge<int>>();
+                var graph = new AdjacencyGraph<int, IEdge<int>>();
                 graph.AddVertexRange([1, 2]);
 
-                var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -73,13 +73,13 @@ namespace QuikGraph.Tests.Algorithms.Observers
 
             {
                 var edge12 = Edge.Create(1, 2);
-                var recorder = new EdgeRecorderObserver<int, Edge<int>>([edge12]);
+                var recorder = new EdgeRecorderObserver<int, IEdge<int>>([edge12]);
 
                 var edge23 = Edge.Create(2, 3);
-                var graph = new AdjacencyGraph<int, Edge<int>>();
+                var graph = new AdjacencyGraph<int, IEdge<int>>();
                 graph.AddVerticesAndEdgeRange([edge12, edge23]);
 
-                var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -91,14 +91,14 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new EdgeRecorderObserver<int, Edge<int>>();
+                var recorder = new EdgeRecorderObserver<int, IEdge<int>>();
 
                 var edge12 = Edge.Create(1, 2);
                 var edge32 = Edge.Create(3, 2);   // Is not reachable
-                var graph = new AdjacencyGraph<int, Edge<int>>();
+                var graph = new AdjacencyGraph<int, IEdge<int>>();
                 graph.AddVerticesAndEdgeRange([edge12, edge32]);
 
-                var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -110,19 +110,19 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new EdgeRecorderObserver<int, Edge<int>>();
+                var recorder = new EdgeRecorderObserver<int, IEdge<int>>();
 
                 var edge12 = Edge.Create(1, 2);
                 var edge22 = Edge.Create(2, 2);
                 var edge23 = Edge.Create(2, 3);
                 var edge34 = Edge.Create(3, 4);
-                var graph = new AdjacencyGraph<int, Edge<int>>();
+                var graph = new AdjacencyGraph<int, IEdge<int>>();
                 graph.AddVerticesAndEdgeRange(
                 [
                     edge12, edge22, edge23, edge34
                 ]);
 
-                var dfs = new DepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+                var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -137,7 +137,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
         [Test]
         public void Attach_Throws()
         {
-            Attach_Throws_Test(new EdgeRecorderObserver<int, Edge<int>>());
+            Attach_Throws_Test(new EdgeRecorderObserver<int, IEdge<int>>());
         }
     }
 }

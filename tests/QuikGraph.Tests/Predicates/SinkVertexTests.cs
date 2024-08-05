@@ -17,8 +17,8 @@ namespace QuikGraph.Tests.Predicates
         {
             Assert.DoesNotThrow(
                 // ReSharper disable once ObjectCreationAsStatement
-                () => new SinkVertexPredicate<int, Edge<int>>(
-                    new AdjacencyGraph<int, Edge<int>>()));
+                () => new SinkVertexPredicate<int, IEdge<int>>(
+                    new AdjacencyGraph<int, IEdge<int>>()));
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace QuikGraph.Tests.Predicates
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new SinkVertexPredicate<int, Edge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => new SinkVertexPredicate<int, IEdge<int>>(null));
         }
 
         [NotNull, ItemNotNull]
@@ -35,19 +35,19 @@ namespace QuikGraph.Tests.Predicates
             [UsedImplicitly]
             get
             {
-                yield return new TestCaseData(new AdjacencyGraph<int, Edge<int>>());
-                yield return new TestCaseData(new BidirectionalGraph<int, Edge<int>>());
+                yield return new TestCaseData(new AdjacencyGraph<int, IEdge<int>>());
+                yield return new TestCaseData(new BidirectionalGraph<int, IEdge<int>>());
             }
         }
 
         [TestCaseSource(nameof(PredicateTestCases))]
         public void Predicate<TGraph>([NotNull] TGraph graph)
             where TGraph 
-            : IIncidenceGraph<int, Edge<int>>
+            : IIncidenceGraph<int, IEdge<int>>
             , IMutableVertexSet<int>
-            , IMutableEdgeListGraph<int, Edge<int>>
+            , IMutableEdgeListGraph<int, IEdge<int>>
         {
-            var predicate = new SinkVertexPredicate<int, Edge<int>>(graph);
+            var predicate = new SinkVertexPredicate<int, IEdge<int>>(graph);
 
             graph.AddVertex(1);
             graph.AddVertex(2);

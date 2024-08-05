@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -16,29 +16,29 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
-            var algorithm = new PageRankAlgorithm<int, Edge<int>>(graph);
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
+            var algorithm = new PageRankAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new PageRankAlgorithm<int, Edge<int>>(graph)
+            algorithm = new PageRankAlgorithm<int, IEdge<int>>(graph)
             {
                 Damping = 0.96
             };
             AssertAlgorithmProperties(algorithm, graph, 0.96);
 
-            algorithm = new PageRankAlgorithm<int, Edge<int>>(graph)
+            algorithm = new PageRankAlgorithm<int, IEdge<int>>(graph)
             {
                 Tolerance = double.Epsilon
             };
             AssertAlgorithmProperties(algorithm, graph, t: double.Epsilon);
 
-            algorithm = new PageRankAlgorithm<int, Edge<int>>(graph)
+            algorithm = new PageRankAlgorithm<int, IEdge<int>>(graph)
             {
                 MaxIterations = 12
             };
             AssertAlgorithmProperties(algorithm, graph, iterations: 12);
 
-            algorithm = new PageRankAlgorithm<int, Edge<int>>(graph)
+            algorithm = new PageRankAlgorithm<int, IEdge<int>>(graph)
             {
                 Damping = 0.91,
                 Tolerance = 3 * double.Epsilon,
@@ -56,7 +56,7 @@ namespace QuikGraph.Tests.Algorithms
                 int iterations = -1)
                 where TEdge : IEdge<TVertex>
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 CollectionAssert.IsEmpty(algo.Ranks);
                 if (d >= 0)
                 {
@@ -91,13 +91,13 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new PageRankAlgorithm<int, Edge<int>>(null));
+                () => new PageRankAlgorithm<int, IEdge<int>>(null));
 
-            var algorithm = new PageRankAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new PageRankAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<ArgumentOutOfRangeException>(() => algorithm.Damping = -10.0);
             Assert.Throws<ArgumentOutOfRangeException>(() => algorithm.Damping = -0.01);
             Assert.Throws<ArgumentOutOfRangeException>(() => algorithm.Damping = 1.01);

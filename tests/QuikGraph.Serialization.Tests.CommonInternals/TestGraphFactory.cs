@@ -24,9 +24,7 @@ namespace QuikGraph.Tests
             return SlowTestRate;
         }
 
-        /// <summary>
-        /// Gets graph ML file paths.
-        /// </summary>
+        /// <summary> Gets all graph ML file paths, optionally <paramref name="filter"/>ed. </summary>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<string> GetGraphMLFilePaths(
@@ -43,9 +41,7 @@ namespace QuikGraph.Tests
             throw new AssertionException("GraphML folder must exist.");
         }
 
-        /// <summary>
-        /// Creates an adjacency graph from the given file.
-        /// </summary>
+        /// <summary> Creates an adjacency graph from the <paramref name="graphMLFilePath"/>. </summary>
         [Pure]
         [NotNull]
         public static AdjacencyGraph<string, Edge<string>> LoadGraph([NotNull] string graphMLFilePath)
@@ -62,9 +58,7 @@ namespace QuikGraph.Tests
             return graph;
         }
 
-        /// <summary>
-        /// Creates a bidirectional graph from the given file.
-        /// </summary>
+        /// <summary> Creates a bidirectional graph from the <paramref name="graphMLFilePath"/>>. </summary>
         [Pure]
         [NotNull]
         public static BidirectionalGraph<string, Edge<string>> LoadBidirectionalGraph([NotNull] string graphMLFilePath)

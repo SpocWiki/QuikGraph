@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using JetBrains.Annotations;
 using NUnit.Framework;
 
@@ -9,8 +9,8 @@ namespace QuikGraph.Tests.Structures
         #region Contains Edge
 
         protected static void ContainsEdge_Test(
-            [NotNull] IEdgeSet<int, Edge<int>> graph,
-            [NotNull, InstantHandle] Action<Edge<int>> addVerticesAndEdge)
+            [NotNull] IEdgeSet<int, IEdge<int>> graph,
+            [NotNull, InstantHandle] Action<IEdge<int>> addVerticesAndEdge)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -68,7 +68,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> graph)
         {
             ContainsEdge_Test(
                 graph,
@@ -76,10 +76,10 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IEdgeSet<int, Edge<int>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IEdgeSet<int, IEdge<int>>> createGraph)
         {
-            IEdgeSet<int, Edge<int>> graph = createGraph();
+            IEdgeSet<int, IEdge<int>> graph = createGraph();
 
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -142,7 +142,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IEdgeSet<int, SEquatableEdge<int>>> createGraph)
         {
             IEdgeSet<int, SEquatableEdge<int>> graph = createGraph();
@@ -213,7 +213,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_EdgesOnly_Test(
-            [NotNull] EdgeListGraph<int, Edge<int>> graph)
+            [NotNull] EdgeListGraph<int, IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -271,7 +271,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_ForbiddenParallelEdges_ImmutableVertices_Test(
-            [NotNull] IMutableEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] IMutableEdgeListGraph<int, IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -322,21 +322,21 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_ImmutableGraph_ReversedTest(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IEdgeSet<int, SReversedEdge<int, Edge<int>>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IEdgeSet<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {
-            IEdgeSet<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
+            IEdgeSet<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             var edge1 = Edge.Create(1, 2);
-            var reversedEdge1 = new SReversedEdge<int, Edge<int>>(edge1);
+            var reversedEdge1 = new SReversedEdge<int, IEdge<int>>(edge1);
             var edge2 = Edge.Create(1, 3);
-            var reversedEdge2 = new SReversedEdge<int, Edge<int>>(edge2);
+            var reversedEdge2 = new SReversedEdge<int, IEdge<int>>(edge2);
             var edge3 = Edge.Create(2, 1);
-            var reversedEdge3 = new SReversedEdge<int, Edge<int>>(edge3);
+            var reversedEdge3 = new SReversedEdge<int, IEdge<int>>(edge3);
             var edge4 = Edge.Create(2, 2);
-            var reversedEdge4 = new SReversedEdge<int, Edge<int>>(edge4);
+            var reversedEdge4 = new SReversedEdge<int, IEdge<int>>(edge4);
             var otherEdge1 = Edge.Create(1, 2);
-            var reversedOtherEdge1 = new SReversedEdge<int, Edge<int>>(otherEdge1);
+            var reversedOtherEdge1 = new SReversedEdge<int, IEdge<int>>(otherEdge1);
 
             Assert.IsFalse(graph.ContainsEdge(reversedEdge1));
             Assert.IsFalse(graph.ContainsEdge(reversedEdge2));
@@ -387,17 +387,17 @@ namespace QuikGraph.Tests.Structures
             // Both vertices not in graph
             Assert.IsFalse(
                 graph.ContainsEdge(
-                    new SReversedEdge<int, Edge<int>>(
+                    new SReversedEdge<int, IEdge<int>>(
                         Edge.Create(0, 10))));
             // Source not in graph
             Assert.IsFalse(
                 graph.ContainsEdge(
-                    new SReversedEdge<int, Edge<int>>(
+                    new SReversedEdge<int, IEdge<int>>(
                         Edge.Create(0, 1))));
             // Target not in graph
             Assert.IsFalse(
                 graph.ContainsEdge(
-                    new SReversedEdge<int, Edge<int>>(
+                    new SReversedEdge<int, IEdge<int>>(
                         Edge.Create(1, 0))));
         }
 
@@ -724,8 +724,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_SourceTarget_Test(
-            [NotNull] IIncidenceGraph<int, Edge<int>> graph,
-            [NotNull, InstantHandle] Action<Edge<int>> addVerticesAndEdge)
+            [NotNull] IIncidenceGraph<int, IEdge<int>> graph,
+            [NotNull, InstantHandle] Action<IEdge<int>> addVerticesAndEdge)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -752,7 +752,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_SourceTarget_Test(
-            [NotNull] IMutableVertexAndEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
             ContainsEdge_SourceTarget_Test(
                 graph,
@@ -760,7 +760,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_SourceTarget_ImmutableGraph_Test<TEdge>(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IIncidenceGraph<int, TEdge>> createGraph)
             where TEdge : IEdge<int>
         {
@@ -794,7 +794,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_SourceTarget_ForbiddenParallelEdges_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -821,10 +821,10 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_SourceTarget_ImmutableGraph_ReversedTest(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IIncidenceGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IIncidenceGraph<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {
-            IIncidenceGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
+            IIncidenceGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -854,7 +854,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_SourceTarget_UndirectedGraph_Test(
-            [NotNull] IMutableUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] IMutableUndirectedGraph<int, IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -881,14 +881,14 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_SourceTarget_ImmutableGraph_UndirectedGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IImplicitUndirectedGraph<int, Edge<int>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IImplicitUndirectedGraph<int, IEdge<int>>> createGraph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
             var edge3 = Edge.Create(2, 2);
 
-            IImplicitUndirectedGraph<int, Edge<int>> graph = createGraph();
+            IImplicitUndirectedGraph<int, IEdge<int>> graph = createGraph();
             Assert.IsFalse(graph.ContainsEdge(1, 2));
             Assert.IsFalse(graph.ContainsEdge(2, 1));
 

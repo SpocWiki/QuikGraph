@@ -10,7 +10,7 @@ namespace QuikGraph.Tests.Structures
         #region Add Vertices & Edges
 
         protected static void AddVerticesAndEdge_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> graph)
         {
             int vertexAdded = 0;
             int edgeAdded = 0;
@@ -55,9 +55,9 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddVerticesAndEdge_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph1,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> parent2,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph2)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph1,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> parent2,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph2)
         {
             // Graph without parent
             AssertEmptyGraph(graph1);
@@ -141,7 +141,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddVerticesAndEdgeRange_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> graph)
         {
             int vertexAdded = 0;
             int edgeAdded = 0;
@@ -179,7 +179,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddVerticesAndEdgeRange_EdgesOnly_Test(
-            [NotNull] EdgeListGraph<int, Edge<int>> graph)
+            [NotNull] EdgeListGraph<int, IEdge<int>> graph)
         {
             int edgeAdded = 0;
 
@@ -208,9 +208,9 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddVerticesAndEdgeRange_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph1,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> parent2,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph2)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph1,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> parent2,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph2)
         {
             // Graph without parent
             AssertEmptyGraph(graph1);
@@ -255,7 +255,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddVerticesAndEdgeRange_Throws_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> graph)
         {
             int vertexAdded = 0;
             int edgeAdded = 0;
@@ -287,7 +287,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddVerticesAndEdgeRange_Throws_EdgesOnly_Test(
-            [NotNull] EdgeListGraph<int, Edge<int>> graph)
+            [NotNull] EdgeListGraph<int, IEdge<int>> graph)
         {
             int edgeAdded = 0;
 
@@ -311,7 +311,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddVerticesAndEdgeRange_Throws_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph)
         {
             AssertEmptyGraph(graph);
 

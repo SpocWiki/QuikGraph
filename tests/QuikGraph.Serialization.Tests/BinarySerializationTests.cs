@@ -269,10 +269,10 @@ namespace QuikGraph.Serialization.Tests
             using (var stream = new MemoryStream())
             {
                 Assert.Throws<ArgumentNullException>(
-                    () => ((AdjacencyGraph<int, Edge<int>>)null).SerializeToBinary(stream));
+                    () => ((AdjacencyGraph<int, IEdge<int>>)null).SerializeToBinary(stream));
             }
 
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             using (var stream = new TestStream())
             {
                 Assert.Throws<ArgumentException>(
@@ -284,12 +284,12 @@ namespace QuikGraph.Serialization.Tests
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<ArgumentNullException>(
-                () => ((Stream)null).DeserializeFromBinary<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>());
+                () => ((Stream)null).DeserializeFromBinary<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>());
 
             using (var stream = new TestStream())
             {
                 Assert.Throws<ArgumentException>(
-                    () => stream.DeserializeFromBinary<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>());
+                    () => stream.DeserializeFromBinary<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>());
             }
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
             // ReSharper restore AssignNullToNotNullAttribute

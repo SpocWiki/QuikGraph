@@ -10,7 +10,7 @@ namespace QuikGraph.Tests.Structures
         #region Add Edges
 
         protected static void AddEdge_ParallelEdges_Test<TGraph>([NotNull] TGraph graph)
-            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, Edge<int>>
+            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, IEdge<int>>
         {
             int edgeAdded = 0;
 
@@ -56,9 +56,9 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdge_ParallelEdges_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph1,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> parent2,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph2)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph1,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> parent2,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph2)
         {
             // Graph without parent
             graph1.AddVertex(1);
@@ -248,7 +248,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdge_NoParallelEdges_Test<TGraph>([NotNull] TGraph graph)
-            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, Edge<int>>
+            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, IEdge<int>>
         {
             int edgeAdded = 0;
 
@@ -294,7 +294,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdge_NoParallelEdges_UndirectedGraph_Test<TGraph>([NotNull] TGraph graph)
-            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, Edge<int>>
+            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, IEdge<int>>
         {
             int edgeAdded = 0;
 
@@ -340,9 +340,9 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdge_NoParallelEdges_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph1,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> parent2,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph2)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph1,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> parent2,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph2)
         {
             // Graph without parent
             graph1.AddVertex(1);
@@ -578,7 +578,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdge_ForbiddenParallelEdges_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             int edgeAdded = 0;
 
@@ -642,7 +642,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdge_Throws_EdgesOnly_Test(
-            [NotNull] IMutableEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] IMutableEdgeListGraph<int, IEdge<int>> graph)
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.AddEdge(null));
@@ -650,7 +650,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdge_Throws_Test<TGraph>([NotNull] TGraph graph)
-            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, Edge<int>>
+            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, IEdge<int>>
         {
             AddEdge_Throws_EdgesOnly_Test(graph);
 
@@ -669,7 +669,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdge_Throws_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph)
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.AddEdge(null));
@@ -690,7 +690,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdgeRange_EdgesOnly_Test(
-            [NotNull] IMutableEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] IMutableEdgeListGraph<int, IEdge<int>> graph)
         {
             int edgeAdded = 0;
 
@@ -718,7 +718,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdgeRange_Test<TGraph>([NotNull] TGraph graph)
-            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, Edge<int>>
+            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, IEdge<int>>
         {
             graph.AddVertex(1);
             graph.AddVertex(2);
@@ -730,7 +730,7 @@ namespace QuikGraph.Tests.Structures
         protected static void AddEdgeRange_ForbiddenParallelEdges_Test()
         {
             int edgeAdded = 0;
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(3);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(3);
 
             AssertNoEdge(graph);
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
@@ -756,9 +756,9 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdgeRange_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph1,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> parent2,
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph2)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph1,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> parent2,
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph2)
         {
             // Graph without parent
             graph1.AddVertex(1);
@@ -804,7 +804,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdgeRange_Throws_EdgesOnly_Test(
-            [NotNull] IMutableEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] IMutableEdgeListGraph<int, IEdge<int>> graph)
         {
             int edgeAdded = 0;
 
@@ -830,7 +830,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdgeRange_Throws_Test<TGraph>([NotNull] TGraph graph)
-            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, Edge<int>>
+            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, IEdge<int>>
         {
             graph.AddVertex(1);
             graph.AddVertex(2);
@@ -840,7 +840,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdgeRange_Throws_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph)
         {
             graph.AddVertex(1);
             graph.AddVertex(2);
@@ -860,7 +860,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdgeRange_ForbiddenParallelEdges_Throws_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             int edgeAdded = 0;
 
@@ -898,11 +898,11 @@ namespace QuikGraph.Tests.Structures
 
 
         protected static void AddEdge_ParallelEdges_EdgesOnly_Test(
-            [NotNull] EdgeListGraph<int, Edge<int>> directedGraph,
-            [NotNull] EdgeListGraph<int, Edge<int>> undirectedGraph,
+            [NotNull] EdgeListGraph<int, IEdge<int>> directedGraph,
+            [NotNull] EdgeListGraph<int, IEdge<int>> undirectedGraph,
             [NotNull, InstantHandle] Func<
-                EdgeListGraph<int, Edge<int>>,
-                Edge<int>,
+                EdgeListGraph<int, IEdge<int>>,
+                IEdge<int>,
                 bool> addEdge)
         {
             if (!directedGraph.IsDirected && directedGraph.AllowParallelEdges)
@@ -1062,11 +1062,11 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AddEdge_NoParallelEdges_EdgesOnly_Test(
-            [NotNull] EdgeListGraph<int, Edge<int>> directedGraph,
-            [NotNull] EdgeListGraph<int, Edge<int>> undirectedGraph,
+            [NotNull] EdgeListGraph<int, IEdge<int>> directedGraph,
+            [NotNull] EdgeListGraph<int, IEdge<int>> undirectedGraph,
             [NotNull, InstantHandle] Func<
-                EdgeListGraph<int, Edge<int>>,
-                Edge<int>,
+                EdgeListGraph<int, IEdge<int>>,
+                IEdge<int>,
                 bool> addEdge)
         {
             if (!directedGraph.IsDirected && !directedGraph.AllowParallelEdges)
@@ -1228,10 +1228,10 @@ namespace QuikGraph.Tests.Structures
 
         protected static void AddEdge_ImmutableGraph_NoUpdate<TGraph>(
             [NotNull] TGraph wrappedGraph,
-            [NotNull, InstantHandle] Func<IEdgeSet<int, Edge<int>>> createGraph)
-            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, Edge<int>>
+            [NotNull, InstantHandle] Func<IEdgeSet<int, IEdge<int>>> createGraph)
+            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, IEdge<int>>
         {
-            IEdgeSet<int, Edge<int>> graph = createGraph();
+            IEdgeSet<int, IEdge<int>> graph = createGraph();
 
             var edge = Edge.Create(1, 2);
             wrappedGraph.AddVertex(1);
@@ -1243,10 +1243,10 @@ namespace QuikGraph.Tests.Structures
 
         protected static void AddEdge_ImmutableGraph_WithUpdate<TGraph>(
             [NotNull] TGraph wrappedGraph,
-            [NotNull, InstantHandle] Func<IEdgeSet<int, Edge<int>>> createGraph)
-            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, Edge<int>>
+            [NotNull, InstantHandle] Func<IEdgeSet<int, IEdge<int>>> createGraph)
+            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, IEdge<int>>
         {
-            IEdgeSet<int, Edge<int>> graph = createGraph();
+            IEdgeSet<int, IEdge<int>> graph = createGraph();
 
             var edge = Edge.Create(1, 2);
             wrappedGraph.AddVertex(1);

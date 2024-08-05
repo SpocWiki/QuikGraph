@@ -1,11 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using QuikGraph.Algorithms.GraphPartition;
 #if !SUPPORTS_SORTEDSET
 using QuikGraph.Collections;
 #endif
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
 using static QuikGraph.Tests.TestHelpers;
 
 namespace QuikGraph.Tests.Algorithms.GraphPartitioning
@@ -21,7 +20,7 @@ namespace QuikGraph.Tests.Algorithms.GraphPartitioning
         {
             var graph = new UndirectedGraph<int, TaggedUndirectedEdge<int, double>>();
             var algorithm = new KernighanLinAlgorithm<int, TaggedUndirectedEdge<int, double>>(graph, 42);
-            AssertAlgorithmState(algorithm, graph);
+            algorithm.AssertAlgorithmState(graph);
             Assert.AreEqual(default(Partition<int>), algorithm.Partition);
         }
 

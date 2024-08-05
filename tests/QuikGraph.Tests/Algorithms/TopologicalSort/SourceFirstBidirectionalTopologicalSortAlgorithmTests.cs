@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.TopologicalSort;
@@ -34,41 +34,41 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
-            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
+            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, -10);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, -10);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, 0);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, 0);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, 10);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, 10);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Forward);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Forward);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Forward, -10);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Forward, -10);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Forward, 0);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Forward, 0);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Forward, 10);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Forward, 10);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Backward);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Backward);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Backward, -10);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Backward, -10);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Backward, 0);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Backward, 0);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Backward, 10);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Backward, 10);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -78,7 +78,7 @@ namespace QuikGraph.Tests.Algorithms
                 IBidirectionalGraph<TVertex, TEdge> g)
                 where TEdge : IEdge<TVertex>
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 Assert.IsNull(algo.SortedVertices);
                 CollectionAssert.IsEmpty(algo.InDegrees);
             }
@@ -92,11 +92,11 @@ namespace QuikGraph.Tests.Algorithms
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(null));
+                () => new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(null));
             Assert.Throws<ArgumentNullException>(
-                () => new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(null, TopologicalSortDirection.Forward));
+                () => new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(null, TopologicalSortDirection.Forward));
             Assert.Throws<ArgumentNullException>(
-                () => new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(null, TopologicalSortDirection.Backward));
+                () => new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(null, TopologicalSortDirection.Backward));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -104,7 +104,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SimpleGraph()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(1, 2),
@@ -118,14 +118,14 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(7, 8)
             ]);
 
-            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
                 new[] { 1, 7, 4, 2, 5, 8, 3, 6 },
                 algorithm.SortedVertices);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Backward);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Backward);
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
@@ -136,7 +136,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SimpleGraphOneToAnother()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(0, 1),
@@ -146,14 +146,14 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             ]);
 
-            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
                 new[] { 0, 1, 2, 3, 4 },
                 algorithm.SortedVertices);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Backward);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Backward);
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
@@ -164,7 +164,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void ForestGraph()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(0, 1),
@@ -176,14 +176,14 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(5, 6)
             ]);
 
-            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
                 new[] { 0, 5, 1, 6, 2, 3, 4 },
                 algorithm.SortedVertices);
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Backward);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Backward);
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
@@ -194,7 +194,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void GraphWithSelfEdge_Throws()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(0, 1),
@@ -205,10 +205,10 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             ]);
 
-            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
 
-            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(graph, TopologicalSortDirection.Backward);
+            algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Backward);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
         }
 
@@ -233,7 +233,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SourceFirstBidirectionalTopologicalSort_Throws()
         {
-            var cyclicGraph = new BidirectionalGraph<int, Edge<int>>();
+            var cyclicGraph = new BidirectionalGraph<int, IEdge<int>>();
             cyclicGraph.AddVerticesAndEdgeRange(
             [
                 Edge.Create(1, 2),
@@ -242,7 +242,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 1)
             ]);
 
-            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, Edge<int>>(cyclicGraph);
+            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
         }
     }

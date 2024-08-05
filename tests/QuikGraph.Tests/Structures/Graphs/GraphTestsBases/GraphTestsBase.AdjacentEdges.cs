@@ -11,7 +11,7 @@ namespace QuikGraph.Tests.Structures
         #region Adjacent Edges
 
         protected static void AdjacentEdge_Test(
-            [NotNull] IMutableUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] IMutableUndirectedGraph<int, IEdge<int>> graph)
         {
             var edge11 = Edge.Create(1, 1);
             var edge12 = Edge.Create(1, 2);
@@ -31,8 +31,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AdjacentEdge_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IImplicitUndirectedGraph<int, Edge<int>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IImplicitUndirectedGraph<int, IEdge<int>>> createGraph)
         {
             var edge11 = Edge.Create(1, 1);
             var edge12 = Edge.Create(1, 2);
@@ -42,7 +42,7 @@ namespace QuikGraph.Tests.Structures
             var edge41 = Edge.Create(4, 1);
 
             wrappedGraph.AddVerticesAndEdgeRange([edge11, edge12, edge13, edge24, edge33, edge41]);
-            IImplicitUndirectedGraph<int, Edge<int>> graph = createGraph();
+            IImplicitUndirectedGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.AreSame(edge11, graph.AdjacentEdge(1, 0));
             Assert.AreSame(edge13, graph.AdjacentEdge(1, 2));
@@ -63,7 +63,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AdjacentEdge_Throws_Test(
-            [NotNull] IMutableUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] IMutableUndirectedGraph<int, IEdge<int>> graph)
         {
             const int vertex1 = 1;
             const int vertex2 = 2;
@@ -81,13 +81,13 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AdjacentEdge_Throws_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IImplicitUndirectedGraph<int, Edge<int>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IImplicitUndirectedGraph<int, IEdge<int>>> createGraph)
         {
             const int vertex1 = 1;
             const int vertex2 = 2;
 
-            IImplicitUndirectedGraph<int, Edge<int>> graph = createGraph();
+            IImplicitUndirectedGraph<int, IEdge<int>> graph = createGraph();
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<VertexNotFoundException>(() => graph.AdjacentEdge(vertex1, 0));
 
@@ -103,7 +103,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AdjacentEdges_Test(
-            [NotNull] IMutableUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] IMutableUndirectedGraph<int, IEdge<int>> graph)
         {
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -126,8 +126,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AdjacentEdges_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IImplicitUndirectedGraph<int, Edge<int>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IImplicitUndirectedGraph<int, IEdge<int>>> createGraph)
         {
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -137,7 +137,7 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
 
             wrappedGraph.AddVertex(1);
-            IImplicitUndirectedGraph<int, Edge<int>> graph = createGraph();
+            IImplicitUndirectedGraph<int, IEdge<int>> graph = createGraph();
             AssertNoAdjacentEdge(graph, 1);
 
             wrappedGraph.AddVertex(5);

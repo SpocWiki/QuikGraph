@@ -16,25 +16,25 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Construction()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             AssertGraphProperties(graph);
 
-            graph = new BidirectionalGraph<int, Edge<int>>(true);
+            graph = new BidirectionalGraph<int, IEdge<int>>(true);
             AssertGraphProperties(graph);
 
-            graph = new BidirectionalGraph<int, Edge<int>>(false);
+            graph = new BidirectionalGraph<int, IEdge<int>>(false);
             AssertGraphProperties(graph, false);
 
-            graph = new BidirectionalGraph<int, Edge<int>>(true, 12);
+            graph = new BidirectionalGraph<int, IEdge<int>>(true, 12);
             AssertGraphProperties(graph);
 
-            graph = new BidirectionalGraph<int, Edge<int>>(false, 12);
+            graph = new BidirectionalGraph<int, IEdge<int>>(false, 12);
             AssertGraphProperties(graph, false);
 
-            graph = new BidirectionalGraph<int, Edge<int>>(true, 42, 12);
+            graph = new BidirectionalGraph<int, IEdge<int>>(true, 42, 12);
             AssertGraphProperties(graph, edgeCapacity: 12);
 
-            graph = new BidirectionalGraph<int, Edge<int>>(false, 42, 12);
+            graph = new BidirectionalGraph<int, IEdge<int>>(false, 42, 12);
             AssertGraphProperties(graph, false, 12);
 
             #region Local function
@@ -50,7 +50,7 @@ namespace QuikGraph.Tests.Structures
                 AssertEmptyGraph(g);
                 Assert.AreEqual(edgeCapacity, g.EdgeCapacity);
                 Assert.AreSame(typeof(int), g.VertexType);
-                Assert.AreSame(typeof(Edge<int>), g.EdgeType);
+                Assert.AreSame(typeof(IEdge<int>), g.EdgeType);
             }
 
             #endregion
@@ -100,7 +100,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge_ParallelEdges()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             AddEdge_ParallelEdges_Test(graph);
         }
 
@@ -114,7 +114,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge_NoParallelEdges()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>(false);
+            var graph = new BidirectionalGraph<int, IEdge<int>>(false);
             AddEdge_NoParallelEdges_Test(graph);
         }
 
@@ -128,21 +128,21 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge_Throws()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             AddEdge_Throws_Test(graph);
         }
 
         [Test]
         public void AddEdgeRange()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>(false);
+            var graph = new BidirectionalGraph<int, IEdge<int>>(false);
             AddEdgeRange_Test(graph);
         }
 
         [Test]
         public void AddEdgeRange_Throws()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             AddEdgeRange_Throws_Test(graph);
         }
 
@@ -153,28 +153,28 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVerticesAndEdge()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             AddVerticesAndEdge_Test(graph);
         }
 
         [Test]
         public void AddVerticesAndEdge_Throws()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             AddVerticesAndEdge_Throws_Test(graph);
         }
 
         [Test]
         public void AddVerticesAndEdgeRange()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>(false);
+            var graph = new BidirectionalGraph<int, IEdge<int>>(false);
             AddVerticesAndEdgeRange_Test(graph);
         }
 
         [Test]
         public void AddVerticesAndEdgeRange_Throws()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>(false);
+            var graph = new BidirectionalGraph<int, IEdge<int>>(false);
             AddVerticesAndEdgeRange_Throws_Test(graph);
         }
 
@@ -210,7 +210,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             ContainsEdge_Test(graph);
         }
 
@@ -224,7 +224,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_SourceTarget()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             ContainsEdge_SourceTarget_Test(graph);
         }
 
@@ -243,7 +243,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             OutEdge_Test(graph);
         }
 
@@ -253,14 +253,14 @@ namespace QuikGraph.Tests.Structures
             var graph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             OutEdge_NullThrows_Test(graph1);
 
-            var graph2 = new BidirectionalGraph<int, Edge<int>>();
+            var graph2 = new BidirectionalGraph<int, IEdge<int>>();
             OutEdge_Throws_Test(graph2);
         }
 
         [Test]
         public void OutEdges()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             OutEdges_Test(graph);
         }
 
@@ -281,14 +281,14 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void InEdge()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             InEdge_Test(graph);
         }
 
         [Test]
         public void InEdge_Throws()
         {
-            var graph1 = new BidirectionalGraph<int, Edge<int>>();
+            var graph1 = new BidirectionalGraph<int, IEdge<int>>();
             InEdge_Throws_Test(graph1);
 
             var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
@@ -298,7 +298,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void InEdges()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             InEdges_Test(graph);
         }
 
@@ -317,7 +317,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Degree()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             Degree_Test(graph);
         }
 
@@ -333,7 +333,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             TryGetEdge_Test(graph);
         }
 
@@ -347,7 +347,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdges()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             TryGetEdges_Test(graph);
         }
 
@@ -361,7 +361,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             TryGetOutEdges_Test(graph);
         }
 
@@ -375,7 +375,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetInEdges()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             TryGetInEdges_Test(graph);
         }
 
@@ -529,7 +529,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Merge_Throws()
         {
-            var graph1 = new BidirectionalGraph<int, Edge<int>>();
+            var graph1 = new BidirectionalGraph<int, IEdge<int>>();
             Assert.Throws<VertexNotFoundException>(
                 () => graph1.MergeVertex(1, (source, target) => Edge.Create(source, target)));
 
@@ -711,7 +711,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void MergeIf_Throws()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, (source, target) => Edge.Create(source, target)));
             Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(_ => true, null));
@@ -726,7 +726,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertex()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             RemoveVertex_Test(graph);
         }
 
@@ -740,10 +740,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertexIf()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             RemoveVertexIf_Test(graph);
 
-            graph = new BidirectionalGraph<int, Edge<int>>();
+            graph = new BidirectionalGraph<int, IEdge<int>>();
             RemoveVertexIf_Test2(graph);
         }
 
@@ -761,7 +761,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdge()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             RemoveEdge_Test(graph);
         }
 
@@ -782,7 +782,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdgeIf()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             RemoveEdgeIf_Test(graph);
         }
 
@@ -796,7 +796,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveOutEdgeIf()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             RemoveOutEdgeIf_Test(graph);
         }
 
@@ -810,7 +810,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveInEdgeIf()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             RemoveInEdgeIf_Test(graph);
         }
 
@@ -831,7 +831,7 @@ namespace QuikGraph.Tests.Structures
             int verticesRemoved = 0;
             int edgesRemoved = 0;
 
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.VertexRemoved += v =>
             {
@@ -888,7 +888,7 @@ namespace QuikGraph.Tests.Structures
         {
             int edgesRemoved = 0;
 
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.EdgeRemoved += e =>
             {
@@ -966,7 +966,7 @@ namespace QuikGraph.Tests.Structures
         {
             int edgesRemoved = 0;
 
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.EdgeRemoved += e =>
             {
@@ -1045,7 +1045,7 @@ namespace QuikGraph.Tests.Structures
         {
             int edgesRemoved = 0;
 
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.EdgeRemoved += e =>
             {
@@ -1118,18 +1118,18 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Clone()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>();
+            var graph = new BidirectionalGraph<int, IEdge<int>>();
             AssertEmptyGraph(graph);
 
-            BidirectionalGraph<int, Edge<int>> clonedGraph = graph.Clone();
+            BidirectionalGraph<int, IEdge<int>> clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
-            clonedGraph = new BidirectionalGraph<int, Edge<int>>(graph);
+            clonedGraph = new BidirectionalGraph<int, IEdge<int>>(graph);
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
-            clonedGraph = (BidirectionalGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (BidirectionalGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
@@ -1142,7 +1142,7 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertNoEdge(clonedGraph);
 
-            clonedGraph = (BidirectionalGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (BidirectionalGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertNoEdge(clonedGraph);
@@ -1159,12 +1159,12 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
-            clonedGraph = new BidirectionalGraph<int, Edge<int>>(graph);
+            clonedGraph = new BidirectionalGraph<int, IEdge<int>>(graph);
             Assert.IsNotNull(clonedGraph);
             AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
-            clonedGraph = (BidirectionalGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (BidirectionalGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
@@ -1178,7 +1178,7 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(clonedGraph, [1, 2, 3, 4]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
-            clonedGraph = (BidirectionalGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (BidirectionalGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertHasVertices(clonedGraph, [1, 2, 3, 4]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
@@ -1189,13 +1189,13 @@ namespace QuikGraph.Tests.Structures
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new BidirectionalGraph<int, Edge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => new BidirectionalGraph<int, IEdge<int>>(null));
         }
 
         [Test]
         public void TrimEdgeExcess()
         {
-            var graph = new BidirectionalGraph<int, Edge<int>>(true, 12)
+            var graph = new BidirectionalGraph<int, IEdge<int>>(true, 12)
             {
                 EdgeCapacity = 50
             };

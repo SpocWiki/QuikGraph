@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using JetBrains.Annotations;
 using NUnit.Framework;
 
@@ -9,7 +9,7 @@ namespace QuikGraph.Tests.Structures
         #region Degree
 
         protected static void Degree_Test(
-            [NotNull] IMutableBidirectionalGraph<int, Edge<int>> graph)
+            [NotNull] IMutableBidirectionalGraph<int, IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -29,8 +29,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void Degree_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, Edge<int>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, IEdge<int>>> createGraph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -41,7 +41,7 @@ namespace QuikGraph.Tests.Structures
 
             wrappedGraph.AddVerticesAndEdgeRange([edge1, edge2, edge3, edge4, edge5, edge6]);
             wrappedGraph.AddVertex(5);
-            IBidirectionalIncidenceGraph<int, Edge<int>> graph = createGraph();
+            IBidirectionalIncidenceGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.AreEqual(3, graph.Degree(1));
             Assert.AreEqual(3, graph.Degree(2));
@@ -51,7 +51,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void Degree_ImmutableVertices_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -70,8 +70,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void Degree_ImmutableGraph_ReversedTest(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -82,7 +82,7 @@ namespace QuikGraph.Tests.Structures
 
             wrappedGraph.AddVerticesAndEdgeRange([edge1, edge2, edge3, edge4, edge5, edge6]);
             wrappedGraph.AddVertex(5);
-            IBidirectionalIncidenceGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
+            IBidirectionalIncidenceGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             Assert.AreEqual(3, graph.Degree(1));
             Assert.AreEqual(3, graph.Degree(2));

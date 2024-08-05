@@ -13,7 +13,7 @@ namespace QuikGraph
         /// A Factory Method allows to centrally change the Types of Edges to create.
         /// It can also be registered with an IoC Container to dynamically create new Edges. 
         /// </remarks>
-        public static Edge<TVertex> Create<TVertex>(TVertex source, TVertex target) => new Edge<TVertex>(source, target);
+        public static IEdge<TVertex> Create<TVertex>(TVertex source, TVertex target) => new Edge<TVertex>(source, target);
     }
 
     /// <summary>

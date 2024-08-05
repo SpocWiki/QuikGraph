@@ -28,7 +28,7 @@ namespace QuikGraph.Data.Tests
                 IMutableVertexAndEdgeSet<DataTable, DataRelationEdge> g,
                 DataSet set)
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 Assert.AreSame(set, algo.DataSet);
             }
 

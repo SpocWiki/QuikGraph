@@ -15,8 +15,8 @@ namespace QuikGraph.Graphviz.Tests
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, MergedEdge<int, Edge<int>>>();
-            var algorithm = new EdgeMergeCondensatedGraphRenderer<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, MergedEdge<int, IEdge<int>>>();
+            var algorithm = new EdgeMergeCondensatedGraphRenderer<int, IEdge<int>>(graph);
             Assert.AreSame(graph, algorithm.VisitedGraph);
             Assert.IsNotNull(algorithm.Graphviz);
         }
@@ -26,7 +26,7 @@ namespace QuikGraph.Graphviz.Tests
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new EdgeMergeCondensatedGraphRenderer<int, Edge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => new EdgeMergeCondensatedGraphRenderer<int, IEdge<int>>(null));
         }
 
         [NotNull, ItemNotNull]
@@ -36,7 +36,7 @@ namespace QuikGraph.Graphviz.Tests
             get
             {
                 // Empty graph
-                var graph = new AdjacencyGraph<int, MergedEdge<int, Edge<int>>>();
+                var graph = new AdjacencyGraph<int, MergedEdge<int, IEdge<int>>>();
                 yield return new TestCaseData(
                     graph,
                     @"digraph G {" + Environment.NewLine +
@@ -45,7 +45,7 @@ namespace QuikGraph.Graphviz.Tests
                     @"}");
 
                 // Not empty graph
-                graph = new AdjacencyGraph<int, MergedEdge<int, Edge<int>>>();
+                graph = new AdjacencyGraph<int, MergedEdge<int, IEdge<int>>>();
                 graph.AddVertexRange([4, 8]);
 
                 var edge12 = Edge.Create(1, 2);
@@ -60,31 +60,31 @@ namespace QuikGraph.Graphviz.Tests
                 var edge71 = Edge.Create(7, 1);
                 var edge82 = Edge.Create(8, 2);
 
-                var mergeEdge1 = new MergedEdge<int, Edge<int>>(8, 8);
+                var mergeEdge1 = new MergedEdge<int, IEdge<int>>(8, 8);
                 mergeEdge1.Edges.Add(edge82);
                 mergeEdge1.Edges.Add(edge23);
                 mergeEdge1.Edges.Add(edge38);
 
-                var mergeEdge2 = new MergedEdge<int, Edge<int>>(4, 4);
+                var mergeEdge2 = new MergedEdge<int, IEdge<int>>(4, 4);
                 mergeEdge2.Edges.Add(edge44);
 
-                var mergeEdge3 = new MergedEdge<int, Edge<int>>(4, 8);
+                var mergeEdge3 = new MergedEdge<int, IEdge<int>>(4, 8);
                 mergeEdge3.Edges.Add(edge43);
                 mergeEdge3.Edges.Add(edge38);
 
-                var mergeEdge4 = new MergedEdge<int, Edge<int>>(4, 8);
+                var mergeEdge4 = new MergedEdge<int, IEdge<int>>(4, 8);
                 mergeEdge4.Edges.Add(edge42);
                 mergeEdge4.Edges.Add(edge23);
                 mergeEdge4.Edges.Add(edge38);
 
-                var mergeEdge5 = new MergedEdge<int, Edge<int>>(4, 8);
+                var mergeEdge5 = new MergedEdge<int, IEdge<int>>(4, 8);
                 mergeEdge5.Edges.Add(edge45);
                 mergeEdge5.Edges.Add(edge57);
                 mergeEdge5.Edges.Add(edge71);
                 mergeEdge5.Edges.Add(edge13);
                 mergeEdge5.Edges.Add(edge38);
 
-                var mergeEdge6 = new MergedEdge<int, Edge<int>>(4, 8);
+                var mergeEdge6 = new MergedEdge<int, IEdge<int>>(4, 8);
                 mergeEdge6.Edges.Add(edge45);
                 mergeEdge6.Edges.Add(edge57);
                 mergeEdge6.Edges.Add(edge71);
@@ -116,7 +116,7 @@ namespace QuikGraph.Graphviz.Tests
 
         [TestCaseSource(nameof(GenerateTestCases))]
         public void Generate(
-            [NotNull] AdjacencyGraph<int, MergedEdge<int, Edge<int>>> graph,
+            [NotNull] AdjacencyGraph<int, MergedEdge<int, IEdge<int>>> graph,
             [NotNull] string expectedDot)
         {
             var dotEngine = new TestDotEngine
@@ -124,7 +124,7 @@ namespace QuikGraph.Graphviz.Tests
                 ExpectedDot = expectedDot
             };
 
-            var algorithm = new EdgeMergeCondensatedGraphRenderer<int, Edge<int>>(graph);
+            var algorithm = new EdgeMergeCondensatedGraphRenderer<int, IEdge<int>>(graph);
             algorithm.Generate(dotEngine, "NotSaved.dot");
         }
 

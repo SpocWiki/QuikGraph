@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -102,11 +102,11 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(null, graph);
+            algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph);
             AssertAlgorithmProperties(algorithm, graph);
 
             algorithm.MaxDepth = 12;
@@ -120,7 +120,7 @@ namespace QuikGraph.Tests.Algorithms.Search
                 int maxDepth = int.MaxValue)
                 where TEdge : IEdge<TVertex>
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 CollectionAssert.IsEmpty(algo.VerticesColors);
                 Assert.AreEqual(maxDepth, algo.MaxDepth);
             }
@@ -133,17 +133,17 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
 
             Assert.Throws<ArgumentNullException>(
-                () => new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(null));
+                () => new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(null, null));
+                () => new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(graph).MaxDepth = -1);
+            Assert.Throws<ArgumentOutOfRangeException>(() => new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph).MaxDepth = -1);
         }
 
         #region Rooted algorithm
@@ -151,16 +151,16 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void TryGetRootVertex()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             TryGetRootVertex_Test(algorithm);
         }
 
         [Test]
         public void SetRootVertex()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             SetRootVertex_Test(algorithm);
         }
 
@@ -175,25 +175,25 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void ClearRootVertex()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             ClearRootVertex_Test(algorithm);
         }
 
         [Test]
         public void ComputeWithoutRoot_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             ComputeWithoutRoot_Throws_Test(
-                () => new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(graph));
+                () => new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph));
         }
 
         [Test]
         public void ComputeWithRoot()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVertex(0);
-            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, Edge<int>>(graph);
+            var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             ComputeWithRoot_Test(algorithm);
         }
 

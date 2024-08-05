@@ -264,7 +264,7 @@ namespace QuikGraph.Serialization.Tests
         public void SerializationToXml_Throws()
         {
             // ReSharper disable AssignNullToNotNullAttribute
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             Assert.Throws<ArgumentNullException>(
                 () => graph.SerializeToXml(
                     null,
@@ -280,7 +280,7 @@ namespace QuikGraph.Serialization.Tests
             using (XmlWriter xmlWriter = XmlWriter.Create(writer))
             {
                 Assert.Throws<ArgumentNullException>(
-                    () => ((AdjacencyGraph<int, Edge<int>>)null).SerializeToXml(
+                    () => ((AdjacencyGraph<int, IEdge<int>>)null).SerializeToXml(
                         xmlWriter,
                         vertex => vertex.ToString(),
                         graph.GetEdgeIdentity(),
@@ -300,7 +300,7 @@ namespace QuikGraph.Serialization.Tests
                         TestNamespace));
 
                 Assert.Throws<ArgumentNullException>(
-                    () => graph.SerializeToXml<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(
+                    () => graph.SerializeToXml<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(
                         xmlWriter,
                         vertex => vertex.ToString(),
                         null,

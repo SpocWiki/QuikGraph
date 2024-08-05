@@ -51,7 +51,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(5);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(5);
             AddEdge_ForbiddenParallelEdges_Test(graph);
         }
 
@@ -65,7 +65,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge_Throws()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(2);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(2);
 
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.AddEdge(null));
@@ -86,7 +86,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdgeRange_Throws()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(3);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(3);
             AddEdgeRange_ForbiddenParallelEdges_Throws_Test(graph);
         }
 
@@ -113,7 +113,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(4);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(4);
             ContainsEdge_ForbiddenParallelEdges_ImmutableVertices_Test(graph);
         }
 
@@ -127,7 +127,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_SourceTarget()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(4);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(4);
             ContainsEdge_SourceTarget_ForbiddenParallelEdges_Test(graph);
         }
 
@@ -145,21 +145,21 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(5);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(5);
             OutEdge_ImmutableVertices_Test(graph);
         }
 
         [Test]
         public void OutEdge_Throws()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(3);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(3);
             OutEdge_Throws_ImmutableVertices_Test(graph);
         }
 
         [Test]
         public void OutEdges()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(4);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(4);
             OutEdges_ImmutableVertices_Test(graph);
         }
 
@@ -177,21 +177,21 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void InEdge()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(5);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(5);
             InEdge_ImmutableVertices_Test(graph);
         }
 
         [Test]
         public void InEdge_Throws()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(3);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(3);
             InEdge_Throws_ImmutableVertices_Test(graph);
         }
 
         [Test]
         public void InEdges()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(4);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(4);
             InEdges_ImmutableVertices_Test(graph);
         }
 
@@ -207,7 +207,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Degree()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(5);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(5);
             Degree_ImmutableVertices_Test(graph);
         }
 
@@ -223,28 +223,28 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(5);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(5);
             TryGetEdge_ImmutableVertices_Test(graph);
         }
 
         [Test]
         public void TryGetEdges()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(5);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(5);
             TryGetEdges_ImmutableVertices_Test(graph);
         }
 
         [Test]
         public void TryGetOutEdges()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(6);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(6);
             TryGetOutEdges_ImmutableVertices_Test(graph);
         }
 
         [Test]
         public void TryGetInEdges()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(6);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(6);
             TryGetInEdges_ImmutableVertices_Test(graph);
         }
 
@@ -255,7 +255,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdge()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(4);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(4);
             RemoveEdge_ImmutableVertices_Test(graph);
         }
 
@@ -283,7 +283,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveOutEdgeIf()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(4);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(4);
             RemoveOutEdgeIf_ImmutableVertices_Test(graph);
         }
 
@@ -297,7 +297,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveInEdgeIf()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(4);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(4);
             RemoveInEdgeIf_ImmutableVertices_Test(graph);
         }
 
@@ -317,7 +317,7 @@ namespace QuikGraph.Tests.Structures
         {
             int edgesRemoved = 0;
 
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(3);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(3);
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.EdgeRemoved += e =>
             {
@@ -372,7 +372,7 @@ namespace QuikGraph.Tests.Structures
         {
             int edgesRemoved = 0;
 
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(3);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(3);
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.EdgeRemoved += e =>
             {
@@ -441,7 +441,7 @@ namespace QuikGraph.Tests.Structures
         {
             int edgesRemoved = 0;
 
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(3);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(3);
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.EdgeRemoved += e =>
             {
@@ -511,7 +511,7 @@ namespace QuikGraph.Tests.Structures
         {
             int edgesRemoved = 0;
 
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(3);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(3);
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.EdgeRemoved += e =>
             {
@@ -575,7 +575,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Clone()
         {
-            var graph = new BidirectionalMatrixGraph<Edge<int>>(1);
+            var graph = new BidirectionalMatrixGraph<IEdge<int>>(1);
             AssertHasVertices(graph, [0]);
             AssertNoEdge(graph);
 
@@ -584,7 +584,7 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(graph, [0]);
             AssertNoEdge(graph);
 
-            clonedGraph = (BidirectionalMatrixGraph<Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (BidirectionalMatrixGraph<IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertHasVertices(graph, [0]);
             AssertNoEdge(graph);
@@ -592,7 +592,7 @@ namespace QuikGraph.Tests.Structures
             var edge1 = Edge.Create(0, 1);
             var edge2 = Edge.Create(0, 2);
             var edge3 = Edge.Create(1, 2);
-            graph = new BidirectionalMatrixGraph<Edge<int>>(3);
+            graph = new BidirectionalMatrixGraph<IEdge<int>>(3);
             graph.AddEdgeRange([edge1, edge2, edge3]);
             AssertHasVertices(graph, [0, 1, 2]);
             AssertHasEdges(graph, [edge1, edge2, edge3]);
@@ -602,7 +602,7 @@ namespace QuikGraph.Tests.Structures
             AssertHasVertices(clonedGraph, [0, 1, 2]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
-            clonedGraph = (BidirectionalMatrixGraph<Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (BidirectionalMatrixGraph<IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertHasVertices(clonedGraph, [0, 1, 2]);
             AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);

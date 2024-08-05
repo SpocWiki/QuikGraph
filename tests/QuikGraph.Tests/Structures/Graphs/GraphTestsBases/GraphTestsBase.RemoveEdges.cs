@@ -10,7 +10,7 @@ namespace QuikGraph.Tests.Structures
         #region Remove Edges
 
         protected static void RemoveEdge_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> graph)
         {
             int verticesRemoved = 0;
             int edgesRemoved = 0;
@@ -90,7 +90,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveEdge_EdgesOnly_Test(
-            [NotNull] EdgeListGraph<int, Edge<int>> graph)
+            [NotNull] EdgeListGraph<int, IEdge<int>> graph)
         {
             int edgesRemoved = 0;
 
@@ -149,7 +149,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveEdge_ImmutableVertices_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             int edgesRemoved = 0;
 
@@ -220,7 +220,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveEdge_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph)
         {
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -263,9 +263,9 @@ namespace QuikGraph.Tests.Structures
             graph.AddVerticesAndEdgeRange([edge12, edge13, edge14, edge24, edge31]);
             AssertHasEdges(graph, [edge12, edge13, edge14, edge24, edge31]);
 
-            ClusteredAdjacencyGraph<int, Edge<int>> cluster1 = graph.AddCluster();
-            ClusteredAdjacencyGraph<int, Edge<int>> cluster2 = graph.AddCluster();
-            ClusteredAdjacencyGraph<int, Edge<int>> cluster3 = graph.AddCluster();
+            ClusteredAdjacencyGraph<int, IEdge<int>> cluster1 = graph.AddCluster();
+            ClusteredAdjacencyGraph<int, IEdge<int>> cluster2 = graph.AddCluster();
+            ClusteredAdjacencyGraph<int, IEdge<int>> cluster3 = graph.AddCluster();
 
             cluster1.AddVerticesAndEdgeRange([edge12, edge13]);
             AssertHasEdges(cluster1, [edge12, edge13]);
@@ -571,7 +571,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveEdgeIf_Test<TGraph>([NotNull] TGraph graph)
-            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, Edge<int>>
+            where TGraph : IMutableVertexSet<int>, IMutableEdgeListGraph<int, IEdge<int>>
         {
             int verticesRemoved = 0;
             int edgesRemoved = 0;
@@ -626,7 +626,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveEdgeIf_EdgesOnly_Test(
-            [NotNull] EdgeListGraph<int, Edge<int>> graph)
+            [NotNull] EdgeListGraph<int, IEdge<int>> graph)
         {
             int edgesRemoved = 0;
 
@@ -671,7 +671,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveEdgeIf_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph)
         {
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -711,7 +711,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveOutEdgeIf_Test(
-            [NotNull] IMutableVertexAndEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
             int verticesRemoved = 0;
             int edgesRemoved = 0;
@@ -771,7 +771,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveOutEdgeIf_ImmutableVertices_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             int edgesRemoved = 0;
 
@@ -819,7 +819,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveOutEdgeIf_Clusters_Test(
-            [NotNull] ClusteredAdjacencyGraph<int, Edge<int>> graph)
+            [NotNull] ClusteredAdjacencyGraph<int, IEdge<int>> graph)
         {
             Assert.AreEqual(0, graph.RemoveOutEdgeIf(1, _ => true));
             AssertEmptyGraph(graph);
@@ -879,7 +879,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveInEdgeIf_Test(
-            [NotNull] IMutableBidirectionalGraph<int, Edge<int>> graph)
+            [NotNull] IMutableBidirectionalGraph<int, IEdge<int>> graph)
         {
             int verticesRemoved = 0;
             int edgesRemoved = 0;
@@ -939,7 +939,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveInEdgeIf_ImmutableVertices_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             int edgesRemoved = 0;
 
@@ -1005,7 +1005,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveAdjacentEdgeIf_Test(
-            [NotNull] IMutableUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] IMutableUndirectedGraph<int, IEdge<int>> graph)
         {
             int verticesRemoved = 0;
             int edgesRemoved = 0;

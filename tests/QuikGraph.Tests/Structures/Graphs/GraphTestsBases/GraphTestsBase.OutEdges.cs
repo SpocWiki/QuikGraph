@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -13,8 +13,8 @@ namespace QuikGraph.Tests.Structures
         #region Out Edges
 
         protected static void OutEdge_Test(
-            [NotNull] IImplicitGraph<int, Edge<int>> graph,
-            [NotNull, InstantHandle] Action<IEnumerable<Edge<int>>> addVerticesAndEdgeRange)
+            [NotNull] IImplicitGraph<int, IEdge<int>> graph,
+            [NotNull, InstantHandle] Action<IEnumerable<IEdge<int>>> addVerticesAndEdgeRange)
         {
             var edge11 = Edge.Create(1, 1);
             var edge12 = Edge.Create(1, 2);
@@ -33,7 +33,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_Test(
-            [NotNull] IMutableVertexAndEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
             OutEdge_Test(
                 graph,
@@ -41,8 +41,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IImplicitGraph<int, Edge<int>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IImplicitGraph<int, IEdge<int>>> createGraph)
         {
             var edge11 = Edge.Create(1, 1);
             var edge12 = Edge.Create(1, 2);
@@ -52,7 +52,7 @@ namespace QuikGraph.Tests.Structures
             var edge41 = Edge.Create(4, 1);
 
             wrappedGraph.AddVerticesAndEdgeRange([edge11, edge12, edge13, edge24, edge33, edge41]);
-            IImplicitGraph<int, Edge<int>> graph = createGraph();
+            IImplicitGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.AreSame(edge11, graph.OutEdge(1, 0));
             Assert.AreSame(edge13, graph.OutEdge(1, 2));
@@ -62,7 +62,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, SEquatableEdge<int>>> createGraph)
         {
             var edge11 = Edge.Create(1, 1);
@@ -83,7 +83,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_ImmutableVertices_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             var edge11 = Edge.Create(1, 1);
             var edge12 = Edge.Create(1, 2);
@@ -102,8 +102,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_ImmutableGraph_ReversedTest(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IImplicitGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IImplicitGraph<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {
             var edge11 = Edge.Create(1, 1);
             var edge12 = Edge.Create(1, 2);
@@ -114,7 +114,7 @@ namespace QuikGraph.Tests.Structures
             var edge41 = Edge.Create(4, 1);
 
             wrappedGraph.AddVerticesAndEdgeRange([edge11, edge12, edge13, edge21, edge24, edge33, edge41]);
-            IImplicitGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
+            IImplicitGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             AssertSameReversedEdge(edge11, graph.OutEdge(1, 0));
             AssertSameReversedEdge(edge41, graph.OutEdge(1, 2));
@@ -134,9 +134,9 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_Throws_Test(
-            [NotNull] IImplicitGraph<int, Edge<int>> graph,
+            [NotNull] IImplicitGraph<int, IEdge<int>> graph,
             [NotNull, InstantHandle] Action<int> addVertex,
-            [NotNull, InstantHandle] Action<Edge<int>> addEdge)
+            [NotNull, InstantHandle] Action<IEdge<int>> addEdge)
         {
             const int vertex1 = 1;
             const int vertex2 = 2;
@@ -154,7 +154,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_Throws_Test(
-            [NotNull] IMutableVertexAndEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
             OutEdge_Throws_Test(
                 graph,
@@ -163,7 +163,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_Throws_ImmutableGraph_Test<TEdge>(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, TEdge>> createGraph)
             where TEdge : IEdge<int>
         {
@@ -187,7 +187,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_Throws_ImmutableVertices_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<VertexNotFoundException>(() => graph.OutEdge(-1, 0));
@@ -199,10 +199,10 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_Throws_ImmutableGraph_ReversedTest(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IImplicitGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IImplicitGraph<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {
-            IImplicitGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
+            IImplicitGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             const int vertex1 = 1;
             const int vertex2 = 2;
@@ -222,9 +222,9 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdges_Test(
-            [NotNull] IImplicitGraph<int, Edge<int>> graph,
+            [NotNull] IImplicitGraph<int, IEdge<int>> graph,
             [NotNull, InstantHandle] Action<int> addVertex,
-            [NotNull, InstantHandle] Action<IEnumerable<Edge<int>>> addVerticesAndEdgeRange)
+            [NotNull, InstantHandle] Action<IEnumerable<IEdge<int>>> addVerticesAndEdgeRange)
         {
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -245,7 +245,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdges_Test(
-            [NotNull] IMutableVertexAndEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
             OutEdges_Test(
                 graph,
@@ -254,8 +254,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdges_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IImplicitGraph<int, Edge<int>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IImplicitGraph<int, IEdge<int>>> createGraph)
         {
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -265,7 +265,7 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
 
             wrappedGraph.AddVertex(1);
-            IImplicitGraph<int, Edge<int>> graph = createGraph();
+            IImplicitGraph<int, IEdge<int>> graph = createGraph();
             AssertNoOutEdge(graph, 1);
 
             wrappedGraph.AddVerticesAndEdgeRange([edge12, edge13, edge14, edge24, edge31, edge33]);
@@ -278,7 +278,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdges_ImmutableGraph_Test(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, SEquatableEdge<int>>> createGraph)
         {
             var edge12 = Edge.Create(1, 2);
@@ -318,7 +318,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdges_ImmutableVertices_Test(
-            [NotNull] BidirectionalMatrixGraph<Edge<int>> graph)
+            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             var edge01 = Edge.Create(0, 1);
             var edge02 = Edge.Create(0, 2);
@@ -338,8 +338,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdges_ImmutableGraph_ReversedTest(
-            [NotNull] IMutableVertexAndEdgeSet<int, Edge<int>> wrappedGraph,
-            [NotNull, InstantHandle] Func<IImplicitGraph<int, SReversedEdge<int, Edge<int>>>> createGraph)
+            [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
+            [NotNull, InstantHandle] Func<IImplicitGraph<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
@@ -349,7 +349,7 @@ namespace QuikGraph.Tests.Structures
             var edge34 = Edge.Create(3, 4);
 
             wrappedGraph.AddVertex(1);
-            IImplicitGraph<int, SReversedEdge<int, Edge<int>>> graph = createGraph();
+            IImplicitGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
             AssertNoOutEdge(graph, 1);
 
             wrappedGraph.AddVerticesAndEdgeRange([edge12, edge13, edge14, edge24, edge33, edge34]);

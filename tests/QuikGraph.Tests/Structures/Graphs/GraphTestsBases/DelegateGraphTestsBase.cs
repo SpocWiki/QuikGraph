@@ -65,7 +65,7 @@ namespace QuikGraph.Tests.Structures
         #region Contains Vertex
 
         protected static void ContainsVertex_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
+            [NotNull] GraphData<int, IEdge<int>> data,
             [NotNull] IImplicitVertexSet<int> graph)
         {
             data.CheckCalls(0);
@@ -84,8 +84,8 @@ namespace QuikGraph.Tests.Structures
         #region Contains Edge
 
         protected static void ContainsEdge_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IEdgeSet<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IEdgeSet<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -119,7 +119,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         private static void ContainsEdge_SourceTarget_GenericTest(
-            [NotNull] GraphData<int, Edge<int>> data,
+            [NotNull] GraphData<int, IEdge<int>> data,
             [NotNull, InstantHandle] Func<int, int, bool> hasEdge,
             bool isDirected = true)
         {
@@ -152,8 +152,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_SourceTarget_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IIncidenceGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IIncidenceGraph<int, IEdge<int>> graph)
         {
             ContainsEdge_SourceTarget_GenericTest(
                 data,
@@ -161,8 +161,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void ContainsEdge_SourceTarget_UndirectedGraph_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitUndirectedGraph<int, IEdge<int>> graph)
         {
             ContainsEdge_SourceTarget_GenericTest(
                 data,
@@ -175,8 +175,8 @@ namespace QuikGraph.Tests.Structures
         #region Out Edges
 
         protected static void OutEdge_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitGraph<int, IEdge<int>> graph)
         {
             var edge11 = Edge.Create(1, 1);
             var edge12 = Edge.Create(1, 2);
@@ -194,8 +194,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdge_Throws_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitGraph<int, IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             data.CheckCalls(0);
@@ -215,8 +215,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -224,7 +224,7 @@ namespace QuikGraph.Tests.Structures
             AssertNoOutEdge(graph, 1);
             data.CheckCalls(3);
 
-            Edge<int>[] edges =
+            IEdge<int>[] edges =
             [
                 Edge.Create(1, 2),
                 Edge.Create(1, 3)
@@ -235,8 +235,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void OutEdges_Throws_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitGraph<int, IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             data.CheckCalls(0);
@@ -258,8 +258,8 @@ namespace QuikGraph.Tests.Structures
         #region Adjacent Edges
 
         protected static void AdjacentEdge_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitUndirectedGraph<int, IEdge<int>> graph)
         {
             var edge11 = Edge.Create(1, 1);
             var edge12 = Edge.Create(1, 2);
@@ -277,8 +277,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AdjacentEdge_Throws_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitUndirectedGraph<int, IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             data.CheckCalls(0);
@@ -298,8 +298,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AdjacentEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitUndirectedGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -307,7 +307,7 @@ namespace QuikGraph.Tests.Structures
             AssertNoAdjacentEdge(graph, 1);
             data.CheckCalls(3);
 
-            Edge<int>[] edges =
+            IEdge<int>[] edges =
             [
                 Edge.Create(1, 2),
                 Edge.Create(1, 3)
@@ -318,8 +318,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void AdjacentEdges_Throws_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitUndirectedGraph<int, IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             data.CheckCalls(0);
@@ -341,8 +341,8 @@ namespace QuikGraph.Tests.Structures
         #region Out Edges
 
         protected static void InEdge_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IBidirectionalIncidenceGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IBidirectionalIncidenceGraph<int, IEdge<int>> graph)
         {
             var edge11 = Edge.Create(1, 1);
             var edge21 = Edge.Create(2, 1);
@@ -360,8 +360,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void InEdge_Throws_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IBidirectionalIncidenceGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IBidirectionalIncidenceGraph<int, IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             data.CheckCalls(0);
@@ -381,8 +381,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void InEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IBidirectionalIncidenceGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IBidirectionalIncidenceGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -390,7 +390,7 @@ namespace QuikGraph.Tests.Structures
             AssertNoInEdge(graph, 1);
             data.CheckCalls(3);
 
-            Edge<int>[] edges =
+            IEdge<int>[] edges =
             [
                 Edge.Create(1, 2),
                 Edge.Create(1, 3)
@@ -401,8 +401,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void InEdges_Throws_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IBidirectionalIncidenceGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IBidirectionalIncidenceGraph<int, IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             data.CheckCalls(0);
@@ -424,9 +424,9 @@ namespace QuikGraph.Tests.Structures
         #region Degree
 
         protected static void Degree_Test(
-            [NotNull] GraphData<int, Edge<int>> data1,
-            [NotNull] GraphData<int, Edge<int>> data2,
-            [NotNull] IBidirectionalIncidenceGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data1,
+            [NotNull] GraphData<int, IEdge<int>> data2,
+            [NotNull] IBidirectionalIncidenceGraph<int, IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             data1.CheckCalls(0);
@@ -478,8 +478,8 @@ namespace QuikGraph.Tests.Structures
         #region Try Get Edges
 
         protected static void TryGetEdge_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IIncidenceGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IIncidenceGraph<int, IEdge<int>> graph)
         {
             ContainsEdge_SourceTarget_GenericTest(
                 data,
@@ -487,8 +487,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void TryGetEdge_UndirectedGraph_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitUndirectedGraph<int, IEdge<int>> graph)
         {
             ContainsEdge_SourceTarget_GenericTest(
                 data,
@@ -497,8 +497,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void TryGetEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IIncidenceGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IIncidenceGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -507,7 +507,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(1);
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetEdges(1, 2, out IEnumerable<Edge<int>> edges));
+            Assert.IsTrue(graph.TryGetEdges(1, 2, out IEnumerable<IEdge<int>> edges));
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
@@ -518,8 +518,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void TryGetEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] DelegateVertexAndEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] DelegateVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -528,7 +528,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0); // Vertex is not in graph so no need to call user code
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetEdges(1, 2, out IEnumerable<Edge<int>> edges));
+            Assert.IsTrue(graph.TryGetEdges(1, 2, out IEnumerable<IEdge<int>> edges));
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
@@ -572,8 +572,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void TryGetOutEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IImplicitGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IImplicitGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -582,7 +582,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(1);
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetOutEdges(1, out IEnumerable<Edge<int>> edges));
+            Assert.IsTrue(graph.TryGetOutEdges(1, out IEnumerable<IEdge<int>> edges));
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
@@ -593,8 +593,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void TryGetOutEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] DelegateVertexAndEdgeListGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] DelegateVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -603,7 +603,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0); // Vertex is not in graph so no need to call user code
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetOutEdges(1, out IEnumerable<Edge<int>> edges));
+            Assert.IsTrue(graph.TryGetOutEdges(1, out IEnumerable<IEdge<int>> edges));
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
@@ -613,7 +613,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(1);
 
             data.ShouldReturnEdges = null;
-            Assert.IsTrue(graph.TryGetOutEdges(1, out IEnumerable<Edge<int>> outEdges));
+            Assert.IsTrue(graph.TryGetOutEdges(1, out IEnumerable<IEdge<int>> outEdges));
             CollectionAssert.IsEmpty(outEdges);
             data.CheckCalls(1);
 
@@ -636,8 +636,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void TryGetAdjacentEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] DelegateImplicitUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] DelegateImplicitUndirectedGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -646,7 +646,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(1);
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetAdjacentEdges(1, out IEnumerable<Edge<int>> edges));
+            Assert.IsTrue(graph.TryGetAdjacentEdges(1, out IEnumerable<IEdge<int>> edges));
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
@@ -657,8 +657,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void TryGetAdjacentEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] DelegateUndirectedGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] DelegateUndirectedGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -667,7 +667,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0); // Vertex is not in graph so no need to call user code
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetAdjacentEdges(1, out IEnumerable<Edge<int>> edges));
+            Assert.IsTrue(graph.TryGetAdjacentEdges(1, out IEnumerable<IEdge<int>> edges));
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
@@ -677,7 +677,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(1);
 
             data.ShouldReturnEdges = null;
-            Assert.IsTrue(graph.TryGetAdjacentEdges(1, out IEnumerable<Edge<int>> adjacentEdges));
+            Assert.IsTrue(graph.TryGetAdjacentEdges(1, out IEnumerable<IEdge<int>> adjacentEdges));
             CollectionAssert.IsEmpty(adjacentEdges);
             data.CheckCalls(1);
 
@@ -709,8 +709,8 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void TryGetInEdges_Test(
-            [NotNull] GraphData<int, Edge<int>> data,
-            [NotNull] IBidirectionalIncidenceGraph<int, Edge<int>> graph)
+            [NotNull] GraphData<int, IEdge<int>> data,
+            [NotNull] IBidirectionalIncidenceGraph<int, IEdge<int>> graph)
         {
             data.CheckCalls(0);
 
@@ -719,7 +719,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(1);
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetInEdges(1, out IEnumerable<Edge<int>> edges));
+            Assert.IsTrue(graph.TryGetInEdges(1, out IEnumerable<IEdge<int>> edges));
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 

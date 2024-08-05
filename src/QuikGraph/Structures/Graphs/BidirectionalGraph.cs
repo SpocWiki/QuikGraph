@@ -655,6 +655,9 @@ namespace QuikGraph
             return edgesArray.Count(AddVerticesAndEdge);
         }
 
+        /// <inheritdoc cref="AddVerticesAndEdgeRange(IEnumerable{TEdge})"/>
+        public int AddVerticesAndEdgeRange(params TEdge[] edges) => AddVerticesAndEdgeRange(edges.AsEnumerable());
+
         #endregion
 
         #region IMutableIncidenceGraph<TVertex,TEdge> 

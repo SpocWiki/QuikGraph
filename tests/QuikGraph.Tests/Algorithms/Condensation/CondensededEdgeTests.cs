@@ -14,20 +14,20 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void TestConstruction()
         {
-            var graph1 = new AdjacencyGraph<int, Edge<int>>();
-            var graph2 = new AdjacencyGraph<int, Edge<int>>();
+            var graph1 = new AdjacencyGraph<int, IEdge<int>>();
+            var graph2 = new AdjacencyGraph<int, IEdge<int>>();
 
             // Value type
             CheckEdge(
-                new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph1, graph2),
+                new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph1, graph2),
                 graph1,
                 graph2);
             CheckEdge(
-                new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph2, graph1),
+                new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph2, graph1),
                 graph2,
                 graph1);
             CheckEdge(
-                new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph1, graph1),
+                new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph1, graph1),
                 graph1,
                 graph1);
 
@@ -52,13 +52,13 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void Construction_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(null, graph));
-            Assert.Throws<ArgumentNullException>(() => new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph, null));
-            Assert.Throws<ArgumentNullException>(() => new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(null, null));
+            Assert.Throws<ArgumentNullException>(() => new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(null, graph));
+            Assert.Throws<ArgumentNullException>(() => new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph, null));
+            Assert.Throws<ArgumentNullException>(() => new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -66,10 +66,10 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void TestEdges()
         {
-            var graph1 = new AdjacencyGraph<int, Edge<int>>();
-            var graph2 = new AdjacencyGraph<int, Edge<int>>();
+            var graph1 = new AdjacencyGraph<int, IEdge<int>>();
+            var graph2 = new AdjacencyGraph<int, IEdge<int>>();
 
-            var edge = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph1, graph2);
+            var edge = new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph1, graph2);
             CollectionAssert.IsEmpty(edge.Edges);
 
             var subEdge = Edge.Create(1, 2);
@@ -83,13 +83,13 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void TestEquals()
         {
-            var graph1 = new AdjacencyGraph<int, Edge<int>>();
-            var graph2 = new AdjacencyGraph<int, Edge<int>>();
+            var graph1 = new AdjacencyGraph<int, IEdge<int>>();
+            var graph2 = new AdjacencyGraph<int, IEdge<int>>();
 
-            var edge1 = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph1, graph2);
-            var edge2 = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph1, graph2);
-            var edge3 = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph2, graph1);
-            var edge4 = new CondensedEdge<int, Edge<int>, AdjacencyGraph<int, Edge<int>>>(graph1, graph2);
+            var edge1 = new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph1, graph2);
+            var edge2 = new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph1, graph2);
+            var edge3 = new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph2, graph1);
+            var edge4 = new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph1, graph2);
 
             var subEdge = Edge.Create(1, 2);
             edge4.Edges.Add(subEdge);
