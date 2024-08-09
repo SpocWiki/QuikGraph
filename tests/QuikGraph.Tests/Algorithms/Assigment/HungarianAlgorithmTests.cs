@@ -167,7 +167,7 @@ namespace QuikGraph.Tests.Algorithms.Assignment
             Assert.AreEqual(3, tasks[3]); // J4 to be done by W4
 
             Assert.AreEqual(11, iterations.Length);
-            CollectionAssert.AreEqual(
+            Assert.AreEqual(
                 new[]
                 {
                     new[,] { { 13, 14, 0, 23 }, { 40, 0, 12, 55 }, { 6, 64, 0, 81 }, { 0, 1, 90, 15 } },
@@ -183,7 +183,7 @@ namespace QuikGraph.Tests.Algorithms.Assignment
                     new[,] { { 7, 14, 0, 2 }, { 34, 0, 12, 34 }, { 0, 64, 0, 60 }, { 0, 7, 96, 0 } }
                 },
                 iterations.Select(iteration => iteration.Matrix));
-            CollectionAssert.AreEqual(
+            Assert.AreEqual(
                 new[]
                 {
                     new[,] { { 0, 0, 1, 0 }, { 0, 1, 0, 0 }, { 0, 0, 0, 0 }, { 1, 0, 0, 0 } },

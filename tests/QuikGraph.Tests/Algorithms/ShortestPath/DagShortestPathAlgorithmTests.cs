@@ -5,7 +5,7 @@ using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.ShortestPath;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.ShortestPath
 {
@@ -288,15 +288,12 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(2));
         }
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [50])]
         [Category(TestCategories.LongRunning)]
-        public void DagShortestPath()
+        public void DagShortestPath(AdjacencyGraph<string, Edge<string>> graph)
         {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_SlowTests(50))
-            {
-                DagShortestPath_Test(graph);
-                DagCriticalPath_Test(graph);
-            }
+            DagShortestPath_Test(graph);
+            DagCriticalPath_Test(graph);
         }
 
         [Pure]

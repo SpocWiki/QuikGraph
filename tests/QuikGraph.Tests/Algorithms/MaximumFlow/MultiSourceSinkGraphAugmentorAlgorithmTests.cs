@@ -3,7 +3,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.MaximumFlow;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.MaximumFlow
 {
@@ -13,9 +13,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
     [TestFixture]
     internal sealed class MultiSourceSinkGraphAugmentorAlgorithmTests : GraphAugmentorAlgorithmTestsBase
     {
-        #region Test helpers
-
-        private static void RunAugmentationAndCheck(
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_All))]
+        public static void RunAugmentationAndCheck(
             [NotNull] IMutableBidirectionalGraph<string, Edge<string>> graph)
         {
             int vertexCount = graph.VertexCount;
@@ -99,8 +98,6 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 Assert.IsFalse(graph.ContainsEdge(vertex, augmentor.SuperSink));
             }
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -229,11 +226,5 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
         #endregion
 
-        [Test]
-        public void MultiSourceSinkGraphAugmentor()
-        {
-            foreach (BidirectionalGraph<string, Edge<string>> graph in TestGraphFactory.GetBidirectionalGraphs_All())
-                RunAugmentationAndCheck(graph);
-        }
     }
 }

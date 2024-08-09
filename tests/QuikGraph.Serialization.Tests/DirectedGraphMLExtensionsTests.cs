@@ -87,7 +87,7 @@ namespace QuikGraph.Serialization.Tests
                     using (var writer = new StringWriter())
                     {
                         var settings = new XmlWriterSettings { Indent = true };
-                        using (XmlWriter xmlWriter = XmlWriter.Create(writer, settings))
+                        using (var xmlWriter = XmlWriter.Create(writer, settings))
                         {
                             graph.WriteXml(xmlWriter);
                         }
@@ -232,7 +232,7 @@ namespace QuikGraph.Serialization.Tests
                 () => ((DirectedGraph)null).WriteXml(""));
 
             // XML writer
-            using (XmlWriter writer = XmlWriter.Create(WriteThrowsTestFilePath))
+            using (var writer = XmlWriter.Create(WriteThrowsTestFilePath))
             {
                 Assert.Throws<ArgumentNullException>(
                     () => ((DirectedGraph)null).WriteXml(writer));

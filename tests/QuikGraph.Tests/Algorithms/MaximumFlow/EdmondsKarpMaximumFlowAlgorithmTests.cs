@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.MaximumFlow;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.MaximumFlow
 {
@@ -370,15 +370,12 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             Assert.AreEqual(GraphColor.White, algorithm.GetVertexColor(3));
         }
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [100])]
         [Category(TestCategories.LongRunning)]
-        public void EdmondsKarpMaxFlow()
+        public void EdmondsKarpMaxFlow(AdjacencyGraph<string, Edge<string>> graph)
         {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_SlowTests(100))
-            {
-                if (graph.VertexCount > 1)
-                    EdmondsKarpMaxFlow(graph, (source, target) => new Edge<string>(source, target));
-            }
+            if (graph.VertexCount > 1)
+                EdmondsKarpMaxFlow(graph, (source, target) => new Edge<string>(source, target));
         }
 
         [Test]

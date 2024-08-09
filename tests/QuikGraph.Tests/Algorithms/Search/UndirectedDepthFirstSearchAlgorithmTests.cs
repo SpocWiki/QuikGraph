@@ -275,15 +275,12 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(2));
         }
 
-        [Test]
         [Category(TestCategories.LongRunning)]
-        public void UndirectedDepthFirstSearch()
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), [-1])]
+        public void UndirectedDepthFirstSearch(UndirectedGraph<string, Edge<string>> graph)
         {
-            foreach (UndirectedGraph<string, Edge<string>> graph in TestGraphFactory.GetUndirectedGraphs_SlowTests())
-            {
-                RunUndirectedDFSAndCheck(graph);
-                RunUndirectedDFSAndCheck(graph, 12);
-            }
+            RunUndirectedDFSAndCheck(graph);
+            RunUndirectedDFSAndCheck(graph, 12);
         }
 
         [TestCase(false)]

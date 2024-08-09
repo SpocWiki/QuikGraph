@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.RankedShortestPath;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 using static QuikGraph.Tests.AssertHelpers;
 
 namespace QuikGraph.Tests.Algorithms.RankedShortestPath
@@ -296,26 +296,23 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
 
         #endregion
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
         [Category(TestCategories.LongRunning)]
-        public void HoffmanPavleyRankedShortestPath()
+        public void HoffmanPavleyRankedShortestPath(BidirectionalGraph<string, Edge<string>> graph)
         {
-            foreach (BidirectionalGraph<string, Edge<string>> graph in TestGraphFactory.GetBidirectionalGraphs_SlowTests())
-            {
-                if (graph.VertexCount == 0)
-                    continue;
+            if (graph.VertexCount == 0)
+                return;
 
-                var weights = new Dictionary<Edge<string>, double>();
-                foreach (Edge<string> edge in graph.Edges)
-                    weights.Add(edge, graph.OutDegree(edge.Source) + 1);
+            var weights = new Dictionary<Edge<string>, double>();
+            foreach (Edge<string> edge in graph.Edges)
+                weights.Add(edge, graph.OutDegree(edge.Source) + 1);
 
-                RunHoffmanPavleyRankedShortestPathAndCheck(
-                    graph,
-                    weights,
-                    graph.Vertices.First(),
-                    graph.Vertices.Last(),
-                    graph.VertexCount);
-            }
+            RunHoffmanPavleyRankedShortestPathAndCheck(
+                graph,
+                weights,
+                graph.Vertices.First(),
+                graph.Vertices.Last(),
+                graph.VertexCount);
         }
 
         [Test]

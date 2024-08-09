@@ -6,7 +6,7 @@ using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.ShortestPath;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.ShortestPath
 {
@@ -236,19 +236,16 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(2));
         }
 
-        [Test]
         [Category(TestCategories.LongRunning)]
-        public void UndirectedDijkstra()
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), [20])]
+        public void UndirectedDijkstra(UndirectedGraph<string, Edge<string>> graph)
         {
-            foreach (UndirectedGraph<string, Edge<string>> graph in TestGraphFactory.GetUndirectedGraphs_SlowTests(20))
+            int cut = 0;
+            foreach (string root in graph.Vertices)
             {
-                int cut = 0;
-                foreach (string root in graph.Vertices)
-                {
-                    if (cut++ > 10)
-                        break;
-                    RunUndirectedDijkstraAndCheck(graph, root);
-                }
+                if (cut++ > 10)
+                    break;
+                RunUndirectedDijkstraAndCheck(graph, root);
             }
         }
 

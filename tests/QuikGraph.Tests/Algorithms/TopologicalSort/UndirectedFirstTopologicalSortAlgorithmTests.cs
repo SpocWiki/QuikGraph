@@ -2,7 +2,6 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.TopologicalSort;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
 using static QuikGraph.Tests.QuikGraphUnitTestsHelpers;
 
 
@@ -14,9 +13,8 @@ namespace QuikGraph.Tests.Algorithms
     [TestFixture]
     internal sealed class UndirectedFirstTopologicalSortAlgorithmTests
     {
-        #region Test helpers
-
-        private static void RunUndirectedFirstTopologicalSortAndCheck<TVertex, TEdge>(
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_All))]
+        public static void RunUndirectedFirstTopologicalSortAndCheck<TVertex, TEdge>(
             [NotNull] IUndirectedGraph<TVertex, TEdge> graph,
             bool allowCycles)
             where TEdge : IEdge<TVertex>
@@ -33,8 +31,6 @@ namespace QuikGraph.Tests.Algorithms
             Assert.IsNotNull(algorithm.Degrees);
             Assert.AreEqual(graph.VertexCount, algorithm.Degrees.Count);
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -180,15 +176,6 @@ namespace QuikGraph.Tests.Algorithms
             CollectionAssert.AreEqual(
                 new[] { 0, 4, 1, 3, 2 },
                 algorithm.SortedVertices);
-        }
-
-        [Test]
-        public void UndirectedFirstTopologicalSort()
-        {
-            foreach (UndirectedGraph<string, Edge<string>> graph in TestGraphFactory.GetUndirectedGraphs_All())
-            {
-                RunUndirectedFirstTopologicalSortAndCheck(graph, true);
-            }
         }
 
         [Test]

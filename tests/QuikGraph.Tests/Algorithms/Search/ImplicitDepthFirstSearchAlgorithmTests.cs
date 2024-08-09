@@ -4,7 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Search;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 using static QuikGraph.Tests.GraphTestHelpers;
 
 namespace QuikGraph.Tests.Algorithms.Search
@@ -207,17 +207,14 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         #endregion
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [10])]
         [Category(TestCategories.LongRunning)]
-        public void ImplicitDepthFirstSearch()
+        public void ImplicitDepthFirstSearch(AdjacencyGraph<string, Edge<string>> graph)
         {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_SlowTests(10))
+            foreach (string vertex in graph.Vertices)
             {
-                foreach (string vertex in graph.Vertices)
-                {
-                    RunImplicitDFSAndCheck(graph, vertex);
-                    RunImplicitDFSAndCheck(graph, vertex, 12);
-                }
+                RunImplicitDFSAndCheck(graph, vertex);
+                RunImplicitDFSAndCheck(graph, vertex, 12);
             }
         }
     }

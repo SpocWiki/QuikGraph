@@ -2,7 +2,6 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.TopologicalSort;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
 using static QuikGraph.Tests.QuikGraphUnitTestsHelpers;
 
 namespace QuikGraph.Tests.Algorithms
@@ -212,14 +211,11 @@ namespace QuikGraph.Tests.Algorithms
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
         }
 
-        [Test]
-        public void SourceFirstBidirectionalTopologicalSort()
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_All))]
+        public void SourceFirstBidirectionalTopologicalSort(BidirectionalGraph<string, Edge<string>> graph)
         {
-            foreach (BidirectionalGraph<string, Edge<string>> graph in TestGraphFactory.GetBidirectionalGraphs_All())
-            {
-                RunSourceFirstTopologicalSortAndCheck(graph, TopologicalSortDirection.Forward);
-                RunSourceFirstTopologicalSortAndCheck(graph, TopologicalSortDirection.Backward);
-            }
+            RunSourceFirstTopologicalSortAndCheck(graph, TopologicalSortDirection.Forward);
+            RunSourceFirstTopologicalSortAndCheck(graph, TopologicalSortDirection.Backward);
         }
 
         [Test]

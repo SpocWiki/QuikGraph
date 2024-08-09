@@ -6,7 +6,7 @@ using NUnit.Framework;
 using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.Search;
 using QuikGraph.Collections;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.Search
 {
@@ -340,15 +340,11 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(2));
         }
 
-        [Test]
-        [Category(TestCategories.LongRunning)]
-        public void UndirectedBreadthFirstSearch()
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), [10])]
+        public void UndirectedBreadthFirstSearch(UndirectedGraph<string, Edge<string>> graph)
         {
-            foreach (UndirectedGraph<string, Edge<string>> graph in TestGraphFactory.GetUndirectedGraphs_SlowTests(10))
-            {
-                foreach (string vertex in graph.Vertices)
-                    RunBFSAndCheck(graph, vertex);
-            }
+            foreach (string vertex in graph.Vertices)
+                RunBFSAndCheck(graph, vertex);
         }
 
         [Pure]

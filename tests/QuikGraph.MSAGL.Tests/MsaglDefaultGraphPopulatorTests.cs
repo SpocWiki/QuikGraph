@@ -1,7 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using QuikGraph.Tests;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+using QuikGraph.Tests.Algorithms;
+
 
 namespace QuikGraph.MSAGL.Tests
 {

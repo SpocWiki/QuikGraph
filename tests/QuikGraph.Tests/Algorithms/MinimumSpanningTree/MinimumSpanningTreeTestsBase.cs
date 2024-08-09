@@ -112,7 +112,8 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
             AssertMinimumSpanningTree(graph, prim);
         }
 
-        protected static void Prim<TVertex, TEdge>([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_All))]
+        public static void Prim<TVertex, TEdge>([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
             var distances = new Dictionary<TEdge, double>();
@@ -134,8 +135,8 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
             AssertMinimumSpanningTree(graph, kruskal);
         }
 
-        protected static void Kruskal<TVertex, TEdge>([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_All))]
+        public static void Kruskal<TVertex, TEdge>([NotNull] IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
         {
             var distances = new Dictionary<TEdge, double>();
             foreach (TEdge edge in graph.Edges)

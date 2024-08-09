@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.RandomWalks;
 using QuikGraph.Algorithms.Search;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.RandomWalks
 {
@@ -350,16 +350,13 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             }
         }
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [10])]
         [Category(TestCategories.LongRunning)]
-        public void CyclePoppingRandomTree()
+        public void CyclePoppingRandomTree(AdjacencyGraph<string, Edge<string>> graph)
         {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_SlowTests(10))
+            foreach (string root in graph.Vertices)
             {
-                foreach (string root in graph.Vertices)
-                {
-                    RunCyclePoppingRandomTreeAndCheck(graph, root);
-                }
+                RunCyclePoppingRandomTreeAndCheck(graph, root);
             }
         }
 

@@ -2,7 +2,6 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.TopologicalSort;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
 using static QuikGraph.Tests.QuikGraphUnitTestsHelpers;
 
 
@@ -14,16 +13,14 @@ namespace QuikGraph.Tests.Algorithms
     [TestFixture]
     internal sealed class UndirectedTopologicalSortAlgorithmTests
     {
-        #region Test helpers
-
-        private static void RunUndirectedTopologicalSortAndCheck<TVertex, TEdge>(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> graph,
-            bool allowCycles)
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_All))]
+        public static void RunUndirectedTopologicalSortAndCheck<TVertex, TEdge>(
+            [NotNull] IUndirectedGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
             var algorithm = new UndirectedTopologicalSortAlgorithm<TVertex, TEdge>(graph)
             {
-                AllowCyclicGraph = allowCycles
+                AllowCyclicGraph = true
             };
 
             algorithm.Compute();
@@ -31,8 +28,6 @@ namespace QuikGraph.Tests.Algorithms
             Assert.IsNotNull(algorithm.SortedVertices);
             Assert.AreEqual(graph.VertexCount, algorithm.SortedVertices.Length);
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -180,19 +175,10 @@ namespace QuikGraph.Tests.Algorithms
         }
 
         [Test]
-        public void UndirectedTopologicalSort()
-        {
-            foreach (UndirectedGraph<string, Edge<string>> graph in TestGraphFactory.GetUndirectedGraphs_All())
-            {
-                RunUndirectedTopologicalSortAndCheck(graph, true);
-            }
-        }
-
-        [Test]
         public void UndirectedTopologicalSort_DCT8()
         {
             UndirectedGraph<string, Edge<string>> graph = TestGraphFactory.LoadUndirectedGraph(GetGraphFilePath("DCT8.graphml"));
-            RunUndirectedTopologicalSortAndCheck(graph, true);
+            RunUndirectedTopologicalSortAndCheck(graph);
         }
 
         [Test]

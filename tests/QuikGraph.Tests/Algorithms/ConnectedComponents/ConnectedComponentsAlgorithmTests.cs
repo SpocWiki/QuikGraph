@@ -4,7 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.ConnectedComponents;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.ConnectedComponents
 {
@@ -210,17 +210,14 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 algorithm.Components);
         }
 
-        [Test]
         [Category(TestCategories.LongRunning)]
-        public void ConnectedComponents()
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), [10])]
+        public void ConnectedComponents(UndirectedGraph<string, Edge<string>> graph)
         {
-            foreach (UndirectedGraph<string, Edge<string>> graph in TestGraphFactory.GetUndirectedGraphs_SlowTests(10))
+            while (graph.EdgeCount > 0)
             {
-                while (graph.EdgeCount > 0)
-                {
-                    RunConnectedComponentsAndCheck(graph);
-                    graph.RemoveEdge(graph.Edges.First());
-                }
+                RunConnectedComponentsAndCheck(graph);
+                graph.RemoveEdge(graph.Edges.First());
             }
         }
     }

@@ -39,8 +39,6 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             Assert.AreEqual(components, condensedGraph.VertexCount, "Component count does not match.");
         }
 
-        #endregion
-
         [Test]
         public void Constructor()
         {

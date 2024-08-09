@@ -4,7 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Search;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.Search
 {
@@ -274,15 +274,12 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(2));
         }
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
         [Category(TestCategories.LongRunning)]
-        public void DepthFirstSearch()
+        public void DepthFirstSearch(BidirectionalGraph<string, Edge<string>> graph)
         {
-            foreach (BidirectionalGraph<string, Edge<string>> graph in TestGraphFactory.GetBidirectionalGraphs_SlowTests())
-            {
-                RunDFSAndCheck(graph);
-                RunDFSAndCheck(graph, 12);
-            }
+            RunDFSAndCheck(graph);
+            RunDFSAndCheck(graph, 12);
         }
 
         [TestCase(false)]

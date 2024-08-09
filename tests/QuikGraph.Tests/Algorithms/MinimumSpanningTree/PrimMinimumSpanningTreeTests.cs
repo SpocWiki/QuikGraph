@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using QuikGraph.Algorithms.MinimumSpanningTree;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
 {
@@ -67,13 +67,6 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
 
             graph = GetUndirectedCompleteGraph(400);
             PrimSpanningTree(graph, x => x.Tag);
-        }
-
-        [Test]
-        public void PrimMinimumSpanningTree()
-        {
-            foreach (UndirectedGraph<string, Edge<string>> graph in TestGraphFactory.GetUndirectedGraphs_All())
-                Prim(graph);
         }
     }
 }

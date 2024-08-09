@@ -6,7 +6,7 @@ using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.Search;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms
 {
@@ -188,35 +188,32 @@ namespace QuikGraph.Tests.Algorithms
             Assert.Throws<ArgumentException>(() => algorithm.SetVertexPairs([new SEquatableEdge<int>(1, 2)]));
         }
 
-        [Test]
-        public void TarjanOfflineLeastCommonAncestor()
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [-1])]
+        public void TarjanOfflineLeastCommonAncestor(AdjacencyGraph<string, Edge<string>> graph)
         {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_SlowTests())
+            if (graph.VertexCount == 0)
+                return;
+
+            var pairs = new List<SEquatableEdge<string>>();
+            foreach (string u in graph.Vertices)
             {
-                if (graph.VertexCount == 0)
-                    continue;
-
-                var pairs = new List<SEquatableEdge<string>>();
-                foreach (string u in graph.Vertices)
+                foreach (string v in graph.Vertices)
                 {
-                    foreach (string v in graph.Vertices)
-                    {
-                        if (!u.Equals(v))
-                            pairs.Add(new SEquatableEdge<string>(u, v));
-                    }
+                    if (!u.Equals(v))
+                        pairs.Add(new SEquatableEdge<string>(u, v));
                 }
+            }
 
-                int count = 0;
-                foreach (string root in graph.Vertices)
-                {
-                    RunTarjanOfflineLeastCommonAncestorAndCheck(
-                        graph,
-                        root,
-                        pairs.ToArray());
+            int count = 0;
+            foreach (string root in graph.Vertices)
+            {
+                RunTarjanOfflineLeastCommonAncestorAndCheck(
+                    graph,
+                    root,
+                    pairs.ToArray());
 
-                    if (count++ > 10)
-                        break;
-                }
+                if (count++ > 10)
+                    break;
             }
         }
 

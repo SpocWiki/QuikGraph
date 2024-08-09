@@ -6,7 +6,7 @@ using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.ShortestPath;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.ShortestPath
 {
@@ -287,15 +287,12 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(2));
         }
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [-1])]
         [Category(TestCategories.LongRunning)]
-        public void AStar()
+        public void AStar(AdjacencyGraph<string, Edge<string>> graph)
         {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_SlowTests())
-            {
-                foreach (string root in graph.Vertices)
-                    RunAStarAndCheck(graph, root);
-            }
+            foreach (string root in graph.Vertices)
+                RunAStarAndCheck(graph, root);
         }
 
         [Test]

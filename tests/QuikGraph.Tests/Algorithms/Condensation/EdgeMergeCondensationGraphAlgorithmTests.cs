@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Condensation;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.Condensation
 {
@@ -198,14 +198,12 @@ namespace QuikGraph.Tests.Algorithms.Condensation
 
         [Test]
         [Category(TestCategories.LongRunning)]
-        public void EdgeCondensation()
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
+        public void EdgeCondensation(BidirectionalGraph<string, Edge<string>> graph)
         {
             var rand = new Random(123456);
-            foreach (BidirectionalGraph<string, Edge<string>> graph in TestGraphFactory.GetBidirectionalGraphs_SlowTests())
-            {
-                RunEdgesCondensationAndCheck(graph, _ => true);
-                RunEdgesCondensationAndCheck(graph, _ => rand.Next(0, 1) == 1);
-            }
+            RunEdgesCondensationAndCheck(graph, _ => true);
+            RunEdgesCondensationAndCheck(graph, _ => rand.Next(0, 1) == 1);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.ConnectedComponents;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.ConnectedComponents
 {

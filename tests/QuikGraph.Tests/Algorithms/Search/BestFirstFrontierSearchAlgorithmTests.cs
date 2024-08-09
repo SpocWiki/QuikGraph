@@ -7,7 +7,7 @@ using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.Search;
 using QuikGraph.Algorithms.ShortestPath;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.Search
 {
@@ -17,9 +17,9 @@ namespace QuikGraph.Tests.Algorithms.Search
     [TestFixture]
     internal sealed class BestFirstFrontierSearchAlgorithmTests : SearchAlgorithmTestsBase
     {
-        #region Test helpers
-
-        private static void RunAndCheckSearch<TVertex, TEdge>(
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
+        [Category(TestCategories.LongRunning)]
+        public static void RunAndCheckSearch<TVertex, TEdge>(
             [NotNull] IBidirectionalGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
@@ -84,8 +84,6 @@ namespace QuikGraph.Tests.Algorithms.Search
                 Assert.AreEqual(dijkstraVerticesDistances[target], bffsVerticesDistances[target]);
             }
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -282,29 +280,18 @@ namespace QuikGraph.Tests.Algorithms.Search
             RunAndCheckSearch(graph);
         }
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
         [Category(TestCategories.LongRunning)]
-        public void BestFirstFrontierSearch()
+        public void BestFirstFrontierComparedToDijkstraSearch(BidirectionalGraph<string, Edge<string>> graph)
         {
-            foreach (BidirectionalGraph<string, Edge<string>> graph in TestGraphFactory.GetBidirectionalGraphs_SlowTests())
-                RunAndCheckSearch(graph);
-        }
+            if (graph.VertexCount == 0)
+                return;
 
-        [Test]
-        [Category(TestCategories.LongRunning)]
-        public void BestFirstFrontierComparedToDijkstraSearch()
-        {
-            foreach (BidirectionalGraph<string, Edge<string>> graph in TestGraphFactory.GetBidirectionalGraphs_SlowTests())
+            string root = graph.Vertices.First();
+            foreach (string vertex in graph.Vertices)
             {
-                if (graph.VertexCount == 0)
-                    continue;
-
-                string root = graph.Vertices.First();
-                foreach (string vertex in graph.Vertices)
-                {
-                    if (!root.Equals(vertex))
-                        CompareSearches(graph, root, vertex);
-                }
+                if (!root.Equals(vertex))
+                    CompareSearches(graph, root, vertex);
             }
         }
     }
