@@ -104,7 +104,7 @@ namespace QuikGraph.Algorithms.Condensation
                     if (EqualityComparer<TVertex>.Default.Equals(outEdge.Target, vertex))
                         continue;
 
-                    var newEdge = MergedEdge<TVertex, TEdge>.Merge(inEdge, outEdge);
+                    var newEdge = inEdge.Merge(outEdge);
                     CondensedGraph.AddEdge(newEdge);
                 }
             }

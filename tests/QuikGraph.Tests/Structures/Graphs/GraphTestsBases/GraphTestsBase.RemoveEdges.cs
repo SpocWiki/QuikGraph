@@ -7,8 +7,6 @@ namespace QuikGraph.Tests.Structures
 {
     internal partial class GraphTestsBase
     {
-        #region Remove Edges
-
         protected static void RemoveEdge_Test(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> graph)
         {
@@ -1073,7 +1071,5 @@ namespace QuikGraph.Tests.Structures
             Assert.Throws<ArgumentNullException>(() => graph.RemoveAdjacentEdgeIf(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
         }
-
-        #endregion
     }
 }

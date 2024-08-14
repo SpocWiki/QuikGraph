@@ -74,19 +74,19 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             edge2.Edges.Add(subEdge2);
             edge2.Edges.Add(subEdge3);
 
-            var mergedEdge = MergedEdge.Merge(emptyEdge1, emptyEdge2);
+            var mergedEdge = emptyEdge1.Merge(emptyEdge2);
             Assert.IsNotNull(mergedEdge);
             CollectionAssert.IsEmpty(mergedEdge.Edges);
 
-            mergedEdge = MergedEdge.Merge(emptyEdge1, edge1);
+            mergedEdge = emptyEdge1.Merge(edge1);
             Assert.IsNotNull(mergedEdge);
             CollectionAssert.AreEqual(new[] { subEdge1 }, mergedEdge.Edges);
 
-            mergedEdge = MergedEdge.Merge(edge1, emptyEdge1);
+            mergedEdge = edge1.Merge(emptyEdge1);
             Assert.IsNotNull(mergedEdge);
             CollectionAssert.AreEqual(new[] { subEdge1 }, mergedEdge.Edges);
 
-            mergedEdge = MergedEdge.Merge(edge1, edge2);
+            mergedEdge = edge1.Merge(edge2);
             Assert.IsNotNull(mergedEdge);
             CollectionAssert.AreEqual(new[] { subEdge1, subEdge2, subEdge3 }, mergedEdge.Edges);
         }
@@ -98,7 +98,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => MergedEdge.Merge(edge, null));
+            Assert.Throws<ArgumentNullException>(() => edge.Merge(null));
             Assert.Throws<ArgumentNullException>(() => MergedEdge.Merge(null, edge));
             Assert.Throws<ArgumentNullException>(() => MergedEdge.Merge<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute

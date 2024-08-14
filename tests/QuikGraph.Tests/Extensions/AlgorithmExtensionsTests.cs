@@ -55,7 +55,7 @@ namespace QuikGraph.Tests.Extensions
         public void GetVertexIdentity()
         {
             var graph1 = new AdjacencyGraph<int, IEdge<int>>();
-            VertexIdentity<int> vertexIdentity1 = AlgorithmExtensions.GetVertexIdentity(graph1);
+            VertexIdentity<int> vertexIdentity1 = graph1.GetVertexIdentity();
 
             Assert.AreEqual("12", vertexIdentity1(12));
             Assert.AreEqual("42", vertexIdentity1(42));
@@ -64,7 +64,7 @@ namespace QuikGraph.Tests.Extensions
             Assert.AreEqual("42", vertexIdentity1(42));
 
             var graph2 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            VertexIdentity<TestVertex> vertexIdentity2 = AlgorithmExtensions.GetVertexIdentity(graph2);
+            VertexIdentity<TestVertex> vertexIdentity2 = graph2.GetVertexIdentity();
 
             var vertex1 = new TestVertex("12");
             var vertex2 = new TestVertex("42");
@@ -87,7 +87,7 @@ namespace QuikGraph.Tests.Extensions
         public void GetEdgeIdentity()
         {
             var graph1 = new AdjacencyGraph<int, IEdge<int>>();
-            EdgeIdentity<int, IEdge<int>> edgeIdentity1 = AlgorithmExtensions.GetEdgeIdentity(graph1);
+            EdgeIdentity<int, IEdge<int>> edgeIdentity1 = graph1.GetEdgeIdentity();
 
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(2, 3);
@@ -101,7 +101,7 @@ namespace QuikGraph.Tests.Extensions
             Assert.AreEqual("2", edgeIdentity1(edge3));
 
             var graph2 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            EdgeIdentity<TestVertex, Edge<TestVertex>> edgeIdentity2 = AlgorithmExtensions.GetEdgeIdentity(graph2);
+            EdgeIdentity<TestVertex, Edge<TestVertex>> edgeIdentity2 = graph2.GetEdgeIdentity();
 
             var vertex1 = new TestVertex("1");
             var vertex2 = new TestVertex("2");
@@ -996,10 +996,10 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.TopologicalSort((IVertexListGraph<int, IEdge<int>>) null));
+                () => ((IVertexListGraph<int, IEdge<int>>) null).TopologicalSort());
 
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.TopologicalSort((IUndirectedGraph<int, IEdge<int>>)null));
+                () => ((IUndirectedGraph<int, IEdge<int>>)null).TopologicalSort());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -1049,10 +1049,10 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.SourceFirstTopologicalSort((IVertexAndEdgeListGraph<int, IEdge<int>>)null));
+                () => ((IVertexAndEdgeListGraph<int, IEdge<int>>)null).SourceFirstTopologicalSort());
 
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.SourceFirstTopologicalSort((IUndirectedGraph<int, IEdge<int>>)null));
+                () => ((IUndirectedGraph<int, IEdge<int>>)null).SourceFirstTopologicalSort());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -1091,12 +1091,12 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.SourceFirstBidirectionalTopologicalSort((IBidirectionalGraph<int, IEdge<int>>)null));
+                () => ((IBidirectionalGraph<int, IEdge<int>>)null).SourceFirstBidirectionalTopologicalSort());
 
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.SourceFirstBidirectionalTopologicalSort((IBidirectionalGraph<int, IEdge<int>>)null, TopologicalSortDirection.Forward));
+                () => ((IBidirectionalGraph<int, IEdge<int>>)null).SourceFirstBidirectionalTopologicalSort(TopologicalSortDirection.Forward));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.SourceFirstBidirectionalTopologicalSort((IBidirectionalGraph<int, IEdge<int>>)null, TopologicalSortDirection.Backward));
+                () => ((IBidirectionalGraph<int, IEdge<int>>)null).SourceFirstBidirectionalTopologicalSort(TopologicalSortDirection.Backward));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -1151,7 +1151,7 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.ConnectedComponents(graph, null));
+                () => graph.ConnectedComponents(null));
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.ConnectedComponents<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
@@ -1239,7 +1239,7 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.StronglyConnectedComponents(graph, null));
+                () => graph.StronglyConnectedComponents(null));
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.StronglyConnectedComponents<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
@@ -1294,7 +1294,7 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.WeaklyConnectedComponents(graph, null));
+                () => graph.WeaklyConnectedComponents(null));
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.WeaklyConnectedComponents<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
@@ -1329,11 +1329,11 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.CondensateEdges((IBidirectionalGraph<int, IEdge<int>>)null, _ => true));
+                () => ((IBidirectionalGraph<int, IEdge<int>>)null).CondensateEdges(_ => true));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.CondensateEdges(graph, null));
+                () => graph.CondensateEdges(null));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.CondensateEdges((IBidirectionalGraph<int, IEdge<int>>)null, null));
+                () => ((IBidirectionalGraph<int, IEdge<int>>)null).CondensateEdges(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -1952,11 +1952,11 @@ namespace QuikGraph.Tests.Extensions
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.Clone(null, v => v, (e, _, _) => e, clone));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.Clone(graph, null, (e, _, _) => e, clone));
+                () => graph.Clone(null, (e, _, _) => e, clone));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.Clone(graph, v => v, null, clone));
+                () => graph.Clone(v => v, null, clone));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.Clone(graph, v => v, (e, _, _) => e, null));
+                () => graph.Clone(v => v, (e, _, _) => e, null));
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.Clone(null, null, (e, _, _) => e, clone));
             Assert.Throws<ArgumentNullException>(
@@ -1964,17 +1964,17 @@ namespace QuikGraph.Tests.Extensions
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.Clone<int, IEdge<int>>(null, v => v, (e, _, _) => e, null));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.Clone(graph, null, null, clone));
+                () => graph.Clone(null, null, clone));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.Clone(graph, null, (e, _, _) => e, null));
+                () => graph.Clone(null, (e, _, _) => e, null));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.Clone(graph, v => v, null, null));
+                () => graph.Clone(v => v, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.Clone(null, null, null, clone));
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.Clone<int, IEdge<int>>(null, null, (e, _, _) => e, null));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.Clone(graph, null, null, null));
+                () => graph.Clone(null, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.Clone<int, IEdge<int>>(null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

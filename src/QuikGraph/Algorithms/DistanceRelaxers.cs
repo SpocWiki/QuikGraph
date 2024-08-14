@@ -79,9 +79,7 @@ namespace QuikGraph.Algorithms
             }
         }
 
-        /// <summary>
-        /// Prim relaxer.
-        /// </summary>
+        /// <summary> Prim's relaxer. </summary>
         [NotNull]
         public static readonly IDistanceRelaxer Prim = new PrimRelaxer();
 

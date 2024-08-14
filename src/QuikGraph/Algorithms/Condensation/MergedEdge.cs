@@ -32,17 +32,21 @@ namespace QuikGraph.Algorithms.Condensation
         /// Merged edges.
         /// </summary>
         [NotNull, ItemNotNull]
-        public IList<TEdge> Edges => _edges;
+        public List<TEdge> Edges => _edges;
 
+    }
+
+    /// <summary>
+    /// Helpers for <see cref="MergedEdge{TVertex,TEdge}"/>.
+    /// </summary>
+    public static class MergedEdge
+    {
         /// <summary> Merges the <paramref name="mergedInEdge"/> and the <paramref name="mergedOutEdge"/>. </summary>
-        /// <remarks>
-        ///
-        /// </remarks>
         [Pure]
         [NotNull]
-        public static MergedEdge<TVertex, TEdge> Merge(
-            [NotNull] MergedEdge<TVertex, TEdge> mergedInEdge,
-            [NotNull] MergedEdge<TVertex, TEdge> mergedOutEdge)
+        public static MergedEdge<TVertex, TEdge> Merge<TVertex, TEdge>(
+            [NotNull] this MergedEdge<TVertex, TEdge> mergedInEdge,
+            [NotNull] MergedEdge<TVertex, TEdge> mergedOutEdge) where TEdge : IEdge<TVertex>
         {
             if (mergedInEdge is null)
                 throw new ArgumentNullException(nameof(mergedInEdge));
@@ -51,29 +55,12 @@ namespace QuikGraph.Algorithms.Condensation
 
             var newEdge = new MergedEdge<TVertex, TEdge>(mergedInEdge.Source, mergedOutEdge.Target)
             {
-                _edges = new List<TEdge>(mergedInEdge.Edges.Count + mergedOutEdge.Edges.Count)
+                //_edges = new List<TEdge>(mergedInEdge.Edges.Count + mergedOutEdge.Edges.Count)
             };
-            newEdge._edges.AddRange(mergedInEdge._edges);
-            newEdge._edges.AddRange(mergedOutEdge._edges);
+            newEdge.Edges.AddRange(mergedInEdge.Edges);
+            newEdge.Edges.AddRange(mergedOutEdge.Edges);
 
             return newEdge;
-        }
-    }
-
-    /// <summary>
-    /// Helpers for <see cref="MergedEdge{TVertex,TEdge}"/>.
-    /// </summary>
-    public static class MergedEdge
-    {
-        /// <inheritdoc cref="MergedEdge{TVertex,TEdge}.Merge"/>
-        [Pure]
-        [NotNull]
-        public static MergedEdge<TVertex, TEdge> Merge<TVertex, TEdge>(
-            [NotNull] MergedEdge<TVertex, TEdge> inEdge,
-            [NotNull] MergedEdge<TVertex, TEdge> outEdge)
-            where TEdge : IEdge<TVertex>
-        {
-            return MergedEdge<TVertex, TEdge>.Merge(inEdge, outEdge);
         }
     }
 }

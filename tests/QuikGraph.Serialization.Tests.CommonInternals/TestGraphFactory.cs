@@ -172,7 +172,8 @@ namespace QuikGraph.Tests
         /// <summary> Creates undirected graphs. </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        public static IEnumerable<UndirectedGraph<string, Edge<string>>> GetUndirectedGraphs_All() => GetUndirectedGraphsInternal();
+        public static IEnumerable<UndirectedGraph<string, Edge<string>>> GetUndirectedGraphs_All()
+            => GetUndirectedGraphsInternal();
 
         /// <summary>
         /// Creates undirected graphs (version manageable with define for slow tests).
