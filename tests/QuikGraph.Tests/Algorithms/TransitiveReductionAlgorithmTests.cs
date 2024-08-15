@@ -179,7 +179,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             var result = graph.ComputeTransitiveReduction();
-            AssertHasVertices(result, [0, 1, 2, 3, 4, 5, 6, 7]);
+            AssertHasVertices(result, new[] { 0, 1, 2, 3, 4, 5, 6, 7 });
             var expected = new[] { edge01, edge02, edge23, edge24, edge35, edge45, edge67, edge74 };
             AssertHasEdges(result, expected);
 
