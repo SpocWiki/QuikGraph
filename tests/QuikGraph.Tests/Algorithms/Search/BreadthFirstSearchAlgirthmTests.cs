@@ -149,7 +149,7 @@ namespace QuikGraph.Tests.Algorithms.Search
                 if (algorithm.VerticesColors[vertex] == GraphColor.White)
                 {
                     // Check !IsReachable(sourceVertex, vertex, graph);
-                    if (recorder.TryGetPath(vertex, out IEnumerable<TEdge> path))
+                    if (recorder.TryGetPath(vertex, out List<TEdge> path))
                     {
                         foreach (TEdge edge in path)
                         {

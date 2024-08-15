@@ -3,12 +3,7 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Algorithm that computes the transitive closure of a graph, which is another directed graph
-    /// with the same vertices and every reachable vertices by a given one linked by a single edge.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <inheritdoc cref="TransitiveClosure"/>
     public class TransitiveClosureAlgorithm<TVertex, TEdge> : AlgorithmBase<IEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
@@ -28,9 +23,21 @@ namespace QuikGraph.Algorithms
             _createEdge = edgeFactory ?? throw new ArgumentNullException(nameof(edgeFactory));
         }
 
-        /// <summary>
-        /// Transitive closure graph.
-        /// </summary>
+        /// <summary> Computes the transitive closure of the <see cref="IAlgorithm{TGraph}.VisitedGraph"/>. </summary>
+        /// <remarks>
+        /// This is another directed graph with the same vertices
+        /// and every reachable vertices by a given one linked by a single edge.
+        /// 
+        /// The transitive closure adds all Edges
+        /// that can be constructed by transitively chaining other Edges.
+        /// It uses <see cref="_createEdge"/> to create these edges.
+        /// 
+        /// The result is a very dense graph, that directly connects all Vertices,
+        /// in the same connected Component.
+        ///
+        /// The inverse Operation is <see cref="TransitiveReductionAlgorithm{TVertex, TEdge}.TransitiveReduction"/>.
+        /// </remarks>
+        /// <returns>Transitive graph closure.</returns>
         public BidirectionalGraph<TVertex, TEdge> TransitiveClosure { get; }
 
         [NotNull]

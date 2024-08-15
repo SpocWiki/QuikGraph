@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -569,7 +569,7 @@ namespace QuikGraph.Tests.Extensions
 
             var edge2 = new Edge<int>(0, 2);
             predecessors.Add(2, edge2);
-            Assert.IsTrue(predecessors.TryGetPath(2, out IEnumerable<Edge<int>> path));
+            Assert.IsTrue(predecessors.TryGetPath(2, out List<Edge<int>> path));
             CollectionAssert.AreEqual(
                 new[] { edge2 },
                 path);

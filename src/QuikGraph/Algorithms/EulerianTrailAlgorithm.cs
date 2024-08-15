@@ -339,7 +339,7 @@ namespace QuikGraph.Algorithms
                 throw new ArgumentNullException(nameof(edgeFactory));
 
             // First gather odd edges
-            List<TVertex> oddVertices = VisitedGraph.OddVertices().ToList();
+            var oddVertices = VisitedGraph.OddVertices().ToList();
 
             // Check that there are an even number of them
             if (oddVertices.Count % 2 != 0)
@@ -524,7 +524,7 @@ namespace QuikGraph.Algorithms
 
                         // Start new trail
                         // Take the shortest path from the start vertex to the target vertex
-                        if (!vis.TryGetPath(edge.Target, out IEnumerable<TEdge> path))
+                        if (!vis.TryGetPath(edge.Target, out List<TEdge> path))
                             throw new InvalidOperationException();
                         trail = new List<TEdge>(path);
                     }
@@ -546,7 +546,7 @@ namespace QuikGraph.Algorithms
 
                         // Start new trail
                         // Take the shortest path from the start vertex to the target vertex
-                        if (!vis.TryGetPath(edge.Target, out IEnumerable<TEdge> path))
+                        if (!vis.TryGetPath(edge.Target, out List<TEdge> path))
                             throw new InvalidOperationException();
                         trail = new List<TEdge>(path);
                     }

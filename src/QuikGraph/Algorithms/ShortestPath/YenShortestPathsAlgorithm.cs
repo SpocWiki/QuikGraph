@@ -214,7 +214,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             }
 
             // Get shortest path from start (source) vertex to target
-            return recorder.TryGetPath(target, out IEnumerable<EquatableTaggedEdge<TVertex, double>> path)
+            return recorder.TryGetPath(target, out List<EquatableTaggedEdge<TVertex, double>> path)
                 ? new SortedPath(path)
                 : (SortedPath?)null;
         }

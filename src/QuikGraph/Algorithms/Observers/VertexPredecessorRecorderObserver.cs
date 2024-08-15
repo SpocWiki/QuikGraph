@@ -72,7 +72,7 @@ namespace QuikGraph.Algorithms.Observers
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
         [ContractAnnotation("=> true, path:notnull;=> false, path:null")]
-        public bool TryGetPath([NotNull] TVertex vertex, [ItemNotNull] out IEnumerable<TEdge> path)
+        public bool TryGetPath([NotNull] TVertex vertex, [ItemNotNull] out List<TEdge> path)
         {
             return VerticesPredecessors.TryGetPath(vertex, out path);
         }

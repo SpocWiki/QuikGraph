@@ -56,10 +56,10 @@ namespace QuikGraph.Algorithms.Observers
         /// <returns>Enumerable of paths.</returns>
         [Pure]
         [NotNull, ItemNotNull]
-        public IEnumerable<IEnumerable<TEdge>> AllPaths()
+        public IEnumerable<List<TEdge>> AllPaths()
         {
             return EndPathVertices
-                .Select(vertex => VerticesPredecessors.TryGetPath(vertex, out IEnumerable<TEdge> path) ? path : null)
+                .Select(vertex => VerticesPredecessors.TryGetPath(vertex, out List<TEdge> path) ? path : null)
                 .Where(path => path != null);
         }
 

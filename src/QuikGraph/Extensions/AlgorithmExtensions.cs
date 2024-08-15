@@ -139,7 +139,7 @@ namespace QuikGraph.Algorithms
 
         [Pure]
         [NotNull]
-        private static TryFunc<TVertex, IEnumerable<TEdge>> RunDirectedRootedAlgorithm<TVertex, TEdge, TAlgorithm>(
+        private static TryFunc<TVertex, List<TEdge>> RunDirectedRootedAlgorithm<TVertex, TEdge, TAlgorithm>(
             [NotNull] TVertex source,
             [NotNull] TAlgorithm algorithm)
             where TEdge : IEdge<TVertex>
@@ -154,7 +154,7 @@ namespace QuikGraph.Algorithms
             }
 
             IDictionary<TVertex, TEdge> predecessors = predecessorRecorder.VerticesPredecessors;
-            return (TVertex vertex, out IEnumerable<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
+            return (TVertex vertex, out List<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
         [Pure]
         [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> TreeBreadthFirstSearch<TVertex, TEdge>(
+        public static TryFunc<TVertex, List<TEdge>> TreeBreadthFirstSearch<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
@@ -198,7 +198,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
         [Pure]
         [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> TreeDepthFirstSearch<TVertex, TEdge>(
+        public static TryFunc<TVertex, List<TEdge>> TreeDepthFirstSearch<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
@@ -225,7 +225,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
         [Pure]
         [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> TreeCyclePoppingRandom<TVertex, TEdge>(
+        public static TryFunc<TVertex, List<TEdge>> TreeCyclePoppingRandom<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
@@ -251,7 +251,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.InvalidOperationException">Something went wrong when running the algorithm.</exception>
         [Pure]
         [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> TreeCyclePoppingRandom<TVertex, TEdge>(
+        public static TryFunc<TVertex, List<TEdge>> TreeCyclePoppingRandom<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex root,
             [NotNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain)
@@ -282,7 +282,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
         [Pure]
         [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsDijkstra<TVertex, TEdge>(
+        public static TryFunc<TVertex, List<TEdge>> ShortestPathsDijkstra<TVertex, TEdge>(
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
             [NotNull] TVertex root)
@@ -311,7 +311,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
         [Pure]
         [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsDijkstra<TVertex, TEdge>(
+        public static TryFunc<TVertex, List<TEdge>> ShortestPathsDijkstra<TVertex, TEdge>(
             [NotNull] this IUndirectedGraph<TVertex, TEdge> graph,
             [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
             [NotNull] TVertex root)
@@ -325,7 +325,7 @@ namespace QuikGraph.Algorithms
             }
 
             IDictionary<TVertex, TEdge> predecessors = predecessorRecorder.VerticesPredecessors;
-            return (TVertex vertex, out IEnumerable<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
+            return (TVertex vertex, out List<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
         [Pure]
         [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsAStar<TVertex, TEdge>(
+        public static TryFunc<TVertex, List<TEdge>> ShortestPathsAStar<TVertex, TEdge>(
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
             [NotNull, InstantHandle] Func<TVertex, double> costHeuristic,
@@ -378,7 +378,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
         [Pure]
         [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsBellmanFord<TVertex, TEdge>(
+        public static TryFunc<TVertex, List<TEdge>> ShortestPathsBellmanFord<TVertex, TEdge>(
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
             [NotNull] TVertex root,
@@ -402,7 +402,7 @@ namespace QuikGraph.Algorithms
             hasNegativeCycle = algorithm.FoundNegativeCycle;
 
             IDictionary<TVertex, TEdge> predecessors = predecessorRecorder.VerticesPredecessors;
-            return (TVertex vertex, out IEnumerable<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
+            return (TVertex vertex, out List<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
         }
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
         [Pure]
         [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsDag<TVertex, TEdge>(
+        public static TryFunc<TVertex, List<TEdge>> ShortestPathsDag<TVertex, TEdge>(
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
             [NotNull] TVertex root)
@@ -1137,17 +1137,16 @@ namespace QuikGraph.Algorithms
             return sets;
         }
 
-        /// <summary>
-        /// Computes the minimum spanning tree using Prim algorithm.
-        /// </summary>
-        /// <remarks>Prim algorithm is simply implemented by calling Dijkstra shortest path.</remarks>
+        /// <summary> Computes the minimum spanning tree using Prim algorithm. </summary>
         /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <returns>Edges part of the minimum spanning tree.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// Prim algorithm is simply implemented by calling <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/>
+        /// with <see cref="DistanceRelaxers.Prim"/>.
+        /// </remarks>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<TEdge> MinimumSpanningTreePrim<TVertex, TEdge>(
@@ -1300,15 +1299,7 @@ namespace QuikGraph.Algorithms
             return flow.MaxFlow;
         }
 
-        /// <summary> Computes a transitive reduction of the <paramref name="graph"/>. </summary>
-        /// <remarks>
-        /// The transitive reduction is usually not unique.
-        /// It removes all Edges that can be constructed by transitively chaining other Edges.
-        /// The result is a kind of Spanning tree that connects the same Vertices,
-        /// resulting in the same connected Components.
-        ///
-        /// The inverse Operation is <see cref="ComputeTransitiveClosure{TVertex,TEdge}"/>.
-        /// </remarks>
+        /// <inheritdoc cref="TransitiveReductionAlgorithm{TVertex, TEdge}.TransitiveReduction"/>
         [Pure]
         [NotNull]
         public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveReduction<TVertex, TEdge>(
@@ -1320,18 +1311,7 @@ namespace QuikGraph.Algorithms
             return algorithm.TransitiveReduction;
         }
 
-        /// <summary> Computes the transitive closure of the <paramref name="graph"/>. </summary>
-        /// <returns>Transitive graph closure.</returns>
-        /// <remarks>
-        /// The transitive closure adds all Edges
-        /// that can be constructed by transitively chaining other Edges.
-        /// It uses the <paramref name="edgeFactory"/> to create these edges.
-        /// 
-        /// The result is a very dense graph, that directly connects all Vertices,
-        /// in the same connected Component.
-        ///
-        /// The inverse Operation is <see cref="ComputeTransitiveReduction{TVertex,TEdge}"/>.
-        /// </remarks>
+        /// <inheritdoc cref="TransitiveClosureAlgorithm{TVertex,TEdge}.TransitiveClosure"/>
         [Pure]
         [NotNull]
         public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveClosure<TVertex, TEdge>(

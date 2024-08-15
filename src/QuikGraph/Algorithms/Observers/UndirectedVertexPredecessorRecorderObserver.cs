@@ -6,11 +6,8 @@ using static QuikGraph.Utils.DisposableHelpers;
 
 namespace QuikGraph.Algorithms.Observers
 {
-    /// <summary>
-    /// Recorder of vertices predecessors (undirected).
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Recorder of vertices predecessors (for undirected Graphs). </summary>
+    /// <remarks> Records Edges In-Order, as they are discovered. </remarks>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
@@ -18,28 +15,20 @@ namespace QuikGraph.Algorithms.Observers
         IObserver<IUndirectedTreeBuilderAlgorithm<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedVertexPredecessorRecorderObserver{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes <see cref="VerticesPredecessors"/>  empty. </summary>
         public UndirectedVertexPredecessorRecorderObserver()
             : this(new Dictionary<TVertex, TEdge>())
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedVertexPredecessorRecorderObserver{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="verticesPredecessors">Vertices predecessors.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesPredecessors"/> is <see langword="null"/>.</exception>
+        /// <summary> Initializes with <paramref name="verticesPredecessors"/>. </summary>
         public UndirectedVertexPredecessorRecorderObserver(
             [NotNull] IDictionary<TVertex, TEdge> verticesPredecessors)
         {
             VerticesPredecessors = verticesPredecessors ?? throw new ArgumentNullException(nameof(verticesPredecessors));
         }
 
-        /// <summary>
-        /// Vertices predecessors.
-        /// </summary>
+        /// <summary> predecessor-Edges indexed by the Vertices they are leading to </summary>
         [NotNull]
         public IDictionary<TVertex, TEdge> VerticesPredecessors { get; }
 
@@ -74,7 +63,7 @@ namespace QuikGraph.Algorithms.Observers
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
         [ContractAnnotation("=> true, path:notnull;=> false, path:null")]
-        public bool TryGetPath([NotNull] TVertex vertex, [ItemNotNull] out IEnumerable<TEdge> path)
+        public bool TryGetPath([NotNull] TVertex vertex, [ItemNotNull] out List<TEdge> path)
         {
             return VerticesPredecessors.TryGetPath(vertex, out path);
         }

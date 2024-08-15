@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
 using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;

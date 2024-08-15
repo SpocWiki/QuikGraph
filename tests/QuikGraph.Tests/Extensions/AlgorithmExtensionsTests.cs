@@ -101,7 +101,7 @@ namespace QuikGraph.Tests.Extensions
             Assert.AreEqual("2", edgeIdentity1(edge3));
 
             var graph2 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            EdgeIdentity<TestVertex, Edge<TestVertex>> edgeIdentity2 = AlgorithmExtensions.GetEdgeIdentity(graph2);
+            var edgeIdentity2 = graph2.GetEdgeIdentity();
 
             var vertex1 = new TestVertex("1");
             var vertex2 = new TestVertex("2");
@@ -146,11 +146,11 @@ namespace QuikGraph.Tests.Extensions
             });
             graph.AddVertex(7);
 
-            TryFunc<int, IEnumerable<Edge<int>>> pathAccessor = graph.TreeBreadthFirstSearch(1);
+            var pathAccessor = graph.TreeBreadthFirstSearch(1);
 
             Assert.IsFalse(pathAccessor(7, out _));
 
-            Assert.IsTrue(pathAccessor(5, out IEnumerable<Edge<int>> path));
+            Assert.IsTrue(pathAccessor(5, out List<Edge<int>> path));
             CollectionAssert.AreEqual(new[] { edge13, edge35 }, path);
         }
 
@@ -188,11 +188,11 @@ namespace QuikGraph.Tests.Extensions
             });
             graph.AddVertex(7);
 
-            TryFunc<int, IEnumerable<Edge<int>>> pathAccessor = graph.TreeDepthFirstSearch(1);
+            var pathAccessor = graph.TreeDepthFirstSearch(1);
 
             Assert.IsFalse(pathAccessor(7, out _));
 
-            Assert.IsTrue(pathAccessor(5, out IEnumerable<Edge<int>> path));
+            Assert.IsTrue(pathAccessor(5, out List<Edge<int>> path));
             CollectionAssert.AreEqual(new[] { edge12, edge23, edge35 }, path);
         }
 
@@ -241,7 +241,7 @@ namespace QuikGraph.Tests.Extensions
             });
             graph.AddVertex(7);
 
-            TryFunc<int, IEnumerable<Edge<int>>> pathAccessor = graph.TreeCyclePoppingRandom(2);
+            var pathAccessor = graph.TreeCyclePoppingRandom(2);
 
             Assert.IsFalse(pathAccessor(7, out _));
 
@@ -306,7 +306,7 @@ namespace QuikGraph.Tests.Extensions
                 edge67, edge810, edge95, edge109
             });
 
-            TryFunc<int, IEnumerable<Edge<int>>>[] algorithmResults = 
+            TryFunc<int, List<Edge<int>>>[] algorithmResults = 
             {
                 graph.ShortestPathsDijkstra(_ => 1.0, 2),
                 graph.ShortestPathsAStar(_ => 1.0, _ => 1.0, 2),
@@ -314,20 +314,20 @@ namespace QuikGraph.Tests.Extensions
                 graph.ShortestPathsDag(_ => 1.0, 2)
             };
 
-            foreach (TryFunc<int, IEnumerable<Edge<int>>> result in algorithmResults)
+            foreach (TryFunc<int, List<Edge<int>>> result in algorithmResults)
             {
                 CheckResult(result);
             }
 
             #region Local function
 
-            void CheckResult(TryFunc<int, IEnumerable<Edge<int>>> pathAccessor)
+            void CheckResult(TryFunc<int, List<Edge<int>>> pathAccessor)
             {
                 Assert.IsNotNull(pathAccessor);
 
                 Assert.IsFalse(pathAccessor(1, out _));
 
-                Assert.IsTrue(pathAccessor(7, out IEnumerable<Edge<int>> path));
+                Assert.IsTrue(pathAccessor(7, out List<Edge<int>> path));
                 CollectionAssert.AreEqual(new[] { edge26, edge67 }, path);
 
                 Assert.IsTrue(pathAccessor(4, out path));
@@ -350,7 +350,7 @@ namespace QuikGraph.Tests.Extensions
                 edge12, edge24, edge41
             });
 
-            TryFunc<int, IEnumerable<Edge<int>>> pathAccessor = graph.ShortestPathsBellmanFord(
+            TryFunc<int, List<Edge<int>>> pathAccessor = graph.ShortestPathsBellmanFord(
                 edge =>
                 {
                     if (edge == edge12)
@@ -494,12 +494,12 @@ namespace QuikGraph.Tests.Extensions
             });
             graph.AddVertex(9);
 
-            TryFunc<int, IEnumerable<Edge<int>>> pathAccessor = graph.ShortestPathsDijkstra(_ => 1.0, 2);
+            TryFunc<int, List<Edge<int>>> pathAccessor = graph.ShortestPathsDijkstra(_ => 1.0, 2);
             Assert.IsNotNull(pathAccessor);
 
             Assert.IsFalse(pathAccessor(9, out _));
 
-            Assert.IsTrue(pathAccessor(8, out IEnumerable<Edge<int>> path));
+            Assert.IsTrue(pathAccessor(8, out List<Edge<int>> path));
             CollectionAssert.AreEqual(new[] { edge12, edge18 }, path);
 
             Assert.IsTrue(pathAccessor(1, out path));

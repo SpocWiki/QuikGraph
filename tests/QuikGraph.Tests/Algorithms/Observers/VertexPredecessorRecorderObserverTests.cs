@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Observers;
@@ -201,7 +201,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 {
                     dfs.Compute();
 
-                    Assert.IsTrue(recorder.TryGetPath(4, out IEnumerable<Edge<int>> path));
+                    Assert.IsTrue(recorder.TryGetPath(4, out List<Edge<int>> path));
                     CollectionAssert.AreEqual(new[] { edge12, edge24 }, path);
                 }
             }
@@ -229,7 +229,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 {
                     dfs.Compute();
 
-                    Assert.IsTrue(recorder.TryGetPath(4, out IEnumerable<Edge<int>> path));
+                    Assert.IsTrue(recorder.TryGetPath(4, out List<Edge<int>> path));
                     CollectionAssert.AreEqual(new[] { edge12, edge24 }, path);
                 }
             }

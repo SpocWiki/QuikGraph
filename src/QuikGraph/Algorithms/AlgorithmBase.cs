@@ -9,15 +9,18 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Base class for all graph algorithm.
-    /// </summary>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
+    /// <summary> Base class for all graph algorithms. </summary>
+    /// <inheritdoc cref="IComputation"/>
+    /// <inheritdoc cref="IAlgorithm{TGraph}"/>
+    /// <inheritdoc cref="IAlgorithmComponent"/>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
     public abstract class AlgorithmBase<TGraph> : IAlgorithm<TGraph>, IAlgorithmComponent
     {
+        /// <inheritdoc />
+        public TGraph VisitedGraph { get; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AlgorithmBase{TGraph}"/> class (with optional host).
         /// </summary>
@@ -117,9 +120,7 @@ namespace QuikGraph.Algorithms
         /// <inheritdoc />
         public event EventHandler StateChanged;
 
-        /// <summary>
-        /// Called on algorithm state changed.
-        /// </summary>
+        /// <summary> Called on algorithm state changed. </summary>
         /// <param name="args"><see cref="F:EventArgs.Empty"/>.</param>
         protected virtual void OnStateChanged([NotNull] EventArgs args)
         {
@@ -131,10 +132,7 @@ namespace QuikGraph.Algorithms
         /// <inheritdoc />
         public event EventHandler Started;
 
-        /// <summary>
-        /// Called on algorithm start.
-        /// </summary>
-        /// <param name="args"><see cref="F:EventArgs.Empty"/>.</param>
+        /// <inheritdoc cref="IComputation.Started"/>
         protected virtual void OnStarted([NotNull] EventArgs args)
         {
             Debug.Assert(args != null);
@@ -145,10 +143,7 @@ namespace QuikGraph.Algorithms
         /// <inheritdoc />
         public event EventHandler Finished;
 
-        /// <summary>
-        /// Called on algorithm finished.
-        /// </summary>
-        /// <param name="args"><see cref="F:EventArgs.Empty"/>.</param>
+        /// <inheritdoc cref="IComputation.Finished"/>
         protected virtual void OnFinished([NotNull] EventArgs args)
         {
             Debug.Assert(args != null);
@@ -159,23 +154,13 @@ namespace QuikGraph.Algorithms
         /// <inheritdoc />
         public event EventHandler Aborted;
 
-        /// <summary>
-        /// Called on algorithm abort.
-        /// </summary>
-        /// <param name="args"><see cref="F:EventArgs.Empty"/>.</param>
+        /// <inheritdoc cref="IComputation.Aborted"/>
         protected virtual void OnAborted([NotNull] EventArgs args)
         {
             Debug.Assert(args != null);
 
             Aborted?.Invoke(this, args);
         }
-
-        #endregion
-
-        #region IAlgorithm<TGraph>
-
-        /// <inheritdoc />
-        public TGraph VisitedGraph { get; }
 
         #endregion
 
@@ -188,7 +173,6 @@ namespace QuikGraph.Algorithms
         public IAlgorithmServices Services => _algorithmServices;
 
         /// <inheritdoc />
-        /// <exception cref="T:System.InvalidOperationException">Requested service is not present on algorithm.</exception>
         public T GetService<T>()
         {
             if (!TryGetService(out T service))
@@ -212,11 +196,7 @@ namespace QuikGraph.Algorithms
         [CanBeNull]
         private Dictionary<Type, object> _services;
 
-        /// <summary>
-        /// Tries to get the service with given <paramref name="serviceType"/>.
-        /// </summary>
-        /// <param name="serviceType">Service type.</param>
-        /// <param name="service">Found service.</param>
+        /// <summary> Tries to get the <paramref name="service"/> with given <paramref name="serviceType"/>. </summary>
         /// <returns>True if the service was found, false otherwise.</returns>
         [Pure]
         [ContractAnnotation("=> true, service:notnull;=> false, service:null")]
@@ -250,9 +230,7 @@ namespace QuikGraph.Algorithms
 
         #endregion
 
-        /// <summary>
-        /// Throws if a cancellation of the algorithm was requested.
-        /// </summary>
+        /// <summary> Throws if a cancellation of the algorithm was requested. </summary>
         /// <exception cref="T:System.OperationCanceledException">
         /// If the algorithm cancellation service indicates <see cref="ICancelManager.IsCancelling"/> is true.
         /// </exception>
@@ -281,21 +259,15 @@ namespace QuikGraph.Algorithms
             }
         }
 
-        /// <summary>
-        /// Called on algorithm initialization step.
-        /// </summary>
+        /// <summary> Called on algorithm initialization step. </summary>
         protected virtual void Initialize()
         {
         }
 
-        /// <summary>
-        /// Algorithm compute step.
-        /// </summary>
+        /// <summary> Algorithm compute step. </summary>
         protected abstract void InternalCompute();
 
-        /// <summary>
-        /// Called on algorithm cleanup step.
-        /// </summary>
+        /// <summary> Called on algorithm cleanup step. </summary>
         protected virtual void Clean()
         {
         }

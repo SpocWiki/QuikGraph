@@ -50,11 +50,10 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
             _edgeWeights = edgeWeights ?? throw new ArgumentNullException(nameof(edgeWeights));
         }
 
-        /// <summary>
-        /// Fired when an edge is going to be analyzed.
-        /// </summary>
+        /// <summary> Fired when an edge is going to be analyzed. </summary>
         public event EdgeAction<TVertex, TEdge> ExamineEdge;
 
+        /// <inheritdoc cref="ExamineEdge"/>
         private void OnExamineEdge([NotNull] TEdge edge)
         {
             Debug.Assert(edge != null);
@@ -67,6 +66,7 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
         /// <inheritdoc />
         public event EdgeAction<TVertex, TEdge> TreeEdge;
 
+        /// <inheritdoc cref="TreeEdge"/>
         private void OnTreeEdge([NotNull] TEdge edge)
         {
             Debug.Assert(edge != null);

@@ -249,9 +249,7 @@ namespace QuikGraph
             return false;
         }
 
-        /// <summary>
-        /// Tries to get the predecessor path, if reachable.
-        /// </summary>
+        /// <summary> Tries to get the predecessor path, if reachable. </summary>
         /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="predecessors">Predecessors map.</param>
@@ -265,7 +263,7 @@ namespace QuikGraph
         public static bool TryGetPath<TVertex, TEdge>(
             [NotNull] this IDictionary<TVertex, TEdge> predecessors,
             [NotNull] TVertex vertex,
-            [ItemNotNull] out IEnumerable<TEdge> path)
+            [ItemNotNull] out List<TEdge> path)
             where TEdge : IEdge<TVertex>
         {
             if (predecessors is null)
@@ -288,7 +286,7 @@ namespace QuikGraph
             if (computedPath.Count > 0)
             {
                 computedPath.Reverse();
-                path = computedPath.AsEnumerable();
+                path = computedPath;
                 return true;
             }
 

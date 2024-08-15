@@ -45,14 +45,14 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 using (predecessors.Attach(otherAlgorithm))
                     otherAlgorithm.Compute(source);
 
-                TryFunc<TVertex, IEnumerable<TEdge>> otherPaths = predecessors.TryGetPath;
+                TryFunc<TVertex, List<TEdge>> otherPaths = predecessors.TryGetPath;
                 foreach (TVertex target in vertices)
                 {
                     if (source.Equals(target))
                         continue;
 
                     bool pathExists = algorithm.TryGetPath(source, target, out IEnumerable<TEdge> floydPath);
-                    Assert.AreEqual(pathExists, otherPaths(target, out IEnumerable<TEdge> otherPath));
+                    Assert.AreEqual(pathExists, otherPaths(target, out List<TEdge> otherPath));
 
                     if (pathExists)
                     {
