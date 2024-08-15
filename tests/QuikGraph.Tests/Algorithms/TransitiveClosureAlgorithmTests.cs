@@ -26,10 +26,10 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new TransitiveClosureAlgorithm<int, IEdge<int>>(null, (v1, v2) => Edge.Create(v1, v2)));
+            Assert.Throws<ArgumentNullException>(() => new TransitiveClosureAlgorithm<int, IEdge<int>>(null, (v1, v2) => new Edge<int>(v1, v2)));
             Assert.Throws<ArgumentNullException>(() => new TransitiveClosureAlgorithm<int, IEdge<int>>(graph, null));
             Assert.Throws<ArgumentNullException>(() => new TransitiveClosureAlgorithm<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
@@ -48,7 +48,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             BidirectionalGraph<int, SEquatableEdge<int>> result = graph.ComputeTransitiveClosure((u, v) => new SEquatableEdge<int>(u, v));
-            AssertHasVertices(result, [1, 2, 3]);
+            AssertHasVertices(result, new List<int> { 1, 2, 3 }.AsReadOnly());
             var expected = new List<SEquatableEdge<int>>
             {
                 new(1, 2),
@@ -77,7 +77,7 @@ namespace QuikGraph.Tests.Algorithms
 
             var result = graph.ComputeTransitiveClosure((u, v)
                 => new SEquatableEdge<int>(u, v));
-            AssertHasVertices(result, [1, 2, 3, 4, 5]);
+            AssertHasVertices(result, new List<int> { 1, 2, 3, 4, 5 }.AsReadOnly());
             var expected = new SEquatableEdge<int>[] {
                 new(1, 2),
                 new(1, 3),
@@ -108,7 +108,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             BidirectionalGraph<int, EquatableEdge<int>> result = graph.ComputeTransitiveClosure((u, v) => new EquatableEdge<int>(u, v));
-            AssertHasVertices(result, [1, 2, 3]);
+            AssertHasVertices(result, new List<int> { 1, 2, 3 }.AsReadOnly());
             var expected = new List<EquatableEdge<int>>
             {
                 new(1, 2),
@@ -139,7 +139,7 @@ namespace QuikGraph.Tests.Algorithms
                 }.AsReadOnly());
 
             var result = graph.ComputeTransitiveClosure((u, v) => new EquatableEdge<int>(u, v));
-            AssertHasVertices(result, [1, 2, 3, 4, 5]);
+            AssertHasVertices(result, new List<int> { 1, 2, 3, 4, 5 }.AsReadOnly());
             var expected = new List<EquatableEdge<int>>
             {
                 new(1, 2),
