@@ -1300,14 +1300,15 @@ namespace QuikGraph.Algorithms
             return flow.MaxFlow;
         }
 
-        /// <summary>
-        /// Computes the transitive reduction of the given <paramref name="graph"/>.
-        /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <param name="graph">Graph to compute the reduction.</param>
-        /// <returns>Transitive graph reduction.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <summary> Computes a transitive reduction of the <paramref name="graph"/>. </summary>
+        /// <remarks>
+        /// The transitive reduction is usually not unique.
+        /// It removes all Edges that can be constructed by transitively chaining other Edges.
+        /// The result is a kind of Spanning tree that connects the same Vertices,
+        /// resulting in the same connected Components.
+        ///
+        /// The inverse Operation is <see cref="ComputeTransitiveClosure{TVertex,TEdge}"/>.
+        /// </remarks>
         [Pure]
         [NotNull]
         public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveReduction<TVertex, TEdge>(
@@ -1319,16 +1320,18 @@ namespace QuikGraph.Algorithms
             return algorithm.TransitiveReduction;
         }
 
-        /// <summary>
-        /// Computes the transitive close of the given <paramref name="graph"/>.
-        /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <param name="graph">Graph to compute the closure.</param>
-        /// <param name="edgeFactory">Function that create an edge between the 2 given vertices.</param>
+        /// <summary> Computes the transitive closure of the <paramref name="graph"/>. </summary>
         /// <returns>Transitive graph closure.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// The transitive closure adds all Edges
+        /// that can be constructed by transitively chaining other Edges.
+        /// It uses the <paramref name="edgeFactory"/> to create these edges.
+        /// 
+        /// The result is a very dense graph, that directly connects all Vertices,
+        /// in the same connected Component.
+        ///
+        /// The inverse Operation is <see cref="ComputeTransitiveReduction{TVertex,TEdge}"/>.
+        /// </remarks>
         [Pure]
         [NotNull]
         public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveClosure<TVertex, TEdge>(
