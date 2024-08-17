@@ -50,12 +50,6 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public bool IsOutEdgesEmpty(TVertex vertex)
-        {
-            return !OutEdges(vertex).Any();
-        }
-
-        /// <inheritdoc />
         public int OutDegree(TVertex vertex)
         {
             return OutEdges(vertex).Count();

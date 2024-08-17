@@ -6,11 +6,7 @@ using QuikGraph.Algorithms.Search;
 
 namespace QuikGraph.Algorithms.TopologicalSort
 {
-    /// <summary>
-    /// Topological sort algorithm (can be performed on an acyclic graph).
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Topological sort algorithm (can only be performed on an acyclic graph). </summary>
     public sealed class TopologicalSortAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>
         , IVertexTimeStamperAlgorithm<TVertex>

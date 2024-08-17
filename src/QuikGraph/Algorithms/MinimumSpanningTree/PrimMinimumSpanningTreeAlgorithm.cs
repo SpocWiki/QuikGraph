@@ -8,11 +8,7 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.MinimumSpanningTree
 {
-    /// <summary>
-    /// Prim minimum spanning tree algorithm implementation.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Prim minimum spanning tree algorithm implementation. </summary>
     public sealed class PrimMinimumSpanningTreeAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
             , IMinimumSpanningTreeAlgorithm<TVertex, TEdge>

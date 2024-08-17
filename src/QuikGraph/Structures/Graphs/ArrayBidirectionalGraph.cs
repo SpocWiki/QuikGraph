@@ -181,12 +181,6 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public bool IsOutEdgesEmpty(TVertex vertex)
-        {
-            return OutDegree(vertex) == 0;
-        }
-
-        /// <inheritdoc />
         public int OutDegree(TVertex vertex)
         {
             if (vertex == null)
@@ -238,12 +232,6 @@ namespace QuikGraph
         #endregion
 
         #region IBidirectionalGraph<TVertex,TEdge>
-
-        /// <inheritdoc />
-        public bool IsInEdgesEmpty(TVertex vertex)
-        {
-            return InDegree(vertex) == 0;
-        }
 
         /// <inheritdoc />
         public int InDegree(TVertex vertex)

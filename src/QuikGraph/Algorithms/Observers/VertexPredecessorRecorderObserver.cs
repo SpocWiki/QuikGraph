@@ -6,11 +6,7 @@ using static QuikGraph.Utils.DisposableHelpers;
 
 namespace QuikGraph.Algorithms.Observers
 {
-    /// <summary>
-    /// Recorder of vertices predecessors (undirected).
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Recorder of vertices predecessors (undirected) by observing Edges. </summary>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

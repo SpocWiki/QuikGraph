@@ -3,9 +3,9 @@ using JetBrains.Annotations;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// An incident graph with vertices of type <typeparamref name="TVertex"/>
-    /// and edges of type <typeparamref name="TEdge"/>.
+    /// <summary> A directed graph with <see cref="IImplicitGraph{TVertex,TEdge}.OutEdges"/> and Methods to efficiently query them.
+    /// and vertices of type <typeparamref name="TVertex"/>
+    /// edges of type <typeparamref name="TEdge"/>.
     /// </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>

@@ -123,12 +123,6 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public bool IsOutEdgesEmpty(TVertex vertex)
-        {
-            return _baseGraph.IsOutEdgesEmpty(vertex);
-        }
-
-        /// <inheritdoc />
         public int OutDegree(TVertex vertex)
         {
             return _baseGraph.OutDegree(vertex);
@@ -158,12 +152,6 @@ namespace QuikGraph
 
         [NotNull]
         private readonly Dictionary<TVertex, EdgeList<TVertex, TEdge>> _inEdges;
-
-        /// <inheritdoc />
-        public bool IsInEdgesEmpty(TVertex vertex)
-        {
-            return InDegree(vertex) == 0;
-        }
 
         /// <inheritdoc />
         public int InDegree(TVertex vertex)

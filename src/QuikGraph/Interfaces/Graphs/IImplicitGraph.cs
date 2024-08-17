@@ -3,28 +3,16 @@ using JetBrains.Annotations;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// An implicit graph with vertices of type <typeparamref name="TVertex"/>
-    /// and edges of type <typeparamref name="TEdge"/>.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> An implicit graph with <see cref="OutEdges"/> of type <typeparamref name="TEdge"/>
+    /// and vertices of type <typeparamref name="TVertex"/>. </summary>
+    /// <remarks>
+    /// An implicit graph the vertices and edges are not explicitly stored or predefined,
+    /// but are instead generated or computed on-the-fly.
+    /// </remarks>
     public interface IImplicitGraph<TVertex, TEdge> : IGraph<TVertex, TEdge>, IImplicitVertexSet<TVertex>
          where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Determines whether there are out-edges associated to <paramref name="vertex"/>.
-        /// </summary>
-        /// <param name="vertex">The vertex.</param>
-        /// <returns>True if <paramref name="vertex"/> has no out-edges, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
-        /// <exception cref="VertexNotFoundException"><paramref name="vertex"/> is not part of the graph.</exception>
-        [Pure]
-        bool IsOutEdgesEmpty([NotNull] TVertex vertex);
-
-        /// <summary>
-        /// Gets the count of out-edges of <paramref name="vertex"/>.
-        /// </summary>
+        /// <summary> Gets the count of out-edges of <paramref name="vertex"/>. </summary>
         /// <param name="vertex">The vertex.</param>
         /// <returns>The count of out-edges of <paramref name="vertex"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
@@ -32,9 +20,7 @@ namespace QuikGraph
         [Pure]
         int OutDegree([NotNull] TVertex vertex);
 
-        /// <summary>
-        /// Gets the out-edges of <paramref name="vertex"/>.
-        /// </summary>
+        /// <summary> Gets the out-edges of <paramref name="vertex"/>. </summary>
         /// <param name="vertex">The vertex.</param>
         /// <returns>An enumeration of the out-edges of <paramref name="vertex"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
@@ -43,9 +29,7 @@ namespace QuikGraph
         [NotNull, ItemNotNull]
         IEnumerable<TEdge> OutEdges([NotNull] TVertex vertex);
 
-        /// <summary>
-        /// Tries to get the out-edges of <paramref name="vertex"/>.
-        /// </summary>
+        /// <summary> Tries to get the out-edges of <paramref name="vertex"/>. </summary>
         /// <param name="vertex">The vertex.</param>
         /// <param name="edges">Out-edges.</param>
         /// <returns>True if <paramref name="vertex"/> was found or/and out-edges were found, false otherwise.</returns>

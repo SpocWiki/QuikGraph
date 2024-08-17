@@ -197,12 +197,6 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge> 
 
         /// <inheritdoc />
-        public bool IsOutEdgesEmpty(TVertex vertex)
-        {
-            return Wrapped.IsOutEdgesEmpty(vertex);
-        }
-
-        /// <inheritdoc />
         public int OutDegree(TVertex vertex)
         {
             return Wrapped.OutDegree(vertex);

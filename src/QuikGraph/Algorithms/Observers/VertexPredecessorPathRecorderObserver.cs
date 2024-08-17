@@ -7,11 +7,7 @@ using static QuikGraph.Utils.DisposableHelpers;
 
 namespace QuikGraph.Algorithms.Observers
 {
-    /// <summary>
-    /// Recorder of vertices predecessors paths.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Recorder of <see cref="VerticesPredecessors"/>> to build up paths. </summary>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
@@ -32,36 +28,25 @@ namespace QuikGraph.Algorithms.Observers
         /// </summary>
         /// <param name="verticesPredecessors">Vertices predecessors.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesPredecessors"/> is <see langword="null"/>.</exception>
-        public VertexPredecessorPathRecorderObserver(
-            [NotNull] IDictionary<TVertex, TEdge> verticesPredecessors)
+        public VertexPredecessorPathRecorderObserver([NotNull] IDictionary<TVertex, TEdge> verticesPredecessors)
         {
             VerticesPredecessors = verticesPredecessors ?? throw new ArgumentNullException(nameof(verticesPredecessors));
         }
 
-        /// <summary>
-        /// Vertices predecessors.
-        /// </summary>
+        /// <summary> Predecessor Edges indexed by their <see cref="IEdge{TVertex}.Target"/> Vertices. </summary>
         [NotNull]
         public IDictionary<TVertex, TEdge> VerticesPredecessors { get; }
 
-        /// <summary>
-        /// Path ending vertices.
-        /// </summary>
+        /// <summary> Terminal, i.e. Path-ending vertices. </summary>
         [NotNull, ItemNotNull]
         public ICollection<TVertex> EndPathVertices { get; } = new List<TVertex>();
 
-        /// <summary>
-        /// Gets all paths.
-        /// </summary>
-        /// <returns>Enumerable of paths.</returns>
+        /// <summary> Enumerates the paths from all <see cref="EndPathVertices"/>. </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        public IEnumerable<List<TEdge>> AllPaths()
-        {
-            return EndPathVertices
+        public IEnumerable<List<TEdge>> AllPaths() => EndPathVertices
                 .Select(vertex => VerticesPredecessors.TryGetPath(vertex, out List<TEdge> path) ? path : null)
                 .Where(path => path != null);
-        }
 
         #region IObserver<TAlgorithm>
 
@@ -93,10 +78,10 @@ namespace QuikGraph.Algorithms.Observers
         {
             Debug.Assert(vertex != null);
 
-            if (VerticesPredecessors.Values.Any(edge => EqualityComparer<TVertex>.Default.Equals(edge.Source, vertex)))
-                return;
-
-            EndPathVertices.Add(vertex);
+            if (!VerticesPredecessors.Values.Any(edge => EqualityComparer<TVertex>.Default.Equals(edge.Source, vertex)))
+            {
+                EndPathVertices.Add(vertex);
+            }
         }
     }
 }

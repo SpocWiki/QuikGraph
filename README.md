@@ -17,15 +17,18 @@
 
 QuikGraph provides generic directed/undirected graph data structures and algorithms for .NET.
 
-QuikGraph comes with algorithms such as depth first search, breath first search, A* search, shortest path, k-shortest path, maximum flow, minimum spanning tree, etc.
+QuikGraph comes with algorithms such as depth first search, breath first search, A* search, 
+shortest path, k-shortest path, maximum flow, minimum spanning tree, etc.
 
 *QuikGraph was originally created by Jonathan "Peli" de Halleux in 2003 and named QuickGraph.*
 
 It was then updated to become YC.QuickGraph.
 
-**This version** of QuickGraph, renamed **QuikGraph**, is a fork of YC.QuickGraph, and I tried to clean the library to provide it as a clean NuGet packages using modern C# development (.NET Core).
+**This version** of QuickGraph, renamed **QuikGraph**, is a fork of YC.QuickGraph, 
+and I tried to clean the library to provide it as a clean NuGet packages using modern C# development (.NET Core).
 
-The library has been cleaned and improved. It comes with a lot of fixes for issues of the original library. It also has a wide support of .NET targets to make it compatible with the most development environments.
+The library has been cleaned and improved. It comes with a lot of fixes for issues of the original library. 
+It also has a wide support of .NET targets to make it compatible with the most development environments.
 
 **[Getting started with QuikGraph](https://github.com/KeRNeLith/QuikGraph/wiki)**
 

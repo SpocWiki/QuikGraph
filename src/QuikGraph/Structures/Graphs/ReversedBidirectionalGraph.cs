@@ -6,12 +6,8 @@ using JetBrains.Annotations;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// Mutable reversed bidirectional graph data structure.
-    /// </summary>
+    /// <summary> Mutable reversed bidirectional <see cref="OriginalGraph"/>. </summary>
     /// <remarks>It is mutable via the original graph.</remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
@@ -19,9 +15,7 @@ namespace QuikGraph
     public sealed class ReversedBidirectionalGraph<TVertex, TEdge> : IBidirectionalGraph<TVertex, SReversedEdge<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="originalGraph">Original graph to reverse.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="originalGraph"/> is <see langword="null"/>.</exception>
         public ReversedBidirectionalGraph([NotNull] IBidirectionalGraph<TVertex, TEdge> originalGraph)
@@ -29,9 +23,7 @@ namespace QuikGraph
             OriginalGraph = originalGraph ?? throw new ArgumentNullException(nameof(originalGraph));
         }
 
-        /// <summary>
-        /// Original graph.
-        /// </summary>
+        /// <summary> Wrapped original graph. </summary>
         [NotNull]
         public IBidirectionalGraph<TVertex, TEdge> OriginalGraph { get; }
 
@@ -124,16 +116,7 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public bool IsOutEdgesEmpty(TVertex vertex)
-        {
-            return OriginalGraph.IsInEdgesEmpty(vertex);
-        }
-
-        /// <inheritdoc />
-        public int OutDegree(TVertex vertex)
-        {
-            return OriginalGraph.InDegree(vertex);
-        }
+        public int OutDegree(TVertex vertex) => OriginalGraph.InDegree(vertex);
 
         /// <inheritdoc />
         public IEnumerable<SReversedEdge<TVertex, TEdge>> OutEdges(TVertex vertex)
@@ -179,16 +162,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public bool IsInEdgesEmpty(TVertex vertex)
-        {
-            return OriginalGraph.IsOutEdgesEmpty(vertex);
-        }
-
-        /// <inheritdoc />
-        public int InDegree(TVertex vertex)
-        {
-            return OriginalGraph.OutDegree(vertex);
-        }
+        public int InDegree(TVertex vertex) => OriginalGraph.OutDegree(vertex);
 
         /// <inheritdoc />
         public bool TryGetInEdges(TVertex vertex, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)

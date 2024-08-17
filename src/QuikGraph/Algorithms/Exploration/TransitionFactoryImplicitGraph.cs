@@ -190,12 +190,6 @@ namespace QuikGraph.Algorithms.Exploration
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public bool IsOutEdgesEmpty(TVertex vertex)
-        {
-            return OutDegree(vertex) == 0;
-        }
-
-        /// <inheritdoc />
         public int OutDegree(TVertex vertex)
         {
             return OutEdges(vertex).Count();

@@ -57,16 +57,7 @@ namespace QuikGraph.Predicates
         #region IBidirectionalIncidenceGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public bool IsInEdgesEmpty(TVertex vertex)
-        {
-            return !InEdges(vertex).Any();
-        }
-
-        /// <inheritdoc />
-        public int InDegree(TVertex vertex)
-        {
-            return InEdges(vertex).Count();
-        }
+        public int InDegree(TVertex vertex) => InEdges(vertex).Count();
 
         /// <inheritdoc />
         public IEnumerable<TEdge> InEdges(TVertex vertex)

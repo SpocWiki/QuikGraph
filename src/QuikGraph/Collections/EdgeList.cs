@@ -6,27 +6,19 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Collections
 {
-    /// <summary>
-    /// Stores a list of edges.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Stores a list of edges. </summary>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
     public sealed class EdgeList<TVertex, TEdge> : List<TEdge>, IEdgeList<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EdgeList{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="EdgeList{TVertex,TEdge}"/> class. </summary>
         public EdgeList()
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EdgeList{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="EdgeList{TVertex,TEdge}"/> class. </summary>
         /// <param name="capacity">List capacity.</param>
         /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="capacity"/> is negative.</exception>
         public EdgeList(int capacity)
@@ -41,28 +33,16 @@ namespace QuikGraph.Collections
         {
         }
 
-        /// <summary>
-        /// Clones this edge list.
-        /// </summary>
-        /// <returns>Cloned list.</returns>
+        /// <summary> Clones this edge list. </summary>
         [NotNull]
-        public EdgeList<TVertex, TEdge> Clone()
-        {
-            return new EdgeList<TVertex, TEdge>(this);
-        }
+        public EdgeList<TVertex, TEdge> Clone() => new EdgeList<TVertex, TEdge>(this);
 
         /// <inheritdoc />
-        IEdgeList<TVertex, TEdge> IEdgeList<TVertex, TEdge>.Clone()
-        {
-            return Clone();
-        }
+        IEdgeList<TVertex, TEdge> IEdgeList<TVertex, TEdge>.Clone() => Clone();
 
 #if SUPPORTS_CLONEABLE
         /// <inheritdoc />
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
 #endif
     }
 }

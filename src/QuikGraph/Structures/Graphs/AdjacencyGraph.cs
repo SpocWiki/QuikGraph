@@ -10,15 +10,11 @@ using QuikGraph.Collections;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// Mutable directed graph data structure.
-    /// </summary>
+    /// <summary> Mutable directed graph data structure, best for sparse Graphs. </summary>
     /// <remarks>
     /// It is efficient for sparse graph representation
     /// where out-edge need to be enumerated only.
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
@@ -29,26 +25,20 @@ namespace QuikGraph
 #endif
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
         public AdjacencyGraph()
             : this(true)
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         public AdjacencyGraph(bool allowParallelEdges)
             : this(allowParallelEdges, -1)
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         /// <param name="capacity">Vertex capacity.</param>
         public AdjacencyGraph(bool allowParallelEdges, int capacity)
@@ -56,9 +46,7 @@ namespace QuikGraph
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         /// <param name="vertexCapacity">Vertex capacity.</param>
         /// <param name="edgeCapacity">Edge capacity.</param>
@@ -71,20 +59,14 @@ namespace QuikGraph
             EdgeCapacity = edgeCapacity;
         }
 
-        /// <summary>
-        /// Gets or sets the edge capacity.
-        /// </summary>
+        /// <summary> Gets or sets the edge capacity. </summary>
         public int EdgeCapacity { get; set; }
 
-        /// <summary>
-        /// Gets the type of vertices.
-        /// </summary>
+        /// <summary> Gets the type of vertices. </summary>
         [NotNull]
         public Type VertexType => typeof(TVertex);
 
-        /// <summary>
-        /// Gets the type of edges.
-        /// </summary>
+        /// <summary> Gets the type of edges. </summary>
         [NotNull]
         public Type EdgeType => typeof(TEdge);
 
@@ -106,6 +88,7 @@ namespace QuikGraph
         /// <inheritdoc />
         public int VertexCount => _vertexEdges.Count;
 
+        /// <summary> Dictionary of Edges </summary>
         [NotNull]
         private IVertexEdgeDictionary<TVertex, TEdge> _vertexEdges;
 
@@ -202,12 +185,6 @@ namespace QuikGraph
         #endregion
 
         #region IImplicitGraph<TVertex,TEdge>
-
-        /// <inheritdoc />
-        public bool IsOutEdgesEmpty(TVertex vertex)
-        {
-            return OutDegree(vertex) == 0;
-        }
 
         /// <inheritdoc />
         public int OutDegree(TVertex vertex)

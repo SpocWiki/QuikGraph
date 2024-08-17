@@ -43,12 +43,6 @@ namespace QuikGraph
         #region IBidirectionalImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public bool IsInEdgesEmpty(TVertex vertex)
-        {
-            return !InEdges(vertex).Any();
-        }
-
-        /// <inheritdoc />
         public int InDegree(TVertex vertex)
         {
             return InEdges(vertex).Count();

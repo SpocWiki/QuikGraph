@@ -182,20 +182,6 @@ namespace QuikGraph
         #region IImplicitGraph<int,TEdge>
 
         /// <inheritdoc />
-        public bool IsOutEdgesEmpty(int vertex)
-        {
-            AssertIsInGraph(vertex);
-
-            for (int j = 0; j < VertexCount; ++j)
-            {
-                if (_edges[vertex, j] != null)
-                    return false;
-            }
-
-            return true;
-        }
-
-        /// <inheritdoc />
         public int OutDegree(int vertex)
         {
             AssertIsInGraph(vertex);
@@ -261,20 +247,6 @@ namespace QuikGraph
         #endregion
 
         #region IBidirectionalGraph<int,TEdge>
-
-        /// <inheritdoc />
-        public bool IsInEdgesEmpty(int vertex)
-        {
-            AssertIsInGraph(vertex);
-
-            for (int i = 0; i < VertexCount; ++i)
-            {
-                if (_edges[i, vertex] != null)
-                    return false;
-            }
-
-            return true;
-        }
 
         /// <inheritdoc />
         public int InDegree(int vertex)
