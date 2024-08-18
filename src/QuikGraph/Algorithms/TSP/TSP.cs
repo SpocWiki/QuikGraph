@@ -5,13 +5,10 @@ using QuikGraph.Algorithms.ShortestPath;
 
 namespace QuikGraph.Algorithms.TSP
 {
-    /// <summary>
-    /// Algorithm to answer the TSP (Travelling Salesman Problem), meaning finding a path that best link
-    /// every vertices.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
+    /// <summary> Finding a path that best link all vertices. </summary>
+    /// <remarks>
+    /// This is the TSP (Travelling Salesman Problem).
+    /// </remarks>
     // ReSharper disable once InconsistentNaming
     public class TSP<TVertex, TEdge, TGraph> : ShortestPathAlgorithmBase<TVertex, TEdge, TGraph>
         where TEdge : EquatableEdge<TVertex>
@@ -87,7 +84,7 @@ namespace QuikGraph.Algorithms.TSP
 
                 Task<TVertex, TEdge> task = _taskManager.GetTask();
 
-                if (task.IsResultReady())
+                if (task.ConnectsAllVertices())
                 {
                     BestCost = task.MinCost;
                     ResultPath = task.Path;

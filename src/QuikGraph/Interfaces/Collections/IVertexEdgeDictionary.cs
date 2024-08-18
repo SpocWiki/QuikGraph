@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 namespace QuikGraph.Collections
 {
     /// <summary> A cloneable dictionary of vertices associated to their edge-List. </summary>
-    public interface IVertexEdgeDictionary<TVertex, TEdge> : IDictionary<TVertex, IEdgeList<TVertex, TEdge>>
+    public interface IVertexEdgeDictionary<TVertex, TEdge> : IDictionary<TVertex, IEdgeList<TEdge>>
 #if SUPPORTS_CLONEABLE
         , ICloneable
 #endif

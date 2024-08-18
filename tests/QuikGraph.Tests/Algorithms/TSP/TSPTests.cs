@@ -69,8 +69,6 @@ namespace QuikGraph.Tests.Algorithms.TSP
             var algorithm = new TSP<int, EquatableEdge<int>, BidirectionalGraph<int, EquatableEdge<int>>>(graph, Weights);
             AssertAlgorithmProperties(algorithm, graph, Weights);
 
-            #region Local function
-
             void AssertAlgorithmProperties<TVertex, TEdge, TGraph>(
                 TSP<TVertex, TEdge, TGraph> algo,
                 TGraph g,
@@ -87,8 +85,6 @@ namespace QuikGraph.Tests.Algorithms.TSP
                 CollectionAssert.IsEmpty(algo.GetDistances());
                 Assert.AreSame(DistanceRelaxers.ShortestDistance, algo.DistanceRelaxer);
             }
-
-            #endregion
         }
 
         [Test]

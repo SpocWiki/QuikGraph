@@ -248,9 +248,13 @@ namespace QuikGraph
         /// <inheritdoc />
         public IEnumerable<TEdge> InEdges(TVertex vertex)
         {
+            if (vertex == null)
+                throw new ArgumentNullException(nameof(vertex));
+
             if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
                 return inOutEdges.InEdges.AsEnumerable();
 
+            //return null;
             throw new VertexNotFoundException();
         }
 

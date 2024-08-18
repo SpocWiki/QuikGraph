@@ -197,7 +197,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             var set = new HashSet<TVertex> { source, target };
 #endif
 
-            var edges = new EdgeList<TVertex, TEdge>();
+            var edges = new EdgeList<TEdge>();
             var todo = new Stack<SEquatableEdge<TVertex>>();
             todo.Push(new SEquatableEdge<TVertex>(source, target));
             while (todo.Count > 0)

@@ -460,7 +460,7 @@ namespace QuikGraph
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));
 
-            var edgesToRemove = new EdgeList<TVertex, TEdge>();
+            var edgesToRemove = new EdgeList<TEdge>();
             edgesToRemove.AddRange(Edges.Where(edge => predicate(edge)));
 
             foreach (TEdge edge in edgesToRemove)

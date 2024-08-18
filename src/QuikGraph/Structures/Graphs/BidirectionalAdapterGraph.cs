@@ -31,12 +31,12 @@ namespace QuikGraph
         public BidirectionalAdapterGraph([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> baseGraph)
         {
             _baseGraph = baseGraph ?? throw new ArgumentNullException(nameof(baseGraph));
-            _inEdges = new Dictionary<TVertex, EdgeList<TVertex, TEdge>>(_baseGraph.VertexCount);
+            _inEdges = new Dictionary<TVertex, EdgeList<TEdge>>(_baseGraph.VertexCount);
             foreach (TEdge edge in _baseGraph.Edges)
             {
-                if (!_inEdges.TryGetValue(edge.Target, out EdgeList<TVertex, TEdge> edgeList))
+                if (!_inEdges.TryGetValue(edge.Target, out EdgeList<TEdge> edgeList))
                 {
-                    edgeList = new EdgeList<TVertex, TEdge>();
+                    edgeList = new EdgeList<TEdge>();
                     _inEdges.Add(edge.Target, edgeList);
                 }
 
@@ -46,7 +46,7 @@ namespace QuikGraph
             // Add vertices that has no in edges
             foreach (TVertex vertex in _baseGraph.Vertices.Except(_inEdges.Keys.ToArray()))
             {
-                _inEdges.Add(vertex, new EdgeList<TVertex, TEdge>());
+                _inEdges.Add(vertex, new EdgeList<TEdge>());
             }
         }
 
@@ -151,7 +151,7 @@ namespace QuikGraph
         #region IBidirectionalIncidenceGraph<TVertex,TEdge>
 
         [NotNull]
-        private readonly Dictionary<TVertex, EdgeList<TVertex, TEdge>> _inEdges;
+        private readonly Dictionary<TVertex, EdgeList<TEdge>> _inEdges;
 
         /// <inheritdoc />
         public int InDegree(TVertex vertex)
@@ -159,7 +159,7 @@ namespace QuikGraph
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (_inEdges.TryGetValue(vertex, out EdgeList<TVertex, TEdge> inEdges))
+            if (_inEdges.TryGetValue(vertex, out EdgeList<TEdge> inEdges))
                 return inEdges.Count;
             throw new VertexNotFoundException();
         }
@@ -170,7 +170,7 @@ namespace QuikGraph
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (_inEdges.TryGetValue(vertex, out EdgeList<TVertex, TEdge> inEdges))
+            if (_inEdges.TryGetValue(vertex, out EdgeList<TEdge> inEdges))
                 return inEdges.AsEnumerable();
             throw new VertexNotFoundException();
         }
@@ -181,7 +181,7 @@ namespace QuikGraph
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (_inEdges.TryGetValue(vertex, out EdgeList<TVertex, TEdge> inEdges))
+            if (_inEdges.TryGetValue(vertex, out EdgeList<TEdge> inEdges))
             {
                 edges = inEdges.AsEnumerable();
                 return true;
@@ -197,7 +197,7 @@ namespace QuikGraph
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (_inEdges.TryGetValue(vertex, out EdgeList<TVertex, TEdge> inEdges))
+            if (_inEdges.TryGetValue(vertex, out EdgeList<TEdge> inEdges))
                 return inEdges[index];
             throw new VertexNotFoundException();
         }

@@ -15,8 +15,8 @@ namespace QuikGraph
         [Pure]
         int InDegree([NotNull] TVertex vertex);
 
-        /// <summary> Gets the collection of in-edges of <paramref name="vertex"/>. </summary>
-        /// <returns>The collection of in-edges of <paramref name="vertex"/>.</returns>
+        /// <summary> Returns the collection of in-edges of <paramref name="vertex"/>. </summary>
+        /// <returns> <see langword="null"/> when <paramref name="vertex"/> is not part of this Graph.</returns>
         [Pure]
         [NotNull, ItemNotNull]
         IEnumerable<TEdge> InEdges([NotNull] TVertex vertex);

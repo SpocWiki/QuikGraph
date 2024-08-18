@@ -21,18 +21,6 @@ namespace QuikGraph.Collections
     {
     }
 
-    /// <summary>
-    /// Represents a strongly-typed, read-only collection of elements.
-    /// </summary>
-    /// <typeparam name="T">Element type.</typeparam>
-    public interface IReadOnlyCollection<T> : IEnumerable<T>
-    {
-        /// <summary>
-        /// Gets the number of elements in the collection.
-        /// </summary>
-        int Count { get; }
-    }
-
     internal delegate bool TreeWalkPredicate<T>(SortedSet<T>.Node node);
 
     internal enum TreeRotation
@@ -1459,7 +1447,7 @@ namespace QuikGraph.Collections
         {
             get
             {
-                T ret = default(T);
+                var ret = default(T);
                 InOrderTreeWalk(n =>
                 {
                     ret = n.Item;
@@ -1476,7 +1464,7 @@ namespace QuikGraph.Collections
         {
             get
             {
-                T ret = default(T);
+                var ret = default(T);
                 InOrderTreeWalk(n =>
                 {
                     ret = n.Item;

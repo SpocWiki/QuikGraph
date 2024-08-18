@@ -18,7 +18,7 @@ namespace QuikGraph.Collections
     [Serializable]
 #endif
     public sealed class VertexEdgeDictionary<TVertex, TEdge>
-        : Dictionary<TVertex, IEdgeList<TVertex, TEdge>>
+        : Dictionary<TVertex, IEdgeList<TEdge>>
         , IVertexEdgeDictionary<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
@@ -56,7 +56,7 @@ namespace QuikGraph.Collections
         public VertexEdgeDictionary<TVertex, TEdge> Clone()
         {
             var clone = new VertexEdgeDictionary<TVertex, TEdge>(Count);
-            foreach (KeyValuePair<TVertex, IEdgeList<TVertex, TEdge>> pair in this)
+            foreach (KeyValuePair<TVertex, IEdgeList<TEdge>> pair in this)
                 clone.Add(pair.Key, pair.Value.Clone());
             return clone;
         }

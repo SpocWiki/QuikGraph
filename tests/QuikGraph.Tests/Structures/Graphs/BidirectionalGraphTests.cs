@@ -269,7 +269,11 @@ namespace QuikGraph.Tests.Structures
         {
             var graph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             OutEdges_NullThrows_Test(graph1);
+        }
 
+        [Test]
+        public void OutEdgesEquatable_Throws()
+        {
             var graph2 = new BidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
             OutEdges_Throws_Test(graph2);
         }

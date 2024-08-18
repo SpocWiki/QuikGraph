@@ -229,11 +229,11 @@ namespace QuikGraph.Algorithms.Exploration
 
         [Pure]
         [CanBeNull, ItemNotNull]
-        private IEdgeList<TVertex, TEdge> ExploreFactoriesForVertex([NotNull] TVertex vertex)
+        private IEdgeList<TEdge> ExploreFactoriesForVertex([NotNull] TVertex vertex)
         {
             Debug.Assert(vertex != null);
 
-            IEdgeList<TVertex, TEdge> edges = null;
+            IEdgeList<TEdge> edges = null;
             foreach (ITransitionFactory<TVertex, TEdge> transitionFactory in _transitionFactories)
             {
                 if (!transitionFactory.IsValid(vertex))
@@ -241,7 +241,7 @@ namespace QuikGraph.Algorithms.Exploration
 
                 if (edges is null)
                 {
-                    edges = new EdgeList<TVertex, TEdge>();
+                    edges = new EdgeList<TEdge>();
                 }
 
                 foreach (TEdge edge in transitionFactory.Apply(vertex).Where(edge => SuccessorVertexPredicate(edge.Target)))
@@ -266,7 +266,7 @@ namespace QuikGraph.Algorithms.Exploration
 
             bool wasNotProcessed = _verticesNotProcessedCache.Remove(vertex);
 
-            if (!_verticesEdgesCache.TryGetValue(vertex, out IEdgeList<TVertex, TEdge> edgeList))
+            if (!_verticesEdgesCache.TryGetValue(vertex, out IEdgeList<TEdge> edgeList))
             {
                 edgeList = ExploreFactoriesForVertex(vertex);
 
@@ -275,7 +275,7 @@ namespace QuikGraph.Algorithms.Exploration
                     // Vertex has no out edges
                     if (wasNotProcessed)
                     {
-                        edgeList = new EdgeList<TVertex, TEdge>();
+                        edgeList = new EdgeList<TEdge>();
                     }
                     else
                     {
