@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 using QuikGraph.Collections;
 
@@ -12,8 +12,8 @@ namespace QuikGraph.Tests.Collections
         public void Constructors()
         {
             // ReSharper disable ObjectCreationAsStatement
-            Assert.DoesNotThrow(() => new EdgeList<Edge<int>>());
-            Assert.DoesNotThrow(() => new EdgeList<Edge<int>>(12));
+            Assert.DoesNotThrow(() => new EdgeList<IEdge<int>>());
+            Assert.DoesNotThrow(() => new EdgeList<IEdge<int>>(12));
             var list = new EdgeList<EquatableEdge<int>>
             {
                 new(1, 2),
@@ -38,11 +38,11 @@ namespace QuikGraph.Tests.Collections
             clonedList = (EdgeList<EquatableEdge<int>>)((ICloneable)list).Clone();
             CollectionAssert.IsEmpty(clonedList);
 
-            list.AddRange(new[]
-            {
+            list.AddRange(
+            [
                 new EquatableEdge<int>(1, 2),
                 new EquatableEdge<int>(2, 3)
-            });
+            ]);
             clonedList = list.Clone();
             CollectionAssert.AreEqual(list, clonedList);
 

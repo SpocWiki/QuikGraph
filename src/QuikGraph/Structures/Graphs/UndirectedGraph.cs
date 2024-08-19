@@ -757,10 +757,7 @@ namespace QuikGraph
             EdgeCapacity = edgeCapacity;
         }
 
-        /// <summary>
-        /// Clones this graph.
-        /// </summary>
-        /// <returns>Cloned graph.</returns>
+        /// <summary>Clones this graph.</summary>
         [Pure]
         [NotNull]
         public UndirectedGraph<TVertex, TEdge> Clone()

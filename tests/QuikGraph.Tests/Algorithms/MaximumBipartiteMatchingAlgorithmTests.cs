@@ -4,7 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms
 {
@@ -72,7 +72,7 @@ namespace QuikGraph.Tests.Algorithms
             [NotNull, ItemNotNull] IEnumerable<string> setB,
             int expectedMatchSize)
         {
-            AdjacencyGraph<string, Edge<string>> graph = edges.ToAdjacencyGraph<string, Edge<string>>();
+            var graph = edges.ToAdjacencyGraph<string, Edge<string>>();
 
             var vertexFactory = new StringVertexFactory();
 
@@ -121,14 +121,14 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
-            int[] sourceToVertices = { 1, 2 };
-            int[] verticesToSink = { 1, 2 };
+            int[] sourceToVertices = [1, 2];
+            int[] verticesToSink = [1, 2];
 
-            var algorithm = new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(
+            var algorithm = new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(
                 graph,
                 sourceToVertices,
                 verticesToSink,
@@ -150,10 +150,10 @@ namespace QuikGraph.Tests.Algorithms
                 IEnumerable<TVertex> soToV,
                 IEnumerable<TVertex> vToSi,
                 VertexFactory<int> vFactory,
-                EdgeFactory<int, Edge<int>> eFactory)
+                EdgeFactory<int, IEdge<int>> eFactory)
                 where TEdge : IEdge<TVertex>
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 Assert.AreSame(vFactory, algo.VertexFactory);
                 Assert.AreSame(eFactory, algo.EdgeFactory);
                 Assert.AreSame(soToV, algo.SourceToVertices);
@@ -167,75 +167,75 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
-            int[] sourceToVertices = { 1, 2 };
-            int[] verticesToSink = { 1, 2 };
+            int[] sourceToVertices = [1, 2];
+            int[] verticesToSink = [1, 2];
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, sourceToVertices, verticesToSink, vertexFactory, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, sourceToVertices, verticesToSink, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, null, verticesToSink, vertexFactory, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, null, verticesToSink, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, sourceToVertices, null, vertexFactory, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, sourceToVertices, null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, sourceToVertices, verticesToSink, null, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, sourceToVertices, verticesToSink, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, sourceToVertices, verticesToSink, vertexFactory, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, sourceToVertices, verticesToSink, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, null, verticesToSink, vertexFactory, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, null, verticesToSink, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, sourceToVertices, null, vertexFactory, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, sourceToVertices, null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, sourceToVertices, verticesToSink, null, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, sourceToVertices, verticesToSink, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, sourceToVertices, verticesToSink, vertexFactory, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, sourceToVertices, verticesToSink, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, null, null, vertexFactory, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, null, null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, null, verticesToSink, null, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, null, verticesToSink, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, null, verticesToSink, vertexFactory, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, null, verticesToSink, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, sourceToVertices, null, null, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, sourceToVertices, null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, sourceToVertices, null, vertexFactory, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, sourceToVertices, null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, sourceToVertices, verticesToSink, null, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, sourceToVertices, verticesToSink, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, null, null, vertexFactory, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, null, null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, null, verticesToSink, null, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, null, verticesToSink, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, null, verticesToSink, vertexFactory, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, null, verticesToSink, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, sourceToVertices, null, null, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, sourceToVertices, null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, sourceToVertices, null, vertexFactory, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, sourceToVertices, null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, sourceToVertices, verticesToSink, null, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, sourceToVertices, verticesToSink, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, null, null, null, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, null, null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, null, null, vertexFactory, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, null, null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, sourceToVertices, null, null, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, sourceToVertices, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, null, null, null, edgeFactory));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, null, null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, null, null, vertexFactory, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, null, null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, null, verticesToSink, null, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, null, verticesToSink, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, sourceToVertices, null, null, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, sourceToVertices, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(graph, null, null, null, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(graph, null, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MaximumBipartiteMatchingAlgorithm<int, Edge<int>>(null, null, null, null, null));
+                () => new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(null, null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -281,7 +281,7 @@ namespace QuikGraph.Tests.Algorithms
             int[] integers = Enumerable.Range(0, nodesInSet1).ToArray();
             string[] even = integers.Where(n => n % 2 == 0).Select(n => n.ToString()).ToArray();
             string[] odd = integers.Where(n => n % 2 != 0).Select(n => n.ToString()).ToArray();
-            List<Edge<string>> edges = TestHelpers.CreateAllPairwiseEdges(even, odd, _edgeFactory).ToList();
+            var edges = TestHelpers.CreateAllPairwiseEdges(even, odd, _edgeFactory).ToList();
 
             setA.AddRange(even);
             setB.AddRange(odd);

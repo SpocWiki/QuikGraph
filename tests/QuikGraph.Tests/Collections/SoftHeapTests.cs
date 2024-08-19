@@ -32,17 +32,17 @@ namespace QuikGraph.Tests.Collections
         public void Constructor()
         {
             AssertHeapBaseProperties(
-                new SoftHeap<int, Edge<int>>(ErrorRate, 10),
+                new SoftHeap<int, IEdge<int>>(ErrorRate, 10),
                 ErrorRate,
                 10);
             AssertHeapBaseProperties(
-                new SoftHeap<int, Edge<int>>(ErrorRate2, 42),
+                new SoftHeap<int, IEdge<int>>(ErrorRate2, 42),
                 ErrorRate2,
                 42);
 
             Comparison<int> comparer = (x, y) => x.CompareTo(y);
             AssertHeapProperties(
-                new SoftHeap<int, Edge<int>>(ErrorRate, 12, comparer),
+                new SoftHeap<int, IEdge<int>>(ErrorRate, 12, comparer),
                 ErrorRate,
                 12,
                 comparer);
@@ -255,32 +255,32 @@ namespace QuikGraph.Tests.Collections
             [UsedImplicitly]
             get
             {
-                int[] keys1 = { 42 };
+                int[] keys1 = [42];
 
                 yield return new TestCaseData(keys1, ErrorRate);
                 yield return new TestCaseData(keys1, ErrorRate2);
 
-                int[] keys2 = { 1, 2, 3, 5, 10, 2, 4, 6, 4, 3, 2, 150, 11, 42, 13 };
+                int[] keys2 = [1, 2, 3, 5, 10, 2, 4, 6, 4, 3, 2, 150, 11, 42, 13];
 
                 yield return new TestCaseData(keys2, ErrorRate);
                 yield return new TestCaseData(keys2, ErrorRate2);
 
                 int[] keys3 =
-                {
+                [
                     1, 2, 4, 3, 2, 15, 0, 11, 3, 5, 10, 2, 4, 6, 42, 13,
                     1, 2, 4, 2, 4, 6, 42, 13, 3, 2, 15, 0, 11, 3, 5, 10
-                };
+                ];
 
                 yield return new TestCaseData(keys3, ErrorRate);
                 yield return new TestCaseData(keys3, ErrorRate2);
 
                 int[] keys4 =
-                {
+                [
                     1, 2, 4, 3, 2, 15, 0, 11, 3, 5, 10, 2, 4, 6, 42, 13,
                     1, 2, 4, 2, 4, 6, 42, 13, 3, 2, 15, 0, 11, 3, 5, 10,
                     4, 6, 42, 1, 2, 0, 11, 3, 5, 10, 2, 13, 4, 3, 2, 15,
                     2, 4, 6, 42, 2, 4, 15, 13, 3, 2, 1, 0, 11, 3, 5, 10
-                };
+                ];
 
                 yield return new TestCaseData(keys4, ErrorRate);
                 yield return new TestCaseData(keys4, ErrorRate2);

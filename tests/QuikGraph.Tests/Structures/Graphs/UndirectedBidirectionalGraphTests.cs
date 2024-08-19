@@ -13,12 +13,12 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Construction()
         {
-            var wrappedGraph = new BidirectionalGraph<int, Edge<int>>(true);
-            var graph = new UndirectedBidirectionalGraph<int, Edge<int>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<int, IEdge<int>>(true);
+            var graph = new UndirectedBidirectionalGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph);
 
-            wrappedGraph = new BidirectionalGraph<int, Edge<int>>(false);
-            graph = new UndirectedBidirectionalGraph<int, Edge<int>>(wrappedGraph);
+            wrappedGraph = new BidirectionalGraph<int, IEdge<int>>(false);
+            graph = new UndirectedBidirectionalGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph, false);
 
             #region Local function
@@ -40,7 +40,7 @@ namespace QuikGraph.Tests.Structures
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new UndirectedBidirectionalGraph<int, Edge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => new UndirectedBidirectionalGraph<int, IEdge<int>>(null));
         }
 
         #region Add Vertex => has effect
@@ -48,10 +48,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertex()
         {
-            var wrappedGraph = new BidirectionalGraph<int, Edge<int>>();
+            var wrappedGraph = new BidirectionalGraph<int, IEdge<int>>();
             AddVertex_ImmutableGraph_WithUpdate(
                 wrappedGraph,
-                () => new UndirectedBidirectionalGraph<int, Edge<int>>(wrappedGraph));
+                () => new UndirectedBidirectionalGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         #endregion
@@ -61,10 +61,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge()
         {
-            var wrappedGraph = new BidirectionalGraph<int, Edge<int>>();
+            var wrappedGraph = new BidirectionalGraph<int, IEdge<int>>();
             AddEdge_ImmutableGraph_WithUpdate(
                 wrappedGraph,
-                () => new UndirectedBidirectionalGraph<int, Edge<int>>(wrappedGraph));
+                () => new UndirectedBidirectionalGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         #endregion
@@ -104,10 +104,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge()
         {
-            var wrappedGraph = new BidirectionalGraph<int, Edge<int>>();
+            var wrappedGraph = new BidirectionalGraph<int, IEdge<int>>();
             ContainsEdge_ImmutableGraph_Test(
                 wrappedGraph,
-                () => new UndirectedBidirectionalGraph<int, Edge<int>>(wrappedGraph));
+                () => new UndirectedBidirectionalGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
@@ -122,10 +122,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_SourceTarget()
         {
-            var wrappedGraph = new BidirectionalGraph<int, Edge<int>>();
+            var wrappedGraph = new BidirectionalGraph<int, IEdge<int>>();
             ContainsEdge_SourceTarget_ImmutableGraph_UndirectedGraph_Test(
                 wrappedGraph,
-                () => new UndirectedBidirectionalGraph<int, Edge<int>>(wrappedGraph));
+                () => new UndirectedBidirectionalGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
@@ -156,8 +156,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AdjacentEdge_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<int, Edge<int>>();
-            var graph = new UndirectedBidirectionalGraph<int, Edge<int>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<int, IEdge<int>>();
+            var graph = new UndirectedBidirectionalGraph<int, IEdge<int>>(wrappedGraph);
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<NotSupportedException>(() => graph.AdjacentEdge(1, 0));
         }
@@ -165,10 +165,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AdjacentEdges()
         {
-            var wrappedGraph = new BidirectionalGraph<int, Edge<int>>();
+            var wrappedGraph = new BidirectionalGraph<int, IEdge<int>>();
             AdjacentEdges_ImmutableGraph_Test(
                 wrappedGraph,
-                () => new UndirectedBidirectionalGraph<int, Edge<int>>(wrappedGraph));
+                () => new UndirectedBidirectionalGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
@@ -186,10 +186,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge()
         {
-            var wrappedGraph = new BidirectionalGraph<int, Edge<int>>();
+            var wrappedGraph = new BidirectionalGraph<int, IEdge<int>>();
             TryGetEdge_ImmutableGraph_UndirectedGraph_Test(
                 wrappedGraph,
-                () => new UndirectedBidirectionalGraph<int, Edge<int>>(wrappedGraph));
+                () => new UndirectedBidirectionalGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]

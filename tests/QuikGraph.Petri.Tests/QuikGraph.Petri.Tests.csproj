@@ -65,4 +65,7 @@
   <ItemGroup Condition="!$(UseQuikGraphPetriNuget)">
     <ProjectReference Include="..\..\src\QuikGraph.Petri\QuikGraph.Petri.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="NUnit" Version="3.14.0" />
+  </ItemGroup>
 </Project>

@@ -57,7 +57,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="components">Graph components.</param>
+        /// <param name="components">pre-determined Graph components.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
         public StronglyConnectedComponentsAlgorithm(

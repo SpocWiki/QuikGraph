@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.MaximumFlow;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.MaximumFlow
 {
@@ -12,9 +12,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
     [TestFixture]
     internal sealed class AllVerticesGraphAugmentorAlgorithmTests : GraphAugmentorAlgorithmTestsBase
     {
-        #region Test helpers
-
-        private static void RunAugmentationAndCheck(
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
+        public static void RunAugmentationAndCheck(
             [NotNull] IMutableVertexAndEdgeListGraph<string, Edge<string>> graph)
         {
             int vertexCount = graph.VertexCount;
@@ -82,19 +81,17 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             }
         }
 
-        #endregion
-
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
-            var algorithm = new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(graph, vertexFactory, edgeFactory);
+            var algorithm = new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
 
-            algorithm = new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, graph, vertexFactory, edgeFactory);
+            algorithm = new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, vertexFactory, edgeFactory);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
 
             #region Local function
@@ -103,10 +100,10 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 AllVerticesGraphAugmentorAlgorithm<TVertex, TEdge> algo,
                 IMutableVertexAndEdgeSet<TVertex, TEdge> g,
                 VertexFactory<int> vFactory,
-                EdgeFactory<int, Edge<int>> eFactory)
+                EdgeFactory<int, IEdge<int>> eFactory)
                 where TEdge : IEdge<TVertex>
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 Assert.IsFalse(algo.Augmented);
                 CollectionAssert.IsEmpty(algo.AugmentedEdges);
                 Assert.AreSame(vFactory, algo.VertexFactory);
@@ -121,41 +118,41 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, vertexFactory, edgeFactory));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(graph, null, edgeFactory));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(graph, vertexFactory, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, null, edgeFactory));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, vertexFactory, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(graph, null, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, null, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, null, vertexFactory, edgeFactory));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, graph, null, edgeFactory));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, graph, vertexFactory, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, null, null, edgeFactory));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, null, vertexFactory, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, graph, null, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(null, null, null, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -165,11 +162,11 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         [Test]
         public void CreateAndSetSuperSource()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
-            var algorithm = new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(graph, vertexFactory, edgeFactory);
+            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            var algorithm = new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
 
             CreateAndSetSuperSource_Test(algorithm);
         }
@@ -177,11 +174,11 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         [Test]
         public void CreateAndSetSuperSink()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
-            var algorithm = new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(graph, vertexFactory, edgeFactory);
+            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            var algorithm = new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
 
             CreateAndSetSuperSink_Test(algorithm);
         }
@@ -191,31 +188,25 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
             RunAugmentation_Test(
-                graph => new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(graph, vertexFactory, edgeFactory));
+                graph => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory));
         }
 
         [Test]
         public void RunAugmentation_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, Edge<int>> edgeFactory = (source, target) => new Edge<int>(source, target);
-            var algorithm = new AllVerticesGraphAugmentorAlgorithm<int, Edge<int>>(graph, vertexFactory, edgeFactory);
+            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            var algorithm = new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
 
             RunAugmentation_Throws_Test(algorithm);
         }
 
         #endregion
 
-        [Test]
-        public void AllVerticesAugmentor()
-        {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_All())
-                RunAugmentationAndCheck(graph);
-        }
     }
 }

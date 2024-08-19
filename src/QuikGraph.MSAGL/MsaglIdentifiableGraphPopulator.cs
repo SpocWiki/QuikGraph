@@ -37,7 +37,7 @@ namespace QuikGraph.MSAGL
         }
 
         /// <inheritdoc />
-        protected override Edge AddEdge(TEdge edge)
+        protected override Microsoft.Msagl.Drawing.Edge AddEdge(TEdge edge)
         {
             return MsaglGraph.AddEdge(
                 _vertexIdentity(edge.Source),

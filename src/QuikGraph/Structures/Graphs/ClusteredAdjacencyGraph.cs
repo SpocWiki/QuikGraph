@@ -165,10 +165,7 @@ namespace QuikGraph
         public virtual IEnumerable<TEdge> Edges => Wrapped.Edges;
 
         /// <inheritdoc />
-        public bool ContainsEdge(TEdge edge)
-        {
-            return Wrapped.ContainsEdge(edge);
-        }
+        public bool ContainsEdge(TEdge edge) => Wrapped.ContainsEdge(edge);
 
         #endregion
 

@@ -14,25 +14,25 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Construction()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             AssertGraphProperties(graph);
 
-            graph = new AdjacencyGraph<int, Edge<int>>(true);
+            graph = new AdjacencyGraph<int, IEdge<int>>(true);
             AssertGraphProperties(graph);
 
-            graph = new AdjacencyGraph<int, Edge<int>>(false);
+            graph = new AdjacencyGraph<int, IEdge<int>>(false);
             AssertGraphProperties(graph, false);
 
-            graph = new AdjacencyGraph<int, Edge<int>>(true, 12);
+            graph = new AdjacencyGraph<int, IEdge<int>>(true, 12);
             AssertGraphProperties(graph);
 
-            graph = new AdjacencyGraph<int, Edge<int>>(false, 12);
+            graph = new AdjacencyGraph<int, IEdge<int>>(false, 12);
             AssertGraphProperties(graph, false);
 
-            graph = new AdjacencyGraph<int, Edge<int>>(true, 42, 12);
+            graph = new AdjacencyGraph<int, IEdge<int>>(true, 42, 12);
             AssertGraphProperties(graph, edgeCapacity: 12);
 
-            graph = new AdjacencyGraph<int, Edge<int>>(false, 42, 12);
+            graph = new AdjacencyGraph<int, IEdge<int>>(false, 42, 12);
             AssertGraphProperties(graph, false, 12);
 
             #region Local function
@@ -48,7 +48,7 @@ namespace QuikGraph.Tests.Structures
                 AssertEmptyGraph(g);
                 Assert.AreEqual(edgeCapacity, g.EdgeCapacity);
                 Assert.AreSame(typeof(int), g.VertexType);
-                Assert.AreSame(typeof(Edge<int>), g.EdgeType);
+                Assert.AreSame(typeof(IEdge<int>), g.EdgeType);
             }
 
             #endregion
@@ -98,7 +98,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge_ParallelEdges()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             AddEdge_ParallelEdges_Test(graph);
         }
 
@@ -112,7 +112,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge_NoParallelEdges()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>(false);
+            var graph = new AdjacencyGraph<int, IEdge<int>>(false);
             AddEdge_NoParallelEdges_Test(graph);
         }
 
@@ -126,21 +126,21 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddEdge_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             AddEdge_Throws_Test(graph);
         }
 
         [Test]
         public void AddEdgeRange()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>(false);
+            var graph = new AdjacencyGraph<int, IEdge<int>>(false);
             AddEdgeRange_Test(graph);
         }
 
         [Test]
         public void AddEdgeRange_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             AddEdgeRange_Throws_Test(graph);
         }
 
@@ -151,28 +151,28 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVerticesAndEdge()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             AddVerticesAndEdge_Test(graph);
         }
 
         [Test]
         public void AddVerticesAndEdge_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             AddVerticesAndEdge_Throws_Test(graph);
         }
 
         [Test]
         public void AddVerticesAndEdgeRange()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>(false);
+            var graph = new AdjacencyGraph<int, IEdge<int>>(false);
             AddVerticesAndEdgeRange_Test(graph);
         }
 
         [Test]
         public void AddVerticesAndEdgeRange_Throws()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>(false);
+            var graph = new AdjacencyGraph<int, IEdge<int>>(false);
             AddVerticesAndEdgeRange_Throws_Test(graph);
         }
 
@@ -208,7 +208,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             ContainsEdge_Test(graph);
         }
 
@@ -222,7 +222,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_SourceTarget()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             ContainsEdge_SourceTarget_Test(graph);
         }
 
@@ -241,7 +241,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             OutEdge_Test(graph);
         }
 
@@ -251,14 +251,14 @@ namespace QuikGraph.Tests.Structures
             var graph1 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             OutEdge_NullThrows_Test(graph1);
 
-            var graph2 = new AdjacencyGraph<int, Edge<int>>();
+            var graph2 = new AdjacencyGraph<int, IEdge<int>>();
             OutEdge_Throws_Test(graph2);
         }
 
         [Test]
         public void OutEdges()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             OutEdges_Test(graph);
         }
 
@@ -279,7 +279,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             TryGetEdge_Test(graph);
         }
 
@@ -293,7 +293,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdges()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             TryGetEdges_Test(graph);
         }
 
@@ -307,7 +307,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             TryGetOutEdges_Test(graph);
         }
 
@@ -325,7 +325,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertex()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             RemoveVertex_Test(graph);
         }
 
@@ -339,10 +339,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertexIf()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             RemoveVertexIf_Test(graph);
 
-            graph = new AdjacencyGraph<int, Edge<int>>();
+            graph = new AdjacencyGraph<int, IEdge<int>>();
             RemoveVertexIf_Test2(graph);
         }
 
@@ -360,7 +360,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdge()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             RemoveEdge_Test(graph);
         }
 
@@ -381,7 +381,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdgeIf()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             RemoveEdgeIf_Test(graph);
         }
 
@@ -395,7 +395,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveOutEdgeIf()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             RemoveOutEdgeIf_Test(graph);
         }
 
@@ -416,7 +416,7 @@ namespace QuikGraph.Tests.Structures
             int verticesRemoved = 0;
             int edgesRemoved = 0;
 
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.VertexRemoved += v =>
             {
@@ -438,9 +438,9 @@ namespace QuikGraph.Tests.Structures
             AssertEmptyGraph(graph);
             CheckCounters(0, 0);
 
-            graph.AddVerticesAndEdge(new Edge<int>(1, 2));
-            graph.AddVerticesAndEdge(new Edge<int>(2, 3));
-            graph.AddVerticesAndEdge(new Edge<int>(3, 1));
+            graph.AddVerticesAndEdge(Edge.Create(1, 2));
+            graph.AddVerticesAndEdge(Edge.Create(2, 3));
+            graph.AddVerticesAndEdge(Edge.Create(3, 1));
 
             graph.Clear();
             AssertEmptyGraph(graph);
@@ -459,11 +459,11 @@ namespace QuikGraph.Tests.Structures
             #endregion
         }
 
-        private static void ClearEdgesCommon([NotNull, InstantHandle] Action<AdjacencyGraph<int, Edge<int>>, int> clearEdges)
+        private static void ClearEdgesCommon([NotNull, InstantHandle] Action<AdjacencyGraph<int, IEdge<int>>, int> clearEdges)
         {
             int edgesRemoved = 0;
 
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
             graph.EdgeRemoved += e =>
             {
@@ -482,35 +482,35 @@ namespace QuikGraph.Tests.Structures
             // Clear 1 => In graph but no out edges
             graph.AddVertex(1);
             clearEdges(graph, 1);
-            AssertHasVertices(graph, new[] { 1 });
+            AssertHasVertices(graph, [1]);
             AssertNoEdge(graph);
             CheckCounter(0);
 
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
+            graph.AddVerticesAndEdgeRange([edge12, edge23]);
 
             // Clear 1
             clearEdges(graph, 1);
 
-            AssertHasEdges(graph, new[] { edge23 });
+            AssertHasEdges(graph, [edge23]);
             CheckCounter(1);
 
-            var edge13 = new Edge<int>(1, 3);
-            var edge31 = new Edge<int>(3, 1);
-            var edge32 = new Edge<int>(3, 2);
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge31, edge32 });
+            var edge13 = Edge.Create(1, 3);
+            var edge31 = Edge.Create(3, 1);
+            var edge32 = Edge.Create(3, 2);
+            graph.AddVerticesAndEdgeRange([edge12, edge13, edge31, edge32]);
 
             // Clear 3
             clearEdges(graph, 3);
 
-            AssertHasEdges(graph, new[] { edge12, edge13, edge23 });
+            AssertHasEdges(graph, [edge12, edge13, edge23]);
             CheckCounter(2);
 
             // Clear 1
             clearEdges(graph, 1);
 
-            AssertHasEdges(graph, new[] { edge23 });
+            AssertHasEdges(graph, [edge23]);
             CheckCounter(2);
 
             // Clear 2 = Clear
@@ -556,73 +556,73 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Clone()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             AssertEmptyGraph(graph);
 
-            AdjacencyGraph<int, Edge<int>> clonedGraph = graph.Clone();
+            AdjacencyGraph<int, IEdge<int>> clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
-            clonedGraph = (AdjacencyGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (AdjacencyGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
-            graph.AddVertexRange(new[] { 1, 2, 3 });
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
+            graph.AddVertexRange([1, 2, 3]);
+            AssertHasVertices(graph, [1, 2, 3]);
             AssertNoEdge(graph);
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertNoEdge(clonedGraph);
 
-            clonedGraph = (AdjacencyGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (AdjacencyGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertNoEdge(clonedGraph);
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 3);
-            graph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3 });
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 3);
+            graph.AddVerticesAndEdgeRange([edge1, edge2, edge3]);
+            AssertHasVertices(graph, [1, 2, 3]);
+            AssertHasEdges(graph, [edge1, edge2, edge3]);
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
-            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3]);
+            AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
-            clonedGraph = (AdjacencyGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (AdjacencyGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
-            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3]);
+            AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
             graph.AddVertex(4);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
+            AssertHasVertices(graph, [1, 2, 3, 4]);
+            AssertHasEdges(graph, [edge1, edge2, edge3]);
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3, 4]);
+            AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
 
-            clonedGraph = (AdjacencyGraph<int, Edge<int>>)((ICloneable)graph).Clone();
+            clonedGraph = (AdjacencyGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3, 4]);
+            AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
         }
 
         [Test]
         public void TrimEdgeExcess()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>(true, 12, 50);
-            graph.AddVerticesAndEdgeRange(new[]
-            {
-                new Edge<int>(1, 2),
-                new Edge<int>(1, 3),
-                new Edge<int>(1, 4)
-            });
+            var graph = new AdjacencyGraph<int, IEdge<int>>(true, 12, 50);
+            graph.AddVerticesAndEdgeRange(
+            [
+                Edge.Create(1, 2),
+                Edge.Create(1, 3),
+                Edge.Create(1, 4)
+            ]);
 
             Assert.DoesNotThrow(() => graph.TrimEdgeExcess());
         }

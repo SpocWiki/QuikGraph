@@ -16,8 +16,8 @@ namespace QuikGraph.Tests.Predicates
         {
             Assert.DoesNotThrow(
                 // ReSharper disable once ObjectCreationAsStatement
-                () => new InDictionaryVertexPredicate<int, Edge<int>>(
-                    new Dictionary<int, Edge<int>>()));
+                () => new InDictionaryVertexPredicate<int, IEdge<int>>(
+                    new Dictionary<int, IEdge<int>>()));
         }
 
         [Test]

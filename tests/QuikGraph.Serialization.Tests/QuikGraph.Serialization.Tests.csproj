@@ -75,4 +75,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\tests\QuikGraph.Tests\QuikGraph.Tests.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="NUnit" Version="3.14.0" />
+  </ItemGroup>
 </Project>

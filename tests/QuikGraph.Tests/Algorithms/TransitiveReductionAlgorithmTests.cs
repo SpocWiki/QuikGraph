@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 using static QuikGraph.Tests.GraphTestHelpers;
 
 namespace QuikGraph.Tests.Algorithms
@@ -16,9 +16,9 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new TransitiveReductionAlgorithm<int, Edge<int>>(graph);
-            AssertAlgorithmState(algorithm, graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new TransitiveReductionAlgorithm<int, IEdge<int>>(graph);
+            algorithm.AssertAlgorithmState(graph);
             Assert.IsNotNull(algorithm.TransitiveReduction);
         }
 
@@ -28,7 +28,7 @@ namespace QuikGraph.Tests.Algorithms
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new TransitiveReductionAlgorithm<int, Edge<int>>(null));
+                () => new TransitiveReductionAlgorithm<int, IEdge<int>>(null));
         }
 
         [Test]
@@ -44,11 +44,11 @@ namespace QuikGraph.Tests.Algorithms
             var edge35 = new SEdge<int>(3, 5);
             var edge45 = new SEdge<int>(4, 5);
             var graph = new AdjacencyGraph<int, SEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 edge12, edge13, edge14, edge15,
                 edge24, edge34, edge35, edge45
-            });
+            ]);
 
             var result = graph.ComputeTransitiveReduction();
             AssertHasVertices(result, new List<int>
@@ -90,12 +90,12 @@ namespace QuikGraph.Tests.Algorithms
             var edge67 = new SEdge<int>(6, 7);
             var edge74 = new SEdge<int>(7, 4);
             var graph = new AdjacencyGraph<int, SEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 edge01, edge02, edge03, edge23,
                 edge24, edge25, edge35, edge45,
                 edge65, edge67, edge74
-            });
+            ]);
 
             var result = graph.ComputeTransitiveReduction();
             AssertHasVertices(result, new List<int>
@@ -131,20 +131,20 @@ namespace QuikGraph.Tests.Algorithms
         public void TransitiveReduction_ReferenceType()
         {
             // Test 1
-            var edge12 = new Edge<int>(1, 2);
-            var edge13 = new Edge<int>(1, 3);
-            var edge14 = new Edge<int>(1, 4);
-            var edge15 = new Edge<int>(1, 5);
-            var edge24 = new Edge<int>(2, 4);
-            var edge34 = new Edge<int>(3, 4);
-            var edge35 = new Edge<int>(3, 5);
-            var edge45 = new Edge<int>(4, 5);
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            var edge12 = Edge.Create(1, 2);
+            var edge13 = Edge.Create(1, 3);
+            var edge14 = Edge.Create(1, 4);
+            var edge15 = Edge.Create(1, 5);
+            var edge24 = Edge.Create(2, 4);
+            var edge34 = Edge.Create(3, 4);
+            var edge35 = Edge.Create(3, 5);
+            var edge45 = Edge.Create(4, 5);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            graph.AddVerticesAndEdgeRange(
+            [
                 edge12, edge13, edge14, edge15,
                 edge24, edge34, edge35, edge45
-            });
+            ]);
 
             var result = graph.ComputeTransitiveReduction();
             AssertHasVertices(result, new[] { 1, 2, 3, 4, 5 });
@@ -172,13 +172,13 @@ namespace QuikGraph.Tests.Algorithms
             var edge67 = new Edge<int>(6, 7);
             var edge74 = new Edge<int>(7, 4);
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
+            [
                 edge01, edge02, edge03, edge23, edge24, edge25, edge35, edge45, edge65, edge67, edge74
-            });
+            ]);
 
             var result = graph.ComputeTransitiveReduction();
-            AssertHasVertices(result, new[] { 0, 1, 2, 3, 4, 5, 6, 7 });
+            AssertHasVertices(result, [0, 1, 2, 3, 4, 5, 6, 7]);
             var expected = new[] { edge01, edge02, edge23, edge24, edge35, edge45, edge67, edge74 };
             AssertHasEdges(result, expected);
 
@@ -196,7 +196,7 @@ namespace QuikGraph.Tests.Algorithms
             var edge12 = new Edge<string>(vertex1, vertex2);
 
             var graph = new AdjacencyGraph<string, Edge<string>>();
-            graph.AddVertexRange(new[] { vertex1, vertex2, vertex3 });
+            graph.AddVertexRange([vertex1, vertex2, vertex3]);
             graph.AddEdge(edge12);
 
             BidirectionalGraph<string, Edge<string>> result = graph.ComputeTransitiveReduction();

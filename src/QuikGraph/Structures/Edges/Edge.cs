@@ -5,6 +5,17 @@ using QuikGraph.Constants;
 
 namespace QuikGraph
 {
+    /// <inheritdoc cref="Create{TVertex}"/>
+    public static class Edge
+    {
+        /// <summary> Creates a new <see cref="Edge{TVertex}"/> from <paramref name="source"/> to <paramref name="target"/> </summary>
+        /// <remarks>
+        /// A Factory Method allows to centrally change the Types of Edges to create.
+        /// It can also be registered with an IoC Container to dynamically create new Edges. 
+        /// </remarks>
+        public static IEdge<TVertex> Create<TVertex>(TVertex source, TVertex target) => new Edge<TVertex>(source, target);
+    }
+
     /// <summary>
     /// The default <see cref="IEdge{TVertex}"/> implementation (directed edge).
     /// </summary>

@@ -98,15 +98,14 @@ namespace QuikGraph.Tests.Algorithms.Assignment
             Assert.AreEqual(2, tasks[2]);
 
             Assert.AreEqual(3, iterations.Length);
-            CollectionAssert.AreEqual(
+            Assert.That(
                 new[]
                 {
                     new[,] { { 0, 1, 2 }, { 0, 0, 0 }, { 1, 1, 0 } },
                     new[,] { { 0, 1, 2 }, { 0, 0, 0 }, { 1, 1, 0 } },
                     new[,] { { 0, 1, 2 }, { 0, 0, 0 }, { 1, 1, 0 } }
-                },
-                iterations.Select(iteration => iteration.Matrix));
-            CollectionAssert.AreEqual(
+                }, Is.EqualTo(iterations.Select(iteration => iteration.Matrix)));
+            Assert.AreEqual(
                 new[]
                 {
                     new[,] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } },
@@ -118,16 +117,16 @@ namespace QuikGraph.Tests.Algorithms.Assignment
                 new[]
                 {
                     new[] { false, false, false },
-                    new[] { false, false, false },
-                    new[] { false, false, false }
+                    [false, false, false],
+                    [false, false, false]
                 },
                 iterations.Select(iteration => iteration.RowsCovered));
             CollectionAssert.AreEqual(
                 new[]
                 {
                     new[] { false, false, false },
-                    new[] { true,  true,  true },
-                    new[] { true,  true,  true }
+                    [true,  true,  true],
+                    [true,  true,  true]
                 },
                 iterations.Select(iteration => iteration.ColumnsCovered));
             CollectionAssert.AreEqual(
@@ -168,7 +167,7 @@ namespace QuikGraph.Tests.Algorithms.Assignment
             Assert.AreEqual(3, tasks[3]); // J4 to be done by W4
 
             Assert.AreEqual(11, iterations.Length);
-            CollectionAssert.AreEqual(
+            Assert.AreEqual(
                 new[]
                 {
                     new[,] { { 13, 14, 0, 23 }, { 40, 0, 12, 55 }, { 6, 64, 0, 81 }, { 0, 1, 90, 15 } },
@@ -184,7 +183,7 @@ namespace QuikGraph.Tests.Algorithms.Assignment
                     new[,] { { 7, 14, 0, 2 }, { 34, 0, 12, 34 }, { 0, 64, 0, 60 }, { 0, 7, 96, 0 } }
                 },
                 iterations.Select(iteration => iteration.Matrix));
-            CollectionAssert.AreEqual(
+            Assert.AreEqual(
                 new[]
                 {
                     new[,] { { 0, 0, 1, 0 }, { 0, 1, 0, 0 }, { 0, 0, 0, 0 }, { 1, 0, 0, 0 } },
@@ -204,32 +203,32 @@ namespace QuikGraph.Tests.Algorithms.Assignment
                 new[]
                 {
                     new[] { false, false, false, false },
-                    new[] { false, false, false, false },
-                    new[] { false, false, false, false },
-                    new[] { false, false, false, false },
-                    new[] { false, false, false, true },
-                    new[] { false, false, false, true },
-                    new[] { false, false, false, true },
-                    new[] { false, false, false, true },
-                    new[] { false, false, false, false },
-                    new[] { false, false, false, false },
-                    new[] { false, false, false, false }
+                    [false, false, false, false],
+                    [false, false, false, false],
+                    [false, false, false, false],
+                    [false, false, false, true],
+                    [false, false, false, true],
+                    [false, false, false, true],
+                    [false, false, false, true],
+                    [false, false, false, false],
+                    [false, false, false, false],
+                    [false, false, false, false]
                 },
                 iterations.Select(iteration => iteration.RowsCovered));
             CollectionAssert.AreEqual(
                 new[]
                 {
                     new[] { false, false, false, false },
-                    new[] { true,  true,  true,  false },
-                    new[] { true,  true,  true,  false },
-                    new[] { true,  true,  true,  false },
-                    new[] { false, true,  true,  false },
-                    new[] { false, true,  true,  false },
-                    new[] { false, true,  true,  false },
-                    new[] { false, true,  true,  false },
-                    new[] { false, false, false, false },
-                    new[] { true,  true,  true,  true },
-                    new[] { true,  true,  true,  true }
+                    [true,  true,  true,  false],
+                    [true,  true,  true,  false],
+                    [true,  true,  true,  false],
+                    [false, true,  true,  false],
+                    [false, true,  true,  false],
+                    [false, true,  true,  false],
+                    [false, true,  true,  false],
+                    [false, false, false, false],
+                    [true,  true,  true,  true],
+                    [true,  true,  true,  true]
                 },
                 iterations.Select(iteration => iteration.ColumnsCovered));
             CollectionAssert.AreEqual(

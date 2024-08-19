@@ -82,7 +82,7 @@ namespace QuikGraph.MSAGL
         }
 
         /// <inheritdoc />
-        protected override Edge AddEdge(TEdge edge)
+        protected override Microsoft.Msagl.Drawing.Edge AddEdge(TEdge edge)
         {
             if (edge == null)
                 throw new ArgumentNullException(nameof(edge));

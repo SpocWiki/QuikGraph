@@ -119,7 +119,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
             {
                 throw new InvalidOperationException(
                     $"The graph has not been augmented yet.{Environment.NewLine}" +
-                    $"Call {nameof(ReversedEdgeAugmentorAlgorithm<int, Edge<int>>)}.{nameof(ReversedEdgeAugmentorAlgorithm<int, Edge<int>>.AddReversedEdges)}() before running this algorithm.");
+                    $"Call {nameof(ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>)}.{nameof(ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>.AddReversedEdges)}() before running this algorithm.");
             }
 
             if (Source == null)

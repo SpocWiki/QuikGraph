@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using QuikGraph.Algorithms.VertexColoring;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.GraphColoring
 {
@@ -16,9 +16,9 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
         [Test]
         public void Constructor()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
-            var algorithm = new VertexColoringAlgorithm<int, Edge<int>>(graph);
-            AssertAlgorithmState(algorithm, graph);
+            var graph = new UndirectedGraph<int, IEdge<int>>();
+            var algorithm = new VertexColoringAlgorithm<int, IEdge<int>>(graph);
+            algorithm.AssertAlgorithmState(graph);
             CollectionAssert.IsEmpty(algorithm.Colors);
         }
 
@@ -28,7 +28,7 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new VertexColoringAlgorithm<int, Edge<int>>(null));
+                () => new VertexColoringAlgorithm<int, IEdge<int>>(null));
         }
 
         [Test]

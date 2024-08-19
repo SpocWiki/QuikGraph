@@ -13,9 +13,9 @@ namespace QuikGraph.Tests.Structures
         public void Construction()
         {
             // Value type
-            CheckEdge(new Edge<int>(1, 2), 1, 2);
-            CheckEdge(new Edge<int>(2, 1), 2, 1);
-            CheckEdge(new Edge<int>(1, 1), 1, 1);
+            CheckEdge(Edge.Create(1, 2), 1, 2);
+            CheckEdge(Edge.Create(2, 1), 2, 1);
+            CheckEdge(Edge.Create(1, 1), 1, 1);
 
             // Reference type
             var v1 = new TestVertex("v1");
@@ -40,9 +40,9 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Equals()
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 2);
-            var edge3 = new Edge<int>(2, 1);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 2);
+            var edge3 = Edge.Create(2, 1);
 
             Assert.AreEqual(edge1, edge1);
 
@@ -63,8 +63,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ObjectToString()
         {
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(2, 1);
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(2, 1);
 
             Assert.AreEqual("1 -> 2", edge1.ToString());
             Assert.AreEqual("2 -> 1", edge2.ToString());

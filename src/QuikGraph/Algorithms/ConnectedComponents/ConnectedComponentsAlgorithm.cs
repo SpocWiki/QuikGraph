@@ -6,11 +6,7 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.ConnectedComponents
 {
-    /// <summary>
-    /// Algorithm that computes connected components of a graph.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> computes connected components of a graph. </summary>
     public sealed class ConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         , IConnectedComponentAlgorithm<TVertex, TEdge, IUndirectedGraph<TVertex, TEdge>>

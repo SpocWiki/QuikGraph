@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.ShortestPath;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.ShortestPath
 {
@@ -16,17 +16,17 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void Constructor()
         {
-            Func<Edge<int>, double> Weights = _ => 1.0;
+            Func<IEdge<int>, double> Weights = _ => 1.0;
 
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, Weights);
-            AssertAlgorithmState(algorithm, graph);
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
+            algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
-            AssertAlgorithmState(algorithm, graph);
+            algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
+            algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, graph, Weights, DistanceRelaxers.CriticalDistance);
-            AssertAlgorithmState(algorithm, graph);
+            algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, graph, Weights, DistanceRelaxers.CriticalDistance);
+            algorithm.AssertAlgorithmState(graph);
         }
 
         [Test]
@@ -34,46 +34,46 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
 
-            Func<Edge<int>, double> Weights = _ => 1.0;
-
-            Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, Weights));
-            Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, null));
+            Func<IEdge<int>, double> Weights = _ => 1.0;
 
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, Weights, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, Weights, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, null, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, null, Weights, DistanceRelaxers.CriticalDistance));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, graph, null, DistanceRelaxers.CriticalDistance));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, graph, Weights, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, null, null, DistanceRelaxers.CriticalDistance));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, null, Weights, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, graph, null, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(null, null, null, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, null));
+
+            Assert.Throws<ArgumentNullException>(
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, Weights, DistanceRelaxers.CriticalDistance));
+            Assert.Throws<ArgumentNullException>(
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, graph, null, DistanceRelaxers.CriticalDistance));
+            Assert.Throws<ArgumentNullException>(
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, graph, Weights, null));
+            Assert.Throws<ArgumentNullException>(
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, null, DistanceRelaxers.CriticalDistance));
+            Assert.Throws<ArgumentNullException>(
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, Weights, null));
+            Assert.Throws<ArgumentNullException>(
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, graph, null, null));
+            Assert.Throws<ArgumentNullException>(
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -85,11 +85,11 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             const int vertex2 = 2;
             const int vertex3 = 3;
 
-            var graph = new AdjacencyGraph<int, Edge<int>>();
-            graph.AddVerticesAndEdge(new Edge<int>(vertex1, vertex2));
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            graph.AddVerticesAndEdge(Edge.Create(vertex1, vertex2));
             graph.AddVertex(vertex3);
 
-            var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1.0);
+            var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
 
             Assert.IsFalse(algorithm.TryGetDistance(vertex1, vertex2, out _));
             Assert.IsFalse(algorithm.TryGetDistance(vertex1, vertex3, out _));
@@ -124,15 +124,15 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             const int vertex3 = 3;
             const int vertex4 = 4;
 
-            var edge12 = new Edge<int>(vertex1, vertex2);
-            var edge24 = new Edge<int>(vertex2, vertex4);
+            var edge12 = Edge.Create(vertex1, vertex2);
+            var edge24 = Edge.Create(vertex2, vertex4);
 
-            var graph = new AdjacencyGraph<int, Edge<int>>();
+            var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdge(edge12);
             graph.AddVerticesAndEdge(edge24);
             graph.AddVertex(vertex3);
 
-            var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, _ => 1.0);
+            var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
 
             Assert.IsFalse(algorithm.TryGetPath(vertex1, vertex1, out _));
             Assert.IsFalse(algorithm.TryGetPath(vertex1, vertex2, out _));
@@ -143,7 +143,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
             Assert.IsFalse(algorithm.TryGetPath(vertex1, vertex1, out _));
 
-            Assert.IsTrue(algorithm.TryGetPath(vertex1, vertex2, out IEnumerable<Edge<int>> path));
+            Assert.IsTrue(algorithm.TryGetPath(vertex1, vertex2, out IEnumerable<IEdge<int>> path));
             CollectionAssert.AreEqual(
                 new[] { edge12 },
                 path);
@@ -198,17 +198,17 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void FloydWarshall_Throws()
         {
             // Without negative cycle
-            var edge12 = new Edge<int>(1, 2);
-            var edge23 = new Edge<int>(2, 3);
-            var edge34 = new Edge<int>(3, 4);
+            var edge12 = Edge.Create(1, 2);
+            var edge23 = Edge.Create(2, 3);
+            var edge34 = Edge.Create(3, 4);
 
-            var negativeWeightGraph = new AdjacencyGraph<int, Edge<int>>();
-            negativeWeightGraph.AddVerticesAndEdgeRange(new[]
-            {
+            var negativeWeightGraph = new AdjacencyGraph<int, IEdge<int>>();
+            negativeWeightGraph.AddVerticesAndEdgeRange(
+            [
                 edge12, edge23, edge34
-            });
+            ]);
 
-            var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(
+            var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(
                 negativeWeightGraph,
                 e =>
                 {
@@ -223,15 +223,15 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             Assert.DoesNotThrow(() => algorithm.Compute());
 
             // With negative cycle
-            var edge41 = new Edge<int>(4, 1);
+            var edge41 = Edge.Create(4, 1);
 
-            var negativeCycleGraph = new AdjacencyGraph<int, Edge<int>>();
-            negativeCycleGraph.AddVerticesAndEdgeRange(new[]
-            {
+            var negativeCycleGraph = new AdjacencyGraph<int, IEdge<int>>();
+            negativeCycleGraph.AddVerticesAndEdgeRange(
+            [
                 edge12, edge23, edge34, edge41
-            });
+            ]);
 
-            algorithm = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(
+            algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(
                 negativeCycleGraph,
                 e =>
                 {

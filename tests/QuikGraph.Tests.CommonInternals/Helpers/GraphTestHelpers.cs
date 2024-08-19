@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -158,16 +158,16 @@ namespace QuikGraph.Tests
         }
 
         public static void AssertSameReversedEdge(
-            [NotNull] Edge<int> edge,
-            SReversedEdge<int, Edge<int>> reversedEdge)
+            [NotNull] IEdge<int> edge,
+            SReversedEdge<int, IEdge<int>> reversedEdge)
         {
-            Assert.AreEqual(new SReversedEdge<int, Edge<int>>(edge), reversedEdge);
+            Assert.AreEqual(new SReversedEdge<int, IEdge<int>>(edge), reversedEdge);
             Assert.AreSame(edge, reversedEdge.OriginalEdge);
         }
 
         public static void AssertSameReversedEdges(
-            [NotNull, ItemNotNull] IEnumerable<Edge<int>> edges,
-            [NotNull] IEnumerable<SReversedEdge<int, Edge<int>>> reversedEdges)
+            [NotNull, ItemNotNull] IEnumerable<IEdge<int>> edges,
+            [NotNull] IEnumerable<SReversedEdge<int, IEdge<int>>> reversedEdges)
         {
             var edgesArray = edges.ToArray();
             var reversedEdgesArray = reversedEdges.ToArray();

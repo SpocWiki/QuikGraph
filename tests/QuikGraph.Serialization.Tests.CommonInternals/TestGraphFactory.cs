@@ -24,9 +24,7 @@ namespace QuikGraph.Tests
             return SlowTestRate;
         }
 
-        /// <summary>
-        /// Gets graph ML file paths.
-        /// </summary>
+        /// <summary> Gets all graph ML file paths, optionally <paramref name="filter"/>ed. </summary>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<string> GetGraphMLFilePaths(
@@ -43,9 +41,7 @@ namespace QuikGraph.Tests
             throw new AssertionException("GraphML folder must exist.");
         }
 
-        /// <summary>
-        /// Creates an adjacency graph from the given file.
-        /// </summary>
+        /// <summary> Creates an adjacency graph from the <paramref name="graphMLFilePath"/>. </summary>
         [Pure]
         [NotNull]
         public static AdjacencyGraph<string, Edge<string>> LoadGraph([NotNull] string graphMLFilePath)
@@ -62,9 +58,7 @@ namespace QuikGraph.Tests
             return graph;
         }
 
-        /// <summary>
-        /// Creates a bidirectional graph from the given file.
-        /// </summary>
+        /// <summary> Creates a bidirectional graph from the <paramref name="graphMLFilePath"/>>. </summary>
         [Pure]
         [NotNull]
         public static BidirectionalGraph<string, Edge<string>> LoadBidirectionalGraph([NotNull] string graphMLFilePath)
@@ -94,9 +88,7 @@ namespace QuikGraph.Tests
             return undirectedGraph;
         }
 
-        /// <summary>
-        /// Creates adjacency graphs (filterable).
-        /// </summary>
+        /// <summary> Creates adjacency graphs (filterable). </summary>
         [Pure]
         [NotNull, ItemNotNull]
         private static IEnumerable<AdjacencyGraph<string, Edge<string>>> GetAdjacencyGraphsInternal(
@@ -109,19 +101,12 @@ namespace QuikGraph.Tests
             }
         }
 
-        /// <summary>
-        /// Creates adjacency graphs.
-        /// </summary>
+        /// <summary> Creates adjacency graphs. </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        public static IEnumerable<AdjacencyGraph<string, Edge<string>>> GetAdjacencyGraphs_All()
-        {
-            return GetAdjacencyGraphsInternal();
-        }
+        public static IEnumerable<AdjacencyGraph<string, Edge<string>>> GetAdjacencyGraphs_All() => GetAdjacencyGraphsInternal();
 
-        /// <summary>
-        /// Creates adjacency graphs (version manageable with define for slow tests).
-        /// </summary>
+        /// <summary> Creates adjacency graphs (version manageable with define for slow tests). </summary>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<AdjacencyGraph<string, Edge<string>>> GetAdjacencyGraphs_SlowTests(int rate = -1)
@@ -137,9 +122,7 @@ namespace QuikGraph.Tests
             );
         }
 
-        /// <summary>
-        /// Creates bidirectional graphs (filterable).
-        /// </summary>
+        /// <summary> Creates bidirectional graphs (filterable). </summary>
         [Pure]
         [NotNull, ItemNotNull]
         private static IEnumerable<BidirectionalGraph<string, Edge<string>>> GetBidirectionalGraphsInternal(
@@ -152,19 +135,12 @@ namespace QuikGraph.Tests
             }
         }
 
-        /// <summary>
-        /// Creates bidirectional graphs.
-        /// </summary>
+        /// <summary> Creates bidirectional graphs. </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        public static IEnumerable<BidirectionalGraph<string, Edge<string>>> GetBidirectionalGraphs_All()
-        {
-            return GetBidirectionalGraphsInternal();
-        }
+        public static IEnumerable<BidirectionalGraph<string, Edge<string>>> GetBidirectionalGraphs_All() => GetBidirectionalGraphsInternal();
 
-        /// <summary>
-        /// Creates bidirectional graphs (version manageable with define for slow tests).
-        /// </summary>
+        /// <summary> Creates bidirectional graphs (version manageable with define for slow tests). </summary>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<BidirectionalGraph<string, Edge<string>>> GetBidirectionalGraphs_SlowTests(int rate = -1)
@@ -180,9 +156,7 @@ namespace QuikGraph.Tests
             );
         }
 
-        /// <summary>
-        /// Creates undirected graphs (filterable).
-        /// </summary>
+        /// <summary> Creates undirected graphs (filterable). </summary>
         [Pure]
         [NotNull, ItemNotNull]
         private static IEnumerable<UndirectedGraph<string, Edge<string>>> GetUndirectedGraphsInternal(
@@ -195,15 +169,11 @@ namespace QuikGraph.Tests
             }
         }
 
-        /// <summary>
-        /// Creates undirected graphs.
-        /// </summary>
+        /// <summary> Creates undirected graphs. </summary>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<UndirectedGraph<string, Edge<string>>> GetUndirectedGraphs_All()
-        {
-            return GetUndirectedGraphsInternal();
-        }
+            => GetUndirectedGraphsInternal();
 
         /// <summary>
         /// Creates undirected graphs (version manageable with define for slow tests).

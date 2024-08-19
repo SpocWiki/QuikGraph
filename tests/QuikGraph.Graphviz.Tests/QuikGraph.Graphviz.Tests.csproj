@@ -68,4 +68,7 @@
   <ItemGroup Condition="!$(UseQuikGraphGraphvizNuget)">
     <ProjectReference Include="..\..\src\QuikGraph.Graphviz\QuikGraph.Graphviz.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="NUnit" Version="3.14.0" />
+  </ItemGroup>
 </Project>

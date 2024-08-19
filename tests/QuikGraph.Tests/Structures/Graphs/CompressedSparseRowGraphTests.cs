@@ -13,54 +13,52 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Construction()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             var graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
             AssertGraphProperties(graph);
             AssertEmptyGraph(graph);
 
-            wrappedGraph.AddVertexRange(new[] { 1, 2, 3 });
+            wrappedGraph.AddVertexRange([1, 2, 3]);
             graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
             AssertGraphProperties(graph);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
+            AssertHasVertices(graph, [1, 2, 3]);
             AssertNoEdge(graph);
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 1);
-            var edge4 = new Edge<int>(2, 2);
-            var edge5 = new Edge<int>(2, 3);
-            wrappedGraph.AddEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5 });
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 1);
+            var edge4 = Edge.Create(2, 2);
+            var edge5 = Edge.Create(2, 3);
+            wrappedGraph.AddEdgeRange([edge1, edge2, edge3, edge4, edge5]);
             graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
             AssertGraphProperties(graph);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
+            AssertHasVertices(graph, [1, 2, 3]);
             AssertHasEdges(
                 graph,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(2, 1),
                     new SEquatableEdge<int>(2, 2),
                     new SEquatableEdge<int>(2, 3)
-                });
+                ]);
 
-            var edge6 = new Edge<int>(3, 1);
-            var edge7 = new Edge<int>(3, 2);
+            var edge6 = Edge.Create(3, 1);
+            var edge7 = Edge.Create(3, 2);
             wrappedGraph.Clear();
-            wrappedGraph.AddVertexRange(new[] { 1, 2, 3, 4 });
-            wrappedGraph.AddEdgeRange(new[] { edge1, edge2, edge6, edge7 });
+            wrappedGraph.AddVertexRange([1, 2, 3, 4]);
+            wrappedGraph.AddEdgeRange([edge1, edge2, edge6, edge7]);
             graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
             AssertGraphProperties(graph);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
+            AssertHasVertices(graph, [1, 2, 3, 4]);
             AssertHasEdges(
                 graph,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(3, 1),
                     new SEquatableEdge<int>(3, 2)
-                });
+                ]);
 
             #region Local function
 
@@ -118,7 +116,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             ContainsEdge_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -127,7 +125,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_SourceTarget()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             ContainsEdge_SourceTarget_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -149,7 +147,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             OutEdge_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -162,7 +160,7 @@ namespace QuikGraph.Tests.Structures
             var graph1 = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph1);
             OutEdge_NullThrows_Test(graph1);
 
-            var wrappedGraph2 = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph2 = new AdjacencyGraph<int, IEdge<int>>();
             OutEdge_Throws_ImmutableGraph_Test(
                 wrappedGraph2,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph2));
@@ -171,7 +169,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdges()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             OutEdges_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -196,7 +194,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             TryGetEdge_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -213,7 +211,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdges()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             TryGetEdges_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -230,7 +228,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             TryGetOutEdges_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
@@ -249,7 +247,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void Clone()
         {
-            var wrappedGraph = new AdjacencyGraph<int, Edge<int>>();
+            var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             var graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
             AssertEmptyGraph(graph);
 
@@ -261,92 +259,86 @@ namespace QuikGraph.Tests.Structures
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
-            wrappedGraph.AddVertexRange(new[] { 1, 2, 3 });
+            wrappedGraph.AddVertexRange([1, 2, 3]);
             graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
+            AssertHasVertices(graph, [1, 2, 3]);
             AssertNoEdge(graph);
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertNoEdge(clonedGraph);
 
             clonedGraph = (CompressedSparseRowGraph<int>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertNoEdge(clonedGraph);
 
-            var edge1 = new Edge<int>(1, 2);
-            var edge2 = new Edge<int>(1, 3);
-            var edge3 = new Edge<int>(2, 3);
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3 });
+            var edge1 = Edge.Create(1, 2);
+            var edge2 = Edge.Create(1, 3);
+            var edge3 = Edge.Create(2, 3);
+            wrappedGraph.AddVerticesAndEdgeRange([edge1, edge2, edge3]);
             graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
+            AssertHasVertices(graph, [1, 2, 3]);
             AssertHasEdges(
                 graph,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(2, 3)
-                });
+                ]);
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertHasEdges(
                 clonedGraph,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(2, 3)
-                });
+                ]);
 
             clonedGraph = (CompressedSparseRowGraph<int>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
+            AssertHasVertices(clonedGraph, [1, 2, 3]);
             AssertHasEdges(
                 clonedGraph,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(2, 3)
-                });
+                ]);
 
             wrappedGraph.AddVertex(4);
             graph = CompressedSparseRowGraph<int>.FromGraph(wrappedGraph);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 }); AssertHasEdges(
+            AssertHasVertices(graph, [1, 2, 3, 4]); AssertHasEdges(
                 graph,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(2, 3)
-                });
+                ]);
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3, 4 }); AssertHasEdges(
+            AssertHasVertices(clonedGraph, [1, 2, 3, 4]); AssertHasEdges(
                 clonedGraph,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(2, 3)
-                });
+                ]);
 
             clonedGraph = (CompressedSparseRowGraph<int>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3, 4 }); AssertHasEdges(
+            AssertHasVertices(clonedGraph, [1, 2, 3, 4]); AssertHasEdges(
                 clonedGraph,
-                new[]
-                {
+                [
                     new SEquatableEdge<int>(1, 2),
                     new SEquatableEdge<int>(1, 3),
                     new SEquatableEdge<int>(2, 3)
-                });
+                ]);
         }
     }
 }

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.TSP;
-using static QuikGraph.Tests.Algorithms.AlgorithmTestHelpers;
+
 
 namespace QuikGraph.Tests.Algorithms.TSP
 {
@@ -76,7 +76,7 @@ namespace QuikGraph.Tests.Algorithms.TSP
                 where TEdge : EquatableEdge<TVertex>
                 where TGraph : BidirectionalGraph<TVertex, TEdge>
             {
-                AssertAlgorithmState(algo, g);
+                algo.AssertAlgorithmState(g);
                 Assert.IsNull(algo.VerticesColors);
                 if (eWeights is null)
                     Assert.IsNotNull(algo.Weights);

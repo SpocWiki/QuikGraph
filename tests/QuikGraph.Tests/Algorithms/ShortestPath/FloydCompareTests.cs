@@ -83,12 +83,12 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
         #endregion
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [-1])]
         [Category(TestCategories.LongRunning)]
-        public void FloydVsBellmannGraphML()
+        public void FloydVsBellmannGraphML(AdjacencyGraph<string, Edge<string>> graph)
         {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_SlowTests())
-                CompareAlgorithms(graph, _ => 1.0, (g, d) => new BellmanFordShortestPathAlgorithm<string, Edge<string>>(g, d));
+            CompareAlgorithms(graph, _ => 1.0, (g, d)
+                => new BellmanFordShortestPathAlgorithm<string, Edge<string>>(g, d));
         }
 
         [Test]
@@ -96,15 +96,16 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var distances = new Dictionary<Edge<char>, double>();
             AdjacencyGraph<char, Edge<char>> graph = CreateGraph(distances);
-            CompareAlgorithms(graph, e => distances[e], (g, d) => new DijkstraShortestPathAlgorithm<char, Edge<char>>(g, d));
+            CompareAlgorithms(graph, e => distances[e], (g, d)
+                => new DijkstraShortestPathAlgorithm<char, Edge<char>>(g, d));
         }
 
-        [Test]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [-1])]
         [Category(TestCategories.LongRunning)]
-        public void FloydVsDijkstraGraphML()
+        public void FloydVsDijkstraGraphML(AdjacencyGraph<string, Edge<string>> graph)
         {
-            foreach (AdjacencyGraph<string, Edge<string>> graph in TestGraphFactory.GetAdjacencyGraphs_SlowTests())
-                CompareAlgorithms(graph, _ => 1, (g, d) => new DijkstraShortestPathAlgorithm<string, Edge<string>>(g, d));
+            CompareAlgorithms(graph, _ => 1, (g, d)
+                => new DijkstraShortestPathAlgorithm<string, Edge<string>>(g, d));
         }
     }
 }

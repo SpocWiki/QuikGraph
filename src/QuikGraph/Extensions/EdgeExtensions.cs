@@ -9,9 +9,7 @@ using JetBrains.Annotations;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// Extensions related to graph edges.
-    /// </summary>
+    /// <summary> Extensions related to graph edges. </summary>
     public static class EdgeExtensions
     {
         /// <summary>

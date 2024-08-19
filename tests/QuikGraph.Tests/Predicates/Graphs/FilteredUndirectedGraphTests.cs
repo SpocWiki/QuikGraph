@@ -15,17 +15,17 @@ namespace QuikGraph.Tests.Predicates
         public void Construction()
         {
             VertexPredicate<int> vertexPredicate = _ => true;
-            EdgePredicate<int, Edge<int>> edgePredicate = _ => true;
+            EdgePredicate<int, IEdge<int>> edgePredicate = _ => true;
 
-            var graph = new UndirectedGraph<int, Edge<int>>();
-            var filteredGraph = new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+            var graph = new UndirectedGraph<int, IEdge<int>>();
+            var filteredGraph = new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                 graph,
                 vertexPredicate,
                 edgePredicate);
             AssertGraphProperties(filteredGraph);
 
-            graph = new UndirectedGraph<int, Edge<int>>(false);
-            filteredGraph = new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+            graph = new UndirectedGraph<int, IEdge<int>>(false);
+            filteredGraph = new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                 graph,
                 vertexPredicate,
                 edgePredicate);
@@ -57,43 +57,43 @@ namespace QuikGraph.Tests.Predicates
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
-                    new UndirectedGraph<int, Edge<int>>(),
+                () => new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
+                    new UndirectedGraph<int, IEdge<int>>(),
                     _ => true,
                     null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
-                    new UndirectedGraph<int, Edge<int>>(),
+                () => new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
+                    new UndirectedGraph<int, IEdge<int>>(),
                     null,
                     _ => true));
 
             Assert.Throws<ArgumentNullException>(
-                () => new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                () => new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                     null,
                     _ => true,
                     _ => true));
 
             Assert.Throws<ArgumentNullException>(
-                () => new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
-                    new UndirectedGraph<int, Edge<int>>(),
+                () => new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
+                    new UndirectedGraph<int, IEdge<int>>(),
                     null,
                     null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                () => new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                     null,
                     _ => true,
                     null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                () => new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                     null,
                     null,
                     _ => true));
 
             Assert.Throws<ArgumentNullException>(
-                () => new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                () => new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                     null,
                     null,
                     null));
@@ -106,11 +106,11 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Vertices()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
             Vertices_Test(
                 wrappedGraph,
                 (vertexPredicate, edgePredicate) =>
-                    new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                    new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                         wrappedGraph,
                         vertexPredicate,
                         edgePredicate));
@@ -119,11 +119,11 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Edges()
         {
-            var wrappedGraph = new UndirectedGraph<int, Edge<int>>();
+            var wrappedGraph = new UndirectedGraph<int, IEdge<int>>();
             Edges_Test(
                 wrappedGraph,
                 (vertexPredicate, edgePredicate) =>
-                    new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                    new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                         wrappedGraph,
                         vertexPredicate,
                         edgePredicate));
@@ -136,11 +136,11 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void ContainsVertex()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
+            var graph = new UndirectedGraph<int, IEdge<int>>();
             ContainsVertex_Test(
                 graph,
                 (vertexPredicate, edgePredicate) =>
-                    new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                    new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                         graph,
                         vertexPredicate,
                         edgePredicate));
@@ -163,11 +163,11 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void ContainsEdge()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
+            var graph = new UndirectedGraph<int, IEdge<int>>();
             ContainsEdge_Test(
                 graph,
                 (vertexPredicate, edgePredicate) =>
-                    new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                    new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                         graph,
                         vertexPredicate,
                         edgePredicate));
@@ -189,11 +189,11 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void ContainsEdge_SourceTarget()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
+            var graph = new UndirectedGraph<int, IEdge<int>>();
             ContainsEdge_SourceTarget_UndirectedGraph_Test(
                 graph,
                 (vertexPredicate, edgePredicate) =>
-                    new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                    new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                         graph,
                         vertexPredicate,
                         edgePredicate));
@@ -217,11 +217,11 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void AdjacentEdge()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
+            var graph = new UndirectedGraph<int, IEdge<int>>();
             AdjacentEdge_Test(
                 graph,
                 (vertexPredicate, edgePredicate) =>
-                    new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                    new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                         graph,
                         vertexPredicate,
                         edgePredicate));
@@ -230,11 +230,11 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void AdjacentEdge_Throws()
         {
-            var graph1 = new UndirectedGraph<int, Edge<int>>();
+            var graph1 = new UndirectedGraph<int, IEdge<int>>();
             AdjacentEdge_Throws_Test(
                 graph1,
                 (vertexPredicate, edgePredicate) =>
-                    new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                    new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                         graph1,
                         vertexPredicate,
                         edgePredicate));
@@ -250,11 +250,11 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void AdjacentEdges()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
+            var graph = new UndirectedGraph<int, IEdge<int>>();
             AdjacentEdges_Test(
                 graph,
                 (vertexPredicate, edgePredicate) =>
-                    new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                    new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                         graph,
                         vertexPredicate,
                         edgePredicate));
@@ -276,13 +276,13 @@ namespace QuikGraph.Tests.Predicates
             AdjacentEdges_NullThrows_Test(filteredGraph1);
             AdjacentEdges_Throws_Test(filteredGraph1);
 
-            var graph2 = new UndirectedGraph<int, Edge<int>>();
-            var filteredGraph2 = new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+            var graph2 = new UndirectedGraph<int, IEdge<int>>();
+            var filteredGraph2 = new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                 graph2,
                 vertex => vertex < 4,
                 _ => true);
 
-            graph2.AddVertexRange(new[] { 1, 2, 3, 4, 5 });
+            graph2.AddVertexRange([1, 2, 3, 4, 5]);
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<VertexNotFoundException>(() => filteredGraph2.AdjacentEdges(4));
             Assert.Throws<VertexNotFoundException>(() => filteredGraph2.AdjacentEdges(5));
@@ -296,11 +296,11 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void TryGetEdge()
         {
-            var graph = new UndirectedGraph<int, Edge<int>>();
+            var graph = new UndirectedGraph<int, IEdge<int>>();
             TryGetEdge_UndirectedGraph_Test(
                 graph,
                 (vertexPredicate, edgePredicate) =>
-                    new FilteredUndirectedGraph<int, Edge<int>, UndirectedGraph<int, Edge<int>>>(
+                    new FilteredUndirectedGraph<int, IEdge<int>, UndirectedGraph<int, IEdge<int>>>(
                         graph,
                         vertexPredicate,
                         edgePredicate));
