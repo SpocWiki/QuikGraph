@@ -23,10 +23,7 @@ namespace QuikGraph
         [NotNull]
         public static DelegateIncidenceGraph<TVertex, TEdge> ToDelegateIncidenceGraph<TVertex, TEdge>(
             [NotNull] this TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
-            where TEdge : IEdge<TVertex>
-        {
-            return new DelegateIncidenceGraph<TVertex, TEdge>(tryGetOutEdges);
-        }
+            where TEdge : class, IEdge<TVertex> => new DelegateIncidenceGraph<TVertex, TEdge>(tryGetOutEdges);
 
         /// <summary>
         /// Creates an instance of <see cref="DelegateIncidenceGraph{TVertex,TEdge}"/> from this getter of out-edges.
@@ -40,7 +37,7 @@ namespace QuikGraph
         [NotNull]
         public static DelegateIncidenceGraph<TVertex, TEdge> ToDelegateIncidenceGraph<TVertex, TEdge>(
             [NotNull] this Func<TVertex, IEnumerable<TEdge>> getOutEdges)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             if (getOutEdges is null)
                 throw new ArgumentNullException(nameof(getOutEdges));
@@ -61,7 +58,7 @@ namespace QuikGraph
         public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge,
             TEdges>(
             [NotNull] this IDictionary<TVertex, TEdges> dictionary)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
             where TEdges : IEnumerable<TEdge>
         {
             return ToDelegateVertexAndEdgeListGraph(dictionary, kv => kv.Value);
@@ -88,7 +85,7 @@ namespace QuikGraph
 #else
             [NotNull] Func<KeyValuePair<TVertex,TValue>, IEnumerable<TEdge>> keyValueToOutEdges)
 #endif
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             if (dictionary is null)
                 throw new ArgumentNullException(nameof(dictionary));
@@ -126,7 +123,7 @@ namespace QuikGraph
         public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
             [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             return new DelegateVertexAndEdgeListGraph<TVertex, TEdge>(vertices, tryGetOutEdges);
         }
@@ -147,7 +144,7 @@ namespace QuikGraph
         public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
             [NotNull] Func<TVertex, IEnumerable<TEdge>> getOutEdges)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             if (getOutEdges is null)
                 throw new ArgumentNullException(nameof(getOutEdges));
@@ -171,7 +168,7 @@ namespace QuikGraph
             TEdge>(
             [NotNull] this TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges,
             [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetInEdges)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             return new DelegateBidirectionalIncidenceGraph<TVertex, TEdge>(tryGetOutEdges, tryGetInEdges);
         }
@@ -192,7 +189,7 @@ namespace QuikGraph
         public static DelegateUndirectedGraph<TVertex, TEdge> ToDelegateUndirectedGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
             [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetAdjacentEdges)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             return new DelegateUndirectedGraph<TVertex, TEdge>(vertices, tryGetAdjacentEdges);
         }
@@ -213,7 +210,7 @@ namespace QuikGraph
         public static DelegateUndirectedGraph<TVertex, TEdge> ToDelegateUndirectedGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
             [NotNull] Func<TVertex, IEnumerable<TEdge>> getAdjacentEdges)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             if (getAdjacentEdges is null)
                 throw new ArgumentNullException(nameof(getAdjacentEdges));
@@ -282,7 +279,7 @@ namespace QuikGraph
         public static AdjacencyGraph<TVertex, TEdge> ToAdjacencyGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TEdge> edges,
             bool allowParallelEdges = true)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var graph = new AdjacencyGraph<TVertex, TEdge>(allowParallelEdges);
             graph.AddVerticesAndEdgeRange(edges);
@@ -333,7 +330,7 @@ namespace QuikGraph
             [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
             [NotNull, InstantHandle] Func<TVertex, IEnumerable<TEdge>> outEdgesFactory,
             bool allowParallelEdges = true)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             if (outEdgesFactory is null)
                 throw new ArgumentNullException(nameof(outEdgesFactory));
@@ -361,7 +358,7 @@ namespace QuikGraph
         [NotNull]
         public static ArrayAdjacencyGraph<TVertex, TEdge> ToArrayAdjacencyGraph<TVertex, TEdge>(
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             return new ArrayAdjacencyGraph<TVertex, TEdge>(graph);
         }
@@ -379,7 +376,7 @@ namespace QuikGraph
         [NotNull]
         public static IBidirectionalGraph<TVertex, TEdge> ToBidirectionalGraph<TVertex, TEdge>(
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
@@ -406,7 +403,7 @@ namespace QuikGraph
         public static BidirectionalGraph<TVertex, TEdge> ToBidirectionalGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TEdge> edges,
             bool allowParallelEdges = true)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var graph = new BidirectionalGraph<TVertex, TEdge>(allowParallelEdges);
             graph.AddVerticesAndEdgeRange(edges);
@@ -457,7 +454,7 @@ namespace QuikGraph
             [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
             [NotNull, InstantHandle] Func<TVertex, IEnumerable<TEdge>> outEdgesFactory,
             bool allowParallelEdges = true)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             if (outEdgesFactory is null)
                 throw new ArgumentNullException(nameof(outEdgesFactory));
@@ -482,7 +479,7 @@ namespace QuikGraph
         [NotNull]
         public static BidirectionalGraph<TVertex, TEdge> ToBidirectionalGraph<TVertex, TEdge>(
             [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
@@ -507,7 +504,7 @@ namespace QuikGraph
         [NotNull]
         public static ArrayBidirectionalGraph<TVertex, TEdge> ToArrayBidirectionalGraph<TVertex, TEdge>(
             [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             return new ArrayBidirectionalGraph<TVertex, TEdge>(graph);
         }
@@ -528,7 +525,7 @@ namespace QuikGraph
         public static UndirectedGraph<TVertex, TEdge> ToUndirectedGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TEdge> edges,
             bool allowParallelEdges = true)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var graph = new UndirectedGraph<TVertex, TEdge>(allowParallelEdges);
             graph.AddVerticesAndEdgeRange(edges);
@@ -567,7 +564,7 @@ namespace QuikGraph
         [NotNull]
         public static ArrayUndirectedGraph<TVertex, TEdge> ToArrayUndirectedGraph<TVertex, TEdge>(
             [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             return new ArrayUndirectedGraph<TVertex, TEdge>(graph);
         }

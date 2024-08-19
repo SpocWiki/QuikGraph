@@ -500,8 +500,12 @@ namespace QuikGraph.Algorithms
         {
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
-            return graph.Vertices.Where(graph.IsOutEdgesEmpty);
+            return graph.Vertices.Where(FallBackTo<TVertex, bool>(graph.IsOutEdgesEmpty, true));
         }
+
+        /// <summary> Fixes <see langword="null"/> to <paramref name="fallBack"/> </summary>
+        public static Func<TK, TV> FallBackTo<TK, TV>(this Func<TK, TV?> isOutEdgesEmpty, TV fallBack) where TV : struct
+            => v => isOutEdgesEmpty(v) ?? fallBack;
 
         /// <summary>
         /// Gets set of root vertices.
@@ -545,7 +549,7 @@ namespace QuikGraph.Algorithms
         {
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
-            return graph.Vertices.Where(graph.IsInEdgesEmpty);
+            return graph.Vertices.Where(FallBackTo<TVertex, bool>(graph.IsInEdgesEmpty, true));
         }
 
         /// <summary>
@@ -765,7 +769,7 @@ namespace QuikGraph.Algorithms
         public static int StronglyConnectedComponents<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] IDictionary<TVertex, int> components)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var algorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(graph, components);
             algorithm.Compute();
@@ -785,7 +789,7 @@ namespace QuikGraph.Algorithms
         public static int WeaklyConnectedComponents<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] IDictionary<TVertex, int> components)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var algorithm = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(graph, components);
             algorithm.Compute();
@@ -805,7 +809,7 @@ namespace QuikGraph.Algorithms
         [NotNull]
         public static IMutableBidirectionalGraph<TGraph, CondensedEdge<TVertex, TEdge, TGraph>> CondensateStronglyConnected<TVertex, TEdge, TGraph>(
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
         {
             var algorithm = new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(graph)
@@ -829,7 +833,7 @@ namespace QuikGraph.Algorithms
         [NotNull]
         public static IMutableBidirectionalGraph<TGraph, CondensedEdge<TVertex, TEdge, TGraph>> CondensateWeaklyConnected<TVertex, TEdge, TGraph>(
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
         {
             var algorithm = new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(graph)
@@ -854,7 +858,7 @@ namespace QuikGraph.Algorithms
         [NotNull]
         public static IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> CondensateEdges<TVertex, TEdge>(
             [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate)
+            [NotNull] Func<TVertex, bool> vertexPredicate)
             where TEdge : IEdge<TVertex>
         {
             var condensedGraph = new BidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>>();
@@ -959,7 +963,7 @@ namespace QuikGraph.Algorithms
         [Pure]
         public static bool IsDirectedAcyclicGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TEdge> edges)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var graph = new AdjacencyGraph<TVertex, TEdge>();
             graph.AddVerticesAndEdgeRange(edges);
@@ -1044,7 +1048,7 @@ namespace QuikGraph.Algorithms
         [Pure]
         public static bool IsUndirectedAcyclicGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TEdge> edges)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var graph = new UndirectedGraph<TVertex, TEdge>();
             graph.AddVerticesAndEdgeRange(edges);
@@ -1282,7 +1286,7 @@ namespace QuikGraph.Algorithms
             [NotNull] out TryFunc<TVertex, TEdge> flowPredecessors,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
             [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reversedEdgeAugmentorAlgorithm)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             if (EqualityComparer<TVertex>.Default.Equals(source, sink))
                 throw new ArgumentException($"{nameof(source)} and {nameof(sink)} must be different.");
@@ -1304,7 +1308,7 @@ namespace QuikGraph.Algorithms
         [NotNull]
         public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveReduction<TVertex, TEdge>(
             [NotNull] this IEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var algorithm = new TransitiveReductionAlgorithm<TVertex, TEdge>(graph);
             algorithm.Compute();
@@ -1317,7 +1321,7 @@ namespace QuikGraph.Algorithms
         public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveClosure<TVertex, TEdge>(
             [NotNull] this IEdgeListGraph<TVertex, TEdge> graph,
             [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var algorithm = new TransitiveClosureAlgorithm<TVertex, TEdge>(graph, edgeFactory);
             algorithm.Compute();

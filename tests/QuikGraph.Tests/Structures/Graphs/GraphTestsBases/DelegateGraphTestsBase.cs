@@ -201,7 +201,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.Throws<VertexNotFoundException>(() => graph.OutEdge(1, 0));
+            Assert.IsNull(graph.OutEdge(1, 0));
             data.CheckCalls(1);
 
             data.ShouldReturnValue = true;
@@ -242,13 +242,13 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.Throws<VertexNotFoundException>(() => graph.IsOutEdgesEmpty(1));
+            Assert.AreEqual(true, graph.IsOutEdgesEmpty(1));
             data.CheckCalls(1);
 
-            Assert.Throws<VertexNotFoundException>(() => graph.OutDegree(1));
+            Assert.IsNull(graph.OutDegree(1));
             data.CheckCalls(1);
 
-            Assert.Throws<VertexNotFoundException>(() => graph.OutEdges(1));
+            Assert.IsNull(graph.OutEdges(1));
             data.CheckCalls(1);
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -284,7 +284,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.Throws<VertexNotFoundException>(() => graph.AdjacentEdge(1, 0));
+            Assert.IsNull(graph.AdjacentEdge(1, 0));
             data.CheckCalls(1);
 
             data.ShouldReturnValue = true;
@@ -325,13 +325,13 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.Throws<VertexNotFoundException>(() => graph.IsAdjacentEdgesEmpty(1));
+            Assert.IsNull(graph.IsAdjacentEdgesEmpty(1));
             data.CheckCalls(1);
 
-            Assert.Throws<VertexNotFoundException>(() => graph.AdjacentDegree(1));
+            Assert.IsNull(graph.AdjacentDegree(1));
             data.CheckCalls(1);
 
-            Assert.Throws<VertexNotFoundException>(() => graph.AdjacentEdges(1));
+            Assert.IsNull(graph.AdjacentEdges(1));
             data.CheckCalls(1);
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -367,7 +367,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.Throws<VertexNotFoundException>(() => graph.InEdge(1, 0));
+            Assert.IsNull(graph.InEdge(1, 0));
             data.CheckCalls(1);
 
             data.ShouldReturnValue = true;
@@ -408,13 +408,13 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.Throws<VertexNotFoundException>(() => graph.IsInEdgesEmpty(1));
+            Assert.True(graph.IsInEdgesEmpty(1));
             data.CheckCalls(1);
 
-            Assert.Throws<VertexNotFoundException>(() => graph.InDegree(1));
+            Assert.IsNull(graph.InDegree(1));
             data.CheckCalls(1);
 
-            Assert.Throws<VertexNotFoundException>(() => graph.InEdges(1));
+            Assert.IsNull(graph.InEdges(1));
             data.CheckCalls(1);
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -434,19 +434,19 @@ namespace QuikGraph.Tests.Structures
 
             data1.ShouldReturnValue = false;
             data2.ShouldReturnValue = false;
-            Assert.Throws<VertexNotFoundException>(() => graph.Degree(1));
+            Assert.IsNull(graph.Degree(1));
             data1.CheckCalls(0);
             data2.CheckCalls(1);
 
             data1.ShouldReturnValue = true;
             data2.ShouldReturnValue = false;
-            Assert.Throws<VertexNotFoundException>(() => graph.Degree(1));
+            Assert.IsNull(graph.Degree(1));
             data1.CheckCalls(0);
             data2.CheckCalls(1);
 
             data1.ShouldReturnValue = false;
             data2.ShouldReturnValue = true;
-            Assert.Throws<VertexNotFoundException>(() => graph.Degree(1));
+            Assert.IsNull(graph.Degree(1));
             data1.CheckCalls(1);
             data2.CheckCalls(1);
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -702,7 +702,7 @@ namespace QuikGraph.Tests.Structures
         protected static void TryGetAdjacentEdges_Throws_Test<TVertex, TEdge>(
             [NotNull] DelegateImplicitUndirectedGraph<TVertex, TEdge> graph)
             where TVertex : class
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.TryGetAdjacentEdges(null, out _));

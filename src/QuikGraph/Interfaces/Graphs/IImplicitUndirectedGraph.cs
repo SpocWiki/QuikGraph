@@ -12,21 +12,13 @@ namespace QuikGraph
     public interface IImplicitUndirectedGraph<TVertex, TEdge> : IImplicitVertexSet<TVertex>, IGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Comparer for edges.
-        /// </summary>
+        /// <summary> Compares edges. </summary>
         [NotNull]
         EdgeEqualityComparer<TVertex> EdgeEqualityComparer { get; }
 
-        /// <summary>
-        /// Gives the enumerable of edges adjacent to the given <paramref name="vertex"/>.
-        /// </summary>
-        /// <param name="vertex">The vertex.</param>
-        /// <returns>Enumerable of adjacent edges.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
-        /// <exception cref="VertexNotFoundException"><paramref name="vertex"/> is not part of the graph.</exception>
+        /// <summary> Returns the edges adjacent to the <paramref name="vertex"/>. </summary>
         [Pure]
-        [NotNull, ItemNotNull]
+        [ItemNotNull] [CanBeNull]
         IEnumerable<TEdge> AdjacentEdges([NotNull] TVertex vertex);
 
         /// <summary>
@@ -37,17 +29,7 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         /// <exception cref="VertexNotFoundException"><paramref name="vertex"/> is not part of the graph.</exception>
         [Pure]
-        int AdjacentDegree([NotNull] TVertex vertex);
-
-        /// <summary>
-        /// Indicates if the given <paramref name="vertex"/> has at least one adjacent edge.
-        /// </summary>
-        /// <param name="vertex">The vertex.</param>
-        /// <returns>True if the vertex has at least one adjacent edge, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
-        /// <exception cref="VertexNotFoundException"><paramref name="vertex"/> is not part of the graph.</exception>
-        [Pure]
-        bool IsAdjacentEdgesEmpty([NotNull] TVertex vertex);
+        int? AdjacentDegree([NotNull] TVertex vertex);
 
         /// <summary>
         /// Gets the <paramref name="index"/>th adjacent edge of the given <paramref name="vertex"/>.
@@ -59,7 +41,7 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentOutOfRangeException">No vertex at <paramref name="index"/>.</exception>
         /// <exception cref="VertexNotFoundException"><paramref name="vertex"/> is not part of the graph.</exception>
         [Pure]
-        [NotNull]
+        [CanBeNull]
         TEdge AdjacentEdge([NotNull] TVertex vertex, int index);
 
         /// <summary>

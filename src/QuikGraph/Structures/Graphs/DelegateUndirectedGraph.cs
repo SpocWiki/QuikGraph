@@ -13,7 +13,7 @@ namespace QuikGraph
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateUndirectedGraph<TVertex, TEdge> : DelegateImplicitUndirectedGraph<TVertex, TEdge>, IUndirectedGraph<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateUndirectedGraph{TVertex,TEdge}"/> class.
@@ -145,7 +145,7 @@ namespace QuikGraph
         internal override IEnumerable<TEdge> AdjacentEdgesInternal(TVertex vertex)
         {
             if (!ContainsVertexInternal(vertex))
-                throw new VertexNotFoundException();
+                return null;
             return base.AdjacentEdgesInternal(vertex).Where(edge => FilterEdges(edge, vertex));
         }
 

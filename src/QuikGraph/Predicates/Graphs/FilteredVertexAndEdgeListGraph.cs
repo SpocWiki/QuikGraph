@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
     public class FilteredVertexAndEdgeListGraph<TVertex, TEdge, TGraph>
         : FilteredVertexListGraph<TVertex, TEdge, TGraph>
         , IVertexAndEdgeListGraph<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
         where TGraph : IVertexAndEdgeListGraph<TVertex, TEdge>
     {
         /// <summary>
@@ -29,8 +29,8 @@ namespace QuikGraph.Predicates
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgePredicate"/> is <see langword="null"/>.</exception>
         public FilteredVertexAndEdgeListGraph(
             [NotNull] TGraph baseGraph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate,
-            [NotNull] EdgePredicate<TVertex, TEdge> edgePredicate)
+            [NotNull] Func<TVertex, bool> vertexPredicate,
+            [NotNull] Func<TEdge, bool> edgePredicate)
             : base(baseGraph, vertexPredicate, edgePredicate)
         {
         }

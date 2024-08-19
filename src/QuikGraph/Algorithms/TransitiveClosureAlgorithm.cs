@@ -5,7 +5,7 @@ namespace QuikGraph.Algorithms
 {
     /// <inheritdoc cref="TransitiveClosure"/>
     public class TransitiveClosureAlgorithm<TVertex, TEdge> : AlgorithmBase<IEdgeListGraph<TVertex, TEdge>>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TransitiveClosureAlgorithm{TVertex,TEdge}"/> class.

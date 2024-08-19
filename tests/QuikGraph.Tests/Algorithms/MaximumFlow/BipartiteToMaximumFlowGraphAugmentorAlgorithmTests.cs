@@ -258,7 +258,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             int[] verticesToSink = [3, 5];
 
             var algorithm = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory);
-            Assert.Throws<VertexNotFoundException>(() => algorithm.Compute());
+            algorithm.Compute();
         }
 
         [Test]

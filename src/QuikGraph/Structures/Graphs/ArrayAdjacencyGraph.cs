@@ -22,7 +22,7 @@ namespace QuikGraph
 #if SUPPORTS_CLONEABLE
         , ICloneable
 #endif
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary> Copy-Constructor from <paramref name="baseGraph"/>. </summary>
         /// <param name="baseGraph">Wrapped graph.</param>
@@ -105,14 +105,15 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int OutDegree(TVertex vertex)
+        public int? OutDegree(TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
             if (_vertexOutEdges.TryGetValue(vertex, out TEdge[] edges))
                 return edges.Length;
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -123,7 +124,8 @@ namespace QuikGraph
 
             if (_vertexOutEdges.TryGetValue(vertex, out TEdge[] edges))
                 return edges.AsEnumerable();
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -150,7 +152,8 @@ namespace QuikGraph
 
             if (_vertexOutEdges.TryGetValue(vertex, out TEdge[] outEdges))
                 return outEdges[index];
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         #endregion

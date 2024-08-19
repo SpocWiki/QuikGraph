@@ -1,9 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
 namespace QuikGraph.Predicates
 {
+    /// <summary> Extension Methods to build complex Structures </summary>
+    public static class VertexListGraph
+    {
+        /// <summary> Filters <paramref name="baseGraph"/> by <paramref name="vertexPredicate"/> and <paramref name="edgePredicate"/> </summary>
+        /// <returns></returns>
+        public static FilteredVertexListGraph<TVertex, TEdge, TGraph> FilterBy<TVertex, TEdge, TGraph>(
+            this TGraph baseGraph,
+            [NotNull] Func<TVertex, bool> vertexPredicate,
+            [NotNull] Func<TEdge, bool> edgePredicate)
+            where TGraph : IVertexListGraph<TVertex, TEdge>
+            where TEdge : class, IEdge<TVertex>
+            => new FilteredVertexListGraph<TVertex, TEdge, TGraph>(baseGraph, vertexPredicate, edgePredicate);
+    }
+
     /// <summary>
     /// Vertex list graph data structure that is filtered with a vertex and an edge
     /// predicate. This means only vertex matching predicates are "accessible".
@@ -14,7 +29,7 @@ namespace QuikGraph.Predicates
     public class FilteredVertexListGraph<TVertex, TEdge, TGraph>
         : FilteredIncidenceGraph<TVertex, TEdge, TGraph>
         , IVertexListGraph<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
         where TGraph : IVertexListGraph<TVertex, TEdge>
     {
         /// <summary>
@@ -28,8 +43,8 @@ namespace QuikGraph.Predicates
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgePredicate"/> is <see langword="null"/>.</exception>
         public FilteredVertexListGraph(
             [NotNull] TGraph baseGraph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate,
-            [NotNull] EdgePredicate<TVertex, TEdge> edgePredicate)
+            [NotNull] Func<TVertex, bool> vertexPredicate,
+            [NotNull] Func<TEdge, bool> edgePredicate)
             : base(baseGraph, vertexPredicate, edgePredicate)
         {
         }

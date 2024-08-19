@@ -25,7 +25,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var distances = new Dictionary<TEdge, double>();
             foreach (TEdge edge in graph.Edges)
-                distances[edge] = graph.OutDegree(edge.Source) + 1;
+                distances[edge] = graph.OutDegree(edge.Source) + 1 ?? double.PositiveInfinity;
 
             var algorithm = new BellmanFordShortestPathAlgorithm<TVertex, TEdge>(
                 graph,

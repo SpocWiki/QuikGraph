@@ -18,7 +18,7 @@ namespace QuikGraph
 #endif
     [DebuggerDisplay("VertexCount = {" + nameof(VertexCount) + "}, EdgeCount = {" + nameof(EdgeCount) + "}")]
     public class BidirectionalAdapterGraph<TVertex, TEdge> : IBidirectionalGraph<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         [NotNull]
         private readonly IVertexAndEdgeListGraph<TVertex, TEdge> _baseGraph;
@@ -101,16 +101,10 @@ namespace QuikGraph
         #region IIncidenceGraph<TVertex,TEdge> 
 
         /// <inheritdoc />
-        public bool ContainsEdge(TVertex source, TVertex target)
-        {
-            return _baseGraph.ContainsEdge(source, target);
-        }
+        public bool ContainsEdge(TVertex source, TVertex target) => _baseGraph.ContainsEdge(source, target);
 
         /// <inheritdoc />
-        public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge)
-        {
-            return _baseGraph.TryGetEdge(source, target, out edge);
-        }
+        public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge) => _baseGraph.TryGetEdge(source, target, out edge);
 
         /// <inheritdoc />
         public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<TEdge> edges)
@@ -123,28 +117,17 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int OutDegree(TVertex vertex)
-        {
-            return _baseGraph.OutDegree(vertex);
-        }
+        public int? OutDegree(TVertex vertex) => _baseGraph.OutDegree(vertex);
 
         /// <inheritdoc />
-        public IEnumerable<TEdge> OutEdges(TVertex vertex)
-        {
-            return _baseGraph.OutEdges(vertex);
-        }
+        public IEnumerable<TEdge> OutEdges(TVertex vertex) => _baseGraph.OutEdges(vertex);
 
         /// <inheritdoc />
         public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            return _baseGraph.TryGetOutEdges(vertex, out edges);
-        }
+            => _baseGraph.TryGetOutEdges(vertex, out edges);
 
         /// <inheritdoc />
-        public TEdge OutEdge(TVertex vertex, int index)
-        {
-            return _baseGraph.OutEdge(vertex, index);
-        }
+        public TEdge OutEdge(TVertex vertex, int index) => _baseGraph.OutEdge(vertex, index);
 
         #endregion
 
@@ -154,14 +137,15 @@ namespace QuikGraph
         private readonly Dictionary<TVertex, EdgeList<TEdge>> _inEdges;
 
         /// <inheritdoc />
-        public int InDegree(TVertex vertex)
+        public int? InDegree(TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
             if (_inEdges.TryGetValue(vertex, out EdgeList<TEdge> inEdges))
                 return inEdges.Count;
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -172,7 +156,8 @@ namespace QuikGraph
 
             if (_inEdges.TryGetValue(vertex, out EdgeList<TEdge> inEdges))
                 return inEdges.AsEnumerable();
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -199,14 +184,12 @@ namespace QuikGraph
 
             if (_inEdges.TryGetValue(vertex, out EdgeList<TEdge> inEdges))
                 return inEdges[index];
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
-        public int Degree(TVertex vertex)
-        {
-            return InDegree(vertex) + OutDegree(vertex);
-        }
+        public int? Degree(TVertex vertex) => InDegree(vertex) + OutDegree(vertex);
 
         #endregion
     }

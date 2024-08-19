@@ -62,7 +62,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
         [TestCaseSource(nameof(AddReversedEdgeTestCases))]
         public void AddReversedEdges<TEdge>([NotNull] EdgeFactory<int, TEdge> edgeFactory)
-            where TEdge : IEdge<int>
+            where TEdge : class, IEdge<int>
         {
             TEdge edge12 = edgeFactory(1, 2);
             TEdge edge13 = edgeFactory(1, 3);

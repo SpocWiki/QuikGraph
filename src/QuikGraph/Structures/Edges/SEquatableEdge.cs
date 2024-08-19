@@ -16,7 +16,7 @@ namespace QuikGraph
 #endif
     [DebuggerDisplay("{" + nameof(Source) + "}->{" + nameof(Target) + "}")]
     [StructLayout(LayoutKind.Auto)]
-    public struct SEquatableEdge<TVertex> : IEdge<TVertex>, IEquatable<SEquatableEdge<TVertex>>
+    public class SEquatableEdge<TVertex> : IEdge<TVertex>, IEquatable<SEquatableEdge<TVertex>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SEquatableEdge{TVertex}"/> struct.

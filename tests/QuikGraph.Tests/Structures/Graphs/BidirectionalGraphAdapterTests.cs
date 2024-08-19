@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using static QuikGraph.Tests.GraphTestHelpers;
 
@@ -63,7 +63,7 @@ namespace QuikGraph.Tests.Structures
                 BidirectionalAdapterGraph<TVertex, TEdge> g,
                 bool isDirected = true,
                 bool allowParallelEdges = true)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 Assert.AreEqual(isDirected, g.IsDirected);
                 Assert.AreEqual(allowParallelEdges, g.AllowParallelEdges);

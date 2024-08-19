@@ -23,7 +23,7 @@ namespace QuikGraph
 #if SUPPORTS_CLONEABLE
         , ICloneable
 #endif
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
 #if SUPPORTS_SERIALIZATION
         [Serializable]
@@ -181,7 +181,7 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int OutDegree(TVertex vertex)
+        public int? OutDegree(TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
@@ -189,7 +189,7 @@ namespace QuikGraph
             if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
                 return inOutEdges.OutEdges.Length;
 
-            throw new VertexNotFoundException();
+            return null;
         }
 
         /// <inheritdoc />
@@ -198,7 +198,7 @@ namespace QuikGraph
             if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
                 return inOutEdges.OutEdges.AsEnumerable();
 
-            throw new VertexNotFoundException();
+            return null;
         }
 
         /// <inheritdoc />
@@ -226,7 +226,7 @@ namespace QuikGraph
             if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
                 return inOutEdges.OutEdges[index];
 
-            throw new VertexNotFoundException();
+            return null;
         }
 
         #endregion
@@ -234,7 +234,7 @@ namespace QuikGraph
         #region IBidirectionalGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int InDegree(TVertex vertex)
+        public int? InDegree(TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
@@ -242,7 +242,7 @@ namespace QuikGraph
             if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
                 return inOutEdges.InEdges.Length;
 
-            throw new VertexNotFoundException();
+            return null;
         }
 
         /// <inheritdoc />
@@ -254,8 +254,7 @@ namespace QuikGraph
             if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
                 return inOutEdges.InEdges.AsEnumerable();
 
-            //return null;
-            throw new VertexNotFoundException();
+            return null;
         }
 
         /// <inheritdoc />
@@ -283,14 +282,11 @@ namespace QuikGraph
             if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
                 return inOutEdges.InEdges[index];
 
-            throw new VertexNotFoundException();
+            return null;
         }
 
         /// <inheritdoc />
-        public int Degree(TVertex vertex)
-        {
-            return InDegree(vertex) + OutDegree(vertex);
-        }
+        public int? Degree(TVertex vertex) => InDegree(vertex) + OutDegree(vertex);
 
         #endregion
 

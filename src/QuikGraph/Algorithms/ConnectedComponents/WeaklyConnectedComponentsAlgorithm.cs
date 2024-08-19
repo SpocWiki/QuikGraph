@@ -24,7 +24,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
     public sealed class WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>
         , IConnectedComponentAlgorithm<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         [NotNull]
         private readonly Dictionary<int, int> _componentEquivalences = new Dictionary<int, int>();

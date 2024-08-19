@@ -41,7 +41,7 @@ namespace QuikGraph.Tests.Structures
                 AdjacencyGraph<TVertex, TEdge> g,
                 bool parallelEdges = true,
                 int edgeCapacity = 0)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 Assert.IsTrue(g.IsDirected);
                 Assert.AreEqual(parallelEdges, g.AllowParallelEdges);

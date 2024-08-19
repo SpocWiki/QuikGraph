@@ -51,42 +51,42 @@ namespace QuikGraph.Algorithms.Exploration
             new List<ITransitionFactory<TVertex, TEdge>>();
 
         [NotNull]
-        private VertexPredicate<TVertex> _addVertexPredicate = vertex => true;
+        private Func<TVertex, bool> _addVertexPredicate = vertex => true;
 
         /// <summary>
         /// Predicate that a vertex must match to be added in the graph.
         /// </summary>
         /// <exception cref="T:System.ArgumentNullException">Set value is <see langword="null"/>.</exception>
         [NotNull]
-        public VertexPredicate<TVertex> AddVertexPredicate
+        public Func<TVertex, bool> AddVertexPredicate
         {
             get => _addVertexPredicate;
             set => _addVertexPredicate = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         [NotNull]
-        private VertexPredicate<TVertex> _exploreVertexPredicate = vertex => true;
+        private Func<TVertex, bool> _exploreVertexPredicate = vertex => true;
 
         /// <summary>
         /// Predicate that checks if a given vertex should be explored or ignored.
         /// </summary>
         /// <exception cref="T:System.ArgumentNullException">Set value is <see langword="null"/>.</exception>
         [NotNull]
-        public VertexPredicate<TVertex> ExploreVertexPredicate
+        public Func<TVertex, bool> ExploreVertexPredicate
         {
             get => _exploreVertexPredicate;
             set => _exploreVertexPredicate = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         [NotNull]
-        private EdgePredicate<TVertex, TEdge> _addEdgePredicate = edge => true;
+        private Func<TEdge, bool> _addEdgePredicate = edge => true;
 
         /// <summary>
         /// Predicate that an edge must match to be added in the graph.
         /// </summary>
         /// <exception cref="T:System.ArgumentNullException">Set value is <see langword="null"/>.</exception>
         [NotNull]
-        public EdgePredicate<TVertex, TEdge> AddEdgePredicate
+        public Func<TEdge, bool> AddEdgePredicate
         {
             get => _addEdgePredicate;
             set => _addEdgePredicate = value ?? throw new ArgumentNullException(nameof(value));

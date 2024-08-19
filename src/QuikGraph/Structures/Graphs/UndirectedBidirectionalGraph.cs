@@ -139,27 +139,14 @@ namespace QuikGraph
 
         /// <inheritdoc />
         public IEnumerable<TEdge> AdjacentEdges(TVertex vertex)
-        {
-            return
-                OriginalGraph.OutEdges(vertex)
-                    .Concat(
-                        OriginalGraph.InEdges(vertex)
-                            // We skip self edges here since
-                            // We already got them out-edge run
-                            .Where(inEdge => !inEdge.IsSelfEdge()));
-        }
+            => (OriginalGraph.OutEdges(vertex) ?? Enumerable.Empty<TEdge>())
+                .Concat((OriginalGraph.InEdges(vertex) ?? Enumerable.Empty<TEdge>())
+                        // We skip self edges here since
+                        // We already got them out-edge run
+                        .Where(inEdge => !inEdge.IsSelfEdge()));
 
         /// <inheritdoc />
-        public int AdjacentDegree(TVertex vertex)
-        {
-            return OriginalGraph.Degree(vertex);
-        }
-
-        /// <inheritdoc />
-        public bool IsAdjacentEdgesEmpty(TVertex vertex)
-        {
-            return OriginalGraph.IsOutEdgesEmpty(vertex) && OriginalGraph.IsInEdgesEmpty(vertex);
-        }
+        public int? AdjacentDegree(TVertex vertex) => OriginalGraph.Degree(vertex);
 
         /// <summary>
         /// <see cref="AdjacentEdge"/> is not supported for this kind of graph.

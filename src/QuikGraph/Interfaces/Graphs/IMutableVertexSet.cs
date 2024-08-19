@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace QuikGraph
@@ -51,6 +52,6 @@ namespace QuikGraph
         /// <param name="predicate">Predicate to check on each vertex.</param>
         /// <returns>The number of vertex removed.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
-        int RemoveVertexIf([NotNull, InstantHandle] VertexPredicate<TVertex> predicate);
+        int RemoveVertexIf([NotNull, InstantHandle] Func<TVertex, bool> predicate);
     }
 }

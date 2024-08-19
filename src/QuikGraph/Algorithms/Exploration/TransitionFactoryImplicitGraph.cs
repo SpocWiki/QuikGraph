@@ -19,7 +19,7 @@ namespace QuikGraph.Algorithms.Exploration
 #endif
     public sealed class TransitionFactoryImplicitGraph<TVertex, TEdge> : IImplicitGraph<TVertex, TEdge>
         where TVertex : ICloneable
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         [NotNull]
         private readonly VertexEdgeDictionary<TVertex, TEdge> _verticesEdgesCache =
@@ -132,14 +132,14 @@ namespace QuikGraph.Algorithms.Exploration
         }
 
         [NotNull]
-        private VertexPredicate<TVertex> _vertexPredicate = vertex => true;
+        private Func<TVertex, bool> _vertexPredicate = vertex => true;
 
         /// <summary>
         /// Predicate that a vertex must match to be the successor (target) of an edge.
         /// </summary>
         /// <exception cref="T:System.ArgumentNullException">Set value is <see langword="null"/>.</exception>
         [NotNull]
-        public VertexPredicate<TVertex> SuccessorVertexPredicate
+        public Func<TVertex, bool> SuccessorVertexPredicate
         {
             get => _vertexPredicate;
             set
@@ -150,14 +150,14 @@ namespace QuikGraph.Algorithms.Exploration
         }
 
         [NotNull]
-        private EdgePredicate<TVertex, TEdge> _edgePredicate = edge => true;
+        private Func<TEdge, bool> _edgePredicate = edge => true;
 
         /// <summary>
         /// Predicate that an edge must match to be the successor of a source vertex.
         /// </summary>
         /// <exception cref="T:System.ArgumentNullException">Set value is <see langword="null"/>.</exception>
         [NotNull]
-        public EdgePredicate<TVertex, TEdge> SuccessorEdgePredicate
+        public Func<TEdge, bool> SuccessorEdgePredicate
         {
             get => _edgePredicate;
             set
@@ -190,17 +190,15 @@ namespace QuikGraph.Algorithms.Exploration
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int OutDegree(TVertex vertex)
-        {
-            return OutEdges(vertex).Count();
-        }
+        public int? OutDegree(TVertex vertex) => OutEdges(vertex)?.Count();
 
         /// <inheritdoc />
         public IEnumerable<TEdge> OutEdges(TVertex vertex)
         {
             if (TryGetOutEdges(vertex, out IEnumerable<TEdge> outEdges))
                 return outEdges;
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         private void AddToNotProcessedCacheIfNecessary(
@@ -295,7 +293,13 @@ namespace QuikGraph.Algorithms.Exploration
         public TEdge OutEdge(TVertex vertex, int index)
         {
             int i = 0;
-            foreach (TEdge edge in OutEdges(vertex))
+            IEnumerable<TEdge> outEdges = OutEdges(vertex);
+            if (outEdges is null)
+            {
+                return null;
+            }
+
+            foreach (TEdge edge in outEdges)
             {
                 if (i++ == index)
                     return edge;

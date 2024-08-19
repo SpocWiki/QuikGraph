@@ -156,7 +156,7 @@ namespace QuikGraph.Tests.Structures
         protected static void RemoveVertex_Throws_Clusters_Test<TVertex, TEdge>(
             [NotNull] ClusteredAdjacencyGraph<TVertex, TEdge> graph)
             where TVertex : class
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.RemoveVertex(null));
@@ -311,7 +311,7 @@ namespace QuikGraph.Tests.Structures
         protected static void RemoveVertexIf_Throws_Clusters_Test<TVertex, TEdge>(
             [NotNull] ClusteredAdjacencyGraph<TVertex, TEdge> graph)
             where TVertex : class
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.RemoveVertexIf(null));

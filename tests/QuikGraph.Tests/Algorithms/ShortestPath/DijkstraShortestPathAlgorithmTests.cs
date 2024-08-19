@@ -26,7 +26,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var distances = new Dictionary<TEdge, double>(graph.EdgeCount);
             foreach (TEdge edge in graph.Edges)
-                distances[edge] = graph.OutDegree(edge.Source) + 1;
+                distances[edge] = graph.OutDegree(edge.Source) + 1 ?? Double.PositiveInfinity;
 
             var algorithm = new DijkstraShortestPathAlgorithm<TVertex, TEdge>(
                 graph,

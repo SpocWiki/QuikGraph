@@ -94,11 +94,12 @@ namespace QuikGraph.Algorithms.MaximumFlow
         #region IVertexColorizerAlgorithm<TVertex>
 
         /// <inheritdoc />
-        public GraphColor GetVertexColor(TVertex vertex)
+        public GraphColor? GetVertexColor(TVertex vertex)
         {
             if (VerticesColors.TryGetValue(vertex, out GraphColor color))
                 return color;
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         #endregion

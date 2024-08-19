@@ -12,7 +12,7 @@ namespace QuikGraph.Algorithms
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class IsHamiltonianGraphAlgorithm<TVertex, TEdge>
-        where TEdge : IUndirectedEdge<TVertex>
+        where TEdge : class, IUndirectedEdge<TVertex>
     {
         [NotNull]
         private readonly UndirectedGraph<TVertex, TEdge> _graph;
@@ -49,7 +49,7 @@ namespace QuikGraph.Algorithms
         [NotNull, ItemNotNull]
         public List<List<TVertex>> GetPermutations()
         {
-            List<TVertex> vertices = _graph.Vertices.ToList();
+            var vertices = _graph.Vertices.ToList();
 
             var permutations = new List<List<TVertex>>();
             GetPermutations(vertices, 0, vertices.Count - 1, permutations);
@@ -148,7 +148,7 @@ namespace QuikGraph.Algorithms
         [Pure]
         public static bool IsHamiltonian<TVertex, TEdge>(
             [NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IUndirectedEdge<TVertex>
+            where TEdge : class, IUndirectedEdge<TVertex>
         {
             return new IsHamiltonianGraphAlgorithm<TVertex, TEdge>(graph).IsHamiltonian();
         }

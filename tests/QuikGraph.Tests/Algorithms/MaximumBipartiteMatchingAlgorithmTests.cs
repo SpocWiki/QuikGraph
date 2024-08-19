@@ -24,7 +24,7 @@ namespace QuikGraph.Tests.Algorithms
             [NotNull, ItemNotNull] TVertex[] vertexSetA,
             [NotNull, ItemNotNull] TVertex[] vertexSetB,
             [NotNull] MaximumBipartiteMatchingAlgorithm<TVertex, TEdge> maxMatch)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             foreach (TEdge edge in maxMatch.MatchedEdges)
             {
@@ -42,7 +42,7 @@ namespace QuikGraph.Tests.Algorithms
             [NotNull] VertexFactory<TVertex> vertexFactory,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
             int expectedMatchSize)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             Assert.IsTrue(graph.VertexCount > 0);
 
@@ -151,7 +151,7 @@ namespace QuikGraph.Tests.Algorithms
                 IEnumerable<TVertex> vToSi,
                 VertexFactory<int> vFactory,
                 EdgeFactory<int, IEdge<int>> eFactory)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 algo.AssertAlgorithmState(g);
                 Assert.AreSame(vFactory, algo.VertexFactory);

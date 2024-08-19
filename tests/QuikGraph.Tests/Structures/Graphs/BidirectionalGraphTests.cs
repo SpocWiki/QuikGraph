@@ -43,7 +43,7 @@ namespace QuikGraph.Tests.Structures
                 BidirectionalGraph<TVertex, TEdge> g,
                 bool parallelEdges = true,
                 int edgeCapacity = 0)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 Assert.IsTrue(g.IsDirected);
                 Assert.AreEqual(parallelEdges, g.AllowParallelEdges);
@@ -534,8 +534,7 @@ namespace QuikGraph.Tests.Structures
         public void Merge_Throws()
         {
             var graph1 = new BidirectionalGraph<int, IEdge<int>>();
-            Assert.Throws<VertexNotFoundException>(
-                () => graph1.MergeVertex(1, (source, target) => Edge.Create(source, target)));
+            Assert.Throws<VertexNotFoundException>(() => graph1.MergeVertex(1, Edge.Create));
 
             var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             Assert.Throws<ArgumentNullException>(
@@ -551,7 +550,7 @@ namespace QuikGraph.Tests.Structures
         public void MergeIf_Test(
             [NotNull] IEnumerable<int> setupVertices,
             [NotNull, ItemNotNull] IEnumerable<EquatableEdge<int>> setupEdges,
-            [NotNull, InstantHandle] VertexPredicate<int> vertexPredicate,
+            [NotNull, InstantHandle] Func<int, bool> vertexPredicate,
             int expectedVerticesRemoved,
             int expectedEdgesAdded,
             int expectedEdgesRemoved,

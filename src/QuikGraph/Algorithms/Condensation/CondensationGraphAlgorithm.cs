@@ -12,7 +12,7 @@ namespace QuikGraph.Algorithms.Condensation
     /// <typeparam name="TEdge">Edge type.</typeparam>
     /// <typeparam name="TGraph">Graph type.</typeparam>
     public sealed class CondensationGraphAlgorithm<TVertex, TEdge, TGraph> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
     {
         /// <summary>

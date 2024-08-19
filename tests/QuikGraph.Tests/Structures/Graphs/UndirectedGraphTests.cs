@@ -36,7 +36,7 @@ namespace QuikGraph.Tests.Structures
             void AssertGraphProperties<TVertex, TEdge>(
                 UndirectedGraph<TVertex, TEdge> g,
                 bool parallelEdges = true)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 Assert.IsFalse(g.IsDirected);
                 Assert.AreEqual(parallelEdges, g.AllowParallelEdges);
@@ -337,7 +337,7 @@ namespace QuikGraph.Tests.Structures
         public void AdjacentVertices_Throws()
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
-            Assert.Throws<VertexNotFoundException>(() => { IEnumerable<int> _ = graph.AdjacentVertices(10); });
+            Assert.IsNull(graph.AdjacentVertices(10));
         }
 
         #region Try Get Edges

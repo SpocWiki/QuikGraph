@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace QuikGraph
@@ -36,6 +37,7 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is <see langword="null"/>.</exception>
         [Pure]
         [ContractAnnotation("=> true, edge:notnull;=> false, edge:null")]
+        //[Obsolete("Not CoVariant => With [CanBeNull] Support use " + nameof(OutEdges))]
         bool TryGetEdge([NotNull] TVertex source, [NotNull] TVertex target, out TEdge edge);
 
         /// <summary>
@@ -50,6 +52,7 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is <see langword="null"/>.</exception>
         [Pure]
         [ContractAnnotation("=> true, edges:notnull;=> false, edges:null")]
+        //[Obsolete("Not CoVariant => With [CanBeNull] Support use " + nameof(OutEdges))]
         bool TryGetEdges([NotNull] TVertex source, [NotNull] TVertex target, [ItemNotNull] out IEnumerable<TEdge> edges);
     }
 }

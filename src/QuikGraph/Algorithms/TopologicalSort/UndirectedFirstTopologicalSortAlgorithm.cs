@@ -72,7 +72,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
 
             foreach (TVertex vertex in VisitedGraph.Vertices)
             {
-                Degrees.Add(vertex, VisitedGraph.AdjacentDegree(vertex));
+                Degrees.Add(vertex, VisitedGraph.AdjacentDegree(vertex) ?? 0);
                 _heap.Enqueue(vertex);
             }
         }

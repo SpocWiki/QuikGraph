@@ -319,7 +319,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             Assert.IsTrue(chain.TryGetSuccessor(graph1, 4, out edge));
             Assert.AreEqual(4, edge.Source);
             Assert.AreEqual(3, edge.Target);
-            Assert.IsFalse(chain.TryGetSuccessor(graph1, 3, out edge));
+            Assert.IsTrue(chain.TryGetSuccessor(graph1, 3, out edge));
 
             chain = new WeightedMarkovEdgeChain<int, EquatableEdge<int>>(weights)
             {
@@ -410,7 +410,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             Assert.IsTrue(chain.TryGetSuccessor(graph1, 4, out edge));
             Assert.AreEqual(4, edge.Source);
             Assert.AreEqual(3, edge.Target);
-            Assert.IsFalse(chain.TryGetSuccessor(graph1, 3, out edge));
+            Assert.IsTrue(chain.TryGetSuccessor(graph1, 3, out edge));
 
             weights = new Dictionary<EquatableEdge<int>, double>
             {

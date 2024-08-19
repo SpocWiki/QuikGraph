@@ -12,7 +12,7 @@ namespace QuikGraph.Tests.Graphs
         {
             int totalDegree = 0;
             foreach (TVertex vertex in graph.Vertices)
-                totalDegree += graph.Degree(vertex);
+                totalDegree += graph.Degree(vertex)!.Value;
 
             Assert.AreEqual(graph.EdgeCount * 2, totalDegree);
         }
@@ -24,7 +24,7 @@ namespace QuikGraph.Tests.Graphs
         {
             int totalInDegree = 0;
             foreach (TVertex vertex in graph.Vertices)
-                totalInDegree += graph.InDegree(vertex);
+                totalInDegree += graph.InDegree(vertex)!.Value;
 
             Assert.AreEqual(graph.EdgeCount, totalInDegree);
         }
@@ -35,7 +35,7 @@ namespace QuikGraph.Tests.Graphs
         {
             int totalOutDegree = 0;
             foreach (TVertex vertex in graph.Vertices)
-                totalOutDegree += graph.OutDegree(vertex);
+                totalOutDegree += graph.OutDegree(vertex)!.Value;
 
             Assert.AreEqual(graph.EdgeCount, totalOutDegree);
         }
@@ -45,7 +45,7 @@ namespace QuikGraph.Tests.Graphs
         {
             int totalAdjacentDegree = 0;
             foreach (TVertex vertex in graph.Vertices)
-                totalAdjacentDegree += graph.AdjacentDegree(vertex);
+                totalAdjacentDegree += graph.AdjacentDegree(vertex)!.Value;
 
             Assert.AreEqual(graph.EdgeCount * 2, totalAdjacentDegree);
         }

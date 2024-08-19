@@ -96,7 +96,7 @@ namespace QuikGraph.Tests.Structures
             const int vertex2 = 2;
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph.InEdge(vertex1, 0));
+            Assert.IsNull(graph.InEdge(vertex1, 0));
 
             graph.AddVertex(vertex1);
             graph.AddVertex(vertex2);
@@ -116,7 +116,7 @@ namespace QuikGraph.Tests.Structures
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             IBidirectionalIncidenceGraph<int, IEdge<int>> graph1 = createGraph();
-            Assert.Throws<VertexNotFoundException>(() => graph1.InEdge(vertex1, 0));
+            Assert.IsNull(graph1.InEdge(vertex1, 0));
 
             wrappedGraph.AddVertex(vertex1);
             wrappedGraph.AddVertex(vertex2);
@@ -133,8 +133,8 @@ namespace QuikGraph.Tests.Structures
             [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph.InEdge(-1, 0));
-            Assert.Throws<VertexNotFoundException>(() => graph.InEdge(4, 0));
+            Assert.IsNull(graph.InEdge(-1, 0));
+            Assert.IsNull(graph.InEdge(4, 0));
 
             graph.AddEdge(Edge.Create(2, 1));
             AssertIndexOutOfRange(() => graph.InEdge(1, 5));
@@ -150,7 +150,7 @@ namespace QuikGraph.Tests.Structures
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             IBidirectionalIncidenceGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
-            Assert.Throws<VertexNotFoundException>(() => graph.InEdge(vertex1, 0));
+            Assert.IsNull(graph.InEdge(vertex1, 0));
 
             wrappedGraph.AddVertex(vertex1);
             wrappedGraph.AddVertex(vertex2);
@@ -291,9 +291,9 @@ namespace QuikGraph.Tests.Structures
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             var vertex = new TVertex();
-            Assert.Throws<VertexNotFoundException>(() => graph.IsInEdgesEmpty(vertex));
-            Assert.Throws<VertexNotFoundException>(() => graph.InDegree(vertex));
-            Assert.Throws<VertexNotFoundException>(() => graph.InEdges(vertex).ToArray());
+            Assert.IsTrue(graph.IsInEdgesEmpty(vertex));
+            Assert.IsNull(graph.InDegree(vertex));
+            Assert.IsNull(graph.InEdges(vertex)?.ToArray());
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
 
@@ -304,9 +304,9 @@ namespace QuikGraph.Tests.Structures
             const int vertex = 10;
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<VertexNotFoundException>(() => graph.IsInEdgesEmpty(vertex));
-            Assert.Throws<VertexNotFoundException>(() => graph.InDegree(vertex));
-            Assert.Throws<VertexNotFoundException>(() => graph.InEdges(vertex).ToArray());
+            Assert.IsTrue(graph.IsInEdgesEmpty(vertex));
+            Assert.IsNull(graph.InDegree(vertex));
+            Assert.IsNull(graph.InEdges(vertex).ToArray());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }

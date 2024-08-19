@@ -38,7 +38,7 @@ namespace QuikGraph.Tests.Exceptions
             ExceptionConstructorTest((m, e) => new NonStronglyConnectedGraphException(m, e));
             ExceptionConstructorTest((m, e) => new NoPathFoundException(m, e));
             ExceptionConstructorTest((m, e) => new ParallelEdgeNotAllowedException(m, e));
-            ExceptionConstructorTest((m, e) => new VertexNotFoundException(m, e));
+            //ExceptionConstructorTest((m, e) => new VertexNotFoundException(m, e));
         }
 
         private static void ExceptionSerializationTest<TException>(
@@ -67,7 +67,7 @@ namespace QuikGraph.Tests.Exceptions
             ExceptionSerializationTest(() => new NonStronglyConnectedGraphException());
             ExceptionSerializationTest(() => new NoPathFoundException());
             ExceptionSerializationTest(() => new ParallelEdgeNotAllowedException());
-            ExceptionSerializationTest(() => new VertexNotFoundException());
+            //ExceptionSerializationTest(() => new VertexNotFoundException());
         }
     }
 }

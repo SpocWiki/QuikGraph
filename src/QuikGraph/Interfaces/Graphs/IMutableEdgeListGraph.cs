@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace QuikGraph
@@ -12,12 +13,13 @@ namespace QuikGraph
     public interface IMutableEdgeListGraph<TVertex, TEdge> : IMutableGraph<TVertex, TEdge>, IEdgeListGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Adds the <paramref name="edge"/> to this graph.
-        /// </summary>
-        /// <param name="edge">An edge.</param>
-        /// <returns>True if the edge was added, false otherwise.</returns>
+        /// <summary> Adds the <paramref name="edge"/> to this graph. </summary>
+        /// <returns>True if the edge was added, false when the edge already exists and no multiple Edges are allowed.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edge"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// Also adds the Vertices if missing.
+        /// It does not improve Quality much to detect unknown Vertices and Edges.
+        /// </remarks>
         bool AddEdge([NotNull] TEdge edge);
 
         /// <summary>
@@ -54,6 +56,6 @@ namespace QuikGraph
         /// <param name="predicate">Predicate to check if an edge should be removed.</param>
         /// <returns>The number of edges removed.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
-        int RemoveEdgeIf([NotNull, InstantHandle] EdgePredicate<TVertex, TEdge> predicate);
+        int RemoveEdgeIf([NotNull, InstantHandle] Func<TEdge, bool> predicate);
     }
 }

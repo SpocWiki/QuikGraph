@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using static QuikGraph.Tests.GraphTestHelpers;
 
@@ -47,7 +47,7 @@ namespace QuikGraph.Tests.Structures
             void AssertGraphProperties<TVertex, TEdge>(
                 ArrayBidirectionalGraph<TVertex, TEdge> g,
                 bool allowParallelEdges = true)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 Assert.IsTrue(g.IsDirected);
                 Assert.AreEqual(allowParallelEdges, g.AllowParallelEdges);

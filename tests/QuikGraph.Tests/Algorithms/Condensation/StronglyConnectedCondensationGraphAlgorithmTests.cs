@@ -16,7 +16,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
         public static void RunStronglyConnectedCondensationAndCheck<TVertex, TEdge>(
             [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             IMutableBidirectionalGraph<AdjacencyGraph<TVertex, TEdge>, CondensedEdge<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>> condensedGraph =
                 graph.CondensateStronglyConnected<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>();
@@ -31,7 +31,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         private static void CheckComponentCount<TVertex, TEdge>(
             [NotNull] IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] IVertexSet<AdjacencyGraph<TVertex, TEdge>> condensedGraph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             // Check number of vertices = number of strongly connected components
             var components = new Dictionary<TVertex, int>();

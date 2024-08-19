@@ -655,16 +655,16 @@ namespace QuikGraph.Tests.Structures
             AddEdge_Throws_EdgesOnly_Test(graph);
 
             // Both vertices not in graph
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(0, 1)));
+            Assert.IsFalse(graph.AddEdge(new Edge<int>(0, 1)));
             AssertNoEdge(graph);
 
             // Source not in graph
             graph.AddVertex(1);
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(0, 1)));
+            Assert.IsFalse(graph.AddEdge(new Edge<int>(0, 1)));
             AssertNoEdge(graph);
 
             // Target not in graph
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(1, 0)));
+            Assert.IsFalse(graph.AddEdge(new Edge<int>(1, 0)));
             AssertNoEdge(graph);
         }
 
@@ -676,16 +676,16 @@ namespace QuikGraph.Tests.Structures
             AssertNoEdge(graph);
 
             // Both vertices not in graph
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(0, 1)));
+            Assert.IsFalse(graph.AddEdge(new Edge<int>(0, 1)));;
             AssertNoEdge(graph);
 
             // Source not in graph
             graph.AddVertex(1);
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(0, 1)));
+            Assert.IsFalse(graph.AddEdge(new Edge<int>(0, 1)));
             AssertNoEdge(graph);
 
             // Target not in graph
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(1, 0)));
+            Assert.IsFalse(graph.AddEdge(new Edge<int>(1, 0)));
             AssertNoEdge(graph);
         }
 
@@ -891,7 +891,7 @@ namespace QuikGraph.Tests.Structures
             AssertHasEdges(graph, [edge1, edge3]);
 
             // Out of range => vertex not found
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdgeRange([Edge.Create(4, 5),]));
+            Assert.AreEqual(0, graph.AddEdgeRange(new[] { new Edge<int>(4, 5), }));
             Assert.AreEqual(2, edgeAdded);
             AssertHasEdges(graph, [edge1, edge3]);
         }

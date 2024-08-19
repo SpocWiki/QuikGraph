@@ -143,7 +143,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
             if (!TryGetTargetVertex(out TVertex target))
                 throw new InvalidOperationException("Target vertex not set.");
             if (!VisitedGraph.ContainsVertex(target))
-                throw new VertexNotFoundException("Target vertex is not part of the graph.");
+                throw new Exception("Target vertex is not part of the graph.");
 
             // Start by building the minimum tree starting from the target vertex.
             ComputeMinimumTree(

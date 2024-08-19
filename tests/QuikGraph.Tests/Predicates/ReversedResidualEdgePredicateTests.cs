@@ -6,7 +6,7 @@ using QuikGraph.Predicates;
 namespace QuikGraph.Tests.Predicates
 {
     /// <summary>
-    /// Tests for <see cref="ReversedResidualEdgePredicate{TVertex,TEdge}"/>.
+    /// Tests for <see cref="ReversedResidualEdgePredicate{TEdge}"/>.
     ///</summary>
     [TestFixture]
     internal sealed class ReversedResidualEdgePredicateTests
@@ -16,9 +16,9 @@ namespace QuikGraph.Tests.Predicates
         {
             Assert.DoesNotThrow(
                 // ReSharper disable once ObjectCreationAsStatement
-                () => new ReversedResidualEdgePredicate<int, IEdge<int>>(
-                    new Dictionary<IEdge<int>, double>(),
-                    new Dictionary<IEdge<int>, IEdge<int>>()));
+                () => new ReversedResidualEdgePredicate<Edge<int>>(
+                    new Dictionary<Edge<int>, double>(),
+                    new Dictionary<Edge<int>, Edge<int>>()));
         }
 
         [Test]
@@ -26,9 +26,9 @@ namespace QuikGraph.Tests.Predicates
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new ReversedResidualEdgePredicate<int, IEdge<int>>(null, new Dictionary<IEdge<int>, IEdge<int>>()));
-            Assert.Throws<ArgumentNullException>(() => new ReversedResidualEdgePredicate<int, IEdge<int>>(new Dictionary<IEdge<int>, double>(), null));
-            Assert.Throws<ArgumentNullException>(() => new ReversedResidualEdgePredicate<int, IEdge<int>>(null, null));
+            Assert.Throws<ArgumentNullException>(() => new ReversedResidualEdgePredicate<Edge<int>>(null, new Dictionary<Edge<int>, Edge<int>>()));
+            Assert.Throws<ArgumentNullException>(() => new ReversedResidualEdgePredicate<Edge<int>>(new Dictionary<Edge<int>, double>(), null));
+            Assert.Throws<ArgumentNullException>(() => new ReversedResidualEdgePredicate<Edge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -36,7 +36,7 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Predicate()
         {
-            var predicate = new ReversedResidualEdgePredicate<int, IEdge<int>>(
+            var predicate = new ReversedResidualEdgePredicate<IEdge<int>>(
                 new Dictionary<IEdge<int>, double>(),
                 new Dictionary<IEdge<int>, IEdge<int>>());
 
@@ -62,7 +62,7 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Predicate_Throws()
         {
-            var predicate = new ReversedResidualEdgePredicate<int, IEdge<int>>(
+            var predicate = new ReversedResidualEdgePredicate<IEdge<int>>(
                 new Dictionary<IEdge<int>, double>(),
                 new Dictionary<IEdge<int>, IEdge<int>>());
 

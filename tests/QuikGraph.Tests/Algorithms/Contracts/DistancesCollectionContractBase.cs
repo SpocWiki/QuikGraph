@@ -186,7 +186,7 @@ namespace QuikGraph.Tests.Algorithms.Contracts
 
             IDistancesCollection<int> algorithm = CreateAlgorithmAndMaybeDoComputation(scenario);
 
-            Assert.Throws<VertexNotFoundException>(() => { double _ = algorithm.GetDistance(3); });
+            Assert.IsNaN(algorithm.GetDistance(3));
         }
 
         [Test]

@@ -11,7 +11,7 @@ namespace QuikGraph
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateImplicitUndirectedGraph<TVertex, TEdge> : IImplicitUndirectedGraph<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateImplicitUndirectedGraph{TVertex,TEdge}"/> class.
@@ -73,19 +73,11 @@ namespace QuikGraph
         #region IImplicitUndirectedGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int AdjacentDegree(TVertex vertex)
-        {
-            return AdjacentEdges(vertex).Count();
-        }
-
-        /// <inheritdoc />
-        public bool IsAdjacentEdgesEmpty(TVertex vertex)
-        {
-            return !AdjacentEdges(vertex).Any();
-        }
+        public int? AdjacentDegree(TVertex vertex) => AdjacentEdges(vertex)?.Count();
 
         [Pure]
-        [NotNull, ItemNotNull]
+        [ItemNotNull]
+        [CanBeNull]
         internal virtual IEnumerable<TEdge> AdjacentEdgesInternal([NotNull] TVertex vertex)
         {
             if (vertex == null)
@@ -93,7 +85,8 @@ namespace QuikGraph
 
             if (_tryGetAdjacencyEdges(vertex, out IEnumerable<TEdge> adjacentEdges))
                 return adjacentEdges;
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -102,11 +95,8 @@ namespace QuikGraph
             return AdjacentEdgesInternal(vertex);
         }
 
-        /// <inheritdoc />
-        public TEdge AdjacentEdge(TVertex vertex, int index)
-        {
-            return AdjacentEdges(vertex).ElementAt(index);
-        }
+        /// <inheritdoc />[CanBeNull]
+        public TEdge AdjacentEdge(TVertex vertex, int index) => AdjacentEdges(vertex)?.ElementAt(index);
 
         /// <inheritdoc />
         public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge)

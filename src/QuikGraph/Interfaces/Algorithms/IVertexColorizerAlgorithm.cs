@@ -16,6 +16,6 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         /// <exception cref="VertexNotFoundException"><paramref name="vertex"/> has no associated color.</exception>
         [Pure]
-        GraphColor GetVertexColor([NotNull] TVertex vertex);
+        GraphColor? GetVertexColor([NotNull] TVertex vertex);
     }
 }

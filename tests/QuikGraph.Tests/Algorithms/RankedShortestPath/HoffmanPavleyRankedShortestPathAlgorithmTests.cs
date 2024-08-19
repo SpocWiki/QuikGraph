@@ -187,14 +187,14 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
             algorithm.SetRootVertex(vertex1);
             algorithm.SetTargetVertex(vertex1);
-            Assert.Throws<VertexNotFoundException>(algorithm.Compute);
+            Assert.Throws<Exception>(algorithm.Compute);
 
             const int vertex2 = 2;
             graph.AddVertex(vertex1);
             algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
             algorithm.SetRootVertex(vertex1);
             algorithm.SetTargetVertex(vertex2);
-            Assert.Throws<VertexNotFoundException>(algorithm.Compute);
+            Assert.Throws<Exception>(algorithm.Compute);
         }
 
         #endregion
@@ -305,7 +305,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
 
             var weights = new Dictionary<Edge<string>, double>();
             foreach (Edge<string> edge in graph.Edges)
-                weights.Add(edge, graph.OutDegree(edge.Source) + 1);
+                    weights.Add(edge, graph.OutDegree(edge.Source) + 1 ?? Double.PositiveInfinity);
 
             RunHoffmanPavleyRankedShortestPathAndCheck(
                 graph,

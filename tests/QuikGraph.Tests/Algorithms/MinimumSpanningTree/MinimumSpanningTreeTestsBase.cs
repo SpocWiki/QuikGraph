@@ -55,7 +55,7 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
         {
             var distances = new Dictionary<TEdge, double>();
             foreach (TEdge edge in graph.Edges)
-                distances[edge] = graph.AdjacentDegree(edge.Source) + 1;
+                distances[edge] = graph.AdjacentDegree(edge.Source) + 1 ?? Double.PositiveInfinity;
 
             TEdge[] prim = graph.MinimumSpanningTreePrim(e => distances[e]).ToArray();
             TEdge[] kruskal = graph.MinimumSpanningTreeKruskal(e => distances[e]).ToArray();
@@ -118,7 +118,7 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
         {
             var distances = new Dictionary<TEdge, double>();
             foreach (TEdge edge in graph.Edges)
-                distances[edge] = graph.AdjacentDegree(edge.Source) + 1;
+                distances[edge] = graph.AdjacentDegree(edge.Source) + 1 ?? Double.PositiveInfinity;
 
             IEnumerable<TEdge> edges = graph.MinimumSpanningTreePrim(e => distances[e]);
             AssertSpanningTree(graph, edges);
@@ -140,7 +140,7 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
         {
             var distances = new Dictionary<TEdge, double>();
             foreach (TEdge edge in graph.Edges)
-                distances[edge] = graph.AdjacentDegree(edge.Source) + 1;
+                distances[edge] = graph.AdjacentDegree(edge.Source) + 1 ?? Double.PositiveInfinity;
 
             IEnumerable<TEdge> edges = graph.MinimumSpanningTreeKruskal(e => distances[e]);
             AssertSpanningTree(graph, edges);

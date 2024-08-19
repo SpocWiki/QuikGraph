@@ -4,7 +4,7 @@ namespace QuikGraph.Algorithms
 {
     /// <inheritdoc cref="TransitiveReduction"/>
     public class TransitiveReductionAlgorithm<TVertex, TEdge> : AlgorithmBase<IEdgeListGraph<TVertex, TEdge>>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TransitiveReductionAlgorithm{TVertex,TEdge}"/> class.

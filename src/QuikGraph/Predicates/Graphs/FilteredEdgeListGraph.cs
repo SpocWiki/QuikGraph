@@ -1,9 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
 namespace QuikGraph.Predicates
 {
+    /// <summary> Extension Methods to build complex Structures </summary>
+    public static class EdgeListGraph
+    {
+        /// <summary> Filters <paramref name="baseGraph"/> by <paramref name="vertexPredicate"/> and <paramref name="edgePredicate"/> </summary>
+        /// <returns></returns>
+        public static FilteredEdgeListGraph<TVertex, TEdge, TGraph> FilterByEdges<TVertex, TEdge, TGraph>(
+            this TGraph baseGraph,
+            [NotNull] Func<TVertex, bool> vertexPredicate,
+            [NotNull] Func<TEdge, bool> edgePredicate)
+            where TGraph : IEdgeListGraph<TVertex, TEdge>
+            where TEdge : class, IEdge<TVertex>
+            => new FilteredEdgeListGraph<TVertex, TEdge, TGraph>(baseGraph, vertexPredicate, edgePredicate);
+    }
+
     /// <summary>
     /// Edge list graph data structure that is filtered with a vertex and an edge
     /// predicate. This means only vertex and edge matching predicates are "accessible".
@@ -28,8 +43,8 @@ namespace QuikGraph.Predicates
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgePredicate"/> is <see langword="null"/>.</exception>
         public FilteredEdgeListGraph(
             [NotNull] TGraph baseGraph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate,
-            [NotNull] EdgePredicate<TVertex, TEdge> edgePredicate)
+            [NotNull] Func<TVertex, bool> vertexPredicate,
+            [NotNull] Func<TEdge, bool> edgePredicate)
             : base(baseGraph, vertexPredicate, edgePredicate)
         {
         }

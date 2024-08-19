@@ -56,7 +56,7 @@ namespace QuikGraph.Tests
         [NotNull]
         public static UndirectedGraph<TVertex, TEdge> CreateUndirectedGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] IEnumerable<TEdge> edges)
-            where TEdge : IEdge<TVertex>, ITagged<double>
+            where TEdge : class, IEdge<TVertex>, ITagged<double>
         {
             var graph = new UndirectedGraph<TVertex, TEdge>(true);
             foreach (TEdge edge in edges)

@@ -25,7 +25,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var distances = new Dictionary<TEdge, double>();
             foreach (TEdge edge in graph.Edges)
-                distances[edge] = graph.OutDegree(edge.Source) + 1;
+                distances[edge] = graph.OutDegree(edge.Source) + 1 ?? double.PositiveInfinity;
 
             var algorithm = new AStarShortestPathAlgorithm<TVertex, TEdge>(
                 graph,
@@ -358,7 +358,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             {
                 // ReSharper disable once PossibleNullReferenceException
                 // ReSharper disable once AccessToModifiedClosure
-                colorUpdates.Remove(algorithm.GetVertexColor(v));
+                colorUpdates.Remove(algorithm.GetVertexColor(v)!.Value);
                 ++heuristicCalls;
                 return 10.0 / heuristicCalls;
             };

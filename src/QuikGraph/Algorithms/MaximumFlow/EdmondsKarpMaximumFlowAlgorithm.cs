@@ -15,7 +15,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge> : MaximumFlowAlgorithm<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         [NotNull]
         private readonly ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> _reverserAlgorithm;
@@ -76,7 +76,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
             new FilteredVertexListGraph<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>(
                 VisitedGraph,
                 vertex => true,
-                new ResidualEdgePredicate<TVertex, TEdge>(ResidualCapacities).Test);
+                new ResidualEdgePredicate<TEdge>(ResidualCapacities).Test);
 
         private void Augment([NotNull] TVertex source, [NotNull] TVertex sink)
         {
@@ -127,9 +127,9 @@ namespace QuikGraph.Algorithms.MaximumFlow
             if (Sink == null)
                 throw new InvalidOperationException("Sink is not specified.");
             if (!VisitedGraph.ContainsVertex(Source))
-                throw new VertexNotFoundException("Source vertex is not part of the graph.");
+                throw new Exception("Source vertex is not part of the graph.");
             if (!VisitedGraph.ContainsVertex(Sink))
-                throw new VertexNotFoundException("Sink vertex is not part of the graph.");
+                throw new Exception("Sink vertex is not part of the graph.");
         }
 
         /// <summary>

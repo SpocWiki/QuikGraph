@@ -21,8 +21,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             int edgeCount = graph.EdgeCount;
             int vertexId = graph.VertexCount + 1;
 
-            string[] noInEdgesVertices = graph.Vertices.Where(graph.IsInEdgesEmpty).ToArray();
-            string[] noOutEdgesVertices = graph.Vertices.Where(graph.IsOutEdgesEmpty).ToArray();
+            string[] noInEdgesVertices = graph.Vertices.Where(v => graph.IsInEdgesEmpty(v) ?? true).ToArray();
+            string[] noOutEdgesVertices = graph.Vertices.Where(v => graph.IsOutEdgesEmpty(v) ?? true).ToArray();
 
             using (var augmentor = new MultiSourceSinkGraphAugmentorAlgorithm<string, Edge<string>>(
                 graph,

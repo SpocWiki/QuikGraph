@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 
 namespace QuikGraph.Tests.Structures
@@ -26,7 +26,7 @@ namespace QuikGraph.Tests.Structures
             void AssertGraphProperties<TVertex, TEdge>(
                 DelegateImplicitUndirectedGraph<TVertex, TEdge> g,
                 bool parallelEdges = true)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 Assert.IsFalse(g.IsDirected);
                 Assert.AreEqual(parallelEdges, g.AllowParallelEdges);
@@ -120,7 +120,11 @@ namespace QuikGraph.Tests.Structures
             var data = new GraphData<int, IEdge<int>>();
             var graph1 = new DelegateImplicitUndirectedGraph<int, IEdge<int>>(data.TryGetEdges);
             AdjacentEdges_Throws_Test(data, graph1);
+        }
 
+        [Test]
+        public void AdjacentEdges_NullThrows()
+        {
             var graph2 = new DelegateImplicitUndirectedGraph<TestVertex, Edge<TestVertex>>(
                 GetEmptyGetter<TestVertex, Edge<TestVertex>>());
             AdjacentEdges_NullThrows_Test(graph2);

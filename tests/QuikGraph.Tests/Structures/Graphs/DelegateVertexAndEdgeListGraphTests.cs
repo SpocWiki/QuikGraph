@@ -31,7 +31,7 @@ namespace QuikGraph.Tests.Structures
             void AssertGraphProperties<TVertex, TEdge>(
                 DelegateVertexAndEdgeListGraph<TVertex, TEdge> g,
                 bool parallelEdges = true)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 Assert.IsTrue(g.IsDirected);
                 Assert.AreEqual(parallelEdges, g.AllowParallelEdges);
@@ -289,7 +289,7 @@ namespace QuikGraph.Tests.Structures
             var edge32 = Edge.Create(3, 2);
             data.ShouldReturnEdges = [edge32];
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph1.OutEdge(3, 0));
+            Assert.IsNull(graph1.OutEdge(3, 0));
             data.CheckCalls(0); // Vertex is not in graph so no need to call user code
 
             var edge14 = Edge.Create(1, 4);
@@ -340,7 +340,7 @@ namespace QuikGraph.Tests.Structures
             var edge32 = Edge.Create(3, 2);
             data1.ShouldReturnEdges = [edge32];
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph1.OutEdges(3));
+            Assert.IsNull(graph1.OutEdges(3));
             data1.CheckCalls(0); // Vertex is not in graph so no need to call user code
 
 

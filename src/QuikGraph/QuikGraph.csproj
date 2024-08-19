@@ -34,7 +34,7 @@ Supports Source Link</Description>
 
     <IsPackable>true</IsPackable>
     <PackageId>QuikGraph</PackageId>
-    <PackageReleaseNotes>➟ Release 2.5.0
+    <PackageReleaseNotes>➟ Release 3.0.0
 Updates:
 - Input type for transitive closure/reduction algorithms is more open (IEdgeListGraph rather than BidirectionalGraph).
 - CryptoRandom no more use deprecate random number generator.

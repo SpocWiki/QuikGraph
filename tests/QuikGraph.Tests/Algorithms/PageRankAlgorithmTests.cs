@@ -54,7 +54,7 @@ namespace QuikGraph.Tests.Algorithms
                 double d = -1,
                 double t = -1,
                 int iterations = -1)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 algo.AssertAlgorithmState(g);
                 CollectionAssert.IsEmpty(algo.Ranks);

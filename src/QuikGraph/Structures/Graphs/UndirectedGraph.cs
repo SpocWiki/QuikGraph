@@ -33,7 +33,7 @@ namespace QuikGraph
 #if SUPPORTS_SERIALIZATION && NETSTANDARD2_0
         , ISerializable
 #endif
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         [NotNull]
         private IVertexEdgeDictionary<TVertex, TEdge> _adjacentEdges =
@@ -220,24 +220,20 @@ namespace QuikGraph
 
             if (_adjacentEdges.TryGetValue(vertex, out IEdgeList<TEdge> edges))
                 return edges.AsEnumerable();
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
-        public int AdjacentDegree(TVertex vertex)
+        public int? AdjacentDegree(TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
             if (_adjacentEdges.TryGetValue(vertex, out IEdgeList<TEdge> edges))
                 return edges.Sum(edge => edge.IsSelfEdge() ? 2 : 1);    // Self edge count twice
-            throw new VertexNotFoundException();
-        }
 
-        /// <inheritdoc />
-        public bool IsAdjacentEdgesEmpty(TVertex vertex)
-        {
-            return AdjacentDegree(vertex) == 0;
+            return null;
         }
 
         /// <inheritdoc />
@@ -248,7 +244,8 @@ namespace QuikGraph
 
             if (_adjacentEdges.TryGetValue(vertex, out IEdgeList<TEdge> adjacentEdges))
                 return adjacentEdges[index];
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -412,7 +409,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public int RemoveVertexIf(VertexPredicate<TVertex> predicate)
+        public int RemoveVertexIf(Func<TVertex, bool> predicate)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));
@@ -436,7 +433,7 @@ namespace QuikGraph
         #region IMutableIncidenceGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int RemoveAdjacentEdgeIf(TVertex vertex, EdgePredicate<TVertex, TEdge> predicate)
+        public int RemoveAdjacentEdgeIf(TVertex vertex, Func<TEdge, bool> predicate)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));
@@ -541,9 +538,9 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(edge));
 
             if (!_adjacentEdges.TryGetValue(edge.Source, out IEdgeList<TEdge> sourceEdges))
-                throw new VertexNotFoundException();
+                return false;
             if (!_adjacentEdges.TryGetValue(edge.Target, out IEdgeList<TEdge> targetEdges))
-                throw new VertexNotFoundException();
+                return false;
 
             if (!AllowParallelEdges && ContainsEdgeBetweenVertices(sourceEdges, edge))
                 return false;
@@ -643,7 +640,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public int RemoveEdgeIf(EdgePredicate<TVertex, TEdge> predicate)
+        public int RemoveEdgeIf(Func<TEdge, bool> predicate)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));

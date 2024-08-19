@@ -16,7 +16,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
 
         private static void RunEdgesCondensationAndCheck<TVertex, TEdge>(
             [NotNull] IBidirectionalGraph<TVertex, TEdge> graph,
-            [NotNull] VertexPredicate<TVertex> predicate)
+            [NotNull] Func<TVertex, bool> predicate)
             where TEdge : IEdge<TVertex>
         {
             IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> condensedGraph =
@@ -40,7 +40,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void Constructor()
         {
-            VertexPredicate<int> vertexPredicate = _ => true;
+            Func<int, bool> vertexPredicate = _ => true;
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             var condensedGraph = new BidirectionalGraph<int, MergedEdge<int, IEdge<int>>>();
             var algorithm = new EdgeMergeCondensationGraphAlgorithm<int, IEdge<int>>(graph, condensedGraph, vertexPredicate);
@@ -52,7 +52,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
                 EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge> algo,
                 IBidirectionalGraph<TVertex, TEdge> g,
                 IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> cg,
-                VertexPredicate<TVertex> predicate)
+                Func<TVertex, bool> predicate)
                 where TEdge : IEdge<TVertex>
             {
                 algo.AssertAlgorithmState(g);
@@ -66,7 +66,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void Constructor_Throws()
         {
-            VertexPredicate<int> vertexPredicate = _ => true;
+            Func<int, bool> vertexPredicate = _ => true;
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             var condensedGraph = new BidirectionalGraph<int, MergedEdge<int, IEdge<int>>>();
 

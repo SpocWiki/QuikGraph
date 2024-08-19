@@ -13,8 +13,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Construction()
         {
-            VertexPredicate<int> vertexPredicate = _ => true;
-            EdgePredicate<int, IEdge<int>> edgePredicate = _ => true;
+            Func<int, bool> vertexPredicate = _ => true;
+            Func<IEdge<int>, bool> edgePredicate = _ => true;
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var filteredGraph = new FilteredIncidenceGraph<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(
@@ -36,7 +36,7 @@ namespace QuikGraph.Tests.Predicates
                 FilteredIncidenceGraph<TVertex, TEdge, TGraph> g,
                 TGraph expectedGraph,
                 bool parallelEdges = true)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
                 where TGraph : IIncidenceGraph<TVertex, TEdge>
             {
                 Assert.AreSame(expectedGraph, g.BaseGraph);
@@ -225,8 +225,8 @@ namespace QuikGraph.Tests.Predicates
 
             graph2.AddVertexRange([1, 2, 3, 4, 5]);
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => filteredGraph2.OutEdges(4));
-            Assert.Throws<VertexNotFoundException>(() => filteredGraph2.OutEdges(5));
+            Assert.IsNull(filteredGraph2.OutEdges(4));
+            Assert.IsNull(filteredGraph2.OutEdges(5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
 

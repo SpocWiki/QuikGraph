@@ -5,6 +5,20 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Predicates
 {
+    /// <summary> Extension Methods to build complex Structures </summary>
+    public static class UndirectedGraph
+    {
+        /// <summary> Filters <paramref name="baseGraph"/> by <paramref name="vertexPredicate"/> and <paramref name="edgePredicate"/> </summary>
+        /// <returns></returns>
+        public static FilteredUndirectedGraph<TVertex, TEdge, TGraph> FilterByUndirected<TVertex, TEdge, TGraph>(
+            this TGraph baseGraph,
+            [NotNull] Func<TVertex, bool> vertexPredicate,
+            [NotNull] Func<TEdge, bool> edgePredicate)
+            where TGraph : IUndirectedGraph<TVertex, TEdge>
+            where TEdge : class, IEdge<TVertex>
+            => new FilteredUndirectedGraph<TVertex, TEdge, TGraph>(baseGraph, vertexPredicate, edgePredicate);
+    }
+
     /// <summary>
     /// Undirected graph data structure that is filtered with a vertex and an edge
     /// predicate. This means only vertex and edge matching predicates are "accessible".
@@ -15,7 +29,7 @@ namespace QuikGraph.Predicates
     public sealed class FilteredUndirectedGraph<TVertex, TEdge, TGraph>
         : FilteredGraph<TVertex, TEdge, TGraph>
         , IUndirectedGraph<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
         where TGraph : IUndirectedGraph<TVertex, TEdge>
     {
         /// <summary>
@@ -29,8 +43,8 @@ namespace QuikGraph.Predicates
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgePredicate"/> is <see langword="null"/>.</exception>
         public FilteredUndirectedGraph(
             [NotNull] TGraph baseGraph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate,
-            [NotNull] EdgePredicate<TVertex, TEdge> edgePredicate)
+            [NotNull] Func<TVertex, bool> vertexPredicate,
+            [NotNull] Func<TEdge, bool> edgePredicate)
             : base(baseGraph, vertexPredicate, edgePredicate)
         {
         }
@@ -96,22 +110,13 @@ namespace QuikGraph.Predicates
                 throw new ArgumentNullException(nameof(vertex));
 
             if (VertexPredicate(vertex))
-                return BaseGraph.AdjacentEdges(vertex).Where(FilterEdge);
-            throw new VertexNotFoundException();
+                return BaseGraph.AdjacentEdges(vertex)?.Where(FilterEdge);
+
+            return null;
         }
 
         /// <inheritdoc />
-        public int AdjacentDegree(TVertex vertex)
-        {
-            return AdjacentEdges(vertex)
-                .Sum(edge => edge.IsSelfEdge() ? 2 : 1);    // Self edge count twice
-        }
-
-        /// <inheritdoc />
-        public bool IsAdjacentEdgesEmpty(TVertex vertex)
-        {
-            return !AdjacentEdges(vertex).Any();
-        }
+        public int? AdjacentDegree(TVertex vertex) => AdjacentEdges(vertex)?.Sum(edge => edge.IsSelfEdge() ? 2 : 1); // Self edge count twice
 
         /// <inheritdoc />
         public TEdge AdjacentEdge(TVertex vertex, int index)
@@ -121,7 +126,8 @@ namespace QuikGraph.Predicates
 
             if (VertexPredicate(vertex))
                 return AdjacentEdges(vertex).ElementAt(index);
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />

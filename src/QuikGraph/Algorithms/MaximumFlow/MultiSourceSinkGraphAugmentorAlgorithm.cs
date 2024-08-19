@@ -56,13 +56,13 @@ namespace QuikGraph.Algorithms.MaximumFlow
                 ThrowIfCancellationRequested();
 
                 // Is source
-                if (VisitedGraph.IsInEdgesEmpty(vertex))
+                if (VisitedGraph.IsInEdgesEmpty(vertex) ?? true)
                 {
                     AddAugmentedEdge(SuperSource, vertex);
                 }
 
                 // Is sink
-                if (VisitedGraph.IsOutEdgesEmpty(vertex))
+                if (VisitedGraph.IsOutEdgesEmpty(vertex) ?? true)
                 {
                     AddAugmentedEdge(vertex, SuperSink);
                 }

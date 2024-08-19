@@ -32,9 +32,6 @@ namespace QuikGraph.Predicates
         /// <returns>True if the vertex is a sink, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
-        public bool Test([NotNull] TVertex vertex)
-        {
-            return _visitedGraph.IsOutEdgesEmpty(vertex);
-        }
+        public bool TestIsOutEdgesEmpty([NotNull] TVertex vertex) => _visitedGraph.IsOutEdgesEmpty(vertex) ?? true;
     }
 }

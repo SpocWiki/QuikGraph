@@ -13,8 +13,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Construction()
         {
-            VertexPredicate<int> vertexPredicate = _ => true;
-            EdgePredicate<int, IEdge<int>> edgePredicate = _ => true;
+            Func<int, bool> vertexPredicate = _ => true;
+            Func<IEdge<int>, bool> edgePredicate = _ => true;
 
             var graph1 = new AdjacencyGraph<int, IEdge<int>>();
             var filteredGraph1 = new FilteredGraph<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(

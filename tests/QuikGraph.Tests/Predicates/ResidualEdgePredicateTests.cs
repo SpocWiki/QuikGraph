@@ -6,7 +6,7 @@ using QuikGraph.Predicates;
 namespace QuikGraph.Tests.Predicates
 {
     /// <summary>
-    /// Tests for <see cref="ResidualEdgePredicate{TVertex,TEdge}"/>.
+    /// Tests for <see cref="ResidualEdgePredicate{TEdge}"/>.
     ///</summary>
     [TestFixture]
     internal sealed class ResidualEdgePredicateTests
@@ -16,8 +16,8 @@ namespace QuikGraph.Tests.Predicates
         {
             Assert.DoesNotThrow(
                 // ReSharper disable once ObjectCreationAsStatement
-                () => new ResidualEdgePredicate<int, IEdge<int>>(
-                    new Dictionary<IEdge<int>, double>()));
+                () => new ResidualEdgePredicate<Edge<int>>(
+                    new Dictionary<Edge<int>, double>()));
         }
 
         [Test]
@@ -25,13 +25,13 @@ namespace QuikGraph.Tests.Predicates
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new ResidualEdgePredicate<int, IEdge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => new ResidualEdgePredicate<Edge<int>>(null));
         }
 
         [Test]
         public void Predicate()
         {
-            var predicate = new ResidualEdgePredicate<int, IEdge<int>>(
+            var predicate = new ResidualEdgePredicate<IEdge<int>>(
                 new Dictionary<IEdge<int>, double>());
 
             var edge12 = Edge.Create(1, 2);
@@ -49,7 +49,7 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Predicate_Throws()
         {
-            var predicate = new ResidualEdgePredicate<int, IEdge<int>>(
+            var predicate = new ResidualEdgePredicate<IEdge<int>>(
                 new Dictionary<IEdge<int>, double>());
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed

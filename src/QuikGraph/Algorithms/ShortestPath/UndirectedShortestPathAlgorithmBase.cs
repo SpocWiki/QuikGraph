@@ -105,7 +105,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         {
             bool vertexFound = TryGetDistance(vertex, out double distance);
             if (!vertexFound)
-                throw new VertexNotFoundException($"No recorded distance for vertex {vertex}.");
+                return double.NaN;
             return distance;
         }
 
@@ -158,11 +158,11 @@ namespace QuikGraph.Algorithms.ShortestPath
         public IDictionary<TVertex, GraphColor> VerticesColors { get; private set; }
 
         /// <inheritdoc />
-        public GraphColor GetVertexColor(TVertex vertex)
+        public GraphColor? GetVertexColor(TVertex vertex)
         {
             if (VerticesColors.TryGetValue(vertex, out GraphColor color))
                 return color;
-            throw new VertexNotFoundException();
+            return null;
         }
 
         #endregion

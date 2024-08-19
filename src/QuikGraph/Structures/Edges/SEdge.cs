@@ -15,7 +15,7 @@ namespace QuikGraph
 #endif
     [DebuggerDisplay("{" + nameof(Source) + "}->{" + nameof(Target) + "}")]
     [StructLayout(LayoutKind.Auto)]
-    public struct SEdge<TVertex> : IEdge<TVertex>
+    public class SEdge<TVertex> : IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SEdge{TVertex}"/> struct.

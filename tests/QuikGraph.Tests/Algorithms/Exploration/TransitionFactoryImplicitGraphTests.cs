@@ -27,7 +27,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
                 // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
                 TransitionFactoryImplicitGraph<TVertex, TEdge> g)
                 where TVertex : ICloneable
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 Assert.IsTrue(g.IsDirected);
                 Assert.IsTrue(g.AllowParallelEdges);
@@ -421,7 +421,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
             var vertex2 = new CloneableTestVertex("2");
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph2.OutEdge(vertex1, 0));
+            Assert.IsNull(graph2.OutEdge(vertex1, 0));
 
             var factory1 = new TestTransitionFactory<CloneableTestVertex>(
                 vertex1,
@@ -533,11 +533,15 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         }
 
         [Test]
-        public void OutEdges_Throws()
+        public void OutEdges_NullThrows()
         {
             var graph1 = new TransitionFactoryImplicitGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
             OutEdges_NullThrows_Test(graph1);
+        }
 
+        [Test]
+        public void OutEdges_Throws()
+        {
             var graph2 = new TransitionFactoryImplicitGraph<EquatableCloneableTestVertex, Edge<EquatableCloneableTestVertex>>();
             OutEdges_Throws_Test(graph2);
         }

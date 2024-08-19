@@ -25,7 +25,7 @@ namespace QuikGraph.Algorithms.Condensation
         public EdgeMergeCondensationGraphAlgorithm(
             [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> condensedGraph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate)
+            [NotNull] Func<TVertex, bool> vertexPredicate)
             : base(visitedGraph)
         {
             CondensedGraph = condensedGraph ?? throw new ArgumentNullException(nameof(condensedGraph));
@@ -42,7 +42,7 @@ namespace QuikGraph.Algorithms.Condensation
         /// Vertex predicate used to filter the vertices to put in the condensed graph.
         /// </summary>
         [NotNull]
-        public VertexPredicate<TVertex> VertexPredicate { get; }
+        public Func<TVertex, bool> VertexPredicate { get; }
 
         #region AlgorithmBase<TGraph>
 

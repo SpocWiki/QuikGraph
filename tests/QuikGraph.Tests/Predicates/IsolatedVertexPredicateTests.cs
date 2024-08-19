@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -50,42 +50,42 @@ namespace QuikGraph.Tests.Predicates
 
             graph.AddVertex(1);
             graph.AddVertex(2);
-            Assert.IsTrue(predicate.Test(1));
-            Assert.IsTrue(predicate.Test(2));
+            Assert.IsTrue(predicate.TestIsEdgesEmpty(1));
+            Assert.IsTrue(predicate.TestIsEdgesEmpty(2));
 
             graph.AddVertex(3);
             var edge13 = Edge.Create(1, 3);
             graph.AddEdge(edge13);
-            Assert.IsFalse(predicate.Test(1));
-            Assert.IsTrue(predicate.Test(2));
-            Assert.IsFalse(predicate.Test(3));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(1));
+            Assert.IsTrue(predicate.TestIsEdgesEmpty(2));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(3));
 
             var edge12 = Edge.Create(1, 2);
             graph.AddEdge(edge12);
-            Assert.IsFalse(predicate.Test(1));
-            Assert.IsFalse(predicate.Test(2));
-            Assert.IsFalse(predicate.Test(3));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(1));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(2));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(3));
 
             var edge23 = Edge.Create(2, 3);
             graph.AddEdge(edge23);
-            Assert.IsFalse(predicate.Test(1));
-            Assert.IsFalse(predicate.Test(2));
-            Assert.IsFalse(predicate.Test(3));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(1));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(2));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(3));
 
             graph.RemoveEdge(edge23);
-            Assert.IsFalse(predicate.Test(1));
-            Assert.IsFalse(predicate.Test(2));
-            Assert.IsFalse(predicate.Test(3));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(1));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(2));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(3));
 
             graph.RemoveEdge(edge12);
-            Assert.IsFalse(predicate.Test(1));
-            Assert.IsTrue(predicate.Test(2));
-            Assert.IsFalse(predicate.Test(3));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(1));
+            Assert.IsTrue(predicate.TestIsEdgesEmpty(2));
+            Assert.IsFalse(predicate.TestIsEdgesEmpty(3));
 
             graph.RemoveEdge(edge13);
-            Assert.IsTrue(predicate.Test(1));
-            Assert.IsTrue(predicate.Test(2));
-            Assert.IsTrue(predicate.Test(3));
+            Assert.IsTrue(predicate.TestIsEdgesEmpty(1));
+            Assert.IsTrue(predicate.TestIsEdgesEmpty(2));
+            Assert.IsTrue(predicate.TestIsEdgesEmpty(3));
         }
 
         [Test]
@@ -95,9 +95,9 @@ namespace QuikGraph.Tests.Predicates
             var predicate = new IsolatedVertexPredicate<TestVertex, Edge<TestVertex>>(graph);
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => predicate.Test(new TestVertex("1")));
+            Assert.IsTrue(predicate.TestIsEdgesEmpty(new TestVertex("1")));
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => predicate.Test(null));
+            Assert.Throws<ArgumentNullException>(() => predicate.TestIsEdgesEmpty(null));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
     }

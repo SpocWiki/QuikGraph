@@ -140,7 +140,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var chain = new WeightedMarkovEdgeChain<int, IEdge<int>>(new Dictionary<IEdge<int>, double>());
-            EdgePredicate<int, IEdge<int>> predicate = _ => true;
+            Func<IEdge<int>, bool> predicate = _ => true;
             var algorithm = new RandomWalkAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
@@ -165,7 +165,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
                 RandomWalkAlgorithm<TVertex, TEdge> algo,
                 IVertexListGraph<TVertex, TEdge> g,
                 IEdgeChain<TVertex, TEdge> c = null,
-                EdgePredicate<TVertex, TEdge> p = null)
+                Func<TEdge, bool> p = null)
                 where TEdge : IEdge<TVertex>
             {
                 algo.AssertAlgorithmState(g);
@@ -307,8 +307,8 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var algorithm = new RandomWalkAlgorithm<int, IEdge<int>>(graph);
 
-            Assert.Throws<VertexNotFoundException>(() => algorithm.Generate(1));
-            Assert.Throws<VertexNotFoundException>(() => algorithm.Generate(1, 12));
+            Assert.Throws<Exception>(() => algorithm.Generate(1));
+            Assert.Throws<Exception>(() => algorithm.Generate(1, 12));
         }
     }
 }

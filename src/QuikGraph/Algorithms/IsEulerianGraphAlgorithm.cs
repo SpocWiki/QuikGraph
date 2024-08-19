@@ -13,7 +13,7 @@ namespace QuikGraph.Algorithms
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class IsEulerianGraphAlgorithm<TVertex, TEdge>
-        where TEdge : IUndirectedEdge<TVertex>
+        where TEdge : class, IUndirectedEdge<TVertex>
     {
         [NotNull]
         private readonly UndirectedGraph<TVertex, TEdge> _graph;
@@ -88,7 +88,7 @@ namespace QuikGraph.Algorithms
             bool[] hasEdgesInComponent = new bool[componentsAlgorithm.ComponentCount];
             foreach (KeyValuePair<TVertex, int> verticesAndComponent in componentsAlgorithm.Components)
             {
-                hasEdgesInComponent[verticesAndComponent.Value] = !_graph.IsAdjacentEdgesEmpty(verticesAndComponent.Key);
+                hasEdgesInComponent[verticesAndComponent.Value] = !_graph.IsAdjacentEdgesEmpty(verticesAndComponent.Key) ?? true;
             }
 
             TrueIndexes trueIndexes = FirstAndSecondIndexOfTrue(hasEdgesInComponent);
@@ -144,7 +144,7 @@ namespace QuikGraph.Algorithms
         [Pure]
         public static bool IsEulerian<TVertex, TEdge>(
             [NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IUndirectedEdge<TVertex>
+            where TEdge : class, IUndirectedEdge<TVertex>
         {
             return new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph).IsEulerian();
         }

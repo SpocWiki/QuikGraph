@@ -20,7 +20,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         private static void RunCyclePoppingRandomTreeAndCheck<TVertex, TEdge>(
             [NotNull] IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex root)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var randomChain = new Random(123456);
             var chain = new NormalizedMarkovEdgeChain<TVertex, TEdge>
@@ -58,7 +58,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         private static IVertexListGraph<TVertex, TEdge> MakeGraph<TVertex, TEdge>(
             [NotNull] TVertex root,
             [NotNull] IDictionary<TVertex, TEdge> successors)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var graph = new AdjacencyGraph<TVertex, TEdge>();
             graph.AddVerticesAndEdgeRange(
@@ -72,7 +72,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         private static void AssertIsTree<TVertex, TEdge>(
             [NotNull] TVertex root,
             [NotNull] IDictionary<TVertex, TEdge> successors)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             IVertexListGraph<TVertex, TEdge> graph = MakeGraph(root, successors);
 

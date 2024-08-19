@@ -25,7 +25,8 @@ namespace QuikGraph.Algorithms.RandomWalks
         /// <inheritdoc />
         public override bool TryGetSuccessor(IImplicitGraph<TVertex, TEdge> graph, TVertex vertex, out TEdge successor)
         {
-            if (!graph.IsOutEdgesEmpty(vertex))
+            bool? empty = graph.IsOutEdgesEmpty(vertex);
+            if (empty == false)
             {
                 // Compute out-edge su
                 double outWeight = GetOutWeight(graph, vertex);
@@ -35,7 +36,7 @@ namespace QuikGraph.Algorithms.RandomWalks
             }
 
             successor = default(TEdge);
-            return false;
+            return empty ?? false;
         }
 
         /// <inheritdoc />

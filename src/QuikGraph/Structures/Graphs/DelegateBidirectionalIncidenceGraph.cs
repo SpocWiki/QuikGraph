@@ -5,13 +5,11 @@ using JetBrains.Annotations;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// A delegate-based directed bidirectional graph data structure.
-    /// </summary>
+    /// <summary> A delegate-based directed bidirectional graph data structure. </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateBidirectionalIncidenceGraph<TVertex, TEdge> : DelegateIncidenceGraph<TVertex, TEdge>, IBidirectionalIncidenceGraph<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateBidirectionalIncidenceGraph{TVertex,TEdge}"/> class.
@@ -43,10 +41,7 @@ namespace QuikGraph
         #region IBidirectionalImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int InDegree(TVertex vertex)
-        {
-            return InEdges(vertex).Count();
-        }
+        public int? InDegree(TVertex vertex) => InEdges(vertex)?.Count();
 
         /// <inheritdoc />
         public IEnumerable<TEdge> InEdges(TVertex vertex)
@@ -56,7 +51,8 @@ namespace QuikGraph
 
             if (_tryGetInEdgesFunc(vertex, out IEnumerable<TEdge> inEdges))
                 return inEdges;
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -69,16 +65,10 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public TEdge InEdge(TVertex vertex, int index)
-        {
-            return InEdges(vertex).ElementAt(index);
-        }
+        public TEdge InEdge(TVertex vertex, int index) => InEdges(vertex)?.ElementAt(index);
 
         /// <inheritdoc />
-        public int Degree(TVertex vertex)
-        {
-            return InDegree(vertex) + OutDegree(vertex);
-        }
+        public int? Degree(TVertex vertex) => InDegree(vertex) + OutDegree(vertex);
 
         #endregion
     }

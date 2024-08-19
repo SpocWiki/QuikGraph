@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using static QuikGraph.Tests.AssertHelpers;
@@ -69,7 +69,7 @@ namespace QuikGraph.Tests.Structures
             const int vertex2 = 2;
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph.AdjacentEdge(vertex1, 0));
+            Assert.IsNull(graph.AdjacentEdge(vertex1, 0));
 
             graph.AddVertex(vertex1);
             graph.AddVertex(vertex2);
@@ -89,7 +89,7 @@ namespace QuikGraph.Tests.Structures
 
             IImplicitUndirectedGraph<int, IEdge<int>> graph = createGraph();
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph.AdjacentEdge(vertex1, 0));
+            Assert.IsNull(graph.AdjacentEdge(vertex1, 0));
 
             wrappedGraph.AddVertex(vertex1);
             wrappedGraph.AddVertex(vertex2);
@@ -173,9 +173,9 @@ namespace QuikGraph.Tests.Structures
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             var vertex = new TVertex();
-            Assert.Throws<VertexNotFoundException>(() => graph.IsAdjacentEdgesEmpty(vertex));
-            Assert.Throws<VertexNotFoundException>(() => graph.AdjacentDegree(vertex));
-            Assert.Throws<VertexNotFoundException>(() => graph.AdjacentEdges(vertex));
+            Assert.IsNull(graph.IsAdjacentEdgesEmpty(vertex));
+            Assert.IsNull(graph.AdjacentDegree(vertex));;
+            Assert.IsNull(graph.AdjacentEdges(vertex));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
 

@@ -201,7 +201,7 @@ namespace QuikGraph.Tests.Algorithms.TSP
             algorithm.Compute(1);
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => algorithm.GetVertexColor(1));
+            Assert.AreEqual(default, algorithm.GetVertexColor(1));
         }
 
         [Test]

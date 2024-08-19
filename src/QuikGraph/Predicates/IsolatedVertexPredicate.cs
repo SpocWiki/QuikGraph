@@ -32,13 +32,13 @@ namespace QuikGraph.Predicates
         /// <returns>True if the vertex is isolated, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
-        public bool Test([NotNull] TVertex vertex)
+        public bool TestIsEdgesEmpty([NotNull] TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            return _visitedGraph.IsInEdgesEmpty(vertex)
-                   && _visitedGraph.IsOutEdgesEmpty(vertex);
+            return (_visitedGraph.IsInEdgesEmpty(vertex) ?? true)
+                   && (_visitedGraph.IsOutEdgesEmpty(vertex) ?? true);
         }
     }
 }

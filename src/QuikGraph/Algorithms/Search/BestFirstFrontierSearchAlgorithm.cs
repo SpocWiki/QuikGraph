@@ -74,7 +74,7 @@ namespace QuikGraph.Algorithms.Search
             if (!TryGetTargetVertex(out TVertex target))
                 throw new InvalidOperationException("Target vertex not set.");
             if (!VisitedGraph.ContainsVertex(target))
-                throw new VertexNotFoundException("Target vertex is not part of the graph.");
+                throw new Exception("Target vertex is not part of the graph.");
 
             // Little shortcut
             if (EqualityComparer<TVertex>.Default.Equals(root, target))
@@ -87,7 +87,7 @@ namespace QuikGraph.Algorithms.Search
 
             // (1) Place the initial node in Open, with all its operators marked unused
             open.Add(0, root);
-            Dictionary<TEdge, GraphColor> operators = VisitedGraph.OutEdges(root).ToDictionary(edge => edge, edge => GraphColor.White);
+            var operators = VisitedGraph.OutEdges(root).ToDictionary(edge => edge, edge => GraphColor.White);
 
             while (open.Count > 0)
             {

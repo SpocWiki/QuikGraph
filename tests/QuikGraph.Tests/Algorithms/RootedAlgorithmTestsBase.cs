@@ -121,7 +121,7 @@ namespace QuikGraph.Tests.Algorithms
             // Source vertex set but not to a vertex in the graph
             algorithm = createAlgorithm();
             algorithm.SetRootVertex(new TVertex());
-            Assert.Throws<VertexNotFoundException>(algorithm.Compute);
+            Assert.Throws<Exception>(algorithm.Compute);
         }
 
         protected static void ComputeWithRoot_Test<TVertex, TGraph>(

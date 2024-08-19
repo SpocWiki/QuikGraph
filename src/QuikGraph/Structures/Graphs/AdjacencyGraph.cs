@@ -24,7 +24,7 @@ namespace QuikGraph
 #if SUPPORTS_CLONEABLE
         , ICloneable
 #endif
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary> Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
         public AdjacencyGraph()
@@ -188,14 +188,15 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int OutDegree(TVertex vertex)
+        public int? OutDegree(TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
             if (_vertexEdges.TryGetValue(vertex, out IEdgeList<TEdge> outEdges))
                 return outEdges.Count;
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -206,7 +207,8 @@ namespace QuikGraph
 
             if (_vertexEdges.TryGetValue(vertex, out IEdgeList<TEdge> outEdges))
                 return outEdges.AsEnumerable();
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -233,7 +235,8 @@ namespace QuikGraph
 
             if (_vertexEdges.TryGetValue(vertex, out IEdgeList<TEdge> outEdges))
                 return outEdges[index];
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         #endregion
@@ -333,7 +336,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public int RemoveVertexIf(VertexPredicate<TVertex> predicate)
+        public int RemoveVertexIf(Func<TVertex, bool> predicate)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));
@@ -412,7 +415,10 @@ namespace QuikGraph
             if (edge == null)
                 throw new ArgumentNullException(nameof(edge));
             if (!ContainsVertex(edge.Source) || !ContainsVertex(edge.Target))
-                throw new VertexNotFoundException();
+            {
+                return false;
+                //AddVerticesAndEdge(edge);
+            }
 
             return AddEdgeInternal(edge);
         }
@@ -546,7 +552,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public int RemoveEdgeIf(EdgePredicate<TVertex, TEdge> predicate)
+        public int RemoveEdgeIf(Func<TEdge, bool> predicate)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));
@@ -562,7 +568,7 @@ namespace QuikGraph
         #region IMutableIncidenceGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int RemoveOutEdgeIf(TVertex vertex, EdgePredicate<TVertex, TEdge> predicate)
+        public int RemoveOutEdgeIf(TVertex vertex, Func<TEdge, bool> predicate)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));

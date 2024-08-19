@@ -56,7 +56,7 @@ namespace QuikGraph.Algorithms.RandomWalks
         /// Predicate to prematurely ends the walk.
         /// </summary>
         [CanBeNull]
-        public EdgePredicate<TVertex, TEdge> EndPredicate { get; set; }
+        public Func<TEdge, bool> EndPredicate { get; set; }
 
         /// <summary>
         /// Fired on a starting vertex once before the start of the walk from it.

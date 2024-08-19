@@ -179,7 +179,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             }
             else if (!VisitedGraph.ContainsVertex(root))
             {
-                throw new VertexNotFoundException("Root vertex is not part of the graph.");
+                throw new Exception("Root vertex is not part of the graph.");
             }
 
             SetVertexDistance(root, 0);

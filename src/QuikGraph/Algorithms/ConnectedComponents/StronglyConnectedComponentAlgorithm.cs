@@ -20,7 +20,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
     public sealed class StronglyConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>
         , IConnectedComponentAlgorithm<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         [NotNull]
         private readonly Stack<TVertex> _stack;

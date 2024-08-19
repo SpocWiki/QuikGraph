@@ -13,7 +13,7 @@ namespace QuikGraph
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateVertexAndEdgeListGraph<TVertex, TEdge> : DelegateIncidenceGraph<TVertex, TEdge>, IVertexAndEdgeListGraph<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateVertexAndEdgeListGraph{TVertex,TEdge}"/> class.
@@ -61,7 +61,7 @@ namespace QuikGraph
             {
                 if (VertexCount == 0)
                     return true; // No vertex => must be empty 
-                return _vertices.All(vertex => !OutEdges(vertex).Any());
+                return _vertices.All(vertex => !OutEdges(vertex)?.Any() ?? true);
             }
         }
 
@@ -71,7 +71,7 @@ namespace QuikGraph
         /// <inheritdoc />
         public virtual IEnumerable<TEdge> Edges =>
             _vertices.SelectMany(
-                vertex => OutEdges(vertex).Where(outEdge => EqualityComparer<TVertex>.Default.Equals(outEdge.Source, vertex)));
+                vertex => OutEdges(vertex)?.Where(outEdge => EqualityComparer<TVertex>.Default.Equals(outEdge.Source, vertex)));
 
         /// <inheritdoc />
         public bool ContainsEdge(TEdge edge)
@@ -144,8 +144,9 @@ namespace QuikGraph
         internal override IEnumerable<TEdge> OutEdgesInternal(TVertex vertex)
         {
             if (!ContainsVertexInternal(vertex))
-                throw new VertexNotFoundException();
-            return base.OutEdgesInternal(vertex).Where(outEdge => FilterEdges(outEdge, vertex));
+                return null;
+
+            return base.OutEdgesInternal(vertex)?.Where(outEdge => FilterEdges(outEdge, vertex));
         }
 
         /// <inheritdoc />

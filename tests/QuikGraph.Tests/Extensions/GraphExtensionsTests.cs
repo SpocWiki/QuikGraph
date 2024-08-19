@@ -26,7 +26,7 @@ namespace QuikGraph.Tests.Extensions
 
             var graph = tryGetEdges.ToDelegateIncidenceGraph();
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph.OutEdges(1));
+            Assert.IsNull(graph.OutEdges(1));
 
             var edge12 = Edge.Create(1, 2);
             var edge21 = Edge.Create(2, 1);
@@ -115,7 +115,7 @@ namespace QuikGraph.Tests.Extensions
 
             var graph = getEdges.ToDelegateIncidenceGraph();
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph.OutEdges(1));
+            Assert.IsNull(graph.OutEdges(1));
 
             var edge12 = Edge.Create(1, 2);
             var edge21 = Edge.Create(2, 1);
@@ -472,8 +472,8 @@ namespace QuikGraph.Tests.Extensions
 
             var graph = tryGetOutEdges.ToDelegateBidirectionalIncidenceGraph(tryGetInEdges);
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph.OutEdges(1));
-            Assert.Throws<VertexNotFoundException>(() => graph.InEdges(1));
+            Assert.IsNull(graph.OutEdges(1));
+            Assert.IsNull(graph.InEdges(1));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
             var edge12 = Edge.Create(1, 2);

@@ -12,7 +12,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
     {
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
         public void RunStronglyConnectedComponentsAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             var algorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(graph);
             algorithm.Compute();
@@ -84,7 +84,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             void AssertAlgorithmProperties<TVertex, TEdge>(
                 StronglyConnectedComponentsAlgorithm<TVertex, TEdge> algo,
                 IVertexListGraph<TVertex, TEdge> g)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 algo.AssertAlgorithmState(g);
                 Assert.AreEqual(0, algo.ComponentCount);

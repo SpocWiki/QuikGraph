@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -51,30 +51,30 @@ namespace QuikGraph.Tests.Predicates
 
             graph.AddVertex(1);
             graph.AddVertex(2);
-            Assert.IsTrue(predicate.Test(1));
-            Assert.IsTrue(predicate.Test(2));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(1));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(2));
 
             graph.AddVertex(3);
             graph.AddEdge(Edge.Create(1, 3));
-            Assert.IsFalse(predicate.Test(1));
-            Assert.IsTrue(predicate.Test(2));
-            Assert.IsTrue(predicate.Test(3));
+            Assert.IsFalse(predicate.TestIsOutEdgesEmpty(1));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(2));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(3));
 
             graph.AddEdge(Edge.Create(1, 2));
-            Assert.IsFalse(predicate.Test(1));
-            Assert.IsTrue(predicate.Test(2));
-            Assert.IsTrue(predicate.Test(3));
+            Assert.IsFalse(predicate.TestIsOutEdgesEmpty(1));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(2));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(3));
 
             var edge23 = Edge.Create(2, 3);
             graph.AddEdge(edge23);
-            Assert.IsFalse(predicate.Test(1));
-            Assert.IsFalse(predicate.Test(2));
-            Assert.IsTrue(predicate.Test(3));
+            Assert.IsFalse(predicate.TestIsOutEdgesEmpty(1));
+            Assert.IsFalse(predicate.TestIsOutEdgesEmpty(2));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(3));
 
             graph.RemoveEdge(edge23);
-            Assert.IsFalse(predicate.Test(1));
-            Assert.IsTrue(predicate.Test(2));
-            Assert.IsTrue(predicate.Test(3));
+            Assert.IsFalse(predicate.TestIsOutEdgesEmpty(1));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(2));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(3));
         }
 
         [Test]
@@ -84,9 +84,9 @@ namespace QuikGraph.Tests.Predicates
             var predicate = new SinkVertexPredicate<TestVertex, Edge<TestVertex>>(graph);
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => predicate.Test(new TestVertex("1")));
+            Assert.IsTrue(predicate.TestIsOutEdgesEmpty(new TestVertex("1")));
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => predicate.Test(null));
+            Assert.Throws<ArgumentNullException>(() => predicate.TestIsOutEdgesEmpty(null));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
     }

@@ -73,8 +73,8 @@ namespace QuikGraph.Tests.Structures
             graph.AddEdge(Edge.Create(0, 1));
             Assert.Throws<ParallelEdgeNotAllowedException>(() => graph.AddEdge(Edge.Create(0, 1)));
 
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(1, 2)));
-            Assert.Throws<VertexNotFoundException>(() => graph.AddEdge(Edge.Create(2, 1)));
+            Assert.IsFalse(graph.AddEdge(new Edge<int>(1, 2)));
+            Assert.IsFalse(graph.AddEdge(new Edge<int>(2, 1)));
         }
 
         [Test]

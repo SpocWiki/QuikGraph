@@ -116,13 +116,11 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int OutDegree(TVertex vertex) => OriginalGraph.InDegree(vertex);
+        public int? OutDegree(TVertex vertex) => OriginalGraph.InDegree(vertex);
 
         /// <inheritdoc />
         public IEnumerable<SReversedEdge<TVertex, TEdge>> OutEdges(TVertex vertex)
-        {
-            return EdgeExtensions.ReverseEdges<TVertex, TEdge>(OriginalGraph.InEdges(vertex));
-        }
+            => EdgeExtensions.ReverseEdges<TVertex, TEdge>(OriginalGraph.InEdges(vertex));
 
         /// <inheritdoc />
         public bool TryGetOutEdges(TVertex vertex, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
@@ -162,7 +160,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public int InDegree(TVertex vertex) => OriginalGraph.OutDegree(vertex);
+        public int? InDegree(TVertex vertex) => OriginalGraph.OutDegree(vertex);
 
         /// <inheritdoc />
         public bool TryGetInEdges(TVertex vertex, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
@@ -178,10 +176,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public int Degree(TVertex vertex)
-        {
-            return OriginalGraph.Degree(vertex);
-        }
+        public int? Degree(TVertex vertex) => OriginalGraph.Degree(vertex);
 
         #endregion
     }

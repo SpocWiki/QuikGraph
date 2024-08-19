@@ -23,7 +23,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var distances = new Dictionary<TEdge, double>();
             foreach (TEdge edge in graph.Edges)
-                distances[edge] = graph.AdjacentDegree(edge.Source) + 1;
+                distances[edge] = graph.AdjacentDegree(edge.Source) + 1 ?? double.PositiveInfinity;
 
             var algorithm = new UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, e => distances[e]);
             var predecessors = new UndirectedVertexPredecessorRecorderObserver<TVertex, TEdge>();

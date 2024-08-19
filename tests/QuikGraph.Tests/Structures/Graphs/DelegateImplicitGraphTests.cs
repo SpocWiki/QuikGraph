@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 
 namespace QuikGraph.Tests.Structures
@@ -26,7 +26,7 @@ namespace QuikGraph.Tests.Structures
             void AssertGraphProperties<TVertex, TEdge>(
                 DelegateImplicitGraph<TVertex, TEdge> g,
                 bool parallelEdges = true)
-                where TEdge : IEdge<TVertex>
+                where TEdge : class, IEdge<TVertex>
             {
                 Assert.IsTrue(g.IsDirected);
                 Assert.AreEqual(parallelEdges, g.AllowParallelEdges);

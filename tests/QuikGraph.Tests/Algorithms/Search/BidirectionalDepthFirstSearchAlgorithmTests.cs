@@ -266,7 +266,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             // Algorithm not run
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => algorithm.GetVertexColor(1));
+            Assert.IsNull(algorithm.GetVertexColor(1));
 
             algorithm.Compute();
 

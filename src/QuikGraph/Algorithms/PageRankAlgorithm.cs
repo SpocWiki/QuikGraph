@@ -12,7 +12,7 @@ namespace QuikGraph.Algorithms.Ranking
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class PageRankAlgorithm<TVertex, TEdge> : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PageRankAlgorithm{TVertex,TEdge}"/> class.
@@ -134,7 +134,7 @@ namespace QuikGraph.Algorithms.Ranking
                     // Compute sum of PR(pj)/L(pj)
                     double r = filterGraph.InEdges(vertex)
                         .Select(edge => edge.Source)
-                        .Sum(source => Ranks[source] / filterGraph.OutDegree(source));
+                        .Sum(source => Ranks[source] / filterGraph.OutDegree(source).Value);
 
                     // Add sourceRank and store it
                     double newRank = (1 - Damping) + Damping * r;

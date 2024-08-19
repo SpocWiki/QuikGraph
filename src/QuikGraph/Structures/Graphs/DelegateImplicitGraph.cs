@@ -11,7 +11,7 @@ namespace QuikGraph
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateImplicitGraph<TVertex, TEdge> : IImplicitGraph<TVertex, TEdge>
-        where TEdge : IEdge<TVertex>
+        where TEdge : class, IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateImplicitGraph{TVertex,TEdge}"/> class.
@@ -50,13 +50,11 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int OutDegree(TVertex vertex)
-        {
-            return OutEdges(vertex).Count();
-        }
+        public int? OutDegree(TVertex vertex) => OutEdges(vertex)?.Count();
 
         [Pure]
-        [NotNull, ItemNotNull]
+        [ItemNotNull]
+        [CanBeNull]
         internal virtual IEnumerable<TEdge> OutEdgesInternal([NotNull] TVertex vertex)
         {
             if (vertex == null)
@@ -64,14 +62,12 @@ namespace QuikGraph
 
             if (_tryGetOutEdgesFunc(vertex, out IEnumerable<TEdge> outEdges))
                 return outEdges;
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
-        public IEnumerable<TEdge> OutEdges(TVertex vertex)
-        {
-            return OutEdgesInternal(vertex);
-        }
+        public IEnumerable<TEdge> OutEdges(TVertex vertex) => OutEdgesInternal(vertex);
 
         [Pure]
         internal virtual bool TryGetOutEdgesInternal([NotNull] TVertex vertex, out IEnumerable<TEdge> edges)
@@ -83,31 +79,16 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            return TryGetOutEdgesInternal(vertex, out edges);
-        }
+        public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges) => TryGetOutEdgesInternal(vertex, out edges);
 
         /// <inheritdoc />
-        public TEdge OutEdge(TVertex vertex, int index)
-        {
-            return OutEdges(vertex).ElementAt(index);
-        }
+        public TEdge OutEdge(TVertex vertex, int index) => OutEdges(vertex)?.ElementAt(index);
 
         [Pure]
-        internal virtual bool ContainsVertexInternal([NotNull] TVertex vertex)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            return _tryGetOutEdgesFunc(vertex, out _);
-        }
+        internal virtual bool ContainsVertexInternal([NotNull] TVertex vertex) => _tryGetOutEdgesFunc(vertex, out _);
 
         /// <inheritdoc />
-        public bool ContainsVertex(TVertex vertex)
-        {
-            return ContainsVertexInternal(vertex);
-        }
+        public bool ContainsVertex(TVertex vertex) => ContainsVertexInternal(vertex);
 
         #endregion
     }

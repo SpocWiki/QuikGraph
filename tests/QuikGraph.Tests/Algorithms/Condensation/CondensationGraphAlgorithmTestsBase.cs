@@ -13,7 +13,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         protected static void CheckVertexCount<TVertex, TEdge>(
             [NotNull] IVertexSet<TVertex> graph,
             [NotNull] IVertexSet<AdjacencyGraph<TVertex, TEdge>> condensedGraph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             int count = 0;
             foreach (AdjacencyGraph<TVertex, TEdge> vertices in condensedGraph.Vertices)
@@ -24,7 +24,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         protected static void CheckEdgeCount<TVertex, TEdge>(
             [NotNull] IEdgeSet<TVertex, TEdge> graph,
             [NotNull] IEdgeListGraph<AdjacencyGraph<TVertex, TEdge>, CondensedEdge<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>> condensedGraph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             // Check edge count
             int count = 0;
@@ -37,7 +37,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
 
         protected static void CheckDAG<TVertex, TEdge>(
             [NotNull] IVertexAndEdgeListGraph<AdjacencyGraph<TVertex, TEdge>, CondensedEdge<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>> condensedGraph)
-            where TEdge : IEdge<TVertex>
+            where TEdge : class, IEdge<TVertex>
         {
             Assert.IsTrue(condensedGraph.IsDirectedAcyclicGraph());
         }

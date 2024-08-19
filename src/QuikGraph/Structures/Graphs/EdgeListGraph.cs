@@ -252,7 +252,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public int RemoveEdgeIf(EdgePredicate<TVertex, TEdge> predicate)
+        public int RemoveEdgeIf(Func<TEdge, bool> predicate)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));

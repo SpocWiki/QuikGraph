@@ -76,7 +76,7 @@ namespace QuikGraph
             int index = 0;
             foreach (TVertex vertex in graph.Vertices)
             {
-                int end = start + graph.OutDegree(vertex);
+                int end = start + (graph.OutDegree(vertex) ?? 0);
                 var range = new Range(start, end);
                 outEdgeStartRanges.Add(vertex, range);
 
@@ -237,14 +237,15 @@ namespace QuikGraph
         #region IImplicitGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public int OutDegree(TVertex vertex)
+        public int? OutDegree(TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
             if (_outEdgeStartRanges.TryGetValue(vertex, out Range range))
                 return range.Length;
-            throw new VertexNotFoundException();
+
+            return null;
         }
 
         /// <inheritdoc />
@@ -256,7 +257,7 @@ namespace QuikGraph
         }
 
         [Pure]
-        [NotNull]
+        [CanBeNull]
 #if SUPPORTS_AGGRESSIVE_INLINING
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
@@ -265,12 +266,8 @@ namespace QuikGraph
             Debug.Assert(vertex != null);
 
             if (_outEdgeStartRanges.TryGetValue(vertex, out Range range))
-            {
                 for (int i = range.Start; i < range.End; ++i)
                     yield return new SEquatableEdge<TVertex>(vertex, _outEdges[i]);
-            }
-            else
-                throw new VertexNotFoundException();
         }
 
         /// <inheritdoc />
@@ -301,7 +298,7 @@ namespace QuikGraph
                 return new SEquatableEdge<TVertex>(vertex, _outEdges[targetIndex]);
             }
 
-            throw new VertexNotFoundException();
+            return default(SEquatableEdge<TVertex>);
         }
 
         #endregion
