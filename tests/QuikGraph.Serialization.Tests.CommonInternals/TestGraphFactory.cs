@@ -85,6 +85,7 @@ namespace QuikGraph.Tests
             AdjacencyGraph<string, Edge<string>> graph = LoadGraph(graphMLFilePath);
             var undirectedGraph = new UndirectedGraph<string, Edge<string>>();
             undirectedGraph.AddVerticesAndEdgeRange(graph.Edges);
+            undirectedGraph.Id = Path.GetFileNameWithoutExtension(graphMLFilePath);
             return undirectedGraph;
         }
 

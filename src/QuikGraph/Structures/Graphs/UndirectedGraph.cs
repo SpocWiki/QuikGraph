@@ -59,9 +59,7 @@ namespace QuikGraph
             AllowParallelEdges = allowParallelEdges;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedGraph{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="UndirectedGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         /// <param name="edgeEqualityComparer">Equality comparer to use to compare edges.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeEqualityComparer"/> is <see langword="null"/>.</exception>
@@ -186,6 +184,12 @@ namespace QuikGraph
 
         /// <inheritdoc />
         public IEnumerable<TEdge> Edges => _edges.AsEnumerable();
+
+        /// <summary> Optional Id for this Graph </summary>
+        public string Id { get; set; }
+
+        /// <inheritdoc />
+        public override string ToString() => GetType().Name + ": " + Id;
 
         /// <inheritdoc />
         public bool ContainsEdge(TEdge edge)
