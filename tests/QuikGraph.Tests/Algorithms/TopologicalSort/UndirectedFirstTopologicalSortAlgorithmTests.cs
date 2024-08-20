@@ -16,7 +16,7 @@ namespace QuikGraph.Tests.Algorithms
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_All))]
         public static void RunUndirectedFirstTopologicalSortAndCheck<TVertex, TEdge>(
             [NotNull] IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
-            => RunUndirectedFirstTopologicalSortAndCheck<TVertex, TEdge>(graph, false);
+            => RunUndirectedFirstTopologicalSortAndCheck(graph, false);
 
         public static void RunUndirectedFirstTopologicalSortAndCheck<TVertex, TEdge>(
             [NotNull] IUndirectedGraph<TVertex, TEdge> graph, bool allowCycles)

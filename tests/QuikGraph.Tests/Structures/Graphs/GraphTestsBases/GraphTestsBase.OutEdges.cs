@@ -190,8 +190,8 @@ namespace QuikGraph.Tests.Structures
             [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentOutOfRangeException>(() => graph.OutEdge(-1, 0));
-            Assert.Throws<ArgumentOutOfRangeException>(() => graph.OutEdge(4, 0));
+            Assert.Throws<VertexNotFoundException>(() => graph.OutEdge(-1, 0));
+            Assert.Throws<VertexNotFoundException>(() => graph.OutEdge(4, 0));
 
             graph.AddEdge(Edge.Create(1, 2));
             AssertIndexOutOfRange(() => graph.OutEdge(1, 5));
