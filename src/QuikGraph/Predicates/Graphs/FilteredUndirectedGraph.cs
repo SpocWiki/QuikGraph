@@ -125,7 +125,7 @@ namespace QuikGraph.Predicates
                 throw new ArgumentNullException(nameof(vertex));
 
             if (VertexPredicate(vertex))
-                return AdjacentEdges(vertex).ElementAt(index);
+                return AdjacentEdges(vertex)?.ElementAt(index);
 
             return null;
         }

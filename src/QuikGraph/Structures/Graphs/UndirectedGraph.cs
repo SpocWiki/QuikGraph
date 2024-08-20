@@ -119,10 +119,16 @@ namespace QuikGraph
         /// <returns>Set of adjacent vertices.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
-        [NotNull, ItemNotNull]
+        [ItemNotNull]
+        [CanBeNull]
         public IEnumerable<TVertex> AdjacentVertices([NotNull] TVertex vertex)
         {
-            IEnumerable<TEdge> adjacentEdges = AdjacentEdges(vertex);
+            var adjacentEdges = AdjacentEdges(vertex);
+            if (adjacentEdges is null)
+            {
+                return null;
+            }
+
             var adjacentVertices = new HashSet<TVertex>();
             foreach (TEdge edge in adjacentEdges)
             {
@@ -213,6 +219,7 @@ namespace QuikGraph
         #region IUndirectedGraph<TVertex,TEdge>
 
         /// <inheritdoc />
+        [CanBeNull]
         public IEnumerable<TEdge> AdjacentEdges(TVertex vertex)
         {
             if (vertex == null)

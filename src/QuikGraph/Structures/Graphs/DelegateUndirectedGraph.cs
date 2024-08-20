@@ -146,7 +146,7 @@ namespace QuikGraph
         {
             if (!ContainsVertexInternal(vertex))
                 return null;
-            return base.AdjacentEdgesInternal(vertex).Where(edge => FilterEdges(edge, vertex));
+            return base.AdjacentEdgesInternal(vertex)?.Where(edge => FilterEdges(edge, vertex));
         }
 
         /// <inheritdoc />

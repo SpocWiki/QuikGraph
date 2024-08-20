@@ -65,7 +65,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void EqualsDefaultEdge_ReferenceTypeExtremities()
         {
-            var edge1 = default(SEquatableEdge<TestVertex>);
+            var edge1 = new SEquatableEdge<TestVertex>(default!, default!); //default(SEquatableEdge<TestVertex>);
             var edge2 = new SEquatableEdge<TestVertex>(default!, default!);
 
             Assert.AreEqual(edge1, edge2);

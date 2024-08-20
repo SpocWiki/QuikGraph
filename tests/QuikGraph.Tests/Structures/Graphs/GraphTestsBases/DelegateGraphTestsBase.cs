@@ -18,8 +18,13 @@ namespace QuikGraph.Tests.Structures
         protected static TryFunc<TVertex, IEnumerable<TEdge>> GetEmptyGetter<TVertex, TEdge>()
             where TEdge : IEdge<TVertex>
         {
-            return (TVertex _, out IEnumerable<TEdge> edges) =>
+            return (TVertex vertex, out IEnumerable<TEdge> edges) =>
             {
+                if (vertex is null)
+                {
+                    throw new ArgumentNullException(nameof(vertex));
+                }
+
                 edges = null;
                 return false;
             };
@@ -48,9 +53,11 @@ namespace QuikGraph.Tests.Structures
             [NotNull] 
             public TryFunc<TVertex, IEnumerable<TEdge>> TryGetEdges { get; }
 
+            /// <summary> Optional Default Edges when <see cref="ShouldReturnValue"/> is true </summary>
             [CanBeNull, ItemNotNull]
             public IEnumerable<TEdge> ShouldReturnEdges { get; set; }
 
+            /// <summary> Flag to return a value instead of null </summary>
             public bool ShouldReturnValue { get; set; }
 
             public void CheckCalls(int expectedCalls)
@@ -242,7 +249,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.AreEqual(true, graph.IsOutEdgesEmpty(1));
+            Assert.AreEqual(null, graph.IsOutEdgesEmpty(1));
             data.CheckCalls(1);
 
             Assert.IsNull(graph.OutDegree(1));
@@ -408,7 +415,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.True(graph.IsInEdgesEmpty(1));
+            Assert.Null(graph.IsInEdgesEmpty(1));
             data.CheckCalls(1);
 
             Assert.IsNull(graph.InDegree(1));

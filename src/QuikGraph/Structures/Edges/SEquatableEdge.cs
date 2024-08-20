@@ -43,18 +43,12 @@ namespace QuikGraph
         public TVertex Target { get; }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            return obj is SEquatableEdge<TVertex> edge
-                   && Equals(edge);
-        }
+        public override bool Equals(object obj) => obj is SEquatableEdge<TVertex> edge && Equals(edge);
 
         /// <inheritdoc />
-        public bool Equals(SEquatableEdge<TVertex> other)
-        {
-            return EqualityComparer<TVertex>.Default.Equals(Source, other.Source)
-                   && EqualityComparer<TVertex>.Default.Equals(Target, other.Target);
-        }
+        public bool Equals(SEquatableEdge<TVertex> other) => other != null
+            && EqualityComparer<TVertex>.Default.Equals(Source, other.Source)
+            && EqualityComparer<TVertex>.Default.Equals(Target, other.Target);
 
         /// <inheritdoc />
         public override int GetHashCode()

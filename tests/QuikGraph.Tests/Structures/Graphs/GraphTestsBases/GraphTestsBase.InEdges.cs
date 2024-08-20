@@ -150,7 +150,7 @@ namespace QuikGraph.Tests.Structures
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             IBidirectionalIncidenceGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
-            Assert.IsNull(graph.InEdge(vertex1, 0));
+            Assert.Throws<ArgumentNullException>(() => graph.InEdge(vertex1, 0));
 
             wrappedGraph.AddVertex(vertex1);
             wrappedGraph.AddVertex(vertex2);
@@ -291,7 +291,7 @@ namespace QuikGraph.Tests.Structures
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             var vertex = new TVertex();
-            Assert.IsTrue(graph.IsInEdgesEmpty(vertex));
+            Assert.IsNull(graph.IsInEdgesEmpty(vertex));
             Assert.IsNull(graph.InDegree(vertex));
             Assert.IsNull(graph.InEdges(vertex)?.ToArray());
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed

@@ -161,6 +161,10 @@ namespace QuikGraph
         /// <inheritdoc />
         public bool ContainsEdge(SEquatableEdge<TVertex> edge)
         {
+            if (edge is null)
+            {
+                throw new ArgumentNullException(nameof(edge));
+            }
             return ContainsEdge(edge.Source, edge.Target);
         }
 

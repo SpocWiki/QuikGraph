@@ -109,7 +109,7 @@ namespace QuikGraph.Predicates
                 throw new ArgumentNullException(nameof(vertex));
 
             if (VertexPredicate(vertex))
-                return BaseGraph.InEdges(vertex).Where(FilterEdge).ElementAt(index);
+                return BaseGraph.InEdges(vertex)?.Where(FilterEdge).ElementAt(index);
 
             return null;
         }
