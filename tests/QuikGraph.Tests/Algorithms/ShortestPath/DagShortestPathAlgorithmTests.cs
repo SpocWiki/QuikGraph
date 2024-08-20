@@ -34,7 +34,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 }
                 else
                 {
-                    Assert.Throws<NonAcyclicGraphException>(() => RunDagShortestPathAndCheck(graph, root, relaxer));
+                    Assert.Throws<CyclicGraphException>(() => RunDagShortestPathAndCheck(graph, root, relaxer));
                 }
             }
         }

@@ -161,7 +161,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
         }
 
         [Test]
@@ -184,7 +184,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
         }
 
         #region Test classes

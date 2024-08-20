@@ -34,7 +34,7 @@ namespace QuikGraph.Tests.Exceptions
             ExceptionConstructorTest((m, e) => new NegativeCapacityException(m, e));
             ExceptionConstructorTest((m, e) => new NegativeCycleGraphException(m, e));
             ExceptionConstructorTest((m, e) => new NegativeWeightException(m, e));
-            ExceptionConstructorTest((m, e) => new NonAcyclicGraphException(m, e));
+            ExceptionConstructorTest((m, e) => new CyclicGraphException(m, e));
             ExceptionConstructorTest((m, e) => new NonStronglyConnectedGraphException(m, e));
             ExceptionConstructorTest((m, e) => new NoPathFoundException(m, e));
             ExceptionConstructorTest((m, e) => new ParallelEdgeNotAllowedException(m, e));
@@ -63,7 +63,7 @@ namespace QuikGraph.Tests.Exceptions
             ExceptionSerializationTest(() => new NegativeCapacityException());
             ExceptionSerializationTest(() => new NegativeCycleGraphException());
             ExceptionSerializationTest(() => new NegativeWeightException());
-            ExceptionSerializationTest(() => new NonAcyclicGraphException());
+            ExceptionSerializationTest(() => new CyclicGraphException());
             ExceptionSerializationTest(() => new NonStronglyConnectedGraphException());
             ExceptionSerializationTest(() => new NoPathFoundException());
             ExceptionSerializationTest(() => new ParallelEdgeNotAllowedException());

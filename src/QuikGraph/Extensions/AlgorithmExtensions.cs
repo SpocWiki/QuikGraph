@@ -581,7 +581,7 @@ namespace QuikGraph.Algorithms
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
+        /// <exception cref="CyclicGraphException">If the input graph has a cycle.</exception>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<TVertex> TopologicalSort<TVertex, TEdge>(
@@ -604,7 +604,7 @@ namespace QuikGraph.Algorithms
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
+        /// <exception cref="CyclicGraphException">If the input graph has a cycle.</exception>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<TVertex> TopologicalSort<TVertex, TEdge>(
@@ -627,7 +627,7 @@ namespace QuikGraph.Algorithms
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
+        /// <exception cref="CyclicGraphException">If the input graph has a cycle.</exception>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<TVertex> SourceFirstTopologicalSort<TVertex, TEdge>(
@@ -650,7 +650,7 @@ namespace QuikGraph.Algorithms
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
+        /// <exception cref="CyclicGraphException">If the input graph has a cycle.</exception>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<TVertex> SourceFirstTopologicalSort<TVertex, TEdge>(
@@ -674,7 +674,7 @@ namespace QuikGraph.Algorithms
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
+        /// <exception cref="CyclicGraphException">If the input graph has a cycle.</exception>
         [Pure]
         public static IEnumerable<TVertex> SourceFirstBidirectionalTopologicalSort<TVertex, TEdge>(
             [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph)
@@ -692,7 +692,7 @@ namespace QuikGraph.Algorithms
         /// <param name="direction">Topological sort direction.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
+        /// <exception cref="CyclicGraphException">If the input graph has a cycle.</exception>
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<TVertex> SourceFirstBidirectionalTopologicalSort<TVertex, TEdge>(

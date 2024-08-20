@@ -166,7 +166,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
 
             algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph)
             {
@@ -201,7 +201,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
 
             algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph)
             {

@@ -159,7 +159,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             var algorithm = new UndirectedTopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
 
             algorithm = new UndirectedTopologicalSortAlgorithm<int, IEdge<int>>(graph)
             {
@@ -194,7 +194,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             var algorithm = new UndirectedTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
 
             algorithm = new UndirectedTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph)
             {

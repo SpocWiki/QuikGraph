@@ -205,10 +205,10 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
 
             algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph, TopologicalSortDirection.Backward);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_All))]
@@ -239,7 +239,7 @@ namespace QuikGraph.Tests.Algorithms
             });
 
             var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
         }
     }
 }

@@ -69,7 +69,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
             foreach (TEdge edge in VisitedGraph.Edges)
             {
                 if (edge.IsSelfEdge())
-                    throw new NonAcyclicGraphException();
+                    throw new CyclicGraphException();
 
                 ++InDegrees[edge.Target];
             }
@@ -103,7 +103,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
 
                 TVertex vertex = _heap.Dequeue();
                 if (InDegrees[vertex] != 0)
-                    throw new NonAcyclicGraphException();
+                    throw new CyclicGraphException();
 
                 _sortedVertices.Add(vertex);
                 OnVertexAdded(vertex);

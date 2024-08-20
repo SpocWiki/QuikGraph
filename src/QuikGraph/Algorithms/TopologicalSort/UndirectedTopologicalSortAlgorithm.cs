@@ -44,7 +44,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
         private void BackEdge([NotNull] object sender, [NotNull] UndirectedEdgeEventArgs<TVertex, TEdge> args)
         {
             if (!AllowCyclicGraph)
-                throw new NonAcyclicGraphException();
+                throw new CyclicGraphException();
         }
 
         private void OnVertexFinished([NotNull] TVertex vertex)

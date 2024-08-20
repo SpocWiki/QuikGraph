@@ -40,7 +40,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
         {
             Debug.Assert(edge != null);
 
-            throw new NonAcyclicGraphException();
+            throw new CyclicGraphException();
         }
 
         private void OnVertexFinished([NotNull] TVertex vertex)
