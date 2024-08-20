@@ -118,6 +118,12 @@ namespace QuikGraph
         /// <inheritdoc />
         public virtual IEnumerable<TEdge> Edges => _vertexEdges.Values.SelectMany(edges => edges);
 
+        /// <summary> Optional Id for this Graph </summary>
+        public string Id { get; set; }
+
+        /// <inheritdoc />
+        public override string ToString() => GetType().Name + ": " + Id;
+
         /// <inheritdoc />
         public bool ContainsEdge(TEdge edge)
         {

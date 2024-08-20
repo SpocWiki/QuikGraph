@@ -54,7 +54,7 @@ namespace QuikGraph.Tests
                     id => id,
                     (source, target, _) => new Edge<string>(source, target));
             }
-
+            graph.Id = Path.GetFileNameWithoutExtension(graphMLFilePath);
             return graph;
         }
 
@@ -71,7 +71,7 @@ namespace QuikGraph.Tests
                     id => id,
                     (source, target, _) => new Edge<string>(source, target));
             }
-
+            graph.Id = Path.GetFileNameWithoutExtension(graphMLFilePath);
             return graph;
         }
 
