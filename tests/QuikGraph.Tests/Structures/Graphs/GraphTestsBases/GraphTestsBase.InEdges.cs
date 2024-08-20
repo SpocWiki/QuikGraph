@@ -307,8 +307,8 @@ namespace QuikGraph.Tests.Structures
             Assert.IsNull(graph.IsInEdgesEmpty(vertex));
             Assert.IsNull(graph.InDegree(vertex));
             Assert.IsNull(graph.InEdges(vertex)?.ToArray());
-            //Assert.Throws<VertexNotFoundException>(() => graph.IsInEdgesEmpty(vertex));
-            //Assert.Throws<VertexNotFoundException>(() => graph.InDegree(vertex));
+            // ReSharper restore AssignNullToNotNullAttribute
+            // ReSharper restore ReturnValueOfPureMethodIsNotUsed
             //Assert.Throws<VertexNotFoundException>(() => graph.InEdges(vertex).ToArray());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed

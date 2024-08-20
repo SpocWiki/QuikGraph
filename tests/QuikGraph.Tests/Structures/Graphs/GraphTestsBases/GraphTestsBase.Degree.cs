@@ -97,7 +97,7 @@ namespace QuikGraph.Tests.Structures
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.Degree(null));
-            Assert.IsNull(graph.Degree(new TVertex()));
+            Assert.Throws<VertexNotFoundException>(() => graph.Degree(new TVertex()));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
 

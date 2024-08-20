@@ -402,8 +402,8 @@ namespace QuikGraph.Tests.Structures
             Assert.AreEqual(default, graph.IsOutEdgesEmpty(vertex));
             Assert.AreEqual(default, graph.OutDegree(vertex));
             Assert.AreEqual(default, graph.OutEdges(vertex)?.ToArray());
-
-            //Assert.Throws<VertexNotFoundException>(() => graph.IsOutEdgesEmpty(vertex));
+            // ReSharper restore AssignNullToNotNullAttribute
+            // ReSharper restore ReturnValueOfPureMethodIsNotUsed
             //Assert.Throws<VertexNotFoundException>(() => graph.OutDegree(vertex));
             //Assert.Throws<VertexNotFoundException>(() => graph.OutEdges(vertex).ToArray());
             // ReSharper restore AssignNullToNotNullAttribute
