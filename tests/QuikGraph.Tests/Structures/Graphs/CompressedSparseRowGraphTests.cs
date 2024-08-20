@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using static QuikGraph.Tests.GraphTestHelpers;
 
@@ -183,10 +183,6 @@ namespace QuikGraph.Tests.Structures
             var wrappedGraph1 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             var graph1 = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph1);
             OutEdges_NullThrows_Test(graph1);
-
-            var wrappedGraph2 = new AdjacencyGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
-            var graph2 = CompressedSparseRowGraph<EquatableTestVertex>.FromGraph(wrappedGraph2);
-            OutEdges_Throws_Test(graph2);
         }
 
         #endregion

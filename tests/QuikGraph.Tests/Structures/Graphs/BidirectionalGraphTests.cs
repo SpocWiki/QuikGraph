@@ -539,14 +539,9 @@ namespace QuikGraph.Tests.Structures
             Assert.Throws<VertexNotFoundException>(() => graph1.MergeVertex(1, Edge.Create));
 
             var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            Assert.Throws<ArgumentNullException>(
-                // ReSharper disable AssignNullToNotNullAttribute
-                () => graph2.MergeVertex(null, (source, target) => new Edge<TestVertex>(source, target)));
-            Assert.Throws<ArgumentNullException>(
-                () => graph2.MergeVertex(new TestVertex("1"), null));
-            Assert.Throws<ArgumentNullException>(
-                () => graph2.MergeVertex(null, null));
-            // ReSharper restore AssignNullToNotNullAttribute
+            Assert.Throws<ArgumentNullException>(() => graph2.MergeVertex(null, (source, target) => new Edge<TestVertex>(source, target)));
+            Assert.Throws<ArgumentNullException>(() => graph2.MergeVertex(new TestVertex("1"), null));
+            Assert.Throws<ArgumentNullException>(() => graph2.MergeVertex(null, null));
         }
 
         public void MergeIf_Test(

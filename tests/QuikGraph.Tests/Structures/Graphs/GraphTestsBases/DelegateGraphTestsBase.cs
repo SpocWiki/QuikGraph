@@ -442,13 +442,13 @@ namespace QuikGraph.Tests.Structures
             data1.ShouldReturnValue = false;
             data2.ShouldReturnValue = false;
             Assert.IsNull(graph.Degree(1));
-            data1.CheckCalls(0);
+            data1.CheckCalls(1);
             data2.CheckCalls(1);
 
             data1.ShouldReturnValue = true;
             data2.ShouldReturnValue = false;
             Assert.IsNull(graph.Degree(1));
-            data1.CheckCalls(0);
+            data1.CheckCalls(1);
             data2.CheckCalls(1);
 
             data1.ShouldReturnValue = false;

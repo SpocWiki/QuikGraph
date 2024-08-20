@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
@@ -9,13 +10,13 @@ namespace QuikGraph
     /// <summary>
     /// The default struct based <see cref="IEdge{TVertex}"/> implementation (it is by design an equatable edge) (directed edge).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
+    /// <inheritdoc />
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
     [DebuggerDisplay("{" + nameof(Source) + "}->{" + nameof(Target) + "}")]
     [StructLayout(LayoutKind.Auto)]
-    public class SEdge<TVertex> : IEdge<TVertex>
+    public class SEdge<TVertex> : IEdge<TVertex>, IEquatable<SEdge<TVertex>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SEdge{TVertex}"/> struct.
@@ -42,9 +43,15 @@ namespace QuikGraph
         public TVertex Target { get; }
 
         /// <inheritdoc />
-        public override string ToString()
-        {
-            return string.Format(EdgeConstants.EdgeFormatString, Source, Target);
-        }
+        public bool Equals(SEdge<TVertex> other) => other != null && Source.Equals(other.Source) && Target.Equals(other.Target);
+
+        /// <inheritdoc />
+        public override bool Equals(object obj) => Equals(obj as SEdge<TVertex>);
+
+        /// <inheritdoc />
+        public override int GetHashCode() => (Source.GetHashCode() << 1) ^ Target.GetHashCode();
+
+        /// <inheritdoc />
+        public override string ToString() => string.Format(EdgeConstants.EdgeFormatString, Source, Target);
     }
 }

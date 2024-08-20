@@ -56,7 +56,7 @@ namespace QuikGraph
         private void AssertIsInGraph(int vertex)
         {
             if (!IsInGraph(vertex))
-                throw new ArgumentOutOfRangeException(nameof(vertex), vertex, $"Vertex must be in [0, {VertexCount - 1}].");
+                throw new VertexNotFoundException($"Vertex must be in [0, {VertexCount - 1}].");
         }
 
         private void AssertAreInGraph(int source, int target)

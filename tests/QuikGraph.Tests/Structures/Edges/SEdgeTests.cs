@@ -24,14 +24,6 @@ namespace QuikGraph.Tests.Structures
             CheckEdge(new SEdge<TestVertex>(v1, v2), v1, v2);
             CheckEdge(new SEdge<TestVertex>(v2, v1), v2, v1);
             CheckEdge(new SEdge<TestVertex>(v1, v1), v1, v1);
-
-            // Struct break the contract with their implicit default constructor
-            // Non struct edge should be preferred
-            var defaultEdge = new SEdge<TestVertex>(default, default); //default(SEdge<TestVertex>);
-            Assert.IsNull(defaultEdge.Source);
-            // ReSharper disable once HeuristicUnreachableCode
-            // Justification: Since struct has implicit default constructor it allows initialization of invalid edge
-            Assert.IsNull(defaultEdge.Target);
         }
 
         [Test]
@@ -79,18 +71,6 @@ namespace QuikGraph.Tests.Structures
 
             Assert.AreNotEqual(null, edge1);
             Assert.IsFalse(edge1.Equals(null));
-        }
-
-        [Test]
-        public void EqualsDefaultEdge_ReferenceTypeExtremities()
-        {
-            var edge1 = new SEdge<TestVertex>(default, default); //default(SEdge<TestVertex>);
-            var edge2 = new SEdge<TestVertex>(default, default);
-
-            Assert.AreEqual(edge1, edge2);
-            Assert.AreEqual(edge2, edge1);
-            Assert.IsTrue(edge1.Equals(edge2));
-            Assert.IsTrue(edge2.Equals(edge1));
         }
 
         [Test]

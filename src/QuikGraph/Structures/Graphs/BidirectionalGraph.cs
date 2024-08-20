@@ -752,9 +752,7 @@ namespace QuikGraph
 
         #endregion
 
-        /// <summary>
-        /// Removes the given <paramref name="vertex"/> and merges all its connection to other vertices.
-        /// </summary>
+        /// <summary> Removes the given <paramref name="vertex"/> and merges all its connection to other vertices. </summary>
         /// <param name="vertex">The vertex.</param>
         /// <param name="edgeFactory">Factory method to create an edge.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
@@ -775,7 +773,9 @@ namespace QuikGraph
             if (!_vertexInEdges.TryGetValue(vertex, out IEdgeList<TEdge> inEdges))
                 inEdges = _vertexInEdges[vertex] = new EdgeList<TEdge>();
 
-            IEdgeList<TEdge> outEdges = _vertexOutEdges[vertex];
+            if (!_vertexOutEdges.TryGetValue(vertex, out var outEdges)) {
+                throw new VertexNotFoundException();
+            }
 
             // Remove vertex
             RemoveVertex(vertex);

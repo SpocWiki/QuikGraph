@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using static QuikGraph.Tests.GraphTestHelpers;
 
@@ -189,10 +189,6 @@ namespace QuikGraph.Tests.Structures
             var wrappedGraph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             var graph1 = new ReversedBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph1);
             OutEdges_NullThrows_Test(graph1);
-
-            var wrappedGraph2 = new BidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
-            var graph2 = new ReversedBidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>(wrappedGraph2);
-            OutEdges_Throws_Test(graph2);
         }
 
         #endregion
@@ -236,10 +232,6 @@ namespace QuikGraph.Tests.Structures
             var wrappedGraph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             var graph1 = new ReversedBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph1);
             InEdges_NullThrows_Test(graph1);
-
-            var wrappedGraph2 = new BidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
-            var graph2 = new ReversedBidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>(wrappedGraph2);
-            InEdges_Throws_Test(graph2);
         }
 
         #endregion

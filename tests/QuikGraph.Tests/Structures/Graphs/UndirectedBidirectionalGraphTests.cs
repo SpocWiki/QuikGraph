@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using static QuikGraph.Tests.GraphTestHelpers;
 
@@ -176,7 +176,12 @@ namespace QuikGraph.Tests.Structures
         {
             var wrappedGraph = new BidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
             var graph = new UndirectedBidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>(wrappedGraph);
-            AdjacentEdges_Throws_Test(graph);
+            AdjacentEdges_NullThrows_Test(graph);
+
+            var vertex = new EquatableTestVertex();
+            Assert.IsTrue(graph.IsAdjacentEdgesEmpty(vertex));
+            Assert.AreEqual(null, graph.AdjacentDegree(vertex));
+            Assert.IsEmpty(graph.AdjacentEdges(vertex));
         }
 
         #endregion
