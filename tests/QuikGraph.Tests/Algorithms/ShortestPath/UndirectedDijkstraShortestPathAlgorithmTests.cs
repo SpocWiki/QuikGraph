@@ -237,7 +237,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         }
 
         [Category(TestCategories.LongRunning)]
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), [20])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), new object[] { 20 })]
         public void UndirectedDijkstra(UndirectedGraph<string, Edge<string>> graph)
         {
             int cut = 0;

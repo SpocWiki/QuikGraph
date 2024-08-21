@@ -350,7 +350,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             }
         }
 
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [10])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { 10 })]
         [Category(TestCategories.LongRunning)]
         public void CyclePoppingRandomTree(AdjacencyGraph<string, Edge<string>> graph)
         {

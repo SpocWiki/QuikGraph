@@ -340,7 +340,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(2));
         }
 
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), [10])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), new object[] { 10 })]
         public void UndirectedBreadthFirstSearch(UndirectedGraph<string, Edge<string>> graph)
         {
             foreach (string vertex in graph.Vertices)

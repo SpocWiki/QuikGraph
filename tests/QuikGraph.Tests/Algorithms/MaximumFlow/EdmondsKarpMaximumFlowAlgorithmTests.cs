@@ -370,7 +370,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             Assert.AreEqual(GraphColor.White, algorithm.GetVertexColor(3));
         }
 
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [100])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { 100 })]
         [Category(TestCategories.LongRunning)]
         public void EdmondsKarpMaxFlow(AdjacencyGraph<string, Edge<string>> graph)
         {

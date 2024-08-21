@@ -288,7 +288,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(2));
         }
 
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [50])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { 50 })]
         [Category(TestCategories.LongRunning)]
         public void DagShortestPath(AdjacencyGraph<string, Edge<string>> graph)
         {

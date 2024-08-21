@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -188,7 +188,7 @@ namespace QuikGraph.Tests.Algorithms
             Assert.Throws<ArgumentException>(() => algorithm.SetVertexPairs(new[] { new SEquatableEdge<int>(1, 2) }));
         }
 
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [-1])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
         public void TarjanOfflineLeastCommonAncestor(AdjacencyGraph<string, Edge<string>> graph)
         {
             if (graph.VertexCount == 0)

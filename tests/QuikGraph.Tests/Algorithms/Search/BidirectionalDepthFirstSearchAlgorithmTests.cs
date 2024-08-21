@@ -274,7 +274,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(2));
         }
 
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
         public void DepthFirstSearch(BidirectionalGraph<string, Edge<string>> graph)
         {

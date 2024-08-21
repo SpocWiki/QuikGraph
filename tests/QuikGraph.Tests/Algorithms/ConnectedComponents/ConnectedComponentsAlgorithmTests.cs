@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -211,7 +211,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         }
 
         [Category(TestCategories.LongRunning)]
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), [10])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), new object[] { 10 })]
         public void ConnectedComponents(UndirectedGraph<string, Edge<string>> graph)
         {
             while (graph.EdgeCount > 0)

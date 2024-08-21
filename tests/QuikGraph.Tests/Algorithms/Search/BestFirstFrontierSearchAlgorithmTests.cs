@@ -17,7 +17,7 @@ namespace QuikGraph.Tests.Algorithms.Search
     [TestFixture]
     internal sealed class BestFirstFrontierSearchAlgorithmTests : SearchAlgorithmTestsBase
     {
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
         public static void RunAndCheckSearch<TVertex, TEdge>(
             [NotNull] IBidirectionalGraph<TVertex, TEdge> graph)
@@ -280,7 +280,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             RunAndCheckSearch(graph);
         }
 
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
         public void BestFirstFrontierComparedToDijkstraSearch(BidirectionalGraph<string, Edge<string>> graph)
         {

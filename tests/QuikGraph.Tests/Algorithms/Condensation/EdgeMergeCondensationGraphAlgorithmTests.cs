@@ -198,7 +198,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
 
         [Test]
         [Category(TestCategories.LongRunning)]
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), new object[] { -1 })]
         public void EdgeCondensation(BidirectionalGraph<string, Edge<string>> graph)
         {
             var rand = new Random(123456);

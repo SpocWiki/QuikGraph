@@ -276,7 +276,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         }
 
         [Category(TestCategories.LongRunning)]
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), [-1])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), new object[] { -1 })]
         public void UndirectedDepthFirstSearch(UndirectedGraph<string, Edge<string>> graph)
         {
             RunUndirectedDFSAndCheck(graph);

@@ -204,7 +204,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         #endregion
 
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), [-1])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
         public void EdgeDepthFirstSearch(AdjacencyGraph<string, Edge<string>> graph)
         {

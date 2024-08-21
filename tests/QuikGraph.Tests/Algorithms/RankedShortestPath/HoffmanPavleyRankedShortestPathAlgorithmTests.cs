@@ -296,7 +296,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
 
         #endregion
 
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), [-1])]
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
         public void HoffmanPavleyRankedShortestPath(BidirectionalGraph<string, Edge<string>> graph)
         {
