@@ -228,7 +228,7 @@ namespace QuikGraph.Tests.Collections
                 TVertex vertex3,
                 TVertex vertex4)
             {
-                var distances = new Stack<double>([123.0, 3.0, 2.0, 4.0, 5.0, 1.0]);
+                var distances = new Stack<double>(new[] { 123.0, 3.0, 2.0, 4.0, 5.0, 1.0 });
                 var queue = new BinaryQueue<TVertex, double>(_ => distances.Pop());
 
                 // Empty heap

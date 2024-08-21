@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 using static QuikGraph.Tests.GraphTestHelpers;
 
@@ -19,28 +19,28 @@ namespace QuikGraph.Tests.Structures
             AssertGraphProperties(graph);
             AssertEmptyGraph(graph);
 
-            wrappedGraph.AddVertexRange([2, 3, 1]);
+            wrappedGraph.AddVertexRange(new[] { 2, 3, 1 });
             graph = new ArrayBidirectionalGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph);
-            AssertHasVertices(graph, [1, 2, 3]);
+            AssertHasVertices(graph, new[] { 1, 2, 3 });
             AssertNoEdge(graph);
 
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(2, 2);
             var edge3 = Edge.Create(3, 4);
             var edge4 = Edge.Create(1, 4);
-            wrappedGraph.AddVerticesAndEdgeRange([edge1, edge2, edge3, edge4]);
+            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4 });
             graph = new ArrayBidirectionalGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph);
-            AssertHasVertices(graph, [1, 2, 3, 4]);
-            AssertHasEdges(graph, [edge1, edge2, edge3, edge4]);
+            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
+            AssertHasEdges(graph, new[] { edge1, edge2, edge3, edge4 });
 
             wrappedGraph = new BidirectionalGraph<int, IEdge<int>>(false);
-            wrappedGraph.AddVerticesAndEdgeRange([edge1, edge1, edge2, edge3, edge4]);
+            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge1, edge2, edge3, edge4 });
             graph = new ArrayBidirectionalGraph<int, IEdge<int>>(wrappedGraph);
             AssertGraphProperties(graph, false);
-            AssertHasVertices(graph, [1, 2, 3, 4]);
-            AssertHasEdges(graph, [edge1, edge2, edge3, edge4]);
+            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
+            AssertHasEdges(graph, new[] { edge1, edge2, edge3, edge4 });
 
             #region Local function
 
@@ -359,54 +359,54 @@ namespace QuikGraph.Tests.Structures
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
-            wrappedGraph.AddVertexRange([1, 2, 3]);
+            wrappedGraph.AddVertexRange(new[] { 1, 2, 3 });
             graph = new ArrayBidirectionalGraph<int, IEdge<int>>(wrappedGraph);
-            AssertHasVertices(graph, [1, 2, 3]);
+            AssertHasVertices(graph, new[] { 1, 2, 3 });
             AssertNoEdge(graph);
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, [1, 2, 3]);
+            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
             AssertNoEdge(clonedGraph);
 
             clonedGraph = (ArrayBidirectionalGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, [1, 2, 3]);
+            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
             AssertNoEdge(clonedGraph);
 
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
             var edge3 = Edge.Create(2, 3);
-            wrappedGraph.AddVerticesAndEdgeRange([edge1, edge2, edge3]);
+            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3 });
 
             graph = new ArrayBidirectionalGraph<int, IEdge<int>>(wrappedGraph);
-            AssertHasVertices(graph, [1, 2, 3]);
-            AssertHasEdges(graph, [edge1, edge2, edge3]);
+            AssertHasVertices(graph, new[] { 1, 2, 3 });
+            AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, [1, 2, 3]);
-            AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
+            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
+            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
 
             clonedGraph = (ArrayBidirectionalGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, [1, 2, 3]);
-            AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
+            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
+            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
 
             wrappedGraph.AddVertex(4);
             graph = new ArrayBidirectionalGraph<int, IEdge<int>>(wrappedGraph);
-            AssertHasVertices(graph, [1, 2, 3, 4]);
-            AssertHasEdges(graph, [edge1, edge2, edge3]);
+            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
+            AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, [1, 2, 3, 4]);
-            AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
+            AssertHasVertices(clonedGraph, new[] { 1, 2, 3, 4 });
+            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
 
             clonedGraph = (ArrayBidirectionalGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, [1, 2, 3, 4]);
-            AssertHasEdges(clonedGraph, [edge1, edge2, edge3]);
+            AssertHasVertices(clonedGraph, new[] { 1, 2, 3, 4 });
+            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
         }
     }
 }

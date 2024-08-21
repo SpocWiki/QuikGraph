@@ -105,7 +105,7 @@ namespace QuikGraph.Tests.Algorithms
             RootedAlgorithmBase<int, TGraph> algorithm = createAlgorithm();
             Assert.DoesNotThrow(algorithm.Compute);
 
-            graph.AddVertexRange([1, 2]);
+            graph.AddVertexRange(new[] { 1, 2 });
             algorithm = createAlgorithm();
             Assert.DoesNotThrow(algorithm.Compute);
         }

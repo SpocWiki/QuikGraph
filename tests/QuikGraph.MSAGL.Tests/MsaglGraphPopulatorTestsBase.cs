@@ -25,60 +25,60 @@ namespace QuikGraph.MSAGL.Tests
 
             // Only vertices
             graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVertexRange([1, 2, 3]);
+            graph.AddVertexRange(new[] { 1, 2, 3 });
             populator = createPopulator(graph);
             populator.Compute();
             AssertAreEquivalent(graph, populator.MsaglGraph);
 
             // With vertices and edges
             graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 3)
-            ]);
-            graph.AddVertexRange([5, 6]);
+            });
+            graph.AddVertexRange(new[] { 5, 6 });
             populator = createPopulator(graph);
             populator.Compute();
             AssertAreEquivalent(graph, populator.MsaglGraph);
 
             // With cycles
             graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 4),
                 Edge.Create(3, 1),
                 Edge.Create(4, 1)
-            ]);
+            });
             populator = createPopulator(graph);
             populator.Compute();
             AssertAreEquivalent(graph, populator.MsaglGraph);
 
             // With self edge
             graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 2),
                 Edge.Create(3, 1)
-            ]);
+            });
             populator = createPopulator(graph);
             populator.Compute();
             AssertAreEquivalent(graph, populator.MsaglGraph);
 
             // Undirected graph
             var undirectedGraph = new UndirectedGraph<int, IEdge<int>>();
-            undirectedGraph.AddVerticesAndEdgeRange(
-            [
+            undirectedGraph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 4),
                 Edge.Create(3, 1)
-            ]);
+            });
             populator = createPopulator(undirectedGraph);
             populator.Compute();
             AssertAreEquivalent(undirectedGraph, populator.MsaglGraph);
@@ -98,7 +98,7 @@ namespace QuikGraph.MSAGL.Tests
 
             // Only vertices
             graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVertexRange([1, 2, 3]);
+            graph.AddVertexRange(new[] { 1, 2, 3 });
             populator = createPopulator(graph);
             var expectedVerticesAdded = new HashSet<int> { 1, 2, 3 };
             populator.NodeAdded += (_, args) =>
@@ -115,8 +115,8 @@ namespace QuikGraph.MSAGL.Tests
             var edge13 = Edge.Create(1, 3);
             var edge23 = Edge.Create(2, 3);
             graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange([edge12, edge13, edge23]);
-            graph.AddVertexRange([5, 6]);
+            graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge23 });
+            graph.AddVertexRange(new[] { 5, 6 });
             populator = createPopulator(graph);
             expectedVerticesAdded = new HashSet<int> { 1, 2, 3, 5, 6 };
             var expectedEdgesAdded = new HashSet<IEdge<int>> { edge12, edge13, edge23 };

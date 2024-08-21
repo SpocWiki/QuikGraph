@@ -20,8 +20,8 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         private static IVertexAndEdgeListGraph<int, EquatableEdge<int>> CreateGraph1()
         {
             var graph = new AdjacencyGraph<int, EquatableEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 new EquatableEdge<int>(1, 2),
                 new EquatableEdge<int>(1, 3),
                 new EquatableEdge<int>(2, 3),
@@ -33,7 +33,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
                 new EquatableEdge<int>(6, 7),
                 new EquatableEdge<int>(7, 4),
                 new EquatableEdge<int>(8, 3)
-            ]);
+            });
 
             return graph;
         }
@@ -43,8 +43,8 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         private static IVertexAndEdgeListGraph<int, EquatableEdge<int>> CreateGraph2()
         {
             var graph = new AdjacencyGraph<int, EquatableEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 new EquatableEdge<int>(1, 2),
                 new EquatableEdge<int>(1, 3),
                 new EquatableEdge<int>(2, 3),
@@ -56,7 +56,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
                 new EquatableEdge<int>(6, 7),
                 new EquatableEdge<int>(7, 4),
                 new EquatableEdge<int>(8, 3)
-            ]);
+            });
 
             return graph;
         }

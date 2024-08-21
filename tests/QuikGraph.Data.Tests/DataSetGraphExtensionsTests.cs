@@ -37,7 +37,7 @@ namespace QuikGraph.Data.Tests
 
             graph = dataSet.ToGraph();
 
-            AssertHasVertices(graph, [ships, modules]);
+            AssertHasVertices(graph, new[] { ships, modules });
             AssertNoEdge(graph);
             Assert.AreSame(dataSet, graph.DataSet);
 
@@ -88,14 +88,15 @@ namespace QuikGraph.Data.Tests
 
             graph = dataSet.ToGraph();
 
-            AssertHasVertices(graph, [computers, users, printers, phones]);
+            AssertHasVertices(graph, new[] { computers, users, printers, phones });
             AssertHasRelations(
                 graph,
-                [
+                new[]
+                {
                     new DataRelationEdge(use),
                     new DataRelationEdge(connectedTo),
                     new DataRelationEdge(phoneWith)
-                ]);
+                });
             Assert.AreSame(dataSet, graph.DataSet);
         }
 

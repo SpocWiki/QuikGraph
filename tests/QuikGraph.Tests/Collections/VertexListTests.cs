@@ -33,7 +33,7 @@ namespace QuikGraph.Tests.Collections
             clonedList = (VertexList<int>)((ICloneable)list).Clone();
             CollectionAssert.IsEmpty(clonedList);
 
-            list.AddRange([1, 2, 3]);
+            list.AddRange(new[] { 1, 2, 3 });
             clonedList = list.Clone();
             CollectionAssert.AreEqual(list, clonedList);
 

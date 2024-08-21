@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using JetBrains.Annotations;
@@ -102,8 +102,8 @@ namespace QuikGraph.Tests.Algorithms
         public void SimpleGraph()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(2, 3),
                 Edge.Create(2, 6),
@@ -113,7 +113,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(5, 6),
                 Edge.Create(7, 5),
                 Edge.Create(7, 8)
-            ]);
+            });
 
             var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
@@ -127,8 +127,8 @@ namespace QuikGraph.Tests.Algorithms
         public void ForestGraph()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(0, 1),
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
@@ -136,7 +136,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4),
 
                 Edge.Create(5, 6)
-            ]);
+            });
 
             var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
@@ -150,15 +150,15 @@ namespace QuikGraph.Tests.Algorithms
         public void GraphWithSelfEdge_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(0, 1),
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 3),
                 Edge.Create(2, 2),
                 Edge.Create(3, 4)
-            ]);
+            });
 
             var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
@@ -175,13 +175,13 @@ namespace QuikGraph.Tests.Algorithms
         public void TopologicalSort_Throws()
         {
             var cyclicGraph = new AdjacencyGraph<int, IEdge<int>>();
-            cyclicGraph.AddVerticesAndEdgeRange(
-            [
+            cyclicGraph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(2, 3),
                 Edge.Create(1, 4),
                 Edge.Create(3, 1)
-            ]);
+            });
 
             var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());

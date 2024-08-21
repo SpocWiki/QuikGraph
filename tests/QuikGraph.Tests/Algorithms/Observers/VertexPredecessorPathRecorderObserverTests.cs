@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Observers;
@@ -65,7 +65,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new VertexPredecessorPathRecorderObserver<int, IEdge<int>>();
 
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
-                graph.AddVertexRange([1, 2]);
+                graph.AddVertexRange(new[] { 1, 2 });
 
                 var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
@@ -89,10 +89,10 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var edge33 = Edge.Create(3, 3);
                 var edge34 = Edge.Create(3, 4);
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
-                graph.AddVerticesAndEdgeRange(
-                [
+                graph.AddVerticesAndEdgeRange(new[]
+                {
                     edge12, edge13, edge14, edge24, edge31, edge33, edge34
-                ]);
+                });
 
                 var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
@@ -124,10 +124,10 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var edge34 = Edge.Create(3, 4);
                 var edge41 = Edge.Create(4, 1);
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
-                graph.AddVerticesAndEdgeRange(
-                [
+                graph.AddVerticesAndEdgeRange(new[]
+                {
                     edge12, edge13, edge14, edge24, edge31, edge33, edge34, edge41
-                ]);
+                });
 
                 var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
@@ -174,7 +174,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var recorder = new VertexPredecessorPathRecorderObserver<int, IEdge<int>>();
 
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
-                graph.AddVertexRange([1, 2]);
+                graph.AddVertexRange(new[] { 1, 2 });
 
                 var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
@@ -197,10 +197,10 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var edge33 = Edge.Create(3, 3);
                 var edge34 = Edge.Create(3, 4);
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
-                graph.AddVerticesAndEdgeRange(
-                [
+                graph.AddVerticesAndEdgeRange(new[]
+                {
                     edge12, edge13, edge14, edge24, edge31, edge33, edge34
-                ]);
+                });
 
                 var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
@@ -210,8 +210,8 @@ namespace QuikGraph.Tests.Algorithms.Observers
                     CollectionAssert.AreEquivalent(
                         new IEnumerable<IEdge<int>>[]
                         {
-                            [edge13],
-                            [edge12, edge24]
+                            new[] { edge13 },
+                            new[] { edge12, edge24 }
                         },
                         recorder.AllPaths());
                 }
@@ -230,10 +230,10 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var edge34 = Edge.Create(3, 4);
                 var edge41 = Edge.Create(4, 1);
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
-                graph.AddVerticesAndEdgeRange(
-                [
+                graph.AddVerticesAndEdgeRange(new[]
+                {
                     edge12, edge13, edge14, edge24, edge31, edge33, edge34, edge41
-                ]);
+                });
 
                 var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
                 using (recorder.Attach(dfs))
@@ -243,8 +243,8 @@ namespace QuikGraph.Tests.Algorithms.Observers
                     CollectionAssert.AreEquivalent(
                         new IEnumerable<IEdge<int>>[]
                         {
-                            [edge13],
-                            [edge12, edge24]
+                            new[] { edge13 },
+                            new[] { edge12, edge24 }
                         },
                         recorder.AllPaths());
                 }

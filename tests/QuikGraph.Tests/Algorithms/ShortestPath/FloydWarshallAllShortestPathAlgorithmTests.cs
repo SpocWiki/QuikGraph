@@ -203,10 +203,10 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             var edge34 = Edge.Create(3, 4);
 
             var negativeWeightGraph = new AdjacencyGraph<int, IEdge<int>>();
-            negativeWeightGraph.AddVerticesAndEdgeRange(
-            [
+            negativeWeightGraph.AddVerticesAndEdgeRange(new[]
+            {
                 edge12, edge23, edge34
-            ]);
+            });
 
             var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(
                 negativeWeightGraph,
@@ -226,10 +226,10 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             var edge41 = Edge.Create(4, 1);
 
             var negativeCycleGraph = new AdjacencyGraph<int, IEdge<int>>();
-            negativeCycleGraph.AddVerticesAndEdgeRange(
-            [
+            negativeCycleGraph.AddVerticesAndEdgeRange(new[]
+            {
                 edge12, edge23, edge34, edge41
-            ]);
+            });
 
             algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(
                 negativeCycleGraph,

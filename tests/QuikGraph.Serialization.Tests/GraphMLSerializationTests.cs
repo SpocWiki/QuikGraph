@@ -513,41 +513,41 @@ namespace QuikGraph.Serialization.Tests
         #region Test data
 
         [NotNull]
-        private static readonly bool[] Bools = [true, false, true, true];
+        private static readonly bool[] Bools = { true, false, true, true };
 
         [NotNull]
-        private static readonly int[] Ints = [2, 3, 45, 3, 44, -2, 3, 5, 99999999];
+        private static readonly int[] Ints = { 2, 3, 45, 3, 44, -2, 3, 5, 99999999 };
 
         [NotNull]
-        private static readonly long[] Longs = [3, 4, 43, 999999999999999999L, 445, 55, 3, 98, 49789238740598170, 987459, 97239, 234245, 0, -2232];
+        private static readonly long[] Longs = { 3, 4, 43, 999999999999999999L, 445, 55, 3, 98, 49789238740598170, 987459, 97239, 234245, 0, -2232 };
 
         [NotNull]
-        private static readonly float[] Floats = [3.14159265F, 1.1F, 1, 23, -2, 987459, 97239, 234245, 0, -2232, 234.55345F];
+        private static readonly float[] Floats = { 3.14159265F, 1.1F, 1, 23, -2, 987459, 97239, 234245, 0, -2232, 234.55345F };
 
         [NotNull]
-        private static readonly double[] Doubles = [3.14159265, 1.1, 1, 23, -2, 987459, 97239, 234245, 0, -2232, 234.55345];
+        private static readonly double[] Doubles = { 3.14159265, 1.1, 1, 23, -2, 987459, 97239, 234245, 0, -2232, 234.55345 };
 
         [NotNull, ItemNotNull]
-        private static readonly string[] Strings = ["", "Quick", "", "brown", "fox", "jumps", "over", "the", "lazy", "dog", ".", ""];
+        private static readonly string[] Strings = { "", "Quick", "", "brown", "fox", "jumps", "over", "the", "lazy", "dog", ".", "" };
 
 
         [NotNull]
-        private static readonly IList<bool> BoolsList = [true, false, true, true];
+        private static readonly IList<bool> BoolsList = new[] { true, false, true, true };
 
         [NotNull]
-        private static readonly IList<int> IntsList = [2, 3, 45, 3, 44, -2, 3, 5, 99999999];
+        private static readonly IList<int> IntsList = new[] { 2, 3, 45, 3, 44, -2, 3, 5, 99999999 };
 
         [NotNull]
-        private static readonly IList<long> LongsList = [3, 4, 43, 999999999999999999L, 445, 55, 3, 98, 49789238740598170, 987459, 97239, 234245, 0, -2232];
+        private static readonly IList<long> LongsList = new[] { 3, 4, 43, 999999999999999999L, 445, 55, 3, 98, 49789238740598170, 987459, 97239, 234245, 0, -2232 };
 
         [NotNull]
-        private static readonly IList<float> FloatsList = [3.14159265F, 1.1F, 1, 23, -2, 987459, 97239, 234245, 0, -2232, 234.55345F];
+        private static readonly IList<float> FloatsList = new[] { 3.14159265F, 1.1F, 1, 23, -2, 987459, 97239, 234245, 0, -2232, 234.55345F };
 
         [NotNull]
-        private static readonly IList<double> DoublesList = [3.14159265, 1.1, 1, 23, -2, 987459, 97239, 234245, 0, -2232, 234.55345];
+        private static readonly IList<double> DoublesList = new[] { 3.14159265, 1.1, 1, 23, -2, 987459, 97239, 234245, 0, -2232, 234.55345 };
 
         [NotNull, ItemNotNull]
-        private static readonly IList<string> StringsList = ["", "Quick", "", "brown", "fox", "jumps", "over", "the", "lazy", "dog", ".", ""];
+        private static readonly IList<string> StringsList = new[] { "", "Quick", "", "brown", "fox", "jumps", "over", "the", "lazy", "dog", ".", "" };
 
         #endregion
 
@@ -702,8 +702,8 @@ namespace QuikGraph.Serialization.Tests
                 Float = 25.0F,
                 Double = 30.0,
                 Bool = true,
-                IntArray = [1, 2, 3, 4],
-                IntIList = [4, 5, 6, 7]
+                IntArray = new[] { 1, 2, 3, 4 },
+                IntIList = new[] { 4, 5, 6, 7 }
             };
 
             var vertex2 = new TestVertex("v2")

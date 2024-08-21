@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.TopologicalSort;
@@ -104,8 +104,8 @@ namespace QuikGraph.Tests.Algorithms
         public void SimpleGraph()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(2, 3),
                 Edge.Create(2, 6),
@@ -115,7 +115,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(5, 6),
                 Edge.Create(7, 5),
                 Edge.Create(7, 8)
-            ]);
+            });
 
             var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
@@ -136,14 +136,14 @@ namespace QuikGraph.Tests.Algorithms
         public void SimpleGraphOneToAnother()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(0, 1),
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 3),
                 Edge.Create(3, 4)
-            ]);
+            });
 
             var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
@@ -164,8 +164,8 @@ namespace QuikGraph.Tests.Algorithms
         public void ForestGraph()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(0, 1),
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
@@ -173,7 +173,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4),
 
                 Edge.Create(5, 6)
-            ]);
+            });
 
             var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
@@ -194,15 +194,15 @@ namespace QuikGraph.Tests.Algorithms
         public void GraphWithSelfEdge_Throws()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(0, 1),
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 3),
                 Edge.Create(2, 2),
                 Edge.Create(3, 4)
-            ]);
+            });
 
             var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
@@ -230,13 +230,13 @@ namespace QuikGraph.Tests.Algorithms
         public void SourceFirstBidirectionalTopologicalSort_Throws()
         {
             var cyclicGraph = new BidirectionalGraph<int, IEdge<int>>();
-            cyclicGraph.AddVerticesAndEdgeRange(
-            [
+            cyclicGraph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(2, 3),
                 Edge.Create(1, 4),
                 Edge.Create(3, 1)
-            ]);
+            });
 
             var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());

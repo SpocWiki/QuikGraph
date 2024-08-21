@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -128,11 +128,11 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             var edge82 = Edge.Create(8, 2);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 edge12, edge13, edge23, edge42, edge43, edge45,
                 edge56, edge57, edge76, edge71, edge89, edge82
-            ]);
+            });
 
             IMutableBidirectionalGraph<AdjacencyGraph<int, IEdge<int>>, CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>> condensedGraph =
                 graph.CondensateWeaklyConnected<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>();
@@ -160,11 +160,11 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             var edge89 = Edge.Create(8, 9);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 edge12, edge13, edge23, edge42, edge43,
                 edge56, edge57, edge76, edge89
-            ]);
+            });
 
             IMutableBidirectionalGraph<AdjacencyGraph<int, IEdge<int>>, CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>> condensedGraph =
                 graph.CondensateWeaklyConnected<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>();

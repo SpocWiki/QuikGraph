@@ -36,24 +36,24 @@ namespace QuikGraph.Tests.Structures
             var edge24 = Edge.Create(2, 4);
             var edge31 = Edge.Create(3, 1);
             var edge33 = Edge.Create(3, 3);
-            graph.AddVerticesAndEdgeRange([edge12, edge13, edge14, edge24, edge31, edge33]);
+            graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
 
             Assert.IsFalse(graph.RemoveVertex(5));
             CheckCounters(0, 0);
 
             Assert.IsTrue(graph.RemoveVertex(3));
             CheckCounters(1, 3);
-            AssertHasVertices(graph, [1, 2, 4]);
-            AssertHasEdges(graph, [edge12, edge14, edge24]);
+            AssertHasVertices(graph, new[] { 1, 2, 4 });
+            AssertHasEdges(graph, new[] { edge12, edge14, edge24 });
 
             Assert.IsTrue(graph.RemoveVertex(1));
             CheckCounters(1, 2);
-            AssertHasVertices(graph, [2, 4]);
-            AssertHasEdges(graph, [edge24]);
+            AssertHasVertices(graph, new[] { 2, 4 });
+            AssertHasEdges(graph, new[] { edge24 });
 
             Assert.IsTrue(graph.RemoveVertex(2));
             CheckCounters(1, 1);
-            AssertHasVertices(graph, [4]);
+            AssertHasVertices(graph, new[] { 4 });
             AssertNoEdge(graph);
 
             Assert.IsTrue(graph.RemoveVertex(4));
@@ -82,20 +82,20 @@ namespace QuikGraph.Tests.Structures
             var edge24 = Edge.Create(2, 4);
             var edge31 = Edge.Create(3, 1);
             var edge33 = Edge.Create(3, 3);
-            graph.AddVerticesAndEdgeRange([edge12, edge13, edge14, edge24, edge31, edge33]);
+            graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
 
             Assert.IsFalse(graph.RemoveVertex(5));
 
             Assert.IsTrue(graph.RemoveVertex(3));
-            AssertHasVertices(graph, [1, 2, 4]);
-            AssertHasEdges(graph, [edge12, edge14, edge24]);
+            AssertHasVertices(graph, new[] { 1, 2, 4 });
+            AssertHasEdges(graph, new[] { edge12, edge14, edge24 });
 
             Assert.IsTrue(graph.RemoveVertex(1));
-            AssertHasVertices(graph, [2, 4]);
-            AssertHasEdges(graph, [edge24]);
+            AssertHasVertices(graph, new[] { 2, 4 });
+            AssertHasEdges(graph, new[] { edge24 });
 
             Assert.IsTrue(graph.RemoveVertex(2));
-            AssertHasVertices(graph, [4]);
+            AssertHasVertices(graph, new[] { 4 });
             AssertNoEdge(graph);
 
             Assert.IsTrue(graph.RemoveVertex(4));
@@ -107,35 +107,35 @@ namespace QuikGraph.Tests.Structures
             ClusteredAdjacencyGraph<int, IEdge<int>> cluster2 = graph.AddCluster();
             ClusteredAdjacencyGraph<int, IEdge<int>> cluster3 = graph.AddCluster();
 
-            cluster1.AddVertexRange([1, 2]);
-            AssertHasVertices(cluster1, [1, 2]);
+            cluster1.AddVertexRange(new[] { 1, 2 });
+            AssertHasVertices(cluster1, new[] { 1, 2 });
 
-            cluster2.AddVertexRange([1, 2, 4]);
-            AssertHasVertices(cluster2, [1, 2, 4]);
+            cluster2.AddVertexRange(new[] { 1, 2, 4 });
+            AssertHasVertices(cluster2, new[] { 1, 2, 4 });
 
             cluster3.AddVertex(2);
-            AssertHasVertices(cluster3, [2]);
+            AssertHasVertices(cluster3, new[] { 2 });
 
-            graph.AddVertexRange([1, 2, 3, 4]);
-            AssertHasVertices(graph, [1, 2, 3, 4]);
+            graph.AddVertexRange(new[] { 1, 2, 3, 4 });
+            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
 
 
             graph.RemoveVertex(2);
-            AssertHasVertices(graph, [1, 3, 4]);
-            AssertHasVertices(cluster1, [1]);
-            AssertHasVertices(cluster2, [1, 4]);
+            AssertHasVertices(graph, new[] { 1, 3, 4 });
+            AssertHasVertices(cluster1, new[] { 1 });
+            AssertHasVertices(cluster2, new[] { 1, 4 });
             AssertNoVertex(cluster3);
 
             graph.RemoveVertex(1);
-            AssertHasVertices(graph, [3, 4]);
+            AssertHasVertices(graph, new[] { 3, 4 });
             AssertNoVertex(cluster1);
-            AssertHasVertices(cluster2, [4]);
+            AssertHasVertices(cluster2, new[] { 4 });
             AssertNoVertex(cluster3);
 
             graph.RemoveVertex(3);
-            AssertHasVertices(graph, [4]);
+            AssertHasVertices(graph, new[] { 4 });
             AssertNoVertex(cluster1);
-            AssertHasVertices(cluster2, [4]);
+            AssertHasVertices(cluster2, new[] { 4 });
             AssertNoVertex(cluster3);
 
             graph.RemoveVertex(4);
@@ -189,15 +189,15 @@ namespace QuikGraph.Tests.Structures
             var edge24 = Edge.Create(2, 4);
             var edge31 = Edge.Create(3, 1);
             var edge33 = Edge.Create(3, 3);
-            graph.AddVerticesAndEdgeRange([edge12, edge13, edge14, edge24, edge31, edge33]);
+            graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
 
             Assert.AreEqual(0, graph.RemoveVertexIf(vertex => vertex > 10));
             CheckCounters(0, 0);
 
             Assert.AreEqual(2, graph.RemoveVertexIf(vertex => vertex > 2));
             CheckCounters(2, 5);
-            AssertHasVertices(graph, [1, 2]);
-            AssertHasEdges(graph, [edge12]);
+            AssertHasVertices(graph, new[] { 1, 2 });
+            AssertHasEdges(graph, new[] { edge12 });
 
             Assert.AreEqual(2, graph.RemoveVertexIf(_ => true));
             CheckCounters(2, 1);
@@ -243,12 +243,12 @@ namespace QuikGraph.Tests.Structures
             var edge31 = Edge.Create(3, 1);
             var edge32 = Edge.Create(3, 2);
             var edge34 = Edge.Create(3, 4);
-            graph.AddVerticesAndEdgeRange([edge11, edge13, edge24, edge31, edge32, edge34]);
+            graph.AddVerticesAndEdgeRange(new[] { edge11, edge13, edge24, edge31, edge32, edge34 });
 
             Assert.AreEqual(2, graph.RemoveVertexIf(vertex => vertex == 1 || vertex  == 3));
             CheckCounters(2, 5);
-            AssertHasVertices(graph, [2, 4]);
-            AssertHasEdges(graph, [edge24]);
+            AssertHasVertices(graph, new[] { 2, 4 });
+            AssertHasEdges(graph, new[] { edge24 });
 
             #region Local function
 
@@ -272,13 +272,13 @@ namespace QuikGraph.Tests.Structures
             var edge24 = Edge.Create(2, 4);
             var edge31 = Edge.Create(3, 1);
             var edge33 = Edge.Create(3, 3);
-            graph.AddVerticesAndEdgeRange([edge12, edge13, edge14, edge24, edge31, edge33]);
+            graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
 
             Assert.AreEqual(0, graph.RemoveVertexIf(vertex => vertex > 10));
 
             Assert.AreEqual(2, graph.RemoveVertexIf(vertex => vertex > 2));
-            AssertHasVertices(graph, [1, 2]);
-            AssertHasEdges(graph, [edge12]);
+            AssertHasVertices(graph, new[] { 1, 2 });
+            AssertHasEdges(graph, new[] { edge12 });
 
             Assert.AreEqual(2, graph.RemoveVertexIf(_ => true));
             AssertEmptyGraph(graph);
@@ -293,11 +293,11 @@ namespace QuikGraph.Tests.Structures
             var edge31 = Edge.Create(3, 1);
             var edge32 = Edge.Create(3, 2);
             var edge34 = Edge.Create(3, 4);
-            graph.AddVerticesAndEdgeRange([edge11, edge13, edge24, edge31, edge32, edge34]);
+            graph.AddVerticesAndEdgeRange(new[] { edge11, edge13, edge24, edge31, edge32, edge34 });
 
             Assert.AreEqual(2, graph.RemoveVertexIf(vertex => vertex == 1 || vertex == 3));
-            AssertHasVertices(graph, [2, 4]);
-            AssertHasEdges(graph, [edge24]);
+            AssertHasVertices(graph, new[] { 2, 4 });
+            AssertHasEdges(graph, new[] { edge24 });
         }
 
         protected static void RemoveVertexIf_Throws_Test<TVertex>(

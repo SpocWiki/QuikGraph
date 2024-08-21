@@ -282,7 +282,7 @@ namespace QuikGraph.Tests.Predicates
                 vertex => vertex < 4,
                 _ => true);
 
-            graph2.AddVertexRange([1, 2, 3, 4, 5]);
+            graph2.AddVertexRange(new[] { 1, 2, 3, 4, 5 });
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.IsNull(filteredGraph2.OutEdges(4));
             Assert.IsNull(filteredGraph2.OutEdges(5));

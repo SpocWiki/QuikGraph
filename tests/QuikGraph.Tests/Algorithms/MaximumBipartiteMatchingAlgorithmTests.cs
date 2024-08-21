@@ -125,8 +125,8 @@ namespace QuikGraph.Tests.Algorithms
             VertexFactory<int> vertexFactory = () => 1;
             EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
-            int[] sourceToVertices = [1, 2];
-            int[] verticesToSink = [1, 2];
+            int[] sourceToVertices = { 1, 2 };
+            int[] verticesToSink = { 1, 2 };
 
             var algorithm = new MaximumBipartiteMatchingAlgorithm<int, IEdge<int>>(
                 graph,
@@ -171,8 +171,8 @@ namespace QuikGraph.Tests.Algorithms
             VertexFactory<int> vertexFactory = () => 1;
             EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
 
-            int[] sourceToVertices = [1, 2];
-            int[] verticesToSink = [1, 2];
+            int[] sourceToVertices = { 1, 2 };
+            int[] verticesToSink = { 1, 2 };
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute

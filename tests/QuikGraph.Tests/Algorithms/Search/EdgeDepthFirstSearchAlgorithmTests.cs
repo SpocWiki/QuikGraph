@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -259,12 +259,12 @@ namespace QuikGraph.Tests.Algorithms.Search
             var edge86 = Edge.Create(8, 6);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 edge12, edge13, edge21, edge24, edge25,
 
                 edge67, edge68, edge86
-            ]);
+            });
 
             var algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph)
             {

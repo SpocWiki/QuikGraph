@@ -24,7 +24,7 @@ namespace QuikGraph.Graphviz.Tests
                 Edge.Create(2, 3),
                 Edge.Create(3, 1)
             );
-            graph.AddVertexRange([4, 5]);
+            graph.AddVertexRange(4, 5);
 
             string expectedDot =
                 "digraph G {" + Environment.NewLine
@@ -44,26 +44,26 @@ namespace QuikGraph.Graphviz.Tests
         [Test]
         public void ToGraphviz_DelegateGraph()
         {
-            int[] vertices = [1, 2, 3, 4, 5];
+            int[] vertices = { 1, 2, 3, 4, 5 };
             var graph = new DelegateVertexAndEdgeListGraph<int, IEdge<int>>(
                 vertices,
                 (int vertex, out IEnumerable<IEdge<int>> outEdges) =>
                 {
                     if (vertex == 1)
                     {
-                        outEdges = [Edge.Create(1, 2), Edge.Create(1, 3)];
+                        outEdges = new[] { Edge.Create(1, 2), Edge.Create(1, 3) };
                         return true;
                     }
 
                     if (vertex == 2)
                     {
-                        outEdges = [Edge.Create(2, 4)];
+                        outEdges = new[] { Edge.Create(2, 4) };
                         return true;
                     }
 
                     if (vertex is 3 or 4 or 5)
                     {
-                        outEdges = [];
+                        outEdges = new Edge<int>[] { };
                         return true;
                     }
 
@@ -89,26 +89,26 @@ namespace QuikGraph.Graphviz.Tests
         [Test]
         public void ToGraphviz_EquatableEdgeDelegateGraph()
         {
-            int[] vertices = [1, 2, 3, 4, 5];
+            int[] vertices = { 1, 2, 3, 4, 5 };
             var graph = new DelegateVertexAndEdgeListGraph<int, EquatableEdge<int>>(
                 vertices,
                 (int vertex, out IEnumerable<EquatableEdge<int>> outEdges) =>
                 {
                     if (vertex == 1)
                     {
-                        outEdges = [new EquatableEdge<int>(1, 2), new EquatableEdge<int>(1, 3)];
+                        outEdges = new[] { new EquatableEdge<int>(1, 2), new EquatableEdge<int>(1, 3) };
                         return true;
                     }
 
                     if (vertex == 2)
                     {
-                        outEdges = [new EquatableEdge<int>(2, 4)];
+                        outEdges = new[] { new EquatableEdge<int>(2, 4) };
                         return true;
                     }
 
                     if (vertex is 3 or 4 or 5)
                     {
-                        outEdges = [];
+                        outEdges = new EquatableEdge<int>[] { };
                         return true;
                     }
 
@@ -140,7 +140,7 @@ namespace QuikGraph.Graphviz.Tests
                 Edge.Create(2, 3),
                 Edge.Create(3, 1)
             );
-            graph.AddVertexRange([4, 5]);
+            graph.AddVertexRange(4, 5);
 
             string expectedDot =
                 "digraph G {" + Environment.NewLine
@@ -180,11 +180,11 @@ namespace QuikGraph.Graphviz.Tests
             wrappedGraph.AddVertex(5);
             var clusteredGraph = new ClusteredAdjacencyGraph<int, IEdge<int>>(wrappedGraph);
             ClusteredAdjacencyGraph<int, IEdge<int>> subGraph1 = clusteredGraph.AddCluster();
-            subGraph1.AddVerticesAndEdgeRange(
-            [
+            subGraph1.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(6, 7),
                 Edge.Create(7, 8)
-            ]);
+            });
             ClusteredAdjacencyGraph<int, IEdge<int>> subGraph2 = clusteredGraph.AddCluster();
             subGraph2.AddVerticesAndEdge(Edge.Create(9, 10));
             subGraph2.AddVertex(11);
@@ -500,7 +500,7 @@ namespace QuikGraph.Graphviz.Tests
                 Edge.Create(2, 3),
                 Edge.Create(3, 1)
             );
-            graph.AddVertexRange([4, 5]);
+            graph.AddVertexRange(4, 5);
             return graph;
         }
 

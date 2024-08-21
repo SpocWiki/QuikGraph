@@ -47,36 +47,36 @@ namespace QuikGraph.Graphviz.Tests
 
                 // Cluster graph 1
                 var subGraph1 = new AdjacencyGraph<int, IEdge<int>>();
-                subGraph1.AddVerticesAndEdgeRange(
-                [
+                subGraph1.AddVerticesAndEdgeRange(new[]
+                {
                     Edge.Create(1, 2),
                     Edge.Create(2, 3),
                     Edge.Create(3, 1)
-                ]);
+                });
 
                 var subGraph2 = new AdjacencyGraph<int, IEdge<int>>();
-                subGraph2.AddVerticesAndEdgeRange(
-                [
+                subGraph2.AddVerticesAndEdgeRange(new[]
+                {
                     Edge.Create(1, 1),
                     Edge.Create(1, 2),
                     Edge.Create(2, 3),
                     Edge.Create(3, 2)
-                ]);
+                });
 
                 var subGraph3 = new AdjacencyGraph<int, IEdge<int>>();
-                subGraph3.AddVerticesAndEdgeRange(
-                [
+                subGraph3.AddVerticesAndEdgeRange(new[]
+                {
                     Edge.Create(1, 4),
                     Edge.Create(2, 4)
-                ]);
+                });
                 subGraph3.AddVertex(3);
 
                 graph = new AdjacencyGraph<AdjacencyGraph<int, IEdge<int>>, CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>>();
-                graph.AddVerticesAndEdgeRange(
-                [
+                graph.AddVerticesAndEdgeRange(new[]
+                {
                     new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(subGraph1, subGraph2),
                     new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(subGraph1, subGraph3)
-                ]);
+                });
 
                 yield return new TestCaseData(
                     graph,
@@ -93,28 +93,28 @@ namespace QuikGraph.Graphviz.Tests
 
                 // Cluster graph 2
                 subGraph1 = new AdjacencyGraph<int, IEdge<int>>();
-                subGraph1.AddVerticesAndEdgeRange(
-                [
+                subGraph1.AddVerticesAndEdgeRange(new[]
+                {
                     Edge.Create(1, 2),
                     Edge.Create(2, 3),
                     Edge.Create(3, 1)
-                ]);
+                });
 
                 subGraph2 = new AdjacencyGraph<int, IEdge<int>>();
-                subGraph2.AddVerticesAndEdgeRange(
-                [
+                subGraph2.AddVerticesAndEdgeRange(new[]
+                {
                     Edge.Create(1, 1),
                     Edge.Create(1, 2),
                     Edge.Create(2, 3),
                     Edge.Create(3, 2)
-                ]);
+                });
 
                 subGraph3 = new AdjacencyGraph<int, IEdge<int>>();
-                subGraph3.AddVerticesAndEdgeRange(
-                [
+                subGraph3.AddVerticesAndEdgeRange(new[]
+                {
                     Edge.Create(1, 4),
                     Edge.Create(2, 4)
-                ]);
+                });
                 subGraph3.AddVertex(3);
 
                 graph = new AdjacencyGraph<AdjacencyGraph<int, IEdge<int>>, CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>>();
@@ -124,7 +124,7 @@ namespace QuikGraph.Graphviz.Tests
                 condensedEdge2.Edges.Add(Edge.Create(2, 1));
                 condensedEdge2.Edges.Add(Edge.Create(3, 4));
                 var condensedEdge3 = new CondensedEdge<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(subGraph2, subGraph3);
-                graph.AddVerticesAndEdgeRange([condensedEdge1, condensedEdge2, condensedEdge3]);
+                graph.AddVerticesAndEdgeRange(new[] { condensedEdge1, condensedEdge2, condensedEdge3 });
 
                 yield return new TestCaseData(
                     graph,
@@ -163,28 +163,28 @@ namespace QuikGraph.Graphviz.Tests
             const string vertex3 = "\"Vertex3\"\nΣη← ♠\\[]()";
             const string vertex4 = "Vertex4∴∞⇐ℜΩ÷嗷娪";
             var subGraph1 = new AdjacencyGraph<string, Edge<string>>();
-            subGraph1.AddVerticesAndEdgeRange(
-            [
+            subGraph1.AddVerticesAndEdgeRange(new[]
+            {
                 new Edge<string>(vertex1, vertex2),
                 new Edge<string>(vertex2, vertex2),
                 new Edge<string>(vertex3, vertex1)
-            ]);
+            });
 
             var subGraph2 = new AdjacencyGraph<string, Edge<string>>();
-            subGraph2.AddVerticesAndEdgeRange(
-            [
+            subGraph2.AddVerticesAndEdgeRange(new[]
+            {
                 new Edge<string>(vertex1, vertex1),
                 new Edge<string>(vertex1, vertex2),
                 new Edge<string>(vertex2, vertex3),
                 new Edge<string>(vertex2, vertex4),
                 new Edge<string>(vertex3, vertex4)
-            ]);
+            });
 
             var graph = new AdjacencyGraph<AdjacencyGraph<string, Edge<string>>, CondensedEdge<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>>();
             var condensedEdge = new CondensedEdge<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(subGraph1, subGraph2);
             condensedEdge.Edges.Add(new Edge<string>(vertex1, vertex2));
             condensedEdge.Edges.Add(new Edge<string>(vertex3, vertex1));
-            graph.AddVerticesAndEdgeRange([condensedEdge]);
+            graph.AddVerticesAndEdgeRange(new[] { condensedEdge });
 
             const string expectedVertex1 = @"Vertex1&/<>@~|";
             const string expectedVertex2 = @"Vertex2æéèêë£¤¶ÀÁÂÃÄÅ";

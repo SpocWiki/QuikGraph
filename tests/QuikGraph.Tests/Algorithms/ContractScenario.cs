@@ -13,13 +13,13 @@ namespace QuikGraph.Tests.Algorithms
         /// and both edges and vertices should be added.
         /// </summary>
         [NotNull, ItemNotNull]
-        public IEnumerable<IEdge<TVertex>> EdgesInGraph { get; set; } = [];
+        public IEnumerable<IEdge<TVertex>> EdgesInGraph { get; set; } = new Edge<TVertex>[0];
 
         /// <summary>
         /// Vertices not connected to any other vertices.
         /// </summary>
         [NotNull]
-        public IEnumerable<TVertex> SingleVerticesInGraph { get; set; } = [];
+        public IEnumerable<TVertex> SingleVerticesInGraph { get; set; } = new TVertex[0];
 
         /// <summary>
         /// The vertex that will be used as root vertex in the test.
@@ -30,7 +30,7 @@ namespace QuikGraph.Tests.Algorithms
         /// Vertices expected to be accessible from the root, not including the root itself.
         /// </summary>
         [NotNull]
-        public IEnumerable<TVertex> AccessibleVerticesFromRoot { get; set; } = [];
+        public IEnumerable<TVertex> AccessibleVerticesFromRoot { get; set; } = new TVertex[0];
 
         /// <summary>
         /// Flag indicating whether the algorithm should be computed after it has been instantiated.

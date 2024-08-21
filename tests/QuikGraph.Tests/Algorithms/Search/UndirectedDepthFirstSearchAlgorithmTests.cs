@@ -288,8 +288,8 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ProcessAllComponents(bool processAll)
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 1),
@@ -299,7 +299,7 @@ namespace QuikGraph.Tests.Algorithms.Search
                 Edge.Create(6, 7),
                 Edge.Create(6, 8),
                 Edge.Create(8, 6)
-            ]);
+            });
 
             var algorithm = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph)
             {

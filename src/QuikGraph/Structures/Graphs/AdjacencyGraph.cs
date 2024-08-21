@@ -261,6 +261,9 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
+        public virtual int AddVertexRange(params TVertex[] vertices) => AddVertexRange(vertices.AsEnumerable());
+
+        /// <inheritdoc />
         public virtual int AddVertexRange(IEnumerable<TVertex> vertices)
         {
             if (vertices is null)

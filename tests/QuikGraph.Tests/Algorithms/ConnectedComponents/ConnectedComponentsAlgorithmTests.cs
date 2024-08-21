@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -110,14 +110,14 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         public void OneComponent()
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 3),
                 Edge.Create(4, 2),
                 Edge.Create(4, 3)
-            ]);
+            });
 
             var algorithm = new ConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
@@ -138,8 +138,8 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         public void TwoComponents()
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 3),
@@ -149,7 +149,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 Edge.Create(5, 6),
                 Edge.Create(5, 7),
                 Edge.Create(7, 6)
-            ]);
+            });
 
             var algorithm = new ConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
@@ -173,8 +173,8 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         public void MultipleComponents()
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-            [
+            graph.AddVerticesAndEdgeRange(new[]
+            {
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 3),
@@ -186,7 +186,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 Edge.Create(7, 6),
 
                 Edge.Create(8, 9)
-            ]);
+            });
             graph.AddVertex(10);
 
             var algorithm = new ConnectedComponentsAlgorithm<int, IEdge<int>>(graph);

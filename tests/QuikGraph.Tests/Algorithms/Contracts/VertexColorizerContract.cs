@@ -46,8 +46,8 @@ namespace QuikGraph.Tests.Algorithms.Contracts
         {
             var scenario = new ContractScenario<int>
             {
-                EdgesInGraph = [Edge.Create(1, 2)],
-                AccessibleVerticesFromRoot = [2],
+                EdgesInGraph = new[] { Edge.Create(1, 2) },
+                AccessibleVerticesFromRoot = new[] { 2 },
                 Root = 1,
                 DoComputation = true
             };
@@ -62,9 +62,9 @@ namespace QuikGraph.Tests.Algorithms.Contracts
         {
             var scenario = new ContractScenario<int>
             {
-                EdgesInGraph = [Edge.Create(1, 2)],
-                SingleVerticesInGraph = [],
-                AccessibleVerticesFromRoot = [2],
+                EdgesInGraph = new[] { Edge.Create(1, 2) },
+                SingleVerticesInGraph = new int[0],
+                AccessibleVerticesFromRoot = new[] { 2 },
                 Root = 1,
                 DoComputation = false
             };
@@ -106,8 +106,8 @@ namespace QuikGraph.Tests.Algorithms.Contracts
         {
             var scenario = new ContractScenario<int>
             {
-                EdgesInGraph = [Edge.Create(1, 2)],
-                AccessibleVerticesFromRoot = [2],
+                EdgesInGraph = new[] { Edge.Create(1, 2) },
+                AccessibleVerticesFromRoot = new[] { 2 },
                 Root = 1,
                 DoComputation = true
             };
@@ -122,9 +122,9 @@ namespace QuikGraph.Tests.Algorithms.Contracts
         {
             var scenario = new ContractScenario<int>
             {
-                EdgesInGraph = [Edge.Create(1, 2)],
-                SingleVerticesInGraph = [3],
-                AccessibleVerticesFromRoot = [2],
+                EdgesInGraph = new[] { Edge.Create(1, 2) },
+                SingleVerticesInGraph = new[] { 3 },
+                AccessibleVerticesFromRoot = new[] { 2 },
                 Root = 1,
                 DoComputation = true
             };

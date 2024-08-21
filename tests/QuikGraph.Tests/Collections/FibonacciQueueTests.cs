@@ -34,7 +34,7 @@ namespace QuikGraph.Tests.Collections
             AssertQueueProperties(
                 new FibonacciQueue<int, double>(
                     0,
-                    [1, 2], // Marked as removed
+                    new[] { 1, 2 }, // Marked as removed
                     _ => 1.0));
 
 
@@ -55,7 +55,7 @@ namespace QuikGraph.Tests.Collections
             AssertQueueProperties(
                 new FibonacciQueue<int, double>(
                     0,
-                    [1, 2, 3], // Marked as removed
+                    new[] { 1, 2, 3 }, // Marked as removed
                     _ => 1.0,
                     (dist1, dist2) => dist1.CompareTo(dist2)));
 
@@ -159,7 +159,7 @@ namespace QuikGraph.Tests.Collections
 
             // Special case
             Contains_Test(
-                new FibonacciQueue<int, double>(12, [1, 2], _ => 1.0),
+                new FibonacciQueue<int, double>(12, new[] { 1, 2 }, _ => 1.0),
                 1,
                 2);
         }

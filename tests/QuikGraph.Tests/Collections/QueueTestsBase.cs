@@ -76,7 +76,7 @@ namespace QuikGraph.Tests.Collections
 
             void DequeueInternalTest()
             {
-                var order = new Stack<int>([3, 2, 9, 1, 10]);
+                var order = new Stack<int>(new[] { 3, 2, 9, 1, 10 });
                 IQueue<TVertex> queue = createQueue(_ => order.Pop());
                 Assert.AreEqual(0, queue.Count);
 
@@ -172,7 +172,7 @@ namespace QuikGraph.Tests.Collections
 
             void PeekInternalTest()
             {
-                var order = new Stack<int>([3, 2, 9, 1, 10]);
+                var order = new Stack<int>(new[] { 3, 2, 9, 1, 10 });
                 IQueue<TVertex> queue = createQueue(_ => order.Pop());
                 Assert.AreEqual(0, queue.Count);
 
@@ -249,7 +249,7 @@ namespace QuikGraph.Tests.Collections
             [NotNull] TVertex vertex1,
             [NotNull] TVertex vertex2)
         {
-            var distances = new Stack<double>([0.5, 10.0, 5.0, 1.0]);
+            var distances = new Stack<double>(new[] { 0.5, 10.0, 5.0, 1.0 });
             IPriorityQueue<TVertex> queue = createQueue(_ => distances.Pop());
             Assert.AreEqual(0, queue.Count);
 
@@ -272,7 +272,7 @@ namespace QuikGraph.Tests.Collections
             [NotNull] TVertex vertex3,
             [NotNull] TVertex vertex4)
         {
-            var distances = new Stack<double>([123.0, 3.0, 2.0, 4.0, 5.0, 1.0]);
+            var distances = new Stack<double>(new[] { 123.0, 3.0, 2.0, 4.0, 5.0, 1.0 });
             IQueue<TVertex> queue = createQueue(_ => distances.Pop());
 
             // Empty heap
