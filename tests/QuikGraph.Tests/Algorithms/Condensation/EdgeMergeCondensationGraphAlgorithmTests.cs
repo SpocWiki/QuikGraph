@@ -175,11 +175,10 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             var edge82 = Edge.Create(8, 2);
 
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge12, edge13, edge23, edge38, edge42, edge43, edge44,
                 edge45, edge56, edge57, edge76, edge71, edge89, edge82
-            });
+            );
 
             IMutableBidirectionalGraph<int, MergedEdge<int, IEdge<int>>> condensedGraph =
                 graph.CondensateEdges(v => v == 4 || v == 8);
