@@ -227,7 +227,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ComputeWithRootAndTarget()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            graph.AddVertexRange(new[] { 0, 1 });
+            graph.AddVertexRange( 0, 1 );
             var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             ComputeWithRootAndTarget_Test(algorithm);
         }

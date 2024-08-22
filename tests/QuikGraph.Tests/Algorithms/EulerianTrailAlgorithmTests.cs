@@ -213,7 +213,7 @@ namespace QuikGraph.Tests.Algorithms
                 };
 
                 var moreVerticesThanEdgesGraph = new AdjacencyGraph<int, IEdge<int>>();
-                moreVerticesThanEdgesGraph.AddVertexRange(new[] { 1, 2 });
+                moreVerticesThanEdgesGraph.AddVertexRange( 1, 2 );
                 moreVerticesThanEdgesGraph.AddEdge(Edge.Create(1, 2));
                 yield return new TestCaseData(moreVerticesThanEdgesGraph)
                 {
@@ -221,34 +221,31 @@ namespace QuikGraph.Tests.Algorithms
                 };
 
                 var sameVerticesAndEdgesCountGraph = new AdjacencyGraph<int, IEdge<int>>();
-                sameVerticesAndEdgesCountGraph.AddVertexRange(new[] { 1, 2 });
-                sameVerticesAndEdgesCountGraph.AddEdgeRange(new[]
-                {
+                sameVerticesAndEdgesCountGraph.AddVertexRange( 1, 2 );
+                sameVerticesAndEdgesCountGraph.AddEdgeRange(
                     Edge.Create(1, 2),
                     Edge.Create(2, 1)
-                });
+                );
                 yield return new TestCaseData(sameVerticesAndEdgesCountGraph)
                 {
                     ExpectedResult = 1
                 };
 
                 var sameVerticesAndEdgesCountGraph2 = new AdjacencyGraph<int, IEdge<int>>();
-                sameVerticesAndEdgesCountGraph2.AddVertexRange(new[] { 1, 2, 3 });
-                sameVerticesAndEdgesCountGraph2.AddEdgeRange(new[]
-                {
+                sameVerticesAndEdgesCountGraph2.AddVertexRange( 1, 2, 3 );
+                sameVerticesAndEdgesCountGraph2.AddEdgeRange(
                     Edge.Create(1, 2),
                     Edge.Create(2, 1),
                     Edge.Create(1, 3)
-                });
+                );
                 yield return new TestCaseData(sameVerticesAndEdgesCountGraph2)
                 {
                     ExpectedResult = 1
                 };
 
                 var moreEdgesThanEdgesGraph = new AdjacencyGraph<int, IEdge<int>>();
-                moreEdgesThanEdgesGraph.AddVertexRange(new[] { 1, 2, 3, 4, 5 });
-                moreEdgesThanEdgesGraph.AddEdgeRange(new[]
-                {
+                moreEdgesThanEdgesGraph.AddVertexRange( 1, 2, 3, 4, 5 );
+                moreEdgesThanEdgesGraph.AddEdgeRange(
                     Edge.Create(1, 2),
                     Edge.Create(2, 1),
                     Edge.Create(1, 3),
@@ -256,7 +253,7 @@ namespace QuikGraph.Tests.Algorithms
                     Edge.Create(3, 4),
                     Edge.Create(3, 4),
                     Edge.Create(1, 5)
-                });
+                );
                 yield return new TestCaseData(moreEdgesThanEdgesGraph)
                 {
                     ExpectedResult = 2
@@ -289,71 +286,64 @@ namespace QuikGraph.Tests.Algorithms
 
 
                 var evenVerticesGraph = new AdjacencyGraph<int, EquatableEdge<int>>();
-                evenVerticesGraph.AddVertexRange(new[] { 1, 2, 3, 4 });
-                evenVerticesGraph.AddEdgeRange(new[]
-                {
+                evenVerticesGraph.AddVertexRange( 1, 2, 3, 4 );
+                evenVerticesGraph.AddEdgeRange(
                     new EquatableEdge<int>(1, 2),
                     new EquatableEdge<int>(1, 3),
                     new EquatableEdge<int>(2, 4),
                     new EquatableEdge<int>(3, 4)
-                });
+                );
                 yield return new TestCaseData(evenVerticesGraph, new EquatableEdge<int>[0]);
 
 
                 var oddVerticesGraph1 = new AdjacencyGraph<int, EquatableEdge<int>>();
-                oddVerticesGraph1.AddVertexRange(new[] { 1, 2, 3 });
-                oddVerticesGraph1.AddEdgeRange(new[]
-                {
+                oddVerticesGraph1.AddVertexRange( 1, 2, 3 );
+                oddVerticesGraph1.AddEdgeRange(
                     new EquatableEdge<int>(1, 2),
                     new EquatableEdge<int>(2, 1),
                     new EquatableEdge<int>(1, 3)
-                });
-                yield return new TestCaseData(
-                    oddVerticesGraph1,
-                    new[]
-                    {
-                        new EquatableEdge<int>(1, 3)
-                    });
+                );
+                yield return new TestCaseData(oddVerticesGraph1, new[] { new EquatableEdge<int>(1, 3) });
 
 
                 var oddVerticesGraph2 = new AdjacencyGraph<int, EquatableEdge<int>>();
-                oddVerticesGraph2.AddVertexRange(new[] { 1, 2, 3, 4, 5 });
-                oddVerticesGraph2.AddEdgeRange(new[]
-                {
-                    new EquatableEdge<int>(1, 2),
-                    new EquatableEdge<int>(2, 1),
-                    new EquatableEdge<int>(1, 4),
-                    new EquatableEdge<int>(3, 1),
-                    new EquatableEdge<int>(1, 5)
-                });
-                yield return new TestCaseData(
-                    oddVerticesGraph2,
-                    new[]
-                    {
-                        new EquatableEdge<int>(1, 4),
-                        new EquatableEdge<int>(3, 5)
-                    });
+                oddVerticesGraph2.AddVertexRange( 1, 2, 3, 4, 5 );
+                oddVerticesGraph2.AddEdgeRange(
+                    new EquatableEdge<int>[] {
+                        new (1, 2),
+                        new (2, 1),
+                        new (1, 4),
+                        new (3, 1),
+                        new (1, 5)
+                    }
+                );
+                yield return new TestCaseData(oddVerticesGraph2,
+                    new EquatableEdge<int>[] {
+                        new (1, 4),
+                        new (3, 5)
+                        }
+                    );
 
 
                 var oddVerticesGraph3 = new AdjacencyGraph<int, EquatableEdge<int>>();
-                oddVerticesGraph3.AddVertexRange(new[] { 1, 2, 3, 4, 5 });
-                oddVerticesGraph3.AddEdgeRange(new[]
-                {
-                    new EquatableEdge<int>(1, 2),
-                    new EquatableEdge<int>(2, 1),
-                    new EquatableEdge<int>(1, 3),
-                    new EquatableEdge<int>(1, 4),
-                    new EquatableEdge<int>(3, 4),
-                    new EquatableEdge<int>(3, 4),
-                    new EquatableEdge<int>(1, 5)
-                });
-                yield return new TestCaseData(
-                    oddVerticesGraph3,
-                    new[]
-                    {
-                        new EquatableEdge<int>(1, 3),
-                        new EquatableEdge<int>(4, 5)
-                    });
+                oddVerticesGraph3.AddVertexRange( 1, 2, 3, 4, 5 );
+                oddVerticesGraph3.AddEdgeRange(
+                    new EquatableEdge<int>[]{
+                        new (1, 2),
+                        new (2, 1),
+                        new (1, 3),
+                        new (1, 4),
+                        new (3, 4),
+                        new (3, 4),
+                        new (1, 5)
+                    }
+                );
+                yield return new TestCaseData(oddVerticesGraph3,
+                        new EquatableEdge<int>[] {
+                            new (1, 3),
+                            new (4, 5)
+                        }
+                    );
             }
         }
 
@@ -397,38 +387,35 @@ namespace QuikGraph.Tests.Algorithms
 
 
                 var evenVerticesGraph = new AdjacencyGraph<int, EquatableEdge<int>>();
-                evenVerticesGraph.AddVertexRange(new[] { 1, 2, 3, 4 });
-                evenVerticesGraph.AddEdgeRange(new[]
-                {
+                evenVerticesGraph.AddVertexRange( 1, 2, 3, 4 );
+                evenVerticesGraph.AddEdgeRange(
                     new EquatableEdge<int>(1, 2),
                     new EquatableEdge<int>(1, 3),
                     new EquatableEdge<int>(2, 4),
                     new EquatableEdge<int>(3, 4)
-                });
+                );
                 yield return new TestCaseData(evenVerticesGraph);
 
 
                 var oddVerticesGraph1 = new AdjacencyGraph<int, EquatableEdge<int>>();
-                oddVerticesGraph1.AddVertexRange(new[] { 1, 2, 3 });
-                oddVerticesGraph1.AddEdgeRange(new[]
-                {
+                oddVerticesGraph1.AddVertexRange( 1, 2, 3 );
+                oddVerticesGraph1.AddEdgeRange(
                     new EquatableEdge<int>(1, 2),
                     new EquatableEdge<int>(2, 1),
                     new EquatableEdge<int>(1, 3)
-                });
+                );
                 yield return new TestCaseData(oddVerticesGraph1);
 
 
                 var oddVerticesGraph2 = new AdjacencyGraph<int, EquatableEdge<int>>();
-                oddVerticesGraph2.AddVertexRange(new[] { 1, 2, 3, 4, 5 });
-                oddVerticesGraph2.AddEdgeRange(new[]
-                {
+                oddVerticesGraph2.AddVertexRange( 1, 2, 3, 4, 5 );
+                oddVerticesGraph2.AddEdgeRange(
                     new EquatableEdge<int>(1, 2),
                     new EquatableEdge<int>(2, 1),
                     new EquatableEdge<int>(1, 4),
                     new EquatableEdge<int>(3, 1),
                     new EquatableEdge<int>(1, 5)
-                });
+                );
                 yield return new TestCaseData(oddVerticesGraph2);
             }
         }
@@ -474,10 +461,9 @@ namespace QuikGraph.Tests.Algorithms
             var edge7 = new Edge<char>('c', 'f');
 
             var graph = new AdjacencyGraph<char, Edge<char>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7
-            });
+            );
 
             ComputeTrails(
                 graph,
@@ -507,10 +493,9 @@ namespace QuikGraph.Tests.Algorithms
             var edge8 = new Edge<char>('b', 'e');
 
             var graph = new AdjacencyGraph<char, Edge<char>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8
-            });
+            );
 
             ComputeTrails(
                 graph,
@@ -541,10 +526,9 @@ namespace QuikGraph.Tests.Algorithms
             var edge9 = Edge.Create(4, 4);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, edge9
-            });
+            );
 
             ComputeTrails(
                 graph,
@@ -574,10 +558,9 @@ namespace QuikGraph.Tests.Algorithms
             var edge8 = Edge.Create(4, 4);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8
-            });
+            );
 
             ComputeTrails(
                 graph,
@@ -637,10 +620,9 @@ namespace QuikGraph.Tests.Algorithms
             var edge8 = new Edge<char>('b', 'e');
 
             var graph = new AdjacencyGraph<char, Edge<char>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8
-            });
+            );
 
             ComputeTrails(
                 graph,
@@ -673,10 +655,9 @@ namespace QuikGraph.Tests.Algorithms
             var edge9 = Edge.Create(4, 4);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, edge9
-            });
+            );
 
             ComputeTrails(
                 graph,
@@ -708,10 +689,9 @@ namespace QuikGraph.Tests.Algorithms
             var edge8 = new EquatableEdge<int>(4, 4);
 
             var graph = new AdjacencyGraph<int, EquatableEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8
-            });
+            );
 
             // Root 2
             ComputeTrails(

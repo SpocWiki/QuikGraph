@@ -214,11 +214,11 @@ namespace QuikGraph.Tests.Algorithms.Exploration
             graph.OutEdges(vertex3);
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
-            AssertHasVertices(graph, new[] { vertex1, vertex2, vertex3 });
+            graph.AssertHasVertices(new[] { vertex1, vertex2, vertex3 });
 
             graph.ClearTransitionFactories();
 
-            AssertNoVertices(graph, new[] { vertex1, vertex2, vertex3 });
+            graph.AssertNoVertices(new[] { vertex1, vertex2, vertex3 });
         }
 
         #endregion

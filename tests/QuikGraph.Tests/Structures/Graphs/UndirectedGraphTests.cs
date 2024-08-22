@@ -299,12 +299,11 @@ namespace QuikGraph.Tests.Structures
             var edge66 = Edge.Create(6, 6);
 
             graph.AddVertex(7);
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge12, edge13, edge13Bis,
                 edge14, edge24, edge31, edge33,
                 edge51, edge65, edge66
-            });
+            );
 
             CollectionAssert.AreEquivalent(
                 new[] { 2, 3, 4, 5 },
@@ -461,28 +460,28 @@ namespace QuikGraph.Tests.Structures
             var edge31 = Edge.Create(3, 1);
             var edge33 = Edge.Create(3, 3);
             var edgeNotInGraph = Edge.Create(3, 2);
-            graph.AddVertexRange(new[] { 1, 2, 3, 4 });
-            graph.AddEdgeRange(new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
+            graph.AddVertexRange( 1, 2, 3, 4 );
+            graph.AddEdgeRange( edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 );
 
             Assert.AreEqual(0, graph.RemoveEdges(Enumerable.Empty<IEdge<int>>()));
             CheckCounters(0);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(graph, new[] { edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 });
+            graph.AssertHasVertices(1, 2, 3, 4 );
+            graph.AssertHasEdges(edge12, edge13, edge13Bis, edge14, edge24, edge31, edge33 );
 
             Assert.AreEqual(2, graph.RemoveEdges(new[] { edge12, edge13Bis }));
             CheckCounters(2);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(graph, new[] { edge13, edge14, edge24, edge31, edge33 });
+            graph.AssertHasVertices(1, 2, 3, 4 );
+            graph.AssertHasEdges(edge13, edge14, edge24, edge31, edge33 );
 
             Assert.AreEqual(2, graph.RemoveEdges(new[] { edge13, edge14, edgeNotInGraph }));
             CheckCounters(2);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(graph, new[] { edge24, edge31, edge33 });
+            graph.AssertHasVertices(1, 2, 3, 4 );
+            graph.AssertHasEdges(edge24, edge31, edge33 );
 
             Assert.AreEqual(3, graph.RemoveEdges(new[] { edge24, edge31, edge33 }));
             CheckCounters(3);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
-            AssertNoEdge(graph);
+            graph.AssertHasVertices(1, 2, 3, 4 );
+            graph.AssertNoEdge();
 
             #region Local function
 
@@ -522,12 +521,12 @@ namespace QuikGraph.Tests.Structures
 
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.RemoveEdges(null));
-            AssertHasEdges(graph, new[] { edge });
+            graph.AssertHasEdges(edge );
             CheckCounters();
 
             Assert.Throws<ArgumentNullException>(() => graph.RemoveEdges(new[] { edge, null }));
             Assert.AreEqual(0, edgesRemoved);
-            AssertHasEdges(graph, new[] { edge });
+            graph.AssertHasEdges(edge );
             CheckCounters();
 
             #region Local function
@@ -631,44 +630,44 @@ namespace QuikGraph.Tests.Structures
             // Clear 1 => In graph but no out edges
             graph.AddVertex(1);
             clearEdges(graph, 1);
-            AssertHasVertices(graph, new[] { 1 });
-            AssertNoEdge(graph);
+            graph.AssertHasVertices(1 );
+            graph.AssertNoEdge();
             CheckCounter(0);
 
             var edge12 = Edge.Create(1, 2);
             var edge23 = Edge.Create(2, 3);
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
+            graph.AddVerticesAndEdgeRange( edge12, edge23 );
 
             // Clear 1
             clearEdges(graph, 1);
 
-            AssertHasEdges(graph, new[] { edge23 });
+            graph.AssertHasEdges(edge23 );
             CheckCounter(1);
 
             var edge13 = Edge.Create(1, 3);
             var edge31 = Edge.Create(3, 1);
             var edge32 = Edge.Create(3, 2);
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge31, edge32 });
+            graph.AddVerticesAndEdgeRange( edge12, edge13, edge31, edge32 );
 
             // Clear 3
             clearEdges(graph, 3);
 
-            AssertHasEdges(graph, new[] { edge12 });
+            graph.AssertHasEdges(edge12 );
             CheckCounter(4);
 
             // Clear 2 = Clear
             clearEdges(graph, 2);
 
-            AssertNoEdge(graph);
+            graph.AssertNoEdge();
             CheckCounter(1);
 
             var edge11 = Edge.Create(1, 1);
-            graph.AddVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge23, edge31, edge32 });
+            graph.AddVerticesAndEdgeRange( edge11, edge12, edge13, edge23, edge31, edge32 );
 
             // Clear self edge
             clearEdges(graph, 1);
 
-            AssertHasEdges(graph, new[] { edge23, edge32 });
+            graph.AssertHasEdges(edge23, edge32 );
             CheckCounter(4);
 
             #region Local function
@@ -710,62 +709,61 @@ namespace QuikGraph.Tests.Structures
             Assert.IsNotNull(clonedGraph);
             AssertEmptyGraph(clonedGraph);
 
-            graph.AddVertexRange(new[] { 1, 2, 3 });
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertNoEdge(graph);
+            graph.AddVertexRange( 1, 2, 3 );
+            graph.AssertHasVertices(1, 2, 3 );
+            graph.AssertNoEdge();
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
-            AssertNoEdge(clonedGraph);
+            clonedGraph.AssertHasVertices(1, 2, 3 );
+            clonedGraph.AssertNoEdge();
 
             clonedGraph = (UndirectedGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
-            AssertNoEdge(clonedGraph);
+            clonedGraph.AssertHasVertices(1, 2, 3 );
+            clonedGraph.AssertNoEdge();
 
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
             var edge3 = Edge.Create(2, 3);
-            graph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3 });
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
+            graph.AddVerticesAndEdgeRange( edge1, edge2, edge3 );
+            graph.AssertHasVertices(1, 2, 3 );
+            graph.AssertHasEdges(edge1, edge2, edge3 );
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
-            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
+            clonedGraph.AssertHasVertices(1, 2, 3 );
+            clonedGraph.AssertHasEdges(edge1, edge2, edge3 );
 
             clonedGraph = (UndirectedGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3 });
-            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
+            clonedGraph.AssertHasVertices(1, 2, 3 );
+            clonedGraph.AssertHasEdges(edge1, edge2, edge3 );
 
             graph.AddVertex(4);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
+            graph.AssertHasVertices(1, 2, 3, 4 );
+            graph.AssertHasEdges(edge1, edge2, edge3 );
 
             clonedGraph = graph.Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
+            clonedGraph.AssertHasVertices(1, 2, 3, 4 );
+            clonedGraph.AssertHasEdges(edge1, edge2, edge3 );
 
             clonedGraph = (UndirectedGraph<int, IEdge<int>>)((ICloneable)graph).Clone();
             Assert.IsNotNull(clonedGraph);
-            AssertHasVertices(clonedGraph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(clonedGraph, new[] { edge1, edge2, edge3 });
+            clonedGraph.AssertHasVertices(1, 2, 3, 4 );
+            clonedGraph.AssertHasEdges(edge1, edge2, edge3 );
         }
 
         [Test]
         public void TrimEdgeExcess()
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(1, 4)
-            });
+            );
 
             Assert.DoesNotThrow(() => graph.TrimEdgeExcess());
         }

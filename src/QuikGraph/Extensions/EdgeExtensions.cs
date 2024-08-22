@@ -414,7 +414,7 @@ namespace QuikGraph
         [Pure]
         [NotNull]
         public static IEnumerable<SReversedEdge<TVertex, TEdge>> ReverseEdges<TVertex, TEdge>(
-            [NotNull, ItemNotNull] IEnumerable<TEdge> edges)
+            [NotNull, ItemNotNull] this IEnumerable<TEdge> edges)
             where TEdge : IEdge<TVertex>
         {
             if (edges is null)

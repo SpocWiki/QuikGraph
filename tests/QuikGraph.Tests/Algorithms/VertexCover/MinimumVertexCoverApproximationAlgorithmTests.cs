@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using QuikGraph.Algorithms.VertexCover;
 
@@ -49,17 +49,16 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
             algorithm.Compute();
             CollectionAssert.IsEmpty(algorithm.CoverSet);
 
-            graph.AddVertexRange(new[] { 1, 2, 3 });
+            graph.AddVertexRange( 1, 2, 3 );
             algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
             CollectionAssert.IsEmpty(algorithm.CoverSet);
 
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 Edge.Create(1, 2),
                 Edge.Create(2, 2),
                 Edge.Create(3, 1)
-            });
+            );
             algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph, new Random(123456));
             algorithm.Compute();
             CollectionAssert.AreEquivalent(
@@ -73,22 +72,20 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
                 new[] { 1, 2 },
                 algorithm.CoverSet);
 
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 Edge.Create(5, 2)
-            });
+            );
             algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph, new Random(123456));
             algorithm.Compute();
             CollectionAssert.AreEquivalent(
                 new[] { 1, 2 },
                 algorithm.CoverSet);
 
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 Edge.Create(6, 7),
                 Edge.Create(7, 8),
                 Edge.Create(9, 8)
-            });
+            );
             algorithm = new MinimumVertexCoverApproximationAlgorithm<int, IEdge<int>>(graph, new Random(123456));
             algorithm.Compute();
             CollectionAssert.AreEquivalent(

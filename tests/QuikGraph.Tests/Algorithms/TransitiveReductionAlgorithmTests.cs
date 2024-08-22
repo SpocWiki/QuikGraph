@@ -44,14 +44,13 @@ namespace QuikGraph.Tests.Algorithms
             var edge35 = new SEdge<int>(3, 5);
             var edge45 = new SEdge<int>(4, 5);
             var graph = new AdjacencyGraph<int, SEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge12, edge13, edge14, edge15,
                 edge24, edge34, edge35, edge45
-            });
+            );
 
             var result = graph.ComputeTransitiveReduction();
-            AssertHasVertices(result, new List<int>
+            result.AssertHasVertices(new List<int>
             {
                 1,
                 2,
@@ -67,12 +66,12 @@ namespace QuikGraph.Tests.Algorithms
                 edge34,
                 edge45
             };
-            AssertHasEdges(result, expected);
+            result.AssertHasEdges(expected);
             Assert.AreEqual(expected.Count, result.EdgeCount);
 
             // Idempotency:
             var result2 = result.ComputeTransitiveReduction();
-            AssertHasEdges(result2, expected);
+            result2.AssertHasEdges(expected);
         }
 
         [Test]
@@ -90,15 +89,14 @@ namespace QuikGraph.Tests.Algorithms
             var edge67 = new SEdge<int>(6, 7);
             var edge74 = new SEdge<int>(7, 4);
             var graph = new AdjacencyGraph<int, SEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge01, edge02, edge03, edge23,
                 edge24, edge25, edge35, edge45,
                 edge65, edge67, edge74
-            });
+            );
 
             var result = graph.ComputeTransitiveReduction();
-            AssertHasVertices(result, new List<int>
+            result.AssertHasVertices(new List<int>
             {
                 0,
                 1,
@@ -120,11 +118,11 @@ namespace QuikGraph.Tests.Algorithms
                 edge67,
                 edge74
             }.AsReadOnly();
-            AssertHasEdges(result, expected);
+            result.AssertHasEdges(expected);
 
             // Idempotency:
             var result2 = result.ComputeTransitiveReduction();
-            AssertHasEdges(result2, expected);
+            result2.AssertHasEdges(expected);
         }
 
         [Test]
@@ -140,21 +138,20 @@ namespace QuikGraph.Tests.Algorithms
             var edge35 = Edge.Create(3, 5);
             var edge45 = Edge.Create(4, 5);
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge12, edge13, edge14, edge15,
                 edge24, edge34, edge35, edge45
-            });
+            );
 
             var result = graph.ComputeTransitiveReduction();
-            AssertHasVertices(result, new[] { 1, 2, 3, 4, 5 });
+            result.AssertHasVertices(1, 2, 3, 4, 5 );
             var expected = new[] { edge12, edge13, edge24, edge34, edge45 };
 
-            AssertHasEdges(result, expected);
+            result.AssertHasEdges(expected);
 
             // Idempotency:
             var result2 = result.ComputeTransitiveReduction();
-            AssertHasEdges(result2, expected);
+            result2.AssertHasEdges(expected);
         }
 
         [Test]
@@ -172,19 +169,18 @@ namespace QuikGraph.Tests.Algorithms
             var edge67 = new Edge<int>(6, 7);
             var edge74 = new Edge<int>(7, 4);
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge01, edge02, edge03, edge23, edge24, edge25, edge35, edge45, edge65, edge67, edge74
-            });
+            );
 
             var result = graph.ComputeTransitiveReduction();
-            AssertHasVertices(result, new[] { 0, 1, 2, 3, 4, 5, 6, 7 });
+            result.AssertHasVertices(0, 1, 2, 3, 4, 5, 6, 7 );
             var expected = new[] { edge01, edge02, edge23, edge24, edge35, edge45, edge67, edge74 };
-            AssertHasEdges(result, expected);
+            result.AssertHasEdges(expected);
 
             // Idempotency:
             var result2 = result.ComputeTransitiveReduction();
-            AssertHasEdges(result2, expected);
+            result2.AssertHasEdges(expected);
         }
 
         [Test]
@@ -196,17 +192,17 @@ namespace QuikGraph.Tests.Algorithms
             var edge12 = new Edge<string>(vertex1, vertex2);
 
             var graph = new AdjacencyGraph<string, Edge<string>>();
-            graph.AddVertexRange(new[] { vertex1, vertex2, vertex3 });
+            graph.AddVertexRange( vertex1, vertex2, vertex3 );
             graph.AddEdge(edge12);
 
             BidirectionalGraph<string, Edge<string>> result = graph.ComputeTransitiveReduction();
-            AssertHasVertices(result, new List<string> { vertex1, vertex2, vertex3 }.AsReadOnly());
+            result.AssertHasVertices(new List<string> { vertex1, vertex2, vertex3 }.AsReadOnly());
             var expected = new List<Edge<string>> { edge12 }.AsReadOnly();
-            AssertHasEdges(result, expected);
+            result.AssertHasEdges(expected);
 
             // Idempotency:
             var result2 = result.ComputeTransitiveReduction();
-            AssertHasEdges(result2, expected);
+            result2.AssertHasEdges(expected);
         }
     }
 }

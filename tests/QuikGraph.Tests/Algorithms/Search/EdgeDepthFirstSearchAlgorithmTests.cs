@@ -259,12 +259,10 @@ namespace QuikGraph.Tests.Algorithms.Search
             var edge86 = Edge.Create(8, 6);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge12, edge13, edge21, edge24, edge25,
-
                 edge67, edge68, edge86
-            });
+            );
 
             var algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph)
             {

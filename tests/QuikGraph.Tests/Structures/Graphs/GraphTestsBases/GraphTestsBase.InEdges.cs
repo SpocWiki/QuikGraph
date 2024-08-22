@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -19,7 +19,7 @@ namespace QuikGraph.Tests.Structures
             var edge21 = Edge.Create(2, 1);
             var edge41 = Edge.Create(4, 1);
 
-            graph.AddVerticesAndEdgeRange(new[] { edge11, edge13, edge21, edge41 });
+            graph.AddVerticesAndEdgeRange( edge11, edge13, edge21, edge41 );
 
             Assert.AreSame(edge11, graph.InEdge(1, 0));
             Assert.AreSame(edge41, graph.InEdge(1, 2));
@@ -35,7 +35,7 @@ namespace QuikGraph.Tests.Structures
             var edge21 = Edge.Create(2, 1);
             var edge41 = Edge.Create(4, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge13, edge21, edge41 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge11, edge13, edge21, edge41 );
             IBidirectionalIncidenceGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.AreSame(edge11, graph.InEdge(1, 0));
@@ -53,7 +53,7 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
             var edge42 = Edge.Create(4, 2);
 
-            graph.AddEdgeRange(new[] { edge11, edge14, edge21, edge31, edge33, edge42 });
+            graph.AddEdgeRange( edge11, edge14, edge21, edge31, edge33, edge42 );
 
             Assert.AreSame(edge11, graph.InEdge(1, 0));
             Assert.AreSame(edge31, graph.InEdge(1, 2));
@@ -71,7 +71,7 @@ namespace QuikGraph.Tests.Structures
             var edge32 = Edge.Create(3, 2);
             var edge34 = Edge.Create(3, 4);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge31, edge32, edge34 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge11, edge31, edge32, edge34 );
             IBidirectionalIncidenceGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             AssertSameReversedEdge(edge11, graph.InEdge(1, 0));
@@ -177,17 +177,17 @@ namespace QuikGraph.Tests.Structures
             AssertNoInEdge(graph, 1);
             AssertNoOutEdge(graph, 1);
 
-            graph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge32, edge33 });
+            graph.AddVerticesAndEdgeRange( edge12, edge13, edge14, edge24, edge32, edge33 );
 
-            AssertHasOutEdges(graph, 1, new[] { edge12, edge13, edge14 });
-            AssertHasOutEdges(graph, 2, new[] { edge24 });
-            AssertHasOutEdges(graph, 3, new[] { edge32, edge33 });
+            AssertHasOutEdges(graph, 1, edge12, edge13, edge14 );
+            AssertHasOutEdges(graph, 2, edge24 );
+            AssertHasOutEdges(graph, 3, edge32, edge33 );
             AssertNoOutEdge(graph, 4);
 
             AssertNoInEdge(graph, 1);
-            AssertHasInEdges(graph, 2, new[] { edge12, edge32 });
-            AssertHasInEdges(graph, 3, new[] { edge13, edge33 });
-            AssertHasInEdges(graph, 4, new[] { edge14, edge24 });
+            AssertHasInEdges(graph, 2, edge12, edge32 );
+            AssertHasInEdges(graph, 3, edge13, edge33 );
+            AssertHasInEdges(graph, 4, edge14, edge24 );
         }
 
         protected static void InEdges_ImmutableGraph_Test(
@@ -206,18 +206,18 @@ namespace QuikGraph.Tests.Structures
             AssertNoInEdge(graph, 1);
             AssertNoOutEdge(graph, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge32, edge33 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge12, edge13, edge14, edge24, edge32, edge33 );
             graph = createGraph();
 
-            AssertHasOutEdges(graph, 1, new[] { edge12, edge13, edge14 });
-            AssertHasOutEdges(graph, 2, new[] { edge24 });
-            AssertHasOutEdges(graph, 3, new[] { edge32, edge33 });
+            AssertHasOutEdges(graph, 1, edge12, edge13, edge14 );
+            AssertHasOutEdges(graph, 2, edge24 );
+            AssertHasOutEdges(graph, 3, edge32, edge33 );
             AssertNoOutEdge(graph, 4);
 
             AssertNoInEdge(graph, 1);
-            AssertHasInEdges(graph, 2, new[] { edge12, edge32 });
-            AssertHasInEdges(graph, 3, new[] { edge13, edge33 });
-            AssertHasInEdges(graph, 4, new[] { edge14, edge24 });
+            AssertHasInEdges(graph, 2, edge12, edge32 );
+            AssertHasInEdges(graph, 3, edge13, edge33 );
+            AssertHasInEdges(graph, 4, edge14, edge24 );
         }
 
         protected static void InEdges_ImmutableVertices_Test(
@@ -232,11 +232,11 @@ namespace QuikGraph.Tests.Structures
 
             AssertNoInEdge(graph, 1);
 
-            graph.AddEdgeRange(new[] { edge02, edge10, edge20, edge22, edge30, edge31 });
+            graph.AddEdgeRange( edge02, edge10, edge20, edge22, edge30, edge31 );
 
-            AssertHasInEdges(graph, 0, new[] { edge10, edge20, edge30 });
-            AssertHasInEdges(graph, 1, new[] { edge31 });
-            AssertHasInEdges(graph, 2, new[] { edge02, edge22 });
+            AssertHasInEdges(graph, 0, edge10, edge20, edge30 );
+            AssertHasInEdges(graph, 1, edge31 );
+            AssertHasInEdges(graph, 2, edge02, edge22 );
             AssertNoInEdge(graph, 3);
         }
 
@@ -256,18 +256,18 @@ namespace QuikGraph.Tests.Structures
             AssertNoInEdge(graph, 1);
             AssertNoOutEdge(graph, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge33, edge34, edge43 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge12, edge13, edge14, edge33, edge34, edge43 );
             graph = createGraph();
 
             AssertNoOutEdge(graph, 1);
-            AssertHasReversedOutEdges(graph, 2, new[] { edge12 });
-            AssertHasReversedOutEdges(graph, 3, new[] { edge13, edge33, edge43 });
-            AssertHasReversedOutEdges(graph, 4, new[] { edge14, edge34 });
+            AssertHasReversedOutEdges(graph, 2, edge12 );
+            AssertHasReversedOutEdges(graph, 3, edge13, edge33, edge43 );
+            AssertHasReversedOutEdges(graph, 4, edge14, edge34 );
 
-            AssertHasReversedInEdges(graph, 1, new[] { edge12, edge13, edge14 });
+            AssertHasReversedInEdges(graph, 1, edge12, edge13, edge14 );
             AssertNoInEdge(graph, 2);
-            AssertHasReversedInEdges(graph, 3, new[] { edge33, edge34 });
-            AssertHasReversedInEdges(graph, 4, new[] { edge43 });
+            AssertHasReversedInEdges(graph, 3, edge33, edge34 );
+            AssertHasReversedInEdges(graph, 4, edge43 );
         }
 
         protected static void InEdges_NullThrows_Test<TVertex, TEdge>(

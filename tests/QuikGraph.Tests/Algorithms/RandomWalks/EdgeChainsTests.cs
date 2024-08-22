@@ -20,19 +20,19 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         private static IVertexAndEdgeListGraph<int, EquatableEdge<int>> CreateGraph1()
         {
             var graph = new AdjacencyGraph<int, EquatableEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
-                new EquatableEdge<int>(1, 2),
-                new EquatableEdge<int>(1, 3),
-                new EquatableEdge<int>(2, 3),
-                new EquatableEdge<int>(2, 5),
-                new EquatableEdge<int>(4, 3),
-                new EquatableEdge<int>(4, 5),
-                new EquatableEdge<int>(4, 7),
-                new EquatableEdge<int>(5, 6),
-                new EquatableEdge<int>(6, 7),
-                new EquatableEdge<int>(7, 4),
-                new EquatableEdge<int>(8, 3)
+            graph.AddVerticesAndEdgeRange(
+                new EquatableEdge<int>[] {
+                new (1, 2),
+                new (1, 3),
+                new (2, 3),
+                new (2, 5),
+                new (4, 3),
+                new (4, 5),
+                new (4, 7),
+                new (5, 6),
+                new (6, 7),
+                new (7, 4),
+                new (8, 3)
             });
 
             return graph;
@@ -43,19 +43,19 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         private static IVertexAndEdgeListGraph<int, EquatableEdge<int>> CreateGraph2()
         {
             var graph = new AdjacencyGraph<int, EquatableEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
-                new EquatableEdge<int>(1, 2),
-                new EquatableEdge<int>(1, 3),
-                new EquatableEdge<int>(2, 3),
-                new EquatableEdge<int>(3, 4),
-                new EquatableEdge<int>(4, 5),
-                new EquatableEdge<int>(4, 7),
-                new EquatableEdge<int>(5, 2),
-                new EquatableEdge<int>(5, 6),
-                new EquatableEdge<int>(6, 7),
-                new EquatableEdge<int>(7, 4),
-                new EquatableEdge<int>(8, 3)
+            graph.AddVerticesAndEdgeRange(
+                new EquatableEdge<int>[] {
+                new (1, 2),
+                new (1, 3),
+                new (2, 3),
+                new (3, 4),
+                new (4, 5),
+                new (4, 7),
+                new (5, 2),
+                new (5, 6),
+                new (6, 7),
+                new (7, 4),
+                new (8, 3)
             });
 
             return graph;

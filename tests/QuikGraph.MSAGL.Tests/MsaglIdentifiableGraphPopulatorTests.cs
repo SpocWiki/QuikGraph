@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using QuikGraph.Tests.Algorithms;
 
@@ -70,12 +70,11 @@ namespace QuikGraph.MSAGL.Tests
         public void VertexId()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 Edge.Create(1, 2),
                 Edge.Create(2, 3)
-            });
-            graph.AddVertexRange(new[] { 5, 6 });
+            );
+            graph.AddVertexRange( 5, 6 );
 
             var populator = new MsaglIdentifiableGraphPopulator<int, IEdge<int>>(graph, vertex => $"MyTestId{vertex}");
             populator.Compute();

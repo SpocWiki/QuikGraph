@@ -124,9 +124,13 @@ namespace QuikGraph.Algorithms
             return pairs != null;
         }
 
-        /// <summary>
-        /// Sets vertices pairs.
-        /// </summary>
+        /// <summary> Sets vertices pairs. </summary>
+        /// <param name="pairs">Vertices pairs.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="pairs"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="pairs"/> is empty or any vertex from pairs is not part of <see cref="AlgorithmBase{TGraph}.VisitedGraph"/>.</exception>
+        public void SetVertexPairs([NotNull] params SEquatableEdge<TVertex>[] pairs) => SetVertexPairs(pairs.AsEnumerable());
+
+        /// <summary> Sets vertices pairs. </summary>
         /// <param name="pairs">Vertices pairs.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="pairs"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="pairs"/> is empty or any vertex from pairs is not part of <see cref="AlgorithmBase{TGraph}.VisitedGraph"/>.</exception>

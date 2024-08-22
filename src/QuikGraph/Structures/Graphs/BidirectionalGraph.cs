@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -516,6 +517,9 @@ namespace QuikGraph
 
             return AddEdgeInternal(edge);
         }
+
+        /// <inheritdoc />
+        public int AddEdgeRange(params TEdge[] edges) => AddEdgeRange(edges.AsEnumerable());
 
         /// <inheritdoc />
         public int AddEdgeRange(IEnumerable<TEdge> edges)

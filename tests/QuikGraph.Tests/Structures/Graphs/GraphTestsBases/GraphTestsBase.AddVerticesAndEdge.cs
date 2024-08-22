@@ -34,24 +34,24 @@ namespace QuikGraph.Tests.Structures
             Assert.IsTrue(graph.AddVerticesAndEdge(edge1));
             Assert.AreEqual(2, vertexAdded);
             Assert.AreEqual(1, edgeAdded);
-            AssertHasVertices(graph, new[] { 1, 2 });
-            AssertHasEdges(graph, new[] { edge1 });
+            graph.AssertHasVertices(new[] { 1, 2 });
+            graph.AssertHasEdges(new[] { edge1 });
 
             // Edge 2
             var edge2 = Edge.Create(1, 3);
             Assert.IsTrue(graph.AddVerticesAndEdge(edge2));
             Assert.AreEqual(3, vertexAdded);
             Assert.AreEqual(2, edgeAdded);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasEdges(graph, new[] { edge1, edge2 });
+            graph.AssertHasVertices(new[] { 1, 2, 3 });
+            graph.AssertHasEdges(new[] { edge1, edge2 });
 
             // Edge 3
             var edge3 = Edge.Create(2, 3);
             Assert.IsTrue(graph.AddVerticesAndEdge(edge3));
             Assert.AreEqual(3, vertexAdded);
             Assert.AreEqual(3, edgeAdded);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
+            graph.AssertHasVertices(new[] { 1, 2, 3 });
+            graph.AssertHasEdges(new[] { edge1, edge2, edge3 });
         }
 
         protected static void AddVerticesAndEdge_Clusters_Test(
@@ -65,20 +65,20 @@ namespace QuikGraph.Tests.Structures
             // Edge 1
             var edge1 = Edge.Create(1, 2);
             Assert.IsTrue(graph1.AddVerticesAndEdge(edge1));
-            AssertHasVertices(graph1, new[] { 1, 2 });
-            AssertHasEdges(graph1, new[] { edge1 });
+            graph1.AssertHasVertices(new[] { 1, 2 });
+            graph1.AssertHasEdges(new[] { edge1 });
 
             // Edge 2
             var edge2 = Edge.Create(1, 3);
             Assert.IsTrue(graph1.AddVerticesAndEdge(edge2));
-            AssertHasVertices(graph1, new[] { 1, 2, 3 });
-            AssertHasEdges(graph1, new[] { edge1, edge2 });
+            graph1.AssertHasVertices(new[] { 1, 2, 3 });
+            graph1.AssertHasEdges(new[] { edge1, edge2 });
 
             // Edge 3
             var edge3 = Edge.Create(2, 3);
             Assert.IsTrue(graph1.AddVerticesAndEdge(edge3));
-            AssertHasVertices(graph1, new[] { 1, 2, 3 });
-            AssertHasEdges(graph1, new[] { edge1, edge2, edge3 });
+            graph1.AssertHasVertices(new[] { 1, 2, 3 });
+            graph1.AssertHasEdges(new[] { edge1, edge2, edge3 });
 
 
             // Graph with parent
@@ -87,30 +87,30 @@ namespace QuikGraph.Tests.Structures
 
             // Edge 1
             Assert.IsTrue(graph2.AddVerticesAndEdge(edge1));
-            AssertHasVertices(parent2, new[] { 1, 2 });
-            AssertHasVertices(graph2, new[] { 1, 2 });
-            AssertHasEdges(parent2, new[] { edge1 });
-            AssertHasEdges(graph2, new[] { edge1 });
+            parent2.AssertHasVertices(new[] { 1, 2 });
+            graph2.AssertHasVertices(new[] { 1, 2 });
+            parent2.AssertHasEdges(new[] { edge1 });
+            graph2.AssertHasEdges(new[] { edge1 });
 
             // Edge 2
             Assert.IsTrue(parent2.AddVerticesAndEdge(edge2));
-            AssertHasVertices(parent2, new[] { 1, 2, 3 });
-            AssertHasVertices(graph2, new[] { 1, 2 });
-            AssertHasEdges(parent2, new[] { edge1, edge2 });
-            AssertHasEdges(graph2, new[] { edge1 });
+            parent2.AssertHasVertices(new[] { 1, 2, 3 });
+            graph2.AssertHasVertices(new[] { 1, 2 });
+            parent2.AssertHasEdges(new[] { edge1, edge2 });
+            graph2.AssertHasEdges(new[] { edge1 });
 
             Assert.IsTrue(graph2.AddVerticesAndEdge(edge2));
-            AssertHasVertices(parent2, new[] { 1, 2, 3 });
-            AssertHasVertices(graph2, new[] { 1, 2, 3 });
-            AssertHasEdges(parent2, new[] { edge1, edge2 });
-            AssertHasEdges(graph2, new[] { edge1, edge2 });
+            parent2.AssertHasVertices(new[] { 1, 2, 3 });
+            graph2.AssertHasVertices(new[] { 1, 2, 3 });
+            parent2.AssertHasEdges(new[] { edge1, edge2 });
+            graph2.AssertHasEdges(new[] { edge1, edge2 });
 
             // Edge 3
             Assert.IsTrue(graph2.AddVerticesAndEdge(edge3));
-            AssertHasVertices(parent2, new[] { 1, 2, 3 });
-            AssertHasVertices(graph2, new[] { 1, 2, 3 });
-            AssertHasEdges(parent2, new[] { edge1, edge2, edge3 });
-            AssertHasEdges(graph2, new[] { edge1, edge2, edge3 });
+            parent2.AssertHasVertices(new[] { 1, 2, 3 });
+            graph2.AssertHasVertices(new[] { 1, 2, 3 });
+            parent2.AssertHasEdges(new[] { edge1, edge2, edge3 });
+            graph2.AssertHasEdges(new[] { edge1, edge2, edge3 });
         }
 
         protected static void AddVerticesAndEdge_Throws_Test<TVertex, TEdge>(
@@ -163,19 +163,19 @@ namespace QuikGraph.Tests.Structures
             // Edge 1, 2
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
-            Assert.AreEqual(2, graph.AddVerticesAndEdgeRange(new[] { edge1, edge2 }));
+            Assert.AreEqual(2, graph.AddVerticesAndEdgeRange( edge1, edge2));
             Assert.AreEqual(3, vertexAdded);
             Assert.AreEqual(2, edgeAdded);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasEdges(graph, new[] { edge1, edge2 });
+            graph.AssertHasVertices(new[] { 1, 2, 3 });
+            graph.AssertHasEdges(new[] { edge1, edge2 });
 
             // Edge 1, 3
             var edge3 = Edge.Create(2, 3);
-            Assert.AreEqual(1, graph.AddVerticesAndEdgeRange(new[] { edge1, edge3 })); // Showcase the add of only one edge
+            Assert.AreEqual(1, graph.AddVerticesAndEdgeRange( edge1, edge3)); // Showcase the add of only one edge
             Assert.AreEqual(3, vertexAdded);
             Assert.AreEqual(3, edgeAdded);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
+            graph.AssertHasVertices(new[] { 1, 2, 3 });
+            graph.AssertHasEdges(new[] { edge1, edge2, edge3 });
         }
 
         protected static void AddVerticesAndEdgeRange_EdgesOnly_Test(
@@ -194,17 +194,17 @@ namespace QuikGraph.Tests.Structures
             // Edge 1, 2
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
-            Assert.AreEqual(2, graph.AddVerticesAndEdgeRange(new[] { edge1, edge2 }));
+            Assert.AreEqual(2, graph.AddVerticesAndEdgeRange( edge1, edge2 ));
             Assert.AreEqual(2, edgeAdded);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasEdges(graph, new[] { edge1, edge2 });
+            graph.AssertHasVertices(new[] { 1, 2, 3 });
+            graph.AssertHasEdges(new[] { edge1, edge2 });
 
             // Edge 1, 3
             var edge3 = Edge.Create(2, 3);
-            Assert.AreEqual(1, graph.AddVerticesAndEdgeRange(new[] { edge1, edge3 })); // Showcase the add of only one edge
+            Assert.AreEqual(1, graph.AddVerticesAndEdgeRange( edge1, edge3 )); // Showcase the add of only one edge
             Assert.AreEqual(3, edgeAdded);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3 });
+            graph.AssertHasVertices(new[] { 1, 2, 3 });
+            graph.AssertHasEdges(new[] { edge1, edge2, edge3 });
         }
 
         protected static void AddVerticesAndEdgeRange_Clusters_Test(
@@ -218,15 +218,15 @@ namespace QuikGraph.Tests.Structures
             // Edge 1, 2
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
-            Assert.AreEqual(2, graph1.AddVerticesAndEdgeRange(new[] { edge1, edge2 }));
-            AssertHasVertices(graph1, new[] { 1, 2, 3 });
-            AssertHasEdges(graph1, new[] { edge1, edge2 });
+            Assert.AreEqual(2, graph1.AddVerticesAndEdgeRange( edge1, edge2 ));
+            graph1.AssertHasVertices(new[] { 1, 2, 3 });
+            graph1.AssertHasEdges(new[] { edge1, edge2 });
 
             // Edge 1, 3
             var edge3 = Edge.Create(2, 3);
-            Assert.AreEqual(1, graph1.AddVerticesAndEdgeRange(new[] { edge1, edge3 })); // Showcase the add of only one edge
-            AssertHasVertices(graph1, new[] { 1, 2, 3 });
-            AssertHasEdges(graph1, new[] { edge1, edge2, edge3 });
+            Assert.AreEqual(1, graph1.AddVerticesAndEdgeRange( edge1, edge3 )); // Showcase the add of only one edge
+            graph1.AssertHasVertices(new[] { 1, 2, 3 });
+            graph1.AssertHasEdges(new[] { edge1, edge2, edge3 });
 
 
             // Graph with parent
@@ -234,24 +234,24 @@ namespace QuikGraph.Tests.Structures
             AssertEmptyGraph(graph2);
 
             // Edge 1, 2
-            Assert.AreEqual(2, graph2.AddVerticesAndEdgeRange(new[] { edge1, edge2 }));
-            AssertHasVertices(parent2, new[] { 1, 2, 3 });
-            AssertHasVertices(graph2, new[] { 1, 2, 3 });
-            AssertHasEdges(parent2, new[] { edge1, edge2 });
-            AssertHasEdges(graph2, new[] { edge1, edge2 });
+            Assert.AreEqual(2, graph2.AddVerticesAndEdgeRange( edge1, edge2 ));
+            parent2.AssertHasVertices(new[] { 1, 2, 3 });
+            graph2.AssertHasVertices(new[] { 1, 2, 3 });
+            parent2.AssertHasEdges(new[] { edge1, edge2 });
+            graph2.AssertHasEdges(new[] { edge1, edge2 });
 
             // Edge 1, 3
-            Assert.AreEqual(1, parent2.AddVerticesAndEdgeRange(new[] { edge1, edge3 })); // Showcase the add of only one edge
-            AssertHasVertices(parent2, new[] { 1, 2, 3 });
-            AssertHasVertices(graph2, new[] { 1, 2, 3 });
-            AssertHasEdges(parent2, new[] { edge1, edge2, edge3 });
-            AssertHasEdges(graph2, new[] { edge1, edge2 });
+            Assert.AreEqual(1, parent2.AddVerticesAndEdgeRange( edge1, edge3)); // Showcase the add of only one edge
+            parent2.AssertHasVertices(new[] { 1, 2, 3 });
+            graph2.AssertHasVertices(new[] { 1, 2, 3 });
+            parent2.AssertHasEdges(new[] { edge1, edge2, edge3 });
+            graph2.AssertHasEdges(new[] { edge1, edge2 });
 
-            Assert.AreEqual(1, graph2.AddVerticesAndEdgeRange(new[] { edge1, edge3 })); // Showcase the add of only one edge
-            AssertHasVertices(parent2, new[] { 1, 2, 3 });
-            AssertHasVertices(graph2, new[] { 1, 2, 3 });
-            AssertHasEdges(parent2, new[] { edge1, edge2, edge3 });
-            AssertHasEdges(graph2, new[] { edge1, edge2, edge3 });
+            Assert.AreEqual(1, graph2.AddVerticesAndEdgeRange( edge1, edge3)); // Showcase the add of only one edge
+            parent2.AssertHasVertices(new[] { 1, 2, 3 });
+            graph2.AssertHasVertices(new[] { 1, 2, 3 });
+            parent2.AssertHasEdges(new[] { edge1, edge2, edge3 });
+            graph2.AssertHasEdges(new[] { edge1, edge2, edge3 });
         }
 
         protected static void AddVerticesAndEdgeRange_Throws_Test(
@@ -280,7 +280,7 @@ namespace QuikGraph.Tests.Structures
             // Edge 1, 2, 3
             var edge1 = Edge.Create(1, 2);
             var edge3 = Edge.Create(1, 3);
-            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdgeRange(new[] { edge1, null, edge3 }));
+            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdgeRange( edge1, null, edge3 ));
             Assert.AreEqual(0, vertexAdded);
             Assert.AreEqual(0, edgeAdded);
             AssertEmptyGraph(graph);
@@ -305,7 +305,7 @@ namespace QuikGraph.Tests.Structures
             // Edge 1, 2, 3
             var edge1 = Edge.Create(1, 2);
             var edge3 = Edge.Create(1, 3);
-            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdgeRange(new[] { edge1, null, edge3 }));
+            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdgeRange( edge1, null, edge3 ));
             Assert.AreEqual(0, edgeAdded);
             AssertEmptyGraph(graph);
         }
@@ -321,7 +321,7 @@ namespace QuikGraph.Tests.Structures
             // Edge 1, 2, 3
             var edge1 = Edge.Create(1, 2);
             var edge3 = Edge.Create(1, 3);
-            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdgeRange(new[] { edge1, null, edge3 }));
+            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdgeRange( edge1, null, edge3 ));
             AssertEmptyGraph(graph);
         }
 

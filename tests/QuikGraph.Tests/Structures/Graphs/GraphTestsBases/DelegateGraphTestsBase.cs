@@ -320,7 +320,7 @@ namespace QuikGraph.Tests.Structures
                 Edge.Create(1, 3)
             };
             data.ShouldReturnEdges = edges;
-            AssertHasAdjacentEdges(graph, 1, edges);
+            graph.AssertHasAdjacentEdges(1, edges);
             data.CheckCalls(3);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -690,34 +691,34 @@ namespace QuikGraph.Tests.Structures
                 // Clear 1 => In graph but no out edges
                 g.AddVertex(1);
                 g.ClearOutEdges(1);
-                AssertHasVertices(g, new[] { 1 });
-                AssertNoEdge(g);
+                g.AssertHasVertices(1 );
+                g.AssertNoEdge();
 
                 var edge12 = Edge.Create(1, 2);
                 var edge23 = Edge.Create(2, 3);
-                g.AddVerticesAndEdgeRange(new[] { edge12, edge23 });
+                g.AddVerticesAndEdgeRange( edge12, edge23 );
 
                 // Clear 1
                 g.ClearOutEdges(1);
-                AssertHasEdges(g, new[] { edge23 });
+                g.AssertHasEdges(edge23 );
 
                 var edge13 = Edge.Create(1, 3);
                 var edge31 = Edge.Create(3, 1);
                 var edge32 = Edge.Create(3, 2);
-                g.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge31, edge32 });
+                g.AddVerticesAndEdgeRange( edge12, edge13, edge31, edge32 );
 
                 // Clear 3
                 g.ClearOutEdges(3);
-                AssertHasEdges(g, new[] { edge12, edge13, edge23 });
+                g.AssertHasEdges(edge12, edge13, edge23 );
 
                 // Clear 1
                 g.ClearOutEdges(1);
-                AssertHasEdges(g, new[] { edge23 });
+                g.AssertHasEdges(edge23 );
 
                 // Clear 2 = Clear
                 g.ClearOutEdges(2);
 
-                AssertNoEdge(g);
+                g.AssertNoEdge();
             }
 
             #endregion
@@ -742,6 +743,13 @@ namespace QuikGraph.Tests.Structures
         {
             Assert.AreEqual(0, graph.ClustersCount);
             CollectionAssert.IsEmpty(graph.Clusters);
+        }
+
+        private static void AssertHasClusters(
+            [NotNull] IClusteredGraph graph,
+            [NotNull, ItemNotNull] params IClusteredGraph[] clusters)
+        {
+            AssertHasClusters(graph, clusters.AsEnumerable());
         }
 
         private static void AssertHasClusters(
@@ -787,11 +795,11 @@ namespace QuikGraph.Tests.Structures
 
             IClusteredGraph cluster = graph.AddCluster();
             Assert.IsNotNull(cluster);
-            AssertHasClusters(graph, new[] { cluster });
+            AssertHasClusters(graph, cluster );
 
             IClusteredGraph cluster2 = ((IClusteredGraph)graph).AddCluster();
             Assert.IsNotNull(cluster2);
-            AssertHasClusters(graph, new[] { cluster, cluster2 });
+            AssertHasClusters(graph, cluster, cluster2 );
         }
 
         [Test]
@@ -809,13 +817,13 @@ namespace QuikGraph.Tests.Structures
             var graphNotInClusters = new ClusteredAdjacencyGraph<int, IEdge<int>>(wrappedGraph2);
 
             graph.RemoveCluster(graphNotInClusters);
-            AssertHasClusters(graph, new[] { cluster, cluster2, cluster3 });
+            AssertHasClusters(graph, cluster, cluster2, cluster3 );
 
             graph.RemoveCluster(cluster2);
-            AssertHasClusters(graph, new[] { cluster, cluster3 });
+            AssertHasClusters(graph, cluster, cluster3 );
 
             graph.RemoveCluster(cluster);
-            AssertHasClusters(graph, new[] { cluster3 });
+            AssertHasClusters(graph, cluster3 );
 
             graph.RemoveCluster(cluster3);
             AssertNoCluster(graph);

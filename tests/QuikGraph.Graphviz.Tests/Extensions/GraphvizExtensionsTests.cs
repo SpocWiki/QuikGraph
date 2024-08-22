@@ -180,11 +180,10 @@ namespace QuikGraph.Graphviz.Tests
             wrappedGraph.AddVertex(5);
             var clusteredGraph = new ClusteredAdjacencyGraph<int, IEdge<int>>(wrappedGraph);
             ClusteredAdjacencyGraph<int, IEdge<int>> subGraph1 = clusteredGraph.AddCluster();
-            subGraph1.AddVerticesAndEdgeRange(new[]
-            {
+            subGraph1.AddVerticesAndEdgeRange(
                 Edge.Create(6, 7),
                 Edge.Create(7, 8)
-            });
+            );
             ClusteredAdjacencyGraph<int, IEdge<int>> subGraph2 = clusteredGraph.AddCluster();
             subGraph2.AddVerticesAndEdge(Edge.Create(9, 10));
             subGraph2.AddVertex(11);

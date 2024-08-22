@@ -52,7 +52,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         public void IncrementalConnectedComponent()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVertexRange(new[] { 0, 1, 2, 3 });
+            graph.AddVertexRange( 0, 1, 2, 3 );
 
             var algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             algorithm.Compute();
@@ -145,12 +145,11 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var edge13 = Edge.Create(1, 3);
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 Edge.Create(1, 2),
                 edge13,
                 Edge.Create(4, 5)
-            });
+            );
             graph.AddVertex(6);
 
             using (graph.IncrementalConnectedComponents(out Func<KeyValuePair<int, IDictionary<int, int>>> _))

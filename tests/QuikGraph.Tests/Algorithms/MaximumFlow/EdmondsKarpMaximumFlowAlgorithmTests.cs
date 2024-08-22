@@ -207,23 +207,23 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             const string sink = "G";
 
             var graph = new AdjacencyGraph<string, EquatableTaggedEdge<string, double>>(true);
-            graph.AddVertexRange(new[] { "A", "B", "C", "D", "E", "F", "G" });
+            graph.AddVertexRange( "A", "B", "C", "D", "E", "F", "G" );
 
             // TaggedEdge.Tag is the capacity of the edge
-            graph.AddEdgeRange(new[]
-            {
-                new EquatableTaggedEdge<string, double>("A", "D", 3),
-                new EquatableTaggedEdge<string, double>("A", "B", 3),
-                new EquatableTaggedEdge<string, double>("B", "C", 4),
-                new EquatableTaggedEdge<string, double>("C", "A", 3),
-                new EquatableTaggedEdge<string, double>("C", "D", 1),
-                new EquatableTaggedEdge<string, double>("D", "E", 2),
-                new EquatableTaggedEdge<string, double>("D", "F", 6),
-                new EquatableTaggedEdge<string, double>("E", "B", 1),
-                new EquatableTaggedEdge<string, double>("C", "E", 2),
-                new EquatableTaggedEdge<string, double>("E", "G", 1),
-                new EquatableTaggedEdge<string, double>("F", "G", 9)
-            });
+            graph.AddEdgeRange(
+                new EquatableTaggedEdge<string, double>[] {
+                new ("A", "D", 3),
+                new ("A", "B", 3),
+                new ("B", "C", 4),
+                new ("C", "A", 3),
+                new ("C", "D", 1),
+                new ("D", "E", 2),
+                new ("D", "F", 6),
+                new ("E", "B", 1),
+                new ("C", "E", 2),
+                new ("E", "G", 1),
+                new ("F", "G", 9)
+                });
 
             // edgeFactory will be used to create the reversed edges to store residual capacities using the ReversedEdgeAugmentorAlgorithm-class.
             // The edgeFactory assigns a capacity of 0.0 for the new edges because the initial (residual) capacity must be 0.0.
@@ -312,20 +312,20 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             const string sink = "G";
 
             var graph = new AdjacencyGraph<string, TaggedEdge<string, double>>(true);
-            graph.AddVertexRange(new[] { "A", "B", "C", "D", "E", "F", "G" });
+            graph.AddVertexRange( "A", "B", "C", "D", "E", "F", "G" );
 
             // TaggedEdge.Tag is the capacity of the edge
-            graph.AddEdgeRange(new[]
+            graph.AddEdgeRange(new TaggedEdge<string, double>[]
             {
-                new TaggedEdge<string, double>("A", "D", 3),
-                new TaggedEdge<string, double>("A", "B", 3),
-                new TaggedEdge<string, double>("B", "C", 4),
-                new TaggedEdge<string, double>("C", "A", 3),
-                new TaggedEdge<string, double>("C", "D", 1),
-                new TaggedEdge<string, double>("D", "E", 2),
-                new TaggedEdge<string, double>("D", "F", 6),
-                new TaggedEdge<string, double>("E", "B", 1),
-                new TaggedEdge<string, double>("C", "E", 2)
+                new ("A", "D", 3),
+                new ("A", "B", 3),
+                new ("B", "C", 4),
+                new ("C", "A", 3),
+                new ("C", "D", 1),
+                new ("D", "E", 2),
+                new ("D", "F", 6),
+                new ("E", "B", 1),
+                new ("C", "E", 2)
             });
 
             // edgeFactory will be used to create the reversed edges to store residual capacities using the ReversedEdgeAugmentorAlgorithm-class.
@@ -453,13 +453,12 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new AdjacencyGraph<int, TaggedEdge<int, double>>();
             
             // TaggedEdge.Tag is the capacity of the edge
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 new TaggedEdge<int, double>(1, 2, 3),
                 new TaggedEdge<int, double>(1, 4, 4),
                 new TaggedEdge<int, double>(2, 3, -1),
                 new TaggedEdge<int, double>(3, 4, 1)
-            });
+            );
 
             EdgeFactory<int, TaggedEdge<int, double>> edgeFactory = (sourceNode, targetNode) => new TaggedEdge<int, double>(sourceNode, targetNode, 0.0);
             var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<int, TaggedEdge<int, double>>(graph, edgeFactory);
@@ -479,13 +478,12 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new AdjacencyGraph<int, TaggedEdge<int, double>>();
 
             // TaggedEdge.Tag is the capacity of the edge
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 new TaggedEdge<int, double>(1, 2, 3),
                 new TaggedEdge<int, double>(1, 4, 4),
                 new TaggedEdge<int, double>(2, 3, -1),
                 new TaggedEdge<int, double>(3, 4, 1)
-            });
+            );
 
             EdgeFactory<int, TaggedEdge<int, double>> edgeFactory = (sourceNode, targetNode) => new TaggedEdge<int, double>(sourceNode, targetNode, 0.0);
             var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<int, TaggedEdge<int, double>>(graph, edgeFactory);

@@ -70,8 +70,8 @@ namespace QuikGraph.Tests.Structures
             graph = new DelegateUndirectedGraph<int, IEdge<int>>(
                 new[] { 1, 2, 3 },
                 GetEmptyGetter<int, IEdge<int>>());
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
+            graph.AssertHasVertices(new[] { 1, 2, 3 });
+            graph.AssertHasVertices(new[] { 1, 2, 3 });
         }
 
         [Test]
@@ -84,15 +84,15 @@ namespace QuikGraph.Tests.Structures
 
             data.ShouldReturnValue = false;
             data.ShouldReturnEdges = null;
-            AssertNoEdge(graph);
+            graph.AssertNoEdge();
 
             data.ShouldReturnValue = true;
-            AssertNoEdge(graph);
+            graph.AssertNoEdge();
 
             var edge12 = Edge.Create(1, 2);
             var edge13 = Edge.Create(1, 3);
             data.ShouldReturnEdges = new[] { edge12, edge13 };
-            AssertNoEdge(graph);    // No vertex so no possible edge!
+            graph.AssertNoEdge();    // No vertex so no possible edge!
 
             graph = new DelegateUndirectedGraph<int, IEdge<int>>(
                 new[] { 1, 2, 3 },
@@ -100,19 +100,19 @@ namespace QuikGraph.Tests.Structures
 
             data.ShouldReturnValue = true;
             data.ShouldReturnEdges = null;
-            AssertNoEdge(graph);
+            graph.AssertNoEdge();
 
             var edge22 = Edge.Create(2, 2);
             var edge31 = Edge.Create(3, 1);
             data.ShouldReturnEdges = new[] { edge12, edge13, edge22, edge31 };
-            AssertHasEdges(graph, new[] { edge12, edge13, edge22, edge31 });
+            graph.AssertHasEdges(new[] { edge12, edge13, edge22, edge31 });
 
             var edge15 = Edge.Create(1, 5);
             var edge51 = Edge.Create(5, 1);
             var edge56 = Edge.Create(5, 6);
             data.ShouldReturnEdges = new[] { edge12, edge13, edge22, edge31, edge15, edge51, edge56 };
             // Some edges skipped because they have vertices not in the graph
-            AssertHasEdges(graph, new[] { edge12, edge13, edge22, edge31 });
+            graph.AssertHasEdges(new[] { edge12, edge13, edge22, edge31 });
         }
 
         #endregion
@@ -323,7 +323,7 @@ namespace QuikGraph.Tests.Structures
             data.ShouldReturnValue = true;
             data.ShouldReturnEdges = new[] { edge12, edge13, edge14, edge21 };
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            AssertHasAdjacentEdges(graph, 1, new[] { edge12, edge13, edge21 });
+            graph.AssertHasAdjacentEdges(1, new[] { edge12, edge13, edge21 });
             data.CheckCalls(3);
         }
 

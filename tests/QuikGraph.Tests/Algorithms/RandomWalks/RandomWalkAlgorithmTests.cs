@@ -273,10 +273,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             var edge5 = Edge.Create(4, 5);
             var edge6 = Edge.Create(5, 4);
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
-                edge1, edge2, edge3, edge4, edge5, edge6
-            });
+            graph.AddVerticesAndEdgeRange(edge1, edge2, edge3, edge4, edge5, edge6);
             var chain = new NormalizedMarkovEdgeChain<int, IEdge<int>>
             {
                 Rand = new Random(123456)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Msagl.Drawing;
@@ -76,30 +76,28 @@ namespace QuikGraph.MSAGL.Tests
             ToMsaglGraph_Test(graph);
 
             graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVertexRange(new[] { 1, 2, 4 });
+            graph.AddVertexRange( 1, 2, 4 );
             ToMsaglGraph_Test(graph);
 
             graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 Edge.Create(1, 2),
                 Edge.Create(2, 3),
                 Edge.Create(2, 5),
                 Edge.Create(3, 4),
                 Edge.Create(4, 3)
-            });
+            );
             graph.AddVertex(6);
             ToMsaglGraph_Test(graph);
 
             var undirectedGraph = new UndirectedGraph<int, IEdge<int>>();
-            undirectedGraph.AddVerticesAndEdgeRange(new[]
-            {
+            undirectedGraph.AddVerticesAndEdgeRange(
                 Edge.Create(1, 2),
                 Edge.Create(2, 3),
                 Edge.Create(2, 5),
                 Edge.Create(3, 4),
                 Edge.Create(4, 3)
-            });
+            );
             undirectedGraph.AddVertex(6);
             ToMsaglGraph_Test(undirectedGraph);
 

@@ -115,8 +115,7 @@ namespace QuikGraph.Tests.Algorithms
         public void PageRank()
         {
             var graph = new BidirectionalGraph<string, Edge<string>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 new Edge<string>("Amazon", "Twitter"),
                 new Edge<string>("Amazon", "Microsoft"),
                 new Edge<string>("Microsoft", "Amazon"),
@@ -127,7 +126,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Edge<string>("Facebook", "Twitter"),
                 new Edge<string>("Twitter", "Microsoft"),
                 new Edge<string>("Apple", "Twitter")
-            });
+            );
 
             var algorithm = new PageRankAlgorithm<string, Edge<string>>(graph);
             algorithm.Compute();

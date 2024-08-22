@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using static QuikGraph.Tests.GraphTestHelpers;
 
@@ -21,16 +21,16 @@ namespace QuikGraph.Tests.Structures
 
             // Graph has updated content but in-edges properties are broken
             // after updates of the wrapped graph
-            wrappedDirectedGraph.AddVertexRange(new[] { 2, 3, 1 });
+            wrappedDirectedGraph.AddVertexRange( 2, 3, 1 );
 
             AssertGraphProperties(graph);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertNoEdge(graph);
+            graph.AssertHasVertices(1, 2, 3 );
+            graph.AssertNoEdge();
 
             graph = new BidirectionalAdapterGraph<int, IEdge<int>>(wrappedDirectedGraph);
             AssertGraphProperties(graph);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertNoEdge(graph);
+            graph.AssertHasVertices(1, 2, 3 );
+            graph.AssertNoEdge();
 
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(2, 2);
@@ -39,23 +39,23 @@ namespace QuikGraph.Tests.Structures
 
             // Graph has updated content but in-edges properties are broken
             // after updates of the wrapped graph
-            wrappedDirectedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4 });
+            wrappedDirectedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4 );
 
             AssertGraphProperties(graph);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3, edge4 });
+            graph.AssertHasVertices(1, 2, 3, 4 );
+            graph.AssertHasEdges(edge1, edge2, edge3, edge4 );
 
             graph = new BidirectionalAdapterGraph<int, IEdge<int>>(wrappedDirectedGraph);
             AssertGraphProperties(graph);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3, edge4 });
+            graph.AssertHasVertices(1, 2, 3, 4 );
+            graph.AssertHasEdges(edge1, edge2, edge3, edge4 );
 
             wrappedDirectedGraph = new AdjacencyGraph<int, IEdge<int>>(false);
-            wrappedDirectedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge1, edge2, edge3, edge4 });
+            wrappedDirectedGraph.AddVerticesAndEdgeRange( edge1, edge1, edge2, edge3, edge4 );
             graph = new BidirectionalAdapterGraph<int, IEdge<int>>(wrappedDirectedGraph);
             AssertGraphProperties(graph, allowParallelEdges: false);
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4 });
-            AssertHasEdges(graph, new[] { edge1, edge2, edge3, edge4 });
+            graph.AssertHasVertices(1, 2, 3, 4 );
+            graph.AssertHasEdges(edge1, edge2, edge3, edge4 );
 
             #region Local function
 
@@ -286,23 +286,23 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
 
             var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge23, edge33 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge12, edge13, edge23, edge33 );
 
             var graph = new BidirectionalAdapterGraph<int, IEdge<int>>(wrappedGraph);
-            AssertHasVertices(graph, new[] { 1, 2, 3 });
-            AssertHasEdges(graph, new[] { edge12, edge13, edge23, edge33 });
-            AssertHasOutEdges(graph, 3, new[] { edge33 });
-            AssertHasInEdges(graph, 3, new[] { edge13, edge23, edge33 });
+            graph.AssertHasVertices(1, 2, 3 );
+            graph.AssertHasEdges(edge12, edge13, edge23, edge33 );
+            AssertHasOutEdges(graph, 3, edge33 );
+            AssertHasInEdges(graph, 3, edge13, edge23, edge33 );
 
             var edge35 = Edge.Create(3, 5);
             // Update wrapped graph => breaking change
             var edge43 = Edge.Create(4, 3);
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge35, edge43 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge35, edge43 );
 
-            AssertHasVertices(graph, new[] { 1, 2, 3, 4, 5 });                  // Vertices data are up to date
-            AssertHasEdges(graph, new[] { edge12, edge13, edge23, edge33, edge35, edge43 });    // Edges data are up to date
-            AssertHasOutEdges(graph, 3, new[] { edge33, edge35 });          // Out data are up to date
-            AssertHasInEdges(graph, 3, new[] { edge13, edge23, edge33 });   // Missing edge43
+            graph.AssertHasVertices(1, 2, 3, 4, 5 );                  // Vertices data are up to date
+            graph.AssertHasEdges(edge12, edge13, edge23, edge33, edge35, edge43 );    // Edges data are up to date
+            AssertHasOutEdges(graph, 3, edge33, edge35 );          // Out data are up to date
+            AssertHasInEdges(graph, 3, edge13, edge23, edge33 );   // Missing edge43
         }
 
         [Test]

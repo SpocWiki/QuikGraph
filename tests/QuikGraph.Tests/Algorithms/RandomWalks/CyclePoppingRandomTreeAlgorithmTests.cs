@@ -310,13 +310,12 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         public void SmallGraphWithCycles()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 Edge.Create(0, 1),
                 Edge.Create(1, 0),
                 Edge.Create(1, 2),
                 Edge.Create(2, 1)
-            });
+            );
 
             RunCyclePoppingRandomTreeAndCheck(graph, 0);
             RunCyclePoppingRandomTreeAndCheck(graph, 1);

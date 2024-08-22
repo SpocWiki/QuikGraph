@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -136,14 +137,18 @@ namespace QuikGraph
         /// <param name="edge">The edge to add.</param>
         /// <returns>True if the edge was added, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edge"/> is <see langword="null"/>.</exception>
-        public bool AddVerticesAndEdge([NotNull] TEdge edge)
-        {
-            return AddEdge(edge);
-        }
+        public bool AddVerticesAndEdge([NotNull] TEdge edge) => AddEdge(edge);
 
-        /// <summary>
-        /// Adds a set of edges (and it's vertices if necessary).
-        /// </summary>
+        /// <summary> Adds a set of edges (and it's vertices if necessary). </summary>
+        /// <param name="edges">Edges to add.</param>
+        /// <returns>The number of edges added.</returns>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="edges"/> is <see langword="null"/> or at least one of them is <see langword="null"/>.
+        /// </exception>
+        public int AddVerticesAndEdgeRange([NotNull, ItemNotNull] params TEdge[] edges)
+            => AddVerticesAndEdgeRange(edges.AsEnumerable());
+
+        /// <summary> Adds a set of edges (and it's vertices if necessary). </summary>
         /// <param name="edges">Edges to add.</param>
         /// <returns>The number of edges added.</returns>
         /// <exception cref="T:System.ArgumentNullException">
@@ -179,6 +184,9 @@ namespace QuikGraph
 
             return true;
         }
+
+        /// <inheritdoc />
+        public int AddEdgeRange(params TEdge[] edges) => AddEdgeRange(edges.AsEnumerable());
 
         /// <inheritdoc />
         public int AddEdgeRange(IEnumerable<TEdge> edges)

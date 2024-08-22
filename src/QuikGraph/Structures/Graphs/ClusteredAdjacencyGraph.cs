@@ -226,14 +226,12 @@ namespace QuikGraph
             return Wrapped.AddVertex(vertex);
         }
 
-        /// <summary>
-        /// Adds given vertices to this graph.
-        /// </summary>
-        /// <param name="vertices">Vertices to add.</param>
+        /// <summary> Adds the <paramref name="vertices"/> to this graph. </summary>
         /// <returns>The number of vertex added.</returns>
-        /// <exception cref="T:System.ArgumentNullException">
-        /// <paramref name="vertices"/> is <see langword="null"/> or at least one of them is <see langword="null"/>.
-        /// </exception>
+        public virtual int AddVertexRange([NotNull, ItemNotNull] params TVertex[] vertices) => AddVertexRange(vertices.AsEnumerable());
+
+        /// <summary> Adds the <paramref name="vertices"/> to this graph. </summary>
+        /// <returns>The number of vertex added.</returns>
         public virtual int AddVertexRange([NotNull, ItemNotNull] IEnumerable<TVertex> vertices)
         {
             if (vertices is null)
@@ -340,6 +338,17 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException">
         /// <paramref name="edges"/> is <see langword="null"/> or at least one of them is <see langword="null"/>.
         /// </exception>
+        public int AddVerticesAndEdgeRange([NotNull, ItemNotNull] params TEdge[] edges)
+            => AddVerticesAndEdgeRange(edges.AsEnumerable());
+
+        /// <summary>
+        /// Adds a set of edges (and it's vertices if necessary).
+        /// </summary>
+        /// <param name="edges">Edges to add.</param>
+        /// <returns>The number of edges added.</returns>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="edges"/> is <see langword="null"/> or at least one of them is <see langword="null"/>.
+        /// </exception>
         public int AddVerticesAndEdgeRange([NotNull, ItemNotNull] IEnumerable<TEdge> edges)
         {
             if (edges is null)
@@ -369,9 +378,15 @@ namespace QuikGraph
             return Wrapped.AddEdge(edge);
         }
 
-        /// <summary>
-        /// Adds a set of edges to this graph.
-        /// </summary>
+        /// <summary> Adds a set of edges to this graph. </summary>
+        /// <param name="edges">Edges to add.</param>
+        /// <returns>The number of edges successfully added to this graph.</returns>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="edges"/> is <see langword="null"/> or at least one of them is <see langword="null"/>.
+        /// </exception>
+        public int AddEdgeRange([NotNull, ItemNotNull] params TEdge[] edges) => AddEdgeRange(edges.AsEnumerable());
+
+        /// <summary> Adds a set of edges to this graph. </summary>
         /// <param name="edges">Edges to add.</param>
         /// <returns>The number of edges successfully added to this graph.</returns>
         /// <exception cref="T:System.ArgumentNullException">

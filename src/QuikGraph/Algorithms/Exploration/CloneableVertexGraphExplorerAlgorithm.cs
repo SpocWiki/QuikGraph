@@ -189,11 +189,14 @@ namespace QuikGraph.Algorithms.Exploration
             _transitionFactories.Add(transitionFactory);
         }
 
-        /// <summary>
-        /// Adds new <see cref="ITransitionFactory{TVertex,TEdge}"/>s to this algorithm.
-        /// </summary>
-        /// <param name="transitionFactories">Transition factories to add.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="transitionFactories"/> is <see langword="null"/>.</exception>
+        /// <summary>Adds new <see cref="ITransitionFactory{TVertex,TEdge}"/>s to this algorithm. </summary>
+        public void AddTransitionFactories(
+            [NotNull, ItemNotNull] params ITransitionFactory<TVertex, TEdge>[] transitionFactories)
+        {
+            AddTransitionFactories(transitionFactories.AsEnumerable());
+        }
+
+        /// <summary>Adds new <see cref="ITransitionFactory{TVertex,TEdge}"/>s to this algorithm. </summary>
         public void AddTransitionFactories(
             [NotNull, ItemNotNull] IEnumerable<ITransitionFactory<TVertex, TEdge>> transitionFactories)
         {

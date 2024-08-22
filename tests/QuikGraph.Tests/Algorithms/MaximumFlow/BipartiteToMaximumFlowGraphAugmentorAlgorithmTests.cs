@@ -219,7 +219,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void CreateAndSetSuperSource()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVertexRange(new[] { 3, 4, 5 });
+            graph.AddVertexRange( 3, 4, 5 );
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
@@ -235,7 +235,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void CreateAndSetSuperSink()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVertexRange(new[] { 3, 4, 5 });
+            graph.AddVertexRange( 3, 4, 5 );
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
@@ -293,7 +293,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void RunAugmentation_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVertexRange(new[] { 3, 4 });
+            graph.AddVertexRange( 3, 4 );
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);

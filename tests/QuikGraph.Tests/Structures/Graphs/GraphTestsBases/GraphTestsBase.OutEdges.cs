@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -51,7 +51,7 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
             var edge41 = Edge.Create(4, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge24, edge33, edge41 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge11, edge12, edge13, edge24, edge33, edge41 );
             IImplicitGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.AreSame(edge11, graph.OutEdge(1, 0));
@@ -72,7 +72,7 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
             var edge41 = Edge.Create(4, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge24, edge33, edge41 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge11, edge12, edge13, edge24, edge33, edge41 );
             IImplicitGraph<int, SEquatableEdge<int>> graph = createGraph();
 
             Assert.AreEqual(new SEquatableEdge<int>(1, 1), graph.OutEdge(1, 0));
@@ -92,7 +92,7 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
             var edge41 = Edge.Create(4, 1);
 
-            graph.AddEdgeRange(new[] { edge11, edge12, edge13, edge24, edge33, edge41 });
+            graph.AddEdgeRange( edge11, edge12, edge13, edge24, edge33, edge41 );
 
             Assert.AreSame(edge11, graph.OutEdge(1, 0));
             Assert.AreSame(edge13, graph.OutEdge(1, 2));
@@ -113,7 +113,7 @@ namespace QuikGraph.Tests.Structures
             var edge33 = Edge.Create(3, 3);
             var edge41 = Edge.Create(4, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge11, edge12, edge13, edge21, edge24, edge33, edge41 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge11, edge12, edge13, edge21, edge24, edge33, edge41 );
             IImplicitGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             AssertSameReversedEdge(edge11, graph.OutEdge(1, 0));
@@ -268,7 +268,7 @@ namespace QuikGraph.Tests.Structures
             IImplicitGraph<int, IEdge<int>> graph = createGraph();
             AssertNoOutEdge(graph, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge12, edge13, edge14, edge24, edge31, edge33 );
             graph = createGraph();
 
             AssertHasOutEdges(graph, 1, new[] { edge12, edge13, edge14 });
@@ -292,7 +292,7 @@ namespace QuikGraph.Tests.Structures
             IImplicitGraph<int, SEquatableEdge<int>> graph = createGraph();
             AssertNoOutEdge(graph, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge31, edge33 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge12, edge13, edge14, edge24, edge31, edge33 );
             graph = createGraph();
 
             AssertHasOutEdges(
@@ -331,7 +331,7 @@ namespace QuikGraph.Tests.Structures
 
             AssertNoOutEdge(graph, 1);
 
-            graph.AddEdgeRange(new[] { edge01, edge02, edge03, edge13, edge20, edge22 });
+            graph.AddEdgeRange( edge01, edge02, edge03, edge13, edge20, edge22 );
 
             AssertHasOutEdges(graph, 0, new[] { edge01, edge02, edge03 });
             AssertHasOutEdges(graph, 1, new[] { edge13 });
@@ -354,7 +354,7 @@ namespace QuikGraph.Tests.Structures
             IImplicitGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
             AssertNoOutEdge(graph, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge12, edge13, edge14, edge24, edge33, edge34 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge12, edge13, edge14, edge24, edge33, edge34 );
             graph = createGraph();
 
             AssertNoOutEdge(graph, 1);

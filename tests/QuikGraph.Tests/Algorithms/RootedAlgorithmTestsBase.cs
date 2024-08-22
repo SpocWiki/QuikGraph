@@ -11,8 +11,6 @@ namespace QuikGraph.Tests.Algorithms
     /// </summary>
     internal abstract class RootedAlgorithmTestsBase
     {
-        #region Test helpers
-
         protected static void TryGetRootVertex_Test<TVertex, TGraph>(
             [NotNull] RootedAlgorithmBase<TVertex, TGraph> algorithm)
             where TVertex : new()
@@ -105,7 +103,7 @@ namespace QuikGraph.Tests.Algorithms
             RootedAlgorithmBase<int, TGraph> algorithm = createAlgorithm();
             Assert.DoesNotThrow(algorithm.Compute);
 
-            graph.AddVertexRange(new[] { 1, 2 });
+            graph.AddVertexRange( 1, 2 );
             algorithm = createAlgorithm();
             Assert.DoesNotThrow(algorithm.Compute);
         }
@@ -149,7 +147,5 @@ namespace QuikGraph.Tests.Algorithms
             algorithm = createAlgorithm();
             Assert.Throws<ArgumentException>(() => algorithm.Compute(new TVertex()));
         }
-
-        #endregion
     }
 }

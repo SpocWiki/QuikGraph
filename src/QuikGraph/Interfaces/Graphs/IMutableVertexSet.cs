@@ -1,13 +1,24 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// Represents a mutable set of vertices.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
+    /// <summary> Extension Methods for <see cref="IMutableVertexSet{TVertex}"/> </summary>
+    public static class MutableVertexSet
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static int AddVertexRange<TVertex>(this IMutableVertexSet<TVertex> set
+            , [NotNull, ItemNotNull] params TVertex[] vertices) => set.AddVertexRange(vertices.AsEnumerable());
+
+    }
+
+    /// <summary> Represents a mutable set of vertices.</summary>
     public interface IMutableVertexSet<TVertex> : IVertexSet<TVertex>
     {
         /// <summary>

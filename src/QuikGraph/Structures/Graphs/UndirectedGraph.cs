@@ -348,6 +348,9 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
+        public int AddVertexRange(params TVertex[] vertices) => AddVertexRange(vertices.AsEnumerable());
+
+        /// <inheritdoc />
         public int AddVertexRange(IEnumerable<TVertex> vertices)
         {
             if (vertices is null)
@@ -568,6 +571,9 @@ namespace QuikGraph
 
             return true;
         }
+
+        /// <inheritdoc />
+        public int AddEdgeRange(params TEdge[] edges) => AddEdgeRange(edges.AsEnumerable());
 
         /// <inheritdoc />
         public int AddEdgeRange(IEnumerable<TEdge> edges)

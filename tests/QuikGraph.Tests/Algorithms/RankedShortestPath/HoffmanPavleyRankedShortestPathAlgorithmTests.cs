@@ -254,7 +254,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             const int end = 1;
 
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            graph.AddVertexRange(new[] { start, end });
+            graph.AddVertexRange( start, end );
             var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
 
             Assert.DoesNotThrow(() => algorithm.Compute(start, end));

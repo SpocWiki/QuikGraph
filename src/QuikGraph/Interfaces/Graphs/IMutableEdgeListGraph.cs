@@ -1,9 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace QuikGraph
 {
+    /// <summary> Extension Methods for <see cref="IMutableEdgeListGraph{TVertex, TEdge}"/> </summary>
+    public static class MutableEdgeListGraph
+    {
+        /// <summary> Adds the <paramref name="edges"/> to the <paramref name="graph"/>. </summary>
+        public static int AddEdgeRange<TVertex, TEdge>(this IMutableEdgeListGraph<TVertex, TEdge> graph
+            , [NotNull, ItemNotNull] params TEdge[] edges) where TEdge : IEdge<TVertex>
+            => graph.AddEdgeRange(edges.AsEnumerable());
+
+    }
+
     /// <summary>
     /// A mutable edge list graph with vertices of type <typeparamref name="TVertex"/>
     /// and edges of type <typeparamref name="TEdge"/>.
@@ -27,9 +38,7 @@ namespace QuikGraph
         /// </summary>
         event EdgeAction<TVertex, TEdge> EdgeAdded;
 
-        /// <summary>
-        /// Adds a set of edges to this graph.
-        /// </summary>
+        /// <summary> Adds the <paramref name="edges"/> to this graph. </summary>
         /// <param name="edges">Edges to add.</param>
         /// <returns>The number of edges successfully added to this graph.</returns>
         /// <exception cref="T:System.ArgumentNullException">

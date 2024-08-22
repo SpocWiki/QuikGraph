@@ -21,7 +21,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(2, 4);
             var edge6 = Edge.Create(3, 1);
 
-            addVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            addVerticesAndEdgeRange( new[] {edge1, edge2, edge3, edge4, edge5, edge6 } );
 
             Assert.IsFalse(graph.TryGetEdge(0, 10, out _));
             Assert.IsFalse(graph.TryGetEdge(0, 1, out _));
@@ -38,8 +38,7 @@ namespace QuikGraph.Tests.Structures
             Assert.IsFalse(graph.TryGetEdge(2, 1, out _));
         }
 
-        protected static void TryGetEdge_Test(
-            [NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
+        protected static void TryGetEdge_Test([NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
             TryGetEdge_Test(
                 graph,
@@ -57,7 +56,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(2, 4);
             var edge6 = Edge.Create(3, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6 );
             IIncidenceGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetEdge(0, 10, out _));
@@ -86,7 +85,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(2, 4);
             var edge6 = Edge.Create(3, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6 );
             IIncidenceGraph<int, SEquatableEdge<int>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetEdge(0, 10, out _));
@@ -104,8 +103,7 @@ namespace QuikGraph.Tests.Structures
             Assert.IsFalse(graph.TryGetEdge(2, 1, out _));
         }
 
-        protected static void TryGetEdge_ImmutableVertices_Test(
-            [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
+        protected static void TryGetEdge_ImmutableVertices_Test([NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(1, 3);
@@ -113,7 +111,7 @@ namespace QuikGraph.Tests.Structures
             var edge4 = Edge.Create(2, 4);
             var edge5 = Edge.Create(3, 1);
 
-            graph.AddEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5 });
+            graph.AddEdgeRange( edge1, edge2, edge3, edge4, edge5 );
 
             Assert.IsFalse(graph.TryGetEdge(6, 10, out _));
             Assert.IsFalse(graph.TryGetEdge(6, 1, out _));
@@ -141,7 +139,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(2, 4);
             var edge6 = Edge.Create(3, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6 );
             IIncidenceGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetEdge(0, 10, out _));
@@ -170,7 +168,7 @@ namespace QuikGraph.Tests.Structures
             var edge6 = Edge.Create(3, 1);
             var edge7 = Edge.Create(5, 2);
 
-            graph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6, edge7 });
+            graph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6, edge7 );
 
             Assert.IsFalse(graph.TryGetEdge(0, 10, out _));
             Assert.IsFalse(graph.TryGetEdge(0, 1, out _));
@@ -208,7 +206,7 @@ namespace QuikGraph.Tests.Structures
             var edge6 = Edge.Create(3, 1);
             var edge7 = Edge.Create(5, 2);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6, edge7 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6, edge7 );
             IImplicitUndirectedGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetEdge(0, 10, out _));
@@ -307,7 +305,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(2, 4);
             var edge6 = Edge.Create(3, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6 );
             IIncidenceGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetEdges(0, 10, out _));
@@ -337,7 +335,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(2, 4);
             var edge6 = Edge.Create(3, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6 );
             IIncidenceGraph<int, SEquatableEdge<int>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetEdges(0, 10, out _));
@@ -375,7 +373,7 @@ namespace QuikGraph.Tests.Structures
             var edge4 = Edge.Create(2, 4);
             var edge5 = Edge.Create(3, 1);
 
-            graph.AddEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5 });
+            graph.AddEdgeRange( edge1, edge2, edge3, edge4, edge5 );
 
             Assert.IsFalse(graph.TryGetEdges(6, 10, out _));
             Assert.IsFalse(graph.TryGetEdges(6, 1, out _));
@@ -404,7 +402,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(2, 4);
             var edge6 = Edge.Create(3, 1);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6 );
             IIncidenceGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetEdges(0, 10, out _));
@@ -480,7 +478,7 @@ namespace QuikGraph.Tests.Structures
             var edge6 = Edge.Create(3, 1);
             var edge7 = Edge.Create(4, 5);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6, edge7 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6, edge7 );
             IImplicitGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetOutEdges(0, out _));
@@ -507,7 +505,7 @@ namespace QuikGraph.Tests.Structures
             var edge6 = Edge.Create(3, 1);
             var edge7 = Edge.Create(4, 5);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6, edge7 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6, edge7 );
             IImplicitGraph<int, SEquatableEdge<int>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetOutEdges(0, out _));
@@ -541,7 +539,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(3, 1);
             var edge6 = Edge.Create(4, 5);
 
-            graph.AddEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            graph.AddEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6 );
 
             Assert.IsFalse(graph.TryGetOutEdges(6, out _));
 
@@ -567,7 +565,7 @@ namespace QuikGraph.Tests.Structures
             var edge6 = Edge.Create(3, 1);
             var edge7 = Edge.Create(5, 4);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6, edge7 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6, edge7 );
             IImplicitGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetOutEdges(0, out _));
@@ -637,7 +635,7 @@ namespace QuikGraph.Tests.Structures
             var edge6 = Edge.Create(3, 1);
             var edge7 = Edge.Create(5, 3);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6, edge7 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6, edge7 );
             IBidirectionalIncidenceGraph<int, IEdge<int>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetInEdges(0, out _));
@@ -662,7 +660,7 @@ namespace QuikGraph.Tests.Structures
             var edge5 = Edge.Create(3, 1);
             var edge6 = Edge.Create(5, 3);
 
-            graph.AddEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6 });
+            graph.AddEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6 );
 
             Assert.IsFalse(graph.TryGetInEdges(6, out _));
 
@@ -688,7 +686,7 @@ namespace QuikGraph.Tests.Structures
             var edge6 = Edge.Create(3, 1);
             var edge7 = Edge.Create(4, 5);
 
-            wrappedGraph.AddVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6, edge7 });
+            wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6, edge7 );
             IBidirectionalIncidenceGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
             Assert.IsFalse(graph.TryGetInEdges(0, out _));

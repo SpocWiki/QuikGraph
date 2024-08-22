@@ -179,7 +179,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void ComputeWithRoot()
         {
             var graph = new AdjacencyGraph<EquatableCloneableTestVertex, Edge<EquatableCloneableTestVertex>>();
-            graph.AddVertexRange(new[] { new EquatableCloneableTestVertex() });
+            graph.AddVertexRange( new EquatableCloneableTestVertex() );
             var algorithm = new CloneableVertexGraphExplorerAlgorithm<EquatableCloneableTestVertex, Edge<EquatableCloneableTestVertex>>(graph);
             ComputeWithRoot_Test(algorithm);
         }
@@ -241,7 +241,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
             var vertex2 = new CloneableTestVertex("2");
             var factory1 = new TestTransitionFactory<CloneableTestVertex>(vertex1, Enumerable.Empty<Edge<CloneableTestVertex>>());
             var factory2 = new TestTransitionFactory<CloneableTestVertex>(vertex2, Enumerable.Empty<Edge<CloneableTestVertex>>());
-            algorithm.AddTransitionFactories(new[] { factory1, factory2 });
+            algorithm.AddTransitionFactories(factory1, factory2);
 
             Assert.IsTrue(algorithm.ContainsTransitionFactory(factory1));
             Assert.IsTrue(algorithm.ContainsTransitionFactory(factory2));
@@ -278,7 +278,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
             var factory1 = new TestTransitionFactory<CloneableTestVertex>(vertex1, Enumerable.Empty<Edge<CloneableTestVertex>>());
             var factory2 = new TestTransitionFactory<CloneableTestVertex>(vertex2, Enumerable.Empty<Edge<CloneableTestVertex>>());
             var factory3 = new TestTransitionFactory<CloneableTestVertex>(vertex3, Enumerable.Empty<Edge<CloneableTestVertex>>());
-            algorithm.AddTransitionFactories(new[] { factory1, factory2 });
+            algorithm.AddTransitionFactories(factory1, factory2 );
 
             Assert.IsFalse(algorithm.ContainsTransitionFactory(null));
             Assert.IsTrue(algorithm.ContainsTransitionFactory(factory1));
@@ -291,11 +291,9 @@ namespace QuikGraph.Tests.Algorithms.Exploration
 
             var factory4 = new TestTransitionFactory<CloneableTestVertex>(
                 vertex1,
-                new[]
-                {
                     new Edge<CloneableTestVertex>(vertex1, vertex2),
                     new Edge<CloneableTestVertex>(vertex1, vertex3)
-                });
+                );
             algorithm.AddTransitionFactory(factory4);
             Assert.IsTrue(algorithm.ContainsTransitionFactory(factory4));
         }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using QuikGraph.Algorithms.Exploration;
@@ -26,6 +26,12 @@ namespace QuikGraph.Tests.Algorithms.Exploration
 
             [NotNull, ItemNotNull]
             public IEnumerable<Edge<TVertex>> Edges { get; }
+        }
+
+        public TestTransitionFactory(
+            [NotNull] TVertex vertex,
+            [NotNull, ItemNotNull] params Edge<TVertex>[] edges) : this(vertex,edges.AsEnumerable())
+        {
         }
 
         public TestTransitionFactory(

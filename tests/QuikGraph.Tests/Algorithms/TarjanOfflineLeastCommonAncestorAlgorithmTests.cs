@@ -117,17 +117,17 @@ namespace QuikGraph.Tests.Algorithms
         public void ComputeWithoutRoot_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            ComputeWithoutRoot_Throws_Test(
-                () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph));
+            ComputeWithoutRoot_Throws_Test(()
+                => new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph));
         }
 
         [Test]
         public void ComputeWithRoot()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVertexRange(new[] { 0, 1 });
+            graph.AddVertexRange( 0, 1 );
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
-            algorithm.SetVertexPairs(new[] { new SEquatableEdge<int>(0, 1) });
+            algorithm.SetVertexPairs(new SEquatableEdge<int>(0, 1) );
             ComputeWithRoot_Test(algorithm);
         }
 
@@ -148,8 +148,8 @@ namespace QuikGraph.Tests.Algorithms
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             Assert.IsFalse(algorithm.TryGetVertexPairs(out _));
 
-            graph.AddVertexRange(new[] { 1, 2 });
-            algorithm.SetVertexPairs(new[] { new SEquatableEdge<int>(1, 2) });
+            graph.AddVertexRange( 1, 2 );
+            algorithm.SetVertexPairs(new SEquatableEdge<int>(1, 2) );
             Assert.IsTrue(algorithm.TryGetVertexPairs(out IEnumerable<SEquatableEdge<int>> pairs));
             CollectionAssert.AreEqual(
                 new[] { new SEquatableEdge<int>(1, 2) },
@@ -160,7 +160,7 @@ namespace QuikGraph.Tests.Algorithms
         public void SetVertexPairs()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVertexRange(new[] { 1, 2 });
+            graph.AddVertexRange( 1, 2 );
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
 
             var pairs = new[]
@@ -183,9 +183,9 @@ namespace QuikGraph.Tests.Algorithms
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.SetVertexPairs(null));
             Assert.Throws<ArgumentException>(() => algorithm.SetVertexPairs(Enumerable.Empty<SEquatableEdge<int>>()));
-            Assert.Throws<ArgumentException>(() => algorithm.SetVertexPairs(new[] { new SEquatableEdge<int>(1, 2) }));
+            Assert.Throws<ArgumentException>(() => algorithm.SetVertexPairs(new SEquatableEdge<int>(1, 2)));
             graph.AddVertex(1);
-            Assert.Throws<ArgumentException>(() => algorithm.SetVertexPairs(new[] { new SEquatableEdge<int>(1, 2) }));
+            Assert.Throws<ArgumentException>(() => algorithm.SetVertexPairs(new SEquatableEdge<int>(1, 2)));
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
@@ -225,7 +225,7 @@ namespace QuikGraph.Tests.Algorithms
             var vertex3 = new TestVertex("3");
             var pairs = new[] { new SEquatableEdge<TestVertex>(vertex1, vertex2) };
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            graph.AddVertexRange(new[] { vertex1, vertex2 });
+            graph.AddVertexRange( vertex1, vertex2 );
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, Edge<TestVertex>>(graph);
 
             // ReSharper disable AssignNullToNotNullAttribute

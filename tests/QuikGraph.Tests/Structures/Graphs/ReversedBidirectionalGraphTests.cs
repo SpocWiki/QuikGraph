@@ -75,7 +75,7 @@ namespace QuikGraph.Tests.Structures
             wrappedGraph.AddVertex(2);
             wrappedGraph.AddEdge(edge);
 
-            AssertHasEdges(graph, new[] { edge });  // Graph is updated
+            graph.AssertHasEdges(new[] { edge });  // Graph is updated
         }
 
         #endregion

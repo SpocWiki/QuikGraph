@@ -493,6 +493,9 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
+        public int AddEdgeRange(params TEdge[] edges) => AddEdgeRange(edges.AsEnumerable());
+
+        /// <inheritdoc />
         public int AddEdgeRange(IEnumerable<TEdge> edges)
         {
             if (edges is null)

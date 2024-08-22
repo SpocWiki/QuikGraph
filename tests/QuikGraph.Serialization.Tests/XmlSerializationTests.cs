@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -126,7 +126,7 @@ namespace QuikGraph.Serialization.Tests
             using (var memory = new MemoryStream())
             using (var writer = new StreamWriter(memory))
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(writer, settings))
+                using (var xmlWriter = XmlWriter.Create(writer, settings))
                 {
                     onSerialize(xmlWriter);
                 }
@@ -278,7 +278,7 @@ namespace QuikGraph.Serialization.Tests
 
             using (var memory = new MemoryStream())
             using (var writer = new StreamWriter(memory))
-            using (XmlWriter xmlWriter = XmlWriter.Create(writer))
+            using (var xmlWriter = XmlWriter.Create(writer))
             {
                 Assert.Throws<ArgumentNullException>(
                     () => ((AdjacencyGraph<int, IEdge<int>>)null).SerializeToXml(
@@ -401,11 +401,8 @@ namespace QuikGraph.Serialization.Tests
             where TEdge : IEdge<string>
             where TGraph : IVertexSet<string>, IEdgeSet<string, TEdge>
         {
-            AssertHasVertices(
-                graph,
-                new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
-            AssertHasEdges(
-                graph,
+            graph.AssertHasVertices(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
+            graph.AssertHasEdges(
                 new[]
                 {
                     edgeFactory("1", "2", 6.0),
@@ -1222,7 +1219,7 @@ namespace QuikGraph.Serialization.Tests
             using (var writer = new StreamWriter(memory))
             {
                 // Serialize
-                using (XmlWriter xmlWriter = XmlWriter.Create(writer, settings))
+                using (var xmlWriter = XmlWriter.Create(writer, settings))
                 {
                     graph.SerializeToXml(
                         xmlWriter,
@@ -1240,7 +1237,7 @@ namespace QuikGraph.Serialization.Tests
                 memory.Position = 0;
 
                 // Deserialize
-                using (XmlReader xmlReader = XmlReader.Create(memory))
+                using (var xmlReader = XmlReader.Create(memory))
                 {
                     TOutGraph deserializedGraph = deserialize(xmlReader);
                     Assert.IsNotNull(deserializedGraph);

@@ -303,10 +303,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             var edge34 = Edge.Create(3, 4);
 
             var negativeWeightGraph = new AdjacencyGraph<int, IEdge<int>>();
-            negativeWeightGraph.AddVerticesAndEdgeRange(new[]
-            {
-                edge12, edge23, edge34
-            });
+            negativeWeightGraph.AddVerticesAndEdgeRange(edge12, edge23, edge34);
 
             var algorithm = new AStarShortestPathAlgorithm<int, IEdge<int>>(
                 negativeWeightGraph,
@@ -335,15 +332,14 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             var edge34 = Edge.Create(3, 4);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 edge01,
                 edge02,
                 edge03,
                 edge23,
                 edge14,
                 edge34
-            });
+            );
 
             const int root = 0;
 
@@ -388,13 +384,12 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void AStar_HeuristicCallCount()
         {
             var lineGraph = new AdjacencyGraph<int, IEdge<int>>();
-            lineGraph.AddVerticesAndEdgeRange(new[]
-            {
+            lineGraph.AddVerticesAndEdgeRange(
                 Edge.Create(2, 3),
                 Edge.Create(3, 4),
                 Edge.Create(2, 1),
                 Edge.Create(1, 0)
-            });
+            );
 
             const int root = 2;
 

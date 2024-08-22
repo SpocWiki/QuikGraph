@@ -70,10 +70,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             TEdge edge32 = edgeFactory(3, 2);
 
             var graph = new AdjacencyGraph<int, TEdge>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
-                edge12, edge13, edge23, edge32
-            });
+            graph.AddVerticesAndEdgeRange(edge12, edge13, edge23, edge32);
 
             var algorithm = new ReversedEdgeAugmentorAlgorithm<int, TEdge>(graph, edgeFactory);
 
@@ -126,10 +123,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var edge32 = Edge.Create(3, 2);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(new[]
-            {
-                edge12, edge13, edge23, edge32
-            });
+            graph.AddVerticesAndEdgeRange(edge12, edge13, edge23, edge32);
 
             var algorithm = new ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>(
                 graph,
@@ -178,13 +172,12 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             CollectionAssert.IsEmpty(algorithm.AugmentedEdges);
             CollectionAssert.IsEmpty(algorithm.ReversedEdges);
 
-            graph.AddVerticesAndEdgeRange(new[]
-            {
+            graph.AddVerticesAndEdgeRange(
                 Edge.Create(1, 2),
                 Edge.Create(1, 3),
                 Edge.Create(2, 3),
                 Edge.Create(3, 2)
-            });
+            );
             algorithm = new ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>(graph, edgeFactory);
             algorithm.AddReversedEdges();
             CollectionAssert.IsNotEmpty(algorithm.AugmentedEdges);
