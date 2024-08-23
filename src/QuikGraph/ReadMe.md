@@ -92,9 +92,98 @@ The first Index is determined from the `Index` Property of the `Source` Vertex.
 The second Index is usually determined by BiSection of a sorted List or by a Hash-Table. 
 
 
-### Additional Information
+### Additional Node Information
 
-Extra information associated with each vertex can be accommodated by using auxiliary arrays indexed by vertex number (or by making adj an array of records in the adjacency structure representation). Extra information associated with each edge can be put in the adjacency list nodes (or in an array a of records in the adjacency matrix representation), or in auxiliary arrays indexed by edge number (this requires numbering the edges). 
+Extra information associated with each vertex can be accommodated 
+by using auxiliary arrays indexed by vertex number 
+(or by making adj an array of records in the adjacency structure representation). 
+Extra information associated with each edge can be put in the adjacency list nodes 
+(or in an array a of records in the adjacency matrix representation), 
+or in auxiliary arrays indexed by edge number (this requires numbering the edges). 
+
+
+## Algorithms 
+
+
+### Eulerian_Trail 
+
+
+In graph theory, an Eulerian __trail__ (or **Eulerian path**) is a trail in a finite graph 
+that visits __every Edge exactly once__ (allowing for revisiting vertices). 
+
+Similarly, an Eulerian __circuit__ or Eulerian __cycle__ is an Eulerian trail 
+that __starts and ends on the same vertex__. 
+
+> They were first discussed by Leonhard Euler 
+> while solving the famous [[#Königsberg Problem]] in 1736. 
+> 
+> The problem can be stated mathematically like this:
+> Given the graph in the image, is it possible to construct a path 
+> (or even a cycle; i.e., a path starting and ending on the same vertex) 
+> that visits each edge exactly once?
+>
+> Euler proved that a __necessary condition__ for the existence of Eulerian circuits is 
+> that __all vertices in the graph have an even degree__, 
+> and stated without proof that connected graphs with all vertices of even degree 
+> have an Eulerian circuit. 
+> 
+> The first complete proof of this latter claim was published 
+> posthumously in 1873 by Carl Hierholzer. This is known as Euler's Theorem:
+>
+> # A connected graph has an __Euler cycle if and only if every vertex has even degree__.
+>
+> The term Eulerian graph has two common meanings in graph theory. 
+> One meaning is a graph with an Eulerian circuit, and 
+> the other is a graph with every vertex of even degree. 
+> These definitions coincide for connected graphs.
+>
+> For the existence of Eulerian trails it is necessary that zero or two vertices have an odd degree; 
+> this means the Königsberg graph is not Eulerian. 
+> If there are no vertices of odd degree, all Eulerian trails are circuits. 
+> If there are exactly two vertices of odd degree, 
+> all Eulerian trails start at one of them and end at the other. 
+> A graph that has an Eulerian trail but not an Eulerian circuit is called __semi-Eulerian__.
+>
+> [Wikipedia](https://en.wikipedia.org/wiki/Eulerian%20path)
+
+#### Königsberg Problem: 
+
+The Seven Bridges of Königsberg problem asks 
+whether you can cross each of the Bridges B1..B7 exactly once: 
+![[Konigsberg_bridges.png]]
+
+Here is a more abstract, topological Representation:
+```mermaid
+graph LR
+
+N--B1---K[Kneiphof]
+K--B2---N[North]
+N--B3---L[Lohmse]
+L--B4---K
+K--B5---S[South]
+K--B6---S
+S--B7---L
+
+```
+
+#### [Haus vom Nikolaus puzzle](https://de.wikipedia.org/wiki/Haus_vom_Nikolaus "de:Haus vom Nikolaus") 
+
+```
+  C      C
+ / \    / \
+B---D  B---D
+|\ /|  |\ /|
+| X |  | X |
+|/ \|  |/ \|
+A---E  A---E
+        \ /
+         F
+```
+
+
+has 2 odd Vertices (at the Bottom), 
+therefore you have to start at one of them and stop at the other. 
+If the House is made symmetric, you can create an Euler Cycle starting at any node. 
 
 
 

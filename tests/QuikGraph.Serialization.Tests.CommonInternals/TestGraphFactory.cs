@@ -160,7 +160,7 @@ namespace QuikGraph.Tests
         /// <summary> Creates undirected graphs (filterable). </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        private static IEnumerable<UndirectedGraph<string, Edge<string>>> GetUndirectedGraphsInternal(
+        private static IEnumerable<IUndirectedGraph<string, Edge<string>>> GetUndirectedGraphsInternal(
             [CanBeNull, InstantHandle] Func<string, int, bool> filter = null)
         {
             yield return new UndirectedGraph<string, Edge<string>>();
@@ -173,7 +173,7 @@ namespace QuikGraph.Tests
         /// <summary> Creates undirected graphs. </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        public static IEnumerable<UndirectedGraph<string, Edge<string>>> GetUndirectedGraphs_All()
+        public static IEnumerable<IUndirectedGraph<string, Edge<string>>> GetUndirectedGraphs_All()
             => GetUndirectedGraphsInternal();
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace QuikGraph.Tests
         /// </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        public static IEnumerable<UndirectedGraph<string, Edge<string>>> GetUndirectedGraphs_SlowTests(int rate = -1)
+        public static IEnumerable<IUndirectedGraph<string, Edge<string>>> GetUndirectedGraphs_SlowTests(int rate = -1)
         {
 #if !FULL_SLOW_TESTS_RUN
             int r = GetSlowTestRate(rate);

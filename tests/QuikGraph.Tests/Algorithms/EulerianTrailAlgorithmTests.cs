@@ -8,9 +8,8 @@ using static QuikGraph.Tests.QuikGraphUnitTestsHelpers;
 
 namespace QuikGraph.Tests.Algorithms
 {
-    /// <summary>
-    /// Tests for <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/>.
-    /// </summary>
+    /// <summary> Tests for <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/>. </summary>
+    /// <inheritdoc cref="EulerianTrailAlgorithm{TVertex,TEdge}"/>
     [TestFixture]
     internal sealed class EulerianTrailAlgorithmTests : RootedAlgorithmTestsBase
     {
@@ -263,16 +262,14 @@ namespace QuikGraph.Tests.Algorithms
 
         [TestCaseSource(nameof(ComputeEulerianPathCountTestCases))]
         public int ComputeEulerianPathCount([NotNull] AdjacencyGraph<int, IEdge<int>> graph)
-        {
-            return EulerianTrailAlgorithm<int, IEdge<int>>.ComputeEulerianPathCount(graph);
-        }
+            => EulerianTrailAlgorithm<int, IEdge<int>>.ComputeEulerianPathCount(graph);
 
         [Test]
         public void ComputeEulerianPathCount_Throws()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => EulerianTrailAlgorithm<int, IEdge<int>>.ComputeEulerianPathCount(null));
+                () => _ = EulerianTrailAlgorithm<int, IEdge<int>>.ComputeEulerianPathCount(null));
         }
 
         [NotNull, ItemNotNull]
@@ -580,7 +577,7 @@ namespace QuikGraph.Tests.Algorithms
             Assert.AreEqual(
                 expectedTrail1.Length + expectedTrail2.Length + 1 /* Temporary edge */,
                 circuit.Length);
-            foreach (Edge<int> edge in expectedTrail1.Concat(expectedTrail2))
+            foreach (var edge in expectedTrail1.Concat(expectedTrail2))
             {
                 Assert.Contains(edge, circuit);
             }
@@ -714,12 +711,8 @@ namespace QuikGraph.Tests.Algorithms
             }
 
             // Root 3
-            ComputeTrails(
-                graph,
-                3,
-                (s, t) => new EquatableEdge<int>(s, t),
-                out trails,
-                out circuit);
+            ComputeTrails(graph, 3, (s, t) => new EquatableEdge<int>(s, t),
+                out trails, out circuit);
             trail1 = new[] { edge6, edge8, edge5 };
             trail2 = new[] { edge6, edge7, edge4, edge1, edge2, edge3 };
             CheckTrails(trails, trail1, trail2);

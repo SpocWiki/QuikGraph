@@ -9,11 +9,14 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Algorithm that find Eulerian path in a graph.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Algorithm that finds Eulerian <seealso cref="Trails()"/> and <see cref="Circuit"/> in a graph. </summary>
+    /// <remarks>
+    /// AKA Eulerian Path that __traverses each Edge exactly once__.
+    ///
+    /// This requires that each <typeparamref name="TVertex"/>
+    /// has an even <see cref="IImplicitUndirectedGraph{TVertex,TEdge}.AdjacentDegree"/>,
+    /// except for at most 2, which are the End Nodes. 
+    /// </remarks>
     public sealed class EulerianTrailAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>
@@ -56,25 +59,17 @@ namespace QuikGraph.Algorithms
         [NotNull, ItemNotNull]
         private List<TEdge> _circuit = new List<TEdge>();
 
-        /// <summary>
-        /// Circuit.
-        /// </summary>
+        /// <summary> Circuit. </summary>
         [NotNull, ItemNotNull]
         public TEdge[] Circuit => _circuit.ToArray();
 
         [Pure]
-        private bool NotInCircuit([NotNull] TEdge edge)
-        {
-            return !_circuit.Contains(edge)
-                   && !_temporaryCircuit.Contains(edge);
-        }
+        private bool NotInCircuit([NotNull] TEdge edge) => !_circuit.Contains(edge) && !_temporaryCircuit.Contains(edge);
 
         [Pure]
         [NotNull, ItemNotNull]
         private IEnumerable<TEdge> SelectOutEdgesNotInCircuit([NotNull] TVertex vertex)
-        {
-            return VisitedGraph.OutEdges(vertex).Where(NotInCircuit);
-        }
+            => VisitedGraph.OutEdges(vertex).Where(NotInCircuit);
 
         [Pure]
         private bool TrySelectSingleOutEdgeNotInCircuit([NotNull] TVertex vertex, out TEdge edge)
@@ -408,12 +403,10 @@ namespace QuikGraph.Algorithms
             _temporaryEdges.Clear();
         }
 
-        /// <summary>
-        /// Computes the set of Eulerian trails that traverse the edge set.
-        /// </summary>
+        /// <summary> Computes the set of Eulerian trails that traverse each edge exactly once. </summary>
         /// <remarks>
-        /// This method returns a set of disjoint Eulerian trails. This set
-        /// of trails spans the entire set of edges.
+        /// This method returns a set of disjoint Eulerian trails.
+        /// This set of trails spans the entire set of edges.
         /// </remarks>
         /// <returns>Eulerian trail set.</returns>
         [NotNull, ItemNotNull]
