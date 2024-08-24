@@ -40,10 +40,7 @@ namespace QuikGraph
         //[Obsolete("Not CoVariant => With [CanBeNull] Support use " + nameof(OutEdges))]
         bool TryGetEdge([NotNull] TVertex source, [NotNull] TVertex target, out TEdge edge);
 
-        /// <summary>
-        /// Tries to get edges that link
-        /// <paramref name="source"/> and <paramref name="target"/> vertices.
-        /// </summary>
+        /// <summary>Tries to get edges that link <paramref name="source"/> and <paramref name="target"/> vertices. </summary>
         /// <param name="source">Source vertex.</param>
         /// <param name="target">Target vertex.</param>
         /// <param name="edges">Edges found, otherwise <see langword="null"/>.</param>
@@ -52,7 +49,11 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is <see langword="null"/>.</exception>
         [Pure]
         [ContractAnnotation("=> true, edges:notnull;=> false, edges:null")]
-        //[Obsolete("Not CoVariant => With [CanBeNull] Support use " + nameof(OutEdges))]
+        [Obsolete("Not CoVariant => With [CanBeNull] Support use " + nameof(GetEdges))]
         bool TryGetEdges([NotNull] TVertex source, [NotNull] TVertex target, [ItemNotNull] out IEnumerable<TEdge> edges);
+
+        /// <summary> Get all edges that link <paramref name="source"/> and <paramref name="target"/> vertices. </summary>
+        [ItemNotNull]
+        IEnumerable<TEdge> GetEdges([NotNull] TVertex source, [NotNull] TVertex target);
     }
 }

@@ -41,7 +41,29 @@ namespace QuikGraph.Predicates
             return TryGetEdge(source, target, out _);
         }
 
+        /// <summary> Returns an empty Edge-Set </summary>
+        public IEnumerable<TEdge> Empty => Edge.Empty<TEdge>();
+
         /// <inheritdoc />
+        public IEnumerable<TEdge> GetEdges(TVertex source, TVertex target)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (VertexPredicate(source) && VertexPredicate(target))
+            {
+                var unfilteredEdges = BaseGraph.GetEdges(source, target);
+                var edges = unfilteredEdges.Where(edge => EdgePredicate(edge));
+                return edges;
+            }
+
+            return Empty;
+        }
+
+        /// <inheritdoc />
+        //[Obsolete("Obsolete, use " + nameof(GetEdges))]
         public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge)
         {
             if (source == null)
@@ -50,9 +72,9 @@ namespace QuikGraph.Predicates
                 throw new ArgumentNullException(nameof(target));
 
             if (VertexPredicate(source)
-                && VertexPredicate(target)
-                && BaseGraph.TryGetEdges(source, target, out IEnumerable<TEdge> unfilteredEdges))
+                && VertexPredicate(target))
             {
+                var unfilteredEdges = BaseGraph.GetEdges(source, target);
                 foreach (TEdge unfilteredEdge in unfilteredEdges.Where(unfilteredEdge => EdgePredicate(unfilteredEdge)))
                 {
                     edge = unfilteredEdge;
@@ -65,6 +87,7 @@ namespace QuikGraph.Predicates
         }
 
         /// <inheritdoc />
+        [Obsolete("Obsolete, use " + nameof(GetEdges))]
         public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<TEdge> edges)
         {
             if (source == null)

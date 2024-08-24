@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using JetBrains.Annotations;
 using QuikGraph.Constants;
 
@@ -8,6 +10,9 @@ namespace QuikGraph
     /// <inheritdoc cref="Create{TVertex}(TVertex,TVertex)"/>
     public static class Edge
     {
+        /// <summary> Returns an empty Edge-Set </summary>
+        public static IEnumerable<TEdge> Empty<TEdge>() => Enumerable.Empty<TEdge>(); //null; //
+
         /// <summary> Creates a new <see cref="Edge{TVertex}"/> from <paramref name="source"/> to <paramref name="target"/> </summary>
         /// <remarks>
         /// A Factory Method allows to centrally change the Types of Edges to create.

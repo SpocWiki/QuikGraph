@@ -160,6 +160,19 @@ namespace QuikGraph
             return false;
         }
 
+        /// <summary> Returns an empty Edge-Set </summary>
+        public IEnumerable<TEdge> Empty => Edge.Empty<TEdge>();
+
+        /// <inheritdoc />
+        public IEnumerable<TEdge> GetEdges(int source, int target)
+        {
+            if (TryGetEdges(source, target, out var edges))
+            {
+                return edges;
+            }
+            return Empty;
+        }
+
         /// <inheritdoc />
         public bool TryGetEdges(int source, int target, out IEnumerable<TEdge> edges)
         {

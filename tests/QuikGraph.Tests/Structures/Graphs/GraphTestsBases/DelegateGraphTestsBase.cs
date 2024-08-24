@@ -510,16 +510,16 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.IsFalse(graph.TryGetEdges(0, 1, out _));
+            Assert.IsEmpty(graph.GetEdges(0, 1));
             data.CheckCalls(1);
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetEdges(1, 2, out IEnumerable<IEdge<int>> edges));
+            var edges = graph.GetEdges(1, 2);
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
             data.ShouldReturnEdges = new[] { Edge.Create(1, 2), Edge.Create(1, 2) };
-            Assert.IsTrue(graph.TryGetEdges(1, 2, out edges));
+            edges = graph.GetEdges(1, 2);
             CollectionAssert.AreEqual(data.ShouldReturnEdges, edges);
             data.CheckCalls(1);
         }
@@ -531,16 +531,16 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.IsFalse(graph.TryGetEdges(0, 1, out _));
+            Assert.IsEmpty(graph.GetEdges(0, 1));
             data.CheckCalls(0); // Vertex is not in graph so no need to call user code
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetEdges(1, 2, out IEnumerable<IEdge<int>> edges));
+            var edges = graph.GetEdges(1, 2);
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
             data.ShouldReturnEdges = new[] { Edge.Create(1, 2), Edge.Create(1, 2) };
-            Assert.IsTrue(graph.TryGetEdges(1, 2, out edges));
+            edges = graph.GetEdges(1, 2);
             CollectionAssert.AreEqual(data.ShouldReturnEdges, edges);
             data.CheckCalls(1);
 
@@ -549,32 +549,32 @@ namespace QuikGraph.Tests.Structures
             var edge12Bis = Edge.Create(1, 2);
             data.ShouldReturnValue = true;
             data.ShouldReturnEdges = new[] { edge14, edge12 };
-            Assert.IsTrue(graph.TryGetEdges(1, 2, out edges));
+            edges = graph.GetEdges(1, 2);
             CollectionAssert.AreEqual(new[] { edge12 }, edges);
             data.CheckCalls(1);
 
             data.ShouldReturnEdges = new[] { edge14, edge12, edge12Bis };
-            Assert.IsTrue(graph.TryGetEdges(1, 2, out edges));
+            edges = graph.GetEdges(1, 2);
             CollectionAssert.AreEqual(new[] { edge12, edge12Bis }, edges);
             data.CheckCalls(1);
 
             data.ShouldReturnEdges = new[] { edge14, edge12 };
-            Assert.IsTrue(graph.TryGetEdges(2, 1, out edges));
+            edges = graph.GetEdges(2, 1);
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
             var edge41 = Edge.Create(4, 1);
             data.ShouldReturnEdges = new[] { edge14, edge41 };
-            Assert.IsTrue(graph.TryGetEdges(1, 4, out edges));
+            edges = graph.GetEdges(1, 4);
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
-            Assert.IsFalse(graph.TryGetEdges(4, 1, out _));
+            Assert.IsEmpty(graph.GetEdges(4, 1));
             data.CheckCalls(0);
 
             var edge45 = Edge.Create(4, 5);
             data.ShouldReturnEdges = new[] { edge14, edge41, edge45 };
-            Assert.IsFalse(graph.TryGetEdges(4, 5, out _));
+            Assert.IsEmpty(graph.GetEdges(4, 5));
             data.CheckCalls(0);
         }
 

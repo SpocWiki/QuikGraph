@@ -205,6 +205,36 @@ namespace QuikGraph
             return false;
         }
 
+        /// <summary> Returns an empty Edge-Set </summary>
+        public IEnumerable<SEquatableEdge<TVertex>> Empty => Edge.Empty<SEquatableEdge<TVertex>>();
+
+
+        /// <inheritdoc />
+        public IEnumerable<SEquatableEdge<TVertex>> GetEdges(TVertex source, TVertex target)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (_outEdgeStartRanges.TryGetValue(source, out Range range))
+            {
+                return GetEdges();
+            }
+
+            return Empty;
+
+            IEnumerable<SEquatableEdge<TVertex>> GetEdges()
+            {
+                for (int i = range.Start; i < range.End; ++i)
+                {
+                    if (EqualityComparer<TVertex>.Default.Equals(_outEdges[i], target))
+                        yield return new SEquatableEdge<TVertex>(source, target);
+                }
+            }
+        }
+
+
         /// <inheritdoc />
         public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<SEquatableEdge<TVertex>> edges)
         {
@@ -222,8 +252,6 @@ namespace QuikGraph
             edges = null;
             return false;
 
-            #region Local function
-
             IEnumerable<SEquatableEdge<TVertex>> GetEdges()
             {
                 for (int i = range.Start; i < range.End; ++i)
@@ -232,8 +260,6 @@ namespace QuikGraph
                         yield return new SEquatableEdge<TVertex>(source, target);
                 }
             }
-
-            #endregion
         }
 
         #endregion

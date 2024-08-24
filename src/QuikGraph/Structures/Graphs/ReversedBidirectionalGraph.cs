@@ -49,10 +49,7 @@ namespace QuikGraph
         public IEnumerable<TVertex> Vertices => OriginalGraph.Vertices;
 
         /// <inheritdoc />
-        public bool ContainsVertex(TVertex vertex)
-        {
-            return OriginalGraph.ContainsVertex(vertex);
-        }
+        public bool ContainsVertex(TVertex vertex) => OriginalGraph.ContainsVertex(vertex);
 
         #endregion
 
@@ -97,7 +94,29 @@ namespace QuikGraph
             return false;
         }
 
+
+        /// <summary> Returns an empty Edge-Set </summary>
+        public IEnumerable<SReversedEdge<TVertex, TEdge>> Empty => Edge.Empty<SReversedEdge<TVertex, TEdge>>();
+
         /// <inheritdoc />
+        public IEnumerable<SReversedEdge<TVertex, TEdge>> GetEdges(TVertex source, TVertex target)
+        {
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (!ContainsVertex(source))
+            {
+                return Empty;
+            }
+
+            var originalEdges = OriginalGraph.GetEdges(target, source);
+            var edges = originalEdges?.Select(edge => new SReversedEdge<TVertex, TEdge>(edge));
+            return edges;
+
+        }
+
+        /// <inheritdoc />
+        [Obsolete("Obsolete")]
         public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
         {
             if (OriginalGraph.TryGetEdges(target, source, out IEnumerable<TEdge> originalEdges)

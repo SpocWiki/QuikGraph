@@ -188,6 +188,26 @@ namespace QuikGraph
             return false;
         }
 
+        /// <summary> Returns an empty Edge-Set </summary>
+        public IEnumerable<TEdge> Empty => Edge.Empty<TEdge>();
+
+        /// <inheritdoc />
+        public virtual IEnumerable<TEdge> GetEdges(TVertex source, TVertex target)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            if (_vertexEdges.TryGetValue(source, out IEdgeList<TEdge> outEdges))
+            {
+                var edges = outEdges.Where(edge => EqualityComparer<TVertex>.Default.Equals(edge.Target, target));
+                return edges;
+            }
+
+            return Empty;
+        }
+
         #endregion
 
         #region IImplicitGraph<TVertex,TEdge>

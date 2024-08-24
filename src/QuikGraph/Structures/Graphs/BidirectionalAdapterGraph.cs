@@ -107,10 +107,12 @@ namespace QuikGraph
         public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge) => _baseGraph.TryGetEdge(source, target, out edge);
 
         /// <inheritdoc />
+        public IEnumerable<TEdge> GetEdges(TVertex source, TVertex target) => _baseGraph.GetEdges(source, target);
+
+        /// <inheritdoc />
+        [Obsolete("Obsolete use " + nameof(GetEdges))]
         public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<TEdge> edges)
-        {
-            return _baseGraph.TryGetEdges(source, target, out edges);
-        }
+            => _baseGraph.TryGetEdges(source, target, out edges);
 
         #endregion
 

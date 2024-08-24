@@ -172,22 +172,17 @@ namespace QuikGraph
         #region IIncidenceGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public bool ContainsEdge(TVertex source, TVertex target)
-        {
-            return Wrapped.ContainsEdge(source, target);
-        }
+        public bool ContainsEdge(TVertex source, TVertex target) => Wrapped.ContainsEdge(source, target);
 
         /// <inheritdoc />
-        public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge)
-        {
-            return Wrapped.TryGetEdge(source, target, out edge);
-        }
+        public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge) => Wrapped.TryGetEdge(source, target, out edge);
+
+        /// <inheritdoc />
+        public virtual IEnumerable<TEdge> GetEdges(TVertex source, TVertex target) => Wrapped.GetEdges(source, target);
 
         /// <inheritdoc />
         public virtual bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<TEdge> edges)
-        {
-            return Wrapped.TryGetEdges(source, target, out edges);
-        }
+            => Wrapped.TryGetEdges(source, target, out edges);
 
         #endregion
 
