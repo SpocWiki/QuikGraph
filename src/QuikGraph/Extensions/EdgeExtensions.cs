@@ -212,6 +212,13 @@ namespace QuikGraph
             [NotNull] TVertex vertex) =>
             ((IReadOnlyDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
 
+        /// <inheritdoc cref="IsPredecessor{TVertex}(IReadOnlyDictionary{TVertex,IEdge{TVertex}},TVertex,TVertex)"/>
+        public static bool IsPredecessor<TVertex, TEdge>(
+            [NotNull] this IDictionary<TVertex, TEdge> predecessors,
+            [NotNull] TVertex root,
+            [NotNull] TVertex vertex) where TEdge : IEdge<TVertex> =>
+            ((IReadOnlyDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
+
         /// <summary> Checks that the <paramref name="root"/> is a predecessor of the given <paramref name="vertex"/>. </summary>
         /// <returns>True if the <paramref name="root"/> is a predecessor of the <paramref name="vertex"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="predecessors"/> is <see langword="null"/>.</exception>
@@ -236,7 +243,7 @@ namespace QuikGraph
 
             while (predecessors.TryGetValue(currentVertex, out var predecessor))
             {
-                TVertex source = GetOtherVertex(predecessor, currentVertex);
+                TVertex source = predecessor.GetOtherVertex(currentVertex);
                 if (EqualityComparer<TVertex>.Default.Equals(currentVertex, source))
                     return false;
                 if (EqualityComparer<TVertex>.Default.Equals(source, root))

@@ -397,7 +397,7 @@ namespace QuikGraph.Tests.Structures
         #region Merge
 
         public void Merge_Test(
-            [System.Diagnostics.CodeAnalysis.NotNull] IEnumerable<int> setupVertices,
+            [NotNull] IEnumerable<int> setupVertices,
             [NotNull, ItemNotNull] IEnumerable<EquatableEdge<int>> setupEdges,
             int vertexToMerge,
             int expectedEdgesAdded,
@@ -548,7 +548,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         public void MergeIf_Test(
-            [System.Diagnostics.CodeAnalysis.NotNull] IEnumerable<int> setupVertices,
+            [NotNull] IEnumerable<int> setupVertices,
             [NotNull, ItemNotNull] IEnumerable<EquatableEdge<int>> setupEdges,
             [NotNull, InstantHandle] Func<int, bool> vertexPredicate,
             int expectedVerticesRemoved,

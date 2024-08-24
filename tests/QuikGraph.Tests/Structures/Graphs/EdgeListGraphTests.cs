@@ -194,7 +194,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_EquatableVertex()
         {
-            var graph = new EdgeListGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
+            var graph = new EdgeListGraph<EquatableTestVertex, IEdge<EquatableTestVertex>>();
             ContainsVertex_EquatableVertex_OnlyEdges_Test(graph);
         }
 

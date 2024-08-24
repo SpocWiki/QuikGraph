@@ -34,9 +34,9 @@ namespace QuikGraph.Tests.Algorithms
             {
                 if (lca(pair, out TVertex _))
                 {
-                    bool isPredecessor = predecessors.VerticesPredecessors.AsReadOnly().IsPredecessor(root, pair.Source);
+                    bool isPredecessor = predecessors.VerticesPredecessors.IsPredecessor(root, pair.Source);
                     Assert.IsTrue(isPredecessor);
-                    bool predecessor = predecessors.VerticesPredecessors.AsReadOnly().IsPredecessor(root, pair.Target);
+                    bool predecessor = predecessors.VerticesPredecessors.IsPredecessor(root, pair.Target);
                     Assert.IsTrue(predecessor);
                 }
             }
