@@ -179,7 +179,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
                 Debug.Assert(path.Count > 0);
 
                 // Add to list if has no cycle
-                if (!path.AsEnumerable().HasCycles<TVertex>())
+                if (!path.Cast<IEdge<TVertex>>().IsPathWithoutCycles())
                     AddComputedShortestPath(path);
 
                 // Append new deviation paths
@@ -215,7 +215,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
             if (path.Count == 0)
                 return; // Unreachable vertices
 
-            if (!path.HasCycles<TVertex>())
+            if (!path.Cast<IEdge<TVertex>>().HasCycles())
                 AddComputedShortestPath(path);
 
             // Create deviation paths

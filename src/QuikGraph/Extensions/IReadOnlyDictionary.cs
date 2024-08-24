@@ -1,12 +1,6 @@
 ﻿namespace System.Collections.Generic
 {
-#if NETSTANDARD2_0_OR_GREATER
-#endif
-#if NET40_OR_GREATER
-#elseif NETSTANDARD1_0_OR_GREATER
-#elseif NETSTANDARD2_0_OR_GREATER
-#elseif NETSTANDARD
-#else //NET40_OR_GREATER
+#if NET35 || NET40
     /// <summary>Represents a generic read-only collection of key/value pairs.</summary>
     /// <typeparam name="TKey">The type of keys in the read-only dictionary.</typeparam>
     /// <typeparam name="TValue">The type of values in the read-only dictionary.</typeparam>
@@ -41,5 +35,6 @@
         /// <exception cref="T:System.ArgumentNullException"><paramref name="key">key</paramref> is null.</exception>
         bool TryGetValue(TKey key, out TValue value);
     }
-#endif //NET40_OR_GREATER
+#else //NET35 || NET40
+#endif //NET35 || NET40
 }

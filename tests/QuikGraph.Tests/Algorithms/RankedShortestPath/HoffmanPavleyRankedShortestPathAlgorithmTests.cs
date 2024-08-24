@@ -41,7 +41,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
                 Assert.IsTrue(lastWeight <= weight, $"{lastWeight} <= {weight}");
                 Assert.AreEqual(rootVertex, path.First().Source);
                 Assert.AreEqual(targetVertex, path.Last().Target);
-                Assert.IsTrue(path.AsEnumerable().IsPathWithoutCycles<TVertex>());
+                Assert.IsTrue(path.Cast<IEdge<TVertex>>().IsPathWithoutCycles());
 
                 lastWeight = weight;
             }
