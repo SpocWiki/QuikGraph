@@ -198,26 +198,28 @@ namespace QuikGraph
         public static IReadOnlyDictionary<TVertex, TV> AsReadOnly<TVertex, TV>(
             [NotNull] this IDictionary<TVertex, TV> predecessors) => (IReadOnlyDictionary<TVertex, TV>)predecessors;
 
-        /// <inheritdoc cref="IsPredecessor{TVertex}(IReadOnlyDictionary{TVertex,IEdge{TVertex}},TVertex,TVertex)"/>
-        public static bool IsPredecessor<TVertex>(
-            [NotNull] this Dictionary<TVertex, IEdge<TVertex>> predecessors,
-            [NotNull] TVertex root,
-            [NotNull] TVertex vertex) =>
-            ((IReadOnlyDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
-
-        /// <inheritdoc cref="IsPredecessor{TVertex}(IReadOnlyDictionary{TVertex,IEdge{TVertex}},TVertex,TVertex)"/>
-        public static bool IsPredecessor<TVertex>(
-            [NotNull] this IDictionary<TVertex, IEdge<TVertex>> predecessors,
-            [NotNull] TVertex root,
-            [NotNull] TVertex vertex) =>
-            ((IReadOnlyDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
-
+#if NET35 || NET40
+        /// <inheritdoc cref="IsPredecessor{TVertex}(IDictionary{TVertex,IEdge{TVertex}},TVertex,TVertex)"/>
+        public static bool IsPredecessor<TVertex, TEdge>(
+        [NotNull] this IDictionary<TVertex, TEdge> predecessors,
+        [NotNull] TVertex root,
+        [NotNull] TVertex vertex) where TEdge : IEdge<TVertex>
+            => ((IDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
+#else
         /// <inheritdoc cref="IsPredecessor{TVertex}(IReadOnlyDictionary{TVertex,IEdge{TVertex}},TVertex,TVertex)"/>
         public static bool IsPredecessor<TVertex, TEdge>(
             [NotNull] this IDictionary<TVertex, TEdge> predecessors,
             [NotNull] TVertex root,
-            [NotNull] TVertex vertex) where TEdge : IEdge<TVertex> =>
-            ((IReadOnlyDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
+            [NotNull] TVertex vertex) where TEdge : IEdge<TVertex>
+            => ((IReadOnlyDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
+#endif //NET35 || NET40
+
+        ///// <inheritdoc cref="IsPredecessor{TVertex}(IReadOnlyDictionary{TVertex,IEdge{TVertex}},TVertex,TVertex)"/>
+        //public static bool IsPredecessor<TVertex>(
+        //    [NotNull] this IDictionary<TVertex, IEdge<TVertex>> predecessors,
+        //    [NotNull] TVertex root,
+        //    [NotNull] TVertex vertex) =>
+        //    ((IReadOnlyDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
 
         /// <summary> Checks that the <paramref name="root"/> is a predecessor of the given <paramref name="vertex"/>. </summary>
         /// <returns>True if the <paramref name="root"/> is a predecessor of the <paramref name="vertex"/>.</returns>
@@ -226,7 +228,11 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
         public static bool IsPredecessor<TVertex>(
+#if NET35 || NET40
+            [NotNull] this IDictionary<TVertex, IEdge<TVertex>> predecessors,
+#else
             [NotNull] this IReadOnlyDictionary<TVertex, IEdge<TVertex>> predecessors,
+#endif //NET35 || NET40
             [NotNull] TVertex root,
             [NotNull] TVertex vertex)
         {

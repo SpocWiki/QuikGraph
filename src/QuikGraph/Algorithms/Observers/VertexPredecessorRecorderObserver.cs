@@ -26,8 +26,7 @@ namespace QuikGraph.Algorithms.Observers
         /// </summary>
         /// <param name="verticesPredecessors">Vertices predecessors.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesPredecessors"/> is <see langword="null"/>.</exception>
-        public VertexPredecessorRecorderObserver(
-            [NotNull] IDictionary<TVertex, TEdge> verticesPredecessors)
+        public VertexPredecessorRecorderObserver([NotNull] Dictionary<TVertex, TEdge> verticesPredecessors)
         {
             VerticesPredecessors = verticesPredecessors ?? throw new ArgumentNullException(nameof(verticesPredecessors));
         }
@@ -36,7 +35,7 @@ namespace QuikGraph.Algorithms.Observers
         /// Vertices predecessors.
         /// </summary>
         [NotNull]
-        public IDictionary<TVertex, TEdge> VerticesPredecessors { get; }
+        public Dictionary<TVertex, TEdge> VerticesPredecessors { get; }
 
         #region IObserver<TAlgorithm>
 

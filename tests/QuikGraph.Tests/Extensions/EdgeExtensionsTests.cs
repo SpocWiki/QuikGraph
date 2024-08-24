@@ -504,7 +504,7 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void IsPredecessor()
         {
-            var predecessors = new Dictionary<int, IEdge<int>>();
+            IDictionary<int, IEdge<int>> predecessors = new Dictionary<int, IEdge<int>>();
             Assert.IsFalse(predecessors.IsPredecessor(1, 2));
 
             predecessors.Add(1, Edge.Create(0, 1));
@@ -538,15 +538,15 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(v1, v2));
+                () => ((IDictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(v1, v2));
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(null, v2));
+                () => ((IDictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(null, v2));
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(v1, null));
+                () => ((IDictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(v1, null));
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(null, null));
+                () => ((IDictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(null, null));
 
-            var predecessors = new Dictionary<TestVertex, IEdge<TestVertex>>();
+            IDictionary<TestVertex, IEdge<TestVertex>> predecessors = new Dictionary<TestVertex, IEdge<TestVertex>>();
             Assert.Throws<ArgumentNullException>(
                 () => predecessors.IsPredecessor(null, v2));
             Assert.Throws<ArgumentNullException>(

@@ -178,8 +178,8 @@ namespace QuikGraph.Algorithms.RankedShortestPath
                 Debug.Assert(Math.Abs(deviation.Weight - path.Sum(e => _edgeWeights(e))) < float.Epsilon);
                 Debug.Assert(path.Count > 0);
 
-                // Add to list if has no cycle
-                if (!path.Cast<IEdge<TVertex>>().IsPathWithoutCycles())
+                // Add to list, if has no cycle
+                if (!path.Cast<IEdge<TVertex>>().HasCycles())
                     AddComputedShortestPath(path);
 
                 // Append new deviation paths

@@ -28,14 +28,14 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         {
             QuikGraphAssert.TrueForAll(graph.Edges, edgeWeights.ContainsKey);
 
-            var target = new HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>(graph, e => edgeWeights[e])
+            var shortestPath = new HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>(graph, e => edgeWeights[e])
             {
                 ShortestPathCount = pathCount
             };
-            target.Compute(rootVertex, targetVertex);
+            shortestPath.Compute(rootVertex, targetVertex);
 
             double lastWeight = double.MinValue;
-            foreach (TEdge[] path in target.ComputedShortestPaths.Select(p => p.ToArray()))
+            foreach (TEdge[] path in shortestPath.ComputedShortestPaths.Select(p => p.ToArray()))
             {
                 double weight = path.Sum(e => edgeWeights[e]);
                 Assert.IsTrue(lastWeight <= weight, $"{lastWeight} <= {weight}");
