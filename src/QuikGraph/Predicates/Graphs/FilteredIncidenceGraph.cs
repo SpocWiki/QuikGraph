@@ -85,26 +85,5 @@ namespace QuikGraph.Predicates
             edge = default(TEdge);
             return false;
         }
-
-        /// <inheritdoc />
-        [Obsolete("Obsolete, use " + nameof(GetEdges))]
-        public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<TEdge> edges)
-        {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-            if (target == null)
-                throw new ArgumentNullException(nameof(target));
-
-            if (VertexPredicate(source)
-                && VertexPredicate(target)
-                && BaseGraph.TryGetEdges(source, target, out IEnumerable<TEdge> unfilteredEdges))
-            {
-                edges = unfilteredEdges.Where(edge => EdgePredicate(edge));
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
     }
 }

@@ -109,11 +109,6 @@ namespace QuikGraph
         /// <inheritdoc />
         public IEnumerable<TEdge> GetEdges(TVertex source, TVertex target) => _baseGraph.GetEdges(source, target);
 
-        /// <inheritdoc />
-        [Obsolete("Obsolete use " + nameof(GetEdges))]
-        public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<TEdge> edges)
-            => _baseGraph.TryGetEdges(source, target, out edges);
-
         #endregion
 
         #region IImplicitGraph<TVertex,TEdge>

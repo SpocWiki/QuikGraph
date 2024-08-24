@@ -1644,14 +1644,14 @@ namespace QuikGraph.Tests.Predicates
             #endregion
         }
 
-        protected static void TryGetEdges_Test<TGraph>(
+        protected static void GetEdges_Test<TGraph>(
             [NotNull] TGraph wrappedGraph,
             [NotNull] Func<Func<int, bool>, Func<IEdge<int>, bool>, IIncidenceGraph<int, IEdge<int>>> createFilteredGraph)
             where TGraph : IMutableVertexAndEdgeSet<int, IEdge<int>>, IMutableGraph<int, IEdge<int>>
         {
             #region Part 1
 
-            TryGetEdges_Test(
+            GetEdges_Test(
                 createFilteredGraph(_ => true, _ => true),
                 edges => wrappedGraph.AddVerticesAndEdgeRange(edges));
 
@@ -1861,7 +1861,7 @@ namespace QuikGraph.Tests.Predicates
         {
             #region Part 1
 
-            TryGetOutEdges_Test(
+            GetOutEdges_Test(
                 createFilteredGraph(_ => true, _ => true),
                 edges => wrappedGraph.AddVerticesAndEdgeRange(edges));
 

@@ -351,17 +351,17 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetEdges()
+        public void GetEdges()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            TryGetEdges_Test(graph);
+            GetEdges_Test(graph);
         }
 
         [Test]
         public void TryGetEdges_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
-            TryGetEdges_Throws_Test(graph);
+            GetEdges_Throws_Test(graph);
         }
 
         [Test]

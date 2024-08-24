@@ -41,16 +41,10 @@ namespace QuikGraph
         #region Helpers
 
         [Pure]
-        private bool IsInGraph(int vertex)
-        {
-            return vertex >= 0 && vertex < VertexCount;
-        }
+        private bool IsInGraph(int vertex) => vertex >= 0 && vertex < VertexCount;
 
         [Pure]
-        private bool AreInGraph(int source, int target)
-        {
-            return IsInGraph(source) && IsInGraph(target);
-        }
+        private bool AreInGraph(int source, int target) => IsInGraph(source) && IsInGraph(target);
 
         // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
         private void AssertIsInGraph(int vertex)
@@ -166,27 +160,16 @@ namespace QuikGraph
         /// <inheritdoc />
         public IEnumerable<TEdge> GetEdges(int source, int target)
         {
-            if (TryGetEdges(source, target, out var edges))
+            if (!AreInGraph(source, target))
             {
-                return edges;
-            }
-            return Empty;
-        }
-
-        /// <inheritdoc />
-        public bool TryGetEdges(int source, int target, out IEnumerable<TEdge> edges)
-        {
-            if (AreInGraph(source, target))
-            {
-                var edge = _edges[source, target];
-                edges = edge == null
-                    ? Enumerable.Empty<TEdge>()
-                    : new[] { edge };
-                return true;
+                return Empty;
             }
 
-            edges = null;
-            return false;
+            var edge = _edges[source, target];
+            var edges = edge == null
+                ? Enumerable.Empty<TEdge>()
+                : new[] { edge };
+            return edges;
         }
 
         #endregion

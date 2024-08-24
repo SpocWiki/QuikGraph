@@ -228,7 +228,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetEdges()
+        public void GetEdges()
         {
             var graph = new BidirectionalMatrixGraph<IEdge<int>>(5);
             TryGetEdges_ImmutableVertices_Test(graph);

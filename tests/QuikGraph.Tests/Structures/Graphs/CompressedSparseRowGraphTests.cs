@@ -205,20 +205,18 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetEdges()
+        public void GetEdges()
         {
             var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
-            TryGetEdges_ImmutableGraph_Test(
-                wrappedGraph,
-                () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
+            GetEdges_ImmutableGraph_Test(wrappedGraph, () => CompressedSparseRowGraph<int>.FromGraph(wrappedGraph));
         }
 
         [Test]
-        public void TryGetEdges_Throws()
+        public void GetEdges_Throws()
         {
             var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph);
-            TryGetEdges_Throws_Test(graph);
+            GetEdges_Throws_Test(graph);
         }
 
         [Test]

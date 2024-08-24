@@ -76,10 +76,7 @@ namespace QuikGraph
         #region IIncidenceGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        public bool ContainsEdge(TVertex source, TVertex target)
-        {
-            return OriginalGraph.ContainsEdge(target, source);
-        }
+        public bool ContainsEdge(TVertex source, TVertex target) => OriginalGraph.ContainsEdge(target, source);
 
         /// <inheritdoc />
         public bool TryGetEdge(TVertex source, TVertex target, out SReversedEdge<TVertex, TEdge> edge)
@@ -115,21 +112,6 @@ namespace QuikGraph
 
         }
 
-        /// <inheritdoc />
-        [Obsolete("Obsolete")]
-        public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
-        {
-            if (OriginalGraph.TryGetEdges(target, source, out IEnumerable<TEdge> originalEdges)
-                && ContainsVertex(source))
-            {
-                edges = originalEdges.Select(edge => new SReversedEdge<TVertex, TEdge>(edge));
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
         #endregion
 
         #region IImplicitGraph<TVertex,TEdge>
@@ -139,14 +121,14 @@ namespace QuikGraph
 
         /// <inheritdoc />
         public IEnumerable<SReversedEdge<TVertex, TEdge>> OutEdges(TVertex vertex)
-            => EdgeExtensions.ReverseEdges<TVertex, TEdge>(OriginalGraph.InEdges(vertex));
+            => OriginalGraph.InEdges(vertex).ReverseEdges<TVertex, TEdge>();
 
         /// <inheritdoc />
         public bool TryGetOutEdges(TVertex vertex, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
         {
             if (OriginalGraph.TryGetInEdges(vertex, out IEnumerable<TEdge> inEdges))
             {
-                edges = EdgeExtensions.ReverseEdges<TVertex, TEdge>(inEdges);
+                edges = inEdges.ReverseEdges<TVertex, TEdge>();
                 return true;
             }
 
@@ -168,7 +150,7 @@ namespace QuikGraph
         /// <inheritdoc />
         public IEnumerable<SReversedEdge<TVertex, TEdge>> InEdges(TVertex vertex)
         {
-            return EdgeExtensions.ReverseEdges<TVertex, TEdge>(OriginalGraph.OutEdges(vertex));
+            return OriginalGraph.OutEdges(vertex).ReverseEdges<TVertex, TEdge>();
         }
 
         /// <inheritdoc />
@@ -186,7 +168,7 @@ namespace QuikGraph
         {
             if (OriginalGraph.TryGetOutEdges(vertex, out IEnumerable<TEdge> outEdges))
             {
-                edges = EdgeExtensions.ReverseEdges<TVertex, TEdge>(outEdges);
+                edges = outEdges.ReverseEdges<TVertex, TEdge>();
                 return true;
             }
 

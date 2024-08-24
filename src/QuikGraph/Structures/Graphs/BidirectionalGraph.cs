@@ -269,24 +269,6 @@ namespace QuikGraph
             return Empty;
         }
 
-        /// <inheritdoc />
-        public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<TEdge> edges)
-        {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-            if (target == null)
-                throw new ArgumentNullException(nameof(target));
-
-            if (_vertexOutEdges.TryGetValue(source, out IEdgeList<TEdge> outEdges))
-            {
-                edges = outEdges.Where(edge => EqualityComparer<TVertex>.Default.Equals(edge.Target, target));
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
         #endregion
 
         #region IBidirectionalIncidenceGraph<TVertex,TEdge>

@@ -360,10 +360,10 @@ namespace QuikGraph.Tests.Predicates
         }
 
         [Test]
-        public void TryGetEdges()
+        public void GetEdges()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            TryGetEdges_Test(
+            GetEdges_Test(
                 graph,
                 (vertexPredicate, edgePredicate)
                     => graph.FilteredBiDir(vertexPredicate, edgePredicate));
@@ -377,7 +377,7 @@ namespace QuikGraph.Tests.Predicates
                     .FilteredBiDir<TestVertex, IEdge<TestVertex>, BidirectionalGraph<TestVertex, IEdge<TestVertex>>>(
                 _ => true,
                 _ => true);
-            TryGetEdges_Throws_Test(filteredGraph);
+            GetEdges_Throws_Test(filteredGraph);
         }
 
         [Test]

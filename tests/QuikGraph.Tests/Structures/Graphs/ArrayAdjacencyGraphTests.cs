@@ -227,10 +227,10 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetEdges()
+        public void GetEdges()
         {
             var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
-            TryGetEdges_ImmutableGraph_Test(
+            GetEdges_ImmutableGraph_Test(
                 wrappedGraph,
                 () => new ArrayAdjacencyGraph<int, IEdge<int>>(wrappedGraph));
         }
@@ -240,7 +240,7 @@ namespace QuikGraph.Tests.Structures
         {
             var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = new ArrayAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
-            TryGetEdges_Throws_Test(graph);
+            GetEdges_Throws_Test(graph);
         }
 
         [Test]

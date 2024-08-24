@@ -180,10 +180,6 @@ namespace QuikGraph
         /// <inheritdoc />
         public virtual IEnumerable<TEdge> GetEdges(TVertex source, TVertex target) => Wrapped.GetEdges(source, target);
 
-        /// <inheritdoc />
-        public virtual bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<TEdge> edges)
-            => Wrapped.TryGetEdges(source, target, out edges);
-
         #endregion
 
         #region IImplicitGraph<TVertex,TEdge> 

@@ -61,7 +61,7 @@ namespace QuikGraph.MSAGL.Tests
             Assert.Throws<ArgumentNullException>(() => MsaglGraphExtensions.CreateMsaglPopulator<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(() => MsaglGraphExtensions.CreateMsaglPopulator<int, IEdge<int>>(null, vertex => vertex.ToString()));
-            Assert.Throws<ArgumentNullException>(() => MsaglGraphExtensions.CreateMsaglPopulator(graph, null));
+            Assert.Throws<ArgumentNullException>(() => graph.CreateMsaglPopulator(null));
             Assert.Throws<ArgumentNullException>(() => MsaglGraphExtensions.CreateMsaglPopulator<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(() => MsaglGraphExtensions.CreateMsaglPopulator<int, IEdge<int>>(null, "Format {0}"));

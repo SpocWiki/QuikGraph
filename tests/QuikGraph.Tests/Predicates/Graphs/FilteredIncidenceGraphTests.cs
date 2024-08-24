@@ -258,11 +258,10 @@ namespace QuikGraph.Tests.Predicates
         }
 
         [Test]
-        public void TryGetEdges()
+        public void GetEdges()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            TryGetEdges_Test(
-                graph,
+            GetEdges_Test(graph,
                 (vertexPredicate, edgePredicate) =>
                     new FilteredIncidenceGraph<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(
                         graph,
@@ -277,7 +276,7 @@ namespace QuikGraph.Tests.Predicates
                 new AdjacencyGraph<TestVertex, IEdge<TestVertex>>(),
                 _ => true,
                 _ => true);
-            TryGetEdges_Throws_Test(filteredGraph);
+            GetEdges_Throws_Test(filteredGraph);
         }
 
         [Test]

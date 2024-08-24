@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using NUnit.Framework;
 using static QuikGraph.Tests.AssertHelpers;
@@ -396,13 +396,13 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetEdges()
+        public void GetEdges()
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateVertexAndEdgeListGraph<int, IEdge<int>>(
                 new[] { 1, 2, 3 },
                 data.TryGetEdges);
-            TryGetEdges_Test(data, graph);
+            GetEdges_Test(data, graph);
         }
 
         [Test]
@@ -412,7 +412,7 @@ namespace QuikGraph.Tests.Structures
             var graph = new DelegateVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>>(
                 Enumerable.Empty<TestVertex>(),
                 data.TryGetEdges);
-            TryGetEdges_Throws_Test(graph);
+            GetEdges_Throws_Test(graph);
         }
 
         [Test]

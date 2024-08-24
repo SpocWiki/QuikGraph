@@ -503,7 +503,7 @@ namespace QuikGraph.Tests.Structures
                 false);
         }
 
-        protected static void TryGetEdges_Test(
+        protected static void GetEdges_Test(
             [NotNull] GraphData<int, IEdge<int>> data,
             [NotNull] IIncidenceGraph<int, IEdge<int>> graph)
         {
@@ -524,7 +524,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(1);
         }
 
-        protected static void TryGetEdges_Test(
+        protected static void GetEdges_Test(
             [NotNull] GraphData<int, IEdge<int>> data,
             [NotNull] DelegateVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {

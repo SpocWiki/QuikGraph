@@ -146,11 +146,11 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetEdges()
+        public void GetEdges()
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateIncidenceGraph<int, IEdge<int>>(data.TryGetEdges);
-            TryGetEdges_Test(data, graph);
+            GetEdges_Test(data, graph);
         }
 
         [Test]
@@ -158,7 +158,7 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<TestVertex, IEdge<TestVertex>>();
             var graph = new DelegateIncidenceGraph<TestVertex, IEdge<TestVertex>>(data.TryGetEdges);
-            TryGetEdges_Throws_Test(graph);
+            GetEdges_Throws_Test(graph);
         }
 
         [Test]

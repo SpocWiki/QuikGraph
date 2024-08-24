@@ -219,40 +219,12 @@ namespace QuikGraph
 
             if (_outEdgeStartRanges.TryGetValue(source, out Range range))
             {
-                return GetEdges();
+                return _GetEdges_();
             }
 
             return Empty;
 
-            IEnumerable<SEquatableEdge<TVertex>> GetEdges()
-            {
-                for (int i = range.Start; i < range.End; ++i)
-                {
-                    if (EqualityComparer<TVertex>.Default.Equals(_outEdges[i], target))
-                        yield return new SEquatableEdge<TVertex>(source, target);
-                }
-            }
-        }
-
-
-        /// <inheritdoc />
-        public bool TryGetEdges(TVertex source, TVertex target, out IEnumerable<SEquatableEdge<TVertex>> edges)
-        {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-            if (target == null)
-                throw new ArgumentNullException(nameof(target));
-
-            if (_outEdgeStartRanges.TryGetValue(source, out Range range))
-            {
-                edges = GetEdges();
-                return true;
-            }
-
-            edges = null;
-            return false;
-
-            IEnumerable<SEquatableEdge<TVertex>> GetEdges()
+            IEnumerable<SEquatableEdge<TVertex>> _GetEdges_()
             {
                 for (int i = range.Start; i < range.End; ++i)
                 {

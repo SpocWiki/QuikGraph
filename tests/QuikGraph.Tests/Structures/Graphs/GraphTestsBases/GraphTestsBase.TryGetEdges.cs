@@ -257,7 +257,7 @@ namespace QuikGraph.Tests.Structures
             // ReSharper restore AssignNullToNotNullAttribute
         }
 
-        protected static void TryGetEdges_Test(
+        protected static void GetEdges_Test(
             [NotNull] IIncidenceGraph<int, IEdge<int>> graph,
             [NotNull, InstantHandle] Action<IEnumerable<IEdge<int>>> addVerticesAndEdgeRange)
         {
@@ -286,15 +286,11 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.IsEmpty(gotEdges);
         }
 
-        protected static void TryGetEdges_Test(
+        protected static void GetEdges_Test(
             [NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
-        {
-            TryGetEdges_Test(
-                graph,
-                edges => graph.AddVerticesAndEdgeRange(edges));
-        }
+            => GetEdges_Test(graph,edges => graph.AddVerticesAndEdgeRange(edges));
 
-        protected static void TryGetEdges_ImmutableGraph_Test(
+        protected static void GetEdges_ImmutableGraph_Test(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IIncidenceGraph<int, IEdge<int>>> createGraph)
         {
@@ -324,7 +320,7 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.IsEmpty(gotEdges);
         }
 
-        protected static void TryGetEdges_ImmutableGraph_Test(
+        protected static void GetEdges_ImmutableGraph_Test(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IIncidenceGraph<int, SEquatableEdge<int>>> createGraph)
         {
@@ -391,7 +387,7 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.IsEmpty(gotEdges);
         }
 
-        protected static void TryGetEdges_ImmutableGraph_ReversedTest(
+        protected static void GetEdges_ImmutableGraph_ReversedTest(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IIncidenceGraph<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {
@@ -421,7 +417,7 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.IsEmpty(gotEdges);
         }
 
-        protected static void TryGetEdges_Throws_Test<TEdge>(
+        protected static void GetEdges_Throws_Test<TEdge>(
             [NotNull] IIncidenceGraph<TestVertex, TEdge> graph)
             where TEdge : IEdge<TestVertex>
         {
@@ -432,7 +428,7 @@ namespace QuikGraph.Tests.Structures
             // ReSharper restore AssignNullToNotNullAttribute
         }
 
-        protected static void TryGetOutEdges_Test(
+        protected static void GetOutEdges_Test(
             [NotNull] IImplicitGraph<int, IEdge<int>> graph,
             [NotNull, InstantHandle] Action<IEnumerable<IEdge<int>>> addVerticesAndEdgeRange)
         {
@@ -461,7 +457,7 @@ namespace QuikGraph.Tests.Structures
         protected static void TryGetOutEdges_Test(
             [NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
-            TryGetOutEdges_Test(
+            GetOutEdges_Test(
                 graph,
                 edges => graph.AddVerticesAndEdgeRange(edges));
         }
