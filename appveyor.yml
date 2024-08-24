@@ -41,6 +41,7 @@ environment:
 # Setup build version
 install:
   - ps: ./build/setupBuild.ps1
+  - ps: choco install docfx -y
 
 # Assembly infos & csproj patching
 assembly_info:
