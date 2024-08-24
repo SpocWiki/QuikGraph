@@ -121,10 +121,11 @@ namespace QuikGraph
 
         /// <inheritdoc />
         public IEnumerable<SReversedEdge<TVertex, TEdge>> OutEdges(TVertex vertex)
-            => OriginalGraph.InEdges(vertex).ReverseEdges<TVertex, TEdge>();
+            => OriginalGraph.InEdges(vertex)?.ReverseEdges<TVertex, TEdge>();
 
         /// <inheritdoc />
-        public bool TryGetOutEdges(TVertex vertex, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
+        public bool TryGetOutEdges(TVertex vertex,
+            out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
         {
             if (OriginalGraph.TryGetInEdges(vertex, out IEnumerable<TEdge> inEdges))
             {
@@ -164,6 +165,7 @@ namespace QuikGraph
         public int? InDegree(TVertex vertex) => OriginalGraph.OutDegree(vertex);
 
         /// <inheritdoc />
+        [Obsolete("Obsolete")]
         public bool TryGetInEdges(TVertex vertex, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
         {
             if (OriginalGraph.TryGetOutEdges(vertex, out IEnumerable<TEdge> outEdges))

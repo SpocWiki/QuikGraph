@@ -420,8 +420,7 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateVertexAndEdgeListGraph<int, IEdge<int>>(
-                new[] { 1, 2, 3, 4 },
-                data.TryGetEdges);
+                new[] { 1, 2, 3, 4 }, data.TryGetEdges);
             TryGetOutEdges_Test(data, graph);
         }
 

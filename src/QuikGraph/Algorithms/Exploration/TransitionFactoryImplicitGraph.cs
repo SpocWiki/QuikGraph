@@ -192,15 +192,6 @@ namespace QuikGraph.Algorithms.Exploration
         /// <inheritdoc />
         public int? OutDegree(TVertex vertex) => OutEdges(vertex)?.Count();
 
-        /// <inheritdoc />
-        public IEnumerable<TEdge> OutEdges(TVertex vertex)
-        {
-            if (TryGetOutEdges(vertex, out IEnumerable<TEdge> outEdges))
-                return outEdges;
-
-            return null;
-        }
-
         private void AddToNotProcessedCacheIfNecessary(
             [NotNull] TVertex vertex,
             [NotNull] ITransitionFactory<TVertex, TEdge> transitionFactory)
@@ -255,6 +246,42 @@ namespace QuikGraph.Algorithms.Exploration
 
             return edges;
         }
+
+        /// <inheritdoc />
+        public IEnumerable<TEdge> OutEdges(TVertex vertex)
+        {
+            if (vertex == null)
+                throw new ArgumentNullException(nameof(vertex));
+
+            bool wasNotProcessed = _verticesNotProcessedCache.Remove(vertex);
+
+            if (_verticesEdgesCache.TryGetValue(vertex, out IEdgeList<TEdge> edgeList))
+            {
+                return edgeList; //.AsEnumerable();
+                //return Empty;
+            }
+
+            edgeList = ExploreFactoriesForVertex(vertex);
+
+            if (edgeList is null)
+            {
+                if (!wasNotProcessed)
+                {
+                    return null;
+                    //return Empty;
+                }
+
+                // Vertex has no out edges
+                edgeList = new EdgeList<TEdge>();
+            }
+
+            _verticesEdgesCache[vertex] = edgeList;
+
+            return edgeList;//.AsEnumerable();
+        }
+
+        /// <summary> Returns an empty Edge-Set </summary>
+        public IEnumerable<TEdge> Empty => Edge.Empty<TEdge>();
 
         /// <inheritdoc />
         public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)

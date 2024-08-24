@@ -120,6 +120,7 @@ namespace QuikGraph
         public IEnumerable<TEdge> OutEdges(TVertex vertex) => _baseGraph.OutEdges(vertex);
 
         /// <inheritdoc />
+        [Obsolete("Obsolete")]
         public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)
             => _baseGraph.TryGetOutEdges(vertex, out edges);
 

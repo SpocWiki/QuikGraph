@@ -273,7 +273,8 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public bool TryGetOutEdges(TVertex vertex, out IEnumerable<SEquatableEdge<TVertex>> edges)
+        public bool TryGetOutEdges(TVertex vertex,
+            out IEnumerable<SEquatableEdge<TVertex>> edges)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));

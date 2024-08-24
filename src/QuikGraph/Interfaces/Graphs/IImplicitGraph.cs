@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace QuikGraph
@@ -35,7 +36,7 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
         [ContractAnnotation("=> true, edges:notnull;=> false, edges:null")]
-        //[Obsolete("Not CoVariant => With [CanBeNull] Support use " + nameof(OutEdges))]
+        [Obsolete("Not CoVariant => With [CanBeNull] Support use " + nameof(OutEdges))]
         bool TryGetOutEdges([NotNull] TVertex vertex, [ItemNotNull] out IEnumerable<TEdge> edges);
 
         /// <summary>

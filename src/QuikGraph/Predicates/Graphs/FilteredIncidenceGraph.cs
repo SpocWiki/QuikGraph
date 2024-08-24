@@ -41,9 +41,6 @@ namespace QuikGraph.Predicates
             return TryGetEdge(source, target, out _);
         }
 
-        /// <summary> Returns an empty Edge-Set </summary>
-        public IEnumerable<TEdge> Empty => Edge.Empty<TEdge>();
-
         /// <inheritdoc />
         public IEnumerable<TEdge> GetEdges(TVertex source, TVertex target)
         {

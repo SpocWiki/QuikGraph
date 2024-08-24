@@ -399,9 +399,13 @@ namespace QuikGraph.Tests.Structures
             const int vertex = 10;
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<VertexNotFoundException>(() => graph.IsOutEdgesEmpty(vertex));
-            Assert.Throws<VertexNotFoundException>(() => graph.OutDegree(vertex));
-            Assert.Throws<VertexNotFoundException>(() => graph.OutEdges(vertex).ToArray());
+            Assert.AreEqual(default, graph.IsOutEdgesEmpty(vertex));
+            Assert.AreEqual(default, graph.OutDegree(vertex));
+            Assert.AreEqual(default, graph.OutEdges(vertex)?.ToArray());
+
+            //Assert.Throws<VertexNotFoundException>(() => graph.IsOutEdgesEmpty(vertex));
+            //Assert.Throws<VertexNotFoundException>(() => graph.OutDegree(vertex));
+            //Assert.Throws<VertexNotFoundException>(() => graph.OutEdges(vertex).ToArray());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }

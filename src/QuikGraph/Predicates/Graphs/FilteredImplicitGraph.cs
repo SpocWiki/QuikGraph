@@ -54,6 +54,9 @@ namespace QuikGraph.Predicates
         /// <inheritdoc />
         public int? OutDegree(TVertex vertex) => OutEdges(vertex)?.Count();
 
+        /// <summary> Returns an empty Edge-Set </summary>
+        public IEnumerable<TEdge> Empty => Edge.Empty<TEdge>();
+
         /// <inheritdoc />
         public IEnumerable<TEdge> OutEdges(TVertex vertex)
         {
@@ -61,12 +64,17 @@ namespace QuikGraph.Predicates
                 throw new ArgumentNullException(nameof(vertex));
 
             if (VertexPredicate(vertex))
-                return BaseGraph.OutEdges(vertex)?.Where(FilterEdge);
+            {
+                var outEdges = BaseGraph.OutEdges(vertex);
+                var edges = outEdges?.Where(FilterEdge);
+                return edges;
+            }
 
-            return null;
+            return Empty;
         }
 
         /// <inheritdoc />
+        [Obsolete("Obsolete")]
         public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)
         {
             if (vertex == null)
@@ -82,6 +90,7 @@ namespace QuikGraph.Predicates
             edges = null;
             return false;
         }
+
 
         /// <inheritdoc />
         public TEdge OutEdge(TVertex vertex, int index)

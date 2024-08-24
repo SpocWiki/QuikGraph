@@ -544,7 +544,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void OutEdges_Throws()
         {
             var graph2 = new TransitionFactoryImplicitGraph<EquatableCloneableTestVertex, Edge<EquatableCloneableTestVertex>>();
-            OutEdges_Throws_Test(graph2);
+            OutEdges_Throws_Test(graph2); //fails after removing TryGetOutEdges 
         }
 
         #endregion
@@ -589,9 +589,9 @@ namespace QuikGraph.Tests.Algorithms.Exploration
             graph.AddTransitionFactory(
                 new TestTransitionFactory<CloneableTestVertex>(vertex4, new[] { edge7 }));
 
-            Assert.IsFalse(graph.TryGetOutEdges(vertex0, out _));
+            Assert.IsNull(graph.OutEdges(vertex0));
 
-            Assert.IsFalse(graph.TryGetOutEdges(vertex5, out _));   // Vertex5 was not discovered
+            Assert.IsNull(graph.OutEdges(vertex5));   // Vertex5 was not discovered
 
             Assert.IsTrue(graph.TryGetOutEdges(vertex3, out var gotEdges));
             CollectionAssert.AreEqual(new[] { edge6 }, gotEdges);

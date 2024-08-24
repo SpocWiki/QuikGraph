@@ -1884,17 +1884,17 @@ namespace QuikGraph.Tests.Predicates
                 vertex => vertex <= 4,
                 _ => true);
 
-            Assert.IsFalse(filteredGraph.TryGetOutEdges(0, out _));
+            Assert.IsNull(filteredGraph.OutEdges(0));
 
-            Assert.IsFalse(filteredGraph.TryGetOutEdges(5, out _)); // Filtered
+            Assert.IsEmpty(filteredGraph.OutEdges(5)); // Filtered
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(3, out IEnumerable<IEdge<int>> gotEdges));
+            var gotEdges = filteredGraph.OutEdges(3);
             CollectionAssert.IsEmpty(gotEdges);
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(4, out gotEdges));
+            gotEdges = filteredGraph.OutEdges(4);
             CollectionAssert.AreEqual(new[] { edge7 }, gotEdges);   // Filtered
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(2, out gotEdges));
+            gotEdges = filteredGraph.OutEdges(2);
             CollectionAssert.AreEqual(new[] { edge4, edge5, edge6 }, gotEdges);
 
             #endregion
@@ -1907,18 +1907,18 @@ namespace QuikGraph.Tests.Predicates
                 _ => true,
                 edge => edge.Source != edge.Target);
 
-            Assert.IsFalse(filteredGraph.TryGetOutEdges(0, out _));
+            Assert.IsNull(filteredGraph.OutEdges(0));
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(5, out gotEdges));
+            gotEdges = filteredGraph.OutEdges(5);
             CollectionAssert.IsEmpty(gotEdges);
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(3, out gotEdges));
+            gotEdges = filteredGraph.OutEdges(3);
             CollectionAssert.IsEmpty(gotEdges);
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(4, out gotEdges));
+            gotEdges = filteredGraph.OutEdges(4);
             CollectionAssert.AreEqual(new[] { edge7, edge8 }, gotEdges);
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(2, out gotEdges));
+            gotEdges = filteredGraph.OutEdges(2);
             CollectionAssert.AreEqual(new[] { edge5, edge6 }, gotEdges);   // Filtered
 
             #endregion
@@ -1931,17 +1931,17 @@ namespace QuikGraph.Tests.Predicates
                 vertex => vertex <= 4,
                 edge => edge.Source != edge.Target);
 
-            Assert.IsFalse(filteredGraph.TryGetOutEdges(0, out _));
+            Assert.IsNull(filteredGraph.OutEdges(0));
 
-            Assert.IsFalse(filteredGraph.TryGetOutEdges(5, out _)); // Filtered
+            Assert.IsEmpty(filteredGraph.OutEdges(5)); // Filtered
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(3, out gotEdges));
+            gotEdges = filteredGraph.OutEdges(3);
             CollectionAssert.IsEmpty(gotEdges);
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(4, out gotEdges));
+            gotEdges = filteredGraph.OutEdges(4);
             CollectionAssert.AreEqual(new[] { edge7 }, gotEdges);   // Filtered
 
-            Assert.IsTrue(filteredGraph.TryGetOutEdges(2, out gotEdges));
+            gotEdges = filteredGraph.OutEdges(2);
             CollectionAssert.AreEqual(new[] { edge5, edge6 }, gotEdges);   // Filtered
 
             #endregion

@@ -179,7 +179,9 @@ namespace QuikGraph
         /// <inheritdoc />
         public int? OutDegree(int vertex)
         {
-            AssertIsInGraph(vertex);
+            //AssertIsInGraph(vertex);
+            if (!IsInGraph(vertex))
+                return null;
 
             int count = 0;
             for (int j = 0; j < VertexCount; ++j)
@@ -196,13 +198,19 @@ namespace QuikGraph
         /// <inheritdoc />
         public IEnumerable<TEdge> OutEdges(int vertex)
         {
-            AssertIsInGraph(vertex);
+            //AssertIsInGraph(vertex);
+            if (!IsInGraph(vertex))
+                return null;
 
-            for (int j = 0; j < VertexCount; ++j)
+            return _OutEdges();
+            IEnumerable<TEdge> _OutEdges()
             {
-                TEdge edge = _edges[vertex, j];
-                if (edge != null)
-                    yield return edge;
+                for (int j = 0; j < VertexCount; ++j)
+                {
+                    TEdge edge = _edges[vertex, j];
+                    if (edge != null)
+                        yield return edge;
+                }
             }
         }
 

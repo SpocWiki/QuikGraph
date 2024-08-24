@@ -284,8 +284,8 @@ namespace QuikGraph.Tests.Predicates
 
             graph2.AddVertexRange( 1, 2, 3, 4, 5 );
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.IsNull(filteredGraph2.OutEdges(4));
-            Assert.IsNull(filteredGraph2.OutEdges(5));
+            Assert.IsEmpty(filteredGraph2.OutEdges(4));
+            Assert.IsEmpty(filteredGraph2.OutEdges(5));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
 
@@ -342,13 +342,10 @@ namespace QuikGraph.Tests.Predicates
         public void TryGetOutEdges()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            TryGetOutEdges_Test(
-                graph,
+            TryGetOutEdges_Test(graph,
                 (vertexPredicate, edgePredicate) =>
                     new FilteredVertexAndEdgeListGraph<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(
-                        graph,
-                        vertexPredicate,
-                        edgePredicate));
+                        graph, vertexPredicate, edgePredicate));
         }
 
         [Test]
