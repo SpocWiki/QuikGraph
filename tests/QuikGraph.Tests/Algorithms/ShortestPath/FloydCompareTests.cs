@@ -85,10 +85,10 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
-        public void FloydVsBellmannGraphML(AdjacencyGraph<string, Edge<string>> graph)
+        public void FloydVsBellmannGraphML(AdjacencyGraph<string, IEdge<string>> graph)
         {
             CompareAlgorithms(graph, _ => 1.0, (g, d)
-                => new BellmanFordShortestPathAlgorithm<string, Edge<string>>(g, d));
+                => new BellmanFordShortestPathAlgorithm<string, IEdge<string>>(g, d));
         }
 
         [Test]
@@ -102,10 +102,10 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
-        public void FloydVsDijkstraGraphML(AdjacencyGraph<string, Edge<string>> graph)
+        public void FloydVsDijkstraGraphML(AdjacencyGraph<string, IEdge<string>> graph)
         {
             CompareAlgorithms(graph, _ => 1, (g, d)
-                => new DijkstraShortestPathAlgorithm<string, Edge<string>>(g, d));
+                => new DijkstraShortestPathAlgorithm<string, IEdge<string>>(g, d));
         }
     }
 }

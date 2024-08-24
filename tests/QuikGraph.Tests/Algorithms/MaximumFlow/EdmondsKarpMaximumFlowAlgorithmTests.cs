@@ -372,10 +372,10 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { 100 })]
         [Category(TestCategories.LongRunning)]
-        public void EdmondsKarpMaxFlow(AdjacencyGraph<string, Edge<string>> graph)
+        public void EdmondsKarpMaxFlow(AdjacencyGraph<string, IEdge<string>> graph)
         {
             if (graph.VertexCount > 1)
-                EdmondsKarpMaxFlow(graph, (source, target) => new Edge<string>(source, target));
+                EdmondsKarpMaxFlow(graph, Edge.Create);
         }
 
         [Test]

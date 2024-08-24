@@ -167,7 +167,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new BestFirstFrontierSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -175,7 +175,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
@@ -282,7 +282,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
-        public void BestFirstFrontierComparedToDijkstraSearch(BidirectionalGraph<string, Edge<string>> graph)
+        public void BestFirstFrontierComparedToDijkstraSearch(BidirectionalGraph<string, IEdge<string>> graph)
         {
             if (graph.VertexCount == 0)
                 return;

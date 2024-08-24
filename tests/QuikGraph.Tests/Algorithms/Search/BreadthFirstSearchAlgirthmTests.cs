@@ -308,7 +308,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new BreadthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -316,14 +316,14 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var algorithm = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
         public void ComputeWithoutRoot_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            ComputeWithoutRoot_NoThrows_Test(
+            ComputeWithoutRoot_ShouldNotThrow_Test(
                 graph,
                 () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph));
         }
@@ -341,7 +341,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ComputeWithRoot_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(
+            ComputeWithUnknownRootOrNull_Throws_Test(
                 () => new BreadthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
         }
 
@@ -366,7 +366,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
-        public void BreadthFirstSearch(AdjacencyGraph<string, Edge<string>> graph)
+        public void BreadthFirstSearch(AdjacencyGraph<string, IEdge<string>> graph)
         {
             foreach (string vertex in graph.Vertices)
                 RunBFSAndCheck(graph, vertex);
@@ -374,14 +374,14 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         [Pure]
         [NotNull]
-        public static BreadthFirstSearchAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static BreadthFirstSearchAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             [NotNull] ContractScenario<T> scenario)
         {
-            var graph = new AdjacencyGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new AdjacencyGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(Edge.Create));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
-            var algorithm = new BreadthFirstSearchAlgorithm<T, Edge<T>>(graph);
+            var algorithm = new BreadthFirstSearchAlgorithm<T, IEdge<T>>(graph);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

@@ -25,7 +25,7 @@ namespace QuikGraph.Tests.Algorithms
             trails = new ICollection<TEdge>[0];
             circuit = new TEdge[0];
 
-            int circuitCount = EulerianTrailAlgorithm<TVertex, TEdge>.ComputeEulerianPathCount(graph);
+            int circuitCount = graph.ComputeEulerianPathCount();
             if (circuitCount == 0)
                 return;
 
@@ -62,7 +62,7 @@ namespace QuikGraph.Tests.Algorithms
             trails = new ICollection<TEdge>[0];
             circuit = new TEdge[0];
 
-            int circuitCount = EulerianTrailAlgorithm<TVertex, TEdge>.ComputeEulerianPathCount(graph);
+            int circuitCount = graph.ComputeEulerianPathCount();
             if (circuitCount == 0)
                 return;
 
@@ -107,7 +107,7 @@ namespace QuikGraph.Tests.Algorithms
             var algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph, null);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -147,6 +147,7 @@ namespace QuikGraph.Tests.Algorithms
             TryGetRootVertex_Test(algorithm);
         }
 
+        /// <inheritdoc cref="RootedAlgorithmTestsBase.SetRootVertex_Test{TGraph}(RootedAlgorithmBase{int, TGraph})"/>
         [Test]
         public void SetRootVertex()
         {
@@ -155,31 +156,34 @@ namespace QuikGraph.Tests.Algorithms
             SetRootVertex_Test(algorithm);
         }
 
+        /// <inheritdoc cref="RootedAlgorithmTestsBase.SetRootVertex_Null_Should_Throw_ArgumentNullException{TVertex,TGraph}"/>
         [Test]
         public void SetRootVertex_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new EulerianTrailAlgorithm<TestVertex, Edge<TestVertex>>(graph);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
+        /// <inheritdoc cref="RootedAlgorithmTestsBase.ClearRootVertex_RaisesVertexChanged_Test{TVertex,TGraph}"/>
         [Test]
         public void ClearRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
+        /// <inheritdoc cref="RootedAlgorithmTestsBase.ComputeWithoutRoot_ShouldNotThrow_Test{TGraph}"/>
         [Test]
         public void ComputeWithoutRoot_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            ComputeWithoutRoot_NoThrows_Test(
-                graph,
-                () => new EulerianTrailAlgorithm<int, IEdge<int>>(graph));
+            ComputeWithoutRoot_ShouldNotThrow_Test(graph, ()
+                => new EulerianTrailAlgorithm<int, IEdge<int>>(graph));
         }
 
+        /// <inheritdoc cref="RootedAlgorithmTestsBase.ComputeWithRoot_Test{TVertex,TGraph}"/>
         [Test]
         public void ComputeWithRoot()
         {
@@ -189,15 +193,16 @@ namespace QuikGraph.Tests.Algorithms
             ComputeWithRoot_Test(algorithm);
         }
 
+        /// <inheritdoc cref="RootedAlgorithmTestsBase.ComputeWithUnknownRootOrNull_Throws_Test{TVertex,TGraph}"/>
         [Test]
         public void ComputeWithRoot_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(
-                () => new EulerianTrailAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+            ComputeWithUnknownRootOrNull_Throws_Test(()
+                => new EulerianTrailAlgorithm<TestVertex, Edge<TestVertex>>(graph));
         }
 
-        #endregion
+        #endregion Rooted algorithm
 
         [NotNull, ItemNotNull]
         private static IEnumerable<TestCaseData> ComputeEulerianPathCountTestCases
@@ -206,18 +211,12 @@ namespace QuikGraph.Tests.Algorithms
             get
             {
                 var emptyGraph = new AdjacencyGraph<int, IEdge<int>>();
-                yield return new TestCaseData(emptyGraph)
-                {
-                    ExpectedResult = 1
-                };
+                yield return new TestCaseData(emptyGraph) { ExpectedResult = 1 };
 
                 var moreVerticesThanEdgesGraph = new AdjacencyGraph<int, IEdge<int>>();
                 moreVerticesThanEdgesGraph.AddVertexRange( 1, 2 );
                 moreVerticesThanEdgesGraph.AddEdge(Edge.Create(1, 2));
-                yield return new TestCaseData(moreVerticesThanEdgesGraph)
-                {
-                    ExpectedResult = 0
-                };
+                yield return new TestCaseData(moreVerticesThanEdgesGraph) { ExpectedResult = 0 };
 
                 var sameVerticesAndEdgesCountGraph = new AdjacencyGraph<int, IEdge<int>>();
                 sameVerticesAndEdgesCountGraph.AddVertexRange( 1, 2 );
@@ -225,10 +224,7 @@ namespace QuikGraph.Tests.Algorithms
                     Edge.Create(1, 2),
                     Edge.Create(2, 1)
                 );
-                yield return new TestCaseData(sameVerticesAndEdgesCountGraph)
-                {
-                    ExpectedResult = 1
-                };
+                yield return new TestCaseData(sameVerticesAndEdgesCountGraph) { ExpectedResult = 1 };
 
                 var sameVerticesAndEdgesCountGraph2 = new AdjacencyGraph<int, IEdge<int>>();
                 sameVerticesAndEdgesCountGraph2.AddVertexRange( 1, 2, 3 );
@@ -237,10 +233,7 @@ namespace QuikGraph.Tests.Algorithms
                     Edge.Create(2, 1),
                     Edge.Create(1, 3)
                 );
-                yield return new TestCaseData(sameVerticesAndEdgesCountGraph2)
-                {
-                    ExpectedResult = 1
-                };
+                yield return new TestCaseData(sameVerticesAndEdgesCountGraph2) { ExpectedResult = 1 };
 
                 var moreEdgesThanEdgesGraph = new AdjacencyGraph<int, IEdge<int>>();
                 moreEdgesThanEdgesGraph.AddVertexRange( 1, 2, 3, 4, 5 );
@@ -253,24 +246,17 @@ namespace QuikGraph.Tests.Algorithms
                     Edge.Create(3, 4),
                     Edge.Create(1, 5)
                 );
-                yield return new TestCaseData(moreEdgesThanEdgesGraph)
-                {
-                    ExpectedResult = 2
-                };
+                yield return new TestCaseData(moreEdgesThanEdgesGraph) { ExpectedResult = 2 };
             }
         }
 
         [TestCaseSource(nameof(ComputeEulerianPathCountTestCases))]
         public int ComputeEulerianPathCount([NotNull] AdjacencyGraph<int, IEdge<int>> graph)
-            => EulerianTrailAlgorithm<int, IEdge<int>>.ComputeEulerianPathCount(graph);
+            => graph.ComputeEulerianPathCount();
 
         [Test]
-        public void ComputeEulerianPathCount_Throws()
-        {
-            // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => _ = EulerianTrailAlgorithm<int, IEdge<int>>.ComputeEulerianPathCount(null));
-        }
+        public void ComputeEulerianPathCount_Throws() => Assert.Throws<ArgumentNullException>(()
+            => _ = ComputeEulerianPathCount(null!));
 
         [NotNull, ItemNotNull]
         private static IEnumerable<TestCaseData> AddTemporaryEdgesTestCases
@@ -345,7 +331,7 @@ namespace QuikGraph.Tests.Algorithms
         }
 
         [TestCaseSource(nameof(AddTemporaryEdgesTestCases))]
-        public void AddTemporaryEdges(
+        public void Test_AddTemporaryEdges(
             [NotNull] AdjacencyGraph<int, EquatableEdge<int>> graph,
             [NotNull, ItemNotNull] EquatableEdge<int>[] expectedTemporaryEdges)
         {
@@ -435,13 +421,11 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void NotEulerianTrailGraph()
         {
-            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadGraph(GetGraphFilePath("g.42.34.graphml"));
+            var graph = TestGraphFactory.LoadGraph(GetGraphFilePath("g.42.34.graphml"));
             // No trails in tests graphs there
-            ComputeTrails(
-                graph,
-                (s, t) => new Edge<string>(s, t),
-                out ICollection<Edge<string>>[] trails,
-                out Edge<string>[] circuit);
+            ComputeTrails(graph, Edge.Create,
+                out ICollection<IEdge<string>>[] trails,
+                out IEdge<string>[] circuit);
             CollectionAssert.IsEmpty(trails);
             CollectionAssert.IsEmpty(circuit);
         }
@@ -470,10 +454,10 @@ namespace QuikGraph.Tests.Algorithms
 
             Edge<char>[] expectedTrail = { edge3, edge1, edge4, edge6, edge5, edge7, edge2 };
             Assert.AreEqual(1, trails.Length);
-            Assert.IsTrue(trails[0].IsPath<char, Edge<char>>());
+            Assert.IsTrue(trails[0].Cast<IEdge<char>>().IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
 
-            Assert.IsTrue(circuit.IsPath<char, Edge<char>>());
+            Assert.IsTrue(circuit.IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, circuit);
         }
 
@@ -502,10 +486,10 @@ namespace QuikGraph.Tests.Algorithms
 
             Edge<char>[] expectedTrail = { edge3, edge1, edge4, edge6, edge5, edge7, edge2 };
             Assert.AreEqual(1, trails.Length);
-            Assert.IsTrue(trails[0].IsPath<char, Edge<char>>());
+            Assert.IsTrue(trails[0].Cast<IEdge<char>>().IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
 
-            Assert.IsTrue(circuit.IsPath<char, Edge<char>>());
+            Assert.IsTrue(circuit.IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, circuit);
         }
 
@@ -535,10 +519,10 @@ namespace QuikGraph.Tests.Algorithms
 
             IEdge<int>[] expectedTrail = { edge3, edge7, edge9, edge6, edge5, edge8, edge4, edge1, edge2 };
             Assert.AreEqual(1, trails.Length);
-            Assert.IsTrue(trails[0].IsPath<int, IEdge<int>>());
+            Assert.IsTrue(trails[0].IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
 
-            Assert.IsTrue(circuit.IsPath<int, IEdge<int>>());
+            Assert.IsTrue(circuit.IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, circuit);
         }
 
@@ -568,12 +552,12 @@ namespace QuikGraph.Tests.Algorithms
             IEdge<int>[] expectedTrail1 = { edge3, edge6, edge8, edge5 };
             IEdge<int>[] expectedTrail2 = { edge7, edge4, edge1, edge2 };
             Assert.AreEqual(2, trails.Length);
-            Assert.IsTrue(trails[0].IsPath<int, IEdge<int>>());
-            Assert.IsTrue(trails[1].IsPath<int, IEdge<int>>());
+            Assert.IsTrue(trails[0].IsPath());
+            Assert.IsTrue(trails[1].IsPath());
             CollectionAssert.AreEquivalent(expectedTrail1, trails[0]);
             CollectionAssert.AreEquivalent(expectedTrail2, trails[1]);
 
-            Assert.IsTrue(circuit.IsPath<int, IEdge<int>>());
+            Assert.IsTrue(circuit.IsPath());
             Assert.AreEqual(
                 expectedTrail1.Length + expectedTrail2.Length + 1 /* Temporary edge */,
                 circuit.Length);
@@ -592,7 +576,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void RootedNotEulerianTrailGraph_Throws()
         {
-            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadGraph(GetGraphFilePath("g.10.0.graphml"));
+            var graph = TestGraphFactory.LoadGraph(GetGraphFilePath("g.10.0.graphml"));
             Assert.Throws<InvalidOperationException>(() =>
             {
                 ComputeTrails(
@@ -630,11 +614,11 @@ namespace QuikGraph.Tests.Algorithms
 
             Edge<char>[] expectedTrail = { edge4, edge6, edge5, edge7, edge2, edge3, edge1 };
             Assert.AreEqual(1, trails.Length);
-            Assert.IsTrue(trails[0].IsPath<char, Edge<char>>());
+            Assert.IsTrue(trails[0].Cast<IEdge<char>>().IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
             Assert.AreEqual('c', trails[0].ElementAt(0).Source);
 
-            Assert.IsTrue(circuit.IsPath<char, Edge<char>>());
+            Assert.IsTrue(circuit.IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, circuit);
         }
 
@@ -643,12 +627,16 @@ namespace QuikGraph.Tests.Algorithms
         {
             var edge1 = Edge.Create(1, 2);
             var edge2 = Edge.Create(2, 1);
+
             var edge3 = Edge.Create(1, 3);
             var edge4 = Edge.Create(3, 1);
+
             var edge5 = Edge.Create(2, 4);
             var edge6 = Edge.Create(4, 2);
+
             var edge7 = Edge.Create(3, 4);
             var edge8 = Edge.Create(4, 3);
+
             var edge9 = Edge.Create(4, 4);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
@@ -665,11 +653,11 @@ namespace QuikGraph.Tests.Algorithms
 
             IEdge<int>[] expectedTrail = { edge9, edge6, edge5, edge8, edge4, edge1, edge2, edge3, edge7 };
             Assert.AreEqual(1, trails.Length);
-            Assert.IsTrue(trails[0].IsPath<int, IEdge<int>>());
+            Assert.IsTrue(trails[0].IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
             Assert.AreEqual(4, trails[0].ElementAt(0).Source);
 
-            Assert.IsTrue(circuit.IsPath<int, IEdge<int>>());
+            Assert.IsTrue(circuit.IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, circuit);
         }
 
@@ -701,7 +689,7 @@ namespace QuikGraph.Tests.Algorithms
             EquatableEdge<int>[] trail2 = { new EquatableEdge<int>(2, 4), edge7, edge4, edge1 };
             CheckTrails(trails, trail1, trail2);
 
-            Assert.IsTrue(circuit.IsPath<int, EquatableEdge<int>>());
+            Assert.IsTrue(circuit.IsPath());
             Assert.AreEqual(
                 trail1.Length + trail2.Length /* Include temporary edge */,
                 circuit.Length);
@@ -717,7 +705,7 @@ namespace QuikGraph.Tests.Algorithms
             trail2 = new[] { edge6, edge7, edge4, edge1, edge2, edge3 };
             CheckTrails(trails, trail1, trail2);
 
-            Assert.IsTrue(circuit.IsPath<int, EquatableEdge<int>>());
+            Assert.IsTrue(circuit.IsPath());
             Assert.AreEqual(
                 trail1.Concat(trail2).Distinct().Count() /* Edge present in both paths */ + 1 /* One temporary edge */,
                 circuit.Length);
@@ -736,8 +724,8 @@ namespace QuikGraph.Tests.Algorithms
                 IEnumerable<EquatableEdge<int>> expectedTrail2)
             {
                 Assert.AreEqual(2, computedTrails.Count);
-                Assert.IsTrue(computedTrails[0].IsPath<int, EquatableEdge<int>>());
-                Assert.IsTrue(computedTrails[1].IsPath<int, EquatableEdge<int>>());
+                Assert.IsTrue(computedTrails[0].Cast<IEdge<int>>().IsPath());
+                Assert.IsTrue(computedTrails[1].Cast<IEdge<int>>().IsPath());
                 CollectionAssert.AreEquivalent(expectedTrail1, computedTrails[0]);
                 CollectionAssert.AreEquivalent(expectedTrail2, computedTrails[1]);
             }

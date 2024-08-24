@@ -129,7 +129,7 @@ namespace QuikGraph.Tests.Algorithms.TSP
         {
             var graph = new BidirectionalGraph<TestVertex, EquatableEdge<TestVertex>>();
             var algorithm = new TSP<TestVertex, EquatableEdge<TestVertex>, BidirectionalGraph<TestVertex, EquatableEdge<TestVertex>>>(graph, _ => 1.0);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -137,14 +137,14 @@ namespace QuikGraph.Tests.Algorithms.TSP
         {
             var graph = new BidirectionalGraph<int, EquatableEdge<int>>();
             var algorithm = new TSP<int, EquatableEdge<int>, BidirectionalGraph<int, EquatableEdge<int>>>(graph, _ => 1.0);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
         public void ComputeWithoutRoot_Throws()
         {
             var graph = new BidirectionalGraph<int, EquatableEdge<int>>();
-            ComputeWithoutRoot_NoThrows_Test(
+            ComputeWithoutRoot_ShouldNotThrow_Test(
                 graph,
                 () => new TSP<int, EquatableEdge<int>, BidirectionalGraph<int, EquatableEdge<int>>>(graph, _ => 1.0));
         }
@@ -162,7 +162,7 @@ namespace QuikGraph.Tests.Algorithms.TSP
         public void ComputeWithRoot_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, EquatableEdge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(
+            ComputeWithUnknownRootOrNull_Throws_Test(
                 () => new TSP<TestVertex, EquatableEdge<TestVertex>, BidirectionalGraph<TestVertex, EquatableEdge<TestVertex>>>(graph, _ => 1.0));
         }
 

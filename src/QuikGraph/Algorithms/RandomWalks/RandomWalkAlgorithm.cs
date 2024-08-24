@@ -124,7 +124,7 @@ namespace QuikGraph.Algorithms.RandomWalks
         /// <exception cref="VertexNotFoundException"><paramref name="root"/> is not part of <see cref="AlgorithmBase{TGraph}.VisitedGraph"/>.</exception>
         public void Generate([NotNull] TVertex root, int walkCount)
         {
-            AssertRootInGraph(root);
+            RootShouldBeInGraph(root);
 
             int count = 0;
             TVertex current = root;

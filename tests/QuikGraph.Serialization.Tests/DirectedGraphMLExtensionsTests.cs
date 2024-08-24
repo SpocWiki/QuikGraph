@@ -267,7 +267,7 @@ namespace QuikGraph.Serialization.Tests
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
-        public void ToDirectedGraphML(AdjacencyGraph<string, Edge<string>> graph)
+        public void ToDirectedGraphML(AdjacencyGraph<string, IEdge<string>> graph)
         {
             DirectedGraph directedGraph = graph.ToDirectedGraphML();
             Assert.IsNotNull(graph);
@@ -276,7 +276,7 @@ namespace QuikGraph.Serialization.Tests
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
-        public void ToDirectedGraphML_WithIdentity(AdjacencyGraph<string, Edge<string>> graph)
+        public void ToDirectedGraphML_WithIdentity(AdjacencyGraph<string, IEdge<string>> graph)
         {
             int i = 0;
             DirectedGraph directedGraph = graph.ToDirectedGraphML(
@@ -288,7 +288,7 @@ namespace QuikGraph.Serialization.Tests
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
-        public void ToDirectedGraphML_WithColors(AdjacencyGraph<string, Edge<string>> graph)
+        public void ToDirectedGraphML_WithColors(AdjacencyGraph<string, IEdge<string>> graph)
         {
             var random = new Random(123456);
             var verticesColors = graph.Vertices.ToDictionary(
@@ -326,7 +326,7 @@ namespace QuikGraph.Serialization.Tests
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
-        public void ToDirectedGraphML_WithFormat(AdjacencyGraph<string, Edge<string>> graph)
+        public void ToDirectedGraphML_WithFormat(AdjacencyGraph<string, IEdge<string>> graph)
         {
             int formattedNodes = 0;
             int formattedEdges = 0;

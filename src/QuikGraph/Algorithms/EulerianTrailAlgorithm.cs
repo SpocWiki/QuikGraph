@@ -9,7 +9,65 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary> Algorithm that finds Eulerian <seealso cref="Trails()"/> and <see cref="Circuit"/> in a graph. </summary>
+    /// <summary> Extension Methods for <see cref="IVertexAndEdgeListGraph{TVertex,TEdge}"/> </summary>
+    public static class VertexAndEdgeListGraphX
+    {
+        /// <summary> Returns the number of Eulerian trails in the <paramref name="graph"/>>. </summary>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        [Pure]
+        public static int ComputeEulerianPathCount<TVertex, TEdge>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
+        {
+            if (graph is null)
+                throw new ArgumentNullException(nameof(graph));
+
+            if (graph.EdgeCount < graph.VertexCount)
+                return 0;
+
+            int odd = graph.OddVertices().Count();
+            if (odd == 0)
+                return 1;
+            if (odd % 2 != 0)
+                return 0;
+            return odd / 2;
+        }
+
+        /// <summary>
+        /// Gets odd vertices of the given <paramref name="graph"/>.
+        /// </summary>
+        /// <param name="graph">Graph to visit.</param>
+        /// <returns>Enumerable of odd vertices.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        [Pure]
+        [NotNull, ItemNotNull]
+        public static IEnumerable<TVertex> OddVertices<TVertex, TEdge>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
+            where TEdge : IEdge<TVertex>
+        {
+            if (graph is null)
+                throw new ArgumentNullException(nameof(graph));
+
+            var counts = new Dictionary<TVertex, int>(graph.VertexCount);
+            foreach (TVertex vertex in graph.Vertices)
+            {
+                counts.Add(vertex, 0);
+            }
+
+            foreach (TEdge edge in graph.Edges)
+            {
+                ++counts[edge.Source];
+                --counts[edge.Target];
+            }
+
+            // Odds
+            return counts
+                .Where(pair => pair.Value % 2 != 0)
+                .Select(pair => pair.Key);
+        }
+
+    }
+
+    /// <summary> Algorithm that finds Eulerian <seealso cref="Trails()"/> and <see cref="Circuit"/> in a graph, starting from the <see cref="RootedAlgorithmBase{TVertex,TGraph}.TryGetRootVertex"/>. </summary>
     /// <remarks>
     /// AKA Eulerian Path that __traverses each Edge exactly once__.
     ///
@@ -35,22 +93,10 @@ namespace QuikGraph.Algorithms
         /// Initializes a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public EulerianTrailAlgorithm(
-            [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
-            : this(null, visitedGraph)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public EulerianTrailAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
+        public EulerianTrailAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(host, visitedGraph)
         {
             _currentVertex = default(TVertex);
@@ -110,9 +156,7 @@ namespace QuikGraph.Algorithms
             CircuitEdge?.Invoke(edge);
         }
 
-        /// <summary>
-        /// Fired when an edge is visited.
-        /// </summary>
+        /// <summary> Fired when an edge is visited. </summary>
         public event EdgeAction<TVertex, TEdge> VisitEdge;
 
         private void OnVisitEdge([NotNull] TEdge edge)
@@ -172,30 +216,6 @@ namespace QuikGraph.Algorithms
 
             // Could not augment circuit
             return false;
-        }
-
-        /// <summary>
-        /// Computes the number of Eulerian trails in the graph.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <returns>Number of Eulerian trails.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        [Pure]
-        public static int ComputeEulerianPathCount(
-            [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-
-            if (graph.EdgeCount < graph.VertexCount)
-                return 0;
-
-            int odd = graph.OddVertices().Count();
-            if (odd == 0)
-                return 1;
-            if (odd % 2 != 0)
-                return 0;
-            return odd / 2;
         }
 
         /// <summary>
@@ -282,6 +302,7 @@ namespace QuikGraph.Algorithms
             Debug.Assert(u != null);
             Debug.Assert(v != null);
 
+            // ReSharper disable once AssignNullToNotNullAttribute
             return VisitedGraph
                 .OutEdges(v)
                 .Any(outEdge => EqualityComparer<TVertex>.Default.Equals(outEdge.Target, u));
@@ -296,6 +317,7 @@ namespace QuikGraph.Algorithms
         {
             bool found = false;
             foundAdjacent = false;
+            // ReSharper disable once AssignNullToNotNullAttribute
             foreach (TVertex v in VisitedGraph.OutEdges(u).Select(outEdge => outEdge.Target))
             {
                 if (!EqualityComparer<TVertex>.Default.Equals(v, u) && oddVertices.Contains(v))
@@ -317,10 +339,7 @@ namespace QuikGraph.Algorithms
             return found;
         }
 
-        /// <summary>
-        /// Adds temporary edges to the graph to make all vertex even.
-        /// </summary>
-        /// <param name="edgeFactory">Edge factory method.</param>
+        /// <summary> Adds temporary edges to the graph to make all vertices even. </summary>
         /// <returns>Temporary edges list.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.InvalidOperationException">
@@ -390,9 +409,7 @@ namespace QuikGraph.Algorithms
             oddVertices.Remove(v);
         }
 
-        /// <summary>
-        /// Removes temporary edges.
-        /// </summary>
+        /// <summary> Removes temporary edges. </summary>
         public void RemoveTemporaryEdges()
         {
             // Remove from graph

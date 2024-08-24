@@ -108,7 +108,7 @@ namespace QuikGraph.Serialization.Tests
                     using (var writer = new StringWriter())
                     {
                         var settings = new XmlWriterSettings { Indent = true };
-                        using (XmlWriter xmlWriter = XmlWriter.Create(writer, settings))
+                        using (var xmlWriter = XmlWriter.Create(writer, settings))
                         {
                             var serializer = new GraphMLSerializer<EquatableTestVertex, EquatableTestEdge, EquatableTestGraph>
                             {
@@ -142,7 +142,7 @@ namespace QuikGraph.Serialization.Tests
                             DtdProcessing = DtdProcessing.Ignore
                         };
 
-                        using (XmlReader xmlReader = XmlReader.Create(reader, settings))
+                        using (var xmlReader = XmlReader.Create(reader, settings))
                         {
 #else
                         var xmlReader = new XmlTextReader(reader);
@@ -225,7 +225,7 @@ namespace QuikGraph.Serialization.Tests
                     vertex => vertex.ID,
                     edge => edge.ID));
 
-            using (XmlWriter writer = XmlWriter.Create(WriteThrowsTestFilePath))
+            using (var writer = XmlWriter.Create(WriteThrowsTestFilePath))
             {
                 Assert.Throws<ArgumentNullException>(
                     () => ((AdjacencyGraph<TestVertex, TestEdge>)null).SerializeToGraphML<TestVertex, TestEdge, AdjacencyGraph<TestVertex, TestEdge>>(writer));
@@ -311,13 +311,13 @@ namespace QuikGraph.Serialization.Tests
         {
             foreach (string graphMLFilePath in TestGraphFactory.GetGraphMLFilePaths())
             {
-                var graph = new AdjacencyGraph<string, Edge<string>>();
+                var graph = new AdjacencyGraph<string, IEdge<string>>();
                 using (var reader = new StreamReader(graphMLFilePath))
                 {
                     graph.DeserializeFromGraphML(
                         reader,
                         id => id,
-                        (source, target, _) => new Edge<string>(source, target));
+                        (source, target, _) => Edge.Create(source, target));
                 }
 
                 var vertices = new Dictionary<string, string>();
@@ -333,7 +333,7 @@ namespace QuikGraph.Serialization.Tests
                     ValidationFlags = XmlSchemaValidationFlags.ReportValidationWarnings
                 };
 
-                using (XmlReader reader = XmlReader.Create(graphMLFilePath, settings))
+                using (var reader = XmlReader.Create(graphMLFilePath, settings))
                 {
 #else
                 using (var reader = new XmlTextReader(graphMLFilePath))
@@ -366,32 +366,32 @@ namespace QuikGraph.Serialization.Tests
             // ReSharper disable AssignNullToNotNullAttribute
             // Filepath
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).DeserializeFromGraphML(
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).DeserializeFromGraphML(
                     GetGraphFilePath(TestGraphFileName),
                     id => id,
-                    (source, target, _) => new Edge<string>(source, target)));
+                    (source, target, _) => Edge.Create(source, target)));
 
-            var graph = new AdjacencyGraph<string, Edge<string>>();
+            var graph = new AdjacencyGraph<string, IEdge<string>>();
             Assert.Throws<ArgumentException>(
                 () => graph.DeserializeFromGraphML(
                     (string)null,
                     id => id,
-                    (source, target, _) => new Edge<string>(source, target)));
+                    (source, target, _) => Edge.Create(source, target)));
 
             Assert.Throws<ArgumentException>(
                 () => graph.DeserializeFromGraphML(
                     "",
                     id => id,
-                    (source, target, _) => new Edge<string>(source, target)));
+                    (source, target, _) => Edge.Create(source, target)));
 
             Assert.Throws<ArgumentNullException>(
-                () => graph.DeserializeFromGraphML<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(
+                () => graph.DeserializeFromGraphML<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(
                     GetGraphFilePath(TestGraphFileName),
                     null,
-                    (source, target, _) => new Edge<string>(source, target)));
+                    (source, target, _) => Edge.Create(source, target)));
 
             Assert.Throws<ArgumentNullException>(
-                () => graph.DeserializeFromGraphML<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(
+                () => graph.DeserializeFromGraphML<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(
                     GetGraphFilePath(TestGraphFileName),
                     id => id,
                     null));
@@ -401,24 +401,24 @@ namespace QuikGraph.Serialization.Tests
                 () => graph.DeserializeFromGraphML(
                     (TextReader)null,
                     id => id,
-                    (source, target, _) => new Edge<string>(source, target)));
+                    (source, target, _) => Edge.Create(source, target)));
 
             using (var reader = new StreamReader(GetGraphFilePath(TestGraphFileName)))
             {
                 Assert.Throws<ArgumentNullException>(
-                    () => ((AdjacencyGraph<string, Edge<string>>)null).DeserializeFromGraphML(
+                    () => ((AdjacencyGraph<string, IEdge<string>>)null).DeserializeFromGraphML(
                         reader,
                         id => id,
-                        (source, target, _) => new Edge<string>(source, target)));
+                        (source, target, _) => Edge.Create(source, target)));
 
                 Assert.Throws<ArgumentNullException>(
-                    () => graph.DeserializeFromGraphML<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(
+                    () => graph.DeserializeFromGraphML<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(
                         reader,
                         null,
-                        (source, target, _) => new Edge<string>(source, target)));
+                        (source, target, _) => Edge.Create(source, target)));
 
                 Assert.Throws<ArgumentNullException>(
-                    () => graph.DeserializeFromGraphML<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(
+                    () => graph.DeserializeFromGraphML<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(
                         reader,
                         id => id,
                         null));
@@ -429,24 +429,24 @@ namespace QuikGraph.Serialization.Tests
                 () => graph.DeserializeFromGraphML(
                     (XmlReader)null,
                     id => id,
-                    (source, target, _) => new Edge<string>(source, target)));
+                    (source, target, _) => Edge.Create(source, target)));
 
             using (var reader = XmlReader.Create(GetGraphFilePath(TestGraphFileName)))
             {
                 Assert.Throws<ArgumentNullException>(
-                    () => ((AdjacencyGraph<string, Edge<string>>)null).DeserializeFromGraphML(
+                    () => ((AdjacencyGraph<string, IEdge<string>>)null).DeserializeFromGraphML(
                         reader,
                         id => id,
-                        (source, target, _) => new Edge<string>(source, target)));
+                        (source, target, _) => Edge.Create(source, target)));
 
                 Assert.Throws<ArgumentNullException>(
-                    () => graph.DeserializeFromGraphML<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(
+                    () => graph.DeserializeFromGraphML<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(
                         reader,
                         null,
-                        (source, target, _) => new Edge<string>(source, target)));
+                        (source, target, _) => Edge.Create(source, target)));
 
                 Assert.Throws<ArgumentNullException>(
-                    () => graph.DeserializeFromGraphML<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(
+                    () => graph.DeserializeFromGraphML<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(
                         reader,
                         id => id,
                         null));
@@ -589,7 +589,7 @@ namespace QuikGraph.Serialization.Tests
             using (var writer = new StringWriter())
             {
                 var settings = new XmlWriterSettings { Indent = true };
-                using (XmlWriter xmlWriter = XmlWriter.Create(writer, settings))
+                using (var xmlWriter = XmlWriter.Create(writer, settings))
                 {
                     graph.SerializeToGraphML<TestVertex, TestEdge, TestGraph>(xmlWriter);
                 }
@@ -605,7 +605,7 @@ namespace QuikGraph.Serialization.Tests
             using (var writer = new StringWriter())
             {
                 var settings = new XmlWriterSettings { Indent = true };
-                using (XmlWriter xmlWriter = XmlWriter.Create(writer, settings))
+                using (var xmlWriter = XmlWriter.Create(writer, settings))
                 {
                     graph.SerializeToGraphML<TestVertex, TestEdge, TestGraph>(
                         xmlWriter,
@@ -851,31 +851,31 @@ namespace QuikGraph.Serialization.Tests
         public void DeserializeAndValidateFromGraphML_Throws()
         {
             // ReSharper disable AssignNullToNotNullAttribute
-            var graph = new AdjacencyGraph<string, Edge<string>>();
+            var graph = new AdjacencyGraph<string, IEdge<string>>();
 
             // Text reader
             Assert.Throws<ArgumentNullException>(
                 () => graph.DeserializeAndValidateFromGraphML(
                     null,
                     id => id,
-                    (source, target, _) => new Edge<string>(source, target)));
+                    (source, target, _) => Edge.Create(source, target)));
 
             using (var reader = new StreamReader(GetGraphFilePath(TestGraphFileName)))
             {
                 Assert.Throws<ArgumentNullException>(
-                    () => ((AdjacencyGraph<string, Edge<string>>)null).DeserializeAndValidateFromGraphML(
+                    () => ((AdjacencyGraph<string, IEdge<string>>)null).DeserializeAndValidateFromGraphML(
                         reader,
                         id => id,
-                        (source, target, _) => new Edge<string>(source, target)));
+                        (source, target, _) => Edge.Create(source, target)));
 
                 Assert.Throws<ArgumentNullException>(
-                    () => graph.DeserializeAndValidateFromGraphML<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(
+                    () => graph.DeserializeAndValidateFromGraphML<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(
                         reader,
                         null,
-                        (source, target, _) => new Edge<string>(source, target)));
+                        (source, target, _) => Edge.Create(source, target)));
 
                 Assert.Throws<ArgumentNullException>(
-                    () => graph.DeserializeAndValidateFromGraphML<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(
+                    () => graph.DeserializeAndValidateFromGraphML<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(
                         reader,
                         id => id,
                         null));
@@ -945,7 +945,7 @@ namespace QuikGraph.Serialization.Tests
             using (var stream = new MemoryStream())
             {
                 // Serialize
-                using (XmlWriter writer = XmlWriter.Create(stream))
+                using (var writer = XmlWriter.Create(stream))
                 {
                     graph.SerializeToGraphML(
                         writer,
@@ -956,7 +956,7 @@ namespace QuikGraph.Serialization.Tests
                 stream.Position = 0;
 
                 // Deserialize
-                using (XmlReader reader = XmlReader.Create(stream))
+                using (var reader = XmlReader.Create(stream))
                 {
                     TOutGraph deserializedGraph = deserialize(reader);
                     Assert.IsNotNull(deserializedGraph);

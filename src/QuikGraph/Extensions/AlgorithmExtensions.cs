@@ -872,39 +872,6 @@ namespace QuikGraph.Algorithms
 
         #endregion
 
-        /// <summary>
-        /// Gets odd vertices of the given <paramref name="graph"/>.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <returns>Enumerable of odd vertices.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull, ItemNotNull]
-        public static IEnumerable<TVertex> OddVertices<TVertex, TEdge>(
-            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-
-            var counts = new Dictionary<TVertex, int>(graph.VertexCount);
-            foreach (TVertex vertex in graph.Vertices)
-            {
-                counts.Add(vertex, 0);
-            }
-
-            foreach (TEdge edge in graph.Edges)
-            {
-                ++counts[edge.Source];
-                --counts[edge.Target];
-            }
-
-            // Odds
-            return counts
-                .Where(pair => pair.Value % 2 != 0)
-                .Select(pair => pair.Key);
-        }
-
         private sealed class DirectedCycleTester<TVertex, TEdge>
             where TEdge : IEdge<TVertex>
         {

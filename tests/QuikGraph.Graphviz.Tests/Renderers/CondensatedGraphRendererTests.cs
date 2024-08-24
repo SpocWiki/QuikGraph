@@ -155,26 +155,26 @@ namespace QuikGraph.Graphviz.Tests
             const string vertex2 = "Vertex2æéèêë£¤¶ÀÁÂÃÄÅ";
             const string vertex3 = "\"Vertex3\"\nΣη← ♠\\[]()";
             const string vertex4 = "Vertex4∴∞⇐ℜΩ÷嗷娪";
-            var subGraph1 = new AdjacencyGraph<string, Edge<string>>();
+            var subGraph1 = new AdjacencyGraph<string, IEdge<string>>();
             subGraph1.AddVerticesAndEdgeRange(
-                new Edge<string>(vertex1, vertex2),
-                new Edge<string>(vertex2, vertex2),
-                new Edge<string>(vertex3, vertex1)
+                Edge.Create(vertex1, vertex2),
+                Edge.Create(vertex2, vertex2),
+                Edge.Create(vertex3, vertex1)
             );
 
-            var subGraph2 = new AdjacencyGraph<string, Edge<string>>();
+            var subGraph2 = new AdjacencyGraph<string, IEdge<string>>();
             subGraph2.AddVerticesAndEdgeRange(
-                new Edge<string>(vertex1, vertex1),
-                new Edge<string>(vertex1, vertex2),
-                new Edge<string>(vertex2, vertex3),
-                new Edge<string>(vertex2, vertex4),
-                new Edge<string>(vertex3, vertex4)
+                Edge.Create(vertex1, vertex1),
+                Edge.Create(vertex1, vertex2),
+                Edge.Create(vertex2, vertex3),
+                Edge.Create(vertex2, vertex4),
+                Edge.Create(vertex3, vertex4)
             );
 
-            var graph = new AdjacencyGraph<AdjacencyGraph<string, Edge<string>>, CondensedEdge<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>>();
-            var condensedEdge = new CondensedEdge<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(subGraph1, subGraph2);
-            condensedEdge.Edges.Add(new Edge<string>(vertex1, vertex2));
-            condensedEdge.Edges.Add(new Edge<string>(vertex3, vertex1));
+            var graph = new AdjacencyGraph<AdjacencyGraph<string, IEdge<string>>, CondensedEdge<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>>();
+            var condensedEdge = new CondensedEdge<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(subGraph1, subGraph2);
+            condensedEdge.Edges.Add(Edge.Create(vertex1, vertex2));
+            condensedEdge.Edges.Add(Edge.Create(vertex3, vertex1));
             graph.AddVerticesAndEdgeRange( condensedEdge );
 
             const string expectedVertex1 = @"Vertex1&/<>@~|";
@@ -195,7 +195,7 @@ namespace QuikGraph.Graphviz.Tests
                 ExpectedDot = expectedDot
             };
 
-            var algorithm = new CondensatedGraphRenderer<string, Edge<string>, AdjacencyGraph<string, Edge<string>>>(graph);
+            var algorithm = new CondensatedGraphRenderer<string, IEdge<string>, AdjacencyGraph<string, IEdge<string>>>(graph);
             algorithm.Generate(dotEngine, "NotSaved.dot");
         }
     }

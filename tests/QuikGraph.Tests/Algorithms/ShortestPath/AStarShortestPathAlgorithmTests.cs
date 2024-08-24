@@ -235,7 +235,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new AStarShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0, _ => 0.0);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -243,14 +243,14 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var algorithm = new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0, _ => 0.0);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
         public void ComputeWithoutRoot_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            ComputeWithoutRoot_NoThrows_Test(
+            ComputeWithoutRoot_ShouldNotThrow_Test(
                 graph,
                 () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0, _ => 0.0));
         }
@@ -268,7 +268,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void ComputeWithRoot_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(
+            ComputeWithUnknownRootOrNull_Throws_Test(
                 () => new AStarShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0, _ => 0.0));
         }
 
@@ -289,7 +289,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
-        public void AStar(AdjacencyGraph<string, Edge<string>> graph)
+        public void AStar(AdjacencyGraph<string, IEdge<string>> graph)
         {
             foreach (string root in graph.Vertices)
                 RunAStarAndCheck(graph, root);

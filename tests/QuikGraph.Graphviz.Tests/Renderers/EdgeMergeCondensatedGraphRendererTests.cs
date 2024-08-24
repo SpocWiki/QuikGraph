@@ -135,29 +135,29 @@ namespace QuikGraph.Graphviz.Tests
             const string vertex3 = "\"Vertex3\"\nΣη← ♠\\[]()";
             const string vertex4 = "Vertex4∴∞⇐ℜΩ÷嗷娪";
 
-            var graph = new AdjacencyGraph<string, MergedEdge<string, Edge<string>>>();
+            var graph = new AdjacencyGraph<string, MergedEdge<string, IEdge<string>>>();
             graph.AddVertexRange(vertex3, vertex4 );
 
-            var edge12 = new Edge<string>(vertex1, vertex2);
-            var edge24 = new Edge<string>(vertex2, vertex4);
-            var edge31 = new Edge<string>(vertex3, vertex1);
-            var edge32 = new Edge<string>(vertex3, vertex2);
-            var edge33 = new Edge<string>(vertex3, vertex3);
-            var edge41 = new Edge<string>(vertex4, vertex1);
+            var edge12 = Edge.Create(vertex1, vertex2);
+            var edge24 = Edge.Create(vertex2, vertex4);
+            var edge31 = Edge.Create(vertex3, vertex1);
+            var edge32 = Edge.Create(vertex3, vertex2);
+            var edge33 = Edge.Create(vertex3, vertex3);
+            var edge41 = Edge.Create(vertex4, vertex1);
 
-            var mergeEdge1 = new MergedEdge<string, Edge<string>>(vertex4, vertex4);
+            var mergeEdge1 = new MergedEdge<string, IEdge<string>>(vertex4, vertex4);
             mergeEdge1.Edges.Add(edge41);
             mergeEdge1.Edges.Add(edge12);
             mergeEdge1.Edges.Add(edge24);
 
-            var mergeEdge2 = new MergedEdge<string, Edge<string>>(vertex3, vertex3);
+            var mergeEdge2 = new MergedEdge<string, IEdge<string>>(vertex3, vertex3);
             mergeEdge2.Edges.Add(edge33);
 
-            var mergeEdge3 = new MergedEdge<string, Edge<string>>(vertex3, vertex4);
+            var mergeEdge3 = new MergedEdge<string, IEdge<string>>(vertex3, vertex4);
             mergeEdge3.Edges.Add(edge32);
             mergeEdge3.Edges.Add(edge24);
 
-            var mergeEdge4 = new MergedEdge<string, Edge<string>>(vertex3, vertex4);
+            var mergeEdge4 = new MergedEdge<string, IEdge<string>>(vertex3, vertex4);
             mergeEdge4.Edges.Add(edge31);
             mergeEdge4.Edges.Add(edge12);
             mergeEdge4.Edges.Add(edge24);
@@ -185,7 +185,7 @@ namespace QuikGraph.Graphviz.Tests
                 ExpectedDot = expectedDot
             };
 
-            var algorithm = new EdgeMergeCondensatedGraphRenderer<string, Edge<string>>(graph);
+            var algorithm = new EdgeMergeCondensatedGraphRenderer<string, IEdge<string>>(graph);
             algorithm.Generate(dotEngine, "NotSaved.dot");
         }
     }

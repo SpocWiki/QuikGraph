@@ -247,7 +247,7 @@ namespace QuikGraph.Algorithms.Search
             // If there is a starting vertex, start with it
             if (TryGetRootVertex(out TVertex root))
             {
-                AssertRootInGraph(root);
+                RootShouldBeInGraph(root);
 
                 OnStartVertex(root);
                 Visit(root);

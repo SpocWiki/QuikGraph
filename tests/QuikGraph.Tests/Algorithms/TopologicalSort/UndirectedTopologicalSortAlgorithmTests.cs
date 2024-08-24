@@ -173,7 +173,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void UndirectedTopologicalSort_DCT8()
         {
-            UndirectedGraph<string, Edge<string>> graph = TestGraphFactory.LoadUndirectedGraph(GetGraphFilePath("DCT8.graphml"));
+            var graph = TestGraphFactory.LoadUndirectedGraph(GetGraphFilePath("DCT8.graphml"));
             RunUndirectedTopologicalSortAndCheck(graph);
         }
 

@@ -188,7 +188,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         {
             if (TryGetRootVertex(out TVertex rootVertex))
             {
-                AssertRootInGraph(rootVertex);
+                RootShouldBeInGraph(rootVertex);
                 ComputeFromRoot(rootVertex);
             }
             else

@@ -213,7 +213,7 @@ namespace QuikGraph.Algorithms.Search
             // Start with root vertex
             if (TryGetRootVertex(out TVertex root))
             {
-                AssertRootInGraph(root);
+                RootShouldBeInGraph(root);
 
                 OnStartVertex(root);
 

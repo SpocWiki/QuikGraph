@@ -190,7 +190,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new DijkstraShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -198,14 +198,14 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var algorithm = new DijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
         public void ComputeWithoutRoot_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            ComputeWithoutRoot_NoThrows_Test(
+            ComputeWithoutRoot_ShouldNotThrow_Test(
                 graph,
                 () => new DijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0));
         }
@@ -223,7 +223,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void ComputeWithRoot_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(
+            ComputeWithUnknownRootOrNull_Throws_Test(
                 () => new DijkstraShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0));
         }
 
@@ -244,11 +244,11 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
-        public void Dijkstra(AdjacencyGraph<string, Edge<string>> graph)
+        public void Dijkstra(AdjacencyGraph<string, IEdge<string>> graph)
         {
-                foreach (string root in graph.Vertices)
-                    RunDijkstraAndCheck(graph, root);
-            }
+            foreach (string root in graph.Vertices)
+                RunDijkstraAndCheck(graph, root);
+        }
 
         [Test]
         public void Dijkstra_Throws()
@@ -370,7 +370,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Category(TestCategories.CISkip)]
         public void DijkstraRepro12359()
         {
-            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadGraph(GetGraphFilePath("repro12359.graphml"));
+            var graph = TestGraphFactory.LoadGraph(GetGraphFilePath("repro12359.graphml"));
             int cut = 0;
             foreach (string root in graph.Vertices)
             {

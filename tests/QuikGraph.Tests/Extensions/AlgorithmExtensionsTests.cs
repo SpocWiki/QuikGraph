@@ -756,12 +756,12 @@ namespace QuikGraph.Tests.Extensions
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
-        public void AdjacencyGraphRoots<T>(IVertexAndEdgeListGraph<T, Edge<T>> graph)
+        public void AdjacencyGraphRoots<T>(IVertexAndEdgeListGraph<T, IEdge<T>> graph)
         {
                 var roots = new HashSet<T>(graph.Roots());
-                foreach (Edge<T> edge in graph.Edges)
+                foreach (var edge in graph.Edges)
                     Assert.IsFalse(roots.Contains(edge.Target));
-            }
+        }
 
         [NotNull, ItemNotNull]
         private static IEnumerable<TestCaseData> BidirectionalRootsTestCases

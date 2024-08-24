@@ -102,7 +102,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, Edge<TestVertex>>(graph);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -110,7 +110,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace QuikGraph.Tests.Algorithms
         public void ComputeWithRoot_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(
+            ComputeWithUnknownRootOrNull_Throws_Test(
                 () => new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, Edge<TestVertex>>(graph));
         }
 
@@ -189,7 +189,7 @@ namespace QuikGraph.Tests.Algorithms
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
-        public void TarjanOfflineLeastCommonAncestor(AdjacencyGraph<string, Edge<string>> graph)
+        public void TarjanOfflineLeastCommonAncestor(AdjacencyGraph<string, IEdge<string>> graph)
         {
             if (graph.VertexCount == 0)
                 return;

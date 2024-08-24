@@ -9,7 +9,7 @@ using QuikGraph.Collections;
 namespace QuikGraph.Algorithms.ShortestPath
 {
     /// <summary>
-    /// A* single source shortest path algorithm for directed graph with positive distance.
+    /// A* single source shortest-path algorithm for directed graph with positive distance.
     /// </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
@@ -222,7 +222,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         {
             if (TryGetRootVertex(out TVertex root))
             {
-                AssertRootInGraph(root);
+                RootShouldBeInGraph(root);
                 ComputeFromRoot(root);
             }
             else

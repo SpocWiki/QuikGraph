@@ -220,7 +220,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new UndirectedDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -228,14 +228,14 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
             var algorithm = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
         public void ComputeWithoutRoot_Throws()
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
-            ComputeWithoutRoot_NoThrows_Test(
+            ComputeWithoutRoot_ShouldNotThrow_Test(
                 graph,
                 () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph));
         }
@@ -253,7 +253,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ComputeWithRoot_Throws()
         {
             var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(() => new UndirectedDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+            ComputeWithUnknownRootOrNull_Throws_Test(() => new UndirectedDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
         }
 
         #endregion
@@ -277,7 +277,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         [Category(TestCategories.LongRunning)]
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), new object[] { -1 })]
-        public void UndirectedDepthFirstSearch(UndirectedGraph<string, Edge<string>> graph)
+        public void UndirectedDepthFirstSearch(UndirectedGraph<string, IEdge<string>> graph)
         {
             RunUndirectedDFSAndCheck(graph);
             RunUndirectedDFSAndCheck(graph, 12);

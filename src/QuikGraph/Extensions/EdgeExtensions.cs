@@ -71,24 +71,18 @@ namespace QuikGraph
                 || EqualityComparer<TVertex>.Default.Equals(edge.Target, vertex);
         }
 
-        /// <summary>
-        /// Checks if this sequence of edges makes a path.
-        /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <param name="path">Sequence of edges.</param>
+        /// <summary> Checks if the <paramref name="edges"/> form a path. </summary>
         /// <returns>True if the set makes a complete path, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edges"/> is <see langword="null"/>.</exception>
         [Pure]
-        public static bool IsPath<TVertex, TEdge>([NotNull, ItemNotNull] this IEnumerable<TEdge> path)
-            where TEdge : IEdge<TVertex>
+        public static bool IsPath<TVertex>([NotNull, ItemNotNull] this IEnumerable<IEdge<TVertex>> edges)
         {
-            if (path is null)
-                throw new ArgumentNullException(nameof(path));
+            if (edges is null)
+                throw new ArgumentNullException(nameof(edges));
 
             bool first = true;
             var lastTarget = default(TVertex);
-            foreach (TEdge edge in path)
+            foreach (var edge in edges)
             {
                 if (first)
                 {

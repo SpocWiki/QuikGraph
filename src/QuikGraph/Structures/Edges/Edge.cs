@@ -5,7 +5,7 @@ using QuikGraph.Constants;
 
 namespace QuikGraph
 {
-    /// <inheritdoc cref="Create{TVertex}"/>
+    /// <inheritdoc cref="Create{TVertex}(TVertex,TVertex)"/>
     public static class Edge
     {
         /// <summary> Creates a new <see cref="Edge{TVertex}"/> from <paramref name="source"/> to <paramref name="target"/> </summary>
@@ -14,12 +14,15 @@ namespace QuikGraph
         /// It can also be registered with an IoC Container to dynamically create new Edges. 
         /// </remarks>
         public static IEdge<TVertex> Create<TVertex>(TVertex source, TVertex target) => new Edge<TVertex>(source, target);
+
+        /// <inheritdoc cref="Create{TVertex}(TVertex,TVertex)"/>
+        public static IEdge<TVertex> Create<TVertex>(IEdge<TVertex> edge)// => edge.Clone();
+            => new Edge<TVertex>(edge.Source, edge.Target);
     }
 
     /// <summary>
     /// The default <see cref="IEdge{TVertex}"/> implementation (directed edge).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
@@ -29,11 +32,7 @@ namespace QuikGraph
         /// <summary>
         /// Initializes a new instance of the <see cref="Edge{TVertex}"/> class.
         /// </summary>
-        /// <param name="source">The source vertex.</param>
-        /// <param name="target">The target vertex.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is <see langword="null"/>.</exception>
-        public Edge([NotNull] TVertex source, [NotNull] TVertex target)
+        protected internal Edge([NotNull] TVertex source, [NotNull] TVertex target)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));

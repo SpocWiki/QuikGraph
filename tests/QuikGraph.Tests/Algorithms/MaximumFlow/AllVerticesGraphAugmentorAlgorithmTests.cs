@@ -14,16 +14,14 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
     {
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
         public static void RunAugmentationAndCheck(
-            [NotNull] IMutableVertexAndEdgeListGraph<string, Edge<string>> graph)
+            [NotNull] IMutableVertexAndEdgeListGraph<string, IEdge<string>> graph)
         {
             int vertexCount = graph.VertexCount;
             int edgeCount = graph.EdgeCount;
             int vertexId = graph.VertexCount + 1;
 
-            using (var augmentor = new AllVerticesGraphAugmentorAlgorithm<string, Edge<string>>(
-                graph,
-                () => (vertexId++).ToString(),
-                (s, t) => new Edge<string>(s, t)))
+            using (var augmentor = new AllVerticesGraphAugmentorAlgorithm<string, IEdge<string>>(
+                graph, () => (vertexId++).ToString(), Edge.Create))
             {
                 bool added = false;
                 augmentor.EdgeAdded += _ => { added = true; };

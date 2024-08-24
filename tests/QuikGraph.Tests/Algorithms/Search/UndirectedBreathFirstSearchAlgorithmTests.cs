@@ -285,7 +285,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new UndirectedBreadthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -293,7 +293,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
             var algorithm = new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(graph);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
@@ -317,7 +317,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ComputeWithRoot_Throws()
         {
             var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(
+            ComputeWithUnknownRootOrNull_Throws_Test(
                 () => new UndirectedBreadthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
         }
 
@@ -341,7 +341,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_SlowTests), new object[] { 10 })]
-        public void UndirectedBreadthFirstSearch(UndirectedGraph<string, Edge<string>> graph)
+        public void UndirectedBreadthFirstSearch(UndirectedGraph<string, IEdge<string>> graph)
         {
             foreach (string vertex in graph.Vertices)
                 RunBFSAndCheck(graph, vertex);

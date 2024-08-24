@@ -156,7 +156,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
             var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
             var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]

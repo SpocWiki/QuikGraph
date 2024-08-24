@@ -246,7 +246,7 @@ namespace QuikGraph.Algorithms.Search
 
             if (TryGetRootVertex(out TVertex rootVertex))
             {
-                AssertRootInGraph(rootVertex);
+                RootShouldBeInGraph(rootVertex);
 
                 // Enqueue select root only
                 EnqueueRoot(rootVertex);

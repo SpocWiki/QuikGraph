@@ -166,7 +166,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new ImplicitEdgeDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -174,7 +174,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var algorithm = new ImplicitEdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
@@ -198,7 +198,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ComputeWithRoot_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(
+            ComputeWithUnknownRootOrNull_Throws_Test(
                 () => new ImplicitEdgeDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
         }
 
@@ -206,7 +206,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
-        public void EdgeDepthFirstSearch(AdjacencyGraph<string, Edge<string>> graph)
+        public void EdgeDepthFirstSearch(AdjacencyGraph<string, IEdge<string>> graph)
         {
             foreach (string vertex in graph.Vertices)
             {

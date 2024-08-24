@@ -218,7 +218,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new BidirectionalDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -226,14 +226,14 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
         public void ComputeWithoutRoot_Throws()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            ComputeWithoutRoot_NoThrows_Test(
+            ComputeWithoutRoot_ShouldNotThrow_Test(
                 graph,
                 () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph));
         }
@@ -251,7 +251,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ComputeWithRoot_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithRoot_Throws_Test(
+            ComputeWithUnknownRootOrNull_Throws_Test(
                 () => new BidirectionalDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
         }
 
@@ -276,7 +276,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
-        public void DepthFirstSearch(BidirectionalGraph<string, Edge<string>> graph)
+        public void DepthFirstSearch(BidirectionalGraph<string, IEdge<string>> graph)
         {
             RunDFSAndCheck(graph);
             RunDFSAndCheck(graph, 12);
@@ -322,14 +322,14 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         [Pure]
         [NotNull]
-        public static BidirectionalDepthFirstSearchAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static BidirectionalDepthFirstSearchAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             [NotNull] ContractScenario<T> scenario)
         {
-            var graph = new BidirectionalGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new BidirectionalGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(Edge.Create));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<T, Edge<T>>(graph);
+            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<T, IEdge<T>>(graph);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

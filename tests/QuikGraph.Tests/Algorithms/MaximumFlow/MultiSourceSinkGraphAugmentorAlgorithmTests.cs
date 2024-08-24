@@ -15,7 +15,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
     {
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_All))]
         public static void RunAugmentationAndCheck(
-            [NotNull] IMutableBidirectionalGraph<string, Edge<string>> graph)
+            [NotNull] IMutableBidirectionalGraph<string, IEdge<string>> graph)
         {
             int vertexCount = graph.VertexCount;
             int edgeCount = graph.EdgeCount;
@@ -24,10 +24,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             string[] noInEdgesVertices = graph.Vertices.Where(v => graph.IsInEdgesEmpty(v) ?? true).ToArray();
             string[] noOutEdgesVertices = graph.Vertices.Where(v => graph.IsOutEdgesEmpty(v) ?? true).ToArray();
 
-            using (var augmentor = new MultiSourceSinkGraphAugmentorAlgorithm<string, Edge<string>>(
-                graph,
-                () => (vertexId++).ToString(),
-                (s, t) => new Edge<string>(s, t)))
+            using (var augmentor = new MultiSourceSinkGraphAugmentorAlgorithm<string, IEdge<string>>(
+                graph, () => (vertexId++).ToString(), Edge.Create))
             {
                 bool added = false;
                 augmentor.EdgeAdded += _ => { added = true; };

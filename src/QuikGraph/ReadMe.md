@@ -181,9 +181,19 @@ A---E  A---E
 ```
 
 
-has 2 odd Vertices (at the Bottom), 
-therefore you have to start at one of them and stop at the other. 
+This Puzzle has 2 odd Vertices (A and E at the Bottom), 
+therefore you have to start at one of them (e.g. A like 'Anfang') and stop at the other (E like 'Ende'). 
 If the House is made symmetric, you can create an Euler Cycle starting at any node. 
 
+```mermaid
+graph 
 
+b-->c
+f-->a
+a-->b
+c-->d
+e-->c
+d-->e
+c-->f
+```
 

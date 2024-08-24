@@ -161,7 +161,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         {
             var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
-            SetRootVertex_Throws_Test(algorithm);
+            SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
         [Test]
@@ -169,7 +169,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
-            ClearRootVertex_Test(algorithm);
+            ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
         [Test]
@@ -298,13 +298,13 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_SlowTests), new object[] { -1 })]
         [Category(TestCategories.LongRunning)]
-        public void HoffmanPavleyRankedShortestPath(BidirectionalGraph<string, Edge<string>> graph)
+        public void HoffmanPavleyRankedShortestPath(BidirectionalGraph<string, IEdge<string>> graph)
         {
             if (graph.VertexCount == 0)
                 return;
 
-            var weights = new Dictionary<Edge<string>, double>();
-            foreach (Edge<string> edge in graph.Edges)
+            var weights = new Dictionary<IEdge<string>, double>();
+            foreach (var edge in graph.Edges)
                     weights.Add(edge, graph.OutDegree(edge.Source) + 1 ?? Double.PositiveInfinity);
 
             RunHoffmanPavleyRankedShortestPathAndCheck(

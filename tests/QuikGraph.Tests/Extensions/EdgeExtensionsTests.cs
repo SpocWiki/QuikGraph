@@ -159,29 +159,29 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void IsPath()
         {
-            Assert.IsTrue(Enumerable.Empty<IEdge<int>>().IsPath<int, IEdge<int>>());
+            Assert.IsTrue(Enumerable.Empty<IEdge<int>>().IsPath());
 
             var edge1 = Edge.Create(1, 1);
             // 1 -> 1
-            Assert.IsTrue(new[] { edge1 }.IsPath<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge1 }.IsPath());
 
             var edge2 = Edge.Create(1, 2);
             // 1 -> 2
-            Assert.IsTrue(new[] { edge2 }.IsPath<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge2 }.IsPath());
 
             var edge3 = Edge.Create(2, 1);
             // 1 -> 2 -> 1
-            Assert.IsTrue(new[] { edge2, edge3 }.IsPath<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge2, edge3 }.IsPath());
             // 1 -> 1 -> 2 -> 1 -> 1
-            Assert.IsTrue(new[] { edge1, edge2, edge3, edge1 }.IsPath<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge1, edge2, edge3, edge1 }.IsPath());
 
             var edge4 = Edge.Create(1, 4);
             // 1 -> 2 -> 1 -> 4
-            Assert.IsTrue(new[] { edge2, edge3, edge4 }.IsPath<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge2, edge3, edge4 }.IsPath());
             // 1 -> 2 -> 1 -> 4-1 -> 2
-            Assert.IsFalse(new[] { edge2, edge3, edge4, edge2 }.IsPath<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge2, edge3, edge4, edge2 }.IsPath());
             // 2 -> 1 -> 4-1 -> 2
-            Assert.IsFalse(new[] { edge3, edge4, edge2 }.IsPath<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge3, edge4, edge2 }.IsPath());
 
 
             var v1 = new TestVertex("1");
@@ -189,32 +189,32 @@ namespace QuikGraph.Tests.Extensions
             var v4 = new TestVertex("4");
             var edge5 = new Edge<TestVertex>(v1, v1);
             // 1 -> 1
-            Assert.IsTrue(new[] { edge5 }.IsPath<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge5 }.IsPath());
 
             var edge6 = new Edge<TestVertex>(v1, v2);
             // 1 -> 2
-            Assert.IsTrue(new[] { edge6 }.IsPath<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge6 }.IsPath());
 
             var edge7 = new Edge<TestVertex>(v2, v1);
             // 1 -> 2 -> 1
-            Assert.IsTrue(new[] { edge6, edge7 }.IsPath<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge6, edge7 }.IsPath());
             // 1 -> 1 -> 2 -> 1 -> 1
-            Assert.IsTrue(new[] { edge5, edge6, edge7, edge5 }.IsPath<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge5, edge6, edge7, edge5 }.IsPath());
 
             var edge8 = new Edge<TestVertex>(v1, v4);
             // 1 -> 2 -> 1 -> 4
-            Assert.IsTrue(new[] { edge6, edge7, edge8 }.IsPath<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge6, edge7, edge8 }.IsPath());
             // 1 -> 2 -> 1 -> 4-1 -> 2
-            Assert.IsFalse(new[] { edge6, edge7, edge8, edge6 }.IsPath<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge6, edge7, edge8, edge6 }.IsPath());
             // 2 -> 1 -> 4-1 -> 2
-            Assert.IsFalse(new[] { edge7, edge8, edge6 }.IsPath<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge7, edge8, edge6 }.IsPath());
 
 
             // Edge cases
             var v2Bis = new TestVertex("2");
             var edge9 = new Edge<TestVertex>(v2Bis, v1);
             // 1 -> 1 -> 2-2Bis -> 1 -> 1 -> 1
-            Assert.IsFalse(new[] { edge5, edge6, edge9, edge5 }.IsPath<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge5, edge6, edge9, edge5 }.IsPath());
 
             var equatableV1 = new EquatableTestVertex("1");
             var equatableV2 = new EquatableTestVertex("2");
@@ -225,7 +225,7 @@ namespace QuikGraph.Tests.Extensions
             var edge12 = new Edge<EquatableTestVertex>(equatableV2Bis, equatableV1);
             var edge13 = new Edge<EquatableTestVertex>(equatableV1, equatableV4);
             // 1 -> 1 -> 2-2Bis -> 1 -> 4
-            Assert.IsTrue(new[] { edge10, edge11, edge12, edge13 }.IsPath<EquatableTestVertex, Edge<EquatableTestVertex>>());
+            Assert.IsTrue(new[] { edge10, edge11, edge12, edge13 }.IsPath());
         }
 
         [Test]
@@ -233,7 +233,7 @@ namespace QuikGraph.Tests.Extensions
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).IsPath<int, IEdge<int>>());
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).IsPath());
         }
 
         [Test]

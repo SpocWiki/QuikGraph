@@ -208,7 +208,7 @@ namespace QuikGraph.Tests.Algorithms
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_All))]
-        public void SourceFirstBidirectionalTopologicalSort(BidirectionalGraph<string, Edge<string>> graph)
+        public void SourceFirstBidirectionalTopologicalSort(BidirectionalGraph<string, IEdge<string>> graph)
         {
             RunSourceFirstTopologicalSortAndCheck(graph, TopologicalSortDirection.Forward);
             RunSourceFirstTopologicalSortAndCheck(graph, TopologicalSortDirection.Backward);
@@ -217,7 +217,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SourceFirstBidirectionalTopologicalSort_DCT8()
         {
-            BidirectionalGraph<string, Edge<string>> graph = TestGraphFactory.LoadBidirectionalGraph(GetGraphFilePath("DCT8.graphml"));
+            var graph = TestGraphFactory.LoadBidirectionalGraph(GetGraphFilePath("DCT8.graphml"));
             RunSourceFirstTopologicalSortAndCheck(graph, TopologicalSortDirection.Forward);
             RunSourceFirstTopologicalSortAndCheck(graph, TopologicalSortDirection.Backward);
         }
