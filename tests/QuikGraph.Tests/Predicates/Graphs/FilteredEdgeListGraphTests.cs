@@ -137,8 +137,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void ContainsVertex_Throws()
         {
-            var filteredGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>()
-                .FilterByEdges<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(
+            var filteredGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>()
+                .FilterByEdges<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
                 _ => true,
                 _ => true);
             ContainsVertex_Throws_Test(filteredGraph);

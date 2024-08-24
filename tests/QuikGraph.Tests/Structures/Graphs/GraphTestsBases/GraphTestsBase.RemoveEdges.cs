@@ -993,7 +993,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveInEdgeIf_Throws_Test(
-            [NotNull] IMutableBidirectionalGraph<TestVertex, Edge<TestVertex>> graph)
+            [NotNull] IMutableBidirectionalGraph<TestVertex, IEdge<TestVertex>> graph)
         {
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.RemoveInEdgeIf(null, _ => true));
@@ -1063,7 +1063,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         protected static void RemoveAdjacentEdgeIf_Throws_Test(
-            [NotNull] IMutableUndirectedGraph<TestVertex, Edge<TestVertex>> graph)
+            [NotNull] IMutableUndirectedGraph<TestVertex, IEdge<TestVertex>> graph)
         {
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.RemoveAdjacentEdgeIf(null, _ => true));

@@ -218,8 +218,8 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new UndirectedDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new UndirectedDepthFirstSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -252,8 +252,8 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            ComputeWithUnknownRootOrNull_Throws_Test(() => new UndirectedDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
+            ComputeWithUnknownRootOrNull_Throws_Test(() => new UndirectedDepthFirstSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph));
         }
 
         #endregion
@@ -321,14 +321,14 @@ namespace QuikGraph.Tests.Algorithms.Search
             }
         }
 
-        public static UndirectedDepthFirstSearchAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static UndirectedDepthFirstSearchAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             ContractScenario<T> scenario)
         {
-            var graph = new UndirectedGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new UndirectedGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(Edge.Create));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
-            var algorithm = new UndirectedDepthFirstSearchAlgorithm<T, Edge<T>>(graph);
+            var algorithm = new UndirectedDepthFirstSearchAlgorithm<T, IEdge<T>>(graph);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

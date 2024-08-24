@@ -235,8 +235,8 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new DagShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new DagShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -268,9 +268,9 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(
-                () => new DagShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0));
+                () => new DagShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0));
         }
 
         #endregion
@@ -298,15 +298,15 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
         [Pure]
         [NotNull]
-        public static DagShortestPathAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static DagShortestPathAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             [NotNull] ContractScenario<T> scenario)
         {
-            var graph = new AdjacencyGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new AdjacencyGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(Edge.Create));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
-            double Weights(Edge<T> e) => 1.0;
-            var algorithm = new DagShortestPathAlgorithm<T, Edge<T>>(graph, Weights);
+            double Weights(IEdge<T> e) => 1.0;
+            var algorithm = new DagShortestPathAlgorithm<T, IEdge<T>>(graph, Weights);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

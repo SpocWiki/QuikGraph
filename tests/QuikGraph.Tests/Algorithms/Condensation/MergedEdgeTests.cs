@@ -22,9 +22,9 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             // Reference type
             var v1 = new TestVertex("v1");
             var v2 = new TestVertex("v2");
-            CheckEdge(new MergedEdge<TestVertex, Edge<TestVertex>>(v1, v2), v1, v2);
-            CheckEdge(new MergedEdge<TestVertex, Edge<TestVertex>>(v2, v1), v2, v1);
-            CheckEdge(new MergedEdge<TestVertex, Edge<TestVertex>>(v1, v1), v1, v1);
+            CheckEdge(new MergedEdge<TestVertex, IEdge<TestVertex>>(v1, v2), v1, v2);
+            CheckEdge(new MergedEdge<TestVertex, IEdge<TestVertex>>(v2, v1), v2, v1);
+            CheckEdge(new MergedEdge<TestVertex, IEdge<TestVertex>>(v1, v1), v1, v1);
         }
 
         [Test]
@@ -32,9 +32,9 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new MergedEdge<TestVertex, Edge<TestVertex>>(null, new TestVertex("v1")));
-            Assert.Throws<ArgumentNullException>(() => new MergedEdge<TestVertex, Edge<TestVertex>>(new TestVertex("v1"), null));
-            Assert.Throws<ArgumentNullException>(() => new MergedEdge<TestVertex, Edge<TestVertex>>(null, null));
+            Assert.Throws<ArgumentNullException>(() => new MergedEdge<TestVertex, IEdge<TestVertex>>(null, new TestVertex("v1")));
+            Assert.Throws<ArgumentNullException>(() => new MergedEdge<TestVertex, IEdge<TestVertex>>(new TestVertex("v1"), null));
+            Assert.Throws<ArgumentNullException>(() => new MergedEdge<TestVertex, IEdge<TestVertex>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

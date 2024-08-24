@@ -41,7 +41,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
                 Assert.IsTrue(lastWeight <= weight, $"{lastWeight} <= {weight}");
                 Assert.AreEqual(rootVertex, path.First().Source);
                 Assert.AreEqual(targetVertex, path.Last().Target);
-                Assert.IsTrue(path.IsPathWithoutCycles<TVertex, TEdge>());
+                Assert.IsTrue(path.AsEnumerable().IsPathWithoutCycles<TVertex>());
 
                 lastWeight = weight;
             }
@@ -159,8 +159,8 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -240,8 +240,8 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         [Test]
         public void SetTargetVertex_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0);
 
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.SetTargetVertex(null));
@@ -283,8 +283,8 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             var start2 = new TestVertex("1");
             var end2 = new TestVertex("2");
 
-            var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm2 = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph2, _ => 1.0);
+            var graph2 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm2 = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph2, _ => 1.0);
 
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm2.Compute(null));

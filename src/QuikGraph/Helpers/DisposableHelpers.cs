@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace QuikGraph.Utils
 {
     /// <summary> Helpers to work with <see cref="IDisposable"/>. </summary>
-    internal static class DisposableHelpers
+    public static class DisposableHelpers
     {
         /// <summary> Calls the <paramref name="action"/> when going out of scope. </summary>
         /// <returns>An <see cref="IDisposable"/> object calling <paramref name="action"/> to give to a using clause.</returns>

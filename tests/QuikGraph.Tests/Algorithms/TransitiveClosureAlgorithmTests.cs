@@ -28,7 +28,7 @@ namespace QuikGraph.Tests.Algorithms
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new TransitiveClosureAlgorithm<int, IEdge<int>>(null, (v1, v2) => new Edge<int>(v1, v2)));
+            Assert.Throws<ArgumentNullException>(() => new TransitiveClosureAlgorithm<int, IEdge<int>>(null, Edge.Create));
             Assert.Throws<ArgumentNullException>(() => new TransitiveClosureAlgorithm<int, IEdge<int>>(graph, null));
             Assert.Throws<ArgumentNullException>(() => new TransitiveClosureAlgorithm<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute

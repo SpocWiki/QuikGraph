@@ -3,11 +3,12 @@
 namespace QuikGraph.Algorithms.TSP
 {
     /// <summary> Compares <see cref="_cost"/> first and then negative <seealso cref="_pathSize"/> </summary>
-    internal sealed class TaskPriority : IComparable<TaskPriority>, IEquatable<TaskPriority>
+    public sealed class TaskPriority : IComparable<TaskPriority>, IEquatable<TaskPriority>
     {
         private readonly double _cost;
         private readonly int _pathSize;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public TaskPriority(double cost, int pathSize)
         {
             _cost = cost;

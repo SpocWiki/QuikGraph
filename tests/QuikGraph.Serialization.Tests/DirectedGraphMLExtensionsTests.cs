@@ -357,31 +357,31 @@ namespace QuikGraph.Serialization.Tests
         [Test]
         public void ToDirectedGraphML_Throws()
         {
-            var graph = new AdjacencyGraph<string, Edge<string>>();
+            var graph = new AdjacencyGraph<string, IEdge<string>>();
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML());
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML());
 
 
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(_ => GraphColor.Black));
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(_ => GraphColor.Black));
             Assert.Throws<ArgumentNullException>(
                 () => graph.ToDirectedGraphML(null));
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(null));
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(null));
 
 
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(
                     vertex => vertex,
                     edge => $"{edge.Source}_{edge.Target}"));
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(
                     null,
                     edge => $"{edge.Source}_{edge.Target}"));
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(
                     vertex => vertex,
                     null));
             Assert.Throws<ArgumentNullException>(
@@ -389,23 +389,23 @@ namespace QuikGraph.Serialization.Tests
                     null,
                     null));
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(
                     null,
                     null));
 
 
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(
                     vertex => vertex,
                     edge => $"{edge.Source}_{edge.Target}",
                     null, null));
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(
                     null,
                     edge => $"{edge.Source}_{edge.Target}",
                     null, null));
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(
                     vertex => vertex,
                     null,
                     null, null));
@@ -415,7 +415,7 @@ namespace QuikGraph.Serialization.Tests
                     null,
                     null, null));
             Assert.Throws<ArgumentNullException>(
-                () => ((AdjacencyGraph<string, Edge<string>>)null).ToDirectedGraphML(
+                () => ((AdjacencyGraph<string, IEdge<string>>)null).ToDirectedGraphML(
                     null,
                     null,
                     null, null));

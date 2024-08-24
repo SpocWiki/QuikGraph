@@ -60,14 +60,14 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertex()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             AddVertex_Test(graph);
         }
 
         [Test]
         public void AddVertex_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             AddVertex_Throws_Test(graph);
         }
 
@@ -81,14 +81,14 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertexRange()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             AddVertexRange_Test(graph);
         }
 
         [Test]
         public void AddVertexRange_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             AddVertexRange_Throws_Test(graph);
         }
 
@@ -184,7 +184,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_Test(graph);
         }
 
@@ -198,7 +198,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -230,7 +230,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             ContainsEdge_NullThrows_Test(graph);
             ContainsEdge_SourceTarget_Throws_UndirectedGraph_Test(graph);
         }
@@ -262,7 +262,7 @@ namespace QuikGraph.Tests.Structures
             var graph1 = new UndirectedGraph<int, IEdge<int>>();
             AdjacentEdge_Throws_Test(graph1);
 
-            var graph2 = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph2 = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             AdjacentEdge_NullThrows_Test(graph2);
         }
 
@@ -351,7 +351,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             TryGetEdge_Throws_UndirectedGraph_Test(graph);
         }
 
@@ -369,7 +369,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertex_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             RemoveVertex_Throws_Test(graph);
         }
 
@@ -386,7 +386,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertexIf_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             RemoveVertexIf_Throws_Test(graph);
         }
 
@@ -411,7 +411,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdge_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             RemoveEdge_Throws_Test(graph);
         }
 
@@ -425,7 +425,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdgeIf_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             RemoveEdgeIf_Throws_Test(graph);
         }
 
@@ -550,7 +550,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveAdjacentEdgeIf_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             RemoveAdjacentEdgeIf_Throws_Test(graph);
         }
 

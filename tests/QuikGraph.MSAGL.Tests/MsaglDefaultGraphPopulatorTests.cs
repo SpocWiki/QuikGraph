@@ -13,10 +13,10 @@ namespace QuikGraph.MSAGL.Tests
     {
         #region Test classes
 
-        private class TestMsaglDefaultGraphPopulator : MsaglDefaultGraphPopulator<TestVertex, Edge<TestVertex>>
+        private class TestMsaglDefaultGraphPopulator : MsaglDefaultGraphPopulator<TestVertex, IEdge<TestVertex>>
         {
             public TestMsaglDefaultGraphPopulator()
-                : base(new AdjacencyGraph<TestVertex, Edge<TestVertex>>())
+                : base(new AdjacencyGraph<TestVertex, IEdge<TestVertex>>())
             {
             }
 

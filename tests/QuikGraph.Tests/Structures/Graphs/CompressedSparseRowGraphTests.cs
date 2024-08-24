@@ -86,7 +86,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_ImmutableGraph_Test(
                 wrappedGraph,
                 () => CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph));
@@ -104,7 +104,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph);
             ContainsVertex_Throws_Test(graph);
         }
@@ -134,7 +134,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph);
             ContainsEdge_DefaultNullThrows_Test(graph);
             ContainsEdge_SourceTarget_Throws_Test(graph);
@@ -156,7 +156,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge_Throws()
         {
-            var wrappedGraph1 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph1 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph1 = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph1);
             OutEdge_NullThrows_Test(graph1);
 
@@ -178,7 +178,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdges_Throws()
         {
-            var wrappedGraph1 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph1 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph1 = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph1);
             OutEdges_NullThrows_Test(graph1);
         }
@@ -199,7 +199,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph);
             TryGetEdge_Throws_Test(graph);
         }
@@ -216,7 +216,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdges_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph);
             TryGetEdges_Throws_Test(graph);
         }
@@ -233,7 +233,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = CompressedSparseRowGraph<TestVertex>.FromGraph(wrappedGraph);
             TryGetOutEdges_Throws_Test(graph);
         }

@@ -83,12 +83,12 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertex()
         {
-            var wrappedGraph1 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph1 = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph1);
+            var wrappedGraph1 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph1 = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph1);
 
-            var wrappedGraph2 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph2 = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph2);
-            var subGraph2 = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(graph2);
+            var wrappedGraph2 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph2 = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph2);
+            var subGraph2 = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(graph2);
 
             AddVertex_Clusters_Test(
                 graph1,
@@ -99,11 +99,11 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertex_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             AddVertex_Throws_Clusters_Test(graph);
 
-            var subGraph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(graph);
+            var subGraph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(graph);
             AddVertex_Throws_Clusters_Test(subGraph);
         }
 
@@ -126,12 +126,12 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertexRange()
         {
-            var wrappedGraph1 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph1 = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph1);
+            var wrappedGraph1 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph1 = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph1);
 
-            var wrappedGraph2 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph2 = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph2);
-            var subGraph2 = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(graph2);
+            var wrappedGraph2 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph2 = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph2);
+            var subGraph2 = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(graph2);
 
             AddVertexRange_Clusters_Test(
                 graph1,
@@ -142,11 +142,11 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertexRange_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             AddVertexRange_Throws_Clusters_Test(graph);
 
-            var subGraph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(graph);
+            var subGraph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(graph);
             AddVertexRange_Throws_Clusters_Test(subGraph);
         }
 
@@ -321,10 +321,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_ImmutableGraph_Test(
                 wrappedGraph,
-                () => new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph));
+                () => new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph));
         }
 
         [Test]
@@ -339,8 +339,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -380,8 +380,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             ContainsEdge_NullThrows_Test(graph);
             ContainsEdge_SourceTarget_Throws_Test(graph);
         }
@@ -402,8 +402,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge_Throws()
         {
-            var wrappedGraph1 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph1 = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph1);
+            var wrappedGraph1 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph1 = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph1);
             OutEdge_NullThrows_Test(graph1);
 
             var wrappedGraph2 = new AdjacencyGraph<int, IEdge<int>>();
@@ -428,8 +428,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdges_Throws()
         {
-            var wrappedGraph1 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph1 = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph1);
+            var wrappedGraph1 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph1 = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph1);
             OutEdges_NullThrows_Test(graph1);
 
             var wrappedGraph2 = new AdjacencyGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
@@ -454,8 +454,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             TryGetEdge_Throws_Test(graph);
         }
 
@@ -472,8 +472,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdges_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             TryGetEdges_Throws_Test(graph);
         }
 
@@ -490,8 +490,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             TryGetOutEdges_Throws_Test(graph);
         }
 
@@ -515,8 +515,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertex_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             RemoveVertex_Throws_Clusters_Test(graph);
         }
 
@@ -545,8 +545,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertexIf_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             RemoveVertexIf_Throws_Clusters_Test(graph);
         }
 
@@ -583,8 +583,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdge_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             RemoveEdge_Throws_Clusters_Test(graph);
         }
 
@@ -604,8 +604,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdgeIf_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             RemoveEdgeIf_Throws_Clusters_Test(graph);
         }
 
@@ -625,8 +625,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveOutEdgeIf_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             RemoveOutEdgeIf_Throws_Test(graph);
         }
 
@@ -727,8 +727,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ClearOutEdges_Throws()
         {
-            var wrappedGraph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ClusteredAdjacencyGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
 
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.ClearOutEdges(null));

@@ -182,8 +182,8 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new UndirectedDijkstraShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new UndirectedDijkstraShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -216,9 +216,9 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(
-                () => new UndirectedDijkstraShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0));
+                () => new UndirectedDijkstraShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0));
         }
 
         #endregion
@@ -252,13 +252,13 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void UndirectedDijkstraSimpleGraph()
         {
-            var undirectedGraph = new UndirectedGraph<object, Edge<object>>(true);
+            var undirectedGraph = new UndirectedGraph<object, IEdge<object>>(true);
             object v1 = "vertex1";
             object v2 = "vertex2";
             object v3 = "vertex3";
-            var e1 = new Edge<object>(v1, v2);
-            var e2 = new Edge<object>(v2, v3);
-            var e3 = new Edge<object>(v3, v1);
+            var e1 = Edge.Create(v1, v2);
+            var e2 = Edge.Create(v2, v3);
+            var e3 = Edge.Create(v3, v1);
             undirectedGraph.AddVertex(v1);
             undirectedGraph.AddVertex(v2);
             undirectedGraph.AddVertex(v3);
@@ -266,10 +266,10 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             undirectedGraph.AddEdge(e2);
             undirectedGraph.AddEdge(e3);
 
-            var algorithm = new UndirectedDijkstraShortestPathAlgorithm<object, Edge<object>>(
+            var algorithm = new UndirectedDijkstraShortestPathAlgorithm<object, IEdge<object>>(
                 undirectedGraph,
                 _ => 1.0);
-            var observer = new UndirectedVertexPredecessorRecorderObserver<object, Edge<object>>();
+            var observer = new UndirectedVertexPredecessorRecorderObserver<object, IEdge<object>>();
             using (observer.Attach(algorithm))
                 algorithm.Compute(v1);
 
@@ -278,15 +278,15 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
         [Pure]
         [NotNull]
-        public static UndirectedDijkstraShortestPathAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static UndirectedDijkstraShortestPathAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             [NotNull] ContractScenario<T> scenario)
         {
-            var graph = new UndirectedGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new UndirectedGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(Edge.Create));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
-            double Weights(Edge<T> e) => 1.0;
-            var algorithm = new UndirectedDijkstraShortestPathAlgorithm<T, Edge<T>>(graph, Weights);
+            double Weights(IEdge<T> e) => 1.0;
+            var algorithm = new UndirectedDijkstraShortestPathAlgorithm<T, IEdge<T>>(graph, Weights);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

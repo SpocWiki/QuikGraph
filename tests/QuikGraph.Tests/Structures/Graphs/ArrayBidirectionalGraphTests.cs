@@ -95,10 +95,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_ImmutableGraph_Test(
                 wrappedGraph,
-                () => new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph));
+                () => new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph));
         }
 
         [Test]
@@ -113,8 +113,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -152,8 +152,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             ContainsEdge_NullThrows_Test(graph);
             ContainsEdge_SourceTarget_Throws_Test(graph);
         }
@@ -174,8 +174,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge_Throws()
         {
-            var wrappedGraph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph1 = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph1);
+            var wrappedGraph1 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph1 = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph1);
             OutEdge_NullThrows_Test(graph1);
 
             var wrappedGraph2 = new BidirectionalGraph<int, IEdge<int>>();
@@ -196,8 +196,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdges_Throws()
         {
-            var wrappedGraph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph1 = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph1);
+            var wrappedGraph1 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph1 = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph1);
             OutEdges_NullThrows_Test(graph1);
 
             var wrappedGraph2 = new BidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
@@ -226,8 +226,8 @@ namespace QuikGraph.Tests.Structures
                 wrappedGraph1,
                 () => new ArrayBidirectionalGraph<int, IEdge<int>>(wrappedGraph1));
 
-            var wrappedGraph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph2 = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph2);
+            var wrappedGraph2 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph2 = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph2);
             InEdge_NullThrows_Test(graph2);
         }
 
@@ -243,8 +243,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void InEdges_Throws()
         {
-            var wrappedGraph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph1 = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph1);
+            var wrappedGraph1 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph1 = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph1);
             InEdges_NullThrows_Test(graph1);
 
             var wrappedGraph2 = new BidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
@@ -285,8 +285,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             TryGetEdge_Throws_Test(graph);
         }
 
@@ -302,8 +302,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdges_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             TryGetEdges_Throws_Test(graph);
         }
 
@@ -319,8 +319,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             TryGetOutEdges_Throws_Test(graph);
         }
 
@@ -336,8 +336,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetInEdges_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ArrayBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             TryGetInEdges_Throws_Test(graph);
         }
 

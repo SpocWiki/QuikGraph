@@ -132,8 +132,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void ContainsVertex_Throws()
         {
-            var filteredGraph = new FilteredImplicitVertexSet<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(
-                new AdjacencyGraph<TestVertex, Edge<TestVertex>>(),
+            var filteredGraph = new FilteredImplicitVertexSet<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
+                new AdjacencyGraph<TestVertex, IEdge<TestVertex>>(),
                 _ => true,
                 _ => true);
             ContainsVertex_Throws_Test(filteredGraph);

@@ -655,16 +655,16 @@ namespace QuikGraph.Tests.Structures
             AddEdge_Throws_EdgesOnly_Test(graph);
 
             // Both vertices not in graph
-            Assert.IsFalse(graph.AddEdge(new Edge<int>(0, 1)));
+            Assert.IsFalse(graph.AddEdge(Edge.Create(0, 1)));
             graph.AssertNoEdge();
 
             // Source not in graph
             graph.AddVertex(1);
-            Assert.IsFalse(graph.AddEdge(new Edge<int>(0, 1)));
+            Assert.IsFalse(graph.AddEdge(Edge.Create(0, 1)));
             graph.AssertNoEdge();
 
             // Target not in graph
-            Assert.IsFalse(graph.AddEdge(new Edge<int>(1, 0)));
+            Assert.IsFalse(graph.AddEdge(Edge.Create(1, 0)));
             graph.AssertNoEdge();
         }
 
@@ -676,16 +676,16 @@ namespace QuikGraph.Tests.Structures
             graph.AssertNoEdge();
 
             // Both vertices not in graph
-            Assert.IsFalse(graph.AddEdge(new Edge<int>(0, 1)));;
+            Assert.IsFalse(graph.AddEdge(Edge.Create(0, 1)));;
             graph.AssertNoEdge();
 
             // Source not in graph
             graph.AddVertex(1);
-            Assert.IsFalse(graph.AddEdge(new Edge<int>(0, 1)));
+            Assert.IsFalse(graph.AddEdge(Edge.Create(0, 1)));
             graph.AssertNoEdge();
 
             // Target not in graph
-            Assert.IsFalse(graph.AddEdge(new Edge<int>(1, 0)));
+            Assert.IsFalse(graph.AddEdge(Edge.Create(1, 0)));
             graph.AssertNoEdge();
         }
 

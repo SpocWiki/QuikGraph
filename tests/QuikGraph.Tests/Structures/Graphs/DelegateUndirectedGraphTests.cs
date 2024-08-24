@@ -157,9 +157,9 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var graph = new DelegateUndirectedGraph<TestVertex, Edge<TestVertex>>(
+            var graph = new DelegateUndirectedGraph<TestVertex, IEdge<TestVertex>>(
                 Enumerable.Empty<TestVertex>(),
-                GetEmptyGetter<TestVertex, Edge<TestVertex>>());
+                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -180,8 +180,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var data = new GraphData<TestVertex, Edge<TestVertex>>();
-            var graph = new DelegateUndirectedGraph<TestVertex, Edge<TestVertex>>(
+            var data = new GraphData<TestVertex, IEdge<TestVertex>>();
+            var graph = new DelegateUndirectedGraph<TestVertex, IEdge<TestVertex>>(
                 Enumerable.Empty<TestVertex>(),
                 data.TryGetEdges);
             ContainsEdge_NullThrows_Test(graph);
@@ -247,8 +247,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_SourceTarget_Throws()
         {
-            var data = new GraphData<TestVertex, Edge<TestVertex>>();
-            var graph = new DelegateUndirectedGraph<TestVertex, Edge<TestVertex>>(
+            var data = new GraphData<TestVertex, IEdge<TestVertex>>();
+            var graph = new DelegateUndirectedGraph<TestVertex, IEdge<TestVertex>>(
                 Enumerable.Empty<TestVertex>(),
                 data.TryGetEdges);
             ContainsEdge_SourceTarget_Throws_UndirectedGraph_Test(graph);
@@ -300,9 +300,9 @@ namespace QuikGraph.Tests.Structures
             AssertIndexOutOfRange(() => graph1.AdjacentEdge(1, 1));
             data.CheckCalls(1);
 
-            var graph2 = new DelegateUndirectedGraph<TestVertex, Edge<TestVertex>>(
+            var graph2 = new DelegateUndirectedGraph<TestVertex, IEdge<TestVertex>>(
                 Enumerable.Empty<TestVertex>(),
-                GetEmptyGetter<TestVertex, Edge<TestVertex>>());
+                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
             AdjacentEdge_NullThrows_Test(graph2);
         }
 
@@ -345,8 +345,8 @@ namespace QuikGraph.Tests.Structures
             data1.CheckCalls(0); // Vertex is not in graph so no need to call user code
 
 
-            var data2 = new GraphData<TestVertex, Edge<TestVertex>>();
-            var graph2 = new DelegateUndirectedGraph<TestVertex, Edge<TestVertex>>(
+            var data2 = new GraphData<TestVertex, IEdge<TestVertex>>();
+            var graph2 = new DelegateUndirectedGraph<TestVertex, IEdge<TestVertex>>(
                 Enumerable.Empty<TestVertex>(),
                 data2.TryGetEdges);
             AdjacentEdges_NullThrows_Test(graph2);
@@ -391,8 +391,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge_Throws()
         {
-            var data = new GraphData<TestVertex, Edge<TestVertex>>();
-            var graph = new DelegateUndirectedGraph<TestVertex, Edge<TestVertex>>(
+            var data = new GraphData<TestVertex, IEdge<TestVertex>>();
+            var graph = new DelegateUndirectedGraph<TestVertex, IEdge<TestVertex>>(
                 Enumerable.Empty<TestVertex>(),
                 data.TryGetEdges);
             TryGetEdge_Throws_UndirectedGraph_Test(graph);
@@ -411,9 +411,9 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetAdjacentEdges_Throws()
         {
-            var graph = new DelegateUndirectedGraph<TestVertex, Edge<TestVertex>>(
+            var graph = new DelegateUndirectedGraph<TestVertex, IEdge<TestVertex>>(
                 Enumerable.Empty<TestVertex>(),
-                GetEmptyGetter<TestVertex, Edge<TestVertex>>());
+                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
             TryGetAdjacentEdges_Throws_Test(graph);
         }
 

@@ -34,8 +34,10 @@ namespace QuikGraph.Tests.Algorithms
             {
                 if (lca(pair, out TVertex _))
                 {
-                    Assert.IsTrue(predecessors.VerticesPredecessors.IsPredecessor(root, pair.Source));
-                    Assert.IsTrue(predecessors.VerticesPredecessors.IsPredecessor(root, pair.Target));
+                    bool isPredecessor = predecessors.VerticesPredecessors.AsReadOnly().IsPredecessor(root, pair.Source);
+                    Assert.IsTrue(isPredecessor);
+                    bool predecessor = predecessors.VerticesPredecessors.AsReadOnly().IsPredecessor(root, pair.Target);
+                    Assert.IsTrue(predecessor);
                 }
             }
         }
@@ -100,8 +102,8 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -134,9 +136,9 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(
-                () => new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+                () => new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, IEdge<TestVertex>>(graph));
         }
 
         #endregion
@@ -224,9 +226,9 @@ namespace QuikGraph.Tests.Algorithms
             var vertex2 = new TestVertex("2");
             var vertex3 = new TestVertex("3");
             var pairs = new[] { new SEquatableEdge<TestVertex>(vertex1, vertex2) };
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             graph.AddVertexRange( vertex1, vertex2 );
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
 
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.Compute(null, pairs));
@@ -235,7 +237,7 @@ namespace QuikGraph.Tests.Algorithms
             Assert.Throws<ArgumentException>(() => algorithm.Compute(vertex3, pairs));
             // ReSharper restore AssignNullToNotNullAttribute
 
-            algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
             algorithm.SetRootVertex(vertex1);
             Assert.Throws<InvalidOperationException>(() => algorithm.Compute());
         }

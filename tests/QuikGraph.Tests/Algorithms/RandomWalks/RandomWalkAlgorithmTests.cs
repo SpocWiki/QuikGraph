@@ -223,8 +223,8 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new RandomWalkAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new RandomWalkAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -256,9 +256,9 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(
-                () => new RandomWalkAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+                () => new RandomWalkAlgorithm<TestVertex, IEdge<TestVertex>>(graph));
         }
 
         #endregion

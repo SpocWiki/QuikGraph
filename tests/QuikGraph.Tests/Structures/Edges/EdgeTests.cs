@@ -20,9 +20,9 @@ namespace QuikGraph.Tests.Structures
             // Reference type
             var v1 = new TestVertex("v1");
             var v2 = new TestVertex("v2");
-            CheckEdge(new Edge<TestVertex>(v1, v2), v1, v2);
-            CheckEdge(new Edge<TestVertex>(v2, v1), v2, v1);
-            CheckEdge(new Edge<TestVertex>(v1, v1), v1, v1);
+            CheckEdge(Edge.Create(v1, v2), v1, v2);
+            CheckEdge(Edge.Create(v2, v1), v2, v1);
+            CheckEdge(Edge.Create(v1, v1), v1, v1);
         }
 
         [Test]
@@ -30,9 +30,9 @@ namespace QuikGraph.Tests.Structures
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new Edge<TestVertex>(null, new TestVertex("v1")));
-            Assert.Throws<ArgumentNullException>(() => new Edge<TestVertex>(new TestVertex("v1"), null));
-            Assert.Throws<ArgumentNullException>(() => new Edge<TestVertex>(null, null));
+            Assert.Throws<ArgumentNullException>(() => Edge.Create(null, new TestVertex("v1")));
+            Assert.Throws<ArgumentNullException>(() => Edge.Create(new TestVertex("v1"), null));
+            Assert.Throws<ArgumentNullException>(() => Edge.Create(null, (TestVertex)null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

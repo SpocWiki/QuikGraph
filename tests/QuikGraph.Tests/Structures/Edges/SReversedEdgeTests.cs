@@ -30,12 +30,12 @@ namespace QuikGraph.Tests.Structures
             // Reference type
             var v1 = new TestVertex("v1");
             var v2 = new TestVertex("v2");
-            CheckEdge(new SReversedEdge<TestVertex, Edge<TestVertex>>(new Edge<TestVertex>(v1, v2)), v2, v1);
-            CheckEdge(new SReversedEdge<TestVertex, Edge<TestVertex>>(new Edge<TestVertex>(v2, v1)), v1, v2);
-            CheckEdge(new SReversedEdge<TestVertex, Edge<TestVertex>>(new Edge<TestVertex>(v1, v1)), v1, v1);
+            CheckEdge(new SReversedEdge<TestVertex, IEdge<TestVertex>>(Edge.Create(v1, v2)), v2, v1);
+            CheckEdge(new SReversedEdge<TestVertex, IEdge<TestVertex>>(Edge.Create(v2, v1)), v1, v2);
+            CheckEdge(new SReversedEdge<TestVertex, IEdge<TestVertex>>(Edge.Create(v1, v1)), v1, v1);
 
             // Struct break the contract with their implicit default constructor
-            var defaultEdge2 = default(SReversedEdge<TestVertex, Edge<TestVertex>>);
+            var defaultEdge2 = default(SReversedEdge<TestVertex, IEdge<TestVertex>>);
             // ReSharper disable HeuristicUnreachableCode
             // Justification: Since struct has implicit default constructor it allows initialization of invalid edge
             Assert.IsNull(defaultEdge2.OriginalEdge);
@@ -50,7 +50,7 @@ namespace QuikGraph.Tests.Structures
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new SReversedEdge<TestVertex, Edge<TestVertex>>(null));
+            Assert.Throws<ArgumentNullException>(() => new SReversedEdge<TestVertex, IEdge<TestVertex>>(null));
         }
 
         [Test]

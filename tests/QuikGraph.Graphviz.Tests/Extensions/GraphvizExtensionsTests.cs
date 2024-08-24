@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using JetBrains.Annotations;
@@ -63,7 +64,7 @@ namespace QuikGraph.Graphviz.Tests
 
                     if (vertex is 3 or 4 or 5)
                     {
-                        outEdges = new Edge<int>[] { };
+                        outEdges = Enumerable.Empty<IEdge<int>>();
                         return true;
                     }
 

@@ -234,7 +234,7 @@ namespace QuikGraph.Tests.Algorithms
             The first occurrence of 'n' comes before 1 occurrence of 's'.
             */
 
-            var graph = new AdjacencyGraph<Letter, Edge<Letter>>();
+            var graph = new AdjacencyGraph<Letter, IEdge<Letter>>();
 
             // A more generalized algorithm would handle duplicate letters automatically.
             // This is the quick and dirty solution.
@@ -250,31 +250,31 @@ namespace QuikGraph.Tests.Algorithms
 
             graph.AddVertexRange(e1, e2, s, i1, i2, n, t, v );
 
-            graph.AddEdge(new Edge<Letter>(e1, s));
-            graph.AddEdge(new Edge<Letter>(i1, n));
-            graph.AddEdge(new Edge<Letter>(i1, i2));
-            graph.AddEdge(new Edge<Letter>(n, e1));
-            graph.AddEdge(new Edge<Letter>(n, e2));
-            graph.AddEdge(new Edge<Letter>(e1, e2));
-            graph.AddEdge(new Edge<Letter>(i1, v));
-            graph.AddEdge(new Edge<Letter>(n, e1));
-            graph.AddEdge(new Edge<Letter>(n, v));
-            graph.AddEdge(new Edge<Letter>(i1, s));
-            graph.AddEdge(new Edge<Letter>(t, s));
-            graph.AddEdge(new Edge<Letter>(v, s));
-            graph.AddEdge(new Edge<Letter>(v, e1));
-            graph.AddEdge(new Edge<Letter>(v, e2));
-            graph.AddEdge(new Edge<Letter>(t, e1));
-            graph.AddEdge(new Edge<Letter>(t, e2));
-            graph.AddEdge(new Edge<Letter>(i1, e1));
-            graph.AddEdge(new Edge<Letter>(i1, e2));
-            graph.AddEdge(new Edge<Letter>(v, t));
-            graph.AddEdge(new Edge<Letter>(n, t));
-            graph.AddEdge(new Edge<Letter>(v, i2));
-            graph.AddEdge(new Edge<Letter>(i1, t));
-            graph.AddEdge(new Edge<Letter>(n, s));
+            graph.AddEdge(Edge.Create(e1, s));
+            graph.AddEdge(Edge.Create(i1, n));
+            graph.AddEdge(Edge.Create(i1, i2));
+            graph.AddEdge(Edge.Create(n, e1));
+            graph.AddEdge(Edge.Create(n, e2));
+            graph.AddEdge(Edge.Create(e1, e2));
+            graph.AddEdge(Edge.Create(i1, v));
+            graph.AddEdge(Edge.Create(n, e1));
+            graph.AddEdge(Edge.Create(n, v));
+            graph.AddEdge(Edge.Create(i1, s));
+            graph.AddEdge(Edge.Create(t, s));
+            graph.AddEdge(Edge.Create(v, s));
+            graph.AddEdge(Edge.Create(v, e1));
+            graph.AddEdge(Edge.Create(v, e2));
+            graph.AddEdge(Edge.Create(t, e1));
+            graph.AddEdge(Edge.Create(t, e2));
+            graph.AddEdge(Edge.Create(i1, e1));
+            graph.AddEdge(Edge.Create(i1, e2));
+            graph.AddEdge(Edge.Create(v, t));
+            graph.AddEdge(Edge.Create(n, t));
+            graph.AddEdge(Edge.Create(v, i2));
+            graph.AddEdge(Edge.Create(i1, t));
+            graph.AddEdge(Edge.Create(n, s));
 
-            var sort = new TopologicalSortAlgorithm<Letter, Edge<Letter>>(graph);
+            var sort = new TopologicalSortAlgorithm<Letter, IEdge<Letter>>(graph);
             sort.Compute();
 
             var builder = new StringBuilder();

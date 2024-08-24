@@ -79,6 +79,10 @@
     <ProjectReference Include="..\..\src\QuikGraph.Serialization\QuikGraph.Serialization.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.11.0" />
     <PackageReference Update="NUnit" Version="3.14.0" />
   </ItemGroup>
 </Project>

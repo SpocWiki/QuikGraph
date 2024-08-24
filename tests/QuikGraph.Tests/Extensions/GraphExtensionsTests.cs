@@ -947,11 +947,11 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => ((IEnumerable<int>)null).ToAdjacencyGraph(_ => Enumerable.Empty<Edge<int>>()));
+                () => ((IEnumerable<int>)null).ToAdjacencyGraph(_ => Enumerable.Empty<IEdge<int>>()));
             Assert.Throws<ArgumentNullException>(
                 () => ((IEnumerable<int>)null).ToAdjacencyGraph<int, IEdge<int>>(null));
             Assert.Throws<ArgumentNullException>(
-                () => ((IEnumerable<int>)null).ToAdjacencyGraph(_ => Enumerable.Empty<Edge<int>>(), false));
+                () => ((IEnumerable<int>)null).ToAdjacencyGraph(_ => Enumerable.Empty<IEdge<int>>(), false));
             Assert.Throws<ArgumentNullException>(
                 () => ((IEnumerable<int>)null).ToAdjacencyGraph<int, IEdge<int>>(null, false));
 
@@ -1159,11 +1159,11 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => ((IEnumerable<int>)null).ToBidirectionalGraph(_ => Enumerable.Empty<Edge<int>>()));
+                () => ((IEnumerable<int>)null).ToBidirectionalGraph(_ => Enumerable.Empty<IEdge<int>>()));
             Assert.Throws<ArgumentNullException>(
                 () => ((IEnumerable<int>)null).ToBidirectionalGraph<int, IEdge<int>>(null));
             Assert.Throws<ArgumentNullException>(
-                () => ((IEnumerable<int>)null).ToBidirectionalGraph(_ => Enumerable.Empty<Edge<int>>(), false));
+                () => ((IEnumerable<int>)null).ToBidirectionalGraph(_ => Enumerable.Empty<IEdge<int>>(), false));
             Assert.Throws<ArgumentNullException>(
                 () => ((IEnumerable<int>)null).ToBidirectionalGraph<int, IEdge<int>>(null, false));
 

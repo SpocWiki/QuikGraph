@@ -129,7 +129,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             {
                 Assert.AreEqual(GraphColor.Black, algorithm.VerticesColors[args.Target]);
 
-                foreach (TEdge edge in algorithm.VisitedGraph.AdjacentEdges(args.Target))
+                foreach (var edge in algorithm.VisitedGraph.AdjacentEdges(args.Target))
                     Assert.IsFalse(algorithm.VerticesColors[edge.Target] == GraphColor.White);
             };
 
@@ -283,8 +283,8 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new UndirectedBreadthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new UndirectedBreadthFirstSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -316,9 +316,9 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(
-                () => new UndirectedBreadthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+                () => new UndirectedBreadthFirstSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph));
         }
 
         #endregion
@@ -349,14 +349,14 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         [Pure]
         [NotNull]
-        public static UndirectedBreadthFirstSearchAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static UndirectedBreadthFirstSearchAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             [NotNull] ContractScenario<T> scenario)
         {
-            var graph = new UndirectedGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new UndirectedGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(Edge.Create));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
-            var algorithm = new UndirectedBreadthFirstSearchAlgorithm<T, Edge<T>>(graph);
+            var algorithm = new UndirectedBreadthFirstSearchAlgorithm<T, IEdge<T>>(graph);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

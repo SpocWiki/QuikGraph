@@ -17,8 +17,8 @@ namespace QuikGraph.Tests.Algorithms
         #region Test helpers
 
         [NotNull]
-        private readonly EdgeFactory<string, Edge<string>> _edgeFactory =
-            (source, target) => new Edge<string>(source, target);
+        private readonly EdgeFactory<string, IEdge<string>> _edgeFactory =
+            (source, target) => Edge.Create(source, target);
 
         private static void AssertThatMaxMatchEdgesAreValid<TVertex, TEdge>(
             [NotNull, ItemNotNull] TVertex[] vertexSetA,
@@ -67,12 +67,12 @@ namespace QuikGraph.Tests.Algorithms
         }
 
         private void RunBipartiteMatchAndCheck(
-            [NotNull, ItemNotNull] IEnumerable<Edge<string>> edges,
+            [NotNull, ItemNotNull] IEnumerable<IEdge<string>> edges,
             [NotNull, ItemNotNull] IEnumerable<string> setA,
             [NotNull, ItemNotNull] IEnumerable<string> setB,
             int expectedMatchSize)
         {
-            var graph = edges.ToAdjacencyGraph<string, Edge<string>>();
+            var graph = edges.ToAdjacencyGraph<string, IEdge<string>>();
 
             var vertexFactory = new StringVertexFactory();
 
@@ -248,7 +248,7 @@ namespace QuikGraph.Tests.Algorithms
             string[] odd = integers.Where(n => n % 2 != 0).Select(n => n.ToString()).ToArray();
 
             // Create the edges from even to odd
-            IEnumerable<Edge<string>> edges = TestHelpers.CreateAllPairwiseEdges(even, odd, _edgeFactory);
+            var edges = TestHelpers.CreateAllPairwiseEdges(even, odd, _edgeFactory);
 
             int expectedMatchSize = Math.Min(even.Length, odd.Length);
             RunBipartiteMatchAndCheck(edges, even, odd, expectedMatchSize);
@@ -262,7 +262,7 @@ namespace QuikGraph.Tests.Algorithms
             string[] odd = integers.Where(n => n % 2 != 0).Select(n => n.ToString()).ToArray();
 
             // Create the edges from odd to even
-            IEnumerable<Edge<string>> edges = TestHelpers.CreateAllPairwiseEdges(odd, even, _edgeFactory);
+            var edges = TestHelpers.CreateAllPairwiseEdges(odd, even, _edgeFactory);
 
             int expectedMatchSize = Math.Min(even.Length, odd.Length);
             RunBipartiteMatchAndCheck(edges, even, odd, expectedMatchSize);
@@ -312,7 +312,7 @@ namespace QuikGraph.Tests.Algorithms
             // Create a set of vertices in each set which all match each other
             string[] leftNodes = Enumerable.Range(0, smallerSetSize).Select(n => $"L{n}").ToArray();
             string[] rightNodes = Enumerable.Range(0, largerSetSize).Select(n => $"R{n}").ToArray();
-            IEnumerable<Edge<string>> edges = TestHelpers.CreateAllPairwiseEdges(leftNodes, rightNodes, _edgeFactory);
+            var edges = TestHelpers.CreateAllPairwiseEdges(leftNodes, rightNodes, _edgeFactory);
 
             setA.AddRange(leftNodes);
             setB.AddRange(rightNodes);

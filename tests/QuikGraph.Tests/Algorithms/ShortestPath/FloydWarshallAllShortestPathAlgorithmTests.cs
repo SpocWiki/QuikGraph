@@ -105,8 +105,8 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void TryGetDistance_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new FloydWarshallAllShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new FloydWarshallAllShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0);
 
             var vertex = new TestVertex();
             // ReSharper disable AssignNullToNotNullAttribute
@@ -159,8 +159,8 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void TryGetPath_Throws()
         {
-            var graph1 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm1 = new FloydWarshallAllShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph1, _ => 1.0);
+            var graph1 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm1 = new FloydWarshallAllShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph1, _ => 1.0);
 
             var vertex = new TestVertex();
             // ReSharper disable AssignNullToNotNullAttribute
@@ -173,9 +173,9 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void FloydWarshallSimpleGraph()
         {
-            var distances = new Dictionary<Edge<char>, double>();
-            AdjacencyGraph<char, Edge<char>> graph = CreateGraph(distances);
-            var algorithm = new FloydWarshallAllShortestPathAlgorithm<char, Edge<char>>(graph, e => distances[e]);
+            var distances = new Dictionary<IEdge<char>, double>();
+            AdjacencyGraph<char, IEdge<char>> graph = CreateGraph(distances);
+            var algorithm = new FloydWarshallAllShortestPathAlgorithm<char, IEdge<char>>(graph, e => distances[e]);
             algorithm.Compute();
 
             Assert.IsTrue(algorithm.TryGetDistance('A', 'A', out double distance));

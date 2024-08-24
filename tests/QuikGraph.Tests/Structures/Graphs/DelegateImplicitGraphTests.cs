@@ -56,8 +56,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var graph = new DelegateImplicitGraph<TestVertex, Edge<TestVertex>>(
-                GetEmptyGetter<TestVertex, Edge<TestVertex>>());
+            var graph = new DelegateImplicitGraph<TestVertex, IEdge<TestVertex>>(
+                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -76,8 +76,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge_Throws()
         {
-            var graph1 = new DelegateImplicitGraph<TestVertex, Edge<TestVertex>>(
-                GetEmptyGetter<TestVertex, Edge<TestVertex>>());
+            var graph1 = new DelegateImplicitGraph<TestVertex, IEdge<TestVertex>>(
+                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
             OutEdge_NullThrows_Test(graph1);
 
             var data = new GraphData<int, IEdge<int>>();
@@ -120,8 +120,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges_Throws()
         {
-            var graph = new DelegateImplicitGraph<TestVertex, Edge<TestVertex>>(
-                GetEmptyGetter<TestVertex, Edge<TestVertex>>());
+            var graph = new DelegateImplicitGraph<TestVertex, IEdge<TestVertex>>(
+                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
             TryGetOutEdges_Throws_Test(graph);
         }
 

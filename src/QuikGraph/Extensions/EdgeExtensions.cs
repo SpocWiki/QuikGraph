@@ -104,21 +104,18 @@ namespace QuikGraph
         /// Checks if this sequence of edges makes a cycle.
         /// </summary>
         /// <remarks>Note that this function only work when given a path.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="path">Sequence of edges that forms a path.</param>
         /// <returns>True if the set makes a cycle, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
         [Pure]
-        public static bool HasCycles<TVertex, TEdge>([NotNull, ItemNotNull] this IEnumerable<TEdge> path)
-            where TEdge : IEdge<TVertex>
+        public static bool HasCycles<TVertex>([NotNull, ItemNotNull] this IEnumerable<IEdge<TVertex>> path)
         {
             if (path is null)
                 throw new ArgumentNullException(nameof(path));
 
             var vertices = new Dictionary<TVertex, int>();
             bool first = true;
-            foreach (TEdge edge in path)
+            foreach (var edge in path)
             {
                 if (first)
                 {
@@ -142,14 +139,11 @@ namespace QuikGraph
         /// <summary>
         /// Checks if this path of edges does not make a cycle.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="path">Path of edges.</param>
         /// <returns>True if the path makes a cycle, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
         [Pure]
-        public static bool IsPathWithoutCycles<TVertex, TEdge>([NotNull, ItemNotNull] this IEnumerable<TEdge> path)
-            where TEdge : IEdge<TVertex>
+        public static bool IsPathWithoutCycles<TVertex>([NotNull, ItemNotNull] this IEnumerable<IEdge<TVertex>> path)
         {
             if (path is null)
                 throw new ArgumentNullException(nameof(path));
@@ -157,7 +151,7 @@ namespace QuikGraph
             var vertices = new Dictionary<TVertex, int>();
             bool first = true;
             var lastTarget = default(TVertex);
-            foreach (TEdge edge in path)
+            foreach (var edge in path)
             {
                 if (first)
                 {
@@ -198,24 +192,36 @@ namespace QuikGraph
             return new SEquatableEdge<TVertex>(edge.Source, edge.Target);
         }
 
-        /// <summary>
-        /// Checks that the <paramref name="root"/> is a predecessor of the given <paramref name="vertex"/>.
-        /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <param name="predecessors">Predecessors map.</param>
-        /// <param name="root">Root vertex.</param>
-        /// <param name="vertex">Ending vertex.</param>
+        /// <summary> Casts to read only  </summary>
+        [Pure]
+        [NotNull]
+        public static IReadOnlyDictionary<TVertex, TV> AsReadOnly<TVertex, TV>(
+            [NotNull] this IDictionary<TVertex, TV> predecessors) => (IReadOnlyDictionary<TVertex, TV>)predecessors;
+
+        /// <inheritdoc cref="IsPredecessor{TVertex}(IReadOnlyDictionary{TVertex,IEdge{TVertex}},TVertex,TVertex)"/>
+        public static bool IsPredecessor<TVertex>(
+            [NotNull] this Dictionary<TVertex, IEdge<TVertex>> predecessors,
+            [NotNull] TVertex root,
+            [NotNull] TVertex vertex) =>
+            ((IReadOnlyDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
+
+        /// <inheritdoc cref="IsPredecessor{TVertex}(IReadOnlyDictionary{TVertex,IEdge{TVertex}},TVertex,TVertex)"/>
+        public static bool IsPredecessor<TVertex>(
+            [NotNull] this IDictionary<TVertex, IEdge<TVertex>> predecessors,
+            [NotNull] TVertex root,
+            [NotNull] TVertex vertex) =>
+            ((IReadOnlyDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
+
+        /// <summary> Checks that the <paramref name="root"/> is a predecessor of the given <paramref name="vertex"/>. </summary>
         /// <returns>True if the <paramref name="root"/> is a predecessor of the <paramref name="vertex"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="predecessors"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
-        public static bool IsPredecessor<TVertex, TEdge>(
-            [NotNull] this IDictionary<TVertex, TEdge> predecessors,
+        public static bool IsPredecessor<TVertex>(
+            [NotNull] this IReadOnlyDictionary<TVertex, IEdge<TVertex>> predecessors,
             [NotNull] TVertex root,
             [NotNull] TVertex vertex)
-            where TEdge : IEdge<TVertex>
         {
             if (predecessors is null)
                 throw new ArgumentNullException(nameof(predecessors));
@@ -228,7 +234,7 @@ namespace QuikGraph
             if (EqualityComparer<TVertex>.Default.Equals(root, currentVertex))
                 return true;
 
-            while (predecessors.TryGetValue(currentVertex, out TEdge predecessor))
+            while (predecessors.TryGetValue(currentVertex, out var predecessor))
             {
                 TVertex source = GetOtherVertex(predecessor, currentVertex);
                 if (EqualityComparer<TVertex>.Default.Equals(currentVertex, source))

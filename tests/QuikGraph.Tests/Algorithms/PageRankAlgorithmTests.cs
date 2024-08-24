@@ -114,21 +114,21 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void PageRank()
         {
-            var graph = new BidirectionalGraph<string, Edge<string>>();
+            var graph = new BidirectionalGraph<string, IEdge<string>>();
             graph.AddVerticesAndEdgeRange(
-                new Edge<string>("Amazon", "Twitter"),
-                new Edge<string>("Amazon", "Microsoft"),
-                new Edge<string>("Microsoft", "Amazon"),
-                new Edge<string>("Microsoft", "Facebook"),
-                new Edge<string>("Microsoft", "Twitter"),
-                new Edge<string>("Microsoft", "Apple"),
-                new Edge<string>("Facebook", "Amazon"),
-                new Edge<string>("Facebook", "Twitter"),
-                new Edge<string>("Twitter", "Microsoft"),
-                new Edge<string>("Apple", "Twitter")
+                Edge.Create("Amazon", "Twitter"),
+                Edge.Create("Amazon", "Microsoft"),
+                Edge.Create("Microsoft", "Amazon"),
+                Edge.Create("Microsoft", "Facebook"),
+                Edge.Create("Microsoft", "Twitter"),
+                Edge.Create("Microsoft", "Apple"),
+                Edge.Create("Facebook", "Amazon"),
+                Edge.Create("Facebook", "Twitter"),
+                Edge.Create("Twitter", "Microsoft"),
+                Edge.Create("Apple", "Twitter")
             );
 
-            var algorithm = new PageRankAlgorithm<string, Edge<string>>(graph);
+            var algorithm = new PageRankAlgorithm<string, IEdge<string>>(graph);
             algorithm.Compute();
 
             IEnumerable<string> order = algorithm.Ranks.OrderByDescending(pair => pair.Value).Select(pair => pair.Key);

@@ -74,10 +74,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_ImmutableGraph_Test(
                 wrappedGraph,
-                () => new UndirectedBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph));
+                () => new UndirectedBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph));
         }
 
         [Test]
@@ -92,8 +92,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new UndirectedBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new UndirectedBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -131,8 +131,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new UndirectedBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new UndirectedBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             ContainsEdge_NullThrows_Test(graph);
             ContainsEdge_SourceTarget_Throws_UndirectedGraph_Test(graph);
         }
@@ -200,8 +200,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge_Throws()
         {
-            var wrappedGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new UndirectedBidirectionalGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new UndirectedBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             TryGetEdge_Throws_UndirectedGraph_Test(graph);
         }
 

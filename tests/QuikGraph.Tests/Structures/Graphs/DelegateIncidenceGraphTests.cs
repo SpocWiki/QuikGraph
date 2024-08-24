@@ -56,8 +56,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var graph = new DelegateIncidenceGraph<TestVertex, Edge<TestVertex>>(
-                GetEmptyGetter<TestVertex, Edge<TestVertex>>());
+            var graph = new DelegateIncidenceGraph<TestVertex, IEdge<TestVertex>>(
+                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -76,8 +76,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var data = new GraphData<TestVertex, Edge<TestVertex>>();
-            var graph = new DelegateIncidenceGraph<TestVertex, Edge<TestVertex>>(data.TryGetEdges);
+            var data = new GraphData<TestVertex, IEdge<TestVertex>>();
+            var graph = new DelegateIncidenceGraph<TestVertex, IEdge<TestVertex>>(data.TryGetEdges);
             ContainsEdge_SourceTarget_Throws_Test(graph);
         }
 
@@ -96,8 +96,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge_Throws()
         {
-            var graph1 = new DelegateIncidenceGraph<TestVertex, Edge<TestVertex>>(
-                GetEmptyGetter<TestVertex, Edge<TestVertex>>());
+            var graph1 = new DelegateIncidenceGraph<TestVertex, IEdge<TestVertex>>(
+                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
             OutEdge_NullThrows_Test(graph1);
 
             var data = new GraphData<int, IEdge<int>>();
@@ -140,8 +140,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge_Throws()
         {
-            var data = new GraphData<TestVertex, Edge<TestVertex>>();
-            var graph = new DelegateIncidenceGraph<TestVertex, Edge<TestVertex>>(data.TryGetEdges);
+            var data = new GraphData<TestVertex, IEdge<TestVertex>>();
+            var graph = new DelegateIncidenceGraph<TestVertex, IEdge<TestVertex>>(data.TryGetEdges);
             TryGetEdge_Throws_Test(graph);
         }
 
@@ -156,8 +156,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdges_Throws()
         {
-            var data = new GraphData<TestVertex, Edge<TestVertex>>();
-            var graph = new DelegateIncidenceGraph<TestVertex, Edge<TestVertex>>(data.TryGetEdges);
+            var data = new GraphData<TestVertex, IEdge<TestVertex>>();
+            var graph = new DelegateIncidenceGraph<TestVertex, IEdge<TestVertex>>(data.TryGetEdges);
             TryGetEdges_Throws_Test(graph);
         }
 
@@ -172,8 +172,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges_Throws()
         {
-            var graph = new DelegateIncidenceGraph<TestVertex, Edge<TestVertex>>(
-                GetEmptyGetter<TestVertex, Edge<TestVertex>>());
+            var graph = new DelegateIncidenceGraph<TestVertex, IEdge<TestVertex>>(
+                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
             TryGetOutEdges_Throws_Test(graph);
         }
 

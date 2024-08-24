@@ -32,19 +32,19 @@ namespace QuikGraph.Tests.Algorithms.Condensation
                 graph1);
 
             // Reference type
-            var graph3 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var graph4 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph3 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var graph4 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
 
             CheckEdge(
-                new CondensedEdge<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(graph3, graph4),
+                new CondensedEdge<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(graph3, graph4),
                 graph3,
                 graph4);
             CheckEdge(
-                new CondensedEdge<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(graph4, graph3),
+                new CondensedEdge<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(graph4, graph3),
                 graph4,
                 graph3);
             CheckEdge(
-                new CondensedEdge<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(graph3, graph3),
+                new CondensedEdge<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(graph3, graph3),
                 graph3,
                 graph3);
         }

@@ -216,8 +216,8 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -250,9 +250,9 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(
-                () => new BidirectionalDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+                () => new BidirectionalDepthFirstSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph));
         }
 
         #endregion

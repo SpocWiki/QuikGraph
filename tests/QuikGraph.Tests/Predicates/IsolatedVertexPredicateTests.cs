@@ -91,8 +91,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Predicate_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var predicate = new IsolatedVertexPredicate<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var predicate = new IsolatedVertexPredicate<TestVertex, IEdge<TestVertex>>(graph);
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.IsTrue(predicate.TestIsEdgesEmpty(new TestVertex("1")));

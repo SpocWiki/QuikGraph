@@ -1,4 +1,4 @@
-//using System;
+﻿//using System;
 //using NUnit.Framework;
 //using QuikGraph.Algorithms;
 
@@ -85,19 +85,19 @@
 //        [Test]
 //        public void SimpleGraph()
 //        {
-//            var graph = new AdjacencyGraph<string, Edge<string>>();
+//            var graph = new AdjacencyGraph<string, IEdge<string>>();
 //            graph.AddVerticesAndEdgeRange(new[]
 //            {
-//                new Edge<string>("Mark", "Alice"),
-//                new Edge<string>("Alice", "Bridget"),
-//                new Edge<string>("Alice", "Doug"),
-//                new Edge<string>("Alice", "Charles"),
-//                new Edge<string>("Charles", "Michael")
+//                Edge.Create("Mark", "Alice"),
+//                Edge.Create("Alice", "Bridget"),
+//                Edge.Create("Alice", "Doug"),
+//                Edge.Create("Alice", "Charles"),
+//                Edge.Create("Charles", "Michael")
 //            });
 //            Func<Edge<string>, double> distances = edge => 1.0;
 
 //            var random = new Random(123456);
-//            var algorithm = new CentralityApproximationAlgorithm<string, Edge<string>>(graph, distances)
+//            var algorithm = new CentralityApproximationAlgorithm<string, IEdge<string>>(graph, distances)
 //            {
 //                Rand = random,
 //                MaxIterationCount = 50

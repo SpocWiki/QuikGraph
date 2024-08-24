@@ -442,7 +442,7 @@ namespace QuikGraph.Collections
         /// </summary>
         /// <returns>True if the heap is consistent, false otherwise.</returns>
         [Pure]
-        internal bool IsConsistent()
+        public bool IsConsistent()
         {
             int wrong = -1;
 

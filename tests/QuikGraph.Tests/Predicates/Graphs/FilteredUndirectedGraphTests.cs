@@ -132,8 +132,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void ContainsVertex_Throws()
         {
-            var filteredGraph = new FilteredUndirectedGraph<TestVertex, Edge<TestVertex>, UndirectedGraph<TestVertex, Edge<TestVertex>>>(
-                new UndirectedGraph<TestVertex, Edge<TestVertex>>(),
+            var filteredGraph = new FilteredUndirectedGraph<TestVertex, IEdge<TestVertex>, UndirectedGraph<TestVertex, IEdge<TestVertex>>>(
+                new UndirectedGraph<TestVertex, IEdge<TestVertex>>(),
                 _ => true,
                 _ => true);
             ContainsVertex_Throws_Test(filteredGraph);
@@ -170,8 +170,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void ContainsEdge_Throws()
         {
-            var filteredGraph = new FilteredUndirectedGraph<TestVertex, Edge<TestVertex>, UndirectedGraph<TestVertex, Edge<TestVertex>>>(
-                new UndirectedGraph<TestVertex, Edge<TestVertex>>(),
+            var filteredGraph = new FilteredUndirectedGraph<TestVertex, IEdge<TestVertex>, UndirectedGraph<TestVertex, IEdge<TestVertex>>>(
+                new UndirectedGraph<TestVertex, IEdge<TestVertex>>(),
                 _ => true,
                 _ => true);
             ContainsEdge_NullThrows_Test(filteredGraph);
@@ -201,8 +201,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void AdjacentEdgeUnfiltered_Throws()
         {
-            var graph2 = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            var filteredGraph2 = graph2.FilterByUndirected<TestVertex, Edge<TestVertex>, UndirectedGraph<TestVertex, Edge<TestVertex>>>(
+            var graph2 = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
+            var filteredGraph2 = graph2.FilterByUndirected<TestVertex, IEdge<TestVertex>, UndirectedGraph<TestVertex, IEdge<TestVertex>>>(
                 _ => true,
                 _ => true);
             AdjacentEdge_NullThrows_Test(filteredGraph2);
@@ -261,8 +261,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void TryGetEdge_Throws()
         {
-            var filteredGraph = new FilteredUndirectedGraph<TestVertex, Edge<TestVertex>, UndirectedGraph<TestVertex, Edge<TestVertex>>>(
-                new UndirectedGraph<TestVertex, Edge<TestVertex>>(),
+            var filteredGraph = new FilteredUndirectedGraph<TestVertex, IEdge<TestVertex>, UndirectedGraph<TestVertex, IEdge<TestVertex>>>(
+                new UndirectedGraph<TestVertex, IEdge<TestVertex>>(),
                 _ => true,
                 _ => true);
             TryGetEdge_Throws_UndirectedGraph_Test(filteredGraph);

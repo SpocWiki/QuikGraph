@@ -102,18 +102,21 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
             #endregion
         }
 
+        /// <summary> Generate undirected simple graph </summary>
+        /// <remarks>
+        /// <pre>
+        ///     (1)
+        ///    / | \ 
+        /// (0)  |  (3)-(4)
+        ///    \ | /
+        ///     (2)
+        /// </pre>
+        /// </remarks>
         [Test]
         public void VertexColoringSimpleGraph()
         {
-            /* 
-                                                  (1)
-                                                 / | \ 
-            Generate undirected simple graph: (0)  |  (3)-(4)
-                                                 \ | /
-                                                  (2)
-            */
-            UndirectedGraph<char, Edge<char>> graph = CreateTestGraph();
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var graph = CreateTestGraph();
+            var algorithm = new VertexColoringAlgorithm<char, IEdge<char>>(graph);
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;
@@ -141,9 +144,9 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
 
             #region Local function
 
-            UndirectedGraph<char, Edge<char>> CreateTestGraph()
+            UndirectedGraph<char, IEdge<char>> CreateTestGraph()
             {
-                var g = new UndirectedGraph<char, Edge<char>>(true);
+                var g = new UndirectedGraph<char, IEdge<char>>(true);
 
                 g.AddVertex('0'); // 1 Vertex
                 g.AddVertex('1'); // 2 Vertex
@@ -151,12 +154,12 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
                 g.AddVertex('3'); // 4 Vertex
                 g.AddVertex('4'); // 5 Vertex
 
-                g.AddEdge(new Edge<char>('0', '1')); // 1 Edge
-                g.AddEdge(new Edge<char>('0', '2')); // 2 Edge
-                g.AddEdge(new Edge<char>('1', '2')); // 3 Edge
-                g.AddEdge(new Edge<char>('1', '3')); // 4 Edge
-                g.AddEdge(new Edge<char>('2', '3')); // 5 Edge
-                g.AddEdge(new Edge<char>('3', '4')); // 6 Edge
+                g.AddEdge(Edge.Create('0', '1')); // 1 Edge
+                g.AddEdge(Edge.Create('0', '2')); // 2 Edge
+                g.AddEdge(Edge.Create('1', '2')); // 3 Edge
+                g.AddEdge(Edge.Create('1', '3')); // 4 Edge
+                g.AddEdge(Edge.Create('2', '3')); // 5 Edge
+                g.AddEdge(Edge.Create('3', '4')); // 6 Edge
 
                 return g;
             }
@@ -176,8 +179,8 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
             
             (this graph has a minimum number of vertex colors only if to swap (1) and (4) vertices)
             */
-            UndirectedGraph<char, Edge<char>> graph = CreateTestGraph();
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var graph = CreateTestGraph();
+            var algorithm = new VertexColoringAlgorithm<char, IEdge<char>>(graph);
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;
@@ -208,9 +211,9 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
 
             #region Local function
 
-            UndirectedGraph<char, Edge<char>> CreateTestGraph()
+            UndirectedGraph<char, IEdge<char>> CreateTestGraph()
             {
-                var g = new UndirectedGraph<char, Edge<char>>(true);
+                var g = new UndirectedGraph<char, IEdge<char>>(true);
 
                 g.AddVertex('0'); // 1 Vertex
                 g.AddVertex('1'); // 2 Vertex
@@ -221,13 +224,13 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
                 g.AddVertex('6'); // 7 Vertex
                 g.AddVertex('7'); // 8 Vertex
 
-                g.AddEdge(new Edge<char>('0', '4')); // 1 Edge
-                g.AddEdge(new Edge<char>('1', '2')); // 2 Edge
-                g.AddEdge(new Edge<char>('1', '3')); // 3 Edge
-                g.AddEdge(new Edge<char>('2', '4')); // 4 Edge
-                g.AddEdge(new Edge<char>('3', '4')); // 5 Edge
-                g.AddEdge(new Edge<char>('5', '7')); // 6 Edge
-                g.AddEdge(new Edge<char>('7', '0')); // 7 Edge
+                g.AddEdge(Edge.Create('0', '4')); // 1 Edge
+                g.AddEdge(Edge.Create('1', '2')); // 2 Edge
+                g.AddEdge(Edge.Create('1', '3')); // 3 Edge
+                g.AddEdge(Edge.Create('2', '4')); // 4 Edge
+                g.AddEdge(Edge.Create('3', '4')); // 5 Edge
+                g.AddEdge(Edge.Create('5', '7')); // 6 Edge
+                g.AddEdge(Edge.Create('7', '0')); // 7 Edge
 
                 return g;
             }
@@ -235,18 +238,22 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
             #endregion
         }
 
+        /// <summary> Generate undirected full graph </summary>
+        /// <remarks>
+        /// <pre>
+        ///    _____(2)_____
+        ///   /    / | \    \
+        /// (0)-(1)--+--(4)-(5) 
+        ///   \    \ | /    /
+        ///    \____(3)____/
+        ///  + edges: (0-4), (0-5) and (1-5)
+        /// </pre>
+        /// </remarks>
         [Test]
         public void VertexColoringCompleteGraph()
         {
-            /* 
-                                                _____(2)_____
-                                               /    / | \    \
-            Generate undirected full graph:  (0)-(1)--+--(4)-(5)  + edges: (0-4), (0-5) and (1-5)
-                                               \    \ | /    /
-                                                \____(3)____/
-            */
-            UndirectedGraph<char, Edge<char>> graph = CreateTestGraph();
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var graph = CreateTestGraph();
+            var algorithm = new VertexColoringAlgorithm<char, IEdge<char>>(graph);
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;
@@ -275,9 +282,9 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
 
             #region Local function
 
-            UndirectedGraph<char, Edge<char>> CreateTestGraph()
+            UndirectedGraph<char, IEdge<char>> CreateTestGraph()
             {
-                var g = new UndirectedGraph<char, Edge<char>>(true);
+                var g = new UndirectedGraph<char, IEdge<char>>(true);
 
                 g.AddVertex('0'); // 1 Vertex
                 g.AddVertex('1'); // 2 Vertex
@@ -286,21 +293,21 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
                 g.AddVertex('4'); // 5 Vertex
                 g.AddVertex('5'); // 6 Vertex
 
-                g.AddEdge(new Edge<char>('0', '1')); // 1  Edge
-                g.AddEdge(new Edge<char>('0', '2')); // 2  Edge
-                g.AddEdge(new Edge<char>('0', '3')); // 3  Edge
-                g.AddEdge(new Edge<char>('0', '4')); // 4  Edge
-                g.AddEdge(new Edge<char>('0', '5')); // 5  Edge
-                g.AddEdge(new Edge<char>('1', '2')); // 6  Edge
-                g.AddEdge(new Edge<char>('1', '3')); // 7  Edge
-                g.AddEdge(new Edge<char>('1', '4')); // 8  Edge
-                g.AddEdge(new Edge<char>('1', '5')); // 9  Edge
-                g.AddEdge(new Edge<char>('2', '3')); // 10 Edge
-                g.AddEdge(new Edge<char>('2', '4')); // 11 Edge
-                g.AddEdge(new Edge<char>('2', '5')); // 12 Edge
-                g.AddEdge(new Edge<char>('3', '4')); // 13 Edge
-                g.AddEdge(new Edge<char>('3', '5')); // 14 Edge
-                g.AddEdge(new Edge<char>('4', '5')); // 15 Edge
+                g.AddEdge(Edge.Create('0', '1')); // 1  Edge
+                g.AddEdge(Edge.Create('0', '2')); // 2  Edge
+                g.AddEdge(Edge.Create('0', '3')); // 3  Edge
+                g.AddEdge(Edge.Create('0', '4')); // 4  Edge
+                g.AddEdge(Edge.Create('0', '5')); // 5  Edge
+                g.AddEdge(Edge.Create('1', '2')); // 6  Edge
+                g.AddEdge(Edge.Create('1', '3')); // 7  Edge
+                g.AddEdge(Edge.Create('1', '4')); // 8  Edge
+                g.AddEdge(Edge.Create('1', '5')); // 9  Edge
+                g.AddEdge(Edge.Create('2', '3')); // 10 Edge
+                g.AddEdge(Edge.Create('2', '4')); // 11 Edge
+                g.AddEdge(Edge.Create('2', '5')); // 12 Edge
+                g.AddEdge(Edge.Create('3', '4')); // 13 Edge
+                g.AddEdge(Edge.Create('3', '5')); // 14 Edge
+                g.AddEdge(Edge.Create('4', '5')); // 15 Edge
 
                 return g;
             }
@@ -322,8 +329,8 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
             
             */
 
-            UndirectedGraph<char, Edge<char>> graph = CreateTestGraph();
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var graph = CreateTestGraph();
+            var algorithm = new VertexColoringAlgorithm<char, IEdge<char>>(graph);
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;
@@ -353,9 +360,9 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
 
             #region Local function
 
-            UndirectedGraph<char, Edge<char>> CreateTestGraph()
+            UndirectedGraph<char, IEdge<char>> CreateTestGraph()
             {
-                var g = new UndirectedGraph<char, Edge<char>>(true);
+                var g = new UndirectedGraph<char, IEdge<char>>(true);
 
                 g.AddVertex('0'); // 1 Vertex
                 g.AddVertex('1'); // 2 Vertex
@@ -365,15 +372,15 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
                 g.AddVertex('5'); // 6 Vertex
                 g.AddVertex('6'); // 7 Vertex
 
-                g.AddEdge(new Edge<char>('0', '4')); // 1 Edge
-                g.AddEdge(new Edge<char>('0', '5')); // 2 Edge
-                g.AddEdge(new Edge<char>('1', '3')); // 3 Edge
-                g.AddEdge(new Edge<char>('1', '4')); // 4 Edge
-                g.AddEdge(new Edge<char>('1', '5')); // 5 Edge
-                g.AddEdge(new Edge<char>('1', '6')); // 6 Edge
-                g.AddEdge(new Edge<char>('2', '5')); // 7 Edge
-                g.AddEdge(new Edge<char>('2', '6')); // 8 Edge
-                g.AddEdge(new Edge<char>('2', '4')); // 9 Edge
+                g.AddEdge(Edge.Create('0', '4')); // 1 Edge
+                g.AddEdge(Edge.Create('0', '5')); // 2 Edge
+                g.AddEdge(Edge.Create('1', '3')); // 3 Edge
+                g.AddEdge(Edge.Create('1', '4')); // 4 Edge
+                g.AddEdge(Edge.Create('1', '5')); // 5 Edge
+                g.AddEdge(Edge.Create('1', '6')); // 6 Edge
+                g.AddEdge(Edge.Create('2', '5')); // 7 Edge
+                g.AddEdge(Edge.Create('2', '6')); // 8 Edge
+                g.AddEdge(Edge.Create('2', '4')); // 9 Edge
 
                 return g;
             }

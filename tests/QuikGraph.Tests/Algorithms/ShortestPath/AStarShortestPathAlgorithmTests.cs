@@ -233,8 +233,8 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new AStarShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0, _ => 0.0);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new AStarShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0, _ => 0.0);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -267,9 +267,9 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(
-                () => new AStarShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0, _ => 0.0));
+                () => new AStarShortestPathAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0, _ => 0.0));
         }
 
         #endregion
@@ -417,16 +417,16 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
         [Pure]
         [NotNull]
-        public static AStarShortestPathAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static AStarShortestPathAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             [NotNull] ContractScenario<T> scenario)
         {
-            var graph = new AdjacencyGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new AdjacencyGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(Edge.Create));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
             double Heuristic(T v) => 1.0;
-            double Weights(Edge<T> e) => 1.0;
-            var algorithm = new AStarShortestPathAlgorithm<T, Edge<T>>(graph, Weights, Heuristic);
+            double Weights(IEdge<T> e) => 1.0;
+            var algorithm = new AStarShortestPathAlgorithm<T, IEdge<T>>(graph, Weights, Heuristic);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

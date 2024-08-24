@@ -187,7 +187,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex()
         {
-            var graph = new EdgeListGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new EdgeListGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_OnlyEdges_Test(graph);
         }
 
@@ -201,7 +201,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var graph = new EdgeListGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new EdgeListGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -226,7 +226,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var graph = new EdgeListGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new EdgeListGraph<TestVertex, IEdge<TestVertex>>();
             ContainsEdge_NullThrows_Test(graph);
         }
 
@@ -251,7 +251,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdge_Throws()
         {
-            var graph = new EdgeListGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new EdgeListGraph<TestVertex, IEdge<TestVertex>>();
             RemoveEdge_Throws_Test(graph);
         }
 
@@ -265,7 +265,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdgeIf_Throws()
         {
-            var graph = new EdgeListGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new EdgeListGraph<TestVertex, IEdge<TestVertex>>();
             RemoveEdgeIf_Throws_Test(graph);
         }
 

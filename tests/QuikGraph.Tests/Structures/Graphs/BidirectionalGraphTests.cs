@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using static QuikGraph.Tests.GraphTestHelpers;
+using NotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace QuikGraph.Tests.Structures
 {
@@ -61,14 +63,14 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertex()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             AddVertex_Test(graph);
         }
 
         [Test]
         public void AddVertex_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             AddVertex_Throws_Test(graph);
         }
 
@@ -82,14 +84,14 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void AddVertexRange()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             AddVertexRange_Test(graph);
         }
 
         [Test]
         public void AddVertexRange_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             AddVertexRange_Throws_Test(graph);
         }
 
@@ -185,7 +187,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_Test(graph);
         }
 
@@ -199,7 +201,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -231,7 +233,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             ContainsEdge_NullThrows_Test(graph);
             ContainsEdge_SourceTarget_Throws_Test(graph);
         }
@@ -250,7 +252,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdge_Throws()
         {
-            var graph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph1 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             OutEdge_NullThrows_Test(graph1);
 
             var graph2 = new BidirectionalGraph<int, IEdge<int>>();
@@ -267,7 +269,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void OutEdges_Throws()
         {
-            var graph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph1 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             OutEdges_NullThrows_Test(graph1);
         }
 
@@ -295,7 +297,7 @@ namespace QuikGraph.Tests.Structures
             var graph1 = new BidirectionalGraph<int, IEdge<int>>();
             InEdge_Throws_Test(graph1);
 
-            var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph2 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             InEdge_NullThrows_Test(graph2);
         }
 
@@ -309,7 +311,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void InEdges_Throws()
         {
-            var graph1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph1 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             InEdges_NullThrows_Test(graph1);
 
             var graph2 = new BidirectionalGraph<EquatableTestVertex, Edge<EquatableTestVertex>>();
@@ -344,7 +346,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             TryGetEdge_Throws_Test(graph);
         }
 
@@ -358,7 +360,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdges_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             TryGetEdges_Throws_Test(graph);
         }
 
@@ -372,7 +374,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetOutEdges_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             TryGetOutEdges_Throws_Test(graph);
         }
 
@@ -386,7 +388,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetInEdges_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             TryGetInEdges_Throws_Test(graph);
         }
 
@@ -395,7 +397,7 @@ namespace QuikGraph.Tests.Structures
         #region Merge
 
         public void Merge_Test(
-            [NotNull] IEnumerable<int> setupVertices,
+            [System.Diagnostics.CodeAnalysis.NotNull] IEnumerable<int> setupVertices,
             [NotNull, ItemNotNull] IEnumerable<EquatableEdge<int>> setupEdges,
             int vertexToMerge,
             int expectedEdgesAdded,
@@ -533,19 +535,20 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         public void Merge_Throws()
         {
             var graph1 = new BidirectionalGraph<int, IEdge<int>>();
             Assert.Throws<VertexNotFoundException>(() => graph1.MergeVertex(1, Edge.Create));
 
-            var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            Assert.Throws<ArgumentNullException>(() => graph2.MergeVertex(null, (source, target) => new Edge<TestVertex>(source, target)));
+            var graph2 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            Assert.Throws<ArgumentNullException>(() => graph2.MergeVertex(null, Edge.Create));
             Assert.Throws<ArgumentNullException>(() => graph2.MergeVertex(new TestVertex("1"), null));
             Assert.Throws<ArgumentNullException>(() => graph2.MergeVertex(null, null));
         }
 
         public void MergeIf_Test(
-            [NotNull] IEnumerable<int> setupVertices,
+            [System.Diagnostics.CodeAnalysis.NotNull] IEnumerable<int> setupVertices,
             [NotNull, ItemNotNull] IEnumerable<EquatableEdge<int>> setupEdges,
             [NotNull, InstantHandle] Func<int, bool> vertexPredicate,
             int expectedVerticesRemoved,
@@ -735,7 +738,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertex_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             RemoveVertex_Throws_Test(graph);
         }
 
@@ -752,7 +755,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveVertexIf_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             RemoveVertexIf_Throws_Test(graph);
         }
 
@@ -777,7 +780,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdge_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             RemoveEdge_Throws_Test(graph);
         }
 
@@ -791,7 +794,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveEdgeIf_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             RemoveEdgeIf_Throws_Test(graph);
         }
 
@@ -805,7 +808,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveOutEdgeIf_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             RemoveOutEdgeIf_Throws_Test(graph);
         }
 
@@ -819,7 +822,7 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void RemoveInEdgeIf_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             RemoveInEdgeIf_Throws_Test(graph);
         }
 
@@ -960,7 +963,7 @@ namespace QuikGraph.Tests.Structures
         public void ClearOutEdges_Throws()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new BidirectionalGraph<TestVertex, Edge<TestVertex>>().ClearOutEdges(null));
+            Assert.Throws<ArgumentNullException>(() => new BidirectionalGraph<TestVertex, IEdge<TestVertex>>().ClearOutEdges(null));
         }
 
         [Test]
@@ -1039,7 +1042,7 @@ namespace QuikGraph.Tests.Structures
         public void ClearInEdges_Throws()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new BidirectionalGraph<TestVertex, Edge<TestVertex>>().ClearInEdges(null));
+            Assert.Throws<ArgumentNullException>(() => new BidirectionalGraph<TestVertex, IEdge<TestVertex>>().ClearInEdges(null));
         }
 
         [Test]
@@ -1112,7 +1115,7 @@ namespace QuikGraph.Tests.Structures
         public void ClearEdges_Throws()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new BidirectionalGraph<TestVertex, Edge<TestVertex>>().ClearEdges(null));
+            Assert.Throws<ArgumentNullException>(() => new BidirectionalGraph<TestVertex, IEdge<TestVertex>>().ClearEdges(null));
         }
 
         #endregion

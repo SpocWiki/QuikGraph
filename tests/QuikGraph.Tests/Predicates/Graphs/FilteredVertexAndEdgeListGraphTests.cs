@@ -149,8 +149,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void ContainsVertex_Throws()
         {
-            var filteredGraph = new FilteredVertexAndEdgeListGraph<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(
-                new AdjacencyGraph<TestVertex, Edge<TestVertex>>(),
+            var filteredGraph = new FilteredVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
+                new AdjacencyGraph<TestVertex, IEdge<TestVertex>>(),
                 _ => true,
                 _ => true);
             ContainsVertex_Throws_Test(filteredGraph);
@@ -202,8 +202,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void ContainsEdge_Throws()
         {
-            var filteredGraph = new FilteredVertexAndEdgeListGraph<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(
-                new AdjacencyGraph<TestVertex, Edge<TestVertex>>(),
+            var filteredGraph = new FilteredVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
+                new AdjacencyGraph<TestVertex, IEdge<TestVertex>>(),
                 _ => true,
                 _ => true);
             ContainsEdge_NullThrows_Test(filteredGraph);
@@ -239,8 +239,8 @@ namespace QuikGraph.Tests.Predicates
                         vertexPredicate,
                         edgePredicate));
 
-            var graph2 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var filteredGraph2 = new FilteredVertexAndEdgeListGraph<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(
+            var graph2 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var filteredGraph2 = new FilteredVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
                 graph2,
                 _ => true,
                 _ => true);
@@ -309,8 +309,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void TryGetEdge_Throws()
         {
-            var filteredGraph = new FilteredVertexAndEdgeListGraph<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(
-                new AdjacencyGraph<TestVertex, Edge<TestVertex>>(),
+            var filteredGraph = new FilteredVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
+                new AdjacencyGraph<TestVertex, IEdge<TestVertex>>(),
                 _ => true,
                 _ => true);
             TryGetEdge_Throws_Test(filteredGraph);
@@ -332,8 +332,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void TryGetEdges_Throws()
         {
-            var filteredGraph = new FilteredVertexAndEdgeListGraph<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(
-                new AdjacencyGraph<TestVertex, Edge<TestVertex>>(),
+            var filteredGraph = new FilteredVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
+                new AdjacencyGraph<TestVertex, IEdge<TestVertex>>(),
                 _ => true,
                 _ => true);
             TryGetEdges_Throws_Test(filteredGraph);
@@ -356,8 +356,8 @@ namespace QuikGraph.Tests.Predicates
         public void TryGetOutEdges_Throws()
         {
             TryGetOutEdges_Throws_Test(
-                new FilteredVertexAndEdgeListGraph<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>(
-                    new AdjacencyGraph<TestVertex, Edge<TestVertex>>(),
+                new FilteredVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
+                    new AdjacencyGraph<TestVertex, IEdge<TestVertex>>(),
                     _ => true,
                     _ => true));
         }

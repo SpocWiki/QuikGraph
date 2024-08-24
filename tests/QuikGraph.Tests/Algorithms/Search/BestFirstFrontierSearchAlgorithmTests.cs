@@ -165,8 +165,8 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new BestFirstFrontierSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -210,8 +210,8 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void SetTargetVertex_Throws()
         {
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new BestFirstFrontierSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             SetTargetVertex_Throws_Test(algorithm);
         }
 
@@ -239,8 +239,8 @@ namespace QuikGraph.Tests.Algorithms.Search
             var algorithm1 = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph1, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             ComputeWithRootAndTarget_Throws_Test(graph1, algorithm1);
 
-            var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm2 = new BestFirstFrontierSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph2, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var graph2 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm2 = new BestFirstFrontierSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph2, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             ComputeWithRootAndTarget_Throws_Test(algorithm2);
         }
 

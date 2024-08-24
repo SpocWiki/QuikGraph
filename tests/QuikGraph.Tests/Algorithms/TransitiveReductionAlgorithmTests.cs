@@ -157,17 +157,17 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void TransitiveReduction_ReferenceType2()
         {
-            var edge01 = new Edge<int>(0, 1);
-            var edge02 = new Edge<int>(0, 2);
-            var edge03 = new Edge<int>(0, 3);
-            var edge23 = new Edge<int>(2, 3);
-            var edge24 = new Edge<int>(2, 4);
-            var edge25 = new Edge<int>(2, 5);
-            var edge35 = new Edge<int>(3, 5);
-            var edge45 = new Edge<int>(4, 5);
-            var edge65 = new Edge<int>(6, 5);
-            var edge67 = new Edge<int>(6, 7);
-            var edge74 = new Edge<int>(7, 4);
+            var edge01 = Edge.Create(0, 1);
+            var edge02 = Edge.Create(0, 2);
+            var edge03 = Edge.Create(0, 3);
+            var edge23 = Edge.Create(2, 3);
+            var edge24 = Edge.Create(2, 4);
+            var edge25 = Edge.Create(2, 5);
+            var edge35 = Edge.Create(3, 5);
+            var edge45 = Edge.Create(4, 5);
+            var edge65 = Edge.Create(6, 5);
+            var edge67 = Edge.Create(6, 7);
+            var edge74 = Edge.Create(7, 4);
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdgeRange(
                 edge01, edge02, edge03, edge23, edge24, edge25, edge35, edge45, edge65, edge67, edge74
@@ -189,15 +189,15 @@ namespace QuikGraph.Tests.Algorithms
             const string vertex1 = "/test";
             const string vertex2 = "/test/123";
             const string vertex3 = "/test/notlinked";
-            var edge12 = new Edge<string>(vertex1, vertex2);
+            var edge12 = Edge.Create(vertex1, vertex2);
 
-            var graph = new AdjacencyGraph<string, Edge<string>>();
+            var graph = new AdjacencyGraph<string, IEdge<string>>();
             graph.AddVertexRange( vertex1, vertex2, vertex3 );
             graph.AddEdge(edge12);
 
-            BidirectionalGraph<string, Edge<string>> result = graph.ComputeTransitiveReduction();
+            BidirectionalGraph<string, IEdge<string>> result = graph.ComputeTransitiveReduction();
             result.AssertHasVertices(new List<string> { vertex1, vertex2, vertex3 }.AsReadOnly());
-            var expected = new List<Edge<string>> { edge12 }.AsReadOnly();
+            var expected = new List<IEdge<string>> { edge12 }.AsReadOnly();
             result.AssertHasEdges(expected);
 
             // Idempotency:

@@ -19,9 +19,9 @@ namespace QuikGraph.Tests.Extensions
 
             var v1 = new TestVertex("1");
             var v2 = new TestVertex("2");
-            var edge4 = new Edge<TestVertex>(v1, v1);
-            var edge5 = new Edge<TestVertex>(v1, v2);
-            var edge6 = new Edge<TestVertex>(v2, v1);
+            var edge4 = Edge.Create(v1, v1);
+            var edge5 = Edge.Create(v1, v2);
+            var edge6 = Edge.Create(v2, v1);
 
             Assert.IsTrue(edge1.IsSelfEdge());
             Assert.IsFalse(edge2.IsSelfEdge());
@@ -32,12 +32,12 @@ namespace QuikGraph.Tests.Extensions
 
             // Edges cases
             var v1Bis = new TestVertex("1");
-            var edge7 = new Edge<TestVertex>(v1, v1Bis);
+            var edge7 = Edge.Create(v1, v1Bis);
             Assert.IsFalse(edge7.IsSelfEdge());
 
             var equatableV1 = new EquatableTestVertex("1");
             var equatableV1Bis = new EquatableTestVertex("1");
-            var edge8 = new Edge<EquatableTestVertex>(equatableV1, equatableV1Bis);
+            var edge8 = Edge.Create(equatableV1, equatableV1Bis);
             Assert.IsTrue(edge8.IsSelfEdge());
         }
 
@@ -58,9 +58,9 @@ namespace QuikGraph.Tests.Extensions
 
             var v1 = new TestVertex("1");
             var v2 = new TestVertex("2");
-            var edge4 = new Edge<TestVertex>(v1, v1);
-            var edge5 = new Edge<TestVertex>(v1, v2);
-            var edge6 = new Edge<TestVertex>(v2, v1);
+            var edge4 = Edge.Create(v1, v1);
+            var edge5 = Edge.Create(v1, v2);
+            var edge6 = Edge.Create(v2, v1);
 
             Assert.AreEqual(1, edge1.GetOtherVertex(1));
             Assert.AreEqual(2, edge2.GetOtherVertex(1));
@@ -81,7 +81,7 @@ namespace QuikGraph.Tests.Extensions
             var equatableV1 = new EquatableTestVertex("1");
             var equatableV2 = new EquatableTestVertex("2");
             var equatableV1Bis = new EquatableTestVertex("1");
-            var edge8 = new Edge<EquatableTestVertex>(equatableV1, equatableV2);
+            var edge8 = Edge.Create(equatableV1, equatableV2);
             Assert.AreSame(equatableV2, edge8.GetOtherVertex(equatableV1Bis));
         }
 
@@ -92,7 +92,7 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<ArgumentNullException>(() => ((Edge<int>)null).GetOtherVertex(1));
 
-            var testEdge = new Edge<TestVertex>(new TestVertex("1"), new TestVertex("2"));
+            var testEdge = Edge.Create(new TestVertex("1"), new TestVertex("2"));
             Assert.Throws<ArgumentNullException>(() => testEdge.GetOtherVertex(null));
 
             Assert.Throws<ArgumentNullException>(() => ((Edge<TestVertex>)null).GetOtherVertex(null));
@@ -110,9 +110,9 @@ namespace QuikGraph.Tests.Extensions
             var v1 = new TestVertex("1");
             var v2 = new TestVertex("2");
             var vNotInEdge = new TestVertex("1");
-            var edge4 = new Edge<TestVertex>(v1, v1);
-            var edge5 = new Edge<TestVertex>(v1, v2);
-            var edge6 = new Edge<TestVertex>(v2, v1);
+            var edge4 = Edge.Create(v1, v1);
+            var edge5 = Edge.Create(v1, v2);
+            var edge6 = Edge.Create(v2, v1);
 
             Assert.IsTrue(edge1.IsAdjacent(1));
             Assert.IsFalse(edge1.IsAdjacent(2));
@@ -136,7 +136,7 @@ namespace QuikGraph.Tests.Extensions
             var equatableV2 = new EquatableTestVertex("2");
             var equatableV3 = new EquatableTestVertex("3");
             var equatableV1Bis = new EquatableTestVertex("1");
-            var edge8 = new Edge<EquatableTestVertex>(equatableV1, equatableV2);
+            var edge8 = Edge.Create(equatableV1, equatableV2);
             Assert.IsTrue(edge8.IsAdjacent(equatableV1Bis));
             Assert.IsFalse(edge8.IsAdjacent(equatableV3));
         }
@@ -148,7 +148,7 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<ArgumentNullException>(() => ((Edge<int>)null).IsAdjacent(1));
 
-            var testEdge = new Edge<TestVertex>(new TestVertex("1"), new TestVertex("2"));
+            var testEdge = Edge.Create(new TestVertex("1"), new TestVertex("2"));
             Assert.Throws<ArgumentNullException>(() => testEdge.IsAdjacent(null));
 
             Assert.Throws<ArgumentNullException>(() => ((Edge<TestVertex>)null).IsAdjacent(null));
@@ -187,21 +187,21 @@ namespace QuikGraph.Tests.Extensions
             var v1 = new TestVertex("1");
             var v2 = new TestVertex("2");
             var v4 = new TestVertex("4");
-            var edge5 = new Edge<TestVertex>(v1, v1);
+            var edge5 = Edge.Create(v1, v1);
             // 1 -> 1
             Assert.IsTrue(new[] { edge5 }.IsPath());
 
-            var edge6 = new Edge<TestVertex>(v1, v2);
+            var edge6 = Edge.Create(v1, v2);
             // 1 -> 2
             Assert.IsTrue(new[] { edge6 }.IsPath());
 
-            var edge7 = new Edge<TestVertex>(v2, v1);
+            var edge7 = Edge.Create(v2, v1);
             // 1 -> 2 -> 1
             Assert.IsTrue(new[] { edge6, edge7 }.IsPath());
             // 1 -> 1 -> 2 -> 1 -> 1
             Assert.IsTrue(new[] { edge5, edge6, edge7, edge5 }.IsPath());
 
-            var edge8 = new Edge<TestVertex>(v1, v4);
+            var edge8 = Edge.Create(v1, v4);
             // 1 -> 2 -> 1 -> 4
             Assert.IsTrue(new[] { edge6, edge7, edge8 }.IsPath());
             // 1 -> 2 -> 1 -> 4-1 -> 2
@@ -212,7 +212,7 @@ namespace QuikGraph.Tests.Extensions
 
             // Edge cases
             var v2Bis = new TestVertex("2");
-            var edge9 = new Edge<TestVertex>(v2Bis, v1);
+            var edge9 = Edge.Create(v2Bis, v1);
             // 1 -> 1 -> 2-2Bis -> 1 -> 1 -> 1
             Assert.IsFalse(new[] { edge5, edge6, edge9, edge5 }.IsPath());
 
@@ -220,10 +220,10 @@ namespace QuikGraph.Tests.Extensions
             var equatableV2 = new EquatableTestVertex("2");
             var equatableV2Bis = new EquatableTestVertex("2");
             var equatableV4 = new EquatableTestVertex("4");
-            var edge10 = new Edge<EquatableTestVertex>(equatableV1, equatableV1);
-            var edge11 = new Edge<EquatableTestVertex>(equatableV1, equatableV2);
-            var edge12 = new Edge<EquatableTestVertex>(equatableV2Bis, equatableV1);
-            var edge13 = new Edge<EquatableTestVertex>(equatableV1, equatableV4);
+            var edge10 = Edge.Create(equatableV1, equatableV1);
+            var edge11 = Edge.Create(equatableV1, equatableV2);
+            var edge12 = Edge.Create(equatableV2Bis, equatableV1);
+            var edge13 = Edge.Create(equatableV1, equatableV4);
             // 1 -> 1 -> 2-2Bis -> 1 -> 4
             Assert.IsTrue(new[] { edge10, edge11, edge12, edge13 }.IsPath());
         }
@@ -239,21 +239,21 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void HasCycles()
         {
-            Assert.IsFalse(Enumerable.Empty<IEdge<int>>().HasCycles<int, IEdge<int>>());
+            Assert.IsFalse(Enumerable.Empty<IEdge<int>>().HasCycles());
 
             var edge1 = Edge.Create(1, 1);
             // 1 -> 1
-            Assert.IsTrue(new[] { edge1 }.HasCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge1 }.HasCycles());
 
             var edge2 = Edge.Create(1, 2);
             // 1 -> 2
-            Assert.IsFalse(new[] { edge2 }.HasCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge2 }.HasCycles());
 
             var edge3 = Edge.Create(2, 1);
             // 1 -> 2 -> 1
-            Assert.IsTrue(new[] { edge2, edge3 }.HasCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge2, edge3 }.HasCycles());
             // 2 -> 1 -> 2
-            Assert.IsTrue(new[] { edge3, edge2 }.HasCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge3, edge2 }.HasCycles());
 
             var edge4 = Edge.Create(1, 4);
             var edge5 = Edge.Create(2, 3);
@@ -262,23 +262,23 @@ namespace QuikGraph.Tests.Extensions
             var edge8 = Edge.Create(3, 3);
             var edge9 = Edge.Create(4, 3);
             // 1 -> 2 -> 1 -> 4
-            Assert.IsTrue(new[] { edge2, edge3, edge4 }.HasCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge2, edge3, edge4 }.HasCycles());
             // 2 -> 1 -> 4 -> 3
-            Assert.IsFalse(new[] { edge3, edge4, edge9 }.HasCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge3, edge4, edge9 }.HasCycles());
             // 2 -> 1 -> 4 -> 3 -> 1
-            Assert.IsTrue(new[] { edge3, edge4, edge9, edge7 }.HasCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge3, edge4, edge9, edge7 }.HasCycles());
             // 2 -> 3 -> 4 -> 3 -> 3
-            Assert.IsTrue(new[] { edge5, edge6, edge9, edge8 }.HasCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge5, edge6, edge9, edge8 }.HasCycles());
 
             var edge10 = Edge.Create(2, 4);
             var edge11 = Edge.Create(3, 2);
             var edge12 = Edge.Create(2, 5);
             // 1 -> 4 -> 3 -> 2 -> 5
-            Assert.IsFalse(new[] { edge4, edge9, edge11, edge12 }.HasCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge4, edge9, edge11, edge12 }.HasCycles());
             // 1 -> 2 -> 4 -> 3 -> 2 -> 5
-            Assert.IsTrue(new[] { edge2, edge10, edge9, edge11, edge12 }.HasCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge2, edge10, edge9, edge11, edge12 }.HasCycles());
             // 1 -> 4 -> 3 -> 3 -> 2 -> 5
-            Assert.IsTrue(new[] { edge4, edge9, edge8, edge11, edge12 }.HasCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge4, edge9, edge8, edge11, edge12 }.HasCycles());
 
 
             var v1 = new TestVertex("1");
@@ -286,60 +286,60 @@ namespace QuikGraph.Tests.Extensions
             var v3 = new TestVertex("3");
             var v4 = new TestVertex("4");
             var v5 = new TestVertex("5");
-            var edge13 = new Edge<TestVertex>(v1, v1);
+            var edge13 = Edge.Create(v1, v1);
             // 1 -> 1
-            Assert.IsTrue(new[] { edge13 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge13 }.HasCycles());
 
-            var edge14 = new Edge<TestVertex>(v1, v2);
+            var edge14 = Edge.Create(v1, v2);
             // 1 -> 2
-            Assert.IsFalse(new[] { edge14 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge14 }.HasCycles());
 
-            var edge15 = new Edge<TestVertex>(v2, v1);
+            var edge15 = Edge.Create(v2, v1);
             // 1 -> 2 -> 1
-            Assert.IsTrue(new[] { edge14, edge15 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge14, edge15 }.HasCycles());
             // 2 -> 1 -> 2
-            Assert.IsTrue(new[] { edge15, edge14 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge15, edge14 }.HasCycles());
 
-            var edge16 = new Edge<TestVertex>(v1, v4);
-            var edge17 = new Edge<TestVertex>(v2, v3);
-            var edge18 = new Edge<TestVertex>(v3, v4);
-            var edge19 = new Edge<TestVertex>(v3, v1);
-            var edge20 = new Edge<TestVertex>(v3, v3);
-            var edge21 = new Edge<TestVertex>(v4, v3);
+            var edge16 = Edge.Create(v1, v4);
+            var edge17 = Edge.Create(v2, v3);
+            var edge18 = Edge.Create(v3, v4);
+            var edge19 = Edge.Create(v3, v1);
+            var edge20 = Edge.Create(v3, v3);
+            var edge21 = Edge.Create(v4, v3);
             // 1 -> 2 -> 1 -> 4
-            Assert.IsTrue(new[] { edge14, edge15, edge16 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge14, edge15, edge16 }.HasCycles());
             // 2 -> 1 -> 4 -> 3
-            Assert.IsFalse(new[] { edge15, edge16, edge21 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge15, edge16, edge21 }.HasCycles());
             // 2 -> 1 -> 4 -> 3 -> 1
-            Assert.IsTrue(new[] { edge15, edge16, edge21, edge19 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge15, edge16, edge21, edge19 }.HasCycles());
             // 2 -> 3 -> 4 -> 3 -> 3
-            Assert.IsTrue(new[] { edge17, edge18, edge21, edge20 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge17, edge18, edge21, edge20 }.HasCycles());
 
-            var edge22 = new Edge<TestVertex>(v2, v4);
-            var edge23 = new Edge<TestVertex>(v3, v2);
-            var edge24 = new Edge<TestVertex>(v2, v5);
+            var edge22 = Edge.Create(v2, v4);
+            var edge23 = Edge.Create(v3, v2);
+            var edge24 = Edge.Create(v2, v5);
             // 1 -> 4 -> 3 -> 2 -> 5
-            Assert.IsFalse(new[] { edge16, edge21, edge23, edge24 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge16, edge21, edge23, edge24 }.HasCycles());
             // 1 -> 2 -> 4 -> 3 -> 2 -> 5
-            Assert.IsTrue(new[] { edge14, edge22, edge21, edge23, edge24 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge14, edge22, edge21, edge23, edge24 }.HasCycles());
             // 1 -> 4 -> 3 -> 3 -> 2 -> 5
-            Assert.IsTrue(new[] { edge16, edge21, edge20, edge23, edge24 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge16, edge21, edge20, edge23, edge24 }.HasCycles());
 
             // Edge cases
             var v2Bis = new TestVertex("2");
-            var edge25 = new Edge<TestVertex>(v4, v2Bis);
+            var edge25 = Edge.Create(v4, v2Bis);
             // 1 -> 2 -> 4 -> 2Bis
-            Assert.IsFalse(new[] { edge14, edge22, edge25 }.HasCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge14, edge22, edge25 }.HasCycles());
 
             var equatableV1 = new EquatableTestVertex("1");
             var equatableV2 = new EquatableTestVertex("2");
             var equatableV2Bis = new EquatableTestVertex("2");
             var equatableV4 = new EquatableTestVertex("4");
-            var edge26 = new Edge<EquatableTestVertex>(equatableV1, equatableV2);
-            var edge27 = new Edge<EquatableTestVertex>(equatableV2, equatableV4);
-            var edge28 = new Edge<EquatableTestVertex>(equatableV4, equatableV2Bis);
+            var edge26 = Edge.Create(equatableV1, equatableV2);
+            var edge27 = Edge.Create(equatableV2, equatableV4);
+            var edge28 = Edge.Create(equatableV4, equatableV2Bis);
             // 1 -> 2 -> 4 -> 2Bis
-            Assert.IsTrue(new[] { edge26, edge27, edge28 }.HasCycles<EquatableTestVertex, Edge<EquatableTestVertex>>());
+            Assert.IsTrue(new[] { edge26, edge27, edge28 }.HasCycles());
         }
 
         [Test]
@@ -350,7 +350,7 @@ namespace QuikGraph.Tests.Extensions
             var edge14 = Edge.Create(1, 4); 
             var edge21 = Edge.Create(2, 1); 
             var edge43 = Edge.Create(4, 3); 
-            Assert.IsTrue(new[] { edge14, edge21, edge43 }.HasCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge14, edge21, edge43 }.HasCycles());
         }
 
         [Test]
@@ -358,27 +358,27 @@ namespace QuikGraph.Tests.Extensions
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).HasCycles<int, IEdge<int>>());
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).HasCycles());
         }
 
         [Test]
         public void IsPathWithoutCycles()
         {
-            Assert.IsTrue(Enumerable.Empty<IEdge<int>>().IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsTrue(Enumerable.Empty<IEdge<int>>().IsPathWithoutCycles());
 
             var edge1 = Edge.Create(1, 1);
             // 1 -> 1
-            Assert.IsFalse(new[] { edge1 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge1 }.IsPathWithoutCycles());
 
             var edge2 = Edge.Create(1, 2);
             // 1 -> 2
-            Assert.IsTrue(new[] { edge2 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge2 }.IsPathWithoutCycles());
 
             var edge3 = Edge.Create(2, 1);
             // 1 -> 2 -> 1
-            Assert.IsFalse(new[] { edge2, edge3 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge2, edge3 }.IsPathWithoutCycles());
             // 2 -> 1 -> 2
-            Assert.IsFalse(new[] { edge3, edge2 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge3, edge2 }.IsPathWithoutCycles());
 
             var edge4 = Edge.Create(1, 4);
             var edge5 = Edge.Create(2, 3);
@@ -387,26 +387,26 @@ namespace QuikGraph.Tests.Extensions
             var edge8 = Edge.Create(3, 3);
             var edge9 = Edge.Create(4, 3);
             // 1 -> 2 -> 1 -> 4
-            Assert.IsFalse(new[] { edge2, edge3, edge4 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge2, edge3, edge4 }.IsPathWithoutCycles());
             // 2 -> 1 -> 4 -> 3
-            Assert.IsTrue(new[] { edge3, edge4, edge9 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge3, edge4, edge9 }.IsPathWithoutCycles());
             // 2 -> 1 -> 4 -> 3 -> 1
-            Assert.IsFalse(new[] { edge3, edge4, edge9, edge7 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge3, edge4, edge9, edge7 }.IsPathWithoutCycles());
             // 2 -> 3 -> 4 -> 3 -> 3
-            Assert.IsFalse(new[] { edge5, edge6, edge9, edge8 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge5, edge6, edge9, edge8 }.IsPathWithoutCycles());
 
             var edge10 = Edge.Create(2, 4);
             var edge11 = Edge.Create(3, 2);
             var edge12 = Edge.Create(2, 5);
             // 1 -> 4 -> 3 -> 2 -> 5
-            Assert.IsTrue(new[] { edge4, edge9, edge11, edge12 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsTrue(new[] { edge4, edge9, edge11, edge12 }.IsPathWithoutCycles());
             // 1 -> 2 -> 4 -> 3 -> 2 -> 5
-            Assert.IsFalse(new[] { edge2, edge10, edge9, edge11, edge12 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge2, edge10, edge9, edge11, edge12 }.IsPathWithoutCycles());
             // 1 -> 4 -> 3 -> 3 -> 2 -> 5
-            Assert.IsFalse(new[] { edge4, edge9, edge8, edge11, edge12 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge4, edge9, edge8, edge11, edge12 }.IsPathWithoutCycles());
 
             // Not a path: 1 -> 2-4 -> 3
-            Assert.IsFalse(new[] { edge2, edge9 }.IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.IsFalse(new[] { edge2, edge9 }.IsPathWithoutCycles());
 
 
             var v1 = new TestVertex("1");
@@ -414,60 +414,60 @@ namespace QuikGraph.Tests.Extensions
             var v3 = new TestVertex("3");
             var v4 = new TestVertex("4");
             var v5 = new TestVertex("5");
-            var edge13 = new Edge<TestVertex>(v1, v1);
+            var edge13 = Edge.Create(v1, v1);
             // 1 -> 1
-            Assert.IsFalse(new[] { edge13 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge13 }.IsPathWithoutCycles());
 
-            var edge14 = new Edge<TestVertex>(v1, v2);
+            var edge14 = Edge.Create(v1, v2);
             // 1 -> 2
-            Assert.IsTrue(new[] { edge14 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge14 }.IsPathWithoutCycles());
 
-            var edge15 = new Edge<TestVertex>(v2, v1);
+            var edge15 = Edge.Create(v2, v1);
             // 1 -> 2 -> 1
-            Assert.IsFalse(new[] { edge14, edge15 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge14, edge15 }.IsPathWithoutCycles());
             // 2 -> 1 -> 2
-            Assert.IsFalse(new[] { edge15, edge14 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge15, edge14 }.IsPathWithoutCycles());
 
-            var edge16 = new Edge<TestVertex>(v1, v4);
-            var edge17 = new Edge<TestVertex>(v2, v3);
-            var edge18 = new Edge<TestVertex>(v3, v4);
-            var edge19 = new Edge<TestVertex>(v3, v1);
-            var edge20 = new Edge<TestVertex>(v3, v3);
-            var edge21 = new Edge<TestVertex>(v4, v3);
+            var edge16 = Edge.Create(v1, v4);
+            var edge17 = Edge.Create(v2, v3);
+            var edge18 = Edge.Create(v3, v4);
+            var edge19 = Edge.Create(v3, v1);
+            var edge20 = Edge.Create(v3, v3);
+            var edge21 = Edge.Create(v4, v3);
             // 1 -> 2 -> 1 -> 4
-            Assert.IsFalse(new[] { edge14, edge15, edge16 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge14, edge15, edge16 }.IsPathWithoutCycles());
             // 2 -> 1 -> 4 -> 3
-            Assert.IsTrue(new[] { edge15, edge16, edge21 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge15, edge16, edge21 }.IsPathWithoutCycles());
             // 2 -> 1 -> 4 -> 3 -> 1
-            Assert.IsFalse(new[] { edge15, edge16, edge21, edge19 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge15, edge16, edge21, edge19 }.IsPathWithoutCycles());
             // 2 -> 3 -> 4 -> 3 -> 3
-            Assert.IsFalse(new[] { edge17, edge18, edge21, edge20 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge17, edge18, edge21, edge20 }.IsPathWithoutCycles());
 
-            var edge22 = new Edge<TestVertex>(v2, v4);
-            var edge23 = new Edge<TestVertex>(v3, v2);
-            var edge24 = new Edge<TestVertex>(v2, v5);
+            var edge22 = Edge.Create(v2, v4);
+            var edge23 = Edge.Create(v3, v2);
+            var edge24 = Edge.Create(v2, v5);
             // 1 -> 4 -> 3 -> 2 -> 5
-            Assert.IsTrue(new[] { edge16, edge21, edge23, edge24 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge16, edge21, edge23, edge24 }.IsPathWithoutCycles());
             // 1 -> 2 -> 4 -> 3 -> 2 -> 5
-            Assert.IsFalse(new[] { edge14, edge22, edge21, edge23, edge24 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge14, edge22, edge21, edge23, edge24 }.IsPathWithoutCycles());
             // 1 -> 4 -> 3 -> 3 -> 2 -> 5
-            Assert.IsFalse(new[] { edge16, edge21, edge20, edge23, edge24 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsFalse(new[] { edge16, edge21, edge20, edge23, edge24 }.IsPathWithoutCycles());
 
             // Edge cases
             var v2Bis = new TestVertex("2");
-            var edge25 = new Edge<TestVertex>(v4, v2Bis);
+            var edge25 = Edge.Create(v4, v2Bis);
             // 1 -> 2 -> 4 -> 2Bis
-            Assert.IsTrue(new[] { edge14, edge22, edge25 }.IsPathWithoutCycles<TestVertex, Edge<TestVertex>>());
+            Assert.IsTrue(new[] { edge14, edge22, edge25 }.IsPathWithoutCycles());
 
             var equatableV1 = new EquatableTestVertex("1");
             var equatableV2 = new EquatableTestVertex("2");
             var equatableV2Bis = new EquatableTestVertex("2");
             var equatableV4 = new EquatableTestVertex("4");
-            var edge26 = new Edge<EquatableTestVertex>(equatableV1, equatableV2);
-            var edge27 = new Edge<EquatableTestVertex>(equatableV2, equatableV4);
-            var edge28 = new Edge<EquatableTestVertex>(equatableV4, equatableV2Bis);
+            var edge26 = Edge.Create(equatableV1, equatableV2);
+            var edge27 = Edge.Create(equatableV2, equatableV4);
+            var edge28 = Edge.Create(equatableV4, equatableV2Bis);
             // 1 -> 2 -> 4 -> 2Bis
-            Assert.IsFalse(new[] { edge26, edge27, edge28 }.IsPathWithoutCycles<EquatableTestVertex, Edge<EquatableTestVertex>>());
+            Assert.IsFalse(new[] { edge26, edge27, edge28 }.IsPathWithoutCycles());
         }
 
         [Test]
@@ -475,7 +475,7 @@ namespace QuikGraph.Tests.Extensions
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).IsPathWithoutCycles<int, IEdge<int>>());
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).IsPathWithoutCycles());
         }
 
         [Test]
@@ -538,15 +538,15 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, Edge<TestVertex>>)null).IsPredecessor(v1, v2));
+                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(v1, v2));
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, Edge<TestVertex>>)null).IsPredecessor(null, v2));
+                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(null, v2));
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, Edge<TestVertex>>)null).IsPredecessor(v1, null));
+                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(v1, null));
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, Edge<TestVertex>>)null).IsPredecessor(null, null));
+                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).IsPredecessor(null, null));
 
-            var predecessors = new Dictionary<TestVertex, Edge<TestVertex>>();
+            var predecessors = new Dictionary<TestVertex, IEdge<TestVertex>>();
             Assert.Throws<ArgumentNullException>(
                 () => predecessors.IsPredecessor(null, v2));
             Assert.Throws<ArgumentNullException>(
@@ -614,11 +614,11 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, Edge<TestVertex>>)null).TryGetPath(v1, out _));
+                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).TryGetPath(v1, out _));
             Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, Edge<TestVertex>>)null).TryGetPath(null, out _));
+                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).TryGetPath(null, out _));
 
-            var predecessors = new Dictionary<TestVertex, Edge<TestVertex>>();
+            var predecessors = new Dictionary<TestVertex, IEdge<TestVertex>>();
             Assert.Throws<ArgumentNullException>(
                 () => predecessors.TryGetPath(null, out _));
             // ReSharper restore AssignNullToNotNullAttribute
@@ -657,7 +657,7 @@ namespace QuikGraph.Tests.Extensions
             Assert.Throws<ArgumentNullException>(
                 () => ((Edge<TestVertex>)null).UndirectedVertexEquality(null, null));
 
-            var edge = new Edge<TestVertex>(v1, v2);
+            var edge = Edge.Create(v1, v2);
             Assert.Throws<ArgumentNullException>(
                 () => edge.UndirectedVertexEquality(null, v2));
             Assert.Throws<ArgumentNullException>(
@@ -700,7 +700,7 @@ namespace QuikGraph.Tests.Extensions
             Assert.Throws<ArgumentNullException>(
                 () => ((Edge<TestVertex>)null).SortedVertexEquality(null, null));
 
-            var edge = new Edge<TestVertex>(v1, v2);
+            var edge = Edge.Create(v1, v2);
             Assert.Throws<ArgumentNullException>(
                 () => edge.SortedVertexEquality(null, v2));
             Assert.Throws<ArgumentNullException>(

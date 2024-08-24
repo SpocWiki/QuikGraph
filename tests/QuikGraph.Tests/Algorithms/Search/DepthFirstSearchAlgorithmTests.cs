@@ -225,8 +225,8 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new DepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new DepthFirstSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -259,9 +259,9 @@ namespace QuikGraph.Tests.Algorithms.Search
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(
-                () => new DepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+                () => new DepthFirstSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph));
         }
 
         #endregion
@@ -330,14 +330,14 @@ namespace QuikGraph.Tests.Algorithms.Search
 
         [Pure]
         [NotNull]
-        public static DepthFirstSearchAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static DepthFirstSearchAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             [NotNull] ContractScenario<T> scenario)
         {
-            var graph = new AdjacencyGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new AdjacencyGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(Edge.Create));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
-            var algorithm = new DepthFirstSearchAlgorithm<T, Edge<T>>(graph);
+            var algorithm = new DepthFirstSearchAlgorithm<T, IEdge<T>>(graph);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

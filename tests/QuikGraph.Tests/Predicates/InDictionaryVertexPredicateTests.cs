@@ -61,8 +61,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Predicate_Throws()
         {
-            var predicate = new InDictionaryVertexPredicate<TestVertex, Edge<TestVertex>>(
-                new Dictionary<TestVertex, Edge<TestVertex>>());
+            var predicate = new InDictionaryVertexPredicate<TestVertex, IEdge<TestVertex>>(
+                new Dictionary<TestVertex, IEdge<TestVertex>>());
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable once AssignNullToNotNullAttribute

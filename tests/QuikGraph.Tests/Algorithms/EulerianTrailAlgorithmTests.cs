@@ -160,8 +160,8 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new EulerianTrailAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new EulerianTrailAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -197,9 +197,9 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(()
-                => new EulerianTrailAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+                => new EulerianTrailAlgorithm<TestVertex, IEdge<TestVertex>>(graph));
         }
 
         #endregion Rooted algorithm
@@ -433,26 +433,22 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SingleEulerianTrailGraph()
         {
-            var edge1 = new Edge<char>('b', 'c');
-            var edge2 = new Edge<char>('f', 'a');
-            var edge3 = new Edge<char>('a', 'b');
-            var edge4 = new Edge<char>('c', 'd');
-            var edge5 = new Edge<char>('e', 'c');
-            var edge6 = new Edge<char>('d', 'e');
-            var edge7 = new Edge<char>('c', 'f');
+            var edge1 = Edge.Create('b', 'c');
+            var edge2 = Edge.Create('f', 'a');
+            var edge3 = Edge.Create('a', 'b');
+            var edge4 = Edge.Create('c', 'd');
+            var edge5 = Edge.Create('e', 'c');
+            var edge6 = Edge.Create('d', 'e');
+            var edge7 = Edge.Create('c', 'f');
 
-            var graph = new AdjacencyGraph<char, Edge<char>>();
+            var graph = new AdjacencyGraph<char, IEdge<char>>();
             graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7
             );
 
-            ComputeTrails(
-                graph,
-                (s, t) => new Edge<char>(s, t),
-                out ICollection<Edge<char>>[] trails,
-                out Edge<char>[] circuit);
+            ComputeTrails(graph, Edge.Create, out var trails, out var circuit);
 
-            Edge<char>[] expectedTrail = { edge3, edge1, edge4, edge6, edge5, edge7, edge2 };
+            IEdge<char>[] expectedTrail = { edge3, edge1, edge4, edge6, edge5, edge7, edge2 };
             Assert.AreEqual(1, trails.Length);
             Assert.IsTrue(trails[0].Cast<IEdge<char>>().IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
@@ -464,27 +460,23 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SingleEulerianTrailGraph2()
         {
-            var edge1 = new Edge<char>('b', 'c');
-            var edge2 = new Edge<char>('f', 'a');
-            var edge3 = new Edge<char>('a', 'b');
-            var edge4 = new Edge<char>('c', 'd');
-            var edge5 = new Edge<char>('e', 'c');
-            var edge6 = new Edge<char>('d', 'e');
-            var edge7 = new Edge<char>('c', 'f');
-            var edge8 = new Edge<char>('b', 'e');
+            var edge1 = Edge.Create('b', 'c');
+            var edge2 = Edge.Create('f', 'a');
+            var edge3 = Edge.Create('a', 'b');
+            var edge4 = Edge.Create('c', 'd');
+            var edge5 = Edge.Create('e', 'c');
+            var edge6 = Edge.Create('d', 'e');
+            var edge7 = Edge.Create('c', 'f');
+            var edge8 = Edge.Create('b', 'e');
 
-            var graph = new AdjacencyGraph<char, Edge<char>>();
+            var graph = new AdjacencyGraph<char, IEdge<char>>();
             graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8
             );
 
-            ComputeTrails(
-                graph,
-                (s, t) => new Edge<char>(s, t),
-                out ICollection<Edge<char>>[] trails,
-                out Edge<char>[] circuit);
+            ComputeTrails(graph, Edge.Create, out var trails, out var circuit);
 
-            Edge<char>[] expectedTrail = { edge3, edge1, edge4, edge6, edge5, edge7, edge2 };
+            IEdge<char>[] expectedTrail = { edge3, edge1, edge4, edge6, edge5, edge7, edge2 };
             Assert.AreEqual(1, trails.Length);
             Assert.IsTrue(trails[0].Cast<IEdge<char>>().IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
@@ -582,7 +574,7 @@ namespace QuikGraph.Tests.Algorithms
                 ComputeTrails(
                     graph,
                     graph.Vertices.First(),
-                    (s, t) => new Edge<string>(s, t),
+                    (s, t) => Edge.Create(s, t),
                     out _,
                     out _);
             });
@@ -591,28 +583,23 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void SingleRootedEulerianTrailGraph()
         {
-            var edge1 = new Edge<char>('b', 'c');
-            var edge2 = new Edge<char>('f', 'a');
-            var edge3 = new Edge<char>('a', 'b');
-            var edge4 = new Edge<char>('c', 'd');
-            var edge5 = new Edge<char>('e', 'c');
-            var edge6 = new Edge<char>('d', 'e');
-            var edge7 = new Edge<char>('c', 'f');
-            var edge8 = new Edge<char>('b', 'e');
+            var edge1 = Edge.Create('b', 'c');
+            var edge2 = Edge.Create('f', 'a');
+            var edge3 = Edge.Create('a', 'b');
+            var edge4 = Edge.Create('c', 'd');
+            var edge5 = Edge.Create('e', 'c');
+            var edge6 = Edge.Create('d', 'e');
+            var edge7 = Edge.Create('c', 'f');
+            var edge8 = Edge.Create('b', 'e');
 
-            var graph = new AdjacencyGraph<char, Edge<char>>();
+            var graph = new AdjacencyGraph<char, IEdge<char>>();
             graph.AddVerticesAndEdgeRange(
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8
             );
 
-            ComputeTrails(
-                graph,
-                'c',
-                (s, t) => new Edge<char>(s, t),
-                out ICollection<Edge<char>>[] trails,
-                out Edge<char>[] circuit);
+            ComputeTrails(graph, 'c', Edge.Create, out var trails, out var circuit);
 
-            Edge<char>[] expectedTrail = { edge4, edge6, edge5, edge7, edge2, edge3, edge1 };
+            IEdge<char>[] expectedTrail = { edge4, edge6, edge5, edge7, edge2, edge3, edge1 };
             Assert.AreEqual(1, trails.Length);
             Assert.IsTrue(trails[0].Cast<IEdge<char>>().IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
@@ -736,8 +723,8 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void RootedEulerianTrails_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new EulerianTrailAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new EulerianTrailAlgorithm<TestVertex, IEdge<TestVertex>>(graph);
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.Trails(null));
         }

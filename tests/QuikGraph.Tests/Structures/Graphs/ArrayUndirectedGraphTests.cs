@@ -105,10 +105,10 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex()
         {
-            var wrappedGraph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
+            var wrappedGraph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
             ContainsVertex_ImmutableGraph_Test(
                 wrappedGraph,
-                () => new ArrayUndirectedGraph<TestVertex, Edge<TestVertex>>(wrappedGraph));
+                () => new ArrayUndirectedGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph));
         }
 
         [Test]
@@ -123,8 +123,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsVertex_Throws()
         {
-            var wrappedGraph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ArrayUndirectedGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ArrayUndirectedGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -162,8 +162,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void ContainsEdge_Throws()
         {
-            var wrappedGraph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ArrayUndirectedGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ArrayUndirectedGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             ContainsEdge_NullThrows_Test(graph);
             ContainsEdge_SourceTarget_Throws_UndirectedGraph_Test(graph);
         }
@@ -201,8 +201,8 @@ namespace QuikGraph.Tests.Structures
                 wrappedGraph1, 
                 () => new ArrayUndirectedGraph<int, IEdge<int>>(wrappedGraph1));
 
-            var wrappedGraph2 = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            var graph2 = new ArrayUndirectedGraph<TestVertex, Edge<TestVertex>>(wrappedGraph2);
+            var wrappedGraph2 = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
+            var graph2 = new ArrayUndirectedGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph2);
             AdjacentEdge_NullThrows_Test(graph2);
         }
 
@@ -239,8 +239,8 @@ namespace QuikGraph.Tests.Structures
         [Test]
         public void TryGetEdge_Throws()
         {
-            var wrappedGraph = new UndirectedGraph<TestVertex, Edge<TestVertex>>();
-            var graph = new ArrayUndirectedGraph<TestVertex, Edge<TestVertex>>(wrappedGraph);
+            var wrappedGraph = new UndirectedGraph<TestVertex, IEdge<TestVertex>>();
+            var graph = new ArrayUndirectedGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
             TryGetEdge_Throws_UndirectedGraph_Test(graph);
         }
 

@@ -118,7 +118,7 @@ namespace QuikGraph.Tests.Algorithms.Contracts
         {
             var scenario = new ContractScenario<string>
             {
-                EdgesInGraph = new[] { new Edge<string>("1", "2") },
+                EdgesInGraph = new[] { Edge.Create("1", "2") },
                 SingleVerticesInGraph = new string[0],
                 AccessibleVerticesFromRoot = new[] { "2" },
                 Root = "1",
@@ -211,7 +211,7 @@ namespace QuikGraph.Tests.Algorithms.Contracts
         {
             var scenario = new ContractScenario<string>
             {
-                EdgesInGraph = new[] { new Edge<string>("1", "2") },
+                EdgesInGraph = new[] { Edge.Create("1", "2") },
                 SingleVerticesInGraph = new string[0],
                 AccessibleVerticesFromRoot = new[] { "2" },
                 Root = "1",

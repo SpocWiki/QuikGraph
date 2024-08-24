@@ -185,9 +185,9 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         [Test]
         public void SetRootVertex_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var chain = new NormalizedMarkovEdgeChain<TestVertex, Edge<TestVertex>>();
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<TestVertex, Edge<TestVertex>>(graph, chain);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var chain = new NormalizedMarkovEdgeChain<TestVertex, IEdge<TestVertex>>();
+            var algorithm = new CyclePoppingRandomTreeAlgorithm<TestVertex, IEdge<TestVertex>>(graph, chain);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -222,10 +222,10 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         [Test]
         public void ComputeWithRoot_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var chain = new NormalizedMarkovEdgeChain<TestVertex, Edge<TestVertex>>();
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var chain = new NormalizedMarkovEdgeChain<TestVertex, IEdge<TestVertex>>();
             ComputeWithUnknownRootOrNull_Throws_Test(
-                () => new CyclePoppingRandomTreeAlgorithm<TestVertex, Edge<TestVertex>>(graph, chain));
+                () => new CyclePoppingRandomTreeAlgorithm<TestVertex, IEdge<TestVertex>>(graph, chain));
         }
 
         #endregion
@@ -326,20 +326,20 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         [Test]
         public void GraphWithCycles()
         {
-            var graph = new AdjacencyGraph<char, Edge<char>>(true);
+            var graph = new AdjacencyGraph<char, IEdge<char>>(true);
             graph.AddVertexRange("12345");
             var edges = new[]
             {
-                new Edge<char>('1', '2'),
-                new Edge<char>('1', '3'),
-                new Edge<char>('1', '4'),
-                new Edge<char>('2', '1'),
-                new Edge<char>('2', '3'),
-                new Edge<char>('2', '4'),
-                new Edge<char>('3', '1'),
-                new Edge<char>('3', '2'),
-                new Edge<char>('3', '5'),
-                new Edge<char>('5', '2')
+                Edge.Create('1', '2'),
+                Edge.Create('1', '3'),
+                Edge.Create('1', '4'),
+                Edge.Create('2', '1'),
+                Edge.Create('2', '3'),
+                Edge.Create('2', '4'),
+                Edge.Create('3', '1'),
+                Edge.Create('3', '2'),
+                Edge.Create('3', '5'),
+                Edge.Create('5', '2')
             };
             graph.AddEdgeRange(edges);
 
@@ -399,15 +399,15 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
 
         [Pure]
         [NotNull]
-        public static CyclePoppingRandomTreeAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static CyclePoppingRandomTreeAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             [NotNull] ContractScenario<T> scenario)
         {
-            var graph = new AdjacencyGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new AdjacencyGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => Edge.Create(e.Source, e.Target)));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
-            var chain = new NormalizedMarkovEdgeChain<T, Edge<T>>();
+            var chain = new NormalizedMarkovEdgeChain<T, IEdge<T>>();
 
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<T, Edge<T>>(graph, chain);
+            var algorithm = new CyclePoppingRandomTreeAlgorithm<T, IEdge<T>>(graph, chain);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

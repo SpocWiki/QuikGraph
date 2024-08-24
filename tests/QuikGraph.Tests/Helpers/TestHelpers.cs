@@ -22,10 +22,10 @@ namespace QuikGraph.Tests
         /// <returns>List of edges.</returns>
         [Pure]
         [NotNull, ItemNotNull]
-        public static IEnumerable<Edge<TVertex>> CreateAllPairwiseEdges<TVertex>(
+        public static IEnumerable<IEdge<TVertex>> CreateAllPairwiseEdges<TVertex>(
             [NotNull, ItemNotNull] IEnumerable<TVertex> leftVertices,
             [NotNull, ItemNotNull] IEnumerable<TVertex> rightVertices,
-            [NotNull] EdgeFactory<TVertex, Edge<TVertex>> edgeFactory)
+            [NotNull] EdgeFactory<TVertex, IEdge<TVertex>> edgeFactory)
         {
             TVertex[] rightVerticesArray = rightVertices.ToArray();
 

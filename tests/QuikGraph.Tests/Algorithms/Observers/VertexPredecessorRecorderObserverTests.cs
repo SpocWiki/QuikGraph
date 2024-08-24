@@ -236,7 +236,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new VertexPredecessorRecorderObserver<TestVertex, Edge<TestVertex>>().TryGetPath(null, out _));
+                () => new VertexPredecessorRecorderObserver<TestVertex, IEdge<TestVertex>>().TryGetPath(null, out _));
         }
     }
 }

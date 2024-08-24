@@ -494,19 +494,19 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
         [Pure]
         [NotNull]
-        public static EdmondsKarpMaximumFlowAlgorithm<T, Edge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
+        public static EdmondsKarpMaximumFlowAlgorithm<T, IEdge<T>> CreateAlgorithmAndMaybeDoComputation<T>(
             [NotNull] ContractScenario<T> scenario)
         {
-            var graph = new AdjacencyGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            var graph = new AdjacencyGraph<T, IEdge<T>>();
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => Edge.Create(e.Source, e.Target)));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
-            double Capacities(Edge<T> edge) => 1.0;
-            Edge<T> EdgeFactory(T source, T target) => new Edge<T>(source, target);
-            var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<T, Edge<T>>(graph, EdgeFactory);
+            double Capacities(IEdge<T> edge) => 1.0;
+            IEdge<T> EdgeFactory(T source, T target) => Edge.Create(source, target);
+            var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<T, IEdge<T>>(graph, EdgeFactory);
             reverseEdgesAlgorithm.AddReversedEdges();
 
-            var algorithm = new EdmondsKarpMaximumFlowAlgorithm<T, Edge<T>>(graph, Capacities, EdgeFactory, reverseEdgesAlgorithm);
+            var algorithm = new EdmondsKarpMaximumFlowAlgorithm<T, IEdge<T>>(graph, Capacities, EdgeFactory, reverseEdgesAlgorithm);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root, scenario.AccessibleVerticesFromRoot.First());

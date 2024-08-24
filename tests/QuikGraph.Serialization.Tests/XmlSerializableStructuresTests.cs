@@ -206,8 +206,8 @@ namespace QuikGraph.Serialization.Tests
         [Test]
         public void XmlVertexList_Add_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var vertexList = new XmlSerializableGraph<TestVertex, Edge<TestVertex>, AdjacencyGraph<TestVertex, Edge<TestVertex>>>.XmlVertexList(graph);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var vertexList = new XmlSerializableGraph<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>.XmlVertexList(graph);
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => vertexList.Add(null));
         }

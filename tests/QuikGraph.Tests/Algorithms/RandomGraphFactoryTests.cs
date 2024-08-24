@@ -39,7 +39,7 @@ namespace QuikGraph.Tests.Algorithms
         public void GetVertex_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var graph2 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph2 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var random = new Random();
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
@@ -94,7 +94,7 @@ namespace QuikGraph.Tests.Algorithms
         public void GetEdge_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var graph2 = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
+            var graph2 = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var random = new Random();
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed

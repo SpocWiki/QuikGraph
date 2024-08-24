@@ -14,7 +14,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
     /// </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
-    internal sealed class BipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>
+    public sealed class BipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>
         : GraphAugmentorAlgorithmBase<TVertex, TEdge, IMutableVertexAndEdgeSet<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

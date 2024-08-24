@@ -80,8 +80,8 @@ namespace QuikGraph.Tests.Predicates
         [Test]
         public void Predicate_Throws()
         {
-            var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var predicate = new SinkVertexPredicate<TestVertex, Edge<TestVertex>>(graph);
+            var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
+            var predicate = new SinkVertexPredicate<TestVertex, IEdge<TestVertex>>(graph);
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.IsTrue(predicate.TestIsOutEdgesEmpty(new TestVertex("1")));
