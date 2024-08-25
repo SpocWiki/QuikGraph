@@ -416,21 +416,21 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateVertexAndEdgeListGraph<int, IEdge<int>>(
                 new[] { 1, 2, 3, 4 }, data.TryGetEdges);
-            TryGetOutEdges_Test(data, graph);
+            GetOutEdges_Test(data, graph);
         }
 
         [Test]
-        public void TryGetOutEdges_Throws()
+        public void GetOutEdges_Throws()
         {
             var graph = new DelegateVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>>(
                 Enumerable.Empty<TestVertex>(),
                 GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
-            TryGetOutEdges_Throws_Test(graph);
+            GetOutEdges_Throws_Test(graph);
         }
 
         #endregion

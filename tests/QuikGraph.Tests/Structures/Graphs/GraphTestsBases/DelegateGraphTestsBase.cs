@@ -578,7 +578,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
         }
 
-        protected static void TryGetOutEdges_Test(
+        protected static void GetOutEdges_Test(
             [NotNull] GraphData<int, IEdge<int>> data,
             [NotNull] IImplicitGraph<int, IEdge<int>> graph)
         {
@@ -599,7 +599,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(1);
         }
 
-        protected static void TryGetOutEdges_Test(
+        protected static void GetOutEdges_Test(
             [NotNull] GraphData<int, IEdge<int>> data,
             [NotNull] DelegateVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {

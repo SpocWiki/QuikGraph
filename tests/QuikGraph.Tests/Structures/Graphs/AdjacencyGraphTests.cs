@@ -305,17 +305,17 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            TryGetOutEdges_Test(graph);
+            GetOutEdges_Test(graph);
         }
 
         [Test]
-        public void TryGetOutEdges_Throws()
+        public void GetOutEdges_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
-            TryGetOutEdges_Throws_Test(graph);
+            GetOutEdges_Throws_Test(graph);
         }
 
         #endregion

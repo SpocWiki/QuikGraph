@@ -478,7 +478,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
             var graph = new ClusteredAdjacencyGraph<int, IEdge<int>>(wrappedGraph);
@@ -488,11 +488,11 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetOutEdges_Throws()
+        public void GetOutEdges_Throws()
         {
             var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = new ClusteredAdjacencyGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
-            TryGetOutEdges_Throws_Test(graph);
+            GetOutEdges_Throws_Test(graph);
         }
 
         #endregion

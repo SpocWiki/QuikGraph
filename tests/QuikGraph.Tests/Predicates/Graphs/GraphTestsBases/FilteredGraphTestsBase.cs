@@ -1854,7 +1854,7 @@ namespace QuikGraph.Tests.Predicates
             #endregion
         }
 
-        protected static void TryGetOutEdges_Test<TGraph>(
+        protected static void GetOutEdges_Test<TGraph>(
             [NotNull] TGraph wrappedGraph,
             [NotNull] Func<Func<int, bool>, Func<IEdge<int>, bool>, IImplicitGraph<int, IEdge<int>>> createFilteredGraph)
             where TGraph : IMutableVertexAndEdgeSet<int, IEdge<int>>, IMutableGraph<int, IEdge<int>>

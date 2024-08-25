@@ -359,20 +359,20 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var wrappedGraph = new AdjacencyGraph<int, IEdge<int>>();
-            TryGetOutEdges_ImmutableGraph_Test(
+            GetOutEdges_ImmutableGraph_Test(
                 wrappedGraph,
                 () => new BidirectionalAdapterGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
-        public void TryGetOutEdges_Throws()
+        public void GetOutEdges_Throws()
         {
             var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = new BidirectionalAdapterGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
-            TryGetOutEdges_Throws_Test(graph);
+            GetOutEdges_Throws_Test(graph);
         }
 
         [Test]

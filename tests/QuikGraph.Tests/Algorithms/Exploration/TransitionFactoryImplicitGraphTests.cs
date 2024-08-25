@@ -543,7 +543,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void OutEdges_Throws()
         {
             var graph2 = new TransitionFactoryImplicitGraph<EquatableCloneableTestVertex, Edge<EquatableCloneableTestVertex>>();
-            OutEdges_Throws_Test(graph2); //fails after removing TryGetOutEdges 
+            OutEdges_Throws_Test(graph2);
         }
 
         #endregion
@@ -551,7 +551,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         #region Try Get Edges
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var graph = new TransitionFactoryImplicitGraph<CloneableTestVertex, IEdge<CloneableTestVertex>>();
 
@@ -607,7 +607,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         }
 
         [Test]
-        public void TryGetOutEdges_WithFilter()
+        public void GetOutEdges_WithFilter()
         {
             var graph = new TransitionFactoryImplicitGraph<CloneableTestVertex, IEdge<CloneableTestVertex>>();
 
@@ -658,10 +658,10 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         }
 
         [Test]
-        public void TryGetOutEdges_Throws()
+        public void GetOutEdges_Throws()
         {
             var graph = new TransitionFactoryImplicitGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            TryGetOutEdges_Throws_Test(graph);
+            GetOutEdges_Throws_Test(graph);
         }
 
         #endregion

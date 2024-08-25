@@ -365,17 +365,17 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            TryGetOutEdges_Test(graph);
+            GetOutEdges_Test(graph);
         }
 
         [Test]
-        public void TryGetOutEdges_Throws()
+        public void GetOutEdges_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
-            TryGetOutEdges_Throws_Test(graph);
+            GetOutEdges_Throws_Test(graph);
         }
 
         [Test]

@@ -381,17 +381,17 @@ namespace QuikGraph.Tests.Predicates
         }
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            TryGetOutEdges_Test(graph, (vertexPredicate, edgePredicate)
+            GetOutEdges_Test(graph, (vertexPredicate, edgePredicate)
                 => graph.FilteredBiDir(vertexPredicate, edgePredicate));
         }
 
         [Test]
-        public void TryGetOutEdges_Throws()
+        public void GetOutEdges_Throws()
         {
-            TryGetOutEdges_Throws_Test(new BidirectionalGraph<TestVertex, IEdge<TestVertex>>()
+            GetOutEdges_Throws_Test(new BidirectionalGraph<TestVertex, IEdge<TestVertex>>()
                 .FilteredBiDir<TestVertex, IEdge<TestVertex>, BidirectionalGraph<TestVertex, IEdge<TestVertex>>>(
                     _ => true,
                     _ => true));

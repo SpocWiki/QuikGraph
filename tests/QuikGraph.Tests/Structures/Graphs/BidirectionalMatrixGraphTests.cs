@@ -235,10 +235,10 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var graph = new BidirectionalMatrixGraph<IEdge<int>>(6);
-            TryGetOutEdges_ImmutableVertices_Test(graph);
+            GetOutEdges_ImmutableVertices_Test(graph);
         }
 
         [Test]

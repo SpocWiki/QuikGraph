@@ -152,26 +152,6 @@ namespace QuikGraph
             return base.OutEdgesInternal(vertex)?.Where(outEdge => FilterEdges(outEdge, vertex));
         }
 
-        /// <inheritdoc />
-        internal override bool TryGetOutEdgesInternal(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (!ContainsVertexInternal(vertex))
-            {
-                edges = null;
-                return false;
-            }
-
-            // Ignore return because "vertex" exists in the graph
-            // so it should always return true.
-            base.TryGetOutEdgesInternal(vertex, out IEnumerable<TEdge> unfilteredOutEdges);
-
-            edges = unfilteredOutEdges is null
-                ? Enumerable.Empty<TEdge>()
-                : unfilteredOutEdges.Where(outEdge => FilterEdges(outEdge, vertex));
-
-            return true;
-        }
-
         #endregion
     }
 }

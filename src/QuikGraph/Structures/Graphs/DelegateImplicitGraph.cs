@@ -69,15 +69,6 @@ namespace QuikGraph
         /// <inheritdoc />
         public IEnumerable<TEdge> OutEdges(TVertex vertex) => OutEdgesInternal(vertex);
 
-        [Pure]
-        internal virtual bool TryGetOutEdgesInternal([NotNull] TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            return _tryGetOutEdgesFunc(vertex, out edges);
-        }
-
         /// <inheritdoc />
         public TEdge OutEdge(TVertex vertex, int index) => OutEdges(vertex)?.ElementAt(index);
 

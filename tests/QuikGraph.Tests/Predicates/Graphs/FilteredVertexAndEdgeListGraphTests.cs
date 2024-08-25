@@ -339,19 +339,19 @@ namespace QuikGraph.Tests.Predicates
         }
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            TryGetOutEdges_Test(graph,
+            GetOutEdges_Test(graph,
                 (vertexPredicate, edgePredicate) =>
                     new FilteredVertexAndEdgeListGraph<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(
                         graph, vertexPredicate, edgePredicate));
         }
 
         [Test]
-        public void TryGetOutEdges_Throws()
+        public void GetOutEdges_Throws()
         {
-            TryGetOutEdges_Throws_Test(
+            GetOutEdges_Throws_Test(
                 new FilteredVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
                     new AdjacencyGraph<TestVertex, IEdge<TestVertex>>(),
                     _ => true,

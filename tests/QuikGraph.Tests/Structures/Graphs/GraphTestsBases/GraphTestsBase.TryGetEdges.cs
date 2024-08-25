@@ -454,15 +454,13 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.AreEqual(new[] { edge1, edge2, edge3 }, gotEdges);
         }
 
-        protected static void TryGetOutEdges_Test(
+        protected static void GetOutEdges_Test(
             [NotNull] IMutableVertexAndEdgeListGraph<int, IEdge<int>> graph)
         {
-            GetOutEdges_Test(
-                graph,
-                edges => graph.AddVerticesAndEdgeRange(edges));
+            GetOutEdges_Test(graph, edges => graph.AddVerticesAndEdgeRange(edges));
         }
 
-        protected static void TryGetOutEdges_ImmutableGraph_Test(
+        protected static void GetOutEdges_ImmutableGraph_Test(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, IEdge<int>>> createGraph)
         {
@@ -489,7 +487,7 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.AreEqual(new[] { edge1, edge2, edge3 }, gotEdges);
         }
 
-        protected static void TryGetOutEdges_ImmutableGraph_Test(
+        protected static void GetOutEdges_ImmutableGraph_Test(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, SEquatableEdge<int>>> createGraph)
         {
@@ -525,7 +523,7 @@ namespace QuikGraph.Tests.Structures
                 gotEdges);
         }
 
-        protected static void TryGetOutEdges_ImmutableVertices_Test(
+        protected static void GetOutEdges_ImmutableVertices_Test(
             [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);
@@ -549,7 +547,7 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.AreEqual(new[] { edge1, edge2 }, gotEdges);
         }
 
-        protected static void TryGetOutEdges_ImmutableGraph_ReversedTest(
+        protected static void GetOutEdges_ImmutableGraph_ReversedTest(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IImplicitGraph<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {
@@ -576,7 +574,7 @@ namespace QuikGraph.Tests.Structures
             AssertSameReversedEdges(new[] { edge1, edge2, edge4 }, gotEdges);
         }
 
-        protected static void TryGetOutEdges_Throws_Test<TVertex, TEdge>(
+        protected static void GetOutEdges_Throws_Test<TVertex, TEdge>(
             [NotNull] IImplicitGraph<TVertex, TEdge> graph)
             where TVertex : class
             where TEdge : IEdge<TVertex>
