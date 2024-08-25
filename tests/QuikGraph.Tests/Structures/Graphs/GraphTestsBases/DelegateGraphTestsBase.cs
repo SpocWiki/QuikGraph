@@ -15,23 +15,6 @@ namespace QuikGraph.Tests.Structures
     {
         [Pure]
         [NotNull]
-        protected static TryFunc<TVertex, IEnumerable<TEdge>> EmptyTryGetter<TVertex, TEdge>()
-            where TEdge : IEdge<TVertex>
-        {
-            return (TVertex vertex, out IEnumerable<TEdge> edges) =>
-            {
-                if (vertex is null)
-                {
-                    throw new ArgumentNullException(nameof(vertex));
-                }
-
-                edges = null;
-                return false;
-            };
-        }
-
-        [Pure]
-        [NotNull]
         protected static Func<TVertex, IEnumerable<TEdge>> EmptyGetter<TVertex, TEdge>()
             where TEdge : IEdge<TVertex>
         {
