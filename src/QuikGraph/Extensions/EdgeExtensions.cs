@@ -265,16 +265,13 @@ namespace QuikGraph
         /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="predecessors">Predecessors map.</param>
         /// <param name="vertex">Path ending vertex.</param>
-        /// <param name="path">Path to the ending vertex.</param>
-        /// <returns>True if a path was found, false otherwise.</returns>
+        /// <returns>Path to the ending vertex, if a path was found, null otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="predecessors"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
-        [ContractAnnotation("=> true, path:notnull;=> false, path:null")]
-        public static bool TryGetPath<TVertex, TEdge>(
+        public static List<TEdge> GetPath<TVertex, TEdge>(
             [NotNull] this IDictionary<TVertex, TEdge> predecessors,
-            [NotNull] TVertex vertex,
-            [ItemNotNull] out List<TEdge> path)
+            [NotNull] TVertex vertex)
             where TEdge : IEdge<TVertex>
         {
             if (predecessors is null)
@@ -297,12 +294,10 @@ namespace QuikGraph
             if (computedPath.Count > 0)
             {
                 computedPath.Reverse();
-                path = computedPath;
-                return true;
+                return computedPath;
             }
 
-            path = null;
-            return false;
+            return null;
         }
 
         /// <summary>

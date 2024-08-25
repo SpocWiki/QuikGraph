@@ -149,13 +149,16 @@ namespace QuikGraph.Tests.Algorithms.Search
                 if (algorithm.VerticesColors[vertex] == GraphColor.White)
                 {
                     // Check !IsReachable(sourceVertex, vertex, graph);
-                    if (recorder.TryGetPath(vertex, out List<TEdge> path))
+                    var path = recorder.GetPath(vertex);
+                    if (path == null)
                     {
-                        foreach (TEdge edge in path)
-                        {
-                            Assert.AreNotEqual(sourceVertex, edge.Source);
-                            Assert.AreNotEqual(sourceVertex, edge.Target);
-                        }
+                        continue;
+                    }
+
+                    foreach (TEdge edge in path)
+                    {
+                        Assert.AreNotEqual(sourceVertex, edge.Source);
+                        Assert.AreNotEqual(sourceVertex, edge.Target);
                     }
                 }
             }

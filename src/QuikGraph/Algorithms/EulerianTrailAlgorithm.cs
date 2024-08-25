@@ -534,7 +534,8 @@ namespace QuikGraph.Algorithms
 
                         // Start new trail
                         // Take the shortest path from the start vertex to the target vertex
-                        if (!vis.TryGetPath(edge.Target, out List<TEdge> path))
+                        var path = vis.GetPath(edge.Target);
+                        if (path == null)
                             throw new InvalidOperationException();
                         trail = new List<TEdge>(path);
                     }
@@ -556,7 +557,8 @@ namespace QuikGraph.Algorithms
 
                         // Start new trail
                         // Take the shortest path from the start vertex to the target vertex
-                        if (!vis.TryGetPath(edge.Target, out List<TEdge> path))
+                        var path = vis.GetPath(edge.Target);
+                        if (path == null)
                             throw new InvalidOperationException();
                         trail = new List<TEdge>(path);
                     }

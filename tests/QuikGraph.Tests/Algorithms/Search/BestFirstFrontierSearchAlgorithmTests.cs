@@ -44,8 +44,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
             if (recorder.VerticesPredecessors.ContainsKey(target))
             {
-                Assert.IsTrue(recorder.TryGetPath(target, out List<TEdge> path));
-
+                var path = recorder.GetPath(target);
                 if (Equals(root, path.First().Source))
                     Assert.IsTrue(targetReached);
                 else

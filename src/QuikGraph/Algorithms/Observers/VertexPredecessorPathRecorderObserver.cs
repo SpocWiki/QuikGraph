@@ -45,7 +45,7 @@ namespace QuikGraph.Algorithms.Observers
         [Pure]
         [NotNull, ItemNotNull]
         public IEnumerable<List<TEdge>> AllPaths() => EndPathVertices
-                .Select(vertex => VerticesPredecessors.TryGetPath(vertex, out List<TEdge> path) ? path : null)
+                .Select(vertex => VerticesPredecessors.GetPath(vertex))
                 .Where(path => path != null);
 
         #region IObserver<TAlgorithm>

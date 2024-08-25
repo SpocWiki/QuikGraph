@@ -561,18 +561,16 @@ namespace QuikGraph.Tests.Extensions
         public void TryGetPath()
         {
             var predecessors = new Dictionary<int, IEdge<int>>();
-            Assert.IsFalse(predecessors.TryGetPath(2, out _));
+            Assert.IsNull(predecessors.GetPath(2));
 
             var edge1 = Edge.Create(0, 1);
             predecessors.Add(1, edge1);
-            Assert.IsFalse(predecessors.TryGetPath(2, out _));
+            Assert.IsNull(predecessors.GetPath(2));
 
             var edge2 = Edge.Create(0, 2);
             predecessors.Add(2, edge2);
-            Assert.IsTrue(predecessors.TryGetPath(2, out List<IEdge<int>> path));
-            CollectionAssert.AreEqual(
-                new[] { edge2 },
-                path);
+            var path = predecessors.GetPath(2);
+            CollectionAssert.AreEqual(new[] { edge2 }, path);
 
             var edge3 = Edge.Create(1, 3);
             var edge4 = Edge.Create(3, 4);
@@ -580,31 +578,23 @@ namespace QuikGraph.Tests.Extensions
             predecessors.Add(3, edge3);
             predecessors.Add(4, edge4);
             predecessors.Add(5, edge5);
-            Assert.IsTrue(predecessors.TryGetPath(2, out path));
-            CollectionAssert.AreEqual(
-                new[] { edge2 },
-                path);
+            path = predecessors.GetPath(2);
+            CollectionAssert.AreEqual(new[] { edge2 }, path);
 
             var edge6 = Edge.Create(1, 2);
             predecessors[2] = edge6;
-            Assert.IsTrue(predecessors.TryGetPath(2, out path));
-            CollectionAssert.AreEqual(
-                new[] { edge1, edge6 },
-                path);
+            path = predecessors.GetPath(2);
+            CollectionAssert.AreEqual(new[] { edge1, edge6 }, path);
 
             var edge7 = Edge.Create(4, 2);
             predecessors[2] = edge7;
-            Assert.IsTrue(predecessors.TryGetPath(2, out path));
-            CollectionAssert.AreEqual(
-                new[] { edge1, edge3, edge4, edge7 },
-                path);
+            path = predecessors.GetPath(2);
+            CollectionAssert.AreEqual(new[] { edge1, edge3, edge4, edge7 }, path);
 
             var edge8 = Edge.Create(3, 3);
             predecessors[3] = edge8;
-            Assert.IsTrue(predecessors.TryGetPath(2, out path));
-            CollectionAssert.AreEqual(
-                new[] { edge4, edge7 },
-                path);
+            path = predecessors.GetPath(2);
+            CollectionAssert.AreEqual(new[] { edge4, edge7 }, path);
         }
 
         [Test]
@@ -613,14 +603,11 @@ namespace QuikGraph.Tests.Extensions
             var v1 = new TestVertex("1");
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).TryGetPath(v1, out _));
-            Assert.Throws<ArgumentNullException>(
-                () => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).TryGetPath(null, out _));
+            Assert.Throws<ArgumentNullException>(() => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).GetPath(v1));
+            Assert.Throws<ArgumentNullException>(() => ((Dictionary<TestVertex, IEdge<TestVertex>>)null).GetPath(null));
 
             var predecessors = new Dictionary<TestVertex, IEdge<TestVertex>>();
-            Assert.Throws<ArgumentNullException>(
-                () => predecessors.TryGetPath(null, out _));
+            Assert.Throws<ArgumentNullException>(() => predecessors.GetPath(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }

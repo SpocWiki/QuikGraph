@@ -273,7 +273,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             using (observer.Attach(algorithm))
                 algorithm.Compute(v1);
 
-            Assert.IsTrue(observer.TryGetPath(v3, out _));
+            Assert.IsNotNull(observer.GetPath(v3));
         }
 
         [Pure]

@@ -415,12 +415,12 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             using (vis.Attach(algorithm))
                 algorithm.Compute(1);
 
-            Assert.IsTrue(vis.TryGetPath(2, out List<IEdge<int>> path));
+            var path = vis.GetPath(2);
             IEdge<int>[] pathArray = path.ToArray();
             Assert.AreEqual(1, pathArray.Length);
             Assert.AreEqual(e12, pathArray[0]);
 
-            Assert.IsTrue(vis.TryGetPath(3, out path));
+            path = vis.GetPath(3);
             pathArray = path.ToArray();
             Assert.AreEqual(2, pathArray.Length);
             Assert.AreEqual(e12, pathArray[0]);
@@ -464,12 +464,12 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             using (vis.Attach(algorithm))
                 algorithm.Compute(1);
 
-            Assert.IsTrue(vis.TryGetPath(2, out List<IEdge<int>> path));
+            var path = vis.GetPath(2);
             IEdge<int>[] pathArray = path.ToArray();
             Assert.AreEqual(1, pathArray.Length);
             Assert.AreEqual(e12, pathArray[0]);
 
-            Assert.IsTrue(vis.TryGetPath(3, out path));
+            path = vis.GetPath(3);
             pathArray = path.ToArray();
             Assert.AreEqual(1, pathArray.Length);
             Assert.AreEqual(e13, pathArray[0]);

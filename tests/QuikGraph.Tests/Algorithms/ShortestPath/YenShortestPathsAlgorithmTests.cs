@@ -128,7 +128,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             graph.AddEdgeRange(edges);
 
             var algorithm = new YenShortestPathsAlgorithm<char>(graph, '1', '5', 10);
-            YenShortestPathsAlgorithm<char>.SortedPath[] paths = algorithm.Execute().ToArray();
+            var paths = algorithm.Execute().ToArray();
 
             // Expecting to get 2 paths:
             // 1 => 1-2-3-5
@@ -162,7 +162,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             graph.AddEdgeRange(edges);
 
             var algorithm = new YenShortestPathsAlgorithm<string>(graph, "A", "D", 5);
-            YenShortestPathsAlgorithm<string>.SortedPath[] paths = algorithm.Execute().ToArray();
+            var paths = algorithm.Execute().ToArray();
 
             // Expecting to get 3 paths:
             // 1 => A-B-D
@@ -206,7 +206,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
             // K = 5
             var algorithmK5 = new YenShortestPathsAlgorithm<char>(graph, 'C', 'H', 5);
-            YenShortestPathsAlgorithm<char>.SortedPath[] paths = algorithmK5.Execute().ToArray();
+            var paths = algorithmK5.Execute().ToArray();
 
             // Expecting to get 5 paths:
             // 1 => C-E-F-H
@@ -250,7 +250,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
             #region Local function
 
-            void CheckFiveFirstPaths(YenShortestPathsAlgorithm<char>.SortedPath[] ps)
+            void CheckFiveFirstPaths(SortedPath<char>[] ps)
             {
                 // 1
                 EquatableTaggedEdge<char, double>[] path0 = ps[0].ToArray();
@@ -336,7 +336,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 // Generate simple graph
                 // like this https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
                 // but with directed edges input graph
-                YenShortestPathsAlgorithm<char>.SortedPath[] paths = yen.Execute().ToArray();
+                var paths = yen.Execute().ToArray();
 
                 // Expecting to get 3 paths:
                 // 1 => 1-3-4-5
@@ -374,15 +374,15 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 new (2, 3, 1.0),
                 new (3, 4, 1.0)
             };
-            var path1 = new YenShortestPathsAlgorithm<int>.SortedPath(edges);
-            var path2 = new YenShortestPathsAlgorithm<int>.SortedPath(edges);
+            var path1 = edges.ToSortedPath();
+            var path2 = edges.ToSortedPath();
 
-            var path3 = new YenShortestPathsAlgorithm<int>.SortedPath(new EquatableTaggedEdge<int, double>[]
+            var path3 = new EquatableTaggedEdge<int, double>[]
             {
                 new (1, 2, 1.0),
                 new (2, 3, 1.0),
                 new (3, 4, 1.0)
-            });
+            }.ToSortedPath();
 
             Assert.AreEqual(path1.GetHashCode(), path1.GetHashCode());
             Assert.AreNotEqual(path1.GetHashCode(), path2.GetHashCode());
@@ -400,12 +400,12 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 new (3, 4, 1.0)
             };
 
-            var path = new YenShortestPathsAlgorithm<int>.SortedPath(edges);
+            var path = edges.ToSortedPath();
             CollectionAssert.AreEqual(edges, path);
 
-            CollectionAssert.IsEmpty(
-                new YenShortestPathsAlgorithm<int>.SortedPath(
-                    Enumerable.Empty<EquatableTaggedEdge<int, double>>()));
+            CollectionAssert.IsEmpty(Enumerable
+                .Empty<EquatableTaggedEdge<int, double>>()
+                .ToSortedPath());
         }
     }
 }

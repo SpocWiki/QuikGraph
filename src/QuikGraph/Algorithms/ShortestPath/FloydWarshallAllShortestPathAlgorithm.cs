@@ -156,22 +156,15 @@ namespace QuikGraph.Algorithms.ShortestPath
             return false;
         }
 
-        /// <summary>
-        /// Tries to get the path that links both <paramref name="source"/>
-        /// and <paramref name="target"/> vertices.
-        /// </summary>
-        /// <param name="source">Source vertex.</param>
-        /// <param name="target">Target vertex.</param>
-        /// <param name="path">The found path, otherwise <see langword="null"/>.</param>
-        /// <returns>True if a path linking both vertices was found, false otherwise.</returns>
+        /// <summary> Tries to get the path that links both <paramref name="source"/> and <paramref name="target"/> vertices. </summary>
+        /// <returns>The path linking both vertices, if found, otherwise <see langword="null"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.InvalidOperationException">Failed to find a predecessor vertex while getting path.</exception>
-        [ContractAnnotation("=> true, path:notnull;=> false, path:null")]
-        public bool TryGetPath(
+        [CanBeNull]
+        public IEnumerable<TEdge> GetPath(
             [NotNull] TVertex source,
-            [NotNull] TVertex target,
-            out IEnumerable<TEdge> path)
+            [NotNull] TVertex target)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
@@ -180,18 +173,16 @@ namespace QuikGraph.Algorithms.ShortestPath
 
             if (EqualityComparer<TVertex>.Default.Equals(source, target))
             {
-                path = null;
-                return false;
+                return null;
             }
 
-            return TryGetPathInternal(source, target, out path);
+            return GetPathInternal(source, target);
         }
 
         [ContractAnnotation("=> true, path:notnull;=> false, path:null")]
-        private bool TryGetPathInternal(
+        private IEnumerable<TEdge> GetPathInternal(
             [NotNull] TVertex source,
-            [NotNull] TVertex target,
-            out IEnumerable<TEdge> path)
+            [NotNull] TVertex target)
         {
 #if DEBUG && !NET20
             var set = new HashSet<TVertex> { source, target };
@@ -232,16 +223,14 @@ namespace QuikGraph.Algorithms.ShortestPath
                 else
                 {
                     // No path found
-                    path = null;
-                    return false;
+                    return null;
                 }
             }
 
             Debug.Assert(todo.Count == 0);
             Debug.Assert(edges.Count > 0);
 
-            path = edges;
-            return true;
+            return edges;
         }
 
         #region AlgorithmBase<TGraph>

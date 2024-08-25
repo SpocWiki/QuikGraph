@@ -159,16 +159,19 @@ namespace QuikGraph.Tests.Algorithms.Search
             // All white vertices should be unreachable from the source.
             foreach (TVertex vertex in graph.Vertices)
             {
-                if (algorithm.VerticesColors[vertex] == GraphColor.White)
+                if (algorithm.VerticesColors[vertex] != GraphColor.White)
                 {
-                    // Check !IsReachable(sourceVertex, vertex, graph);
-                    if (recorder.TryGetPath(vertex, out List<TEdge> path))
+                    continue;
+                }
+
+                // Check !IsReachable(sourceVertex, vertex, graph);
+                var path = recorder.GetPath(vertex);
+                if (path != null)
+                {
+                    foreach (TEdge edge in path)
                     {
-                        foreach (TEdge edge in path)
-                        {
-                            Assert.AreNotEqual(sourceVertex, edge.Source);
-                            Assert.AreNotEqual(sourceVertex, edge.Target);
-                        }
+                        Assert.AreNotEqual(sourceVertex, edge.Source);
+                        Assert.AreNotEqual(sourceVertex, edge.Target);
                     }
                 }
             }

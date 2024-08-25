@@ -54,18 +54,11 @@ namespace QuikGraph.Algorithms.Observers
             VerticesPredecessors[args.Target] = args.Edge;
         }
 
-        /// <summary>
-        /// Tries to get the predecessor path, if reachable.
-        /// </summary>
+        /// <summary> Tries to get the predecessor path, if reachable. </summary>
         /// <param name="vertex">Path ending vertex.</param>
-        /// <param name="path">Path to the ending vertex.</param>
-        /// <returns>True if a path was found, false otherwise.</returns>
+        /// <returns>Path to the ending vertex, null if a path was not found.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
-        [ContractAnnotation("=> true, path:notnull;=> false, path:null")]
-        public bool TryGetPath([NotNull] TVertex vertex, [ItemNotNull] out List<TEdge> path)
-        {
-            return VerticesPredecessors.TryGetPath(vertex, out path);
-        }
+        public List<TEdge> GetPath([NotNull] TVertex vertex) => VerticesPredecessors.GetPath(vertex);
     }
 }

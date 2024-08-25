@@ -134,26 +134,26 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
             var algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
 
-            Assert.IsFalse(algorithm.TryGetPath(vertex1, vertex1, out _));
-            Assert.IsFalse(algorithm.TryGetPath(vertex1, vertex2, out _));
-            Assert.IsFalse(algorithm.TryGetPath(vertex1, vertex4, out _));
-            Assert.IsFalse(algorithm.TryGetPath(vertex1, vertex3, out _));
+            Assert.IsNull(algorithm.GetPath(vertex1, vertex1));
+            Assert.IsNull(algorithm.GetPath(vertex1, vertex2));
+            Assert.IsNull(algorithm.GetPath(vertex1, vertex4));
+            Assert.IsNull(algorithm.GetPath(vertex1, vertex3));
 
             algorithm.Compute();
 
-            Assert.IsFalse(algorithm.TryGetPath(vertex1, vertex1, out _));
+            Assert.IsNull(algorithm.GetPath(vertex1, vertex1));
 
-            Assert.IsTrue(algorithm.TryGetPath(vertex1, vertex2, out IEnumerable<IEdge<int>> path));
+            var path = algorithm.GetPath(vertex1, vertex2);
             CollectionAssert.AreEqual(
                 new[] { edge12 },
                 path);
 
-            Assert.IsTrue(algorithm.TryGetPath(vertex1, vertex4, out path));
+            path = algorithm.GetPath(vertex1, vertex4);
             CollectionAssert.AreEqual(
                 new[] { edge12, edge24 },
                 path);
 
-            Assert.IsFalse(algorithm.TryGetPath(vertex1, vertex3, out _));
+            Assert.IsNull(algorithm.GetPath(vertex1, vertex3));
         }
 
         [Test]
@@ -164,9 +164,9 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
             var vertex = new TestVertex();
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => algorithm1.TryGetPath(vertex, null, out _));
-            Assert.Throws<ArgumentNullException>(() => algorithm1.TryGetPath(null, vertex, out _));
-            Assert.Throws<ArgumentNullException>(() => algorithm1.TryGetPath(null, null, out _));
+            Assert.Throws<ArgumentNullException>(() => algorithm1.GetPath(vertex, null));
+            Assert.Throws<ArgumentNullException>(() => algorithm1.GetPath(null, vertex));
+            Assert.Throws<ArgumentNullException>(() => algorithm1.GetPath(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
         }
 

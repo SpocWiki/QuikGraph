@@ -158,7 +158,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                     dfs.Compute();
 
                     // Vertex not in the graph
-                    Assert.IsFalse(recorder.TryGetPath(2, out _));
+                    Assert.IsNull(recorder.GetPath(2));
                 }
             }
 
@@ -173,7 +173,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 {
                     dfs.Compute();
 
-                    Assert.IsFalse(recorder.TryGetPath(2, out _));
+                    Assert.IsNull(recorder.GetPath(2));
                 }
             }
 
@@ -198,7 +198,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 {
                     dfs.Compute();
 
-                    Assert.IsTrue(recorder.TryGetPath(4, out List<IEdge<int>> path));
+                    var path = recorder.GetPath(4);
                     CollectionAssert.AreEqual(new[] { edge12, edge24 }, path);
                 }
             }
@@ -225,7 +225,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 {
                     dfs.Compute();
 
-                    Assert.IsTrue(recorder.TryGetPath(4, out List<IEdge<int>> path));
+                    var path = recorder.GetPath(4);
                     CollectionAssert.AreEqual(new[] { edge12, edge24 }, path);
                 }
             }
@@ -236,7 +236,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new VertexPredecessorRecorderObserver<TestVertex, IEdge<TestVertex>>().TryGetPath(null, out _));
+                () => _ = new VertexPredecessorRecorderObserver<TestVertex, IEdge<TestVertex>>().GetPath(null));
         }
     }
 }
