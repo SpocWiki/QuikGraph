@@ -389,7 +389,7 @@ namespace QuikGraph.Tests.Structures
         {
             var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = new BidirectionalAdapterGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
-            TryGetInEdges_Throws_Test(graph);
+            GetInEdges_Throws_Test(graph);
         }
 
         #endregion

@@ -243,22 +243,6 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public bool TryGetInEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
-            {
-                edges = inOutEdges.InEdges.AsEnumerable();
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
-        /// <inheritdoc />
         public TEdge InEdge(TVertex vertex, int index)
         {
             if (vertex == null)

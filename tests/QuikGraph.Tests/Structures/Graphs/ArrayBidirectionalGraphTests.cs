@@ -338,7 +338,7 @@ namespace QuikGraph.Tests.Structures
         {
             var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             var graph = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
-            TryGetInEdges_Throws_Test(graph);
+            GetInEdges_Throws_Test(graph);
         }
 
         #endregion

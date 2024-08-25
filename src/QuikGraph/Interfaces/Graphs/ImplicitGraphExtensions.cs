@@ -58,17 +58,5 @@ namespace QuikGraph
         [Pure]
         public static bool? IsInEdgesEmpty<TVertex, TEdge>(this IBidirectionalIncidenceGraph<TVertex, TEdge> graph
             , TVertex vertex) where TEdge : IEdge<TVertex> => !graph.InEdges(vertex)?.Any(); //InDegree(vertex) == 0;
-
-        /// <summary> Tries to get the in-edges of <paramref name="vertex"/>. </summary>
-        /// <returns>True if <paramref name="vertex"/> was found or/and in-edges were found, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [ContractAnnotation("=> true, edges:notnull;=> false, edges:null")]
-        public static bool TryGetInEdges<TVertex, TEdge>(this IBidirectionalIncidenceGraph<TVertex, TEdge> graph
-            , TVertex vertex, [ItemNotNull] out IEnumerable<TEdge> edges) where TEdge : IEdge<TVertex>
-        {
-            edges = graph.InEdges(vertex);
-            return edges is null;
-        }
     }
 }

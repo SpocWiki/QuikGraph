@@ -722,16 +722,16 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0);
 
             data.ShouldReturnValue = false;
-            Assert.IsFalse(graph.TryGetInEdges(1, out _));
+            Assert.IsNull(graph.InEdges(1));
             data.CheckCalls(1);
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetInEdges(1, out IEnumerable<IEdge<int>> edges));
+            var edges = graph.InEdges(1);
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
             data.ShouldReturnEdges = new[] { Edge.Create(4, 1), Edge.Create(2, 1) };
-            Assert.IsTrue(graph.TryGetInEdges(1, out edges));
+            edges = graph.InEdges(1);
             CollectionAssert.AreEqual(data.ShouldReturnEdges, edges);
             data.CheckCalls(1);
         }

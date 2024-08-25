@@ -241,7 +241,11 @@ namespace QuikGraph
         /// <inheritdoc />
         public int? InDegree(int vertex)
         {
-            AssertIsInGraph(vertex);
+            //AssertIsInGraph(vertex);
+            if (!IsInGraph(vertex))
+            {
+                return null;
+            }
 
             int count = 0;
             for (int i = 0; i < VertexCount; ++i)
@@ -258,13 +262,20 @@ namespace QuikGraph
         /// <inheritdoc />
         public IEnumerable<TEdge> InEdges(int vertex)
         {
-            AssertIsInGraph(vertex);
-
-            for (int i = 0; i < VertexCount; ++i)
+            if (!IsInGraph(vertex))
             {
-                TEdge edge = _edges[i, vertex];
-                if (edge != null)
-                    yield return edge;
+                return null;
+            }
+
+            return InEdges();
+
+            IEnumerable<TEdge> InEdges() {
+                for (int i = 0; i < VertexCount; ++i)
+                {
+                    TEdge edge = _edges[i, vertex];
+                    if (edge != null)
+                        yield return edge;
+                }
             }
         }
 

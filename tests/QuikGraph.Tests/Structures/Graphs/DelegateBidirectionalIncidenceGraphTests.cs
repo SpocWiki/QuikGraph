@@ -244,7 +244,7 @@ namespace QuikGraph.Tests.Structures
             var graph = new DelegateBidirectionalIncidenceGraph<TestVertex, IEdge<TestVertex>>(
                 GetEmptyGetter<TestVertex, IEdge<TestVertex>>(),
                 GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
-            TryGetInEdges_Throws_Test(graph);
+            GetInEdges_Throws_Test(graph);
         }
 
         #endregion

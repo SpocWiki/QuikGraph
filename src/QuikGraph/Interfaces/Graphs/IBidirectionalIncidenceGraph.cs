@@ -16,21 +16,11 @@ namespace QuikGraph
         [Pure]
         int? InDegree([NotNull] TVertex vertex);
 
-        /// <summary> Returns the collection of in-edges of <paramref name="vertex"/>. </summary>
-        /// <returns> <see langword="null"/> when <paramref name="vertex"/> is not part of this Graph.</returns>
+        /// <summary> Returns the collection of in-edges of <paramref name="target"/>. </summary>
+        /// <returns> <see langword="null"/> when <paramref name="target"/> is not part of this Graph.</returns>
         [Pure]
         [ItemNotNull] [CanBeNull]
-        IEnumerable<TEdge> InEdges([NotNull] TVertex vertex);
-
-        /// <summary> Tries to get the in-edges of <paramref name="vertex"/>. </summary>
-        /// <param name="vertex">The vertex.</param>
-        /// <param name="edges">In-edges.</param>
-        /// <returns>True if <paramref name="vertex"/> was found or/and in-edges were found, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [ContractAnnotation("=> true, edges:notnull;=> false, edges:null")]
-        //[Obsolete("With [CanBeNull] Support use " + nameof(InEdges))]
-        bool TryGetInEdges([NotNull] TVertex vertex, [ItemNotNull] out IEnumerable<TEdge> edges);
+        IEnumerable<TEdge> InEdges([NotNull] TVertex target);
 
         /// <summary> Gets the in-edge at location <paramref name="index"/>. </summary>
         /// <param name="vertex">The vertex.</param>

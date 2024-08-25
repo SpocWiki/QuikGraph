@@ -597,15 +597,15 @@ namespace QuikGraph.Tests.Structures
 
             addVerticesAndEdgeRange(new[] { edge1, edge2, edge3, edge4, edge5, edge6, edge7 });
 
-            Assert.IsFalse(graph.TryGetInEdges(0, out _));
+            Assert.IsNull(graph.InEdges(0));
 
-            Assert.IsTrue(graph.TryGetInEdges(5, out IEnumerable<IEdge<int>> gotEdges));
+            var gotEdges = graph.InEdges(5);
             CollectionAssert.IsEmpty(gotEdges);
 
-            Assert.IsTrue(graph.TryGetInEdges(4, out gotEdges));
+            gotEdges = graph.InEdges(4);
             CollectionAssert.AreEqual(new[] { edge5 }, gotEdges);
 
-            Assert.IsTrue(graph.TryGetInEdges(2, out gotEdges));
+            gotEdges = graph.InEdges(2);
             CollectionAssert.AreEqual(new[] { edge1, edge2, edge4 }, gotEdges);
         }
 
@@ -632,15 +632,15 @@ namespace QuikGraph.Tests.Structures
             wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6, edge7 );
             IBidirectionalIncidenceGraph<int, IEdge<int>> graph = createGraph();
 
-            Assert.IsFalse(graph.TryGetInEdges(0, out _));
+            Assert.IsNull(graph.InEdges(0));
 
-            Assert.IsTrue(graph.TryGetInEdges(5, out IEnumerable<IEdge<int>> gotEdges));
+            var gotEdges = graph.InEdges(5);
             CollectionAssert.IsEmpty(gotEdges);
 
-            Assert.IsTrue(graph.TryGetInEdges(4, out gotEdges));
+            gotEdges = graph.InEdges(4);
             CollectionAssert.AreEqual(new[] { edge5 }, gotEdges);
 
-            Assert.IsTrue(graph.TryGetInEdges(2, out gotEdges));
+            gotEdges = graph.InEdges(2);
             CollectionAssert.AreEqual(new[] { edge1, edge2, edge4 }, gotEdges);
         }
 
@@ -656,15 +656,15 @@ namespace QuikGraph.Tests.Structures
 
             graph.AddEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6 );
 
-            Assert.IsFalse(graph.TryGetInEdges(6, out _));
+            Assert.IsNull(graph.InEdges(6));
 
-            Assert.IsTrue(graph.TryGetInEdges(5, out IEnumerable<IEdge<int>> gotEdges));
+            var gotEdges = graph.InEdges(5);
             CollectionAssert.IsEmpty(gotEdges);
 
-            Assert.IsTrue(graph.TryGetInEdges(4, out gotEdges));
+            gotEdges = graph.InEdges(4);
             CollectionAssert.AreEqual(new[] { edge4 }, gotEdges);
 
-            Assert.IsTrue(graph.TryGetInEdges(2, out gotEdges));
+            gotEdges = graph.InEdges(2);
             CollectionAssert.AreEqual(new[] { edge1, edge3 }, gotEdges);
         }
 
@@ -683,25 +683,25 @@ namespace QuikGraph.Tests.Structures
             wrappedGraph.AddVerticesAndEdgeRange( edge1, edge2, edge3, edge4, edge5, edge6, edge7 );
             IBidirectionalIncidenceGraph<int, SReversedEdge<int, IEdge<int>>> graph = createGraph();
 
-            Assert.IsFalse(graph.TryGetInEdges(0, out _));
+            Assert.IsNull(graph.InEdges(0));
 
-            Assert.IsTrue(graph.TryGetInEdges(5, out IEnumerable<SReversedEdge<int, IEdge<int>>> gotEdges));
+            var gotEdges = graph.InEdges(5);
             CollectionAssert.IsEmpty(gotEdges);
 
-            Assert.IsTrue(graph.TryGetInEdges(4, out gotEdges));
+            gotEdges = graph.InEdges(4);
             AssertSameReversedEdges(new[] { edge7 }, gotEdges);
 
-            Assert.IsTrue(graph.TryGetInEdges(1, out gotEdges));
+            gotEdges = graph.InEdges(1);
             AssertSameReversedEdges(new[] { edge1, edge2, edge3, edge4 }, gotEdges);
         }
 
-        protected static void TryGetInEdges_Throws_Test<TVertex, TEdge>(
+        protected static void GetInEdges_Throws_Test<TVertex, TEdge>(
             [NotNull] IBidirectionalIncidenceGraph<TVertex, TEdge> graph)
             where TVertex : class
             where TEdge : IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => graph.TryGetInEdges(null, out _));
+            Assert.Throws<ArgumentNullException>(() => graph.InEdges(null));
         }
 
         #endregion

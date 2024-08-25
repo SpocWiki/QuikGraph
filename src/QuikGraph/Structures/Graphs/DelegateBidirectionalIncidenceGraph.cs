@@ -56,15 +56,6 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public bool TryGetInEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            return _tryGetInEdgesFunc(vertex, out edges);
-        }
-
-        /// <inheritdoc />
         public TEdge InEdge(TVertex vertex, int index) => InEdges(vertex)?.ElementAt(index);
 
         /// <inheritdoc />

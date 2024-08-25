@@ -1976,14 +1976,14 @@ namespace QuikGraph.Tests.Predicates
                 vertex => vertex <= 4,
                 _ => true);
 
-            Assert.IsFalse(filteredGraph.TryGetInEdges(0, out _));
+            Assert.IsNull(filteredGraph.InEdges(0));
 
-            Assert.IsFalse(filteredGraph.TryGetInEdges(5, out _));  // Filtered
+            Assert.IsNull(filteredGraph.InEdges(5));  // Filtered
 
-            Assert.IsTrue(filteredGraph.TryGetInEdges(4, out IEnumerable<IEdge<int>> gotEdges));
+            var gotEdges = filteredGraph.InEdges(4);
             CollectionAssert.AreEqual(new[] { edge5 }, gotEdges);
 
-            Assert.IsTrue(filteredGraph.TryGetInEdges(2, out gotEdges));
+            gotEdges = filteredGraph.InEdges(2);
             CollectionAssert.AreEqual(new[] { edge1, edge2, edge4 }, gotEdges);
 
             #endregion
@@ -1996,15 +1996,15 @@ namespace QuikGraph.Tests.Predicates
                 _ => true,
                 edge => edge.Source != edge.Target);
 
-            Assert.IsFalse(filteredGraph.TryGetInEdges(0, out _));
+            Assert.IsNull(filteredGraph.InEdges(0));
 
-            Assert.IsTrue(filteredGraph.TryGetInEdges(5, out gotEdges));
+            gotEdges = filteredGraph.InEdges(5);
             CollectionAssert.IsEmpty(gotEdges);
 
-            Assert.IsTrue(filteredGraph.TryGetInEdges(4, out gotEdges));
+            gotEdges = filteredGraph.InEdges(4);
             CollectionAssert.AreEqual(new[] { edge5 }, gotEdges);
 
-            Assert.IsTrue(filteredGraph.TryGetInEdges(2, out gotEdges));
+            gotEdges = filteredGraph.InEdges(2);
             CollectionAssert.AreEqual(new[] { edge1, edge2 }, gotEdges);    // Filtered
 
             #endregion
@@ -2017,14 +2017,14 @@ namespace QuikGraph.Tests.Predicates
                 vertex => vertex <= 4,
                 edge => edge.Source != edge.Target);
 
-            Assert.IsFalse(filteredGraph.TryGetInEdges(0, out _));
+            Assert.IsNull(filteredGraph.InEdges(0));
 
-            Assert.IsFalse(filteredGraph.TryGetInEdges(5, out _));  // Filtered
+            Assert.IsNull(filteredGraph.InEdges(5));  // Filtered
 
-            Assert.IsTrue(filteredGraph.TryGetInEdges(4, out gotEdges));
+            gotEdges = filteredGraph.InEdges(4);
             CollectionAssert.AreEqual(new[] { edge5 }, gotEdges);
 
-            Assert.IsTrue(filteredGraph.TryGetInEdges(2, out gotEdges));
+            gotEdges = filteredGraph.InEdges(2);
             CollectionAssert.AreEqual(new[] { edge1, edge2 }, gotEdges);    // Filtered
 
             #endregion

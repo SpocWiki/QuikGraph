@@ -143,21 +143,6 @@ namespace QuikGraph
         public int? InDegree(TVertex vertex) => OriginalGraph.OutDegree(vertex);
 
         /// <inheritdoc />
-        [Obsolete("Obsolete")]
-        public bool TryGetInEdges(TVertex vertex, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
-        {
-            var outEdges = OriginalGraph.OutEdges(vertex);
-            if (outEdges != null)
-            {
-                edges = outEdges.ReverseEdges<TVertex, TEdge>();
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
-        /// <inheritdoc />
         public int? Degree(TVertex vertex) => OriginalGraph.Degree(vertex);
 
         #endregion

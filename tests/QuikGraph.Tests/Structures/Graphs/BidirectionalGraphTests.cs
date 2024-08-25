@@ -389,7 +389,7 @@ namespace QuikGraph.Tests.Structures
         public void TryGetInEdges_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
-            TryGetInEdges_Throws_Test(graph);
+            GetInEdges_Throws_Test(graph);
         }
 
         #endregion

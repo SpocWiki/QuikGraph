@@ -86,23 +86,6 @@ namespace QuikGraph.Predicates
         }
 
         /// <inheritdoc />
-        public bool TryGetInEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            if (VertexPredicate(vertex)
-                && BaseGraph.TryGetInEdges(vertex, out IEnumerable<TEdge> inEdges))
-            {
-                edges = inEdges.Where(FilterEdge);
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
-        /// <inheritdoc />
         public TEdge InEdge(TVertex vertex, int index)
         {
             if (vertex == null)
