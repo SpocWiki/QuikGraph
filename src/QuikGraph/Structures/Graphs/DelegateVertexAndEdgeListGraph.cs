@@ -78,10 +78,13 @@ namespace QuikGraph
         {
             if (edge == null)
                 throw new ArgumentNullException(nameof(edge));
+            var outEdges = OutEdges(edge.Source);
+            if (outEdges == null)
+            {
+                return false;
+            }
 
-            if (TryGetOutEdges(edge.Source, out IEnumerable<TEdge> outEdges))
-                return outEdges.Any(outEdge => EqualityComparer<TEdge>.Default.Equals(outEdge, edge));
-            return false;
+            return outEdges.Any(outEdge => EqualityComparer<TEdge>.Default.Equals(outEdge, edge));
         }
 
         #endregion

@@ -129,22 +129,6 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            if (_vertexOutEdges.TryGetValue(vertex, out TEdge[] outEdges))
-            {
-                edges = outEdges.AsEnumerable();
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
-        /// <inheritdoc />
         public TEdge OutEdge(TVertex vertex, int index)
         {
             if (vertex == null)

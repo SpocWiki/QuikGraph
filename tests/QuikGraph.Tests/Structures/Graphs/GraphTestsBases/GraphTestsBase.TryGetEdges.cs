@@ -539,7 +539,7 @@ namespace QuikGraph.Tests.Structures
 
             Assert.IsNull(graph.OutEdges(6));
 
-            Assert.IsTrue(graph.TryGetOutEdges(5, out IEnumerable<IEdge<int>> gotEdges));
+            var gotEdges = graph.OutEdges(5);
             CollectionAssert.IsEmpty(gotEdges);
 
             gotEdges = graph.OutEdges(3);

@@ -29,16 +29,6 @@ namespace QuikGraph
         [ItemNotNull] [CanBeNull]
         IEnumerable<TEdge> OutEdges([NotNull] TVertex vertex);
 
-        /// <summary> Tries to get the out-edges of <paramref name="vertex"/>. </summary>
-        /// <param name="vertex">The vertex.</param>
-        /// <param name="edges">Out-edges.</param>
-        /// <returns>True if <paramref name="vertex"/> was found or/and out-edges were found, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [ContractAnnotation("=> true, edges:notnull;=> false, edges:null")]
-        [Obsolete("Not CoVariant => With [CanBeNull] Support use " + nameof(OutEdges))]
-        bool TryGetOutEdges([NotNull] TVertex vertex, [ItemNotNull] out IEnumerable<TEdge> edges);
-
         /// <summary>
         /// Gets the out-edge of <paramref name="vertex"/> at position <paramref name="index"/>.
         /// </summary>

@@ -124,25 +124,8 @@ namespace QuikGraph
             => OriginalGraph.InEdges(vertex)?.ReverseEdges<TVertex, TEdge>();
 
         /// <inheritdoc />
-        public bool TryGetOutEdges(TVertex vertex,
-            out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
-        {
-            if (OriginalGraph.TryGetInEdges(vertex, out IEnumerable<TEdge> inEdges))
-            {
-                edges = inEdges.ReverseEdges<TVertex, TEdge>();
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
-        /// <inheritdoc />
         public SReversedEdge<TVertex, TEdge> OutEdge(TVertex vertex, int index)
-        {
-            return new SReversedEdge<TVertex, TEdge>(
-                OriginalGraph.InEdge(vertex, index));
-        }
+            => new SReversedEdge<TVertex, TEdge>(OriginalGraph.InEdge(vertex, index));
 
         #endregion
 
@@ -150,16 +133,11 @@ namespace QuikGraph
 
         /// <inheritdoc />
         public IEnumerable<SReversedEdge<TVertex, TEdge>> InEdges(TVertex vertex)
-        {
-            return OriginalGraph.OutEdges(vertex).ReverseEdges<TVertex, TEdge>();
-        }
+            => OriginalGraph.OutEdges(vertex)?.ReverseEdges<TVertex, TEdge>();
 
         /// <inheritdoc />
         public SReversedEdge<TVertex, TEdge> InEdge(TVertex vertex, int index)
-        {
-            return new SReversedEdge<TVertex, TEdge>(
-                OriginalGraph.OutEdge(vertex, index));
-        }
+            => new SReversedEdge<TVertex, TEdge>(OriginalGraph.OutEdge(vertex, index));
 
         /// <inheritdoc />
         public int? InDegree(TVertex vertex) => OriginalGraph.OutDegree(vertex);
@@ -168,7 +146,8 @@ namespace QuikGraph
         [Obsolete("Obsolete")]
         public bool TryGetInEdges(TVertex vertex, out IEnumerable<SReversedEdge<TVertex, TEdge>> edges)
         {
-            if (OriginalGraph.TryGetOutEdges(vertex, out IEnumerable<TEdge> outEdges))
+            var outEdges = OriginalGraph.OutEdges(vertex);
+            if (outEdges != null)
             {
                 edges = outEdges.ReverseEdges<TVertex, TEdge>();
                 return true;

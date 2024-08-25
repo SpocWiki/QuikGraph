@@ -215,19 +215,6 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public bool TryGetOutEdges(int vertex, out IEnumerable<TEdge> edges)
-        {
-            if (IsInGraph(vertex))
-            {
-                edges = OutEdges(vertex);
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
-        /// <inheritdoc />
         public TEdge OutEdge(int vertex, int index)
         {
             AssertIsInGraph(vertex);

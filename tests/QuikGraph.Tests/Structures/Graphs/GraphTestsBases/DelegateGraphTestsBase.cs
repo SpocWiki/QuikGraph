@@ -610,17 +610,17 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0); // Vertex is not in graph so no need to call user code
 
             data.ShouldReturnValue = true;
-            Assert.IsTrue(graph.TryGetOutEdges(1, out IEnumerable<IEdge<int>> edges));
+            var edges = graph.OutEdges(1);
             CollectionAssert.IsEmpty(edges);
             data.CheckCalls(1);
 
             data.ShouldReturnEdges = new[] { Edge.Create(1, 4), Edge.Create(1, 2) };
-            Assert.IsTrue(graph.TryGetOutEdges(1, out edges));
+            edges = graph.OutEdges(1);
             CollectionAssert.AreEqual(data.ShouldReturnEdges, edges);
             data.CheckCalls(1);
 
             data.ShouldReturnEdges = null;
-            Assert.IsTrue(graph.TryGetOutEdges(1, out IEnumerable<IEdge<int>> outEdges));
+            var outEdges = graph.OutEdges(1);
             CollectionAssert.IsEmpty(outEdges);
             data.CheckCalls(1);
 
@@ -630,7 +630,7 @@ namespace QuikGraph.Tests.Structures
             var edge21 = Edge.Create(2, 1);
             var edge23 = Edge.Create(2, 3);
             data.ShouldReturnEdges = new[] { edge12, edge13, edge15, edge21, edge23 };
-            Assert.IsTrue(graph.TryGetOutEdges(1, out outEdges));
+            outEdges = graph.OutEdges(1);
             CollectionAssert.AreEqual(
                 new[] { edge12, edge13 },
                 outEdges);

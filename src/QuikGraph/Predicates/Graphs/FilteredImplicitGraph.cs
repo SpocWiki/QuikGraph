@@ -74,25 +74,6 @@ namespace QuikGraph.Predicates
         }
 
         /// <inheritdoc />
-        [Obsolete("Obsolete")]
-        public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            if (VertexPredicate(vertex)
-                && BaseGraph.TryGetOutEdges(vertex, out IEnumerable<TEdge> outEdges))
-            {
-                edges = outEdges.Where(FilterEdge);
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
-
-
-        /// <inheritdoc />
         public TEdge OutEdge(TVertex vertex, int index)
         {
             if (vertex == null)

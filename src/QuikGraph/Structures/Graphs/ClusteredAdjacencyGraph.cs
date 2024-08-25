@@ -191,10 +191,6 @@ namespace QuikGraph
         public virtual IEnumerable<TEdge> OutEdges(TVertex vertex) => Wrapped.OutEdges(vertex);
 
         /// <inheritdoc />
-        public virtual bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-            => Wrapped.TryGetOutEdges(vertex, out edges);
-
-        /// <inheritdoc />
         public TEdge OutEdge(TVertex vertex, int index) => Wrapped.OutEdge(vertex, index);
 
         #endregion

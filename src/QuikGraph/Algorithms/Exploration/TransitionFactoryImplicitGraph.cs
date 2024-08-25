@@ -284,39 +284,6 @@ namespace QuikGraph.Algorithms.Exploration
         public IEnumerable<TEdge> Empty => Edge.Empty<TEdge>();
 
         /// <inheritdoc />
-        public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            bool wasNotProcessed = _verticesNotProcessedCache.Remove(vertex);
-
-            if (!_verticesEdgesCache.TryGetValue(vertex, out IEdgeList<TEdge> edgeList))
-            {
-                edgeList = ExploreFactoriesForVertex(vertex);
-
-                if (edgeList is null)
-                {
-                    // Vertex has no out edges
-                    if (wasNotProcessed)
-                    {
-                        edgeList = new EdgeList<TEdge>();
-                    }
-                    else
-                    {
-                        edges = null;
-                        return false;
-                    }
-                }
-
-                _verticesEdgesCache[vertex] = edgeList;
-            }
-
-            edges = edgeList.AsEnumerable();
-            return true;
-        }
-
-        /// <inheritdoc />
         public TEdge OutEdge(TVertex vertex, int index)
         {
             int i = 0;

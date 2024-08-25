@@ -33,16 +33,10 @@ namespace QuikGraph
         #region IIncidenceGraph<TVertex,TEdge>
 
         [Pure]
-        internal virtual bool ContainsEdgeInternal([NotNull] TVertex source, [NotNull] TVertex target)
-        {
-            return TryGetEdge(source, target, out _);
-        }
+        internal virtual bool ContainsEdgeInternal([NotNull] TVertex source, [NotNull] TVertex target) => TryGetEdge(source, target, out _);
 
         /// <inheritdoc />
-        public bool ContainsEdge(TVertex source, TVertex target)
-        {
-            return ContainsEdgeInternal(source, target);
-        }
+        public bool ContainsEdge(TVertex source, TVertex target) => ContainsEdgeInternal(source, target);
 
         /// <inheritdoc />
         public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge)
@@ -50,7 +44,8 @@ namespace QuikGraph
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            if (TryGetOutEdges(source, out IEnumerable<TEdge> outEdges))
+            var outEdges = OutEdges(source);
+            if(outEdges != null)
             {
                 foreach (TEdge outEdge in outEdges.Where(outEdge => EqualityComparer<TVertex>.Default.Equals(outEdge.Target, target)))
                 {
@@ -73,7 +68,8 @@ namespace QuikGraph
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            if (TryGetOutEdges(source, out IEnumerable<TEdge> outEdges))
+            var outEdges = OutEdges(source);
+            if (outEdges != null)
             {
                 return outEdges.Where(edge => EqualityComparer<TVertex>.Default.Equals(edge.Target, target));
             }

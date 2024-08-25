@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Exploration;
@@ -593,17 +592,17 @@ namespace QuikGraph.Tests.Algorithms.Exploration
 
             Assert.IsNull(graph.OutEdges(vertex5));   // Vertex5 was not discovered
 
-            Assert.IsTrue(graph.TryGetOutEdges(vertex3, out var gotEdges));
+            var gotEdges = graph.OutEdges(vertex3);
             CollectionAssert.AreEqual(new[] { edge6 }, gotEdges);
 
-            Assert.IsTrue(graph.TryGetOutEdges(vertex1, out gotEdges));
+            gotEdges = graph.OutEdges(vertex1);
             CollectionAssert.AreEqual(new[] { edge1, edge2, edge3 }, gotEdges);
 
             // Trigger discover of vertex5
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             graph.OutEdges(vertex4);
 
-            Assert.IsTrue(graph.TryGetOutEdges(vertex5, out gotEdges));
+            gotEdges = graph.OutEdges(vertex5);
             CollectionAssert.IsEmpty(gotEdges);
         }
 
@@ -647,14 +646,14 @@ namespace QuikGraph.Tests.Algorithms.Exploration
             graph.SuccessorVertexPredicate = vertex => vertex != vertex4;
             graph.SuccessorEdgePredicate = edge => edge.Source != edge.Target;
 
-            Assert.IsTrue(graph.TryGetOutEdges(vertex2, out var gotEdges));
+            var gotEdges = graph.OutEdges(vertex2);
             CollectionAssert.IsEmpty(gotEdges); // Both edges filtered by the 2 filters combined
 
             // Restore no filter
             graph.SuccessorVertexPredicate = _ => true;
             graph.SuccessorEdgePredicate = _ => true;
 
-            Assert.IsTrue(graph.TryGetOutEdges(vertex2, out gotEdges));
+            gotEdges = graph.OutEdges(vertex2);
             CollectionAssert.AreEqual(new[] { edge4, edge5 }, gotEdges);
         }
 

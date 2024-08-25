@@ -164,8 +164,12 @@ namespace QuikGraph
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            if (this.TryGetOutEdges(source, out IEnumerable <TEdge> outEdges))
+            var outEdges = OutEdges(source);
+            if (outEdges != null)
+            {
                 return outEdges.Any(edge => EqualityComparer<TVertex>.Default.Equals(edge.Target, target));
+            }
+
             return false;
         }
 
@@ -194,22 +198,6 @@ namespace QuikGraph
             => _vertexOutEdges.TryGetValue(vertex, out var outEdges)
                 ? outEdges
                 : null; //(IReadOnlyCollection<TEdge>)outEdges.AsList(); //Enumerable.Empty<TEdge>();
-
-        /// <inheritdoc />
-        public bool TryGetOutEdges(TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            if (_vertexOutEdges.TryGetValue(vertex, out IEdgeList<TEdge> outEdges))
-            {
-                edges = outEdges.AsEnumerable();
-                return true;
-            }
-
-            edges = null;
-            return false;
-        }
 
         /// <inheritdoc />
         public TEdge OutEdge(TVertex vertex, int index)
