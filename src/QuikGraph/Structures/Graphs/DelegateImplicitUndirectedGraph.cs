@@ -116,7 +116,7 @@ namespace QuikGraph
         }
 
         [Pure]
-        internal virtual bool TryGetAdjacentEdgesInternal([NotNull] TVertex vertex, out IEnumerable<TEdge> edges)
+        internal virtual bool AdjacentEdgesInternal([NotNull] TVertex vertex, out IEnumerable<TEdge> edges)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
@@ -124,32 +124,11 @@ namespace QuikGraph
             return _tryGetAdjacencyEdges(vertex, out edges);
         }
 
-        /// <summary>
-        /// Tries to get adjacent edges of the given <paramref name="vertex"/>.
-        /// </summary>
-        /// <param name="vertex">The vertex.</param>
-        /// <param name="edges">Edges found, otherwise <see langword="null"/>.</param>
-        /// <returns>True if <paramref name="vertex"/> was found or/and edges were found, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
-        [ContractAnnotation("=> true, edges:notnull;=> false, edges:null")]
-        [Obsolete("Use " + nameof(AdjacentEdges))]
-        public bool TryGetAdjacentEdges([NotNull] TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            return TryGetAdjacentEdgesInternal(vertex, out edges);
-        }
-
-        [Pure]
-        internal virtual bool ContainsEdgeInternal([NotNull] TVertex source, [NotNull] TVertex target)
-        {
-            return TryGetEdge(source, target, out _);
-        }
+        internal virtual bool ContainsEdgeInternal([NotNull] TVertex source, [NotNull] TVertex target) => TryGetEdge(source, target, out _);
 
         /// <inheritdoc />
-        public bool ContainsEdge(TVertex source, TVertex target)
-        {
-            return ContainsEdgeInternal(source, target);
-        }
+        public bool ContainsEdge(TVertex source, TVertex target) => ContainsEdgeInternal(source, target);
 
         #endregion
     }

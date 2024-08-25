@@ -151,7 +151,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        internal override bool TryGetAdjacentEdgesInternal(TVertex vertex, out IEnumerable<TEdge> edges)
+        internal override bool AdjacentEdgesInternal(TVertex vertex, out IEnumerable<TEdge> edges)
         {
             if (!ContainsVertexInternal(vertex))
             {
@@ -161,7 +161,7 @@ namespace QuikGraph
 
             // Ignore return because "vertex" exists in the graph
             // so it should always return true.
-            base.TryGetAdjacentEdgesInternal(vertex, out IEnumerable<TEdge> unfilteredEdges);
+            base.AdjacentEdgesInternal(vertex, out IEnumerable<TEdge> unfilteredEdges);
 
             edges = unfilteredEdges is null
                 ? Enumerable.Empty<TEdge>()
