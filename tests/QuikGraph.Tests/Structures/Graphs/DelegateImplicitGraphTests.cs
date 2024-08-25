@@ -110,7 +110,7 @@ namespace QuikGraph.Tests.Structures
         #region Try Get Edges
 
         [Test]
-        public void TryGetOutEdges()
+        public void GetOutEdges()
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateImplicitGraph<int, IEdge<int>>(data.TryGetEdges);
@@ -118,7 +118,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetOutEdges_Throws()
+        public void GetOutEdges_Throws()
         {
             var graph = new DelegateImplicitGraph<TestVertex, IEdge<TestVertex>>(
                 GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
