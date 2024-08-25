@@ -13,13 +13,13 @@ namespace QuikGraph.Tests.Structures
         public void Construction()
         {
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                GetEmptyGetter<int, IEdge<int>>(),
-                GetEmptyGetter<int, IEdge<int>>());
+                EmptyGetter<int, IEdge<int>>(),
+                EmptyGetter<int, IEdge<int>>());
             AssertGraphProperties(graph);
 
             graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                GetEmptyGetter<int, IEdge<int>>(),
-                GetEmptyGetter<int, IEdge<int>>(),
+                EmptyGetter<int, IEdge<int>>(),
+                EmptyGetter<int, IEdge<int>>(),
                 false);
             AssertGraphProperties(graph, false);
 
@@ -44,12 +44,12 @@ namespace QuikGraph.Tests.Structures
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
                 () => new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                    GetEmptyGetter<int, IEdge<int>>(),
+                    EmptyGetter<int, IEdge<int>>(),
                     null));
             Assert.Throws<ArgumentNullException>(
                 () => new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
                     null,
-                    GetEmptyGetter<int, IEdge<int>>()));
+                    EmptyGetter<int, IEdge<int>>()));
             Assert.Throws<ArgumentNullException>(
                 () => new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
@@ -63,8 +63,8 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                data.TryGetEdges,
-                GetEmptyGetter<int, IEdge<int>>());
+                data.GetEdges,
+                EmptyGetter<int, IEdge<int>>());
             ContainsVertex_Test(data, graph);
         }
 
@@ -72,8 +72,8 @@ namespace QuikGraph.Tests.Structures
         public void ContainsVertex_Throws()
         {
             var graph = new DelegateBidirectionalIncidenceGraph<TestVertex, IEdge<TestVertex>>(
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>(),
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
+                EmptyGetter<TestVertex, IEdge<TestVertex>>(),
+                EmptyGetter<TestVertex, IEdge<TestVertex>>());
             ContainsVertex_Throws_Test(graph);
         }
 
@@ -86,8 +86,8 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                data.TryGetEdges,
-                GetEmptyGetter<int, IEdge<int>>());
+                data.GetEdges,
+                EmptyGetter<int, IEdge<int>>());
             OutEdge_Test(data, graph);
         }
 
@@ -95,14 +95,14 @@ namespace QuikGraph.Tests.Structures
         public void OutEdge_Throws()
         {
             var graph1 = new DelegateBidirectionalIncidenceGraph<TestVertex, IEdge<TestVertex>>(
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>(),
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
+                EmptyGetter<TestVertex, IEdge<TestVertex>>(),
+                EmptyGetter<TestVertex, IEdge<TestVertex>>());
             OutEdge_NullThrows_Test(graph1);
 
             var data = new GraphData<int, IEdge<int>>();
             var graph2 = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                data.TryGetEdges,
-                GetEmptyGetter<int, IEdge<int>>());
+                data.GetEdges,
+                EmptyGetter<int, IEdge<int>>());
             OutEdge_Throws_Test(data, graph2);
         }
 
@@ -111,8 +111,8 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                data.TryGetEdges,
-                GetEmptyGetter<int, IEdge<int>>());
+                data.GetEdges,
+                EmptyGetter<int, IEdge<int>>());
             OutEdges_Test(data, graph);
         }
 
@@ -121,13 +121,13 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph1 = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                data.TryGetEdges,
-                GetEmptyGetter<int, IEdge<int>>());
+                data.GetEdges,
+                EmptyGetter<int, IEdge<int>>());
             OutEdges_Throws_Test(data, graph1);
 
             var graph2 = new DelegateBidirectionalIncidenceGraph<EquatableTestVertex, Edge<EquatableTestVertex>>(
-                GetEmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>(),
-                GetEmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>());
+                EmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>(),
+                EmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>());
             OutEdges_NullThrows_Test(graph2);
         }
 
@@ -140,8 +140,8 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                GetEmptyGetter<int, IEdge<int>>(),
-                data.TryGetEdges);
+                EmptyGetter<int, IEdge<int>>(),
+                data.GetEdges);
             InEdge_Test(data, graph);
         }
 
@@ -150,13 +150,13 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph1 = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                GetEmptyGetter<int, IEdge<int>>(),
-                data.TryGetEdges);
+                EmptyGetter<int, IEdge<int>>(),
+                data.GetEdges);
             InEdge_Throws_Test(data, graph1);
 
             var graph2 = new DelegateBidirectionalIncidenceGraph<TestVertex, IEdge<TestVertex>>(
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>(),
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
+                EmptyGetter<TestVertex, IEdge<TestVertex>>(),
+                EmptyGetter<TestVertex, IEdge<TestVertex>>());
             InEdge_NullThrows_Test(graph2);
         }
 
@@ -165,8 +165,8 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                GetEmptyGetter<int, IEdge<int>>(),
-                data.TryGetEdges);
+                EmptyGetter<int, IEdge<int>>(),
+                data.GetEdges);
             InEdges_Test(data, graph);
         }
 
@@ -175,13 +175,13 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph1 = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                GetEmptyGetter<int, IEdge<int>>(),
-                data.TryGetEdges);
+                EmptyGetter<int, IEdge<int>>(),
+                data.GetEdges);
             InEdges_Throws_Test(data, graph1);
 
             var graph2 = new DelegateBidirectionalIncidenceGraph<EquatableTestVertex, Edge<EquatableTestVertex>>(
-                GetEmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>(),
-                GetEmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>());
+                EmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>(),
+                EmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>());
             InEdges_NullThrows_Test(graph2);
         }
 
@@ -193,8 +193,8 @@ namespace QuikGraph.Tests.Structures
             var data1 = new GraphData<int, IEdge<int>>();
             var data2 = new GraphData<int, IEdge<int>>();
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                data1.TryGetEdges,
-                data2.TryGetEdges);
+                data1.GetEdges,
+                data2.GetEdges);
             Degree_Test(data1, data2, graph);
         }
 
@@ -202,8 +202,8 @@ namespace QuikGraph.Tests.Structures
         public void Degree_Throws()
         {
             var graph = new DelegateBidirectionalIncidenceGraph<EquatableTestVertex, Edge<EquatableTestVertex>>(
-                GetEmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>(),
-                GetEmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>());
+                EmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>(),
+                EmptyGetter<EquatableTestVertex, Edge<EquatableTestVertex>>());
             Degree_Throws_Test(graph);
         }
 
@@ -214,8 +214,8 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                data.TryGetEdges,
-                GetEmptyGetter<int, IEdge<int>>());
+                data.GetEdges,
+                EmptyGetter<int, IEdge<int>>());
             GetOutEdges_Test(data, graph);
         }
 
@@ -223,8 +223,8 @@ namespace QuikGraph.Tests.Structures
         public void GetOutEdges_Throws()
         {
             var graph = new DelegateBidirectionalIncidenceGraph<TestVertex, IEdge<TestVertex>>(
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>(),
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
+                EmptyGetter<TestVertex, IEdge<TestVertex>>(),
+                EmptyGetter<TestVertex, IEdge<TestVertex>>());
             GetOutEdges_Throws_Test(graph);
         }
 
@@ -233,8 +233,8 @@ namespace QuikGraph.Tests.Structures
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
-                GetEmptyGetter<int, IEdge<int>>(),
-                data.TryGetEdges);
+                EmptyGetter<int, IEdge<int>>(),
+                data.GetEdges);
             GetInEdges_Test(data, graph);
         }
 
@@ -242,8 +242,8 @@ namespace QuikGraph.Tests.Structures
         public void GetInEdges_Throws()
         {
             var graph = new DelegateBidirectionalIncidenceGraph<TestVertex, IEdge<TestVertex>>(
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>(),
-                GetEmptyGetter<TestVertex, IEdge<TestVertex>>());
+                EmptyGetter<TestVertex, IEdge<TestVertex>>(),
+                EmptyGetter<TestVertex, IEdge<TestVertex>>());
             GetInEdges_Throws_Test(graph);
         }
 

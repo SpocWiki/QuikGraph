@@ -48,28 +48,12 @@ namespace QuikGraph.Graphviz.Tests
             int[] vertices = { 1, 2, 3, 4, 5 };
             var graph = new DelegateVertexAndEdgeListGraph<int, IEdge<int>>(
                 vertices,
-                (int vertex, out IEnumerable<IEdge<int>> outEdges) =>
+                vertex => vertex switch
                 {
-                    if (vertex == 1)
-                    {
-                        outEdges = new[] { Edge.Create(1, 2), Edge.Create(1, 3) };
-                        return true;
-                    }
-
-                    if (vertex == 2)
-                    {
-                        outEdges = new[] { Edge.Create(2, 4) };
-                        return true;
-                    }
-
-                    if (vertex is 3 or 4 or 5)
-                    {
-                        outEdges = Enumerable.Empty<IEdge<int>>();
-                        return true;
-                    }
-
-                    outEdges = null;
-                    return false;
+                    1 => new[] { Edge.Create(1, 2), Edge.Create(1, 3) },
+                    2 => new[] { Edge.Create(2, 4) },
+                    3 or 4 or 5 => Enumerable.Empty<IEdge<int>>(),
+                    _ => null
                 });
 
             string expectedDot =
@@ -93,28 +77,12 @@ namespace QuikGraph.Graphviz.Tests
             int[] vertices = { 1, 2, 3, 4, 5 };
             var graph = new DelegateVertexAndEdgeListGraph<int, EquatableEdge<int>>(
                 vertices,
-                (int vertex, out IEnumerable<EquatableEdge<int>> outEdges) =>
+                vertex => vertex switch
                 {
-                    if (vertex == 1)
-                    {
-                        outEdges = new[] { new EquatableEdge<int>(1, 2), new EquatableEdge<int>(1, 3) };
-                        return true;
-                    }
-
-                    if (vertex == 2)
-                    {
-                        outEdges = new[] { new EquatableEdge<int>(2, 4) };
-                        return true;
-                    }
-
-                    if (vertex is 3 or 4 or 5)
-                    {
-                        outEdges = new EquatableEdge<int>[] { };
-                        return true;
-                    }
-
-                    outEdges = null;
-                    return false;
+                    1 => new[] { new EquatableEdge<int>(1, 2), new EquatableEdge<int>(1, 3) },
+                    2 => new[] { new EquatableEdge<int>(2, 4) },
+                    3 or 4 or 5 => new EquatableEdge<int>[] { },
+                    _ => null
                 });
 
             string expectedDot =

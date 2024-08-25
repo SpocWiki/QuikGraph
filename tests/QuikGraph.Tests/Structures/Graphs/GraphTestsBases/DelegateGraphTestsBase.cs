@@ -15,7 +15,7 @@ namespace QuikGraph.Tests.Structures
     {
         [Pure]
         [NotNull]
-        protected static TryFunc<TVertex, IEnumerable<TEdge>> GetEmptyGetter<TVertex, TEdge>()
+        protected static TryFunc<TVertex, IEnumerable<TEdge>> EmptyTryGetter<TVertex, TEdge>()
             where TEdge : IEdge<TVertex>
         {
             return (TVertex vertex, out IEnumerable<TEdge> edges) =>
@@ -30,28 +30,44 @@ namespace QuikGraph.Tests.Structures
             };
         }
 
+        [Pure]
+        [NotNull]
+        protected static Func<TVertex, IEnumerable<TEdge>> EmptyGetter<TVertex, TEdge>()
+            where TEdge : IEdge<TVertex>
+        {
+            return (TVertex vertex) =>
+            {
+                if (vertex is null)
+                {
+                    throw new ArgumentNullException(nameof(vertex));
+                }
+
+                return null;
+            };
+        }
+
         protected class GraphData<TVertex, TEdge>
             where TEdge : IEdge<TVertex>
         {
             public GraphData()
             {
-                TryGetEdges = (TVertex _, out IEnumerable<TEdge> edges) =>
+                GetEdges = _ =>
                 {
                     ++_nbCalls;
 
                     if (ShouldReturnValue)
-                        edges = ShouldReturnEdges ?? Enumerable.Empty<TEdge>();
-                    else
-                        edges = null;
+                    {
+                        return ShouldReturnEdges ?? Enumerable.Empty<TEdge>();
+                    }
 
-                    return ShouldReturnValue;
+                    return null;
                 };
             }
 
             private int _nbCalls;
 
-            [NotNull] 
-            public TryFunc<TVertex, IEnumerable<TEdge>> TryGetEdges { get; }
+            [NotNull]
+            public Func<TVertex, IEnumerable<TEdge>> GetEdges { get; }
 
             /// <summary> Optional Default Edges when <see cref="ShouldReturnValue"/> is true </summary>
             [CanBeNull, ItemNotNull]

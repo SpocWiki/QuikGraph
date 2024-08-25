@@ -24,10 +24,10 @@ namespace QuikGraph
         /// </param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="tryGetAdjacentEdges"/> is <see langword="null"/>.</exception>
         public DelegateImplicitUndirectedGraph(
-            [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetAdjacentEdges,
+            [NotNull] Func<TVertex, IEnumerable<TEdge>> tryGetAdjacentEdges,
             bool allowParallelEdges = true)
         {
-            _tryGetAdjacencyEdges = tryGetAdjacentEdges ?? throw new ArgumentNullException(nameof(tryGetAdjacentEdges));
+            _getAdjacencyEdges = tryGetAdjacentEdges ?? throw new ArgumentNullException(nameof(tryGetAdjacentEdges));
             AllowParallelEdges = allowParallelEdges;
         }
 
@@ -39,7 +39,7 @@ namespace QuikGraph
         /// Getter of adjacent edges.
         /// </summary>
         [NotNull]
-        private readonly TryFunc<TVertex, IEnumerable<TEdge>> _tryGetAdjacencyEdges;
+        private readonly Func<TVertex, IEnumerable<TEdge>> _getAdjacencyEdges;
 
         #region IGraph<TVertex,TEdge>
 
@@ -59,7 +59,7 @@ namespace QuikGraph
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            return _tryGetAdjacencyEdges(vertex, out _);
+            return _getAdjacencyEdges(vertex) != null;
         }
 
         /// <inheritdoc />
@@ -83,10 +83,7 @@ namespace QuikGraph
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (_tryGetAdjacencyEdges(vertex, out IEnumerable<TEdge> adjacentEdges))
-                return adjacentEdges;
-
-            return null;
+            return _getAdjacencyEdges(vertex);
         }
 
         /// <inheritdoc />
@@ -113,15 +110,6 @@ namespace QuikGraph
 
             edge = default(TEdge);
             return false;
-        }
-
-        [Pure]
-        internal virtual bool AdjacentEdgesInternal([NotNull] TVertex vertex, out IEnumerable<TEdge> edges)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            return _tryGetAdjacencyEdges(vertex, out edges);
         }
 
         [Pure]

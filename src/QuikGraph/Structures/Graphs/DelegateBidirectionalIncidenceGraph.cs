@@ -24,8 +24,8 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="tryGetOutEdges"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="tryGetInEdges"/> is <see langword="null"/>.</exception>
         public DelegateBidirectionalIncidenceGraph(
-            [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges,
-            [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetInEdges,
+            [NotNull] Func<TVertex, IEnumerable<TEdge>> tryGetOutEdges,
+            [NotNull] Func<TVertex, IEnumerable<TEdge>> tryGetInEdges,
             bool allowParallelEdges = true)
             : base(tryGetOutEdges, allowParallelEdges)
         {
@@ -36,7 +36,7 @@ namespace QuikGraph
         /// Getter of in-edges.
         /// </summary>
         [NotNull]
-        private readonly TryFunc<TVertex, IEnumerable<TEdge>> _tryGetInEdgesFunc;
+        private readonly Func<TVertex, IEnumerable<TEdge>> _tryGetInEdgesFunc;
 
         #region IBidirectionalImplicitGraph<TVertex,TEdge>
 
@@ -49,10 +49,7 @@ namespace QuikGraph
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (_tryGetInEdgesFunc(vertex, out IEnumerable<TEdge> inEdges))
-                return inEdges;
-
-            return null;
+            return _tryGetInEdgesFunc(vertex);
         }
 
         /// <inheritdoc />

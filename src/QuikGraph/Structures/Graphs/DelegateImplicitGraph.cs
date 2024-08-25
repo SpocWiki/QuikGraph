@@ -24,7 +24,7 @@ namespace QuikGraph
         /// </param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="tryGetOutEdges"/> is <see langword="null"/>.</exception>
         public DelegateImplicitGraph(
-            [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges,
+            [NotNull] Func<TVertex, IEnumerable<TEdge>> tryGetOutEdges,
             bool allowParallelEdges = true)
         {
             _tryGetOutEdgesFunc = tryGetOutEdges ?? throw new ArgumentNullException(nameof(tryGetOutEdges));
@@ -35,7 +35,7 @@ namespace QuikGraph
         /// Getter of out-edges.
         /// </summary>
         [NotNull]
-        private readonly TryFunc<TVertex, IEnumerable<TEdge>> _tryGetOutEdgesFunc;
+        private readonly Func<TVertex, IEnumerable<TEdge>> _tryGetOutEdgesFunc;
 
         #region IGraph<TVertex,TEdge>
 
@@ -60,10 +60,7 @@ namespace QuikGraph
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (_tryGetOutEdgesFunc(vertex, out IEnumerable<TEdge> outEdges))
-                return outEdges;
-
-            return null;
+            return _tryGetOutEdgesFunc(vertex);
         }
 
         /// <inheritdoc />
@@ -73,7 +70,7 @@ namespace QuikGraph
         public TEdge OutEdge(TVertex vertex, int index) => OutEdges(vertex)?.ElementAt(index);
 
         [Pure]
-        internal virtual bool ContainsVertexInternal([NotNull] TVertex vertex) => _tryGetOutEdgesFunc(vertex, out _);
+        internal virtual bool ContainsVertexInternal([NotNull] TVertex vertex) => _tryGetOutEdgesFunc(vertex) != null;
 
         /// <inheritdoc />
         public bool ContainsVertex(TVertex vertex) => ContainsVertexInternal(vertex);

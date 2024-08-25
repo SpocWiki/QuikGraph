@@ -22,27 +22,8 @@ namespace QuikGraph
         [Pure]
         [NotNull]
         public static DelegateIncidenceGraph<TVertex, TEdge> ToDelegateIncidenceGraph<TVertex, TEdge>(
-            [NotNull] this TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
+            [NotNull] this Func<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
             where TEdge : class, IEdge<TVertex> => new DelegateIncidenceGraph<TVertex, TEdge>(tryGetOutEdges);
-
-        /// <summary>
-        /// Creates an instance of <see cref="DelegateIncidenceGraph{TVertex,TEdge}"/> from this getter of out-edges.
-        /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <param name="getOutEdges">Getter of out-edges.</param>
-        /// <returns>A corresponding <see cref="DelegateIncidenceGraph{TVertex,TEdge}"/>.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="getOutEdges"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static DelegateIncidenceGraph<TVertex, TEdge> ToDelegateIncidenceGraph<TVertex, TEdge>(
-            [NotNull] this Func<TVertex, IEnumerable<TEdge>> getOutEdges)
-            where TEdge : class, IEdge<TVertex>
-        {
-            if (getOutEdges is null)
-                throw new ArgumentNullException(nameof(getOutEdges));
-            return ToDelegateIncidenceGraph(ToTryFunc(getOutEdges));
-        }
 
         /// <summary>
         /// Wraps a dictionary into a vertex and edge list graph.
@@ -94,16 +75,15 @@ namespace QuikGraph
 
             return new DelegateVertexAndEdgeListGraph<TVertex, TEdge>(
                 dictionary.Keys,
-                (TVertex key, out IEnumerable<TEdge> edges) =>
+                (TVertex key) =>
                 {
-                    if (dictionary.TryGetValue(key, out TValue value))
+                    if (!dictionary.TryGetValue(key, out TValue value))
                     {
-                        edges = keyValueToOutEdges(new KeyValuePair<TVertex, TValue>(key, value));
-                        return true;
+                        return null;
                     }
 
-                    edges = null;
-                    return false;
+                    var edges = keyValueToOutEdges(new KeyValuePair<TVertex, TValue>(key, value));
+                    return edges;
                 });
         }
 
@@ -122,33 +102,10 @@ namespace QuikGraph
         [NotNull]
         public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
-            [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
+            [NotNull] Func<TVertex, IEnumerable<TEdge>> tryGetOutEdges)
             where TEdge : class, IEdge<TVertex>
         {
             return new DelegateVertexAndEdgeListGraph<TVertex, TEdge>(vertices, tryGetOutEdges);
-        }
-
-        /// <summary>
-        /// Creates an instance of <see cref="DelegateVertexAndEdgeListGraph{TVertex,TEdge}"/>
-        /// from given vertices and edge getter.
-        /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <param name="vertices">Enumerable of vertices.</param>
-        /// <param name="getOutEdges">Getter of out-edges.</param>
-        /// <returns>A corresponding <see cref="DelegateVertexAndEdgeListGraph{TVertex,TEdge}"/>.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertices"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="getOutEdges"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge>(
-            [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
-            [NotNull] Func<TVertex, IEnumerable<TEdge>> getOutEdges)
-            where TEdge : class, IEdge<TVertex>
-        {
-            if (getOutEdges is null)
-                throw new ArgumentNullException(nameof(getOutEdges));
-            return ToDelegateVertexAndEdgeListGraph(vertices, ToTryFunc(getOutEdges));
         }
 
         /// <summary>
@@ -166,8 +123,8 @@ namespace QuikGraph
         [NotNull]
         public static DelegateBidirectionalIncidenceGraph<TVertex, TEdge> ToDelegateBidirectionalIncidenceGraph<TVertex,
             TEdge>(
-            [NotNull] this TryFunc<TVertex, IEnumerable<TEdge>> tryGetOutEdges,
-            [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetInEdges)
+            [NotNull] this Func<TVertex, IEnumerable<TEdge>> tryGetOutEdges,
+            [NotNull] Func<TVertex, IEnumerable<TEdge>> tryGetInEdges)
             where TEdge : class, IEdge<TVertex>
         {
             return new DelegateBidirectionalIncidenceGraph<TVertex, TEdge>(tryGetOutEdges, tryGetInEdges);
@@ -188,34 +145,9 @@ namespace QuikGraph
         [NotNull]
         public static DelegateUndirectedGraph<TVertex, TEdge> ToDelegateUndirectedGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
-            [NotNull] TryFunc<TVertex, IEnumerable<TEdge>> tryGetAdjacentEdges)
+            [NotNull] Func<TVertex, IEnumerable<TEdge>> tryGetAdjacentEdges)
             where TEdge : class, IEdge<TVertex>
-        {
-            return new DelegateUndirectedGraph<TVertex, TEdge>(vertices, tryGetAdjacentEdges);
-        }
-
-        /// <summary>
-        /// Creates an instance of <see cref="DelegateUndirectedGraph{TVertex,TEdge}"/>
-        /// from given vertices and edge getter.
-        /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <param name="vertices">Enumerable of vertices.</param>
-        /// <param name="getAdjacentEdges">Getter of adjacent edges.</param>
-        /// <returns>A corresponding <see cref="DelegateUndirectedGraph{TVertex,TEdge}"/>.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertices"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="getAdjacentEdges"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static DelegateUndirectedGraph<TVertex, TEdge> ToDelegateUndirectedGraph<TVertex, TEdge>(
-            [NotNull, ItemNotNull] this IEnumerable<TVertex> vertices,
-            [NotNull] Func<TVertex, IEnumerable<TEdge>> getAdjacentEdges)
-            where TEdge : class, IEdge<TVertex>
-        {
-            if (getAdjacentEdges is null)
-                throw new ArgumentNullException(nameof(getAdjacentEdges));
-            return ToDelegateUndirectedGraph(vertices, ToTryFunc(getAdjacentEdges));
-        }
+            => new DelegateUndirectedGraph<TVertex, TEdge>(vertices, tryGetAdjacentEdges);
 
         #endregion
 
@@ -260,7 +192,7 @@ namespace QuikGraph
                 edgePairs.Add(new SEquatableEdge<TVertex>(sources[i], targets[i]));
             }
 
-            return ToAdjacencyGraph(edgePairs);
+            return ToAdjacencyGraph<TVertex, SEquatableEdge<TVertex>>(edgePairs);
         }
 
         /// <summary>
