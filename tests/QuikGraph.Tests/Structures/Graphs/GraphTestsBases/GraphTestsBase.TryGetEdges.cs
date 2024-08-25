@@ -360,7 +360,7 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.IsEmpty(gotEdges);
         }
 
-        protected static void TryGetEdges_ImmutableVertices_Test(
+        protected static void GetEdges_ImmutableVertices_Test(
             [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);

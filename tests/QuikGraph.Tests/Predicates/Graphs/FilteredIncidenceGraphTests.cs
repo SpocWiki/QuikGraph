@@ -270,7 +270,7 @@ namespace QuikGraph.Tests.Predicates
         }
 
         [Test]
-        public void TryGetEdges_Throws()
+        public void GetEdges_Throws()
         {
             var filteredGraph = new FilteredIncidenceGraph<TestVertex, IEdge<TestVertex>, AdjacencyGraph<TestVertex, IEdge<TestVertex>>>(
                 new AdjacencyGraph<TestVertex, IEdge<TestVertex>>(),

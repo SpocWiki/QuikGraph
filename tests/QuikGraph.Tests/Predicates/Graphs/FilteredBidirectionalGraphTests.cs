@@ -370,7 +370,7 @@ namespace QuikGraph.Tests.Predicates
         }
 
         [Test]
-        public void TryGetEdges_Throws()
+        public void GetEdges_Throws()
         {
             var filteredGraph =
                 new BidirectionalGraph<TestVertex, IEdge<TestVertex>>()

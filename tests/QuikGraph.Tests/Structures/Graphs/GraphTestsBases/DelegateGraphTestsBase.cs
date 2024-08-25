@@ -641,7 +641,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0); // Vertex is not in graph so no need to call user code
         }
 
-        protected static void TryGetAdjacentEdges_Test(
+        protected static void GetAdjacentEdges_Test(
             [NotNull] GraphData<int, IEdge<int>> data,
             [NotNull] DelegateImplicitUndirectedGraph<int, IEdge<int>> graph)
         {
@@ -662,7 +662,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(1);
         }
 
-        protected static void TryGetAdjacentEdges_Test(
+        protected static void GetAdjacentEdges_Test(
             [NotNull] GraphData<int, IEdge<int>> data,
             [NotNull] DelegateUndirectedGraph<int, IEdge<int>> graph)
         {
@@ -705,7 +705,7 @@ namespace QuikGraph.Tests.Structures
             data.CheckCalls(0); // Vertex is not in graph so no need to call user code
         }
 
-        protected static void TryGetAdjacentEdges_Throws_Test<TVertex, TEdge>(
+        protected static void GetAdjacentEdges_Throws_Test<TVertex, TEdge>(
             [NotNull] DelegateImplicitUndirectedGraph<TVertex, TEdge> graph)
             where TVertex : class
             where TEdge : class, IEdge<TVertex>

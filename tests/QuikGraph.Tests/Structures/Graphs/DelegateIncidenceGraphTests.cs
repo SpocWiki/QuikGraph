@@ -154,7 +154,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetEdges_Throws()
+        public void GetEdges_Throws()
         {
             var data = new GraphData<TestVertex, IEdge<TestVertex>>();
             var graph = new DelegateIncidenceGraph<TestVertex, IEdge<TestVertex>>(data.GetEdges);

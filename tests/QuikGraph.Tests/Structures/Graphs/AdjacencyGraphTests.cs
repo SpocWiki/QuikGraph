@@ -298,7 +298,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetEdges_Throws()
+        public void GetEdges_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             GetEdges_Throws_Test(graph);

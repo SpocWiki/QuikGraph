@@ -351,7 +351,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetEdges_Throws()
+        public void GetEdges_Throws()
         {
             var wrappedGraph = new AdjacencyGraph<TestVertex, IEdge<TestVertex>>();
             var graph = new BidirectionalAdapterGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
