@@ -229,17 +229,17 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetInEdges()
+        public void GetInEdges()
         {
             var data = new GraphData<int, IEdge<int>>();
             var graph = new DelegateBidirectionalIncidenceGraph<int, IEdge<int>>(
                 GetEmptyGetter<int, IEdge<int>>(),
                 data.TryGetEdges);
-            TryGetInEdges_Test(data, graph);
+            GetInEdges_Test(data, graph);
         }
 
         [Test]
-        public void TryGetInEdges_Throws()
+        public void GetInEdges_Throws()
         {
             var graph = new DelegateBidirectionalIncidenceGraph<TestVertex, IEdge<TestVertex>>(
                 GetEmptyGetter<TestVertex, IEdge<TestVertex>>(),

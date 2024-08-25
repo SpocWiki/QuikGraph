@@ -401,7 +401,7 @@ namespace QuikGraph.Tests.Predicates
         public void GetInEdges()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            TryGetInEdges_Test(graph, (vertexPredicate, edgePredicate)
+            GetInEdges_Test(graph, (vertexPredicate, edgePredicate)
                 => graph.FilteredBiDir(vertexPredicate, edgePredicate));
         }
 

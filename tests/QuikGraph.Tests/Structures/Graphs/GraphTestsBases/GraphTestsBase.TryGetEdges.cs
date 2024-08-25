@@ -128,7 +128,7 @@ namespace QuikGraph.Tests.Structures
             Assert.IsFalse(graph.TryGetEdge(2, 1, out _));
         }
 
-        protected static void TryGetEdge_ImmutableGraph_ReversedTest(
+        protected static void GetEdge_ImmutableGraph_ReversedTest(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IIncidenceGraph<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {
@@ -583,7 +583,7 @@ namespace QuikGraph.Tests.Structures
             Assert.Throws<ArgumentNullException>(() => graph.OutEdges(null));
         }
 
-        protected static void TryGetInEdges_Test(
+        protected static void GetInEdges_Test(
             [NotNull] IBidirectionalIncidenceGraph<int, IEdge<int>> graph,
             [NotNull, InstantHandle] Action<IEnumerable<IEdge<int>>> addVerticesAndEdgeRange)
         {
@@ -609,15 +609,15 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.AreEqual(new[] { edge1, edge2, edge4 }, gotEdges);
         }
 
-        protected static void TryGetInEdges_Test(
+        protected static void GetInEdges_Test(
             [NotNull] IMutableBidirectionalGraph<int, IEdge<int>> graph)
         {
-            TryGetInEdges_Test(
+            GetInEdges_Test(
                 graph,
                 edges => graph.AddVerticesAndEdgeRange(edges));
         }
 
-        protected static void TryGetInEdges_ImmutableGraph_Test(
+        protected static void GetInEdges_ImmutableGraph_Test(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, IEdge<int>>> createGraph)
         {
@@ -644,7 +644,7 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.AreEqual(new[] { edge1, edge2, edge4 }, gotEdges);
         }
 
-        protected static void TryGetInEdges_ImmutableVertices_Test(
+        protected static void GetInEdges_ImmutableVertices_Test(
             [NotNull] BidirectionalMatrixGraph<IEdge<int>> graph)
         {
             var edge1 = Edge.Create(1, 2);
@@ -668,7 +668,7 @@ namespace QuikGraph.Tests.Structures
             CollectionAssert.AreEqual(new[] { edge1, edge3 }, gotEdges);
         }
 
-        protected static void TryGetInEdges_ImmutableGraph_ReversedTest(
+        protected static void GetInEdges_ImmutableGraph_ReversedTest(
             [NotNull] IMutableVertexAndEdgeSet<int, IEdge<int>> wrappedGraph,
             [NotNull, InstantHandle] Func<IBidirectionalIncidenceGraph<int, SReversedEdge<int, IEdge<int>>>> createGraph)
         {

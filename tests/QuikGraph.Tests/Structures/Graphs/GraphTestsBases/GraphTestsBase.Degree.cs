@@ -106,8 +106,8 @@ namespace QuikGraph.Tests.Structures
             where TEdge : class, IEdge<int>
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<VertexNotFoundException>(() => graph.Degree(-1));
-            Assert.Throws<VertexNotFoundException>(() => graph.Degree(10));
+            Assert.False(graph.Degree(-1).HasValue);
+            Assert.AreEqual(default(int?), graph.Degree(10));
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
     }

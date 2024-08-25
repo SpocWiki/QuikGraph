@@ -90,10 +90,7 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public IEnumerable<TEdge> AdjacentEdges(TVertex vertex)
-        {
-            return AdjacentEdgesInternal(vertex);
-        }
+        public IEnumerable<TEdge> AdjacentEdges(TVertex vertex) => AdjacentEdgesInternal(vertex);
 
         /// <inheritdoc />[CanBeNull]
         public TEdge AdjacentEdge(TVertex vertex, int index) => AdjacentEdges(vertex)?.ElementAt(index);
@@ -104,7 +101,8 @@ namespace QuikGraph
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            if (TryGetAdjacentEdges(source, out IEnumerable<TEdge> adjacentEdges))
+            var adjacentEdges = AdjacentEdges(source);
+            if (adjacentEdges != null)
             {
                 foreach (TEdge adjacentEdge in adjacentEdges.Where(adjacentEdge => EdgeEqualityComparer(adjacentEdge, source, target)))
                 {
@@ -135,6 +133,7 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
         [ContractAnnotation("=> true, edges:notnull;=> false, edges:null")]
+        [Obsolete("Use " + nameof(AdjacentEdges))]
         public bool TryGetAdjacentEdges([NotNull] TVertex vertex, out IEnumerable<TEdge> edges)
         {
             return TryGetAdjacentEdgesInternal(vertex, out edges);

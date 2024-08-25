@@ -119,7 +119,7 @@ namespace QuikGraph.Algorithms.TSP
                 //if (inEdges.IsNullOrEmpty())
                 //    continue;
 
-                //if (!_graph.TryGetInEdges(vertex, out IEnumerable<TEdge> inEdges))
+                //if (!_graph.InEdges(vertex, out IEnumerable<TEdge> inEdges))
                 //    continue;
 
                 TEdge[] inEdgesArray = inEdges.AsArray(); // ?? Array.Empty<TEdge>();

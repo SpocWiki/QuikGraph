@@ -1947,14 +1947,14 @@ namespace QuikGraph.Tests.Predicates
             #endregion
         }
 
-        protected static void TryGetInEdges_Test<TGraph>(
+        protected static void GetInEdges_Test<TGraph>(
             [NotNull] TGraph wrappedGraph,
             [NotNull] Func<Func<int, bool>, Func<IEdge<int>, bool>, IBidirectionalIncidenceGraph<int, IEdge<int>>> createFilteredGraph)
             where TGraph : IMutableVertexAndEdgeSet<int, IEdge<int>>, IMutableGraph<int, IEdge<int>>
         {
             #region Part 1
 
-            TryGetInEdges_Test(
+            GetInEdges_Test(
                 createFilteredGraph(_ => true, _ => true),
                 edges => wrappedGraph.AddVerticesAndEdgeRange(edges));
 

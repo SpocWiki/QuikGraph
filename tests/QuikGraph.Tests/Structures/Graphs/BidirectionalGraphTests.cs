@@ -379,14 +379,14 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetInEdges()
+        public void GetInEdges()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            TryGetInEdges_Test(graph);
+            GetInEdges_Test(graph);
         }
 
         [Test]
-        public void TryGetInEdges_Throws()
+        public void GetInEdges_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             GetInEdges_Throws_Test(graph);

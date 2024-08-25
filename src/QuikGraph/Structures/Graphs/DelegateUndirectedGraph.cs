@@ -79,7 +79,8 @@ namespace QuikGraph
             if (edge == null)
                 throw new ArgumentNullException(nameof(edge));
 
-            if (TryGetAdjacentEdges(edge.Source, out IEnumerable<TEdge> edges))
+            var edges = AdjacentEdges(edge.Source);
+            if (edges != null)
                 return edges.Any(e => EqualityComparer<TEdge>.Default.Equals(e, edge));
             return false;
         }

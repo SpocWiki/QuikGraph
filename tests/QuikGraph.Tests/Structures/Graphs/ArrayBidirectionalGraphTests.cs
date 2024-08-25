@@ -325,16 +325,16 @@ namespace QuikGraph.Tests.Structures
         }
 
         [Test]
-        public void TryGetInEdges()
+        public void GetInEdges()
         {
             var wrappedGraph = new BidirectionalGraph<int, IEdge<int>>();
-            TryGetInEdges_ImmutableGraph_Test(
+            GetInEdges_ImmutableGraph_Test(
                 wrappedGraph,
                 () => new ArrayBidirectionalGraph<int, IEdge<int>>(wrappedGraph));
         }
 
         [Test]
-        public void TryGetInEdges_Throws()
+        public void GetInEdges_Throws()
         {
             var wrappedGraph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             var graph = new ArrayBidirectionalGraph<TestVertex, IEdge<TestVertex>>(wrappedGraph);
