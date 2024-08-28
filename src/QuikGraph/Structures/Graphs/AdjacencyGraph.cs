@@ -340,7 +340,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(predicate));
 
             var verticesToRemove = new VertexList<TVertex>();
-            verticesToRemove.AddRange(Vertices.Where(vertex => predicate(vertex)));
+            verticesToRemove.AddRange(Vertices.Where(predicate));
 
             // Remove out edges
             var verticesEdgesRemoved = new VertexEdgeDictionary<TVertex, TEdge>(verticesToRemove.Count);
@@ -559,7 +559,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(predicate));
 
             var edgesToRemove = new EdgeList<TEdge>();
-            edgesToRemove.AddRange(Edges.Where(edge => predicate(edge)));
+            edgesToRemove.AddRange(Edges.Where(predicate));
 
             return RemoveEdgesInternal(edgesToRemove);
         }
@@ -577,7 +577,7 @@ namespace QuikGraph
             if (_vertexEdges.TryGetValue(vertex, out IEdgeList<TEdge> outEdges))
             {
                 var edgesToRemove = new EdgeList<TEdge>();
-                edgesToRemove.AddRange(outEdges.Where(edge => predicate(edge)));
+                edgesToRemove.AddRange(outEdges.Where(predicate));
                 return RemoveEdgesInternal(edgesToRemove);
             }
 

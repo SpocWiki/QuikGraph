@@ -266,7 +266,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(predicate));
 
             var edgesToRemove = new EdgeList<TEdge>();
-            edgesToRemove.AddRange(Edges.Where(edge => predicate(edge)));
+            edgesToRemove.AddRange(Edges.Where(predicate));
 
             foreach (TEdge edge in edgesToRemove)
             {

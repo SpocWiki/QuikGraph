@@ -81,7 +81,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             int[] sourceToVertices = { 1, 2 };
             int[] verticesToSink = { 1, 2 };
@@ -222,7 +222,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             graph.AddVertexRange( 3, 4, 5 );
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             int[] sourceToVertices = { 3, 4 };
             int[] verticesToSink = { 3, 5 };
 
@@ -238,7 +238,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             graph.AddVertexRange( 3, 4, 5 );
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             int[] sourceToVertices = { 3, 4 };
             int[] verticesToSink = { 3, 5 };
 
@@ -253,7 +253,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             int[] sourceToVertices = { 3, 4 };
             int[] verticesToSink = { 3, 5 };
 
@@ -280,7 +280,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 Assert.Fail("Should not arrive.");
                 return 0;
             };
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             int[] sourceToVertices = { };
             int[] verticesToSink = { 4 };
 
@@ -296,7 +296,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             graph.AddVertexRange( 3, 4 );
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             int[] sourceToVertices = { 3, 4 };
             int[] verticesToSink = { };
 

@@ -18,7 +18,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             graph.AddVertexRange( 1, 2 );
             graph.AddVerticesAndEdge(Edge.Create(1, 3));
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             var capacities = new Dictionary<IEdge<int>, double>();
 
             var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 2, vertexFactory, edgeFactory);
@@ -338,7 +338,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVertexRange( 1, 2 );
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 2, vertexFactory, edgeFactory);
 
@@ -362,7 +362,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             );
             int vertexID = 6;
             VertexFactory<int> vertexFactory = () => vertexID++;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 3, vertexFactory, edgeFactory);
             algorithm.Balance();
@@ -390,7 +390,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVertexRange( 1, 2 );
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 2, vertexFactory, edgeFactory);
 
@@ -405,7 +405,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
             graph.AddVertexRange( source, sink );
             VertexFactory<TestVertex> vertexFactory = () => new TestVertex();
-            EdgeFactory<TestVertex, IEdge<TestVertex>> edgeFactory = (s, t) => Edge.Create(s, t);
+            EdgeFactory<TestVertex, IEdge<TestVertex>> edgeFactory = Edge.Create;
 
             var algorithm = new GraphBalancerAlgorithm<TestVertex, IEdge<TestVertex>>(
                 graph, source, sink, vertexFactory, edgeFactory);

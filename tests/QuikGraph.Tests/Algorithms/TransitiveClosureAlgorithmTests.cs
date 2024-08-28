@@ -17,7 +17,7 @@ namespace QuikGraph.Tests.Algorithms
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new TransitiveClosureAlgorithm<int, IEdge<int>>(graph, (v1, v2) => Edge.Create(v1, v2));
+            var algorithm = new TransitiveClosureAlgorithm<int, IEdge<int>>(graph, Edge.Create);
             algorithm.AssertAlgorithmState(graph);
             Assert.IsNotNull(algorithm.TransitiveClosure);
         }

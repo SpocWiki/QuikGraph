@@ -13,6 +13,16 @@ namespace QuikGraph.Algorithms
     public static class VertexAndEdgeListGraphX
     {
         /// <summary> Returns the number of Eulerian trails in the <paramref name="graph"/>>. </summary>
+        /// <remarks>This is the core of Euler's Argument:
+        /// The necessary and sufficient condition for a walk over all Edges is that
+        /// 1. the graph is connected and
+        /// 2. each node has an even degree, (then this is an Euler cycle and returns 1)
+        /// 3. except for a pair of nodes with an odd degree, which form the Start and End of the Path.
+        ///
+        /// All Eulerian circuits are also Eulerian paths, but not all Eulerian paths are Eulerian circuits.
+        /// When there is an odd number of nodes with an odd degree,
+        /// there can neither be an Euler Path nor Cycle. 
+        /// </remarks>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         [Pure]
         public static int ComputeEulerianPathCount<TVertex, TEdge>(
@@ -29,12 +39,10 @@ namespace QuikGraph.Algorithms
                 return 1;
             if (odd % 2 != 0)
                 return 0;
-            return odd / 2;
+            return odd / 2; 
         }
 
-        /// <summary>
-        /// Gets odd vertices of the given <paramref name="graph"/>.
-        /// </summary>
+        /// <summary> Gets odd vertices of the given <paramref name="graph"/>. </summary>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Enumerable of odd vertices.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -43,28 +51,77 @@ namespace QuikGraph.Algorithms
         public static IEnumerable<TVertex> OddVertices<TVertex, TEdge>(
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
+            => VertexDegree(graph)
+                .Where(pair => pair.Value % 2 != 0) // Odds
+                .Select(pair => pair.Key);
+
+        /// <summary> Returns the Degree for every Vertex </summary>
+        /// <returns></returns>
+        /// <remarks>The Degree is the Difference between the FanOut and the FanIn.</remarks>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static Dictionary<TVertex, int> VertexDegree<TVertex, TEdge>(this IVertexAndEdgeListGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
         {
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
 
-            var counts = new Dictionary<TVertex, int>(graph.VertexCount);
+            var fanOut = new Dictionary<TVertex, int>(graph.VertexCount);
             foreach (TVertex vertex in graph.Vertices)
             {
-                counts.Add(vertex, 0);
+                fanOut.Add(vertex, 0);
             }
 
             foreach (TEdge edge in graph.Edges)
             {
-                ++counts[edge.Source];
-                --counts[edge.Target];
+                ++fanOut[edge.Source];
+                --fanOut[edge.Target];
             }
 
-            // Odds
-            return counts
-                .Where(pair => pair.Value % 2 != 0)
-                .Select(pair => pair.Key);
+            return fanOut;
         }
 
+        /// <summary> Returns the <paramref name="fanIn"/> or the fanOut for each Vertex </summary>
+        /// <remarks>The Difference between both is the <seealso cref="VertexDegree{TVertex,TEdge}"/></remarks>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IDictionary<TVertex, int> Fan<TVertex, TEdge>(this IVertexAndEdgeListGraph<TVertex, TEdge> graph
+        , bool fanIn, [CanBeNull] IDictionary<TVertex, int> fan = null) where TEdge : IEdge<TVertex>
+        {
+            if (graph is null)
+                throw new ArgumentNullException(nameof(graph));
+
+            fan = fan ?? new Dictionary<TVertex, int>(graph.VertexCount);
+            foreach (TEdge edge in graph.Edges)
+            {
+                var key = fanIn ? edge.Target : edge.Source;
+                fan.TryGetValue(key, out int count);
+                fan[key] = 1 + count;
+            }
+
+            return fan;
+        }
+
+        /// <summary> Tries to compute all Euler-Paths </summary>
+        /// <returns>false when the <paramref name="graph"/> does not have any Euler-Paths</returns>
+        public static bool TryComputeTrails<TVertex, TEdge>(this IMutableVertexAndEdgeListGraph<TVertex, TEdge> graph
+            , Func<TVertex, TVertex, TEdge> edgeFactory
+            , out ICollection<TEdge>[] trails, out TEdge[] circuit) where TEdge : IEdge<TVertex>
+        {
+            trails = new ICollection<TEdge>[0];
+            circuit = new TEdge[0];
+
+            int pathCount = graph.ComputeEulerianPathCount();
+            if (pathCount == 0)
+                return false;
+
+            var algorithm = new EulerianTrailAlgorithm<TVertex, TEdge>(graph);
+            algorithm.AddTemporaryEdges((s, t) => edgeFactory(s, t));
+            algorithm.Compute();
+            trails = algorithm.Trails().ToArray();
+
+            algorithm.RemoveTemporaryEdges();
+            //Assert.IsNotNull(algorithm.Circuit);
+            circuit = algorithm.Circuit;
+            return true;
+        }
     }
 
     /// <summary> Algorithm that finds Eulerian <seealso cref="Trails()"/> and <see cref="Circuit"/> in a graph, starting from the <see cref="RootedAlgorithmBase{TVertex,TGraph}.TryGetRootVertex"/>. </summary>

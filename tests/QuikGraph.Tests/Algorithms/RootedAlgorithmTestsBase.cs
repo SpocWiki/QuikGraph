@@ -6,11 +6,10 @@ using static QuikGraph.Tests.AssertHelpers;
 
 namespace QuikGraph.Tests.Algorithms
 {
-    /// <summary>
-    /// Base class for rooted algorithm tests.
-    /// </summary>
+    /// <summary> Base class for rooted algorithm tests. </summary>
     internal abstract class RootedAlgorithmTestsBase
     {
+        /// <summary> Tests <see cref="RootedAlgorithmBase{TVertex,TGraph}.TryGetRootVertex"/> </summary>
         protected static void TryGetRootVertex_Test<TVertex, TGraph>(
             [NotNull] RootedAlgorithmBase<TVertex, TGraph> algorithm)
             where TVertex : new()

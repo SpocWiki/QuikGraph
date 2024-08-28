@@ -278,8 +278,10 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             }
 
             // Create cross edges 
-            foreach (Edge<int> edge in graph.Edges)
+            foreach (var edge in graph.Edges)
+            {
                 graph.AddEdge(Edge.Create(edge.Target, edge.Source));
+            }
 
             // Breaking graph apart
             for (int i = 0; i < 3; ++i)

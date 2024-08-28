@@ -446,7 +446,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(predicate));
 
             var verticesToRemove = new VertexList<TVertex>();
-            verticesToRemove.AddRange(Vertices.Where(vertex => predicate(vertex)));
+            verticesToRemove.AddRange(Vertices.Where(predicate));
 
             IEnumerable<TEdge> edgesRemoved = verticesToRemove.Aggregate(
                 Enumerable.Empty<TEdge>(),
@@ -597,7 +597,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(predicate));
 
             var edgesToRemove = new EdgeList<TEdge>();
-            edgesToRemove.AddRange(Edges.Where(edge => predicate(edge)));
+            edgesToRemove.AddRange(Edges.Where(predicate));
 
             return RemoveEdgesInternal(edgesToRemove);
         }
@@ -645,7 +645,7 @@ namespace QuikGraph
             if (_vertexOutEdges.TryGetValue(vertex, out IEdgeList<TEdge> outEdges))
             {
                 var edgesToRemove = new EdgeList<TEdge>();
-                edgesToRemove.AddRange(outEdges.Where(edge => predicate(edge)));
+                edgesToRemove.AddRange(outEdges.Where(predicate));
                 return RemoveEdgesInternal(edgesToRemove);
             }
 
@@ -700,7 +700,7 @@ namespace QuikGraph
             if (_vertexInEdges.TryGetValue(vertex, out IEdgeList<TEdge> inEdges))
             {
                 var edgesToRemove = new EdgeList<TEdge>();
-                edgesToRemove.AddRange(inEdges.Where(edge => predicate(edge)));
+                edgesToRemove.AddRange(inEdges.Where(predicate));
                 return RemoveEdgesInternal(edgesToRemove);
             }
 
@@ -798,7 +798,7 @@ namespace QuikGraph
 
             // Storing vertices to merge
             var mergeVertices = new VertexList<TVertex>(VertexCount / 4);
-            mergeVertices.AddRange(Vertices.Where(vertex => vertexPredicate(vertex)));
+            mergeVertices.AddRange(Vertices.Where(vertexPredicate));
 
             // Applying merge recursively
             foreach (TVertex vertex in mergeVertices)

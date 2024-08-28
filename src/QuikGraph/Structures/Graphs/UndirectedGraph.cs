@@ -429,7 +429,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(predicate));
 
             var verticesToRemove = new VertexList<TVertex>();
-            verticesToRemove.AddRange(Vertices.Where(vertex => predicate(vertex)));
+            verticesToRemove.AddRange(Vertices.Where(predicate));
 
             foreach (TVertex vertex in verticesToRemove)
             {
@@ -455,7 +455,7 @@ namespace QuikGraph
             if (_adjacentEdges.TryGetValue(vertex, out IEdgeList<TEdge> adjacentEdges))
             {
                 var edgesToRemove = new VertexList<TEdge>();
-                edgesToRemove.AddRange(adjacentEdges.Where(edge => predicate(edge)));
+                edgesToRemove.AddRange(adjacentEdges.Where(predicate));
                 return RemoveEdgesInternal(edgesToRemove);
             }
 
@@ -663,7 +663,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(predicate));
 
             return RemoveEdgesInternal(
-                Edges.Where(edge => predicate(edge)).ToArray());
+                Edges.Where(predicate).ToArray());
         }
 
 #if SUPPORTS_AGGRESSIVE_INLINING

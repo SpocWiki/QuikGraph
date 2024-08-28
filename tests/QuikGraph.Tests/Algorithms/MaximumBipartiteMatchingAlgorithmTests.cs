@@ -17,8 +17,7 @@ namespace QuikGraph.Tests.Algorithms
         #region Test helpers
 
         [NotNull]
-        private readonly EdgeFactory<string, IEdge<string>> _edgeFactory =
-            (source, target) => Edge.Create(source, target);
+        private readonly EdgeFactory<string, IEdge<string>> _edgeFactory = Edge.Create;
 
         private static void AssertThatMaxMatchEdgesAreValid<TVertex, TEdge>(
             [NotNull, ItemNotNull] TVertex[] vertexSetA,
@@ -123,7 +122,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             int[] sourceToVertices = { 1, 2 };
             int[] verticesToSink = { 1, 2 };
@@ -169,7 +168,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             int[] sourceToVertices = { 1, 2 };
             int[] verticesToSink = { 1, 2 };

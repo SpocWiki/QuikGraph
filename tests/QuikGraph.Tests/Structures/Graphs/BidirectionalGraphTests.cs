@@ -718,7 +718,7 @@ namespace QuikGraph.Tests.Structures
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, (source, target) => Edge.Create(source, target)));
+            Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, Edge.Create));
             Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(_ => true, null));
             Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
