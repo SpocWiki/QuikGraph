@@ -124,7 +124,7 @@ namespace QuikGraph
         {
             if (!edges.MoveNext())
             {
-                return null; // could also report this as null
+                return null; // could report this as null or as true
             }
 
             var lastEdge = edges.Current;

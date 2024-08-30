@@ -159,7 +159,7 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void IsPath()
         {
-            Assert.IsTrue(Enumerable.Empty<IEdge<int>>().IsPath());
+            Assert.IsFalse(Enumerable.Empty<IEdge<int>>().IsPath());
 
             var edge1 = Edge.Create(1, 1);
             // 1 -> 1
@@ -233,7 +233,7 @@ namespace QuikGraph.Tests.Extensions
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<IEdge<int>>)null).IsPath());
+            Assert.Throws<NullReferenceException>(() => ((IEnumerable<IEdge<int>>)null).IsPath());
         }
 
         [Test]
