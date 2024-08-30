@@ -148,11 +148,11 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
-            Assert.IsFalse(algorithm.TryGetVertexPairs(out _));
+            Assert.IsNull(algorithm.VertexPairs());
 
             graph.AddVertexRange( 1, 2 );
             algorithm.SetVertexPairs(new SEquatableEdge<int>(1, 2) );
-            Assert.IsTrue(algorithm.TryGetVertexPairs(out IEnumerable<SEquatableEdge<int>> pairs));
+            var pairs = algorithm.VertexPairs();
             CollectionAssert.AreEqual(
                 new[] { new SEquatableEdge<int>(1, 2) },
                 pairs);
@@ -170,9 +170,9 @@ namespace QuikGraph.Tests.Algorithms
                 new SEquatableEdge<int>(1, 2),
                 new SEquatableEdge<int>(2, 1)
             };
-            Assert.IsFalse(algorithm.TryGetVertexPairs(out _));
+            Assert.IsNull(algorithm.VertexPairs());
             algorithm.SetVertexPairs(pairs);
-            Assert.IsTrue(algorithm.TryGetVertexPairs(out IEnumerable<SEquatableEdge<int>> gotPairs));
+            var gotPairs = (algorithm.VertexPairs());
             CollectionAssert.AreEqual(pairs, gotPairs);
         }
 

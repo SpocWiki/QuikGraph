@@ -71,33 +71,80 @@ namespace QuikGraph
                 || EqualityComparer<TVertex>.Default.Equals(edge.Target, vertex);
         }
 
+        /// <summary> Checks if the <paramref name="edges"/> form a Circuit/Cycle. </summary>
+        /// <returns>True if the set makes a complete path, false otherwise.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edges"/> is <see langword="null"/>.</exception>
+        [Pure]
+        public static bool IsCircuit<TVertex>([NotNull, ItemNotNull] this IEnumerable<IEdge<TVertex>> edges
+            , [CanBeNull] Func<TVertex, TVertex, bool> areEqual = null) => IsCircuit(edges.GetEnumerator(), areEqual);
+
+        /// <inheritdoc cref="IsCircuit{TVertex}(IEnumerable{IEdge{TVertex}},Func{TVertex,TVertex,bool})"/>
+        [Pure]
+        public static bool IsCircuit<TVertex>([NotNull] this IEnumerator<IEdge<TVertex>> edges
+            , [CanBeNull] Func<TVertex, TVertex, bool> areEqual = null)
+        {
+            if (!edges.MoveNext())
+            {
+                return false; // could also report this as null
+            }
+
+            var firstEdge = edges.Current;
+            var lastEdge = _IsPath(edges, firstEdge, areEqual);
+            if (lastEdge == null)
+            {
+                return false;
+            }
+            return areEqual(lastEdge.Target, firstEdge.Source);
+        }
+
         /// <summary> Checks if the <paramref name="edges"/> form a path. </summary>
         /// <returns>True if the set makes a complete path, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edges"/> is <see langword="null"/>.</exception>
         [Pure]
-        public static bool IsPath<TVertex>([NotNull, ItemNotNull] this IEnumerable<IEdge<TVertex>> edges)
-        {
-            if (edges is null)
-                throw new ArgumentNullException(nameof(edges));
+        public static bool IsPath<TVertex>([NotNull, ItemNotNull] this IEnumerable<IEdge<TVertex>> edges
+            , [CanBeNull] Func<TVertex, TVertex, bool> areEqual = null)
+            => IsPath(edges.GetEnumerator(), areEqual);
 
-            bool first = true;
-            var lastTarget = default(TVertex);
-            foreach (var edge in edges)
+        /// <summary> Checks if the <paramref name="edges"/> form a path. </summary>
+        /// <returns>True if the set makes a complete path, false otherwise.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edges"/> is <see langword="null"/>.</exception>
+        [Pure]
+        public static bool IsPath<TVertex>([NotNull] this IEnumerator<IEdge<TVertex>> edges
+            , [CanBeNull] Func<TVertex, TVertex, bool> areEqual = null) => _IsPath(edges, areEqual) != null;
+
+        /// <summary> Checks if the <paramref name="edges"/> form a path. </summary>
+        /// <returns>
+        /// The last Edge if the set makes a complete path, null otherwise.
+        /// You can check the <paramref name="edges"/> for the offending Edge if necessary.
+        /// </returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edges"/> is <see langword="null"/>.</exception>
+        [Pure]
+        static IEdge<TVertex> _IsPath<TVertex>([NotNull] this IEnumerator<IEdge<TVertex>> edges
+            , [CanBeNull] Func<TVertex, TVertex, bool> areEqual = null)
+        {
+            if (!edges.MoveNext())
             {
-                if (first)
+                return null; // could also report this as null
+            }
+
+            var lastEdge = edges.Current;
+            return _IsPath(edges, lastEdge, areEqual);
+        }
+
+        private static IEdge<TVertex> _IsPath<TVertex>(IEnumerator<IEdge<TVertex>> edges, IEdge<TVertex> lastEdge
+            , [CanBeNull] Func<TVertex, TVertex, bool> areEqual = null)
+        {
+            areEqual = areEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            for (; edges.MoveNext()
+                 ; lastEdge = edges.Current)
+            {
+                if (!areEqual(lastEdge.Target, edges.Current.Source))
                 {
-                    lastTarget = edge.Target;
-                    first = false;
-                }
-                else
-                {
-                    if (!EqualityComparer<TVertex>.Default.Equals(lastTarget, edge.Source))
-                        return false;
-                    lastTarget = edge.Target;
+                    return null;
                 }
             }
 
-            return true;
+            return lastEdge;
         }
 
         /// <summary>

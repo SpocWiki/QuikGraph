@@ -111,18 +111,10 @@ namespace QuikGraph.Algorithms
 
         #endregion
 
-        /// <summary>
-        /// Tries to get vertices pairs if set.
-        /// </summary>
-        /// <param name="pairs">Vertices pairs if set.</param>
-        /// <returns>True if vertex pairs were set, false otherwise.</returns>
+        /// <summary> The vertex-pairs if set. </summary>
         [Pure]
-        [ContractAnnotation("=> true, pairs:notnull;=> false, pairs:null")]
-        public bool TryGetVertexPairs(out IEnumerable<SEquatableEdge<TVertex>> pairs)
-        {
-            pairs = _pairs;
-            return pairs != null;
-        }
+        [CanBeNull]
+        public IEnumerable<SEquatableEdge<TVertex>> VertexPairs() => _pairs;
 
         /// <summary> Sets vertices pairs. </summary>
         /// <param name="pairs">Vertices pairs.</param>

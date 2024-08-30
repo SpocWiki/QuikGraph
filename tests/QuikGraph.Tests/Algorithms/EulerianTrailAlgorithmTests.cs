@@ -15,7 +15,7 @@ namespace QuikGraph.Tests.Algorithms
     {
         #region Test helpers
 
-        public static void ComputeTrailsAndCheck<TVertex, TEdge>(
+        private static void ComputeTrailsAndCheck<TVertex, TEdge>(
             [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [NotNull, InstantHandle] Func<TVertex, TVertex, TEdge> edgeFactory,
             [NotNull, ItemNotNull] out ICollection<TEdge>[] trails,
@@ -86,7 +86,7 @@ namespace QuikGraph.Tests.Algorithms
             }
         }
 
-        #endregion
+        #endregion Test helpers
 
         [Test]
         public void Constructor()
@@ -418,6 +418,7 @@ namespace QuikGraph.Tests.Algorithms
         public void NotEulerianTrailGraph()
         {
             var graph = TestGraphFactory.LoadGraph(GetGraphFilePath("g.42.34.graphml"));
+            Assert.True(graph.IsDirected);
             // No trails in tests graphs there
             ComputeTrailsAndCheck(graph, Edge.Create,
                 out ICollection<IEdge<string>>[] trails,
@@ -446,7 +447,7 @@ namespace QuikGraph.Tests.Algorithms
 
             IEdge<char>[] expectedTrail = { edge3, edge1, edge4, edge6, edge5, edge7, edge2 };
             Assert.AreEqual(1, trails.Length);
-            Assert.IsTrue(trails[0].Cast<IEdge<char>>().IsPath());
+            Assert.IsTrue(trails[0].IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
 
             Assert.IsTrue(circuit.IsPath());
@@ -474,7 +475,7 @@ namespace QuikGraph.Tests.Algorithms
 
             IEdge<char>[] expectedTrail = { edge3, edge1, edge4, edge6, edge5, edge7, edge2 };
             Assert.AreEqual(1, trails.Length);
-            Assert.IsTrue(trails[0].Cast<IEdge<char>>().IsPath());
+            Assert.IsTrue(trails[0].IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
 
             Assert.IsTrue(circuit.IsPath());
@@ -571,28 +572,31 @@ namespace QuikGraph.Tests.Algorithms
             });
         }
 
+        /// <summary>
+        /// Single 7-Path cd,de,ec,cf,fa,ab,bc,closed, crossing in c,
+        /// but leaving out 'be'.
+        /// Starting at 'c'
+        /// </summary>
         [Test]
         public void SingleRootedEulerianTrailGraph()
         {
-            var edge1 = Edge.Create('b', 'c');
-            var edge2 = Edge.Create('f', 'a');
-            var edge3 = Edge.Create('a', 'b');
-            var edge4 = Edge.Create('c', 'd');
-            var edge5 = Edge.Create('e', 'c');
-            var edge6 = Edge.Create('d', 'e');
-            var edge7 = Edge.Create('c', 'f');
-            var edge8 = Edge.Create('b', 'e');
+            var bc = Edge.Create('b', 'c');
+            var fa = Edge.Create('f', 'a');
+            var ab = Edge.Create('a', 'b');
+            var cd = Edge.Create('c', 'd');
+            var ec = Edge.Create('e', 'c');
+            var de = Edge.Create('d', 'e');
+            var cf = Edge.Create('c', 'f');
+            var be = Edge.Create('b', 'e');
 
             var graph = new AdjacencyGraph<char, IEdge<char>>();
-            graph.AddVerticesAndEdgeRange(
-                edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8
-            );
+            graph.AddVerticesAndEdgeRange(bc, fa, ab, cd, ec, de, cf, be);
 
             ComputeTrails(graph, 'c', Edge.Create, out var trails, out var circuit);
 
-            IEdge<char>[] expectedTrail = { edge4, edge6, edge5, edge7, edge2, edge3, edge1 };
-            Assert.AreEqual(1, trails.Length);
-            Assert.IsTrue(trails[0].Cast<IEdge<char>>().IsPath());
+            IEdge<char>[] expectedTrail = { cd, de, ec, cf, fa, ab, bc };
+            Assert.AreEqual(1, trails.Length); //only 1 trail
+            Assert.IsTrue(trails[0].IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
             Assert.AreEqual('c', trails[0].ElementAt(0).Source);
 
@@ -600,36 +604,34 @@ namespace QuikGraph.Tests.Algorithms
             CollectionAssert.AreEquivalent(expectedTrail, circuit);
         }
 
+        /// <summary> 9 Edges, 8 of them bidirectional and one self-edge 4-4 </summary>
+        /// <remarks>
+        /// Starting at 4, a full Cycle is reported both as Trail and Circuit.
+        /// Expected Trail is _44, _42, _24, _43, _31, _12, _21, _13, _34
+        /// </remarks>
         [Test]
         public void SingleRootedEulerianTrailGraph2()
         {
-            var edge1 = Edge.Create(1, 2);
-            var edge2 = Edge.Create(2, 1);
+            var _12 = Edge.Create(1, 2);
+            var _21 = Edge.Create(2, 1);
 
-            var edge3 = Edge.Create(1, 3);
-            var edge4 = Edge.Create(3, 1);
+            var _13 = Edge.Create(1, 3);
+            var _31 = Edge.Create(3, 1);
 
-            var edge5 = Edge.Create(2, 4);
-            var edge6 = Edge.Create(4, 2);
+            var _24 = Edge.Create(2, 4);
+            var _42 = Edge.Create(4, 2);
 
-            var edge7 = Edge.Create(3, 4);
-            var edge8 = Edge.Create(4, 3);
+            var _34 = Edge.Create(3, 4);
+            var _43 = Edge.Create(4, 3);
 
-            var edge9 = Edge.Create(4, 4);
+            var _44 = Edge.Create(4, 4);
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            graph.AddVerticesAndEdgeRange(
-                edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, edge9
-            );
+            graph.AddVerticesAndEdgeRange(_12, _21, _13, _31, _24, _42, _34, _43, _44);
 
-            ComputeTrails(
-                graph,
-                4,
-                Edge.Create,
-                out ICollection<IEdge<int>>[] trails,
-                out IEdge<int>[] circuit);
+            ComputeTrails(graph, 4, Edge.Create, out var trails, out var circuit);
 
-            IEdge<int>[] expectedTrail = { edge9, edge6, edge5, edge8, edge4, edge1, edge2, edge3, edge7 };
+            IEdge<int>[] expectedTrail = { _44, _42, _24, _43, _31, _12, _21, _13, _34 };
             Assert.AreEqual(1, trails.Length);
             Assert.IsTrue(trails[0].IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, trails[0]);
