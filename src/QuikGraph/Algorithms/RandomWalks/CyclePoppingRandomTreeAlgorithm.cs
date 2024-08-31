@@ -19,6 +19,9 @@ namespace QuikGraph.Algorithms.RandomWalks
         , ITreeBuilderAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>

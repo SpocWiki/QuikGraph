@@ -35,7 +35,7 @@ namespace QuikGraph.Algorithms
                 graph.EdgeEqualityComparer);
             newGraph.AddVertexRange(graph.Vertices);
             newGraph.AddEdgeRange(graph.Edges);
-            newGraph.RemoveEdgeIf(edge => edge.IsSelfEdge());
+            newGraph.RemoveEdgeIf(edge => edge.IsSelfEdge(graph.AreVerticesEqual));
 
             _graph = newGraph;
             _threshold = newGraph.VertexCount / 2.0;

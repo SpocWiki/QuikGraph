@@ -21,6 +21,9 @@ namespace QuikGraph.Algorithms.Search
         , ITreeBuilderAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
         [NotNull]
         private readonly Func<TEdge, double> _edgeWeights;
 
@@ -77,7 +80,7 @@ namespace QuikGraph.Algorithms.Search
                 throw new Exception("Target vertex is not part of the graph.");
 
             // Little shortcut
-            if (EqualityComparer<TVertex>.Default.Equals(root, target))
+            if (VisitedGraph.AreVerticesEqual(root, target))
             {
                 OnTargetReached();
                 return; // Found it
@@ -99,7 +102,7 @@ namespace QuikGraph.Algorithms.Search
                 TVertex n = entry.Value;
 
                 // (4) If node n is a target node, terminate with success
-                if (EqualityComparer<TVertex>.Default.Equals(n, target))
+                if (VisitedGraph.AreVerticesEqual(n, target))
                 {
                     OnTargetReached();
                     return;
@@ -135,7 +138,7 @@ namespace QuikGraph.Algorithms.Search
             [NotNull] BinaryHeap<double, TVertex> open)
         {
             // Skip self-edges
-            foreach (TEdge edge in VisitedGraph.OutEdges(n).Where(e => !e.IsSelfEdge()))
+            foreach (TEdge edge in VisitedGraph.OutEdges(n).Where(e => !e.IsSelfEdge(VisitedGraph.AreVerticesEqual)))
             {
                 bool hasColor = operators.TryGetValue(edge, out GraphColor edgeColor);
                 if (!hasColor || edgeColor == GraphColor.White)

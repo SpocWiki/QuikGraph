@@ -78,7 +78,7 @@ namespace QuikGraph
         /// <inheritdoc />
         public virtual IEnumerable<TEdge> Edges =>
             _vertices.SelectMany(
-                vertex => AdjacentEdges(vertex).Where(edge => EqualityComparer<TVertex>.Default.Equals(edge.Source, vertex)));
+                vertex => AdjacentEdges(vertex).Where(edge => AreVerticesEqual(edge.Source, vertex)));
 
         /// <inheritdoc />
         public bool ContainsEdge(TEdge edge)
@@ -106,7 +106,7 @@ namespace QuikGraph
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            return _vertices.Any(v => EqualityComparer<TVertex>.Default.Equals(vertex, v));
+            return _vertices.Any(v => AreVerticesEqual(vertex, v));
         }
 
         #endregion
@@ -116,7 +116,7 @@ namespace QuikGraph
         private bool FilterEdges([NotNull] TEdge edge, [NotNull] TVertex vertex)
         {
             return IsInGraph(edge, vertex)
-                   && (EqualityComparer<TVertex>.Default.Equals(edge.Source, vertex) || EqualityComparer<TVertex>.Default.Equals(edge.Target, vertex));
+                   && (AreVerticesEqual(edge.Source, vertex) || AreVerticesEqual(edge.Target, vertex));
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace QuikGraph
             Debug.Assert(edge != null);
             Debug.Assert(vertex != null);
 
-            return ContainsVertexInternal(edge.GetOtherVertex(vertex));
+            return ContainsVertexInternal(edge.GetOtherVertex(vertex, AreVerticesEqual));
         }
 
         // Should override parent implementation since the provided delegate

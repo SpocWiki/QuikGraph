@@ -19,6 +19,9 @@ namespace QuikGraph.Algorithms.ShortestPath
         , IDistancesCollection<TVertex>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
         /// <summary>
         /// Vertices distances.
         /// </summary>
@@ -201,11 +204,11 @@ namespace QuikGraph.Algorithms.ShortestPath
             Debug.Assert(source != null);
             Debug.Assert(target != null);
             Debug.Assert(
-                (EqualityComparer<TVertex>.Default.Equals(edge.Source, source)
-                    && EqualityComparer<TVertex>.Default.Equals(edge.Target, target))
+                (VisitedGraph.AreVerticesEqual(edge.Source, source)
+                    && VisitedGraph.AreVerticesEqual(edge.Target, target))
                 ||
-                (EqualityComparer<TVertex>.Default.Equals(edge.Source, target)
-                    && EqualityComparer<TVertex>.Default.Equals(edge.Target, source)));
+                (VisitedGraph.AreVerticesEqual(edge.Source, target)
+                    && VisitedGraph.AreVerticesEqual(edge.Target, source)));
 
             double du = GetVertexDistance(source);
             double dv = GetVertexDistance(target);

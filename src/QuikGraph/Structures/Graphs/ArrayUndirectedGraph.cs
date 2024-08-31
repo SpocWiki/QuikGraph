@@ -28,6 +28,15 @@ namespace QuikGraph
 #endif
         where TEdge : class, IEdge<TVertex>
     {
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ArrayUndirectedGraph{TVertex,TEdge}"/> class.
         /// </summary>
@@ -148,7 +157,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(vertex));
 
             if (_vertexEdges.TryGetValue(vertex, out TEdge[] edges))
-                return edges.Sum(edge => edge.IsSelfEdge() ? 2 : 1);    // Self edge count twice
+                return edges.Sum(edge => edge.IsSelfEdge(AreVerticesEqual) ? 2 : 1);    // Self edge count twice
 
             return null;
         }

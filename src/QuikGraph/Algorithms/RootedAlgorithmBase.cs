@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 #if SUPPORTS_AGGRESSIVE_INLINING
 using System.Runtime.CompilerServices;
@@ -64,7 +63,7 @@ namespace QuikGraph.Algorithms
             if (root == null)
                 throw new ArgumentNullException(nameof(root));
 
-            bool changed = !_hasRootVertex || !EqualityComparer<TVertex>.Default.Equals(_root, root);
+            bool changed = !_hasRootVertex || !VisitedGraph.AreVerticesEqual(_root, root);
             _root = root;
             _hasRootVertex = true;
 

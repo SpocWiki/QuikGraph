@@ -35,6 +35,15 @@ namespace QuikGraph
 #endif
         where TEdge : class, IEdge<TVertex>
     {
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         [NotNull]
         private IVertexEdgeDictionary<TVertex, TEdge> _adjacentEdges =
             new VertexEdgeDictionary<TVertex, TEdge>();
@@ -242,7 +251,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(vertex));
 
             if (_adjacentEdges.TryGetValue(vertex, out IEdgeList<TEdge> edges))
-                return edges.Sum(edge => edge.IsSelfEdge() ? 2 : 1);    // Self edge count twice
+                return edges.Sum(edge => edge.IsSelfEdge(AreVerticesEqual) ? 2 : 1);    // Self edge count twice
 
             return null;
         }
@@ -522,7 +531,7 @@ namespace QuikGraph
 
             _edges.Add(edge);
             sourceEdges.Add(edge);
-            if (!edge.IsSelfEdge())
+            if (!edge.IsSelfEdge(AreVerticesEqual))
             {
                 targetEdges.Add(edge);
             }
@@ -561,7 +570,7 @@ namespace QuikGraph
 
             _edges.Add(edge);
             sourceEdges.Add(edge);
-            if (!edge.IsSelfEdge())
+            if (!edge.IsSelfEdge(AreVerticesEqual))
             {
                 targetEdges.Add(edge);
             }
@@ -628,7 +637,7 @@ namespace QuikGraph
             {
                 _edges.Remove(edge);
 
-                if (!edge.IsSelfEdge())
+                if (!edge.IsSelfEdge(AreVerticesEqual))
                 {
                     _adjacentEdges[edge.Target].Remove(edge);
                 }
@@ -678,7 +687,7 @@ namespace QuikGraph
                 {
                     _edges.Remove(edge);
 
-                    if (!edge.IsSelfEdge())
+                    if (!edge.IsSelfEdge(AreVerticesEqual))
                     {
                         _adjacentEdges[edge.Target].Remove(edge);
                     }

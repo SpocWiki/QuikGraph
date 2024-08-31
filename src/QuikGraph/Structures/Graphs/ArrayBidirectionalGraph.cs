@@ -45,6 +45,14 @@ namespace QuikGraph
             }
         }
 
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ArrayBidirectionalGraph{TVertex,TEdge}"/> class.
         /// </summary>
@@ -147,7 +155,7 @@ namespace QuikGraph
 
             if (_vertexEdges.TryGetValue(source, out InOutEdges inOutEdges))
             {
-                foreach (TEdge outEdge in inOutEdges.OutEdges.Where(outEdge => EqualityComparer<TVertex>.Default.Equals(outEdge.Target, target)))
+                foreach (TEdge outEdge in inOutEdges.OutEdges.Where(outEdge => AreVerticesEqual(outEdge.Target, target)))
                 {
                     edge = outEdge;
                     return true;
@@ -171,7 +179,7 @@ namespace QuikGraph
 
             if (_vertexEdges.TryGetValue(source, out InOutEdges inOutEdges))
             {
-                return inOutEdges.OutEdges.Where(outEdge => EqualityComparer<TVertex>.Default.Equals(outEdge.Target, target));
+                return inOutEdges.OutEdges.Where(outEdge => AreVerticesEqual(outEdge.Target, target));
             }
 
             return Empty;

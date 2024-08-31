@@ -13,29 +13,42 @@ namespace QuikGraph.Algorithms.Observers
     public sealed class VertexPredecessorRecorderObserver<TVertex, TEdge> : IObserver<ITreeBuilderAlgorithm<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VertexPredecessorRecorderObserver{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <inheritdoc cref="VertexPredecessorRecorderObserver{TVertex, TEdge}"/>
         public VertexPredecessorRecorderObserver()
-            : this(new Dictionary<TVertex, TEdge>())
+            : this(new Dictionary<TVertex, TEdge>(), null)
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VertexPredecessorRecorderObserver{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="verticesPredecessors">Vertices predecessors.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesPredecessors"/> is <see langword="null"/>.</exception>
-        public VertexPredecessorRecorderObserver([NotNull] Dictionary<TVertex, TEdge> verticesPredecessors)
+        /// <inheritdoc cref="VertexPredecessorRecorderObserver{TVertex, TEdge}"/>
+        public VertexPredecessorRecorderObserver(IEqualityComparer<TVertex> equality)
+            : this(new Dictionary<TVertex, TEdge>(equality), equality.Equals)
+        {
+        }
+
+        /// <inheritdoc cref="VertexPredecessorRecorderObserver{TVertex, TEdge}"/>
+        public VertexPredecessorRecorderObserver(Func<TVertex, TVertex, bool> equality)
+            : this(new Dictionary<TVertex, TEdge>(), equality)
+        {
+        }
+
+        /// <inheritdoc cref="VertexPredecessorRecorderObserver{TVertex, TEdge}"/>
+        public VertexPredecessorRecorderObserver([NotNull] IDictionary<TVertex, TEdge> verticesPredecessors
+            , Func<TVertex, TVertex, bool> equals = null)
         {
             VerticesPredecessors = verticesPredecessors ?? throw new ArgumentNullException(nameof(verticesPredecessors));
+            AreVerticesEqual = equals;
         }
 
         /// <summary>
         /// Vertices predecessors.
         /// </summary>
         [NotNull]
-        public Dictionary<TVertex, TEdge> VerticesPredecessors { get; }
+        public IDictionary<TVertex, TEdge> VerticesPredecessors { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Func<TVertex, TVertex, bool> AreVerticesEqual { get; }
 
         #region IObserver<TAlgorithm>
 
@@ -63,6 +76,6 @@ namespace QuikGraph.Algorithms.Observers
         /// <returns>Path to the ending vertex, null if no path was found.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="terminal"/> is <see langword="null"/>.</exception>
         [Pure]
-        public List<TEdge> GetPath([NotNull] TVertex terminal) => VerticesPredecessors.GetPath(terminal);
+        public List<TEdge> GetPath([NotNull] TVertex terminal) => VerticesPredecessors.GetPath(terminal, AreVerticesEqual);
     }
 }

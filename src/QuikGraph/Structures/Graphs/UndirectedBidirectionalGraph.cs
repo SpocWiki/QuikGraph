@@ -29,6 +29,15 @@ namespace QuikGraph
 #endif
         where TEdge : IEdge<TVertex>
     {
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UndirectedBidirectionalGraph{TVertex,TEdge}"/> class.
         /// </summary>
@@ -143,7 +152,7 @@ namespace QuikGraph
                 .Concat((OriginalGraph.InEdges(vertex) ?? Enumerable.Empty<TEdge>())
                         // We skip self edges here since
                         // We already got them out-edge run
-                        .Where(inEdge => !inEdge.IsSelfEdge()));
+                        .Where(inEdge => !inEdge.IsSelfEdge(AreVerticesEqual)));
 
         /// <inheritdoc />
         public int? AdjacentDegree(TVertex vertex) => OriginalGraph.Degree(vertex);

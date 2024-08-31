@@ -20,6 +20,9 @@ namespace QuikGraph.Algorithms.Search
         , ITreeBuilderAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ImplicitEdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>

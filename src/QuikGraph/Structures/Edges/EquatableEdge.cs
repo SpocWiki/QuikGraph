@@ -32,9 +32,19 @@ namespace QuikGraph
         {
             if (other is null)
                 return false;
-            return EqualityComparer<TVertex>.Default.Equals(Source, other.Source)
-                && EqualityComparer<TVertex>.Default.Equals(Target, other.Target);
+            return AreVerticesEqual(Source, other.Source)
+                && AreVerticesEqual(Target, other.Target);
         }
+
+        /// <inheritdoc />
+        public static Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private static Func<TVertex, TVertex, bool> areVerticesEqual;
+
 
         /// <inheritdoc />
         public override bool Equals(object obj)

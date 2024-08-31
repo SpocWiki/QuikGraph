@@ -10,7 +10,7 @@ namespace QuikGraph
     /// An implicit graph the vertices and edges are not explicitly stored or predefined,
     /// but are instead generated or computed on-the-fly.
     /// </remarks>
-    public interface IImplicitGraph<TVertex, TEdge> : IGraph<TVertex, TEdge>, IImplicitVertexSet<TVertex>
+    public interface IImplicitGraph<TVertex, TEdge> : IGraph<TVertex, TEdge>
          where TEdge : IEdge<TVertex>
     {
         /// <summary> Gets the count of out-edges of <paramref name="vertex"/>. </summary>

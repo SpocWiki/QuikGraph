@@ -15,6 +15,9 @@ namespace QuikGraph.Algorithms.Observers
         IObserver<IUndirectedTreeBuilderAlgorithm<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> Compares Vertices for Equality </summary>
+        public Func<TVertex, TVertex, bool> AreVerticesEqual { get; private set; }
+
         /// <summary> Initializes <see cref="VerticesPredecessors"/>  empty. </summary>
         public UndirectedVertexPredecessorRecorderObserver()
             : this(new Dictionary<TVertex, TEdge>())
@@ -40,6 +43,9 @@ namespace QuikGraph.Algorithms.Observers
             if (algorithm is null)
                 throw new ArgumentNullException(nameof(algorithm));
 
+            AreVerticesEqual = AreVerticesEqual ?? algorithm.VisitededGraph.AreVerticesEqual;
+
+            //algorithm.VisitededGraph.AreVerticesEqual
             algorithm.TreeEdge += OnEdgeDiscovered;
             return Finally(() => algorithm.TreeEdge -= OnEdgeDiscovered);
         }
@@ -55,10 +61,10 @@ namespace QuikGraph.Algorithms.Observers
         }
 
         /// <summary> Tries to get the predecessor path, if reachable. </summary>
-        /// <param name="vertex">Path ending vertex.</param>
         /// <returns>Path to the ending vertex, null if a path was not found.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
-        public List<TEdge> GetPath([NotNull] TVertex vertex) => VerticesPredecessors.GetPath(vertex);
+        public List<TEdge> GetPath([NotNull] TVertex vertex)
+            => VerticesPredecessors.GetPath(vertex, AreVerticesEqual);
     }
 }

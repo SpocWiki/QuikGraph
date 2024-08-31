@@ -23,6 +23,7 @@ namespace QuikGraph.Tests.Extensions
             var edge5 = Edge.Create(v1, v2);
             var edge6 = Edge.Create(v2, v1);
 
+
             Assert.IsTrue(edge1.IsSelfEdge());
             Assert.IsFalse(edge2.IsSelfEdge());
             Assert.IsFalse(edge3.IsSelfEdge());

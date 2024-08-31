@@ -100,7 +100,7 @@ namespace QuikGraph.Algorithms.VertexColoring
         {
             foreach (TEdge adjacentEdges in VisitedGraph.AdjacentEdges(vertex))
             {
-                TVertex adjacentVertex = adjacentEdges.GetOtherVertex(vertex);
+                TVertex adjacentVertex = adjacentEdges.GetOtherVertex(vertex, VisitedGraph.AreVerticesEqual);
                 if (Colors[adjacentVertex].HasValue)
                 {
                     available[Colors[adjacentVertex].Value] = true;
@@ -124,10 +124,10 @@ namespace QuikGraph.Algorithms.VertexColoring
         {
             foreach (TEdge adjacentEdges in VisitedGraph.AdjacentEdges(vertex))
             {
-                if (Colors[adjacentEdges.GetOtherVertex(vertex)].HasValue)
+                if (Colors[adjacentEdges.GetOtherVertex(vertex, VisitedGraph.AreVerticesEqual)].HasValue)
                 {
                     // ReSharper disable once PossibleInvalidOperationException, Justification: Was assigned a color just before
-                    int usedColor = Colors[adjacentEdges.GetOtherVertex(vertex)].Value;
+                    int usedColor = Colors[adjacentEdges.GetOtherVertex(vertex, VisitedGraph.AreVerticesEqual)].Value;
                     available[usedColor] = false;
                 }
             }

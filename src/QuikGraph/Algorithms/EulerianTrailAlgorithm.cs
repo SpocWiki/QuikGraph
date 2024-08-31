@@ -132,11 +132,16 @@ namespace QuikGraph.Algorithms
     /// has an even <see cref="IImplicitUndirectedGraph{TVertex,TEdge}.AdjacentDegree"/>,
     /// except for at most 2, which are the End Nodes. 
     /// </remarks>
+    /// <inheritdoc cref="Trails(TVertex)"/>
     public sealed class EulerianTrailAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
+        /// <summary> Built in <see cref="SearchRecursively(TVertex)"/> </summary>
         [NotNull, ItemNotNull]
         private readonly List<TEdge> _temporaryCircuit = new List<TEdge>();
 
@@ -223,7 +228,7 @@ namespace QuikGraph.Algorithms
             VisitEdge?.Invoke(edge);
         }
 
-        private bool Search([NotNull] TVertex vertex)
+        private bool SearchRecursively([NotNull] TVertex vertex)
         {
             Debug.Assert(vertex != null);
 
@@ -236,11 +241,11 @@ namespace QuikGraph.Algorithms
                 _temporaryCircuit.Add(edge);
 
                 // edge.Target should be equal to CurrentVertex.
-                if (EqualityComparer<TVertex>.Default.Equals(edge.Target, _currentVertex))
+                if (VisitedGraph.AreVerticesEqual(edge.Target, _currentVertex))
                     return true;
 
                 // Continue search
-                if (Search(target))
+                if (SearchRecursively(target))
                     return true;
 
                 // Remove edge
@@ -267,7 +272,7 @@ namespace QuikGraph.Algorithms
 
                 OnVisitEdge(foundEdge);
                 _currentVertex = source;
-                if (Search(_currentVertex))
+                if (SearchRecursively(_currentVertex))
                     return true;
             }
 
@@ -289,7 +294,7 @@ namespace QuikGraph.Algorithms
             for (i = 0; i < _circuit.Count; ++i)
             {
                 TEdge edge = _circuit[i];
-                if (EqualityComparer<TVertex>.Default.Equals(edge.Source, _currentVertex))
+                if (VisitedGraph.AreVerticesEqual(edge.Source, _currentVertex))
                     break;
                 newCircuit.Add(edge);
             }
@@ -300,7 +305,7 @@ namespace QuikGraph.Algorithms
                 TEdge edge = _temporaryCircuit[j];
                 newCircuit.Add(edge);
                 OnCircuitEdge(edge);
-                if (EqualityComparer<TVertex>.Default.Equals(edge.Target, _currentVertex))
+                if (VisitedGraph.AreVerticesEqual(edge.Target, _currentVertex))
                     break;
             }
             _temporaryCircuit.Clear();
@@ -338,7 +343,7 @@ namespace QuikGraph.Algorithms
             _currentVertex = root;
 
             // Start search
-            Search(_currentVertex);
+            SearchRecursively(_currentVertex);
             if (CircuitAugmentation())
                 return; // Circuit is found
 
@@ -362,7 +367,7 @@ namespace QuikGraph.Algorithms
             // ReSharper disable once AssignNullToNotNullAttribute
             return VisitedGraph
                 .OutEdges(v)
-                .Any(outEdge => EqualityComparer<TVertex>.Default.Equals(outEdge.Target, u));
+                .Any(outEdge => VisitedGraph.AreVerticesEqual(outEdge.Target, u));
         }
 
         [Pure]
@@ -377,7 +382,7 @@ namespace QuikGraph.Algorithms
             // ReSharper disable once AssignNullToNotNullAttribute
             foreach (TVertex v in VisitedGraph.OutEdges(u).Select(outEdge => outEdge.Target))
             {
-                if (!EqualityComparer<TVertex>.Default.Equals(v, u) && oddVertices.Contains(v))
+                if (!VisitedGraph.AreVerticesEqual(v, u) && oddVertices.Contains(v))
                 {
                     foundAdjacent = true;
                     // Check that v does not have an out-edge towards u
@@ -514,23 +519,20 @@ namespace QuikGraph.Algorithms
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This method computes a set of Eulerian trails starting at <paramref name="startingVertex"/>
-        /// that spans the entire graph. The algorithm outline is as follows:
-        /// </para>
-        /// <para>
-        /// The algorithms iterates through the Eulerian circuit of the augmented
-        /// graph (the augmented graph is the graph with additional edges to make
-        /// the number of odd vertices even).
+        /// The algorithms iterates through the Eulerian circuit of the augmented graph
+        /// (the augmented graph is the graph with additional edges to make the number of odd vertices even).
         /// </para>
         /// <para>
         /// If the current edge is not temporary, it is added to the current trail.
         /// </para>
         /// <para>
-        /// If the current edge is temporary, the current trail is finished and
-        /// added to the trail collection. The shortest path between the 
-        /// start vertex <paramref name="startingVertex"/> and the target vertex of the
-        /// temporary edge is then used to start the new trail. This shortest
-        /// path is computed using the <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/>.
+        /// If the current edge is temporary, the current trail is finished
+        /// and added to the trail collection.
+        ///
+        /// The shortest path between the <paramref name="startingVertex"/>
+        /// and the target vertex of the temporary edge is then used to start the new trail.
+        ///
+        /// This shortest path is computed using the <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/>.
         /// </para>
         /// </remarks>
         /// <param name="startingVertex">Starting vertex.</param>
@@ -555,7 +557,7 @@ namespace QuikGraph.Algorithms
                 TEdge edge = _circuit[i];
                 if (_temporaryEdges.Contains(edge))
                     continue;
-                if (EqualityComparer<TVertex>.Default.Equals(edge.Source, startingVertex))
+                if (VisitedGraph.AreVerticesEqual(edge.Source, startingVertex))
                     break;
             }
 
@@ -573,7 +575,7 @@ namespace QuikGraph.Algorithms
             // Create trail
             var trail = new List<TEdge>();
             var bfs = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph);
-            var vis = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
+            var vis = new VertexPredecessorRecorderObserver<TVertex, TEdge>(VisitedGraph.AreVerticesEqual);
             using (vis.Attach(bfs))
             {
                 bfs.Compute(startingVertex);

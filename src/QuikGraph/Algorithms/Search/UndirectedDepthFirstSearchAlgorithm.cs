@@ -19,6 +19,9 @@ namespace QuikGraph.Algorithms.Search
         , IVertexTimeStamperAlgorithm<TVertex>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UndirectedDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
@@ -373,7 +376,7 @@ namespace QuikGraph.Algorithms.Search
                         continue; // Edge already visited
 
                     visitedEdges.Add(edge, 0);
-                    bool reversed = EqualityComparer<TVertex>.Default.Equals(edge.Target, u);
+                    bool reversed = VisitedGraph.AreVerticesEqual(edge.Target, u);
                     OnExamineEdge(edge, reversed);
                     TVertex v = reversed ? edge.Source : edge.Target;
                     GraphColor vColor = VerticesColors[v];

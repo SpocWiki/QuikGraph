@@ -179,7 +179,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
                 Debug.Assert(path.Count > 0);
 
                 // Add to list, if has no cycle
-                if (!path.Cast<IEdge<TVertex>>().HasCycles())
+                if (!path.Cast<IEdge<TVertex>>().HasCycles(VisitedGraph.AreVerticesEqual))
                     AddComputedShortestPath(path);
 
                 // Append new deviation paths
@@ -215,7 +215,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
             if (path.Count == 0)
                 return; // Unreachable vertices
 
-            if (!path.Cast<IEdge<TVertex>>().HasCycles())
+            if (!path.Cast<IEdge<TVertex>>().HasCycles(VisitedGraph.AreVerticesEqual))
                 AddComputedShortestPath(path);
 
             // Create deviation paths
@@ -237,7 +237,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
             var reversedGraph =
                 new ReversedBidirectionalGraph<TVertex, TEdge>(VisitedGraph);
             var successorsObserver =
-                new VertexPredecessorRecorderObserver<TVertex, SReversedEdge<TVertex, TEdge>>();
+                new VertexPredecessorRecorderObserver<TVertex, SReversedEdge<TVertex, TEdge>>(VisitedGraph.AreVerticesEqual);
             var distancesObserver =
                 new VertexDistanceRecorderObserver<TVertex, SReversedEdge<TVertex, TEdge>>(ReversedEdgeWeight);
             var shortestPath =
@@ -280,7 +280,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
             Debug.Assert(root != null);
             Debug.Assert(distances != null);
             Debug.Assert(path != null);
-            Debug.Assert(path[0].IsAdjacent(root));
+            Debug.Assert(path[0].IsAdjacent(root, VisitedGraph.AreVerticesEqual));
             Debug.Assert(0 <= startEdge && startEdge < path.Length);
 
             TVertex previousVertex = root;
@@ -335,7 +335,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
             foreach (TEdge deviationEdge in VisitedGraph.OutEdges(previousVertex))
             {
                 // Skip self edges and equal edges
-                if (EqualityComparer<TEdge>.Default.Equals(deviationEdge, edge) || deviationEdge.IsSelfEdge())
+                if (EqualityComparer<TEdge>.Default.Equals(deviationEdge, edge) || deviationEdge.IsSelfEdge(VisitedGraph.AreVerticesEqual))
                     continue;
 
                 // Any edge obviously creating a loop
@@ -375,7 +375,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
                 current = edge.Target;
             }
 
-            Debug.Assert(path.Count == 0 || EqualityComparer<TVertex>.Default.Equals(path.ElementAt(path.Count - 1).Target, _target));
+            Debug.Assert(path.Count == 0 || VisitedGraph.AreVerticesEqual(path.ElementAt(path.Count - 1).Target, _target));
         }
 
         [DebuggerDisplay("Weight = {" + nameof(Weight) + "}, Index = {" + nameof(DeviationIndex) + "}, Edge = {" + nameof(DeviationEdge) + "}")]

@@ -146,14 +146,14 @@ namespace QuikGraph.Algorithms
         {
             Debug.Assert(algorithm != null);
 
-            var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
+            var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>(algorithm.VisitedGraph.AreVerticesEqual);
             using (predecessorRecorder.Attach(algorithm))
             {
                 algorithm.Compute(source);
             }
 
             IDictionary<TVertex, TEdge> predecessors = predecessorRecorder.VerticesPredecessors;
-            return vertex => predecessors.GetPath(vertex);
+            return vertex => predecessors.GetPath(vertex, algorithm.VisitedGraph.AreVerticesEqual);
         }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace QuikGraph.Algorithms
             }
 
             IDictionary<TVertex, TEdge> predecessors = predecessorRecorder.VerticesPredecessors;
-            return vertex => predecessors.GetPath(vertex);
+            return vertex => predecessors.GetPath(vertex, graph.AreVerticesEqual);
         }
 
         /// <summary>
@@ -382,7 +382,7 @@ namespace QuikGraph.Algorithms
                 throw new ArgumentNullException(nameof(root));
 
             var algorithm = new BellmanFordShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights);
-            var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
+            var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>(graph.AreVerticesEqual);
             using (predecessorRecorder.Attach(algorithm))
             {
                 algorithm.Compute(root);
@@ -391,7 +391,7 @@ namespace QuikGraph.Algorithms
             hasNegativeCycle = algorithm.FoundNegativeCycle;
 
             IDictionary<TVertex, TEdge> predecessors = predecessorRecorder.VerticesPredecessors;
-            return vertex => predecessors.GetPath(vertex);
+            return vertex => predecessors.GetPath(vertex, graph.AreVerticesEqual);
         }
 
         /// <summary>
@@ -1242,7 +1242,7 @@ namespace QuikGraph.Algorithms
             [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reversedEdgeAugmentorAlgorithm)
             where TEdge : class, IEdge<TVertex>
         {
-            if (EqualityComparer<TVertex>.Default.Equals(source, sink))
+            if (graph.AreVerticesEqual(source, sink))
                 throw new ArgumentException($"{nameof(source)} and {nameof(sink)} must be different.");
 
             // Compute maximum flow

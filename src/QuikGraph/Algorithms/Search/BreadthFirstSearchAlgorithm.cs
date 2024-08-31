@@ -23,6 +23,9 @@ namespace QuikGraph.Algorithms.Search
         , IVertexColorizerAlgorithm<TVertex>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
         [NotNull]
         private readonly IQueue<TVertex> _vertexQueue;
 

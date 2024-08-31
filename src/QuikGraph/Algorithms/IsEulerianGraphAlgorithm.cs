@@ -29,12 +29,10 @@ namespace QuikGraph.Algorithms
                 throw new ArgumentNullException(nameof(graph));
 
             // Create new graph without parallel edges
-            var newGraph = new UndirectedGraph<TVertex, TEdge>(
-                false,
-                graph.EdgeEqualityComparer);
+            var newGraph = new UndirectedGraph<TVertex, TEdge>(false, graph.EdgeEqualityComparer);
             newGraph.AddVertexRange(graph.Vertices);
             newGraph.AddEdgeRange(graph.Edges);
-            newGraph.RemoveEdgeIf(edge => edge.IsSelfEdge());
+            newGraph.RemoveEdgeIf(edge => edge.IsSelfEdge(graph.AreVerticesEqual));
 
             _graph = newGraph;
         }

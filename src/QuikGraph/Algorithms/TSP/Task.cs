@@ -162,13 +162,13 @@ namespace QuikGraph.Algorithms.TSP
             [NotNull] TVertex target)
         {
             return
-                row.Where(edge => !EqualityComparer<TVertex>.Default.Equals(edge.Target, target))
+                row.Where(edge => !_graph.AreVerticesEqual(edge.Target, target))
                     .DefaultIfEmpty(null)
                     .Min(edge => edge is null
                         ? double.PositiveInfinity
                         : _weight[edge])
                 +
-                column.Where(edge => !EqualityComparer<TVertex>.Default.Equals(edge.Source, source))
+                column.Where(edge => !_graph.AreVerticesEqual(edge.Source, source))
                     .DefaultIfEmpty(null)
                     .Min(edge => edge is null
                         ? double.PositiveInfinity

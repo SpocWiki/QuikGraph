@@ -27,6 +27,15 @@ namespace QuikGraph
 #endif
         where TEdge : IEdge<TVertex>
     {
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EdgeListGraph{TVertex,TEdge}"/> class.
         /// </summary>
@@ -87,7 +96,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(vertex));
 
             return Edges.Any(
-                edge => EqualityComparer<TVertex>.Default.Equals(edge.Source, vertex) || EqualityComparer<TVertex>.Default.Equals(edge.Target, vertex));
+                edge => AreVerticesEqual(edge.Source, vertex) || AreVerticesEqual(edge.Target, vertex));
         }
 
         #endregion
@@ -123,8 +132,8 @@ namespace QuikGraph
 
             return _edges.Keys
                 .Any(e => IsDirected
-                    ? e.SortedVertexEqualityInternal(source, target)
-                    : e.UndirectedVertexEqualityInternal(source, target));
+                    ? e.SortedVertexEqualityInternal(source, target, AreVerticesEqual)
+                    : e.UndirectedVertexEqualityInternal(source, target, AreVerticesEqual));
         }
 
         #endregion

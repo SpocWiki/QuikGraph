@@ -19,6 +19,9 @@ namespace QuikGraph.Algorithms.Exploration
         where TVertex : ICloneable
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => (IGraph<TVertex, TEdge>)base.VisitedGraph;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>

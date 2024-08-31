@@ -236,7 +236,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
                 }
             }
 
-            if (EqualityComparer<TVertex>.Default.Equals(Roots[vertex], vertex))
+            if (VisitedGraph.AreVerticesEqual(Roots[vertex], vertex))
             {
                 TVertex w;
                 do
@@ -248,7 +248,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
                     VerticesPerStep.Add(w);
                     ++Steps;
                 }
-                while (!EqualityComparer<TVertex>.Default.Equals(w, vertex));
+                while (!VisitedGraph.AreVerticesEqual(w, vertex));
 
                 ++ComponentCount;
             }

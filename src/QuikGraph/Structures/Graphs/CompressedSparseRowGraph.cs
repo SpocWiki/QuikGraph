@@ -43,6 +43,15 @@ namespace QuikGraph
             public int Length => End - Start;
         }
 
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         private CompressedSparseRowGraph(
             [NotNull] Dictionary<TVertex, Range> outEdgeStartRanges,
             [NotNull, ItemNotNull] TVertex[] outEdges)
@@ -184,7 +193,7 @@ namespace QuikGraph
             {
                 for (int i = range.Start; i < range.End; ++i)
                 {
-                    if (EqualityComparer<TVertex>.Default.Equals(_outEdges[i], target))
+                    if (AreVerticesEqual(_outEdges[i], target))
                         return true;
                 }
             }
@@ -228,7 +237,7 @@ namespace QuikGraph
             {
                 for (int i = range.Start; i < range.End; ++i)
                 {
-                    if (EqualityComparer<TVertex>.Default.Equals(_outEdges[i], target))
+                    if (AreVerticesEqual(_outEdges[i], target))
                         yield return new SEquatableEdge<TVertex>(source, target);
                 }
             }

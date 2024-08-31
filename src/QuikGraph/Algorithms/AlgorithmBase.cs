@@ -17,6 +17,7 @@ namespace QuikGraph.Algorithms
     [Serializable]
 #endif
     public abstract class AlgorithmBase<TGraph> : IAlgorithm<TGraph>, IAlgorithmComponent
+        //where TGraph : IGraph<TVertex, TEdge>
     {
         /// <inheritdoc />
         public TGraph VisitedGraph { get; }

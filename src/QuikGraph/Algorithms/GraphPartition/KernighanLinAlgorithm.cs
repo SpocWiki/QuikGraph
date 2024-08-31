@@ -215,8 +215,8 @@ namespace QuikGraph.Algorithms.GraphPartition
         {
             foreach (TEdge edge in VisitedGraph.AdjacentEdges(vertexFromA))
             {
-                if (EqualityComparer<TVertex>.Default.Equals(edge.Target, vertexFromB)
-                    || EqualityComparer<TVertex>.Default.Equals(edge.Source, vertexFromB))
+                if (VisitedGraph.AreVerticesEqual(edge.Target, vertexFromB)
+                    || VisitedGraph.AreVerticesEqual(edge.Source, vertexFromB))
                 {
                     foundEdge = edge;
                     return true;

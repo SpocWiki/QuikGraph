@@ -15,6 +15,15 @@ namespace QuikGraph
     public sealed class ReversedBidirectionalGraph<TVertex, TEdge> : IBidirectionalGraph<TVertex, SReversedEdge<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         /// <summary> Initializes a new instance of the <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="originalGraph">Original graph to reverse.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="originalGraph"/> is <see langword="null"/>.</exception>

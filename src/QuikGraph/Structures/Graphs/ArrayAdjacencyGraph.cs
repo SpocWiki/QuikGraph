@@ -24,6 +24,15 @@ namespace QuikGraph
 #endif
         where TEdge : class, IEdge<TVertex>
     {
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         /// <summary> Copy-Constructor from <paramref name="baseGraph"/>. </summary>
         /// <param name="baseGraph">Wrapped graph.</param>
         public ArrayAdjacencyGraph([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> baseGraph)
@@ -154,7 +163,7 @@ namespace QuikGraph
 
             if (_vertexOutEdges.TryGetValue(source, out TEdge[] outEdges))
             {
-                foreach (TEdge outEdge in outEdges.Where(outEdge => EqualityComparer<TVertex>.Default.Equals(outEdge.Target, target)))
+                foreach (TEdge outEdge in outEdges.Where(outEdge => AreVerticesEqual(outEdge.Target, target)))
                 {
                     edge = outEdge;
                     return true;
@@ -178,7 +187,7 @@ namespace QuikGraph
 
             if (_vertexOutEdges.TryGetValue(source, out TEdge[] outEdges))
             {
-                return outEdges.Where(edge => EqualityComparer<TVertex>.Default.Equals(edge.Target, target));
+                return outEdges.Where(edge => AreVerticesEqual(edge.Target, target));
             }
 
             return Empty;

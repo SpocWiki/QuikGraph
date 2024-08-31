@@ -1,11 +1,11 @@
-namespace QuikGraph.Algorithms
+﻿namespace QuikGraph.Algorithms
 {
     /// <summary>
     /// An algorithm that exposes events to compute vertices predecessors (in directed graph).
     /// </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
-    public interface IVertexPredecessorRecorderAlgorithm<TVertex, out TEdge>
+    public interface IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>
         : ITreeBuilderAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

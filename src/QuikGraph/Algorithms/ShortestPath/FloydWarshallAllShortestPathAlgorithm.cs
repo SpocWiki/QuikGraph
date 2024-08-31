@@ -171,7 +171,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            if (EqualityComparer<TVertex>.Default.Equals(source, target))
+            if (VisitedGraph.AreVerticesEqual(source, target))
             {
                 return null;
             }
@@ -195,7 +195,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             {
                 SEquatableEdge<TVertex> current = todo.Pop();
 
-                Debug.Assert(!EqualityComparer<TVertex>.Default.Equals(current.Source, current.Target));
+                Debug.Assert(!VisitedGraph.AreVerticesEqual(current.Source, current.Target));
 
                 if (_data.TryGetValue(current, out VertexData data))
                 {

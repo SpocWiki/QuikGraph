@@ -131,10 +131,10 @@ namespace QuikGraph.Algorithms
                 {
                     if (Math.Abs(flow.ResidualCapacities[edge]) < float.Epsilon)
                     {
-                        if (EqualityComparer<TVertex>.Default.Equals(edge.Source, augmentor.SuperSource)
-                            || EqualityComparer<TVertex>.Default.Equals(edge.Source, augmentor.SuperSink)
-                            || EqualityComparer<TVertex>.Default.Equals(edge.Target, augmentor.SuperSource)
-                            || EqualityComparer<TVertex>.Default.Equals(edge.Target, augmentor.SuperSink))
+                        if (VisitedGraph.AreVerticesEqual(edge.Source, augmentor.SuperSource)
+                            || VisitedGraph.AreVerticesEqual(edge.Source, augmentor.SuperSink)
+                            || VisitedGraph.AreVerticesEqual(edge.Target, augmentor.SuperSource)
+                            || VisitedGraph.AreVerticesEqual(edge.Target, augmentor.SuperSink))
                         {
                             // Skip all edges that connect to SuperSource or SuperSink
                             continue;

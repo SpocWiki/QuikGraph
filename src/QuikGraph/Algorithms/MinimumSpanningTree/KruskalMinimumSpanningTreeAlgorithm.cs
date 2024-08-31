@@ -16,6 +16,9 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
         , IMinimumSpanningTreeAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
         [NotNull]
         private readonly Func<TEdge, double> _edgeWeights;
 

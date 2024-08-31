@@ -21,6 +21,15 @@ namespace QuikGraph.Algorithms.Exploration
         where TVertex : ICloneable
         where TEdge : class, IEdge<TVertex>
     {
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         [NotNull]
         private readonly VertexEdgeDictionary<TVertex, TEdge> _verticesEdgesCache =
             new VertexEdgeDictionary<TVertex, TEdge>();

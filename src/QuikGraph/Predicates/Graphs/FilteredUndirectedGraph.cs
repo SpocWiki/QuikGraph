@@ -65,7 +65,7 @@ namespace QuikGraph.Predicates
         public IEnumerable<TVertex> Vertices => BaseGraph.Vertices.Where(vertex => VertexPredicate(vertex));
 
         /// <inheritdoc />
-        public bool ContainsVertex(TVertex vertex)
+        public override bool ContainsVertex(TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
@@ -116,7 +116,8 @@ namespace QuikGraph.Predicates
         }
 
         /// <inheritdoc />
-        public int? AdjacentDegree(TVertex vertex) => AdjacentEdges(vertex)?.Sum(edge => edge.IsSelfEdge() ? 2 : 1); // Self edge count twice
+        public int? AdjacentDegree(TVertex vertex) => AdjacentEdges(vertex)
+            ?.Sum(edge => edge.IsSelfEdge(AreVerticesEqual) ? 2 : 1); // Self edge count twice
 
         /// <inheritdoc />
         public TEdge AdjacentEdge(TVertex vertex, int index)

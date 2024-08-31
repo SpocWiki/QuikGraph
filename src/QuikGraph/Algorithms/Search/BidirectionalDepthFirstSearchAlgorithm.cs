@@ -22,6 +22,9 @@ namespace QuikGraph.Algorithms.Search
         , IVertexColorizerAlgorithm<TVertex>
         where TEdge : IEdge<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>

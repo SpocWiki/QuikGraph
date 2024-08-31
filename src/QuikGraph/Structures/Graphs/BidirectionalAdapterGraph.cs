@@ -23,6 +23,12 @@ namespace QuikGraph
         [NotNull]
         private readonly IVertexAndEdgeListGraph<TVertex, TEdge> _baseGraph;
 
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual {
+            get => _baseGraph.AreVerticesEqual;
+            //set => _baseGraph.AreVerticesEqual = value;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BidirectionalAdapterGraph{TVertex,TEdge}"/> class.
         /// </summary>

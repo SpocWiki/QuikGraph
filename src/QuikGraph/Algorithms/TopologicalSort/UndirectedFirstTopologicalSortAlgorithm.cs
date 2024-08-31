@@ -67,7 +67,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
 
         private void InitializeInDegrees()
         {
-            if (!AllowCyclicGraph && VisitedGraph.Edges.Any(edge => edge.IsSelfEdge()))
+            if (!AllowCyclicGraph && VisitedGraph.Edges.Any(edge => edge.IsSelfEdge(VisitedGraph.AreVerticesEqual)))
                 throw new CyclicGraphException();
 
             foreach (TVertex vertex in VisitedGraph.Vertices)
@@ -118,9 +118,9 @@ namespace QuikGraph.Algorithms.TopologicalSort
 
             void UpdateAdjacentDegree(TVertex vertex)
             {
-                foreach (TEdge edge in VisitedGraph.AdjacentEdges(vertex).Where(e => !e.IsSelfEdge()))
+                foreach (TEdge edge in VisitedGraph.AdjacentEdges(vertex).Where(e => !e.IsSelfEdge(VisitedGraph.AreVerticesEqual)))
                 {
-                    TVertex other = edge.GetOtherVertex(vertex);
+                    TVertex other = edge.GetOtherVertex(vertex, VisitedGraph.AreVerticesEqual);
                     --Degrees[other];
 
                     if (Degrees[other] < 0 && !AllowCyclicGraph)

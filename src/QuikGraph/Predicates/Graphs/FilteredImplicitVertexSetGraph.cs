@@ -48,7 +48,7 @@ namespace QuikGraph.Predicates
         }
 
         /// <inheritdoc />
-        public bool ContainsVertex(TVertex vertex)
+        public override bool ContainsVertex(TVertex vertex)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));

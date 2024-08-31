@@ -18,6 +18,15 @@ namespace QuikGraph
     [StructLayout(LayoutKind.Auto)]
     public class SEquatableEdge<TVertex> : IEdge<TVertex>, IEquatable<SEquatableEdge<TVertex>>
     {
+        /// <inheritdoc />
+        public static Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private static Func<TVertex, TVertex, bool> areVerticesEqual;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SEquatableEdge{TVertex}"/> struct.
         /// </summary>
@@ -47,8 +56,8 @@ namespace QuikGraph
 
         /// <inheritdoc />
         public bool Equals(SEquatableEdge<TVertex> other) => other != null
-            && EqualityComparer<TVertex>.Default.Equals(Source, other.Source)
-            && EqualityComparer<TVertex>.Default.Equals(Target, other.Target);
+            && AreVerticesEqual(Source, other.Source)
+            && AreVerticesEqual(Target, other.Target);
 
         /// <inheritdoc />
         public override int GetHashCode()

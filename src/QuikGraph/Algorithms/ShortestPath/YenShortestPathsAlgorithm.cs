@@ -121,7 +121,7 @@ namespace QuikGraph.Algorithms.ShortestPath
 
             // Compute distances between the start vertex and other
             var algorithm = new DijkstraShortestPathAlgorithm<TVertex, EquatableTaggedEdge<TVertex, double>>(graph, _weights);
-            var recorder = new VertexPredecessorRecorderObserver<TVertex, EquatableTaggedEdge<TVertex, double>>();
+            var recorder = new VertexPredecessorRecorderObserver<TVertex, EquatableTaggedEdge<TVertex, double>>(graph.AreVerticesEqual);
 
             using (recorder.Attach(algorithm))
             {
@@ -185,7 +185,7 @@ namespace QuikGraph.Algorithms.ShortestPath
                 var verticesToRestore = new List<TVertex>();
                 foreach (TVertex source in rootPath.Select(rootPathEdge => rootPathEdge.Source))
                 {
-                    if (!EqualityComparer<TVertex>.Default.Equals(spurVertex, source))
+                    if (!_graph.AreVerticesEqual(spurVertex, source))
                     {
                         verticesToRestore.Add(source);
 

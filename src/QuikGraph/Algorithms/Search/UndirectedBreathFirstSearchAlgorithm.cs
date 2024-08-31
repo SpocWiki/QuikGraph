@@ -230,6 +230,9 @@ namespace QuikGraph.Algorithms.Search
         [NotNull]
         public IDictionary<TVertex, GraphColor> VerticesColors { get; }
 
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
+
         #region IVertexColorizerAlgorithm<TVertex>
 
         /// <inheritdoc />
@@ -281,7 +284,7 @@ namespace QuikGraph.Algorithms.Search
         {
             foreach (TEdge edge in VisitedGraph.AdjacentEdges(u))
             {
-                bool reversed = EqualityComparer<TVertex>.Default.Equals(edge.Target, u);
+                bool reversed = VisitedGraph.AreVerticesEqual(edge.Target, u);
                 TVertex v = reversed ? edge.Source : edge.Target;
                 OnExamineEdge(edge);
 

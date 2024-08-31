@@ -15,6 +15,15 @@ namespace QuikGraph
     [DebuggerDisplay("{" + nameof(Source) + "}<->{" + nameof(Target) + "}")]
     public class EquatableUndirectedEdge<TVertex> : UndirectedEdge<TVertex>, IEquatable<EquatableUndirectedEdge<TVertex>>
     {
+        /// <inheritdoc />
+        public static Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private static Func<TVertex, TVertex, bool> areVerticesEqual;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EquatableUndirectedEdge{TVertex}"/> class.
         /// </summary>
@@ -32,8 +41,8 @@ namespace QuikGraph
         {
             if (other is null)
                 return false;
-            return EqualityComparer<TVertex>.Default.Equals(Source, other.Source)
-                && EqualityComparer<TVertex>.Default.Equals(Target, other.Target);
+            return AreVerticesEqual(Source, other.Source)
+                && AreVerticesEqual(Target, other.Target);
         }
 
         /// <inheritdoc />

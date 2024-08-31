@@ -21,6 +21,9 @@ namespace QuikGraph.Algorithms.ShortestPath
         where TEdge : IEdge<TVertex>
         where TGraph : IVertexSet<TVertex>
     {
+        /// <summary> The processed Graph </summary>
+        public IGraph<TVertex, TEdge> VisitededGraph => (IGraph<TVertex, TEdge>)base.VisitedGraph;
+
         /// <summary>
         /// Vertices distances.
         /// </summary>

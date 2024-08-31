@@ -33,6 +33,15 @@ namespace QuikGraph
 #endif
         where TEdge : class, IEdge<TVertex>
     {
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<TVertex, TVertex, bool> areVerticesEqual;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BidirectionalGraph{TVertex,TEdge}"/> class.
         /// </summary>
@@ -167,7 +176,7 @@ namespace QuikGraph
             var outEdges = OutEdges(source);
             if (outEdges != null)
             {
-                return outEdges.Any(edge => EqualityComparer<TVertex>.Default.Equals(edge.Target, target));
+                return outEdges.Any(edge => AreVerticesEqual(edge.Target, target));
             }
 
             return false;
@@ -226,7 +235,7 @@ namespace QuikGraph
             if (_vertexOutEdges.TryGetValue(source, out IEdgeList<TEdge> outEdges)
                 && outEdges.Count > 0)
             {
-                foreach (TEdge outEdge in outEdges.Where(outEdge => EqualityComparer<TVertex>.Default.Equals(outEdge.Target, target)))
+                foreach (TEdge outEdge in outEdges.Where(outEdge => AreVerticesEqual(outEdge.Target, target)))
                 {
                     edge = outEdge;
                     return true;
@@ -251,7 +260,7 @@ namespace QuikGraph
 
             if (_vertexOutEdges.TryGetValue(source, out IEdgeList<TEdge> outEdges))
             {
-                return outEdges.Where(edge => EqualityComparer<TVertex>.Default.Equals(edge.Target, target));
+                return outEdges.Where(edge => AreVerticesEqual(edge.Target, target));
             }
 
             return Empty;
@@ -769,7 +778,7 @@ namespace QuikGraph
             foreach (TVertex source in inEdges.Select(source => source.Source))
             {
                 IEnumerable<TVertex> targets = outEdges
-                    .Where(target => !EqualityComparer<TVertex>.Default.Equals(vertex, target.Target))
+                    .Where(target => !AreVerticesEqual(vertex, target.Target))
                     .Select(target => target.Target);
                 foreach (TVertex target in targets)
                 {

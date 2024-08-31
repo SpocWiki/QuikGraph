@@ -10,7 +10,8 @@ namespace QuikGraph.Algorithms.Condensation
     /// </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
-    public sealed class EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge> : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
+    public sealed class EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge>
+        : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
@@ -96,12 +97,12 @@ namespace QuikGraph.Algorithms.Condensation
             // Add condensed edges
             foreach (MergedEdge<TVertex, TEdge> inEdge in inEdges)
             {
-                if (EqualityComparer<TVertex>.Default.Equals(inEdge.Source, vertex))
+                if (VisitedGraph.AreVerticesEqual(inEdge.Source, vertex))
                     continue;
 
                 foreach (MergedEdge<TVertex, TEdge> outEdge in outEdges)
                 {
-                    if (EqualityComparer<TVertex>.Default.Equals(outEdge.Target, vertex))
+                    if (VisitedGraph.AreVerticesEqual(outEdge.Target, vertex))
                         continue;
 
                     var newEdge = inEdge.Merge(outEdge);

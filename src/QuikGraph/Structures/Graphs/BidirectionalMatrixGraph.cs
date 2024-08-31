@@ -23,6 +23,15 @@ namespace QuikGraph
 #endif
         where TEdge : class, IEdge<int>
     {
+        /// <inheritdoc />
+        public Func<int, int, bool> AreVerticesEqual
+        {
+            get => areVerticesEqual ?? EqualityComparer<int>.Default.Equals;
+            set => areVerticesEqual = value;
+        }
+        [CanBeNull]
+        private Func<int, int, bool> areVerticesEqual;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BidirectionalMatrixGraph{TEdge}"/> class.
         /// </summary>

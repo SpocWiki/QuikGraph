@@ -68,7 +68,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
 
             foreach (TEdge edge in VisitedGraph.Edges)
             {
-                if (edge.IsSelfEdge())
+                if (edge.IsSelfEdge(VisitedGraph.AreVerticesEqual))
                     throw new CyclicGraphException();
 
                 ++InDegrees[edge.Target];

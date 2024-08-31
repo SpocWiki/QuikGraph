@@ -24,6 +24,7 @@ namespace QuikGraph.Predicates
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     /// <typeparam name="TGraph">Graph type.</typeparam>
+    /// <inheritdoc />
     public class FilteredGraph<TVertex, TEdge, TGraph> : IGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
         where TGraph : IGraph<TVertex, TEdge>
@@ -75,6 +76,16 @@ namespace QuikGraph.Predicates
 
         /// <inheritdoc />
         public bool AllowParallelEdges => BaseGraph.AllowParallelEdges;
+
+        /// <inheritdoc />
+        public Func<TVertex, TVertex, bool> AreVerticesEqual {
+            get => BaseGraph.AreVerticesEqual;
+            //set => BaseGraph.AreVerticesEqual = value;
+        }
+
+        /// <inheritdoc />
+        public virtual bool ContainsVertex([NotNull] TVertex vertex) => BaseGraph.ContainsVertex(vertex);
+
 
         #endregion
 
