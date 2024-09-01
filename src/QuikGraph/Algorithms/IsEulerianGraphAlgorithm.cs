@@ -71,12 +71,9 @@ namespace QuikGraph.Algorithms
             return new TrueIndexes(firstIndex, null);
         }
 
-        /// <summary>
-        /// Gets the component state of the current graph.
-        /// </summary>
-        /// <returns><see cref="ComponentWithEdges"/> state.</returns>
+        /// <summary> Gets the components except for single Nodes in the current graph. </summary>
         [Pure]
-        public ComponentWithEdges CheckComponentsWithEdges()
+        public ComponentWithEdges ComponentsWithEdges()
         {
             var componentsAlgorithm = new ConnectedComponentsAlgorithm<TVertex, TEdge>(_graph);
             componentsAlgorithm.Compute();
@@ -107,7 +104,7 @@ namespace QuikGraph.Algorithms
         [Pure]
         public bool IsEulerian()
         {
-            switch (CheckComponentsWithEdges())
+            switch (ComponentsWithEdges())
             {
                 case ComponentWithEdges.OneComponent:
                     return _graph.Vertices.All(SatisfiesEulerianCondition);
