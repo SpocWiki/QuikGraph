@@ -453,7 +453,7 @@ namespace QuikGraph.Tests.Algorithms
 
             Assert.IsTrue(circuit.IsPath());
             CollectionAssert.AreEquivalent(expectedTrail, circuit);
-            Assert.IsTrue(circuit.IsCircuit());
+            Assert.IsTrue(circuit.IsCircuit(graph.AreVerticesEqual));
         }
 
         [Test]

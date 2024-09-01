@@ -159,7 +159,7 @@ namespace QuikGraph.Serialization.Tests
             Assert.IsTrue(EquateGraphs.Equate(reversedGraph, deserializedGraph3));
 
             var undirectedBidirectionalGraph = new UndirectedBidirectionalGraph<EquatableTestVertex, EquatableTestEdge>(graph);
-            UndirectedBidirectionalGraph<EquatableTestVertex, EquatableTestEdge> deserializedGraph4 =
+            var deserializedGraph4 =
                 SerializeDeserialize<EquatableTestVertex, EquatableTestEdge, UndirectedBidirectionalGraph<EquatableTestVertex, EquatableTestEdge>>(undirectedBidirectionalGraph);
             Assert.IsTrue(EquateGraphs.Equate(undirectedBidirectionalGraph, deserializedGraph4));
         }

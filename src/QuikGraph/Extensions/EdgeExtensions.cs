@@ -94,7 +94,8 @@ namespace QuikGraph
             {
                 return false;
             }
-            return areEqual(lastEdge.Target, firstEdge.Source);
+
+            return (areEqual ?? EqualityComparer<TVertex>.Default.Equals).Invoke(lastEdge.Target, firstEdge.Source);
         }
 
         /// <summary> Checks if the <paramref name="edges"/> form a path. </summary>

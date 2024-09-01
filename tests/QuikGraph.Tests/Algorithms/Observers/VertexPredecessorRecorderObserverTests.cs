@@ -35,7 +35,8 @@ namespace QuikGraph.Tests.Algorithms.Observers
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new VertexPredecessorRecorderObserver<int, IEdge<int>>());
+            IDictionary<int, IEdge<int>> verticesPredecessors = null;
+            Assert.Throws<ArgumentNullException>(() => _ = new VertexPredecessorRecorderObserver<int, IEdge<int>>(verticesPredecessors));
         }
 
         [Test]
