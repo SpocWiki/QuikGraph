@@ -12,7 +12,7 @@ namespace QuikGraph.Algorithms
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class IsHamiltonianGraphAlgorithm<TVertex, TEdge>
-        where TEdge : class, IUndirectedEdge<TVertex>
+        where TEdge : IUndirectedEdge<TVertex>
     {
         [NotNull]
         private readonly UndirectedGraph<TVertex, TEdge> _graph;
@@ -41,10 +41,7 @@ namespace QuikGraph.Algorithms
             _threshold = newGraph.VertexCount / 2.0;
         }
 
-        /// <summary>
-        /// Gets vertices permutations.
-        /// </summary>
-        /// <returns>List of permutations.</returns>
+        /// <summary> Gets all vertices permutations. </summary>
         [Pure]
         [NotNull, ItemNotNull]
         public List<List<TVertex>> GetPermutations()
@@ -138,6 +135,17 @@ namespace QuikGraph.Algorithms
     public static class IsHamiltonianGraphAlgorithm
     {
         /// <summary>
+        /// Creates a new <see cref="IsHamiltonianGraphAlgorithm"/>
+        /// </summary>
+        /// <typeparam name="TVertex"></typeparam>
+        /// <typeparam name="TEdge"></typeparam>
+        /// <param name="graph"></param>
+        /// <returns></returns>
+        public static IsHamiltonianGraphAlgorithm<TVertex, TEdge> CreateHamiltonianGraph<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> graph)
+            where TEdge : IUndirectedEdge<TVertex>
+            => new IsHamiltonianGraphAlgorithm<TVertex, TEdge>(graph);
+
+        /// <summary>
         /// Returns true if the <paramref name="graph"/> is Hamiltonian, otherwise false.
         /// </summary>
         /// <typeparam name="TVertex">Vertex type.</typeparam>
@@ -148,7 +156,7 @@ namespace QuikGraph.Algorithms
         [Pure]
         public static bool IsHamiltonian<TVertex, TEdge>(
             [NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : class, IUndirectedEdge<TVertex>
+            where TEdge : IUndirectedEdge<TVertex>
         {
             return new IsHamiltonianGraphAlgorithm<TVertex, TEdge>(graph).IsHamiltonian();
         }

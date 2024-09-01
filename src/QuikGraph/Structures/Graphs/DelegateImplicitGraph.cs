@@ -11,7 +11,7 @@ namespace QuikGraph
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateImplicitGraph<TVertex, TEdge> : IImplicitGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         /// <inheritdoc />
         public Func<TVertex, TVertex, bool> AreVerticesEqual
@@ -76,7 +76,17 @@ namespace QuikGraph
         public IEnumerable<TEdge> OutEdges(TVertex vertex) => OutEdgesInternal(vertex);
 
         /// <inheritdoc />
-        public TEdge OutEdge(TVertex vertex, int index) => OutEdges(vertex)?.ElementAt(index);
+        public TEdge OutEdge(TVertex vertex, int index)
+        {
+            var outEdges = OutEdges(vertex);
+
+            if (outEdges == null)
+            {
+                return default(TEdge);
+            }
+
+            return outEdges.ElementAt(index);
+        }
 
         [Pure]
         internal virtual bool ContainsVertexInternal([NotNull] TVertex vertex) => _tryGetOutEdgesFunc(vertex) != null;

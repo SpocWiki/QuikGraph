@@ -21,6 +21,10 @@ namespace QuikGraph
         public static IEdge<TVertex> Create<TVertex>(TVertex source, TVertex target) => new Edge<TVertex>(source, target);
 
         /// <inheritdoc cref="Create{TVertex}(TVertex,TVertex)"/>
+        public static IUndirectedEdge<TVertex> CreateUndirected<TVertex>(TVertex source, TVertex target)
+            => new UndirectedEdge<TVertex>(source, target);
+
+        /// <inheritdoc cref="Create{TVertex}(TVertex,TVertex)"/>
         public static IEdge<TVertex> Create<TVertex>(IEdge<TVertex> edge)// => edge.Clone();
             => new Edge<TVertex>(edge.Source, edge.Target);
     }

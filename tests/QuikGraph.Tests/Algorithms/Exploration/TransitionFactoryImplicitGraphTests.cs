@@ -26,7 +26,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
                 // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
                 TransitionFactoryImplicitGraph<TVertex, TEdge> g)
                 where TVertex : ICloneable
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
             {
                 Assert.IsTrue(g.IsDirected);
                 Assert.IsTrue(g.AllowParallelEdges);

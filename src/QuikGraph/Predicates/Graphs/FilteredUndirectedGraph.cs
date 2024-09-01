@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
             [NotNull] Func<TVertex, bool> vertexPredicate,
             [NotNull] Func<TEdge, bool> edgePredicate)
             where TGraph : IUndirectedGraph<TVertex, TEdge>
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
             => new FilteredUndirectedGraph<TVertex, TEdge, TGraph>(baseGraph, vertexPredicate, edgePredicate);
     }
 
@@ -29,7 +29,7 @@ namespace QuikGraph.Predicates
     public sealed class FilteredUndirectedGraph<TVertex, TEdge, TGraph>
         : FilteredGraph<TVertex, TEdge, TGraph>
         , IUndirectedGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
         where TGraph : IUndirectedGraph<TVertex, TEdge>
     {
         /// <summary>
@@ -125,10 +125,18 @@ namespace QuikGraph.Predicates
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (VertexPredicate(vertex))
-                return AdjacentEdges(vertex)?.ElementAt(index);
+            if (!VertexPredicate(vertex))
+            {
+                return default(TEdge);
+            }
 
-            return null;
+            var adjacentEdges = AdjacentEdges(vertex);
+            if (adjacentEdges == null)
+            {
+                return default(TEdge);
+            }
+
+            return adjacentEdges.ElementAt(index);
         }
 
         /// <inheritdoc />

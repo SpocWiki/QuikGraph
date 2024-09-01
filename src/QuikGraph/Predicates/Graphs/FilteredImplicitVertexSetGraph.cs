@@ -13,7 +13,7 @@ namespace QuikGraph.Predicates
             [NotNull] Func<TVertex, bool> vertexPredicate,
             [NotNull] Func<TEdge, bool> edgePredicate)
             where TGraph : IGraph<TVertex, TEdge>, IImplicitVertexSet<TVertex>
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
             => new FilteredImplicitVertexSet<TVertex, TEdge, TGraph>(baseGraph, vertexPredicate, edgePredicate);
     }
 

@@ -46,7 +46,7 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             _edgeWeights = edgeWeights ?? throw new ArgumentNullException(nameof(edgeWeights));
         }

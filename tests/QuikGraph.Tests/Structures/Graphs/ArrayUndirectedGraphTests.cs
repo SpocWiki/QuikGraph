@@ -56,7 +56,7 @@ namespace QuikGraph.Tests.Structures
             void AssertGraphProperties<TVertex, TEdge>(
                 ArrayUndirectedGraph<TVertex, TEdge> g,
                 bool allowParallelEdges = true)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
             {
                 Assert.IsFalse(g.IsDirected);
                 Assert.AreEqual(allowParallelEdges, g.AllowParallelEdges);

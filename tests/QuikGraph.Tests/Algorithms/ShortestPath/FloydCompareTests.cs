@@ -31,7 +31,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             [NotNull] AdjacencyGraph<TVertex, TEdge> graph,
             [NotNull, InstantHandle] Func<TEdge, double> getDistances,
             [NotNull, InstantHandle] Func<AdjacencyGraph<TVertex, TEdge>, Func<TEdge, double>, ShortestPathAlgorithmBase<TVertex, TEdge, TGraph>> shortestPathAlgorithmFactory)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
             where TGraph : IVertexSet<TVertex>
         {
             // Compute all paths

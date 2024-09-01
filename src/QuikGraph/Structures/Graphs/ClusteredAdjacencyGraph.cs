@@ -24,7 +24,7 @@ namespace QuikGraph
         : IVertexAndEdgeListGraph<TVertex, TEdge>
         , IEdgeListAndIncidenceGraph<TVertex, TEdge>
         , IClusteredGraph
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         /// <inheritdoc />
         public Func<TVertex, TVertex, bool> AreVerticesEqual

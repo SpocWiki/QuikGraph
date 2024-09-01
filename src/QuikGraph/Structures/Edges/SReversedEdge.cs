@@ -12,7 +12,7 @@ namespace QuikGraph
     {
         /// <summary> Creates a <see cref="SReversedEdge{TVertex,TEdge}"/> from <paramref name="edge"/> </summary>
         [CanBeNull]
-        public static SReversedEdge<TVertex, TEdge>? CreateReversedEdge<TVertex, TEdge>([CanBeNull] this TEdge edge) where TEdge : class, IEdge<TVertex>
+        public static SReversedEdge<TVertex, TEdge>? CreateReversedEdge<TVertex, TEdge>([CanBeNull] this TEdge edge) where TEdge : IEdge<TVertex>
         {
             if (edge == null)
             {

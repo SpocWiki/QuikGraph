@@ -11,7 +11,7 @@ namespace QuikGraph
     public interface IBidirectionalIncidenceGraph<TVertex, TEdge> : IIncidenceGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary> Gets the number of in-edges pointing towards <paramref name="vertex"/>. </summary>
+        /// <summary> AKA FanIn; Gets the number of in-edges pointing towards <paramref name="vertex"/>. </summary>
         /// <returns><see langword="null"/> when the <paramref name="vertex"/> is unknown.</returns>
         [Pure]
         int? InDegree([NotNull] TVertex vertex);

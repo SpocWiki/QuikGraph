@@ -33,7 +33,7 @@ namespace QuikGraph
 #if SUPPORTS_SERIALIZATION && NETSTANDARD2_0
         , ISerializable
 #endif
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         /// <inheritdoc />
         public Func<TVertex, TVertex, bool> AreVerticesEqual
@@ -265,7 +265,7 @@ namespace QuikGraph
             if (_adjacentEdges.TryGetValue(vertex, out IEdgeList<TEdge> adjacentEdges))
                 return adjacentEdges[index];
 
-            return null;
+            return default(TEdge);
         }
 
         /// <inheritdoc />

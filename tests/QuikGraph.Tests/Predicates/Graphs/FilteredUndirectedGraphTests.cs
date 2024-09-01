@@ -34,7 +34,7 @@ namespace QuikGraph.Tests.Predicates
             void AssertGraphProperties<TVertex, TEdge, TGraph>(
                 FilteredUndirectedGraph<TVertex, TEdge, TGraph> g,
                 bool parallelEdges = true)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
                 where TGraph : IUndirectedGraph<TVertex, TEdge>
             {
                 Assert.AreSame(graph, g.BaseGraph);

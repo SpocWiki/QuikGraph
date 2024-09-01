@@ -12,7 +12,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
     {
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
         public void RunStronglyConnectedComponentsAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             var algorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(graph);
             algorithm.Compute();
@@ -76,7 +76,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             algorithm = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, components);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, graph, components);
+            algorithm = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, components, null);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -84,7 +84,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             void AssertAlgorithmProperties<TVertex, TEdge>(
                 StronglyConnectedComponentsAlgorithm<TVertex, TEdge> algo,
                 IVertexListGraph<TVertex, TEdge> g)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
             {
                 algo.AssertAlgorithmState(g);
                 Assert.AreEqual(0, algo.ComponentCount);
@@ -120,9 +120,9 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, graph, null));
+                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, components));
+                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
             Assert.Throws<ArgumentNullException>(
                 () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

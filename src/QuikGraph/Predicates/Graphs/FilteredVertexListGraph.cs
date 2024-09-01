@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
             [NotNull] Func<TVertex, bool> vertexPredicate,
             [NotNull] Func<TEdge, bool> edgePredicate)
             where TGraph : IVertexListGraph<TVertex, TEdge>
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
             => new FilteredVertexListGraph<TVertex, TEdge, TGraph>(baseGraph, vertexPredicate, edgePredicate);
     }
 
@@ -29,7 +29,7 @@ namespace QuikGraph.Predicates
     public class FilteredVertexListGraph<TVertex, TEdge, TGraph>
         : FilteredIncidenceGraph<TVertex, TEdge, TGraph>
         , IVertexListGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
         where TGraph : IVertexListGraph<TVertex, TEdge>
     {
         /// <summary>

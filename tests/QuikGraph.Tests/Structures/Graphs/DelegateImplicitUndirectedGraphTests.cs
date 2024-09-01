@@ -21,7 +21,7 @@ namespace QuikGraph.Tests.Structures
             void AssertGraphProperties<TVertex, TEdge>(
                 DelegateImplicitUndirectedGraph<TVertex, TEdge> g,
                 bool parallelEdges = true)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
             {
                 Assert.IsFalse(g.IsDirected);
                 Assert.AreEqual(parallelEdges, g.AllowParallelEdges);

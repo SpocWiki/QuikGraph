@@ -14,7 +14,7 @@ namespace QuikGraph.Algorithms
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     internal sealed class TransitiveAlgorithmHelper<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         [NotNull]
         private readonly IMutableBidirectionalGraph<TVertex, TEdge> _graph;

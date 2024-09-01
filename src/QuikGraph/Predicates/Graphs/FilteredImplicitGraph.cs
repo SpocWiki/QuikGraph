@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
             [NotNull] Func<TVertex, bool> vertexPredicate,
             [NotNull] Func<TEdge, bool> edgePredicate)
             where TGraph : IImplicitGraph<TVertex, TEdge>
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
             => new FilteredImplicitGraph<TVertex, TEdge, TGraph>(baseGraph, vertexPredicate, edgePredicate);
     }
 
@@ -29,7 +29,7 @@ namespace QuikGraph.Predicates
     public class FilteredImplicitGraph<TVertex, TEdge, TGraph>
         : FilteredImplicitVertexSet<TVertex, TEdge, TGraph>
         , IImplicitGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
         where TGraph : IImplicitGraph<TVertex, TEdge>
     {
         /// <summary>
@@ -79,12 +79,17 @@ namespace QuikGraph.Predicates
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (VertexPredicate(vertex))
+            if (!VertexPredicate(vertex))
             {
-                return BaseGraph.OutEdges(vertex)?.Where(FilterEdge).ElementAt(index);
+                return default(TEdge);
             }
 
-            return null;
+            var outEdges = BaseGraph.OutEdges(vertex);
+            if (outEdges == null)
+            {
+                return default(TEdge);
+            }
+            return outEdges.Where(FilterEdge).ElementAt(index);
         }
 
         #endregion

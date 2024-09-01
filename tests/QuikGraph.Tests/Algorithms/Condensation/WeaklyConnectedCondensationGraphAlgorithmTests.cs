@@ -18,7 +18,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
         public static void RunWeaklyConnectedCondensationAndCheck<TVertex, TEdge>(
             [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             IMutableBidirectionalGraph<AdjacencyGraph<TVertex, TEdge>, CondensedEdge<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>> condensedGraph =
                 graph.CondensateWeaklyConnected<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>();
@@ -32,7 +32,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         private static void CheckComponentCount<TVertex, TEdge>(
             [NotNull] IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] IVertexSet<AdjacencyGraph<TVertex, TEdge>> condensedGraph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             // Check number of vertices = number of strongly connected components
             int components = graph.WeaklyConnectedComponents(new Dictionary<TVertex, int>());
@@ -67,7 +67,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
                 CondensationGraphAlgorithm<TVertex, TEdge, TGraph> algo,
                 IVertexAndEdgeListGraph<TVertex, TEdge> g,
                 bool stronglyConnected = true)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
                 where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
             {
                 algo.AssertAlgorithmState(g);
@@ -97,9 +97,9 @@ namespace QuikGraph.Tests.Algorithms.Condensation
                 () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, graph, null));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, components));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
             Assert.Throws<ArgumentNullException>(
                 () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

@@ -25,7 +25,7 @@ namespace QuikGraph.Tests.Structures
             void AssertGraphProperties<TEdge>(
                 BidirectionalMatrixGraph<TEdge> g,
                 int nbVertices)
-                where TEdge : class, IEdge<int>
+                where TEdge : IEdge<int>
             {
                 Assert.IsTrue(g.IsDirected);
                 Assert.IsFalse(g.AllowParallelEdges);

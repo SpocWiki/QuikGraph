@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
             [NotNull] Func<TVertex, bool> vertexPredicate,
             [NotNull] Func<TEdge, bool> edgePredicate)
             where TGraph : IBidirectionalGraph<TVertex, TEdge>
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
             => new FilteredBidirectionalGraph<TVertex, TEdge, TGraph>(baseGraph, vertexPredicate, edgePredicate);
     }
 
@@ -29,7 +29,7 @@ namespace QuikGraph.Predicates
     public class FilteredBidirectionalGraph<TVertex, TEdge, TGraph>
         : FilteredVertexListGraph<TVertex, TEdge, TGraph>
         , IBidirectionalGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
         where TGraph : IBidirectionalGraph<TVertex, TEdge>
     {
         /// <summary>
@@ -86,15 +86,23 @@ namespace QuikGraph.Predicates
         }
 
         /// <inheritdoc />
+        [CanBeNull]
         public TEdge InEdge(TVertex vertex, int index)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
 
-            if (VertexPredicate(vertex))
-                return BaseGraph.InEdges(vertex)?.Where(FilterEdge).ElementAt(index);
+            if (!VertexPredicate(vertex))
+            {
+                return default(TEdge);
+            }
 
-            return null;
+            var inEdges = BaseGraph.InEdges(vertex);
+            if (inEdges == null)
+            {
+                return default(TEdge);
+            }
+            return inEdges.Where(FilterEdge).ElementAt(index);
         }
 
         /// <inheritdoc />

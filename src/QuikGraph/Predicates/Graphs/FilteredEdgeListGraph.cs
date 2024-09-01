@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
             [NotNull] Func<TVertex, bool> vertexPredicate,
             [NotNull] Func<TEdge, bool> edgePredicate)
             where TGraph : IEdgeListGraph<TVertex, TEdge>
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
             => new FilteredEdgeListGraph<TVertex, TEdge, TGraph>(baseGraph, vertexPredicate, edgePredicate);
     }
 

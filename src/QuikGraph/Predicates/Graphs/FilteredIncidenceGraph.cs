@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
     public class FilteredIncidenceGraph<TVertex, TEdge, TGraph>
         : FilteredImplicitGraph<TVertex, TEdge, TGraph>
         , IIncidenceGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
         where TGraph : IIncidenceGraph<TVertex, TEdge>
     {
         /// <summary>

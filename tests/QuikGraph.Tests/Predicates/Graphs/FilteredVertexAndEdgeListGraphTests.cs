@@ -37,7 +37,7 @@ namespace QuikGraph.Tests.Predicates
                 FilteredVertexAndEdgeListGraph<TVertex, TEdge, TGraph> g,
                 TGraph expectedGraph,
                 bool parallelEdges = true)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
                 where TGraph : IVertexAndEdgeListGraph<TVertex, TEdge>
             {
                 Assert.AreSame(expectedGraph, g.BaseGraph);

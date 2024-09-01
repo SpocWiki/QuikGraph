@@ -36,7 +36,7 @@ namespace QuikGraph.Tests.Predicates
                 FilteredIncidenceGraph<TVertex, TEdge, TGraph> g,
                 TGraph expectedGraph,
                 bool parallelEdges = true)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
                 where TGraph : IIncidenceGraph<TVertex, TEdge>
             {
                 Assert.AreSame(expectedGraph, g.BaseGraph);

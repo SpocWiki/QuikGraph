@@ -13,7 +13,7 @@ namespace QuikGraph
     public interface IImplicitGraph<TVertex, TEdge> : IGraph<TVertex, TEdge>
          where TEdge : IEdge<TVertex>
     {
-        /// <summary> Gets the count of out-edges of <paramref name="vertex"/>. </summary>
+        /// <summary> AKA FanOut; Gets the count of out-edges of <paramref name="vertex"/>. </summary>
         /// <param name="vertex">The vertex.</param>
         /// <returns>The count of out-edges of <paramref name="vertex"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>

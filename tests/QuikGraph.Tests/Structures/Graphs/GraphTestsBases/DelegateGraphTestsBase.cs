@@ -708,7 +708,7 @@ namespace QuikGraph.Tests.Structures
         protected static void GetAdjacentEdges_Throws_Test<TVertex, TEdge>(
             [NotNull] DelegateImplicitUndirectedGraph<TVertex, TEdge> graph)
             where TVertex : class
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.AdjacentEdges(null));

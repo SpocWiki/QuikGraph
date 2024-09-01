@@ -9,7 +9,7 @@ namespace QuikGraph.Tests.Structures
     {
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
         public static void AssertSameProperties<TVertex, TEdge>([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             var adjacencyGraph = graph.ToArrayAdjacencyGraph();
 
@@ -25,7 +25,7 @@ namespace QuikGraph.Tests.Structures
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_All))]
         public static void AssertSameProperties<TVertex, TEdge>([NotNull] IBidirectionalGraph<TVertex, TEdge> graph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             var bidirectionalGraph = graph.ToArrayBidirectionalGraph();
 
@@ -40,7 +40,7 @@ namespace QuikGraph.Tests.Structures
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_All))]
-        public static void AssertSameProperties<TVertex, TEdge>([NotNull] IUndirectedGraph<TVertex, TEdge> graph) where TEdge : class, IEdge<TVertex>
+        public static void AssertSameProperties<TVertex, TEdge>([NotNull] IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
         {
             var undirectedGraph = graph.ToArrayUndirectedGraph();
 

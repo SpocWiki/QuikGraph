@@ -14,7 +14,7 @@ namespace QuikGraph.Algorithms.VertexCover
     /// Mihalis Yannakakis and Fanica Gavril algorithm.
     /// </remarks>
     public sealed class MinimumVertexCoverApproximationAlgorithm<TVertex, TEdge> : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         [NotNull]
         private readonly VertexList<TVertex> _coverSet = new VertexList<TVertex>();

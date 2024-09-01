@@ -103,7 +103,7 @@ namespace QuikGraph.Tests.Structures
 
         protected static void Degree_Throws_Matrix_Test<TEdge>(
             [NotNull] BidirectionalMatrixGraph<TEdge> graph)
-            where TEdge : class, IEdge<int>
+            where TEdge : IEdge<int>
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             Assert.AreEqual(default, graph.Degree(-1));

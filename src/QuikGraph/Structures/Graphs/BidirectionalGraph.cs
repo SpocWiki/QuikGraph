@@ -31,7 +31,7 @@ namespace QuikGraph
 #if SUPPORTS_CLONEABLE
         , ICloneable
 #endif
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         /// <inheritdoc />
         public Func<TVertex, TVertex, bool> AreVerticesEqual
@@ -217,7 +217,7 @@ namespace QuikGraph
             if (_vertexOutEdges.TryGetValue(vertex, out IEdgeList<TEdge> outEdges))
                 return outEdges[index];
 
-            return null; //Enumerable.Empty<TEdge>();
+            return default(TEdge);
         }
 
         #endregion
@@ -303,7 +303,7 @@ namespace QuikGraph
 
             if (_vertexInEdges.TryGetValue(vertex, out IEdgeList<TEdge> inEdges))
                 return inEdges[index];
-            return null;
+            return default(TEdge);
         }
 
         /// <inheritdoc />

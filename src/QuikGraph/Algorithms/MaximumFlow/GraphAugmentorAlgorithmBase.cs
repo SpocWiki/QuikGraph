@@ -31,7 +31,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
             [NotNull] TGraph visitedGraph,
             [NotNull] VertexFactory<TVertex> vertexFactory,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             VertexFactory = vertexFactory ?? throw new ArgumentNullException(nameof(vertexFactory));
             EdgeFactory = edgeFactory ?? throw new ArgumentNullException(nameof(edgeFactory));

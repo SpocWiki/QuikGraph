@@ -914,11 +914,11 @@ namespace QuikGraph.Tests.Structures
 
         protected static void ContainsEdge_NullThrows_Test<TVertex, TEdge>(
             [NotNull] IEdgeSet<TVertex, TEdge> graph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentNullException>(() => graph.ContainsEdge(null));
+            Assert.Throws<ArgumentNullException>(() => graph.ContainsEdge(default));
         }
 
         protected static void ContainsEdge_DefaultNullThrows_Test<TVertex>(
@@ -931,7 +931,7 @@ namespace QuikGraph.Tests.Structures
 
         protected static void ContainsEdge_NullThrows_ReversedTest<TVertex, TEdge>(
             [NotNull] IEdgeSet<TVertex, SReversedEdge<TVertex, TEdge>> graph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed

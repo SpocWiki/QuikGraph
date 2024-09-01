@@ -41,7 +41,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         public IncrementalConnectedComponentsAlgorithm(
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
         }
 

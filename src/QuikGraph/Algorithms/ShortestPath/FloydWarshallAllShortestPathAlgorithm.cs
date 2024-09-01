@@ -122,7 +122,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [NotNull] IDistanceRelaxer distanceRelaxer)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             _weights = edgeWeights ?? throw new ArgumentNullException(nameof(edgeWeights));
             _distanceRelaxer = distanceRelaxer ?? throw new ArgumentNullException(nameof(distanceRelaxer));

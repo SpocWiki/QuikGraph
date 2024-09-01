@@ -26,7 +26,7 @@ namespace QuikGraph.Algorithms.Cliques
         protected MaximumCliqueAlgorithmBase(
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
         }
 

@@ -1,11 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using QuikGraph.Algorithms.Search;
 using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.ConnectedComponents
 {
+    /// <summary> Extension Methods for <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> </summary>
+    public static class ConnectedComponentsAlgorithm{
+
+        /// <summary> Creates an <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> for <paramref name="undirectedGraph"/> </summary>
+        public static ConnectedComponentsAlgorithm<TVertex, TEdge> CreateConnectedComponentsAlgorithm<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> undirectedGraph)
+            where TEdge : IEdge<TVertex> => new ConnectedComponentsAlgorithm<TVertex, TEdge>(undirectedGraph);
+
+        /// <summary> Aggregates the Number of Nodes for each Component </summary>
+        /// <remarks>
+        /// This is faster than aggregating the Number of Edges and since each connected Component with N+1 Vertices
+        /// has at least N Edges. 
+        /// </remarks>
+        public static int[] NumVerticesInComponent<TVertex, TEdge>(this ConnectedComponentsAlgorithm<TVertex, TEdge> componentsAlgorithm)
+            where TEdge : IEdge<TVertex>
+        {
+            var numVerticesInComponent = new int[componentsAlgorithm.ComponentCount];
+            foreach (KeyValuePair<TVertex, int> indexOfVertex in componentsAlgorithm.ComponentIndex)
+            {
+                ++numVerticesInComponent[indexOfVertex.Value];
+            }
+
+            return numVerticesInComponent;
+        }
+
+        /// <summary> Aggregates the Number of Nodes for each Component </summary>
+        /// <remarks>
+        /// This is faster than aggregating the Number of Edges and since each connected Component with N+1 Vertices
+        /// has at least N Edges. 
+        /// </remarks>
+        public static int[] NumEdgesInComponent<TVertex, TEdge>(this ConnectedComponentsAlgorithm<TVertex, TEdge> componentsAlgorithm)
+            where TEdge : IEdge<TVertex>
+        {
+            var numVerticesInComponent = new int[componentsAlgorithm.ComponentCount];
+            foreach (KeyValuePair<TVertex, int> indexOfVertex in componentsAlgorithm.ComponentIndex)
+            {
+                numVerticesInComponent[indexOfVertex.Value] += componentsAlgorithm.VisitedGraph.AdjacentEdges(indexOfVertex.Key)?.Count() ?? 0;
+            }
+
+            return numVerticesInComponent;
+        }
+
+    }
     /// <summary> computes connected components of a graph. </summary>
     public sealed class ConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
@@ -48,7 +91,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IDictionary<TVertex, int> components)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             ComponentIndex = components ?? throw new ArgumentNullException(nameof(components));
         }

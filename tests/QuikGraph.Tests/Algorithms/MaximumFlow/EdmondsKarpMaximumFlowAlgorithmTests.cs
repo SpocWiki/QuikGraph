@@ -20,7 +20,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         private static void EdmondsKarpMaxFlow<TVertex, TEdge>(
             [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             Assert.IsTrue(graph.VertexCount > 0);
 
@@ -41,7 +41,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
             [NotNull] TVertex source,
             [NotNull] TVertex sink)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             var reversedEdgeAugmentorAlgorithm = new ReversedEdgeAugmentorAlgorithm<TVertex, TEdge>(graph, edgeFactory);
             reversedEdgeAugmentorAlgorithm.AddReversedEdges();
@@ -98,7 +98,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 IMutableVertexAndEdgeListGraph<TVertex, TEdge> g,
                 Func<TEdge, double> c,
                 EdgeFactory<int, IEdge<int>> eFactory)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
             {
                 algo.AssertAlgorithmState(g);
                 CollectionAssert.IsEmpty(algo.Predecessors);

@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
     public class FilteredVertexAndEdgeListGraph<TVertex, TEdge, TGraph>
         : FilteredVertexListGraph<TVertex, TEdge, TGraph>
         , IVertexAndEdgeListGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
         where TGraph : IVertexAndEdgeListGraph<TVertex, TEdge>
     {
         /// <summary>

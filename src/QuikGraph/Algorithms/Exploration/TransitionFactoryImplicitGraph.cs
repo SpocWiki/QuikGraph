@@ -19,7 +19,7 @@ namespace QuikGraph.Algorithms.Exploration
 #endif
     public sealed class TransitionFactoryImplicitGraph<TVertex, TEdge> : IImplicitGraph<TVertex, TEdge>
         where TVertex : ICloneable
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         /// <inheritdoc />
         public Func<TVertex, TVertex, bool> AreVerticesEqual
@@ -299,7 +299,7 @@ namespace QuikGraph.Algorithms.Exploration
             IEnumerable<TEdge> outEdges = OutEdges(vertex);
             if (outEdges is null)
             {
-                return null;
+                return default(TEdge);
             }
 
             foreach (TEdge edge in outEdges)

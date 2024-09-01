@@ -45,7 +45,7 @@ namespace QuikGraph.Tests.Structures
                 BidirectionalGraph<TVertex, TEdge> g,
                 bool parallelEdges = true,
                 int edgeCapacity = 0)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
             {
                 Assert.IsTrue(g.IsDirected);
                 Assert.AreEqual(parallelEdges, g.AllowParallelEdges);

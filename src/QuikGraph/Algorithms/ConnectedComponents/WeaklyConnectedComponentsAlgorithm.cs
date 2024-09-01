@@ -11,6 +11,28 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ConnectedComponents
 {
+    /// <inheritdoc cref="CreateWeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/>
+    public static class WeaklyConnectedComponentsAlgorithm
+    {
+        /// <summary> Creates a CreateWeaklyConnectedComponentsAlgorithm </summary>
+        public static WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>
+            CreateWeaklyConnectedComponentsAlgorithm<TVertex, TEdge>([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph
+                , [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
+            where TEdge : IEdge<TVertex>
+            => new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, components, host);
+
+        /// <summary> Creates a CreateWeaklyConnectedComponentsAlgorithm </summary>
+        public static IDictionary<TVertex, int> GetWeaklyConnectedComponents<TVertex, TEdge>([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph
+            , [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
+            where TEdge : IEdge<TVertex>
+        {
+            var algorithm = visitedGraph.CreateWeaklyConnectedComponentsAlgorithm(components, host);
+            algorithm.Compute();
+            return algorithm.ComponentIndex;
+        }
+    }
+
+
     /// <summary>
     /// Algorithm that computes weakly connected components of a graph.
     /// </summary>
@@ -24,7 +46,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
     public sealed class WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>
         , IConnectedComponentAlgorithm<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         [NotNull]
         private readonly Dictionary<int, int> _componentEquivalences = new Dictionary<int, int>();
@@ -35,42 +57,15 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         /// Initializes a new instance of the <see cref="WeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public WeaklyConnectedComponentsAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, new Dictionary<TVertex, int>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="components">Graph components.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public WeaklyConnectedComponentsAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components)
-            : this(null, visitedGraph, components)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="components">Graph components.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public WeaklyConnectedComponentsAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components)
-            : base(host, visitedGraph)
+        public WeaklyConnectedComponentsAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
-            ComponentIndex = components ?? throw new ArgumentNullException(nameof(components));
+            ComponentIndex = components ?? new Dictionary<TVertex, int>();
         }
 
         [ItemNotNull]

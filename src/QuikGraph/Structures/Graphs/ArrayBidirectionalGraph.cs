@@ -23,7 +23,7 @@ namespace QuikGraph
 #if SUPPORTS_CLONEABLE
         , ICloneable
 #endif
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
 #if SUPPORTS_SERIALIZATION
         [Serializable]
@@ -219,7 +219,7 @@ namespace QuikGraph
             if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
                 return inOutEdges.OutEdges[index];
 
-            return null;
+            return default(TEdge);
         }
 
         #endregion
@@ -259,7 +259,7 @@ namespace QuikGraph
             if (_vertexEdges.TryGetValue(vertex, out InOutEdges inOutEdges))
                 return inOutEdges.InEdges[index];
 
-            return null;
+            return default(TEdge);
         }
 
         /// <inheritdoc />

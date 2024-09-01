@@ -299,7 +299,7 @@ namespace QuikGraph.Tests.Structures
 
         protected static void InEdges_Throws_Matrix_Test<TEdge>(
             [NotNull] BidirectionalMatrixGraph<TEdge> graph)
-            where TEdge : class, IEdge<int>
+            where TEdge : IEdge<int>
         {
             const int vertex = 10;
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed

@@ -12,7 +12,7 @@ namespace QuikGraph.Algorithms.Condensation
     /// <typeparam name="TEdge">Edge type.</typeparam>
     /// <typeparam name="TGraph">Graph type.</typeparam>
     public sealed class CondensationGraphAlgorithm<TVertex, TEdge, TGraph> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
     {
         /// <summary>
@@ -107,25 +107,12 @@ namespace QuikGraph.Algorithms.Condensation
         [Pure]
         private int ComputeComponentCount([NotNull] IDictionary<TVertex, int> components)
         {
-            IConnectedComponentAlgorithm<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>> componentAlgorithm;
             if (StronglyConnected)
             {
-                componentAlgorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(
-                    this,
-                    VisitedGraph,
-                    components);
-            }
-            else
-            {
-                componentAlgorithm = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(
-                    this,
-                    VisitedGraph,
-                    components);
+                return VisitedGraph.GetStronglyConnectedComponents(components, this).Count;
             }
 
-            componentAlgorithm.Compute();
-
-            return componentAlgorithm.ComponentCount;
+            return VisitedGraph.GetWeaklyConnectedComponents(components, this).Count;
         }
 
         private struct EdgeKey : IEquatable<EdgeKey>

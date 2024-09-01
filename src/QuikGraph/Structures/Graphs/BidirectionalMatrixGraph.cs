@@ -21,7 +21,7 @@ namespace QuikGraph
 #if SUPPORTS_CLONEABLE
         , ICloneable
 #endif
-        where TEdge : class, IEdge<int>
+        where TEdge : IEdge<int>
     {
         /// <inheritdoc />
         public Func<int, int, bool> AreVerticesEqual
@@ -324,7 +324,7 @@ namespace QuikGraph
                 for (int j = 0; j < VertexCount; ++j)
                 {
                     TEdge edge = _edges[i, j];
-                    _edges[i, j] = null;
+                    _edges[i, j] = default(TEdge);
 
                     if (edge != null)
                     {
@@ -527,7 +527,7 @@ namespace QuikGraph
             Debug.Assert(edge != null);
             Debug.Assert(_edges[edge.Source, edge.Target] != null);
 
-            _edges[edge.Source, edge.Target] = null;
+            _edges[edge.Source, edge.Target] = default(TEdge);
             --EdgeCount;
             Debug.Assert(EdgeCount >= 0);
             OnEdgeRemoved(edge);

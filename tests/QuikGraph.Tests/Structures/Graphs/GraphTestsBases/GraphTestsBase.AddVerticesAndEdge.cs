@@ -115,28 +115,28 @@ namespace QuikGraph.Tests.Structures
 
         protected static void AddVerticesAndEdge_Throws_Test<TVertex, TEdge>(
             [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> graph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdge(null));
+            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdge(default));
             AssertEmptyGraph(graph);
         }
 
         protected static void AddVerticesAndEdge_Throws_EdgesOnly_Test<TVertex, TEdge>(
             [NotNull] EdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdge(null));
+            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdge(default));
             AssertEmptyGraph(graph);
         }
 
         protected static void AddVerticesAndEdge_Throws_Clusters_Test<TVertex, TEdge>(
             [NotNull] ClusteredAdjacencyGraph<TVertex, TEdge> graph)
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdge(null));
+            Assert.Throws<ArgumentNullException>(() => graph.AddVerticesAndEdge(default));
             AssertEmptyGraph(graph);
         }
 

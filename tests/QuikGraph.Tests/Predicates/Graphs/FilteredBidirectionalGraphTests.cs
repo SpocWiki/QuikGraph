@@ -31,7 +31,7 @@ namespace QuikGraph.Tests.Predicates
                 FilteredBidirectionalGraph<TVertex, TEdge, TGraph> g,
                 TGraph expectedGraph,
                 bool parallelEdges = true)
-                where TEdge : class, IEdge<TVertex>
+                where TEdge : IEdge<TVertex>
                 where TGraph : IBidirectionalGraph<TVertex, TEdge>
             {
                 Assert.AreSame(expectedGraph, g.BaseGraph);

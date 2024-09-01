@@ -50,7 +50,7 @@ namespace QuikGraph.Tests.Structures
             [NotNull] ClusteredAdjacencyGraph<TestVertex, TEdge> graph1,
             [NotNull] ClusteredAdjacencyGraph<TestVertex, TEdge> parent2,
             [NotNull] ClusteredAdjacencyGraph<TestVertex, TEdge> graph2)
-            where TEdge : class, IEdge<TestVertex>
+            where TEdge : IEdge<TestVertex>
         {
             AssertNoVertex(graph1);
 
@@ -114,7 +114,7 @@ namespace QuikGraph.Tests.Structures
         protected static void AddVertex_Throws_Clusters_Test<TVertex, TEdge>(
             [NotNull] ClusteredAdjacencyGraph<TVertex, TEdge> graph)
             where TVertex : class
-            where TEdge : class, IEdge<TVertex>
+            where TEdge : IEdge<TVertex>
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => graph.AddVertex(null));
@@ -162,7 +162,7 @@ namespace QuikGraph.Tests.Structures
             [NotNull] ClusteredAdjacencyGraph<EquatableTestVertex, TEdge> graph1,
             [NotNull] ClusteredAdjacencyGraph<EquatableTestVertex, TEdge> parent2,
             [NotNull] ClusteredAdjacencyGraph<EquatableTestVertex, TEdge> graph2)
-            where TEdge : class, IEdge<EquatableTestVertex>
+            where TEdge : IEdge<EquatableTestVertex>
         {
             AssertNoVertex(graph1);
 
@@ -246,7 +246,7 @@ namespace QuikGraph.Tests.Structures
             [NotNull] ClusteredAdjacencyGraph<TestVertex, TEdge> graph1,
             [NotNull] ClusteredAdjacencyGraph<TestVertex, TEdge> parent2,
             [NotNull] ClusteredAdjacencyGraph<TestVertex, TEdge> graph2)
-            where TEdge : class, IEdge<TestVertex>
+            where TEdge : IEdge<TestVertex>
         {
             AssertNoVertex(graph1);
 
@@ -310,7 +310,7 @@ namespace QuikGraph.Tests.Structures
 
         protected static void AddVertexRange_Throws_Clusters_Test<TEdge>(
             [NotNull] ClusteredAdjacencyGraph<TestVertex, TEdge> graph)
-            where TEdge : class, IEdge<TestVertex>
+            where TEdge : IEdge<TestVertex>
         {
             AssertNoVertex(graph);
 

@@ -10,7 +10,7 @@ namespace QuikGraph.Algorithms
     /// (i.e. has a path using all edges one and only one time).
     /// </summary>
     public class IsEulerianGraphAlgorithm<TVertex, TEdge>
-        where TEdge : class, IUndirectedEdge<TVertex>
+        where TEdge : IUndirectedEdge<TVertex>
     {
         [NotNull]
         private readonly UndirectedGraph<TVertex, TEdge> _graph;
@@ -72,25 +72,13 @@ namespace QuikGraph.Algorithms
 
         /// <summary> Gets the components except for single Nodes in the current graph. </summary>
         [Pure]
-        public ComponentWithEdges ComponentsWithEdges()
+        public int[] NumVerticesInComponent()
         {
-            var componentsAlgorithm = new ConnectedComponentsAlgorithm<TVertex, TEdge>(_graph);
+            var undirectedGraph = _graph;
+            ConnectedComponentsAlgorithm<TVertex, TEdge> componentsAlgorithm = undirectedGraph.CreateConnectedComponentsAlgorithm();
             componentsAlgorithm.Compute();
 
-            bool[] hasEdgesInComponent = new bool[componentsAlgorithm.ComponentCount];
-            foreach (KeyValuePair<TVertex, int> indexOfVertex in componentsAlgorithm.ComponentIndex)
-            {
-                hasEdgesInComponent[indexOfVertex.Value] = false == _graph.IsAdjacentEdgesEmpty(indexOfVertex.Key);
-            }
-
-            TrueIndexes trueIndexes = FirstAndSecondIndexOfTrue(hasEdgesInComponent);
-            if (!trueIndexes.FirstIndex.HasValue)
-                return ComponentWithEdges.NoComponent;
-
-            if (trueIndexes.SecondIndex.HasValue)
-                return ComponentWithEdges.ManyComponents;
-
-            return ComponentWithEdges.OneComponent;
+            return componentsAlgorithm.NumVerticesInComponent();
         }
 
         [Pure]
@@ -103,39 +91,23 @@ namespace QuikGraph.Algorithms
         [Pure]
         public bool IsEulerian()
         {
-            switch (ComponentsWithEdges())
+            var components = NumVerticesInComponent().Where(num => num > 1).Take(2).ToList();
+            switch (components.Count)
             {
-                case ComponentWithEdges.OneComponent:
-                    return _graph.Vertices.All(SatisfiesEulerianCondition);
-                case ComponentWithEdges.NoComponent:
-                    return _graph.VertexCount == 1;
-                // Many components
-                default:
-                    return false;
+                case 0: return _graph.VertexCount == 1;
+                case 1: return _graph.Vertices.All(SatisfiesEulerianCondition);
+                default: return false; // Many components
             }
         }
     }
 
-    /// <summary>
-    /// Algorithm that checks if a graph is Eulerian.
-    /// (has a path use all edges one and only one time).
-    /// </summary>
+    /// <inheritdoc cref="IsEulerian{TVertex,TEdge}"/>
     public static class IsEulerianGraphAlgorithm
     {
-        /// <summary>
-        /// Returns true if the <paramref name="graph"/> is Eulerian, otherwise false.
-        /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <param name="graph">Graph to check.</param>
-        /// <returns>True if the <paramref name="graph"/> is Eulerian, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <summary> Returns true if the <paramref name="graph"/> is Eulerian, otherwise false. </summary>
         [Pure]
         public static bool IsEulerian<TVertex, TEdge>(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : class, IUndirectedEdge<TVertex>
-        {
-            return new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph).IsEulerian();
-        }
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
+            where TEdge : IUndirectedEdge<TVertex> => new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph).IsEulerian();
     }
 }

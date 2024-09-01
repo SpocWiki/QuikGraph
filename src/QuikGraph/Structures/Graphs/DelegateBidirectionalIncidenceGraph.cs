@@ -9,7 +9,7 @@ namespace QuikGraph
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateBidirectionalIncidenceGraph<TVertex, TEdge> : DelegateIncidenceGraph<TVertex, TEdge>, IBidirectionalIncidenceGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateBidirectionalIncidenceGraph{TVertex,TEdge}"/> class.
@@ -53,7 +53,17 @@ namespace QuikGraph
         }
 
         /// <inheritdoc />
-        public TEdge InEdge(TVertex vertex, int index) => InEdges(vertex)?.ElementAt(index);
+        public TEdge InEdge(TVertex vertex, int index)
+        {
+            var inEdges = InEdges(vertex);
+
+            if (inEdges == null)
+            {
+                return default(TEdge);
+            }
+
+            return inEdges.ElementAt(index);
+        }
 
         /// <inheritdoc />
         public int? Degree(TVertex vertex) => InDegree(vertex) + OutDegree(vertex);

@@ -40,14 +40,11 @@ namespace QuikGraph.Tests
 
         [Pure]
         [NotNull]
-        public static UndirectedGraph<int, UndirectedEdge<int>> CreateUndirectedGraph(
-            [NotNull] IEnumerable<Vertices> vertices)
+        public static UndirectedGraph<int, IUndirectedEdge<int>> CreateUndirectedGraph(
+            [NotNull] params IUndirectedEdge<int>[] vertices)
         {
-            var graph = new UndirectedGraph<int, UndirectedEdge<int>>();
-            foreach (Vertices pair in vertices)
-            {
-                graph.AddVerticesAndEdge(new UndirectedEdge<int>(pair.Source, pair.Target));
-            }
+            var graph = new UndirectedGraph<int, IUndirectedEdge<int>>();
+            graph.AddVerticesAndEdgeRange(vertices);
 
             return graph;
         }
@@ -56,7 +53,7 @@ namespace QuikGraph.Tests
         [NotNull]
         public static UndirectedGraph<TVertex, TEdge> CreateUndirectedGraph<TVertex, TEdge>(
             [NotNull, ItemNotNull] IEnumerable<TEdge> edges)
-            where TEdge : class, IEdge<TVertex>, ITagged<double>
+            where TEdge : IEdge<TVertex>, ITagged<double>
         {
             var graph = new UndirectedGraph<TVertex, TEdge>(true);
             foreach (TEdge edge in edges)

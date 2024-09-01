@@ -18,7 +18,7 @@ namespace QuikGraph
 #endif
     [DebuggerDisplay("VertexCount = {" + nameof(VertexCount) + "}, EdgeCount = {" + nameof(EdgeCount) + "}")]
     public class BidirectionalAdapterGraph<TVertex, TEdge> : IBidirectionalGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         [NotNull]
         private readonly IVertexAndEdgeListGraph<TVertex, TEdge> _baseGraph;
@@ -168,7 +168,7 @@ namespace QuikGraph
             if (_inEdges.TryGetValue(vertex, out EdgeList<TEdge> inEdges))
                 return inEdges[index];
 
-            return null;
+            return default(TEdge);
         }
 
         /// <inheritdoc />

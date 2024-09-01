@@ -11,7 +11,7 @@ namespace QuikGraph
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateImplicitUndirectedGraph<TVertex, TEdge> : IImplicitUndirectedGraph<TVertex, TEdge>
-        where TEdge : class, IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         /// <inheritdoc />
         public Func<TVertex, TVertex, bool> AreVerticesEqual
@@ -99,7 +99,16 @@ namespace QuikGraph
         public IEnumerable<TEdge> AdjacentEdges(TVertex vertex) => AdjacentEdgesInternal(vertex);
 
         /// <inheritdoc />[CanBeNull]
-        public TEdge AdjacentEdge(TVertex vertex, int index) => AdjacentEdges(vertex)?.ElementAt(index);
+        public TEdge AdjacentEdge(TVertex vertex, int index)
+        {
+            var adjacentEdges = AdjacentEdges(vertex);
+            if (adjacentEdges == null)
+            {
+                return default(TEdge);
+            }
+
+            return adjacentEdges.ElementAt(index);
+        }
 
         /// <inheritdoc />
         public bool TryGetEdge(TVertex source, TVertex target, out TEdge edge)
