@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using QuikGraph.Algorithms.ConnectedComponents;
@@ -34,42 +33,6 @@ namespace QuikGraph.Algorithms
             _graph = newGraph;
         }
 
-        private struct TrueIndexes
-        {
-            public TrueIndexes(int? firstIndex, int? secondIndex)
-            {
-                FirstIndex = firstIndex;
-                SecondIndex = secondIndex;
-            }
-
-            public int? FirstIndex { get; }
-            public int? SecondIndex { get; }
-        }
-
-        [Pure]
-        private static TrueIndexes FirstAndSecondIndexOfTrue([NotNull] bool[] data)
-        {
-            // If no true elements returns (null, null)
-            // If only one true element, returns (indexOfTrue, null)
-            int? firstIndex = null;
-            for (int i = 0; i < data.Length; i++)
-            {
-                if (data[i])
-                {
-                    if (!firstIndex.HasValue)
-                    {
-                        firstIndex = i;
-                    }
-                    else
-                    {
-                        return new TrueIndexes(firstIndex, i);
-                    }
-                }
-            }
-
-            return new TrueIndexes(firstIndex, null);
-        }
-
         /// <summary> Gets the components except for single Nodes in the current graph. </summary>
         [Pure]
         public int[] NumVerticesInComponent()
@@ -82,20 +45,22 @@ namespace QuikGraph.Algorithms
         }
 
         [Pure]
-        private bool SatisfiesEulerianCondition([NotNull] TVertex vertex) => _graph.AdjacentDegree(vertex) % 2 == 0;
+        private bool HasEvenDegree([NotNull] TVertex vertex) => _graph.AdjacentDegree(vertex) % 2 == 0;
 
-        /// <summary>
-        /// Returns true if the graph is Eulerian, otherwise false.
-        /// </summary>
+        /// <summary> A graph is an Eulerian circuit, if it has a single Component, where each Vertex <see cref="HasEvenDegree"/>. </summary>
         /// <returns>True if the graph is Eulerian, false otherwise.</returns>
         [Pure]
         public bool IsEulerian()
         {
+            if (!_graph.Vertices.All(HasEvenDegree))
+            {
+                return false;
+            }
             var components = NumVerticesInComponent().Where(num => num > 1).Take(2).ToList();
             switch (components.Count)
             {
                 case 0: return _graph.VertexCount == 1;
-                case 1: return _graph.Vertices.All(SatisfiesEulerianCondition);
+                case 1: return true;
                 default: return false; // Many components
             }
         }
@@ -104,7 +69,13 @@ namespace QuikGraph.Algorithms
     /// <inheritdoc cref="IsEulerian{TVertex,TEdge}"/>
     public static class IsEulerianGraphAlgorithm
     {
+        /// <summary> Creates a new <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> </summary>
+        public static IsEulerianGraphAlgorithm<TVertex, IUndirectedEdge<TVertex>> CreateEulerianGraphAlgorithm<TVertex>(
+            this IUndirectedGraph<TVertex, IUndirectedEdge<TVertex>> graph)
+            => new IsEulerianGraphAlgorithm<TVertex, IUndirectedEdge<TVertex>>(graph);
+
         /// <summary> Returns true if the <paramref name="graph"/> is Eulerian, otherwise false. </summary>
+        /// <inheritdoc cref="IsEulerianGraphAlgorithm{TVertex,TEdge}.IsEulerian"/>
         [Pure]
         public static bool IsEulerian<TVertex, TEdge>(
             [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)

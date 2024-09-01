@@ -38,11 +38,11 @@ namespace QuikGraph
         /// <inheritdoc />
         public Func<TVertex, TVertex, bool> AreVerticesEqual
         {
-            get => areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
-            set => areVerticesEqual = value;
+            get => _areVerticesEqual ?? EqualityComparer<TVertex>.Default.Equals;
+            set => _areVerticesEqual = value;
         }
         [CanBeNull]
-        private Func<TVertex, TVertex, bool> areVerticesEqual;
+        private Func<TVertex, TVertex, bool> _areVerticesEqual;
 
         [NotNull]
         private IVertexEdgeDictionary<TVertex, TEdge> _adjacentEdges =
@@ -232,7 +232,6 @@ namespace QuikGraph
         #region IUndirectedGraph<TVertex,TEdge>
 
         /// <inheritdoc />
-        [CanBeNull]
         public IEnumerable<TEdge> AdjacentEdges(TVertex vertex)
         {
             if (vertex == null)
@@ -355,9 +354,6 @@ namespace QuikGraph
 
             return true;
         }
-
-        /// <inheritdoc />
-        public int AddVertexRange(params TVertex[] vertices) => AddVertexRange(vertices.AsEnumerable());
 
         /// <inheritdoc />
         public int AddVertexRange(IEnumerable<TVertex> vertices)
@@ -580,9 +576,6 @@ namespace QuikGraph
 
             return true;
         }
-
-        /// <inheritdoc />
-        public int AddEdgeRange(params TEdge[] edges) => AddEdgeRange(edges.AsEnumerable());
 
         /// <inheritdoc />
         public int AddEdgeRange(IEnumerable<TEdge> edges)

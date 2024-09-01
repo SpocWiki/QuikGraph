@@ -67,11 +67,9 @@ namespace QuikGraph.Tests.Algorithms
             Assert.IsTrue(algorithm.IsHamiltonian());
 
             // Not Hamiltonian
-            graph = CreateUndirectedGraph(new[]
-            {
+            graph = CreateUndirectedGraph(
                 Edge.CreateUndirected(1, 1),
-                Edge.CreateUndirected(2, 2)
-            });
+                Edge.CreateUndirected(2, 2));
 
             algorithm = graph.CreateHamiltonianGraph();
             Assert.IsFalse(algorithm.IsHamiltonian());

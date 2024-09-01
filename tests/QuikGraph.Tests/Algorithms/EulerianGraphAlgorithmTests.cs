@@ -14,7 +14,7 @@ namespace QuikGraph.Tests.Algorithms
         private static void AssertIsEulerian([NotNull] IUndirectedGraph<int, IUndirectedEdge<int>> graph,
             bool expectedEulerian)
         {
-            var algorithm = new IsEulerianGraphAlgorithm<int, IUndirectedEdge<int>>(graph);
+            IsEulerianGraphAlgorithm<int, IUndirectedEdge<int>> algorithm = graph.CreateEulerianGraphAlgorithm();
             Assert.AreEqual(expectedEulerian, algorithm.IsEulerian());
             Assert.AreEqual(expectedEulerian, graph.IsEulerian());
         }
@@ -36,7 +36,7 @@ namespace QuikGraph.Tests.Algorithms
         }
 
         [Test]
-        public void IsEulerianOneComponent()
+        public void IsEulerianOneComponentTrue()
         {
             // Eulerian
             var graph = CreateUndirectedGraph(
@@ -45,22 +45,24 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.CreateUndirected(1, 3));
 
             AssertIsEulerian(graph, true);
+        }
 
+        [Test]
+        public void IsEulerianOneComponentFalse()
+        {
             // Not Eulerian
-            graph = CreateUndirectedGraph(new[]
-            {
+            var graph = CreateUndirectedGraph(
                 Edge.CreateUndirected(1, 2),
                 Edge.CreateUndirected(2, 3),
                 Edge.CreateUndirected(3, 4),
                 Edge.CreateUndirected(1, 4),
-                Edge.CreateUndirected(1, 3)
-            });
+                Edge.CreateUndirected(1, 3));
 
             AssertIsEulerian(graph, false);
         }
 
         [Test]
-        public void IsEulerianManyComponents()
+        public void IsEulerianManyComponentsTrue()
         {
             // Eulerian
             var graph = CreateUndirectedGraph(
@@ -72,17 +74,18 @@ namespace QuikGraph.Tests.Algorithms
             graph.AddVertex(5);
 
             AssertIsEulerian(graph, true);
+        }
 
-            // Not Eulerian
-            graph = CreateUndirectedGraph(new[]
-            {
+        [Test]
+        public void IsEulerianManyComponentsFalse()
+        {
+            var graph = CreateUndirectedGraph(
                 Edge.CreateUndirected(1, 2),
                 Edge.CreateUndirected(2, 3),
                 Edge.CreateUndirected(1, 3),
                 Edge.CreateUndirected(4, 5),
                 Edge.CreateUndirected(5, 6),
-                Edge.CreateUndirected(4, 6)
-            });
+                Edge.CreateUndirected(4, 6));
 
             graph.AddVertex(7);
 
