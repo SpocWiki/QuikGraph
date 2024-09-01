@@ -81,7 +81,7 @@ namespace QuikGraph.Algorithms
             bool[] hasEdgesInComponent = new bool[componentsAlgorithm.ComponentCount];
             foreach (KeyValuePair<TVertex, int> indexOfVertex in componentsAlgorithm.ComponentIndex)
             {
-                hasEdgesInComponent[indexOfVertex.Value] = true == _graph.IsAdjacentEdgesEmpty(indexOfVertex.Key);
+                hasEdgesInComponent[indexOfVertex.Value] = false == _graph.IsAdjacentEdgesEmpty(indexOfVertex.Key);
             }
 
             TrueIndexes trueIndexes = FirstAndSecondIndexOfTrue(hasEdgesInComponent);

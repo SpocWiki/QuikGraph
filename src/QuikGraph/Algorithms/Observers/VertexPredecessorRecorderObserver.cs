@@ -15,7 +15,7 @@ namespace QuikGraph.Algorithms.Observers
     {
         /// <inheritdoc cref="VertexPredecessorRecorderObserver{TVertex, TEdge}"/>
         public VertexPredecessorRecorderObserver()
-            : this(new Dictionary<TVertex, TEdge>(), null)
+            : this(new Dictionary<TVertex, TEdge>())
         {
         }
 
