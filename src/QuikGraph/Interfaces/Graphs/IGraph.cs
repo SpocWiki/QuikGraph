@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace QuikGraph
+﻿namespace QuikGraph
 {
     /// <summary>
     /// A graph with vertices of type <typeparamref name="TVertex"/>

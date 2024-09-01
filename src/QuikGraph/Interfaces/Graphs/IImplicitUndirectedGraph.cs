@@ -10,7 +10,7 @@ namespace QuikGraph
     /// </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
-    public interface IImplicitUndirectedGraph<TVertex, TEdge> : IImplicitVertexSet<TVertex>, IGraph<TVertex, TEdge>
+    public interface IImplicitUndirectedGraph<TVertex, TEdge> : IGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
         /// <summary> Compares edges. </summary>
