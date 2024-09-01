@@ -6,8 +6,7 @@ using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Algorithm that checks if a graph is Eulerian.
+    /// <summary> Algorithm that checks if the undirected <see cref="_graph"/> is Eulerian.
     /// (i.e. has a path using all edges one and only one time).
     /// </summary>
     public class IsEulerianGraphAlgorithm<TVertex, TEdge>
@@ -19,7 +18,7 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Initializes a new instance of the <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="graph">Graph to check.</param>
+        /// <param name="graph">Graph to check; is not modified, but copied.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         public IsEulerianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
         {
