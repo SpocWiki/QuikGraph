@@ -11,11 +11,11 @@ namespace QuikGraph.Algorithms
         where TGraph : IGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary> Number of components, i.e. distinct Values of <see cref="Components"/>. </summary>
+        /// <summary> Number of components, i.e. distinct Values of <see cref="ComponentIndex"/>. </summary>
         int ComponentCount { get; }
 
         /// <summary> Graph components as a Dictionary from <typeparamref name="TVertex"/> to 0-based Component-Index. </summary>
         [NotNull]
-        IDictionary<TVertex, int> Components { get; }
+        IDictionary<TVertex, int> ComponentIndex { get; }
     }
 }

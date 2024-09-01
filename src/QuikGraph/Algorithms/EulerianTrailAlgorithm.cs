@@ -55,9 +55,12 @@ namespace QuikGraph.Algorithms
                 .Where(pair => pair.Value % 2 != 0) // Odds
                 .Select(pair => pair.Key);
 
-        /// <summary> Returns the Degree for every Vertex </summary>
-        /// <returns></returns>
-        /// <remarks>The Degree is the Difference between the FanOut and the FanIn.</remarks>
+        /// <summary> Returns the directed Degree for every Vertex </summary>
+        /// <remarks>
+        /// The Degree for directed Graphs is the Difference between the FanOut and the FanIn.
+        /// 
+        /// This is similar to the <see cref="UndirectedGraph{TVertex,TEdge}.AdjacentDegree"/> for undirected Graphs.
+        /// </remarks>
         /// <exception cref="ArgumentNullException"></exception>
         public static Dictionary<TVertex, int> VertexDegree<TVertex, TEdge>(this IVertexAndEdgeListGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
         {

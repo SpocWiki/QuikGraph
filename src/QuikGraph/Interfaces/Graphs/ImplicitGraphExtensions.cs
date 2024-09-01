@@ -46,7 +46,8 @@ namespace QuikGraph
         public static bool? IsOutEdgesEmpty<TVertex, TEdge>(this IImplicitGraph<TVertex, TEdge> graph
             , TVertex vertex) where TEdge : IEdge<TVertex> => !graph.OutEdges(vertex)?.Any(); //OutDegree(vertex) == 0;
 
-        /// <summary> Indicates that the given <paramref name="vertex"/> has at least no adjacent edge. </summary>
+        /// <summary> Flag that the given <paramref name="vertex"/> has no adjacent edge. </summary>
+        /// <returns><see langword="null"/> when the <paramref name="vertex"/> is unknown to the <paramref name=""/></returns>
         [Pure]
         public static bool? IsAdjacentEdgesEmpty<TVertex, TEdge>(this IImplicitUndirectedGraph<TVertex, TEdge> graph
             , TVertex vertex) where TEdge : IEdge<TVertex> => !graph.AdjacentEdges(vertex)?.Any();

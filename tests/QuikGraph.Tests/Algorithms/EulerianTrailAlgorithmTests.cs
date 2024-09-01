@@ -688,8 +688,7 @@ namespace QuikGraph.Tests.Algorithms
             }
             // + Temporary edge
             Assert.IsNotNull(circuit.FirstOrDefault(e => e.Source == 2 && e.Target == 4));
-
-            #region Local function
+            return;
 
             void CheckTrails(
                 IList<ICollection<EquatableEdge<int>>> computedTrails,
@@ -702,8 +701,6 @@ namespace QuikGraph.Tests.Algorithms
                 CollectionAssert.AreEquivalent(expectedTrail1, computedTrails[0]);
                 CollectionAssert.AreEquivalent(expectedTrail2, computedTrails[1]);
             }
-
-            #endregion
         }
 
         [Test]

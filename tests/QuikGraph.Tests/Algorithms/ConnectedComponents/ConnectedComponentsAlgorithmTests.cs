@@ -23,7 +23,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             var algorithm = new ConnectedComponentsAlgorithm<TVertex, TEdge>(graph);
             algorithm.Compute();
 
-            Assert.AreEqual(graph.VertexCount, algorithm.Components.Count);
+            Assert.AreEqual(graph.VertexCount, algorithm.ComponentIndex.Count);
             if (graph.VertexCount == 0)
             {
                 Assert.IsTrue(algorithm.ComponentCount == 0);
@@ -32,7 +32,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
 
             Assert.Positive(algorithm.ComponentCount);
             Assert.LessOrEqual(algorithm.ComponentCount, graph.VertexCount);
-            foreach (KeyValuePair<TVertex, int> pair in algorithm.Components)
+            foreach (KeyValuePair<TVertex, int> pair in algorithm.ComponentIndex)
             {
                 Assert.GreaterOrEqual(pair.Value, 0);
                 Assert.IsTrue(pair.Value < algorithm.ComponentCount, $"{pair.Value} < {algorithm.ComponentCount}");
@@ -42,7 +42,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             {
                 foreach (TEdge edge in graph.AdjacentEdges(vertex))
                 {
-                    Assert.AreEqual(algorithm.Components[edge.Source], algorithm.Components[edge.Target]);
+                    Assert.AreEqual(algorithm.ComponentIndex[edge.Source], algorithm.ComponentIndex[edge.Target]);
                 }
             }
         }
@@ -72,7 +72,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             {
                 algo.AssertAlgorithmState(g);
                 Assert.AreEqual(0, algo.ComponentCount);
-                CollectionAssert.IsEmpty(algo.Components);
+                CollectionAssert.IsEmpty(algo.ComponentIndex);
             }
 
             #endregion
@@ -130,7 +130,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                     [3] = 0,
                     [4] = 0
                 },
-                algorithm.Components);
+                algorithm.ComponentIndex);
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                     [6] = 1,
                     [7] = 1
                 },
-                algorithm.Components);
+                algorithm.ComponentIndex);
         }
 
         [Test]
@@ -204,7 +204,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                     [9] = 2,
                     [10] = 3
                 },
-                algorithm.Components);
+                algorithm.ComponentIndex);
         }
 
         [Category(TestCategories.LongRunning)]

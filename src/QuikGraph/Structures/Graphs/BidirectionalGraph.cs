@@ -746,9 +746,7 @@ namespace QuikGraph
 
         #endregion
 
-        /// <summary> Removes the given <paramref name="vertex"/> and merges all its connection to other vertices. </summary>
-        /// <param name="vertex">The vertex.</param>
-        /// <param name="edgeFactory">Factory method to create an edge.</param>
+        /// <summary> Removes the <paramref name="vertex"/> and merges all its connection to other vertices. </summary>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         /// <exception cref="VertexNotFoundException"><paramref name="vertex"/> is not part of the graph.</exception>
@@ -762,7 +760,7 @@ namespace QuikGraph
                 throw new ArgumentNullException(nameof(edgeFactory));
 
             // Storing edges (not a copy)
-            // Remove vertex will delete some of these edges
+            // Remove vertex will delete some of these edges,
             // but it will remain needed edges to perform the merge
             if (!_vertexInEdges.TryGetValue(vertex, out IEdgeList<TEdge> inEdges))
                 inEdges = _vertexInEdges[vertex] = new EdgeList<TEdge>();
@@ -782,17 +780,17 @@ namespace QuikGraph
                     .Select(target => target.Target);
                 foreach (TVertex target in targets)
                 {
-                    // We add an new edge
+                    // We add a new edge
                     AddEdgeInternal(edgeFactory(source, target));
                 }
             }
         }
 
         /// <summary>
-        /// Removes vertices matching the given <paramref name="vertexPredicate"/> and merges all their
-        /// connections to other vertices.
+        /// Removes vertices matching the <paramref name="vertexPredicate"/>
+        /// and merges all their connections to other vertices.
         /// </summary>
-        /// <param name="vertexPredicate">Predicate to match vertices.</param>
+        /// <param name="vertexPredicate">Predicate to select vertices.</param>
         /// <param name="edgeFactory">Factory method to create an edge.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexPredicate"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>

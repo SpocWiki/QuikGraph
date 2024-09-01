@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
+using QuikGraph.Algorithms;
 
 namespace QuikGraph
 {
@@ -16,18 +17,20 @@ namespace QuikGraph
         [NotNull]
         EdgeEqualityComparer<TVertex> EdgeEqualityComparer { get; }
 
-        /// <summary> Returns the edges adjacent to the <paramref name="vertex"/>. </summary>
+        /// <summary>  All adjacent Edges (where either Source or Target are <paramref name="vertex"/>. </summary>
+        /// <returns>all edges adjacent to the <paramref name="vertex"/></returns>
         [Pure]
         [ItemNotNull] [CanBeNull]
         IEnumerable<TEdge> AdjacentEdges([NotNull] TVertex vertex);
 
-        /// <summary>
-        /// Gives the adjacent degree of the given <paramref name="vertex"/>.
-        /// </summary>
-        /// <param name="vertex">The vertex.</param>
-        /// <returns>Vertex adjacent degree.</returns>
+        /// <summary> Gives the adjacent degree of the given <paramref name="vertex"/>. </summary>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         /// <exception cref="VertexNotFoundException"><paramref name="vertex"/> is not part of the graph.</exception>
+        /// <remarks>
+        /// The Degree is the Number of Edges connected to the <paramref name="vertex"/>.
+        /// Self-edges from one vertex to itself count twice. 
+        /// This is similar to the <see cref="VertexAndEdgeListGraphX.VertexDegree{TVertex,TEdge}"/> for directed Graphs.
+        /// </remarks>
         [Pure]
         int? AdjacentDegree([NotNull] TVertex vertex);
 

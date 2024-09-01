@@ -8,10 +8,8 @@ namespace QuikGraph.Algorithms
 {
     /// <summary>
     /// Algorithm that checks if a graph is Eulerian.
-    /// (has a path using all edges one and only one time).
+    /// (i.e. has a path using all edges one and only one time).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public class IsEulerianGraphAlgorithm<TVertex, TEdge>
         where TEdge : class, IUndirectedEdge<TVertex>
     {
@@ -84,9 +82,9 @@ namespace QuikGraph.Algorithms
             componentsAlgorithm.Compute();
 
             bool[] hasEdgesInComponent = new bool[componentsAlgorithm.ComponentCount];
-            foreach (KeyValuePair<TVertex, int> verticesAndComponent in componentsAlgorithm.Components)
+            foreach (KeyValuePair<TVertex, int> indexOfVertex in componentsAlgorithm.ComponentIndex)
             {
-                hasEdgesInComponent[verticesAndComponent.Value] = !_graph.IsAdjacentEdgesEmpty(verticesAndComponent.Key) ?? true;
+                hasEdgesInComponent[indexOfVertex.Value] = true == _graph.IsAdjacentEdgesEmpty(indexOfVertex.Key);
             }
 
             TrueIndexes trueIndexes = FirstAndSecondIndexOfTrue(hasEdgesInComponent);
@@ -100,10 +98,7 @@ namespace QuikGraph.Algorithms
         }
 
         [Pure]
-        private bool SatisfiesEulerianCondition([NotNull] TVertex vertex)
-        {
-            return _graph.AdjacentDegree(vertex) % 2 == 0;
-        }
+        private bool SatisfiesEulerianCondition([NotNull] TVertex vertex) => _graph.AdjacentDegree(vertex) % 2 == 0;
 
         /// <summary>
         /// Returns true if the graph is Eulerian, otherwise false.

@@ -17,7 +17,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             var algorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(graph);
             algorithm.Compute();
 
-            Assert.AreEqual(graph.VertexCount, algorithm.Components.Count);
+            Assert.AreEqual(graph.VertexCount, algorithm.ComponentIndex.Count);
             Assert.AreEqual(graph.VertexCount, algorithm.Roots.Count);
             Assert.AreEqual(graph.VertexCount, algorithm.DiscoverTimes.Count);
             if (graph.VertexCount == 0)
@@ -31,13 +31,13 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             Assert.LessOrEqual(algorithm.ComponentCount, graph.VertexCount);
             foreach (TVertex vertex in algorithm.VisitedGraph.Vertices)
             {
-                Assert.IsTrue(algorithm.Components.ContainsKey(vertex));
+                Assert.IsTrue(algorithm.ComponentIndex.ContainsKey(vertex));
                 Assert.IsTrue(algorithm.DiscoverTimes.ContainsKey(vertex));
             }
 
             Assert.Positive(algorithm.Steps);
             AssertStepsProperties();
-            foreach (KeyValuePair<TVertex, int> pair in algorithm.Components)
+            foreach (KeyValuePair<TVertex, int> pair in algorithm.ComponentIndex)
             {
                 Assert.GreaterOrEqual(pair.Value, 0);
                 Assert.IsTrue(pair.Value < algorithm.ComponentCount, $"{pair.Value} < {algorithm.ComponentCount}");
@@ -50,7 +50,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
 
             foreach (TVertex vertex in graph.Vertices)
             {
-                Assert.GreaterOrEqual(algorithm.Components[vertex], 0);
+                Assert.GreaterOrEqual(algorithm.ComponentIndex[vertex], 0);
             }
 
             #region Local function
@@ -88,7 +88,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             {
                 algo.AssertAlgorithmState(g);
                 Assert.AreEqual(0, algo.ComponentCount);
-                CollectionAssert.IsEmpty(algo.Components);
+                CollectionAssert.IsEmpty(algo.ComponentIndex);
                 CollectionAssert.IsEmpty(algo.Graphs);
                 CollectionAssert.IsEmpty(algo.Roots);
 
@@ -150,7 +150,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                     [2] = 0,
                     [3] = 0
                 },
-                algorithm.Components);
+                algorithm.ComponentIndex);
             Assert.AreEqual(1, algorithm.Graphs.Length);
             CollectionAssert.AreEquivalent(
                 new[] { 1, 2, 3 },
@@ -191,7 +191,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                     [4] = 1,
                     [5] = 0
                 },
-                algorithm.Components);
+                algorithm.ComponentIndex);
             Assert.AreEqual(3, algorithm.Graphs.Length);
             CollectionAssert.AreEquivalent(
                 new[] { 5 },
@@ -243,7 +243,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                     [8] = 1,
                     [10] = 3
                 },
-                algorithm.Components);
+                algorithm.ComponentIndex);
             Assert.AreEqual(4, algorithm.Graphs.Length);
             CollectionAssert.AreEquivalent(
                 new[] { 4, 6 },
