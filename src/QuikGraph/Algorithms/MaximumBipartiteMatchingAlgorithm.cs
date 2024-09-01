@@ -6,11 +6,9 @@ using QuikGraph.Algorithms.MaximumFlow;
 namespace QuikGraph.Algorithms
 {
     /// <summary>
-    /// Algorithm that computes a maximum bipartite matching in a graph, meaning
-    /// the maximum number of edges not sharing any vertex.
+    /// Algorithm that computes a maximum bipartite matching in a graph,
+    /// meaning the maximum number of edges not sharing any vertex.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class MaximumBipartiteMatchingAlgorithm<TVertex, TEdge> : AlgorithmBase<IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
@@ -96,32 +94,23 @@ namespace QuikGraph.Algorithms
                 ThrowIfCancellationRequested();
 
                 // Augmenting the graph
-                augmentor = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>(
-                    this,
-                    VisitedGraph,
+                augmentor = VisitedGraph.CreateBipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>(
                     SourceToVertices,
                     VerticesToSink,
                     VertexFactory,
-                    EdgeFactory);
+                    EdgeFactory, this);
                 augmentor.Compute();
 
                 ThrowIfCancellationRequested();
 
                 // Adding reverse edges
-                reverser = new ReversedEdgeAugmentorAlgorithm<TVertex, TEdge>(
-                    VisitedGraph,
-                    EdgeFactory);
+                reverser = VisitedGraph.CreateReversedEdgeAugmentorAlgorithm(EdgeFactory);
                 reverser.AddReversedEdges();
 
                 ThrowIfCancellationRequested();
 
                 // Compute maximum flow
-                var flow = new EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge>(
-                    this,
-                    VisitedGraph,
-                    edge => 1.0,
-                    EdgeFactory,
-                    reverser);
+                var flow = VisitedGraph.CreateEdmondsKarpMaximumFlowAlgorithm(edge => 1.0, EdgeFactory, reverser, this);
 
                 flow.Compute(augmentor.SuperSource, augmentor.SuperSink);
 

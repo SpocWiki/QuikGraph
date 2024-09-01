@@ -22,7 +22,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         public static int[] NumVerticesInComponent<TVertex, TEdge>(this ConnectedComponentsAlgorithm<TVertex, TEdge> componentsAlgorithm)
             where TEdge : IEdge<TVertex>
         {
-            var numVerticesInComponent = new int[componentsAlgorithm.ComponentCount];
+            int[] numVerticesInComponent = new int[componentsAlgorithm.ComponentCount];
             foreach (KeyValuePair<TVertex, int> indexOfVertex in componentsAlgorithm.ComponentIndex)
             {
                 ++numVerticesInComponent[indexOfVertex.Value];
@@ -39,7 +39,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         public static int[] NumEdgesInComponent<TVertex, TEdge>(this ConnectedComponentsAlgorithm<TVertex, TEdge> componentsAlgorithm)
             where TEdge : IEdge<TVertex>
         {
-            var numVerticesInComponent = new int[componentsAlgorithm.ComponentCount];
+            int[] numVerticesInComponent = new int[componentsAlgorithm.ComponentCount];
             foreach (KeyValuePair<TVertex, int> indexOfVertex in componentsAlgorithm.ComponentIndex)
             {
                 numVerticesInComponent[indexOfVertex.Value] += componentsAlgorithm.VisitedGraph.AdjacentEdges(indexOfVertex.Key)?.Count() ?? 0;

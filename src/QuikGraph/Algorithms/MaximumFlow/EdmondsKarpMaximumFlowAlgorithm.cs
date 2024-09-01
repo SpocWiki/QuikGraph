@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.Annotations;
 using QuikGraph.Algorithms.Observers;
@@ -9,11 +8,30 @@ using QuikGraph.Predicates;
 
 namespace QuikGraph.Algorithms.MaximumFlow
 {
-    /// <summary>
-    /// Edmond and Karp maximum flow algorithm for directed graph with positive capacities and flows.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <inheritdoc cref="CreateEdmondsKarpMaximumFlowAlgorithm{TVertex,TEdge}"/>
+    public static class EdmondsKarpMaximumFlowAlgorithm
+    {
+        /// <summary> Creates a new <see cref="EdmondsKarpMaximumFlowAlgorithm"/> </summary>
+        public static EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge> CreateEdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge>(
+            [NotNull] this IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> capacities,
+            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
+            [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm,
+            [CanBeNull] IAlgorithmComponent host = null, TVertex source = default(TVertex)) where TEdge : IEdge<TVertex>
+            => new EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge>(visitedGraph, capacities, edgeFactory, reverseEdgesAugmentorAlgorithm, host)
+            {
+                Source = source
+            };
+    }
+
+    /// <summary> Edmond and Karp maximum flow algorithm for directed graph with positive capacities and flows. </summary>
+    /// <remarks>
+    /// The Edmonds-Karp Algorithm is an implementation of the Ford-Fulkerson method for computing the maximum flow in a flow network.
+    /// The Ford-Fulkerson method relies on finding augmenting paths in the residual graph until no more augmenting paths are available.
+    /// The Edmonds-Karp algorithm specifies that these augmenting paths be found using Breadth-First Search (BFS),
+    /// which ensures that the shortest path (in terms of the number of edges) is found in each iteration.
+    /// This specific choice of BFS results in a predictable runtime complexity.
+    /// </remarks>
     public sealed class EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge> : MaximumFlowAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
@@ -26,40 +44,18 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacities">Function that given an edge return the capacity of this edge.</param>
         /// <param name="edgeFactory">Edge factory method.</param>
-        /// <param name="reverseEdgesAugmentorAlgorithm">Algorithm that is in of charge of augmenting the graph (creating missing reversed edges).</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="capacities"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="reverseEdgesAugmentorAlgorithm"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentException"><paramref name="reverseEdgesAugmentorAlgorithm"/> targets a graph different from <paramref name="visitedGraph"/>.</exception>
-        public EdmondsKarpMaximumFlowAlgorithm(
-            [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> capacities,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
-            [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm)
-            : this(null, visitedGraph, capacities, edgeFactory, reverseEdgesAugmentorAlgorithm)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EdmondsKarpMaximumFlowAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="capacities">Function that given an edge return the capacity of this edge.</param>
-        /// <param name="edgeFactory">Edge factory method.</param>
         /// <param name="reverseEdgesAugmentorAlgorithm">Algorithm that is in of charge augmenting the graph (creating missing reversed edges).</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="capacities"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="reverseEdgesAugmentorAlgorithm"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="reverseEdgesAugmentorAlgorithm"/> targets a graph different from <paramref name="visitedGraph"/>.</exception>
-        public EdmondsKarpMaximumFlowAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+        public EdmondsKarpMaximumFlowAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> capacities,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
-            [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm)
+            [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(host, visitedGraph, capacities, edgeFactory)
         {
             if (reverseEdgesAugmentorAlgorithm is null)
@@ -72,11 +68,9 @@ namespace QuikGraph.Algorithms.MaximumFlow
         }
 
         [NotNull]
-        private IVertexListGraph<TVertex, TEdge> ResidualGraph =>
-            new FilteredVertexListGraph<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>(
-                VisitedGraph,
-                vertex => true,
-                new ResidualEdgePredicate<TEdge>(ResidualCapacities).Test);
+        private IVertexListGraph<TVertex, TEdge> ResidualGraph
+            => VisitedGraph.FilterBy<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>(vertex
+                => true, new ResidualEdgePredicate<TEdge>(ResidualCapacities).Test);
 
         private void Augment([NotNull] TVertex source, [NotNull] TVertex sink)
         {

@@ -6,6 +6,16 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.MaximumFlow
 {
+        /// <inheritdoc cref="CreateReversedEdgeAugmentorAlgorithm{TVertex,TEdge}"/>
+    public static class ReversedEdgeAugmentorAlgorithm
+    {
+        /// <summary> Creates a new ReversedEdgeAugmentorAlgorithm </summary>
+        public static ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> CreateReversedEdgeAugmentorAlgorithm<TVertex, TEdge>(
+            [NotNull] this IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory) where TEdge : IEdge<TVertex>
+            => new ReversedEdgeAugmentorAlgorithm<TVertex, TEdge>(visitedGraph, edgeFactory);
+    }
+
     /// <summary>
     /// Routines to add and remove auxiliary edges when using <see cref="EdmondsKarpMaximumFlowAlgorithm{TVertex, TEdge}"/> 
     /// or <see cref="MaximumBipartiteMatchingAlgorithm{TVertex,TEdge}.InternalCompute"/>. 

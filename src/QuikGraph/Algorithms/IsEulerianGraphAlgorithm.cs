@@ -70,15 +70,15 @@ namespace QuikGraph.Algorithms
     public static class IsEulerianGraphAlgorithm
     {
         /// <summary> Creates a new <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> </summary>
-        public static IsEulerianGraphAlgorithm<TVertex, IUndirectedEdge<TVertex>> CreateEulerianGraphAlgorithm<TVertex>(
-            this IUndirectedGraph<TVertex, IUndirectedEdge<TVertex>> graph)
-            => new IsEulerianGraphAlgorithm<TVertex, IUndirectedEdge<TVertex>>(graph);
+        public static IsEulerianGraphAlgorithm<TVertex, TEdge> CreateEulerianGraphAlgorithm<TVertex, TEdge>(
+            this IUndirectedGraph<TVertex, TEdge> graph)
+            where TEdge : IUndirectedEdge<TVertex> => new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph);
 
         /// <summary> Returns true if the <paramref name="graph"/> is Eulerian, otherwise false. </summary>
         /// <inheritdoc cref="IsEulerianGraphAlgorithm{TVertex,TEdge}.IsEulerian"/>
         [Pure]
         public static bool IsEulerian<TVertex, TEdge>(
             [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IUndirectedEdge<TVertex> => new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph).IsEulerian();
+            where TEdge : IUndirectedEdge<TVertex> => CreateEulerianGraphAlgorithm(graph).IsEulerian();
     }
 }
