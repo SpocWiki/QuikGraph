@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using static QuikGraph.QuikGraphHelpers;
 
 namespace QuikGraph
 {
@@ -462,6 +461,81 @@ namespace QuikGraph
             var graph = new UndirectedGraph<TVertex, TEdge>(allowParallelEdges);
             graph.AddVerticesAndEdgeRange(edges);
             return graph;
+        }
+
+        /// <summary> Creates a new graph without parallel edges </summary>
+        public static UndirectedGraph<TVertex, TEdge> RemoveParallelEdges<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
+        {
+            var newGraph = new UndirectedGraph<TVertex, TEdge>(false, graph.EdgeEqualityComparer);
+            newGraph.AddVertexRange(graph.Vertices);
+            newGraph.AddEdgeRange(graph.Edges);
+            newGraph.RemoveEdgeIf(edge => edge.IsSelfEdge(graph.AreVerticesEqual));
+            return newGraph;
+        }
+
+        /// <summary> Checks if the <paramref name="vertex"/> satisfies Dirac's theorem that deg(vertex) >= (|vertices| / 2). </summary>  
+        /// <remarks>
+        /// According to Dirac's theorem, a graph with |vertices| >= 3
+        /// that SatisfiesDiracTheorem for any vertex is Hamiltonian.
+        /// </remarks>
+        [Pure]
+        public static bool SatisfiesDiracTheorem<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> graph
+            , [NotNull] TVertex vertex) where TEdge : IEdge<TVertex>
+            => graph.AdjacentDegree(vertex) * 2 >= graph.VertexCount;
+
+        /// <summary> Returns true if the graph is Hamiltonian, otherwise false. </summary>
+        /// <remarks>
+        /// According to Dirac's theorem, a graph with |vertices| >= 3
+        /// that SatisfiesDiracTheorem for any vertex is Hamiltonian.
+        /// </remarks>
+        [Pure]
+        public static bool IsHamiltonian<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
+        {
+            var graphVertices = graph.Vertices.ToList();
+            int vertexCount = graph.VertexCount;
+            return vertexCount == 1
+                   || (vertexCount >= 3 && graphVertices.All(graph.SatisfiesDiracTheorem))
+                   || graphVertices.GetAllPermutations().Any(graph.ContainsPath);
+        }
+
+        /// <summary> Returns true if the <paramref name="graph"/> contains the <paramref name="path"/>. </summary>
+        [Pure]
+        public static bool ContainsPath<TVertex, TEdge>(this IImplicitUndirectedGraph<TVertex, TEdge> graph
+            , [NotNull, ItemNotNull] List<TVertex> path) where TEdge : IEdge<TVertex>
+        {
+            if (path.Count > 1)
+            {
+                path.Add(path[0]);      // Make cycle, not simple path
+            }
+
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                if (true != graph.AdjacentVertices(path[i])?.Contains(path[i + 1]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary> Returns the set of vertices adjacent to the given <paramref name="vertex"/>, except for itself. </summary>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
+        [Pure]
+        [ItemNotNull]
+        [CanBeNull]
+        public static HashSet<TVertex> AdjacentVertices<TVertex, TEdge>(this IImplicitUndirectedGraph<TVertex, TEdge> graph
+            , TVertex vertex) where TEdge : IEdge<TVertex>
+        {
+            var adjacentEdges = graph.AdjacentEdges(vertex);
+            if (adjacentEdges is null)
+            {
+                return null;
+            }
+
+            var adjacentVertices = adjacentEdges.GetVertices<TVertex, TEdge>();
+            adjacentVertices.Remove(vertex);
+            return adjacentVertices;
         }
 
         /// <summary>

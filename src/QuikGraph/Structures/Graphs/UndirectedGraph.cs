@@ -119,35 +119,6 @@ namespace QuikGraph
         /// </summary>
         public int EdgeCapacity { get; set; } = -1;
 
-        /// <summary>
-        /// Gets the set of vertices adjacent to the given <paramref name="vertex"/>.
-        /// </summary>
-        /// <param name="vertex">Vertex to get adjacent ones.</param>
-        /// <returns>Set of adjacent vertices.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [ItemNotNull]
-        [CanBeNull]
-        public IEnumerable<TVertex> AdjacentVertices([NotNull] TVertex vertex)
-        {
-            var adjacentEdges = AdjacentEdges(vertex);
-            if (adjacentEdges is null)
-            {
-                return null;
-            }
-
-            var adjacentVertices = new HashSet<TVertex>();
-            foreach (TEdge edge in adjacentEdges)
-            {
-                adjacentVertices.Add(edge.Source);
-                adjacentVertices.Add(edge.Target);
-            }
-
-            adjacentVertices.Remove(vertex);
-
-            return adjacentVertices.AsEnumerable();
-        }
-
         #region IGraph<TVertex,TEdge>
 
         /// <inheritdoc />
@@ -167,7 +138,7 @@ namespace QuikGraph
         public int VertexCount => _adjacentEdges.Count;
 
         /// <inheritdoc />
-        public IEnumerable<TVertex> Vertices => _adjacentEdges.Keys.AsEnumerable();
+        public IEnumerable<TVertex> Vertices => _adjacentEdges.Keys;
 
         /// <inheritdoc />
         public bool ContainsVertex(TVertex vertex)

@@ -467,6 +467,20 @@ namespace QuikGraph
                 && areVerticesEqual(edge.Target, target);
         }
 
+        /// <summary> Returns the distinct Set of Vertices for the <paramref name="edges"/> </summary>
+        public static HashSet<TVertex> GetVertices<TVertex, TEdge>([NotNull][ItemNotNull] this IEnumerable<TEdge> edges)
+            where TEdge : IEdge<TVertex>
+        {
+            var adjacentVertices = new HashSet<TVertex>();
+            foreach (TEdge edge in edges)
+            {
+                adjacentVertices.Add(edge.Source);
+                adjacentVertices.Add(edge.Target);
+            }
+
+            return adjacentVertices;
+        }
+
         /// <summary>
         /// Returns an enumeration of reversed edges.
         /// </summary>

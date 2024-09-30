@@ -260,7 +260,7 @@ namespace QuikGraph.Tests.Algorithms
             var algorithm = graph.CreateHamiltonianGraph();
 
             var hashSet = new HashSet<List<int>>(new SequenceComparer<int>());
-            hashSet.UnionWith(algorithm.GetPermutations());
+            hashSet.UnionWith(algorithm.GetAllVertexPermutations());
 
             Assert.AreEqual(hashSet.Count, Factorial(graph.VertexCount));
         }
