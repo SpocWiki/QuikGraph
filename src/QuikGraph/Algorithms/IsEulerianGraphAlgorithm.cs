@@ -5,17 +5,15 @@ using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary> Algorithm that checks if the undirected <see cref="_graph"/> is Eulerian.
-    /// (i.e. has a path using all edges one and only one time).
-    /// </summary>
+    /// <inheritdoc cref="IsEulerianGraphAlgorithm{TVertex, TEdge}(IUndirectedGraph{TVertex, TEdge})"/>
     public class IsEulerianGraphAlgorithm<TVertex, TEdge>
         where TEdge : IUndirectedEdge<TVertex>
     {
         [NotNull]
         private readonly UndirectedGraph<TVertex, TEdge> _graph;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> class.
+        /// <summary> Algorithm that checks if the undirected <see cref="_graph"/> is Eulerian.
+        /// (i.e. has a path using all edges one and only one time).
         /// </summary>
         /// <param name="graph">Graph to check; is not modified, but copied.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -38,10 +36,10 @@ namespace QuikGraph.Algorithms
         public int[] NumVerticesInComponent()
         {
             var undirectedGraph = _graph;
-            ConnectedComponentsAlgorithm<TVertex, TEdge> componentsAlgorithm = undirectedGraph.CreateConnectedComponentsAlgorithm();
-            componentsAlgorithm.Compute();
+            var connectedComponentsAlgorithm = undirectedGraph.CreateConnectedComponentsAlgorithm();
+            connectedComponentsAlgorithm.Compute();
 
-            return componentsAlgorithm.NumVerticesInComponent();
+            return connectedComponentsAlgorithm.NumVerticesInComponent();
         }
 
         [Pure]

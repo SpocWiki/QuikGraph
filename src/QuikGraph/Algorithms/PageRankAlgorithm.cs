@@ -6,11 +6,16 @@ using QuikGraph.Predicates;
 
 namespace QuikGraph.Algorithms.Ranking
 {
-    /// <summary>
-    /// Algorithm that computes the page rank of a graph.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <inheritdoc cref="CreatePageRankAlgorithm{TVertex,TEdge}"/>
+    public static class PageRankAlgorithm
+    {
+        /// <summary> Create PageRankAlgorithm </summary>
+        public static PageRankAlgorithm<TVertex, TEdge> CreatePageRankAlgorithm<TVertex, TEdge>
+            ([NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph) where TEdge : IEdge<TVertex>
+            => new PageRankAlgorithm<TVertex, TEdge>(visitedGraph);
+    }
+
+    /// <summary> Algorithm that computes the page rank of a graph. </summary>
     public sealed class PageRankAlgorithm<TVertex, TEdge> : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

@@ -5,9 +5,7 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary> checks if a graph is Hamiltonian
-    /// (has a path that links all vertices and pass one and only one time by each vertex).
-    /// </summary>
+    /// <inheritdoc cref="IsHamiltonianGraphAlgorithm{TVertex, TEdge}(IUndirectedGraph{TVertex, TEdge})"/>
     public class IsHamiltonianGraphAlgorithm<TVertex, TEdge>
         where TEdge : IUndirectedEdge<TVertex>
     {
@@ -16,10 +14,9 @@ namespace QuikGraph.Algorithms
 
         private readonly double _threshold;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IsHamiltonianGraphAlgorithm{TVertex,TEdge}"/> class.
+        /// <summary> checks if the <see cref="_graph"/> is Hamiltonian
+        /// (has a path that links all vertices and pass one and only one time by each vertex).
         /// </summary>
-        /// <param name="graph">Graph to check.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         public IsHamiltonianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
         {
@@ -41,36 +38,7 @@ namespace QuikGraph.Algorithms
         /// <summary> Gets all vertices permutations. </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        public List<List<TVertex>> GetPermutations()
-        {
-            var vertices = _graph.Vertices.ToList();
-
-            var permutations = new List<List<TVertex>>();
-            GetPermutations(vertices, 0, vertices.Count - 1, permutations);
-
-            return permutations;
-        }
-
-        private static void GetPermutations(
-            [NotNull, ItemNotNull] IList<TVertex> vertices,
-            int recursionDepth,
-            int maxDepth,
-            [NotNull, ItemNotNull] ICollection<List<TVertex>> permutations)
-        {
-            if (recursionDepth == maxDepth)
-            {
-                permutations.Add(new List<TVertex>(vertices));
-            }
-            else
-            {
-                for (int i = recursionDepth; i <= maxDepth; ++i)
-                {
-                    Swap(vertices, recursionDepth, i);
-                    GetPermutations(vertices, recursionDepth + 1, maxDepth, permutations);
-                    Swap(vertices, recursionDepth, i);
-                }
-            }
-        }
+        public List<List<TVertex>> GetPermutations() => _graph.Vertices.ToList().GetAllPermutations();
 
         [Pure]
         private bool ExistsInGraph([NotNull, ItemNotNull] List<TVertex> path)
@@ -113,16 +81,6 @@ namespace QuikGraph.Algorithms
                 || GetPermutations().Any(ExistsInGraph);
         }
 
-        #region Helpers
-
-        private static void Swap([NotNull, ItemNotNull] IList<TVertex> vertices, int indexA, int indexB)
-        {
-            TVertex tmp = vertices[indexA];
-            vertices[indexA] = vertices[indexB];
-            vertices[indexB] = tmp;
-        }
-
-        #endregion
     }
 
     /// <summary>

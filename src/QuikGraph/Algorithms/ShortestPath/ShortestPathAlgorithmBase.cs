@@ -7,9 +7,7 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// Base class for all shortest path finder algorithms.
-    /// </summary>
+    /// <summary> Base class for all shortest path finder algorithms. </summary>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
     /// <typeparam name="TGraph">Graph type.</typeparam>

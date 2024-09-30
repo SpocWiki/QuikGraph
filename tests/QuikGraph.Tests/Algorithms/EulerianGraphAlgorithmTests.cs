@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
@@ -6,8 +7,7 @@ using static QuikGraph.Tests.TestHelpers;
 
 namespace QuikGraph.Tests.Algorithms
 {
-    /// <summary>
-    /// Tests for <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/>. </summary>
+    /// <summary> Tests for <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/>. </summary>
     [TestFixture]
     internal sealed class EulerianGraphAlgorithmTests
     {
@@ -19,6 +19,12 @@ namespace QuikGraph.Tests.Algorithms
             Assert.AreEqual(expectedEulerian, graph.IsEulerian());
         }
 
+        [TestCase(new[] { 1, 2, 3 }, new[] { 1, 2, 3 }, new[] { 1, 3, 2 }, new[] { 2, 1, 3 }, new[] { 2, 3, 1 }, new[] { 3, 2, 1 }, new[] { 3, 1, 2 })]
+        public static void TestPermutations([NotNull, ItemNotNull] IList<int> vertices
+            , params IList<int>[] items)
+        {
+            CollectionAssert.AreEqual(vertices.GetPermutations(), items);
+        }
         [Test]
         public void IsEulerianEmpty()
         {
