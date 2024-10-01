@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
@@ -10,24 +9,22 @@ namespace QuikGraph.Algorithms
         where TEdge : IUndirectedEdge<TVertex>
     {
         [NotNull]
-        private readonly UndirectedGraph<TVertex, TEdge> _graph;
+        private readonly UndirectedGraph<TVertex, TEdge> _simpleGraph;
 
-        /// <summary> checks if the <see cref="_graph"/> is Hamiltonian
+        /// <summary> checks if the <see cref="_simpleGraph"/> is Hamiltonian
         /// (has a path that links all vertices and pass one and only one time by each vertex).
         /// </summary>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         public IsHamiltonianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-        {
-            _graph = graph.RemoveParallelEdges();
-        }
+            => _simpleGraph = graph.RemoveParallelAndSelfEdges();
 
         /// <summary> Gets all vertices permutations. </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        public List<List<TVertex>> GetAllVertexPermutations() => _graph.Vertices.ToList().GetAllPermutations();
+        public List<List<TVertex>> GetAllVertexPermutations() => _simpleGraph.Vertices.ToList().GetAllPermutations();
 
-        /// <inheritdoc cref="GraphExtensions.IsHamiltonian{TVertex,TEdge}"/>
-        public bool IsHamiltonian() => _graph.IsHamiltonian();
+        /// <inheritdoc cref="GraphExtensions.IsSimpleAndHamiltonian{TVertex,TEdge}"/>
+        public bool IsHamiltonian() => _simpleGraph.IsSimpleAndHamiltonian();
     }
 
     /// <summary>
@@ -41,8 +38,7 @@ namespace QuikGraph.Algorithms
             where TEdge : IUndirectedEdge<TVertex>
             => new IsHamiltonianGraphAlgorithm<TVertex, TEdge>(graph);
 
-        /// <summary> Returns true if the <paramref name="graph"/> is Hamiltonian, otherwise false. </summary>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <inheritdoc cref="GraphExtensions.IsSimpleAndHamiltonian{TVertex,TEdge}"/>
         [Pure]
         public static bool IsHamiltonian<TVertex, TEdge>(
             [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)

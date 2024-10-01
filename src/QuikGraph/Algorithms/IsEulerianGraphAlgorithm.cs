@@ -10,32 +10,21 @@ namespace QuikGraph.Algorithms
         where TEdge : IUndirectedEdge<TVertex>
     {
         [NotNull]
-        private readonly UndirectedGraph<TVertex, TEdge> _graph;
+        private readonly UndirectedGraph<TVertex, TEdge> _simpleGraph;
 
-        /// <summary> Algorithm that checks if the undirected <see cref="_graph"/> is Eulerian.
+        /// <summary> Algorithm that checks if the undirected <see cref="_simpleGraph"/> is Eulerian.
         /// (i.e. has a path using all edges one and only one time).
         /// </summary>
         /// <param name="graph">Graph to check; is not modified, but copied.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         public IsEulerianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-
-            // Create new graph without parallel edges
-            var newGraph = new UndirectedGraph<TVertex, TEdge>(false, graph.EdgeEqualityComparer);
-            newGraph.AddVertexRange(graph.Vertices);
-            newGraph.AddEdgeRange(graph.Edges);
-            newGraph.RemoveEdgeIf(edge => edge.IsSelfEdge(graph.AreVerticesEqual));
-
-            _graph = newGraph;
-        }
+            => _simpleGraph = graph.RemoveParallelAndSelfEdges();
 
         /// <summary> Gets the components except for single Nodes in the current graph. </summary>
         [Pure]
         public int[] NumVerticesInComponent()
         {
-            var undirectedGraph = _graph;
+            var undirectedGraph = _simpleGraph;
             var connectedComponentsAlgorithm = undirectedGraph.CreateConnectedComponentsAlgorithm();
             connectedComponentsAlgorithm.Compute();
 
@@ -43,21 +32,22 @@ namespace QuikGraph.Algorithms
         }
 
         [Pure]
-        private bool HasEvenDegree([NotNull] TVertex vertex) => _graph.AdjacentDegree(vertex) % 2 == 0;
+        private bool HasEvenDegree([NotNull] TVertex vertex) => _simpleGraph.AdjacentDegree(vertex) % 2 == 0;
 
-        /// <summary> A graph is an Eulerian circuit, if it has a single Component, where each Vertex <see cref="HasEvenDegree"/>. </summary>
+        /// <summary> A graph is an Eulerian circuit,
+        /// if it has a single Component, where each Vertex <see cref="HasEvenDegree"/>. </summary>
         /// <returns>True if the graph is Eulerian, false otherwise.</returns>
         [Pure]
         public bool IsEulerian()
         {
-            if (!_graph.Vertices.All(HasEvenDegree))
+            if (!_simpleGraph.Vertices.All(HasEvenDegree))
             {
                 return false;
             }
             var components = NumVerticesInComponent().Where(num => num > 1).Take(2).ToList();
             switch (components.Count)
             {
-                case 0: return _graph.VertexCount == 1;
+                case 0: return _simpleGraph.VertexCount == 1;
                 case 1: return true;
                 default: return false; // Many components
             }

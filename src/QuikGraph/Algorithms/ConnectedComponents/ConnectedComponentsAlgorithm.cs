@@ -10,9 +10,10 @@ namespace QuikGraph.Algorithms.ConnectedComponents
     /// <summary> Extension Methods for <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> </summary>
     public static class ConnectedComponentsAlgorithm{
 
-        /// <summary> Creates an <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> for <paramref name="undirectedGraph"/> </summary>
-        public static ConnectedComponentsAlgorithm<TVertex, TEdge> CreateConnectedComponentsAlgorithm<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> undirectedGraph)
-            where TEdge : IEdge<TVertex> => new ConnectedComponentsAlgorithm<TVertex, TEdge>(undirectedGraph);
+        /// <summary> Creates an <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> for <paramref name="undirectedSimpleGraph"/> </summary>
+        public static ConnectedComponentsAlgorithm<TVertex, TEdge> CreateConnectedComponentsAlgorithm<TVertex, TEdge>
+            (this IUndirectedGraph<TVertex, TEdge> undirectedSimpleGraph)
+            where TEdge : IEdge<TVertex> => new ConnectedComponentsAlgorithm<TVertex, TEdge>(undirectedSimpleGraph);
 
         /// <summary> Aggregates the Number of Nodes for each Component </summary>
         /// <remarks>

@@ -94,7 +94,7 @@ namespace QuikGraph.Algorithms
             fan = fan ?? new Dictionary<TVertex, int>(graph.VertexCount);
             foreach (TEdge edge in graph.Edges)
             {
-                var key = fanIn ? edge.Target : edge.Source;
+                TVertex key = fanIn ? edge.Target : edge.Source;
                 fan.TryGetValue(key, out int count);
                 fan[key] = 1 + count;
             }

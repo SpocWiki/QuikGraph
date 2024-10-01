@@ -68,10 +68,12 @@ namespace QuikGraph
             AllowParallelEdges = allowParallelEdges;
         }
 
-        /// <summary> Initializes a new instance of the <see cref="UndirectedGraph{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new, empty instance of the <see cref="UndirectedGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         /// <param name="edgeEqualityComparer">Equality comparer to use to compare edges.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeEqualityComparer"/> is <see langword="null"/>.</exception>
+        /// <remarks>by setting <paramref name="allowParallelEdges"/> to false and removing any Self-Edges,
+        /// you can create a 'simple' Graph, required for . </remarks>
         public UndirectedGraph(bool allowParallelEdges, [NotNull] EdgeEqualityComparer<TVertex> edgeEqualityComparer)
         {
             AllowParallelEdges = allowParallelEdges;

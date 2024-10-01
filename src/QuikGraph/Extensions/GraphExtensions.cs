@@ -463,14 +463,14 @@ namespace QuikGraph
             return graph;
         }
 
-        /// <summary> Creates a new graph without parallel edges </summary>
-        public static UndirectedGraph<TVertex, TEdge> RemoveParallelEdges<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
+        /// <summary> Creates a new, 'simple' graph without parallel edges </summary>
+        public static UndirectedGraph<TVertex, TEdge> RemoveParallelAndSelfEdges<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
         {
-            var newGraph = new UndirectedGraph<TVertex, TEdge>(false, graph.EdgeEqualityComparer);
-            newGraph.AddVertexRange(graph.Vertices);
-            newGraph.AddEdgeRange(graph.Edges);
-            newGraph.RemoveEdgeIf(edge => edge.IsSelfEdge(graph.AreVerticesEqual));
-            return newGraph;
+            var simpleGraph = new UndirectedGraph<TVertex, TEdge>(false, graph.EdgeEqualityComparer);
+            simpleGraph.AddVertexRange(graph.Vertices);
+            simpleGraph.AddEdgeRange(graph.Edges);
+            simpleGraph.RemoveEdgeIf(edge => edge.IsSelfEdge(graph.AreVerticesEqual));
+            return simpleGraph;
         }
 
         /// <summary> Checks if the <paramref name="vertex"/> satisfies Dirac's theorem that deg(vertex) >= (|vertices| / 2). </summary>  
@@ -483,19 +483,24 @@ namespace QuikGraph
             , [NotNull] TVertex vertex) where TEdge : IEdge<TVertex>
             => graph.AdjacentDegree(vertex) * 2 >= graph.VertexCount;
 
-        /// <summary> Returns true if the graph is Hamiltonian, otherwise false. </summary>
+        /// <summary> Checks if the <paramref name="simpleGraph"/> is Hamiltonian,
+        /// i.e. has a path that links all vertices and passes each only once. </summary>
         /// <remarks>
-        /// According to Dirac's theorem, a graph with |vertices| >= 3
+        /// The simpleGraph is a pre-processed Graph, to remove any duplicate and Self-Edges.
+        /// 
+        /// First checks Dirac's theorem, that a graph with |vertices| >= 3
         /// that SatisfiesDiracTheorem for any vertex is Hamiltonian.
+        ///
+        /// If that fails it performs a brute-force Test for all Permutations. 
         /// </remarks>
         [Pure]
-        public static bool IsHamiltonian<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
+        public static bool IsSimpleAndHamiltonian<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> simpleGraph) where TEdge : IEdge<TVertex>
         {
-            var graphVertices = graph.Vertices.ToList();
-            int vertexCount = graph.VertexCount;
+            var graphVertices = simpleGraph.Vertices.ToList();
+            int vertexCount = simpleGraph.VertexCount;
             return vertexCount == 1
-                   || (vertexCount >= 3 && graphVertices.All(graph.SatisfiesDiracTheorem))
-                   || graphVertices.GetAllPermutations().Any(graph.ContainsPath);
+                   || (vertexCount >= 3 && graphVertices.All(simpleGraph.SatisfiesDiracTheorem))
+                   || graphVertices.GetAllPermutations().Any(simpleGraph.ContainsPath);
         }
 
         /// <summary> Returns true if the <paramref name="graph"/> contains the <paramref name="path"/>. </summary>
