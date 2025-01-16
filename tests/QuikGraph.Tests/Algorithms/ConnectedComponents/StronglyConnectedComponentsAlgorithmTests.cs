@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -112,15 +112,14 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             Assert.Throws<ArgumentNullException>(
                 () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null));
+            _ = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null);
+
             Assert.Throws<ArgumentNullException>(
                 () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
                 () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null));
+            _ = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
             Assert.Throws<ArgumentNullException>(

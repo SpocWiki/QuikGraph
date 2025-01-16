@@ -720,7 +720,7 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IEqualityComparer<int> vertexEquality,
             [NotNull] IEqualityComparer<IEdge<int>> edgeEquality)
         {
-            return EquateGraphs.Equate(g, h, vertexEquality, edgeEquality);
+            return EquateGraphs.IsEqualTo(g, h, vertexEquality, edgeEquality);
         }
 
         [Test]
@@ -729,11 +729,11 @@ namespace QuikGraph.Tests.Structures
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => EquateGraphs.Equate<int, IEdge<int>>(null, null, EqualityComparer<int>.Default, null));
+                () => EquateGraphs.IsEqualTo<int, IEdge<int>>(null, null, EqualityComparer<int>.Default, null));
             Assert.Throws<ArgumentNullException>(
-                () => EquateGraphs.Equate<int, IEdge<int>>(null, null, null, EqualityComparer<IEdge<int>>.Default));
+                () => EquateGraphs.IsEqualTo<int, IEdge<int>>(null, null, null, EqualityComparer<IEdge<int>>.Default));
             Assert.Throws<ArgumentNullException>(
-                () => EquateGraphs.Equate<int, IEdge<int>>(null, null, null, null));
+                () => EquateGraphs.IsEqualTo<int, IEdge<int>>(null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -1464,7 +1464,7 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IEdgeListGraph<int, IEdge<int>> g,
             [NotNull] IEdgeListGraph<int, IEdge<int>> h)
         {
-            return EquateGraphs.Equate(g, h);
+            return EquateGraphs.IsEqualTo(g, h);
         }
 
         [TestCaseSource(nameof(ReversedGraphEquateTestCases))]
@@ -1472,7 +1472,7 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IEdgeListGraph<int, SReversedEdge<int, IEdge<int>>> g,
             [NotNull] IEdgeListGraph<int, SReversedEdge<int, IEdge<int>>> h)
         {
-            return EquateGraphs.Equate(g, h);
+            return EquateGraphs.IsEqualTo(g, h);
         }
 
         [TestCaseSource(nameof(CompressedGraphEquateTestCases))]
@@ -1480,7 +1480,7 @@ namespace QuikGraph.Tests.Structures
             [NotNull] IEdgeListGraph<int, SEquatableEdge<int>> g,
             [NotNull] IEdgeListGraph<int, SEquatableEdge<int>> h)
         {
-            return EquateGraphs.Equate(g, h);
+            return EquateGraphs.IsEqualTo(g, h);
         }
     }
 }

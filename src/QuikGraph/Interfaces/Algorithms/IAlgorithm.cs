@@ -2,7 +2,7 @@
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary> Represents an algorithm to run on the <see cref="VisitedGraph"/>. </summary>
+    /// <summary> An algorithm to run on the <see cref="VisitedGraph"/>. </summary>
     /// <typeparam name="TGraph">Graph type.</typeparam>
     public interface IAlgorithm<out TGraph> : IComputation
     {
