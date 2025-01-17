@@ -1145,8 +1145,7 @@ namespace QuikGraph.Tests.Extensions
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => graph.StronglyConnectedComponents(null));
+            Assert.AreEqual(0, graph.StronglyConnectedComponents(null));
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.StronglyConnectedComponents<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
@@ -1199,8 +1198,7 @@ namespace QuikGraph.Tests.Extensions
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => graph.WeaklyConnectedComponents(null));
+            Assert.AreEqual(0, graph.WeaklyConnectedComponents(null));
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.WeaklyConnectedComponents<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(

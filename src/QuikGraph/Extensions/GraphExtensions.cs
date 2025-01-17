@@ -467,7 +467,7 @@ namespace QuikGraph
         public static UndirectedGraph<TVertex, TEdge> RemoveParallelAndSelfEdges<TVertex, TEdge>(
             this IUndirectedGraph<TVertex, TEdge> multiGraph) where TEdge : IEdge<TVertex>
         {
-            var simpleGraph = new UndirectedGraph<TVertex, TEdge>(false, multiGraph.EdgeEqualityComparer);
+            var simpleGraph = new UndirectedGraph<TVertex, TEdge>(false, multiGraph?.EdgeEqualityComparer);
             simpleGraph.AddVertexRange(multiGraph.Vertices);
             simpleGraph.AddEdgeRange(multiGraph.Edges);
             simpleGraph.RemoveEdgeIf(edge => edge.IsSelfEdge(multiGraph.AreVerticesEqual));
