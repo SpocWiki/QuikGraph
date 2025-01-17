@@ -463,13 +463,14 @@ namespace QuikGraph
             return graph;
         }
 
-        /// <summary> Creates a new, 'simple' graph without parallel edges </summary>
-        public static UndirectedGraph<TVertex, TEdge> RemoveParallelAndSelfEdges<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
+        /// <summary> Creates a new, 'simple' graph without parallel edges from the <paramref name="multiGraph"/>.</summary>
+        public static UndirectedGraph<TVertex, TEdge> RemoveParallelAndSelfEdges<TVertex, TEdge>(
+            this IUndirectedGraph<TVertex, TEdge> multiGraph) where TEdge : IEdge<TVertex>
         {
-            var simpleGraph = new UndirectedGraph<TVertex, TEdge>(false, graph.EdgeEqualityComparer);
-            simpleGraph.AddVertexRange(graph.Vertices);
-            simpleGraph.AddEdgeRange(graph.Edges);
-            simpleGraph.RemoveEdgeIf(edge => edge.IsSelfEdge(graph.AreVerticesEqual));
+            var simpleGraph = new UndirectedGraph<TVertex, TEdge>(false, multiGraph.EdgeEqualityComparer);
+            simpleGraph.AddVertexRange(multiGraph.Vertices);
+            simpleGraph.AddEdgeRange(multiGraph.Edges);
+            simpleGraph.RemoveEdgeIf(edge => edge.IsSelfEdge(multiGraph.AreVerticesEqual));
             return simpleGraph;
         }
 
