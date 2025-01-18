@@ -11,24 +11,17 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ConnectedComponents
 {
-    /// <inheritdoc cref="CreateWeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/>
+    /// <inheritdoc cref="ComputeWeaklyConnectedComponents"/>
     public static class WeaklyConnectedComponentsAlgorithm
     {
-        /// <summary> Creates a CreateWeaklyConnectedComponentsAlgorithm </summary>
-        public static WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>
-            CreateWeaklyConnectedComponentsAlgorithm<TVertex, TEdge>([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph
-                , [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
-            where TEdge : IEdge<TVertex>
-            => new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, components, host);
-
-        /// <summary> Creates a CreateWeaklyConnectedComponentsAlgorithm </summary>
-        public static IDictionary<TVertex, int> GetWeaklyConnectedComponents<TVertex, TEdge>([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph
-            , [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
+        /// <summary> Computes the <see cref="WeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/> </summary>
+        public static WeaklyConnectedComponentsAlgorithm<TVertex, TEdge> ComputeWeaklyConnectedComponents<TVertex, TEdge>([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph
+            , [CanBeNull] IDictionary<TVertex, int> collectComponents = null, [CanBeNull] IAlgorithmComponent host = null)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = visitedGraph.CreateWeaklyConnectedComponentsAlgorithm(components, host);
+            var algorithm = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, collectComponents, host);
             algorithm.Compute();
-            return algorithm.ComponentIndex;
+            return algorithm;
         }
     }
 

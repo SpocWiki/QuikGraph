@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
@@ -8,36 +7,25 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.ConnectedComponents
 {
-    /// <inheritdoc cref="CreateStronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/>
+    /// <inheritdoc cref="ComputeStronglyConnectedComponents"/>
     public static class StronglyConnectedComponentsAlgorithm
     {
-        /// <summary> Creates a CreateStronglyConnectedComponentsAlgorithm </summary>
-        public static StronglyConnectedComponentsAlgorithm<TVertex, TEdge>
-            CreateStronglyConnectedComponentsAlgorithm<TVertex, TEdge>([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph
-                , [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
-            where TEdge : IEdge<TVertex>
-            => new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, components, host);
-
-        /// <summary> Creates a CreateStronglyConnectedComponentsAlgorithm </summary>
-        public static IDictionary<TVertex, int> GetStronglyConnectedComponents<TVertex, TEdge>([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph
-                , [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
+        /// <summary> Computes the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> </summary>
+        public static StronglyConnectedComponentsAlgorithm<TVertex, TEdge> ComputeStronglyConnectedComponents<TVertex, TEdge>([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph
+                , [CanBeNull] IDictionary<TVertex, int> collectComponents = null, [CanBeNull] IAlgorithmComponent host = null)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = visitedGraph.CreateStronglyConnectedComponentsAlgorithm(components, host);
+            var algorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, collectComponents, host);
             algorithm.Compute();
-            return algorithm.ComponentIndex;
+            return algorithm;
         }
     }
 
-    /// <summary>
-    /// Algorithm that computes strongly connected components of a graph.
-    /// </summary>
+    /// <summary> Computes and stores strongly connected components of a graph. </summary>
     /// <remarks>
-    /// A strongly connected component is a sub graph where there is a path from every
-    /// vertex to every other vertices.
+    /// A strongly connected component is a
+    /// sub graph with a path from every vertex to every other vertices.
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class StronglyConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>
         , IConnectedComponentAlgorithm<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
@@ -68,39 +56,30 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             _dfsTime = 0;
         }
 
-        /// <summary>
-        /// Root vertices associated to their minimal linked vertex.
-        /// </summary>
+        /// <summary> Root vertices associated to their representative (minimal, first) linked vertex. </summary>
+        /// <remarks>
+        /// <see cref="ComponentIndex"/> is similar, but tracks a counting Index instead of a representative Vertex.
+        /// </remarks>
         [NotNull]
         public IDictionary<TVertex, TVertex> Roots { get; }
 
-        /// <summary>
-        /// Times of vertices discover.
-        /// </summary>
+        /// <summary> Discrete Times of vertices discover in DFS. </summary>
         [NotNull]
         public IDictionary<TVertex, int> DiscoverTimes { get; }
 
-        /// <summary>
-        /// Number of steps spent.
-        /// </summary>
+        /// <summary> Number of steps spent. </summary>
         public int Steps { get; private set; }
 
-        /// <summary>
-        /// Number of components discovered per step.
-        /// </summary>
+        /// <summary> Number of components discovered per step. </summary>
         public List<int> ComponentsPerStep { get; private set; }
 
-        /// <summary>
-        /// Vertices treated per step.
-        /// </summary>
+        /// <summary> Vertices treated per step. </summary>
         public List<TVertex> VerticesPerStep { get; private set; }
 
         [ItemNotNull]
         private BidirectionalGraph<TVertex, TEdge>[] _graphs;
 
-        /// <summary>
-        /// Strongly connected components.
-        /// </summary>
+        /// <summary> Strongly connected component Sub-Graphs. </summary>
         [NotNull, ItemNotNull]
         public BidirectionalGraph<TVertex, TEdge>[] Graphs
         {
@@ -203,6 +182,9 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         public int ComponentCount { get; private set; }
 
         /// <inheritdoc />
+        /// <remarks>
+        /// <see cref="Roots"/> is similar, but maps every Vertex to their representative (minimal, first) linked vertex.
+        /// </remarks>
         public IDictionary<TVertex, int> ComponentIndex { get; }
 
         #endregion

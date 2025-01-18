@@ -5,12 +5,19 @@ using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Algorithms.Condensation
 {
-    /// <summary>
-    /// Algorithm that condensate a graph with strongly (or not) connected components.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
+    /// <summary> Condensates the <see cref="AlgorithmBase{TGraph}.VisitedGraph"/> into its <see cref="StronglyConnected"/> components. </summary>
+    /// <remarks>
+    /// Generates the <see cref="CondensedGraph"/> with the Root Vertices of the Components
+    /// and Edges if there is at least one edge in the <see cref="AlgorithmBase{TGraph}.VisitedGraph"/>
+    /// between any 2 vertices in their corresponding Components.
+    /// 
+    /// Each strongly connected component is represented as a single node in the condensed graph.
+    /// The edges between SCCs form a directed acyclic graph!
+    /// This 
+    ///
+    /// This is a very important Algorithm to abstract from the Details of a Graph.
+    /// This Con
+    /// </remarks>
     public sealed class CondensationGraphAlgorithm<TVertex, TEdge, TGraph> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
@@ -30,10 +37,12 @@ namespace QuikGraph.Algorithms.Condensation
         /// </summary>
         public IMutableBidirectionalGraph<TGraph, CondensedEdge<TVertex, TEdge, TGraph>> CondensedGraph { get; private set; }
 
-        /// <summary>
-        /// Gets or sets the strongly connected components flag.
-        /// Indicates if the algorithm should do strongly connected components or not.
+        /// <summary> Indicates if the algorithm should determine strongly connected components,
+        /// considering the Edge-Directions or not, treating the Edges as undirected.
         /// </summary>
+        /// <remarks>
+        /// for undirected graphs, WCCs are equivalent to connected components.
+        /// </remarks>
         public bool StronglyConnected { get; set; } = true;
 
         #region AlgorithmBase<TGraph>
@@ -47,8 +56,8 @@ namespace QuikGraph.Algorithms.Condensation
                 return;
 
             // Compute strongly connected components
-            var components = new Dictionary<TVertex, int>(VisitedGraph.VertexCount);
-            int componentCount = ComputeComponentCount(components);
+            var collectComponents = new Dictionary<TVertex, int>(VisitedGraph.VertexCount);
+            int componentCount = ComputeComponentCount(collectComponents);
 
             ThrowIfCancellationRequested();
 
@@ -64,7 +73,7 @@ namespace QuikGraph.Algorithms.Condensation
             // Adding vertices
             foreach (TVertex vertex in VisitedGraph.Vertices)
             {
-                condensedVertices[components[vertex]].AddVertex(vertex);
+                condensedVertices[collectComponents[vertex]].AddVertex(vertex);
             }
 
             ThrowIfCancellationRequested();
@@ -76,8 +85,8 @@ namespace QuikGraph.Algorithms.Condensation
             foreach (TEdge edge in VisitedGraph.Edges)
             {
                 // Get component ids
-                int sourceID = components[edge.Source];
-                int targetID = components[edge.Target];
+                int sourceID = collectComponents[edge.Source];
+                int targetID = collectComponents[edge.Target];
 
                 // Get vertices
                 TGraph sources = condensedVertices[sourceID];
@@ -105,15 +114,10 @@ namespace QuikGraph.Algorithms.Condensation
         #endregion
 
         [Pure]
-        private int ComputeComponentCount([NotNull] IDictionary<TVertex, int> components)
-        {
-            if (StronglyConnected)
-            {
-                return VisitedGraph.GetStronglyConnectedComponents(components, this).Count;
-            }
-
-            return VisitedGraph.GetWeaklyConnectedComponents(components, this).Count;
-        }
+        private int ComputeComponentCount([NotNull] IDictionary<TVertex, int> collectComponents)
+            => StronglyConnected
+                ? VisitedGraph.ComputeStronglyConnectedComponents(collectComponents, this).ComponentCount
+                : VisitedGraph.ComputeWeaklyConnectedComponents(collectComponents, this).ComponentCount;
 
         private struct EdgeKey : IEquatable<EdgeKey>
         {
