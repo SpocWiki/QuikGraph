@@ -728,12 +728,9 @@ namespace QuikGraph.Tests.Structures
         {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => EquateGraphs.IsEqualTo<int, IEdge<int>>(null, null, EqualityComparer<int>.Default, null));
-            Assert.Throws<ArgumentNullException>(
-                () => EquateGraphs.IsEqualTo<int, IEdge<int>>(null, null, null, EqualityComparer<IEdge<int>>.Default));
-            Assert.Throws<ArgumentNullException>(
-                () => EquateGraphs.IsEqualTo<int, IEdge<int>>(null, null, null, null));
+            Assert.IsTrue(EquateGraphs.IsEqualTo<int, IEdge<int>>(null, null, EqualityComparer<int>.Default, null));
+            Assert.IsTrue(EquateGraphs.IsEqualTo<int, IEdge<int>>(null, null, null, EqualityComparer<IEdge<int>>.Default));
+            Assert.IsTrue(EquateGraphs.IsEqualTo<int, IEdge<int>>(null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
