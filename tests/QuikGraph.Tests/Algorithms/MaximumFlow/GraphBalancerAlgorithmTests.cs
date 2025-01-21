@@ -342,8 +342,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
             var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 2, vertexFactory, edgeFactory);
 
-            Assert.DoesNotThrow(() => algorithm.Balance());
-            Assert.Throws<InvalidOperationException>(() => algorithm.Balance());
+            Assert.DoesNotThrow(algorithm.Balance);
+            Assert.Throws<InvalidOperationException>(algorithm.Balance);
         }
 
         [Test]
@@ -394,7 +394,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
             var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 2, vertexFactory, edgeFactory);
 
-            Assert.Throws<InvalidOperationException>(() => algorithm.UnBalance());
+            Assert.Throws<InvalidOperationException>(algorithm.UnBalance);
         }
 
         [Test]

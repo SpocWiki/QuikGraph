@@ -17,8 +17,7 @@ namespace QuikGraph.Tests.Algorithms
         public static void RunTopologicalSortAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new TopologicalSortAlgorithm<TVertex, TEdge>(graph);
-            algorithm.Compute();
+            var algorithm = graph.ComputeTopologicalSortAlgorithm();
 
             Assert.IsNotNull(algorithm.SortedVertices);
             Assert.AreEqual(graph.VertexCount, algorithm.SortedVertices.Length);
@@ -28,16 +27,16 @@ namespace QuikGraph.Tests.Algorithms
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateTopologicalSortAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph, -10);
+            algorithm = graph.CreateTopologicalSortAlgorithm(-10);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph, 0);
+            algorithm = graph.CreateTopologicalSortAlgorithm(0);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph, 10);
+            algorithm = graph.CreateTopologicalSortAlgorithm(10);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -60,7 +59,7 @@ namespace QuikGraph.Tests.Algorithms
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new TopologicalSortAlgorithm<int, IEdge<int>>(null));
+                () => TopologicalSortAlgorithm.CreateTopologicalSortAlgorithm<int, IEdge<int>>(null));
         }
 
         [Test]
@@ -71,8 +70,7 @@ namespace QuikGraph.Tests.Algorithms
             graph.AddVertex(2);
             graph.AddEdge(Edge.Create(1, 2));
 
-            var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph, graph.VertexCount);
-            algorithm.Compute();
+            var algorithm = graph.ComputeTopologicalSortAlgorithm(graph.VertexCount);
 
             CollectionAssert.AreEqual(
                 new[] { 1, 2 },
@@ -90,8 +88,7 @@ namespace QuikGraph.Tests.Algorithms
             graph.AddVertex(2);
             graph.AddEdge(Edge.Create(2, 1));
 
-            var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph, graph.VertexCount);
-            algorithm.Compute();
+            var algorithm = graph.ComputeTopologicalSortAlgorithm(graph.VertexCount);
 
             CollectionAssert.AreEqual(
                 new[] { 2, 1 },
@@ -114,8 +111,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(7, 8)
             );
 
-            var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            algorithm.Compute();
+            var algorithm = graph.ComputeTopologicalSortAlgorithm();
 
             CollectionAssert.AreEqual(
                 new[] { 7, 4, 5, 1, 2, 8, 6, 3 },
@@ -136,8 +132,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(5, 6)
             );
 
-            var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            algorithm.Compute();
+            var algorithm = graph.ComputeTopologicalSortAlgorithm();
 
             CollectionAssert.AreEqual(
                 new[] { 5, 6, 0, 1, 2, 3, 4 },
@@ -157,8 +152,8 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             );
 
-            var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
+            var algorithm = graph.CreateTopologicalSortAlgorithm();
+            Assert.Throws<CyclicGraphException>(algorithm.Compute);
         }
 
         [Test]
@@ -179,8 +174,8 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 1)
             );
 
-            var algorithm = new TopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
-            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
+            var algorithm = cyclicGraph.CreateTopologicalSortAlgorithm();
+            Assert.Throws<CyclicGraphException>(algorithm.Compute);
         }
 
         #region Test classes
@@ -274,8 +269,7 @@ namespace QuikGraph.Tests.Algorithms
             graph.AddEdge(Edge.Create(i1, t));
             graph.AddEdge(Edge.Create(n, s));
 
-            var sort = new TopologicalSortAlgorithm<Letter, IEdge<Letter>>(graph);
-            sort.Compute();
+            var sort = graph.ComputeTopologicalSortAlgorithm();
 
             var builder = new StringBuilder();
             foreach (Letter item in sort.SortedVertices)

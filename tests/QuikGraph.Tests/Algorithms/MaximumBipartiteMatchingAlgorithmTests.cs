@@ -73,7 +73,7 @@ namespace QuikGraph.Tests.Algorithms
                     graph,
                     setA.ToArray(),
                     setB.ToArray(),
-                    () => vertexFactory.CreateVertex(),
+                    vertexFactory.CreateVertex,
                     _edgeFactory,
                     expectedMatchSize);
             }

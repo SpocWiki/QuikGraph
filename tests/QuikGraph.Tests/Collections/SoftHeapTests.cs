@@ -337,7 +337,7 @@ namespace QuikGraph.Tests.Collections
             using (IEnumerator<KeyValuePair<double, int>> enumerator = heap.GetEnumerator())
             {
                 Assert.AreEqual(default(KeyValuePair<double, int>), enumerator.Current);
-                Assert.Throws<NotSupportedException>(() => enumerator.Reset());
+                Assert.Throws<NotSupportedException>(enumerator.Reset);
             }
         }
     }

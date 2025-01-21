@@ -1211,7 +1211,7 @@ namespace QuikGraph.Tests.Structures
                 Edge.Create(1, 4)
             );
 
-            Assert.DoesNotThrow(() => graph.TrimEdgeExcess());
+            Assert.DoesNotThrow(graph.TrimEdgeExcess);
         }
     }
 }

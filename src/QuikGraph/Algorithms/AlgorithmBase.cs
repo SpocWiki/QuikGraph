@@ -33,12 +33,8 @@ namespace QuikGraph.Algorithms
             if (visitedGraph == null)
                 throw new ArgumentNullException(nameof(visitedGraph));
 
-            if (host is null)
-            {
-                host = this;
-            }
             VisitedGraph = visitedGraph;
-            _algorithmServices = new AlgorithmServices(host);
+            _algorithmServices = new AlgorithmServices(host ?? this);
         }
 
         #region IComputation

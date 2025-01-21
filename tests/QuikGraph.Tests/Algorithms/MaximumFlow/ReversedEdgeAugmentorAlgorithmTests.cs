@@ -72,7 +72,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var algorithm = graph.CreateReversedEdgeAugmentorAlgorithm(edgeFactory);
 
             var reverseEdgesAdded = new List<TEdge>();
-            algorithm.ReversedEdgeAdded += edge => reverseEdgesAdded.Add(edge);
+            algorithm.ReversedEdgeAdded += reverseEdgesAdded.Add;
 
             algorithm.AddReversedEdges();
 
@@ -107,8 +107,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             var algorithm = graph.CreateReversedEdgeAugmentorAlgorithm(edgeFactory);
-            Assert.DoesNotThrow(() => algorithm.AddReversedEdges());
-            Assert.Throws<InvalidOperationException>(() => algorithm.AddReversedEdges());
+            Assert.DoesNotThrow(algorithm.AddReversedEdges);
+            Assert.Throws<InvalidOperationException>(algorithm.AddReversedEdges);
         }
 
         [Test]
@@ -150,7 +150,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new AdjacencyGraph<int, IEdge<int>>();
 
             var algorithm = graph.CreateReversedEdgeAugmentorAlgorithm(Edge.Create);
-            Assert.Throws<InvalidOperationException>(() => algorithm.RemoveReversedEdges());
+            Assert.Throws<InvalidOperationException>(algorithm.RemoveReversedEdges);
         }
 
         [Test]

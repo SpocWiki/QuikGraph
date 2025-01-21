@@ -234,7 +234,7 @@ namespace QuikGraph.Tests.Algorithms
             );
 
             var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
-            Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<CyclicGraphException>(algorithm.Compute);
         }
     }
 }

@@ -568,16 +568,8 @@ namespace QuikGraph.Algorithms
         [Pure]
         [NotNull, ItemNotNull]
         public static IEnumerable<TVertex> TopologicalSort<TVertex, TEdge>(
-            [NotNull] this IVertexListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-
-            var algorithm = new TopologicalSortAlgorithm<TVertex, TEdge>(graph, graph.VertexCount);
-            algorithm.Compute();
-            return algorithm.SortedVertices.AsEnumerable();
-        }
+            [NotNull] this IVertexListGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
+            => graph.ComputeTopologicalSortAlgorithm().SortedVertices.AsEnumerable();
 
         /// <summary>
         /// Creates a topological sort of an undirected acyclic graph.

@@ -1310,7 +1310,7 @@ namespace QuikGraph.Tests.Collections
 
                 Assert.Throws<InvalidOperationException>(() => { var _ = enumerator.Current; });
                 Assert.Throws<InvalidOperationException>(() => enumerator.MoveNext());
-                Assert.Throws<InvalidOperationException>(() => enumerator.Reset());
+                Assert.Throws<InvalidOperationException>(enumerator.Reset);
             }
 
             using (IEnumerator<KeyValuePair<double, int>> enumerator = heap.GetEnumerator())
@@ -1321,7 +1321,7 @@ namespace QuikGraph.Tests.Collections
 
                 Assert.Throws<InvalidOperationException>(() => { var _ = enumerator.Current; });
                 Assert.Throws<InvalidOperationException>(() => enumerator.MoveNext());
-                Assert.Throws<InvalidOperationException>(() => enumerator.Reset());
+                Assert.Throws<InvalidOperationException>(enumerator.Reset);
             }
 
             using (IEnumerator<KeyValuePair<double, int>> enumerator = heap.GetEnumerator())
@@ -1332,7 +1332,7 @@ namespace QuikGraph.Tests.Collections
 
                 Assert.Throws<InvalidOperationException>(() => { var _ = enumerator.Current; });
                 Assert.Throws<InvalidOperationException>(() => enumerator.MoveNext());
-                Assert.Throws<InvalidOperationException>(() => enumerator.Reset());
+                Assert.Throws<InvalidOperationException>(enumerator.Reset);
             }
 
             using (IEnumerator<KeyValuePair<double, int>> enumerator = heap.GetEnumerator())
@@ -1344,7 +1344,7 @@ namespace QuikGraph.Tests.Collections
                 // No new or removed element
                 Assert.DoesNotThrow(() => { var _ = enumerator.Current; });
                 Assert.DoesNotThrow(() => enumerator.MoveNext());
-                Assert.DoesNotThrow(() => enumerator.Reset());
+                Assert.DoesNotThrow(enumerator.Reset);
             }
 
             using (IEnumerator<KeyValuePair<double, int>> enumerator = heap.GetEnumerator())
@@ -1355,7 +1355,7 @@ namespace QuikGraph.Tests.Collections
 
                 Assert.Throws<InvalidOperationException>(() => { var _ = enumerator.Current; });
                 Assert.Throws<InvalidOperationException>(() => enumerator.MoveNext());
-                Assert.Throws<InvalidOperationException>(() => enumerator.Reset());
+                Assert.Throws<InvalidOperationException>(enumerator.Reset);
             }
 
             using (IEnumerator<KeyValuePair<double, int>> enumerator = heap.GetEnumerator())
@@ -1367,7 +1367,7 @@ namespace QuikGraph.Tests.Collections
                 // No new or removed element
                 Assert.DoesNotThrow(() => { var _ = enumerator.Current; });
                 Assert.DoesNotThrow(() => enumerator.MoveNext());
-                Assert.DoesNotThrow(() => enumerator.Reset());
+                Assert.DoesNotThrow(enumerator.Reset);
             }
         }
 

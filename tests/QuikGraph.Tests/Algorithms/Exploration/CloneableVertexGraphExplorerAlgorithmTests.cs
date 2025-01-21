@@ -426,7 +426,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
             algorithm.TreeEdge += Assert.IsNotNull;
             algorithm.BackEdge += Assert.IsNotNull;
             var skippedEdge = new List<IEdge<EquatableCloneableTestVertex>>();
-            algorithm.EdgeSkipped += edge => skippedEdge.Add(edge);
+            algorithm.EdgeSkipped += skippedEdge.Add;
 
             algorithm.Compute(verticesArray[0]);
 

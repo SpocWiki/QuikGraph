@@ -5,11 +5,9 @@ using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Algorithms.Condensation
 {
-    /// <inheritdoc cref="CondensationGraphAlgorithm{TVertex, TEdge, TGraph}"/>/>
-    public static class CondensationGraphAlgorithm
-    {
+    /// <summary> Cannot determine the TGraph type, as it is not provided in the constructor. </summary>
+    public static class CondensationGraphAlgorithm { }
 
-    }
     /// <summary> Condensates the <see cref="AlgorithmBase{TGraph}.VisitedGraph"/> into its <see cref="StronglyConnected"/> components. </summary>
     /// <remarks>
     /// Generates the <see cref="CondensedGraph"/> with the Root Vertices of the Components
@@ -21,7 +19,6 @@ namespace QuikGraph.Algorithms.Condensation
     /// This 
     ///
     /// This is a very important Algorithm to abstract from the Details of a Graph.
-    /// This Con
     /// </remarks>
     public sealed class CondensationGraphAlgorithm<TVertex, TEdge, TGraph> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>

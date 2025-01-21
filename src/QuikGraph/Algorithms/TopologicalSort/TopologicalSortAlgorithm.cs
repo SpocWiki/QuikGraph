@@ -6,6 +6,26 @@ using QuikGraph.Algorithms.Search;
 
 namespace QuikGraph.Algorithms.TopologicalSort
 {
+    /// <inheritdoc cref="CreateTopologicalSortAlgorithm"/>
+    public static class TopologicalSortAlgorithm
+    {
+        /// <summary> Creates a new topological sort algorithm for the <paramref name="visitedGraph"/>. </summary>
+        public static TopologicalSortAlgorithm<TVertex, TEdge> CreateTopologicalSortAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            int capacity = -1) where TEdge : IEdge<TVertex>
+            => new TopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph, capacity);
+
+        /// <summary> Computes a new topological sort algorithm for the <paramref name="visitedGraph"/>. </summary>
+        public static TopologicalSortAlgorithm<TVertex, TEdge> ComputeTopologicalSortAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            int capacity = -1) where TEdge : IEdge<TVertex>
+        {
+            var ret = new TopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph, capacity);
+            ret.Compute();
+            return ret;
+        }
+    }
+
     /// <summary> Topological sort algorithm (can only be performed on an acyclic graph). </summary>
     public sealed class TopologicalSortAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>
@@ -21,7 +41,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacity">Sorted vertices capacity.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public TopologicalSortAlgorithm(
+        internal TopologicalSortAlgorithm(
             [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             int capacity = -1)
             : base(visitedGraph)
