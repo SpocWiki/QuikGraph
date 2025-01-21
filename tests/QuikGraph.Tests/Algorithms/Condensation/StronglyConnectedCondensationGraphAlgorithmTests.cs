@@ -35,7 +35,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         {
             // Check number of vertices = number of strongly connected components
             var components = new Dictionary<TVertex, int>();
-            int componentCount = graph.StronglyConnectedComponents(components);
+            int componentCount = graph.StronglyConnectedComponentsCount(components);
             Assert.AreEqual(componentCount, condensedGraph.VertexCount, "Component count does not match.");
         }
 

@@ -44,7 +44,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public StronglyConnectedComponentsAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        internal StronglyConnectedComponentsAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {

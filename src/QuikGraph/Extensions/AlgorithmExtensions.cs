@@ -739,29 +739,20 @@ namespace QuikGraph.Algorithms
             return incrementalComponents;
         }
 
-        /// <summary>
-        /// Computes the strongly connected components of a directed graph.
-        /// </summary>
+        /// <summary> Computes the Number of strongly connected components of a directed graph. </summary>
         /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="components">Found components.</param>
-        /// <returns>Number of component found.</returns>
+        /// <returns> component found.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public static int StronglyConnectedComponents<TVertex, TEdge>(
+        public static int StronglyConnectedComponentsCount<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
-            [NotNull] IDictionary<TVertex, int> components)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(graph, components);
-            algorithm.Compute();
-            return algorithm.ComponentCount;
-        }
+            [NotNull] IDictionary<TVertex, int> components) where TEdge : IEdge<TVertex>
+            => graph.ComputeStronglyConnectedComponents(components).ComponentCount;
 
-        /// <summary>
-        /// Computes the weakly connected components of a directed graph.
-        /// </summary>
+        /// <summary> Computes the weakly connected components of a directed graph. </summary>
         /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
@@ -769,7 +760,7 @@ namespace QuikGraph.Algorithms
         /// <returns>Number of component found.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public static int WeaklyConnectedComponents<TVertex, TEdge>(
+        public static int WeaklyConnectedComponentsCount<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] IDictionary<TVertex, int> components)
             where TEdge : IEdge<TVertex> => graph.ComputeWeaklyConnectedComponents(components).ComponentCount;

@@ -1122,7 +1122,7 @@ namespace QuikGraph.Tests.Extensions
 
             var components = new Dictionary<int, int>();
 
-            Assert.AreEqual(3, graph.StronglyConnectedComponents(components));
+            Assert.AreEqual(3, graph.StronglyConnectedComponentsCount(components));
             CollectionAssert.AreEquivalent(
                 new Dictionary<int, int>
                 {
@@ -1145,11 +1145,11 @@ namespace QuikGraph.Tests.Extensions
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.AreEqual(0, graph.StronglyConnectedComponents(null));
+            Assert.AreEqual(0, graph.StronglyConnectedComponentsCount(null));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.StronglyConnectedComponents<int, IEdge<int>>(null, components));
+                () => AlgorithmExtensions.StronglyConnectedComponentsCount<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.StronglyConnectedComponents<int, IEdge<int>>(null, null));
+                () => AlgorithmExtensions.StronglyConnectedComponentsCount<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -1173,7 +1173,7 @@ namespace QuikGraph.Tests.Extensions
 
             var components = new Dictionary<int, int>();
 
-            Assert.AreEqual(2, graph.WeaklyConnectedComponents(components));
+            Assert.AreEqual(2, graph.WeaklyConnectedComponentsCount(components));
             CollectionAssert.AreEquivalent(
                 new Dictionary<int, int>
                 {
@@ -1198,11 +1198,11 @@ namespace QuikGraph.Tests.Extensions
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.AreEqual(0, graph.WeaklyConnectedComponents(null));
+            Assert.AreEqual(0, graph.WeaklyConnectedComponentsCount(null));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.WeaklyConnectedComponents<int, IEdge<int>>(null, components));
+                () => AlgorithmExtensions.WeaklyConnectedComponentsCount<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.WeaklyConnectedComponents<int, IEdge<int>>(null, null));
+                () => AlgorithmExtensions.WeaklyConnectedComponentsCount<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
