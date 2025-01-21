@@ -254,7 +254,7 @@ namespace QuikGraph
         [NotNull] this IDictionary<TVertex, TEdge> predecessors,
         [NotNull] TVertex root,
         [NotNull] TVertex vertex, Func<TVertex, TVertex, bool> areVerticesEqual = null) where TEdge : IEdge<TVertex>
-            => ((IDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex);
+            => ((IDictionary<TVertex, IEdge<TVertex>>)predecessors).IsPredecessor(root, vertex, areVerticesEqual);
 #else
         /// <inheritdoc cref="IsPredecessor{TVertex}(IReadOnlyDictionary{TVertex, IEdge{TVertex}}, TVertex, TVertex, Func{TVertex, TVertex, bool})"/>
         public static bool IsPredecessor<TVertex, TEdge>(
