@@ -366,6 +366,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             #endregion
         }
 
+        /// <summary> This Test is very slow (18.2s) </summary>
         [Test]
         [Category(TestCategories.CISkip)]
         public void DijkstraRepro12359()

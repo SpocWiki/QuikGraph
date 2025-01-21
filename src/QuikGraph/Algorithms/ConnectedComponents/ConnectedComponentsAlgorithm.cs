@@ -50,7 +50,12 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         }
 
     }
+
     /// <summary> computes connected components of a graph. </summary>
+    /// <remarks>
+    /// Identifies all connected subgraphs in an undirected graph
+    /// to identify clusters or isolate regions.
+    /// </remarks>
     public sealed class ConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         , IConnectedComponentAlgorithm<TVertex, TEdge, IUndirectedGraph<TVertex, TEdge>>

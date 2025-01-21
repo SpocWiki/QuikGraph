@@ -8,11 +8,11 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// A* single source shortest-path algorithm for directed graph with positive distance.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> A* single source shortest-path algorithm for directed graph with positive distances. </summary>
+    /// <remarks>
+    /// The A* algorithm is a generalization of Dijkstra's shortest path algorithm
+    /// that uses a heuristic to optimize the search process.
+    /// </remarks>
     public sealed class AStarShortestPathAlgorithm<TVertex, TEdge>
         : ShortestPathAlgorithmBase<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
         , IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>

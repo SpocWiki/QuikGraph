@@ -256,7 +256,7 @@ namespace QuikGraph.Tests
             [NotNull, ItemNotNull] params TEdge[] edges)
             where TEdge : IEdge<TVertex>
         {
-            AssertHasReversedInEdges<TVertex, TEdge>(graph, vertex, edges.AsEnumerable());
+            AssertHasReversedInEdges(graph, vertex, edges.AsEnumerable());
         }
 
         public static void AssertHasReversedInEdges<TVertex, TEdge>(

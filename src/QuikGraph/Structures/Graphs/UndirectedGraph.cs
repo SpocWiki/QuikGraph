@@ -26,7 +26,7 @@ namespace QuikGraph
     [Serializable]
 #endif
     [DebuggerDisplay("VertexCount = {" + nameof(VertexCount) + "}, EdgeCount = {" + nameof(EdgeCount) + "}")]
-    public class UndirectedGraph<TVertex, TEdge> : IMutableUndirectedGraph<TVertex, TEdge>
+    public class UndirectedGraph<TVertex, TEdge> : IMutableUndirectedGraph<TVertex, TEdge>, IMutableVertexSet<TVertex>
 #if SUPPORTS_CLONEABLE
         , ICloneable
 #endif

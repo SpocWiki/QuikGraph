@@ -15,7 +15,20 @@ namespace QuikGraph.Algorithms.MaximumFlow
             [NotNull, ItemNotNull] IEnumerable<TVertex> verticesToSink,
             [NotNull] VertexFactory<TVertex> vertexFactory,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
-            => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>(visitedGraph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory, host); 
+            => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>(visitedGraph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory, host);
+
+        /// <summary> Creates a <inheritdoc cref="BipartiteToMaximumFlowGraphAugmentorAlgorithm{TVertex,TEdge}"/> </summary>
+        public static BipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge> ComputeBipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>(
+            [NotNull] this IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
+            [NotNull, ItemNotNull] IEnumerable<TVertex> sourceToVertices,
+            [NotNull, ItemNotNull] IEnumerable<TVertex> verticesToSink,
+            [NotNull] VertexFactory<TVertex> vertexFactory,
+            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+        {
+            var algorithm = visitedGraph.CreateBipartiteToMaximumFlowGraphAugmentorAlgorithm(sourceToVertices, verticesToSink, vertexFactory, edgeFactory, host);
+            algorithm.Compute();
+            return algorithm;
+        }
     }
 
     /// <summary>
