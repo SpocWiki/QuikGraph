@@ -200,7 +200,7 @@ namespace QuikGraph.Algorithms
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
+            DepthFirstSearchAlgorithm<TVertex, TEdge> algorithm = graph.CreateDepthFirstSearchAlgorithm();
             return RunDirectedRootedAlgorithm<TVertex, TEdge, DepthFirstSearchAlgorithm<TVertex, TEdge>>(algorithm, root);
         }
 
@@ -484,11 +484,7 @@ namespace QuikGraph.Algorithms
         public static IEnumerable<TVertex> Sinks<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-            return graph.Vertices.Where(FallBackTo<TVertex, bool>(graph.IsOutEdgesEmpty, true));
-        }
+            => graph.Vertices.Where(FallBackTo<TVertex, bool>(graph.IsOutEdgesEmpty, true));
 
         /// <summary> Fixes <see langword="null"/> to <paramref name="fallBack"/> </summary>
         public static Func<TK, TV> FallBackTo<TK, TV>(this Func<TK, TV?> isOutEdgesEmpty, TV fallBack) where TV : struct
@@ -508,7 +504,7 @@ namespace QuikGraph.Algorithms
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
+            var dfs = graph.CreateDepthFirstSearchAlgorithm();
             var notRoots = new Dictionary<TVertex, bool>(graph.VertexCount);
             dfs.ExamineEdge += edge => notRoots[edge.Target] = false;
             dfs.Compute();
@@ -776,12 +772,7 @@ namespace QuikGraph.Algorithms
         public static int WeaklyConnectedComponents<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] IDictionary<TVertex, int> components)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(graph, components);
-            algorithm.Compute();
-            return algorithm.ComponentCount;
-        }
+            where TEdge : IEdge<TVertex> => graph.ComputeWeaklyConnectedComponents(components).ComponentCount;
 
         /// <summary>
         /// Condensates the strongly connected components of a directed graph.
@@ -869,7 +860,7 @@ namespace QuikGraph.Algorithms
             {
                 Debug.Assert(graph != null);
 
-                var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
+                var dfs = graph.CreateDepthFirstSearchAlgorithm();
                 try
                 {
                     dfs.BackEdge += DfsBackEdge;

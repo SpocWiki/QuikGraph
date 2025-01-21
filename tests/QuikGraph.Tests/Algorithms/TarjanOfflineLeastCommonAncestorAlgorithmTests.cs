@@ -26,7 +26,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             TryFunc<SEquatableEdge<TVertex>, TVertex> lca = graph.OfflineLeastCommonAncestor(root, pairs);
             var predecessors = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
-            var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
+            var dfs = graph.CreateDepthFirstSearchAlgorithm();
             using (predecessors.Attach(dfs))
                 dfs.Compute(root);
 

@@ -81,25 +81,25 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            AdjacencyGraph<int, IEdge<int>> graph = new (), nullGraph = null;
             var components = new Dictionary<int, int>();
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
+                () => nullGraph.ComputeWeaklyConnectedComponents(null));
 
-            _ = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null);
+            _ = graph.ComputeWeaklyConnectedComponents(null);
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
+                () => nullGraph.ComputeWeaklyConnectedComponents(components));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.ComputeWeaklyConnectedComponents(null));
 
-            _ = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null);
+            _ = graph.ComputeWeaklyConnectedComponents(null, null);
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
+                () => nullGraph.ComputeWeaklyConnectedComponents(components, null));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.ComputeWeaklyConnectedComponents(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

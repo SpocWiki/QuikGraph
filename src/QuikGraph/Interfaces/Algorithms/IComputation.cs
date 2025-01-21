@@ -3,7 +3,11 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary> Represents a computation of something with control states. </summary>
+    /// <summary> <see cref="Compute"/>s of something with control <see cref="State"/>. </summary>
+    /// <remarks>
+    /// <see cref="Compute"/> does not run automatically in the Constructor,
+    /// so you have a chance to attach <see cref="EventHandler"/>s before the computation starts!
+    /// </remarks>
     public interface IComputation
     {
         /// <summary> Synchronizer object usable for managing concurrent Operations. </summary>

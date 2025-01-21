@@ -77,10 +77,7 @@ namespace QuikGraph.Algorithms
             var graph = _pairs.ToAdjacencyGraph();
             var disjointSet = new ForestDisjointSet<TVertex>();
             var verticesAncestors = new Dictionary<TVertex, TVertex>();
-            var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(
-                this, 
-                VisitedGraph, 
-                new Dictionary<TVertex, GraphColor>(VisitedGraph.VertexCount));
+            var dfs = VisitedGraph.CreateDepthFirstSearchAlgorithm(null, null, this);
 
             dfs.InitializeVertex += vertex => disjointSet.MakeSet(vertex);
             dfs.DiscoverVertex += vertex => verticesAncestors[vertex] = vertex;
