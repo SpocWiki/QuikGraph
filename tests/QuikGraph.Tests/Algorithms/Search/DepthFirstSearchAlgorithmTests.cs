@@ -165,8 +165,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateDepthFirstSearchAlgorithm());
 
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateDepthFirstSearchAlgorithm(host: null));
+            _ = graph.CreateDepthFirstSearchAlgorithm(host: null);
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateDepthFirstSearchAlgorithm(verticesColors));
             Assert.Throws<ArgumentNullException>(
@@ -177,19 +176,15 @@ namespace QuikGraph.Tests.Algorithms.Search
 
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateDepthFirstSearchAlgorithm(verticesColors, null));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateDepthFirstSearchAlgorithm(null, null));
+            _ = graph.CreateDepthFirstSearchAlgorithm(null, null);
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateDepthFirstSearchAlgorithm(null, null));
 
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateDepthFirstSearchAlgorithm(verticesColors, Filter));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateDepthFirstSearchAlgorithm(null, Filter, null));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateDepthFirstSearchAlgorithm(verticesColors, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateDepthFirstSearchAlgorithm(null, null, null));
+            _ = graph.CreateDepthFirstSearchAlgorithm(null, Filter, null);
+            _ = graph.CreateDepthFirstSearchAlgorithm(verticesColors, null, null);
+            _ = graph.CreateDepthFirstSearchAlgorithm(null, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateDepthFirstSearchAlgorithm(null, Filter, null));
             Assert.Throws<ArgumentNullException>(

@@ -43,7 +43,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         }
 
         [Test]
-        public void Constructor()
+        public void TestConstructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var components = new Dictionary<int, int>();
@@ -63,7 +63,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 IVertexListGraph<TVertex, TEdge> g)
                 where TEdge : IEdge<TVertex>
             {
-                algo.AssertAlgorithmState(g);
+                algo.AssertAlgorithmState(g, QuikGraph.Algorithms.ComputationState.Finished);
                 Assert.AreEqual(0, algo.ComponentCount);
                 CollectionAssert.IsEmpty(algo.ComponentIndex);
                 CollectionAssert.IsEmpty(algo.Graphs);

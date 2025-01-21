@@ -5,6 +5,11 @@ using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Algorithms.Condensation
 {
+    /// <inheritdoc cref="CondensationGraphAlgorithm{TVertex, TEdge, TGraph}"/>/>
+    public static class CondensationGraphAlgorithm
+    {
+
+    }
     /// <summary> Condensates the <see cref="AlgorithmBase{TGraph}.VisitedGraph"/> into its <see cref="StronglyConnected"/> components. </summary>
     /// <remarks>
     /// Generates the <see cref="CondensedGraph"/> with the Root Vertices of the Components
@@ -25,11 +30,11 @@ namespace QuikGraph.Algorithms.Condensation
         /// <summary>
         /// Initializes a new instance of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public CondensationGraphAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
+        public CondensationGraphAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph, bool stronglyConnected = true)
             : base(visitedGraph)
         {
+            StronglyConnected = stronglyConnected;
         }
 
         /// <summary>
@@ -43,7 +48,7 @@ namespace QuikGraph.Algorithms.Condensation
         /// <remarks>
         /// for undirected graphs, WCCs are equivalent to connected components.
         /// </remarks>
-        public bool StronglyConnected { get; set; } = true;
+        public bool StronglyConnected { get; } = true;
 
         #region AlgorithmBase<TGraph>
 

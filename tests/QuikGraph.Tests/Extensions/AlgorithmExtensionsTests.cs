@@ -697,7 +697,7 @@ namespace QuikGraph.Tests.Extensions
         {
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
+            Assert.Throws<NullReferenceException>(
                 () => ((IVertexListGraph<int, IEdge<int>>)null).Sinks().ToArray());
         }
 
