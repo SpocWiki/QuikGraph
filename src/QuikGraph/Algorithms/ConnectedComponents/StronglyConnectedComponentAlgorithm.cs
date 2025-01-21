@@ -15,16 +15,22 @@ namespace QuikGraph.Algorithms.ConnectedComponents
                 , [CanBeNull] IDictionary<TVertex, int> collectComponents = null, [CanBeNull] IAlgorithmComponent host = null)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, collectComponents, host);
+            var algorithm = visitedGraph.CreateStronglyConnectedComponentsAlgorithm(collectComponents, host);
             algorithm.Compute();
             return algorithm;
         }
+
+        /// <summary> Creates the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> </summary>
+        public static StronglyConnectedComponentsAlgorithm<TVertex, TEdge> CreateStronglyConnectedComponentsAlgorithm<TVertex, TEdge>
+            (this IVertexListGraph<TVertex, TEdge> visitedGraph
+                , [CanBeNull] IDictionary<TVertex, int> collectComponents = null, [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, collectComponents, host);
     }
 
     /// <summary> Computes and stores strongly connected components of a graph. </summary>
     /// <remarks>
-    /// A strongly connected component is a
-    /// sub graph with a path from every vertex to every other vertices.
+    /// A strongly connected component
+    /// is a sub graph with a path from every vertex to every other vertices.
     /// </remarks>
     public sealed class StronglyConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>
