@@ -30,6 +30,7 @@ namespace QuikGraph.Algorithms
                 edgeFactory);
         }
     }
+
     /// <summary> Computes a maximum bipartite matching in a graph,
     /// i.e. the maximum number of edges not sharing any vertex.
     /// </summary>

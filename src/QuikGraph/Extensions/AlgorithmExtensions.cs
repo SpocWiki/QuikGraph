@@ -345,7 +345,7 @@ namespace QuikGraph.Algorithms
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new AStarShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights, costHeuristic);
+            var algorithm = graph.CreateAStarShortestPathAlgorithm(edgeWeights, costHeuristic);
             return RunDirectedRootedAlgorithm<TVertex, TEdge, AStarShortestPathAlgorithm<TVertex, TEdge>>(algorithm, root);
         }
 

@@ -8,6 +8,19 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
+    /// <inheritdoc cref="CreateAStarShortestPathAlgorithm"/>
+    public static class AStarShortestPathAlgorithm
+    {
+        /// <summary> Creates an AStarShortestPathAlgorithm </summary>
+        public static AStarShortestPathAlgorithm<TVertex, TEdge> CreateAStarShortestPathAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [NotNull] Func<TVertex, double> costHeuristic,
+            [CanBeNull] IAlgorithmComponent host = null,
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null) where TEdge : IEdge<TVertex>
+            => new AStarShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, costHeuristic, host, distanceRelaxer);
+    }
+
     /// <summary> A* single source shortest-path algorithm for directed graph with positive distances. </summary>
     /// <remarks>
     /// The A* algorithm is a generalization of Dijkstra's shortest path algorithm
@@ -29,55 +42,18 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="costHeuristic">Function that computes a cost for a given vertex.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="costHeuristic"/> is <see langword="null"/>.</exception>
-        public AStarShortestPathAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] Func<TVertex, double> costHeuristic)
-            : this(visitedGraph, edgeWeights, costHeuristic, DistanceRelaxers.ShortestDistance)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AStarShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="costHeuristic">Function that computes a cost for a given vertex.</param>
-        /// <param name="distanceRelaxer">Distance relaxer.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="costHeuristic"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public AStarShortestPathAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] Func<TVertex, double> costHeuristic,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : this(null, visitedGraph, edgeWeights, costHeuristic, distanceRelaxer)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AStarShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="costHeuristic">Function that computes a cost for a given vertex.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="costHeuristic"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
         public AStarShortestPathAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
             [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [NotNull] Func<TVertex, double> costHeuristic,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
+            [CanBeNull] IAlgorithmComponent host = null,
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null)
             : base(host, visitedGraph, edgeWeights, distanceRelaxer)
         {
             CostHeuristic = costHeuristic ?? throw new ArgumentNullException(nameof(costHeuristic));
