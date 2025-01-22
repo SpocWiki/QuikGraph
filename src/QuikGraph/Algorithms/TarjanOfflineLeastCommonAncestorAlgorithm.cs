@@ -8,9 +8,18 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Offline least common ancestor in a rooted tree.
-    /// </summary>
+    /// <inheritdoc cref="CreateTarjanOfflineLeastCommonAncestorAlgorithm"/>
+    public static class TarjanOfflineLeastCommonAncestorAlgorithm
+    {
+        /// <summary> Creates a <see cref="TarjanOfflineLeastCommonAncestorAlgorithm{TVertex, TEdge}"/> </summary>
+        public static TarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>
+            CreateTarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new TarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>(visitedGraph);
+    }
+
+    /// <summary> Offline least common ancestor in a rooted tree. </summary>
     /// <remarks>
     /// Reference:
     /// Gabow, H. N. and Tarjan, R. E. 1983. A linear-time algorithm for a special case 
@@ -38,22 +47,11 @@ namespace QuikGraph.Algorithms
         /// Initializes a new instance of the <see cref="TarjanOfflineLeastCommonAncestorAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public TarjanOfflineLeastCommonAncestorAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph)
-            : this(null, visitedGraph)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TarjanOfflineLeastCommonAncestorAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public TarjanOfflineLeastCommonAncestorAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph)
+        internal TarjanOfflineLeastCommonAncestorAlgorithm(
+            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(host, visitedGraph)
         {
         }
