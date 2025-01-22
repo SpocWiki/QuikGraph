@@ -30,17 +30,17 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <summary>
         /// Initializes a new instance of the <see cref="ShortestPathAlgorithmBase{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
         protected ShortestPathAlgorithmBase(
-            [CanBeNull] IAlgorithmComponent host,
             [NotNull] TGraph visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
+            [CanBeNull] IAlgorithmComponent host = null,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null)
             : base(host, visitedGraph)
         {

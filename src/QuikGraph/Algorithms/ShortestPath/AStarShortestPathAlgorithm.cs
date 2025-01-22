@@ -54,7 +54,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             [NotNull] Func<TVertex, double> costHeuristic,
             [CanBeNull] IAlgorithmComponent host = null,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null)
-            : base(host, visitedGraph, edgeWeights, distanceRelaxer)
+            : base(visitedGraph, edgeWeights, host, distanceRelaxer)
         {
             CostHeuristic = costHeuristic ?? throw new ArgumentNullException(nameof(costHeuristic));
         }

@@ -381,7 +381,7 @@ namespace QuikGraph.Algorithms
             if (root == null)
                 throw new ArgumentNullException(nameof(root));
 
-            var algorithm = new BellmanFordShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(edgeWeights);
             var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>(graph.AreVerticesEqual);
             using (predecessorRecorder.Attach(algorithm))
             {

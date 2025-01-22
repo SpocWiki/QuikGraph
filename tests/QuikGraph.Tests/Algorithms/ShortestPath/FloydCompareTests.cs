@@ -92,7 +92,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void FloydVsBellmannGraphML(AdjacencyGraph<string, IEdge<string>> graph)
         {
             CompareAlgorithms(graph, _ => 1.0, (g, d)
-                => new BellmanFordShortestPathAlgorithm<string, IEdge<string>>(g, d));
+                => g.CreateBellmanFordShortestPathAlgorithm(d));
         }
 
         [Test]

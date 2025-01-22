@@ -63,7 +63,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [NotNull] IDistanceRelaxer distanceRelaxer)
-            : base(host, visitedGraph, edgeWeights, distanceRelaxer)
+            : base(visitedGraph, edgeWeights, host, distanceRelaxer)
         {
         }
 
