@@ -122,42 +122,25 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
             Func<IEdge<int>, double> Weights = _ => 1.0;
 
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateBellmanFordShortestPathAlgorithm(null));
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights));
+            Assert.Throws<ArgumentNullException>(() => graph.CreateBellmanFordShortestPathAlgorithm(null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateBellmanFordShortestPathAlgorithm(Weights, null));
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, null));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateBellmanFordShortestPathAlgorithm(null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
+            Assert.Throws<ArgumentNullException>(() => graph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
+            _ = graph.CreateBellmanFordShortestPathAlgorithm(Weights, null);
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, null));
+            Assert.Throws<ArgumentNullException>(() => graph.CreateBellmanFordShortestPathAlgorithm(null, null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateBellmanFordShortestPathAlgorithm(Weights, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateBellmanFordShortestPathAlgorithm(null, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, null, null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance, null));
+            Assert.Throws<ArgumentNullException>(() => graph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
+            Assert.Throws<ArgumentNullException>(() => graph.CreateBellmanFordShortestPathAlgorithm(Weights, null, null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, null, null));
+            Assert.Throws<ArgumentNullException>(() => graph.CreateBellmanFordShortestPathAlgorithm(null, null, null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

@@ -242,10 +242,10 @@ namespace QuikGraph.Algorithms.RankedShortestPath
                 new VertexDistanceRecorderObserver<TVertex, SReversedEdge<TVertex, TEdge>>(ReversedEdgeWeight);
             var shortestPath =
                 new DijkstraShortestPathAlgorithm<TVertex, SReversedEdge<TVertex, TEdge>>(
-                    this,
                     reversedGraph,
                     ReversedEdgeWeight,
-                    DistanceRelaxer);
+                    DistanceRelaxer,
+                    this);
 
             using (successorsObserver.Attach(shortestPath))
             using (distancesObserver.Attach(shortestPath))
