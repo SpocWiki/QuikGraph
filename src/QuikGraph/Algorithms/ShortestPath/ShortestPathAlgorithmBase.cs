@@ -42,7 +42,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             [NotNull] Func<TEdge, double> edgeWeights,
             [CanBeNull] IAlgorithmComponent host = null,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             Weights = edgeWeights ?? throw new ArgumentNullException(nameof(edgeWeights));
             DistanceRelaxer = distanceRelaxer ?? DistanceRelaxers.ShortestDistance;

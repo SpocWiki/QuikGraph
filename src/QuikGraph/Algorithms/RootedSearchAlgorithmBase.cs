@@ -32,7 +32,7 @@ namespace QuikGraph.Algorithms
         protected RootedSearchAlgorithmBase(
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] TGraph visitedGraph)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
         }
 

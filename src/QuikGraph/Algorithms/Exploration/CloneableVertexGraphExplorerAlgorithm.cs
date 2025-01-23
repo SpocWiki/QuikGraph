@@ -42,7 +42,7 @@ namespace QuikGraph.Algorithms.Exploration
         public CloneableVertexGraphExplorerAlgorithm(
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
         }
 

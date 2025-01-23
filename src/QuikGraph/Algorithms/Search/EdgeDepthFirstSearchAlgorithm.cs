@@ -62,7 +62,7 @@ namespace QuikGraph.Algorithms.Search
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] IEdgeListAndIncidenceGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IDictionary<TEdge, GraphColor> edgesColors)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             EdgesColors = edgesColors ?? throw new ArgumentNullException(nameof(edgesColors));
         }

@@ -40,7 +40,7 @@ namespace QuikGraph.Algorithms.Search
         public ImplicitDepthFirstSearchAlgorithm(
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
         }
 

@@ -58,7 +58,7 @@ namespace QuikGraph.Algorithms.RandomWalks
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             EdgeChain = edgeChain ?? throw new ArgumentNullException(nameof(edgeChain));
         }

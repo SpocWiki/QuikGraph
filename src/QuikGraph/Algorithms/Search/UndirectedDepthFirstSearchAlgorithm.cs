@@ -81,7 +81,7 @@ namespace QuikGraph.Algorithms.Search
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IDictionary<TVertex, GraphColor> verticesColors,
             [NotNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> adjacentEdgesFilter)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             VerticesColors = verticesColors ?? throw new ArgumentNullException(nameof(verticesColors));
             AdjacentEdgesFilter = adjacentEdgesFilter ?? throw new ArgumentNullException(nameof(adjacentEdgesFilter));

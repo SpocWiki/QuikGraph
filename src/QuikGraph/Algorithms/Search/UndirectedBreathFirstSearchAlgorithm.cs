@@ -65,7 +65,7 @@ namespace QuikGraph.Algorithms.Search
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IQueue<TVertex> vertexQueue,
             [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             VerticesColors = verticesColors ?? throw new ArgumentNullException(nameof(verticesColors));
             _vertexQueue = vertexQueue ?? throw new ArgumentNullException(nameof(vertexQueue));

@@ -20,16 +20,16 @@ namespace QuikGraph.Algorithms.RankedShortestPath
         /// <summary>
         /// Initializes a new instance of the <see cref="RankedShortestPathAlgorithmBase{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
         protected RankedShortestPathAlgorithmBase(
-            [CanBeNull] IAlgorithmComponent host,
             [NotNull] TGraph visitedGraph,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : base(host, visitedGraph)
+            [NotNull] IDistanceRelaxer distanceRelaxer,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             DistanceRelaxer = distanceRelaxer ?? throw new ArgumentNullException(nameof(distanceRelaxer));
         }

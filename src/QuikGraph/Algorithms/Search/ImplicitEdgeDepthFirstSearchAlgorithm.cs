@@ -43,7 +43,7 @@ namespace QuikGraph.Algorithms.Search
         public ImplicitEdgeDepthFirstSearchAlgorithm(
             [CanBeNull] IAlgorithmComponent host,
             [NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
         }
 

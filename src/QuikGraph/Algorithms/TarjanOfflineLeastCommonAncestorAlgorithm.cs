@@ -52,7 +52,7 @@ namespace QuikGraph.Algorithms
         internal TarjanOfflineLeastCommonAncestorAlgorithm(
             [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
         }
 

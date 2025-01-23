@@ -46,7 +46,7 @@ namespace QuikGraph.Algorithms.Search
             [CanBeNull] IAlgorithmComponent host,
             [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors,
             [CanBeNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             VerticesColors = verticesColors ?? new Dictionary<TVertex, GraphColor>(visitedGraph.VertexCount);
             OutEdgesFilter = outEdgesFilter ?? (edges => edges);

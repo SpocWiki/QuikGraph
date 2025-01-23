@@ -93,7 +93,7 @@ namespace QuikGraph.Algorithms.Search
             [NotNull] IQueue<TVertex> vertexQueue,
             [NotNull] IDictionary<TVertex, GraphColor> verticesColors,
             [NotNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter)
-            : base(host, visitedGraph)
+            : base(visitedGraph, host)
         {
             VerticesColors = verticesColors ?? throw new ArgumentNullException(nameof(verticesColors));
             _vertexQueue = vertexQueue ?? throw new ArgumentNullException(nameof(vertexQueue));
