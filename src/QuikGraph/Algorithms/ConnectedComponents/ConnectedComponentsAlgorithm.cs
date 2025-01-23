@@ -8,7 +8,7 @@ using QuikGraph.Algorithms.Services;
 namespace QuikGraph.Algorithms.ConnectedComponents
 {
     /// <summary> Extension Methods for <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> </summary>
-    public static class ConnectedComponentsAlgorithm{
+    public static class ConnectedComponentsAlgorithm {
 
         /// <summary> Creates an <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> for <paramref name="undirectedSimpleGraph"/> </summary>
         public static ConnectedComponentsAlgorithm<TVertex, TEdge> CreateConnectedComponentsAlgorithm<TVertex, TEdge>

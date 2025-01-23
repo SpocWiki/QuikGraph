@@ -10,8 +10,8 @@ namespace QuikGraph.Algorithms.Observers
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
-    public sealed class VertexPredecessorRecorderObserver<TVertex, TEdge> : IObserver<ITreeBuilderAlgorithm<TVertex, TEdge>>
-        where TEdge : IEdge<TVertex>
+    public sealed class VertexPredecessorRecorderObserver<TVertex, TEdge>
+        : IObserver<ITreeBuilderAlgorithm<TVertex, TEdge>> where TEdge : IEdge<TVertex>
     {
         /// <inheritdoc cref="VertexPredecessorRecorderObserver{TVertex, TEdge}"/>
         public VertexPredecessorRecorderObserver()

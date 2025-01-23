@@ -7,12 +7,7 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.RankedShortestPath
 {
-    /// <summary>
-    /// Base class for shortest path finder algorithms.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
+    /// <summary> Base class for shortest path finder algorithms. </summary>
     public abstract class RankedShortestPathAlgorithmBase<TVertex, TEdge, TGraph> : RootedAlgorithmBase<TVertex, TGraph>
         where TEdge : IEdge<TVertex>
         where TGraph : IGraph<TVertex, TEdge>, IImplicitVertexSet<TVertex>

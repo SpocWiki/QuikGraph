@@ -17,6 +17,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
             => new BellmanFordShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
     }
+
     /// <summary>
     /// Bellman Ford shortest path algorithm.
     /// </summary>

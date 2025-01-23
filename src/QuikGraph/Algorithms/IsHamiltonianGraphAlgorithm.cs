@@ -15,7 +15,7 @@ namespace QuikGraph.Algorithms
         /// (has a path that links all vertices and pass one and only one time by each vertex).
         /// </summary>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        public IsHamiltonianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
+        internal IsHamiltonianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
             => _simpleGraph = graph.RemoveParallelAndSelfEdges();
 
         /// <summary> Gets all vertices permutations. </summary>
@@ -27,14 +27,15 @@ namespace QuikGraph.Algorithms
         public bool IsHamiltonian() => _simpleGraph.IsSimpleAndHamiltonian();
     }
 
-    /// <summary>
-    /// Algorithm that checks if a graph is Hamiltonian
+    /// <summary> Algorithm that checks if a graph is Hamiltonian </summary>
+    /// <remarks>
     /// (has a path that links all vertices and pass one and only one time by each vertex).
-    /// </summary>
+    /// </remarks>
     public static class IsHamiltonianGraphAlgorithm
     {
         /// <summary> Creates a new <see cref="IsHamiltonianGraphAlgorithm"/> </summary>
-        public static IsHamiltonianGraphAlgorithm<TVertex, TEdge> CreateHamiltonianGraph<TVertex, TEdge>(this IUndirectedGraph<TVertex, TEdge> graph)
+        public static IsHamiltonianGraphAlgorithm<TVertex, TEdge> CreateHamiltonianGraphAlgorithm<TVertex
+            , TEdge>(this IUndirectedGraph<TVertex, TEdge> graph)
             where TEdge : IUndirectedEdge<TVertex>
             => new IsHamiltonianGraphAlgorithm<TVertex, TEdge>(graph);
 
@@ -43,6 +44,6 @@ namespace QuikGraph.Algorithms
         public static bool IsHamiltonian<TVertex, TEdge>(
             [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
             where TEdge : IUndirectedEdge<TVertex>
-            => new IsHamiltonianGraphAlgorithm<TVertex, TEdge>(graph).IsHamiltonian();
+            => CreateHamiltonianGraphAlgorithm(graph).IsHamiltonian();
     }
 }

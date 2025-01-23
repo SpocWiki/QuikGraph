@@ -14,6 +14,7 @@ namespace QuikGraph
             ([NotNull] this IBidirectionalGraph<TVertex, TEdge> originalGraph) where TEdge : IEdge<TVertex>
             => new ReversedBidirectionalGraph<TVertex, TEdge>(originalGraph);
     }
+
     /// <summary> Mutable reversed bidirectional <see cref="OriginalGraph"/>. </summary>
     /// <remarks>It is mutable via the original graph.</remarks>
 #if SUPPORTS_SERIALIZATION
