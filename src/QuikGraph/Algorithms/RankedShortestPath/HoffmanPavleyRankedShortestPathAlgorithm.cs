@@ -241,8 +241,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
             var distancesObserver =
                 new VertexDistanceRecorderObserver<TVertex, SReversedEdge<TVertex, TEdge>>(ReversedEdgeWeight);
             var shortestPath =
-                new DijkstraShortestPathAlgorithm<TVertex, SReversedEdge<TVertex, TEdge>>(
-                    reversedGraph,
+                reversedGraph.CreateDijkstraShortestPathAlgorithm<TVertex, SReversedEdge<TVertex, TEdge>>(
                     ReversedEdgeWeight,
                     DistanceRelaxer,
                     this);

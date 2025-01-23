@@ -120,7 +120,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             Debug.Assert(target != null);
 
             // Compute distances between the start vertex and other
-            var algorithm = new DijkstraShortestPathAlgorithm<TVertex, EquatableTaggedEdge<TVertex, double>>(graph, _weights);
+            var algorithm = graph.CreateDijkstraShortestPathAlgorithm(_weights);
             var recorder = new VertexPredecessorRecorderObserver<TVertex, EquatableTaggedEdge<TVertex, double>>(graph.AreVerticesEqual);
 
             using (recorder.Attach(algorithm))

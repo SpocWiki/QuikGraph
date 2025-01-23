@@ -101,7 +101,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             var distances = new Dictionary<IEdge<char>, double>();
             var graph = CreateGraph(distances);
             CompareAlgorithms(graph, e => distances[e], (g, d)
-                => new DijkstraShortestPathAlgorithm<char, IEdge<char>>(g, d));
+                => g.CreateDijkstraShortestPathAlgorithm(d));
         }
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_SlowTests), new object[] { -1 })]
@@ -109,7 +109,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void FloydVsDijkstraGraphML(AdjacencyGraph<string, IEdge<string>> graph)
         {
             CompareAlgorithms(graph, _ => 1, (g, d)
-                => new DijkstraShortestPathAlgorithm<string, IEdge<string>>(g, d));
+                => g.CreateDijkstraShortestPathAlgorithm(d));
         }
     }
 }

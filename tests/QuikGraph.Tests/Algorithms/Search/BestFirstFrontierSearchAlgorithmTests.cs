@@ -70,7 +70,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             using (recorder.Attach(search))
                 search.Compute(root, target);
 
-            var dijkstra = new DijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, EdgeWeights, distanceRelaxer);
+            var dijkstra = graph.CreateDijkstraShortestPathAlgorithm(EdgeWeights, distanceRelaxer);
             var dijkstraRecorder = new VertexDistanceRecorderObserver<TVertex, TEdge>(EdgeWeights);
             using (dijkstraRecorder.Attach(dijkstra))
                 dijkstra.Compute(root);
