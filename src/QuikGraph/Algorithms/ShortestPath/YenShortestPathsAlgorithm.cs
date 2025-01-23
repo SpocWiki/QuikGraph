@@ -8,11 +8,21 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// A single-source K-shortest loopless paths algorithm for graphs
-    /// with non negative edge cost.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
+    /// <inheritdoc cref="CreateYenShortestPathsAlgorithm"/>
+    public static class YenShortestPathsAlgorithm
+    {
+        /// <summary>Initializes a new instance of the <see cref="YenShortestPathsAlgorithm{TVertex}"/> class.</summary>
+        public static YenShortestPathsAlgorithm<TVertex> CreateYenShortestPathsAlgorithm<TVertex>(
+            [NotNull] this AdjacencyGraph<TVertex, EquatableTaggedEdge<TVertex, double>> graph,
+            [NotNull] TVertex source,
+            [NotNull] TVertex target,
+            int k,
+            [CanBeNull] Func<EquatableTaggedEdge<TVertex, double>, double> edgeWeights = null,
+            [CanBeNull] Func<IEnumerable<SortedPath<TVertex>>, IEnumerable<SortedPath<TVertex>>> filter = null)
+            => new YenShortestPathsAlgorithm<TVertex>(graph, source, target, k, edgeWeights, filter);
+    }
+
+    /// <summary> single-source K-shortest loopless paths algorithm for graphs with non negative edge cost.</summary>
     public class YenShortestPathsAlgorithm<TVertex>
     {
         private readonly TVertex _sourceVertex;
@@ -30,9 +40,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         [NotNull]
         private readonly IMutableVertexAndEdgeListGraph<TVertex, EquatableTaggedEdge<TVertex, double>> _graph;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="YenShortestPathsAlgorithm{TVertex}"/> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="YenShortestPathsAlgorithm{TVertex}"/> class.</summary>
         /// <remarks>
         /// <see cref="T:System.Double"/> for tag type (edge) which comes from Dijkstra’s algorithm, which is used to get one shortest path.
         /// </remarks>
@@ -48,7 +56,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="T:System.ArgumentException"><paramref name="source"/> is not part of <paramref name="graph"/>.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="target"/> is not part of <paramref name="graph"/>.</exception>
         /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="k"/> is lower than 1.</exception>
-        public YenShortestPathsAlgorithm(
+        internal YenShortestPathsAlgorithm(
             [NotNull] AdjacencyGraph<TVertex, EquatableTaggedEdge<TVertex, double>> graph,
             [NotNull] TVertex source,
             [NotNull] TVertex target,
