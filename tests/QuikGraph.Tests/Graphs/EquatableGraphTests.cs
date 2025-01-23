@@ -1384,8 +1384,8 @@ namespace QuikGraph.Tests.Structures
                 bidirectionalGraph2.AddEdge(edge12);
 
                 // Reversed graph
-                var reversedGraph1 = new ReversedBidirectionalGraph<int, IEdge<int>>(bidirectionalGraph1);
-                var reversedGraph2 = new ReversedBidirectionalGraph<int, IEdge<int>>(bidirectionalGraph1);
+                var reversedGraph1 = bidirectionalGraph1.CreateReversedBidirectionalGraph();
+                var reversedGraph2 = bidirectionalGraph1.CreateReversedBidirectionalGraph();
 
                 yield return new TestCaseData(reversedGraph2, reversedGraph1)
                 {
@@ -1397,7 +1397,7 @@ namespace QuikGraph.Tests.Structures
                     ExpectedResult = true
                 };
 
-                var reversedGraph3 = new ReversedBidirectionalGraph<int, IEdge<int>>(bidirectionalGraph2);
+                var reversedGraph3 = bidirectionalGraph2.CreateReversedBidirectionalGraph();
 
                 yield return new TestCaseData(reversedGraph1, reversedGraph3)
                 {

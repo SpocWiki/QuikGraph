@@ -134,7 +134,7 @@ namespace QuikGraph.Serialization.Tests
                 SerializeDeserialize<int, EquatableEdge<int>, ArrayBidirectionalGraph<int, EquatableEdge<int>>>(arrayGraph);
             Assert.IsTrue(EquateGraphs.IsEqualTo(arrayGraph, deserializedGraph2));
 
-            var reversedGraph = new ReversedBidirectionalGraph<int, EquatableEdge<int>>(graph);
+            var reversedGraph = graph.CreateReversedBidirectionalGraph();
             ReversedBidirectionalGraph<int, EquatableEdge<int>> deserializedGraph3 =
                 SerializeDeserialize<int, SReversedEdge<int, EquatableEdge<int>>, ReversedBidirectionalGraph<int, EquatableEdge<int>>>(reversedGraph);
             Assert.IsTrue(EquateGraphs.IsEqualTo(reversedGraph, deserializedGraph3));
@@ -158,7 +158,7 @@ namespace QuikGraph.Serialization.Tests
                 SerializeDeserialize<EquatableTestVertex, EquatableTestEdge, ArrayBidirectionalGraph<EquatableTestVertex, EquatableTestEdge>>(arrayGraph);
             Assert.IsTrue(EquateGraphs.IsEqualTo(arrayGraph, deserializedGraph2));
 
-            var reversedGraph = new ReversedBidirectionalGraph<EquatableTestVertex, EquatableTestEdge>(graph);
+            var reversedGraph = graph.CreateReversedBidirectionalGraph();
             ReversedBidirectionalGraph<EquatableTestVertex, EquatableTestEdge> deserializedGraph3 =
                 SerializeDeserialize<EquatableTestVertex, SReversedEdge<EquatableTestVertex, EquatableTestEdge>, ReversedBidirectionalGraph<EquatableTestVertex, EquatableTestEdge>>(reversedGraph);
             Assert.IsTrue(EquateGraphs.IsEqualTo(reversedGraph, deserializedGraph3));

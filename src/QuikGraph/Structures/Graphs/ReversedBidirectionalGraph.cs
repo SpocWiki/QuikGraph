@@ -6,6 +6,14 @@ using JetBrains.Annotations;
 
 namespace QuikGraph
 {
+    /// <inheritdoc cref="CreateReversedBidirectionalGraph{TVertex, TEdge}"/>
+    public static class ReversedBidirectionalGraph
+    {
+        /// <summary> Creates a new instance of the <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> class. </summary>
+        public static ReversedBidirectionalGraph<TVertex, TEdge> CreateReversedBidirectionalGraph<TVertex, TEdge>
+            ([NotNull] this IBidirectionalGraph<TVertex, TEdge> originalGraph) where TEdge : IEdge<TVertex>
+            => new ReversedBidirectionalGraph<TVertex, TEdge>(originalGraph);
+    }
     /// <summary> Mutable reversed bidirectional <see cref="OriginalGraph"/>. </summary>
     /// <remarks>It is mutable via the original graph.</remarks>
 #if SUPPORTS_SERIALIZATION
@@ -27,7 +35,7 @@ namespace QuikGraph
         /// <summary> Initializes a new instance of the <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="originalGraph">Original graph to reverse.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="originalGraph"/> is <see langword="null"/>.</exception>
-        public ReversedBidirectionalGraph([NotNull] IBidirectionalGraph<TVertex, TEdge> originalGraph)
+        internal ReversedBidirectionalGraph([NotNull] IBidirectionalGraph<TVertex, TEdge> originalGraph)
         {
             OriginalGraph = originalGraph ?? throw new ArgumentNullException(nameof(originalGraph));
         }
