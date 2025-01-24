@@ -13,7 +13,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         /// <summary> Initializes a new <see cref="IncrementalConnectedComponentsAlgorithm{TVertex,TEdge}"/> class. </summary>
         public static IncrementalConnectedComponentsAlgorithm<TVertex
             , TEdge> CreateIncrementalConnectedComponentsAlgorithm<TVertex, TEdge>(
-            [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
+            [NotNull] this  IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
             => new IncrementalConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, host);
     }
@@ -32,7 +32,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public IncrementalConnectedComponentsAlgorithm(
+        internal IncrementalConnectedComponentsAlgorithm(
             [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)

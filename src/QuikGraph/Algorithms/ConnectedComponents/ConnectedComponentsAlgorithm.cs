@@ -99,7 +99,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge> dfs = null;
             try
             {
-                dfs = VisitedGraph.CreateUndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>(host: this);
+                dfs = VisitedGraph.CreateUndirectedDepthFirstSearchAlgorithm(host: this);
 
                 dfs.StartVertex += OnStartVertex;
                 dfs.DiscoverVertex += OnVertexDiscovered;

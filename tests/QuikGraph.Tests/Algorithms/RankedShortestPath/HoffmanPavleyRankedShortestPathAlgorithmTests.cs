@@ -482,7 +482,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         {
             BidirectionalGraph<int, TaggedEdge<int, int>> graph = CreateGraph();
 
-            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm<int, TaggedEdge<int, int>>(_ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
             algorithm.ShortestPathCount = 5;
             Assert.DoesNotThrow(() => algorithm.Compute(5, 2));
 

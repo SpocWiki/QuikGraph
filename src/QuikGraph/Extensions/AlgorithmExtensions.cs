@@ -725,7 +725,7 @@ namespace QuikGraph.Algorithms
             [NotNull] out Func<KeyValuePair<int, IDictionary<TVertex, int>>> getComponents)
             where TEdge : IEdge<TVertex>
         {
-            var incrementalComponents = new IncrementalConnectedComponentsAlgorithm<TVertex, TEdge>(graph);
+            var incrementalComponents = graph.CreateIncrementalConnectedComponentsAlgorithm();
             incrementalComponents.Compute();
             getComponents = () => incrementalComponents.GetComponents();
             return incrementalComponents;
