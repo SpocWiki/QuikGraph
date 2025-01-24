@@ -15,7 +15,7 @@ namespace QuikGraph.Algorithms.Search
             [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
             [CanBeNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter = null,
             [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
-            => new DepthFirstSearchAlgorithm<TVertex, TEdge>(host, verticesColors, outEdgesFilter, visitedGraph);
+            => new DepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, verticesColors, outEdgesFilter, host);
     }
 
     /// <summary> Depth first search algorithm for directed graphs </summary>
@@ -42,10 +42,10 @@ namespace QuikGraph.Algorithms.Search
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="outEdgesFilter"/> is <see langword="null"/>.</exception>
         internal DepthFirstSearchAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
+            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors,
             [CanBeNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph = null)
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
             VerticesColors = verticesColors ?? new Dictionary<TVertex, GraphColor>(visitedGraph.VertexCount);
