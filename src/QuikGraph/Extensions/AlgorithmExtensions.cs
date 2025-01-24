@@ -308,7 +308,7 @@ namespace QuikGraph.Algorithms
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights);
+            var algorithm = graph.CreateUndirectedDijkstraShortestPathAlgorithm(edgeWeights);
             var predecessorRecorder = new UndirectedVertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (predecessorRecorder.Attach(algorithm))
             {
@@ -1089,7 +1089,7 @@ namespace QuikGraph.Algorithms
                 return Enumerable.Empty<TEdge>();
 
             IDistanceRelaxer distanceRelaxer = DistanceRelaxers.Prim;
-            var dijkstra = new UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights, distanceRelaxer);
+            var dijkstra = graph.CreateUndirectedDijkstraShortestPathAlgorithm(edgeWeights, distanceRelaxer);
             var edgeRecorder = new UndirectedVertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (edgeRecorder.Attach(dijkstra))
             {
