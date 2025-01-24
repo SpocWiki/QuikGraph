@@ -55,9 +55,7 @@ namespace QuikGraph.Algorithms
             return false;
         }
 
-        /// <summary>
-        /// Sets the target vertex.
-        /// </summary>
+        /// <summary> Sets the target vertex.</summary>
         /// <param name="target">Target vertex.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is <see langword="null"/>.</exception>
         public void SetTargetVertex([NotNull] TVertex target)

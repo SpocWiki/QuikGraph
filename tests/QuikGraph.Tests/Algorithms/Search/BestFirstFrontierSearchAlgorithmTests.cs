@@ -28,8 +28,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
             IDistanceRelaxer distanceRelaxer = DistanceRelaxers.ShortestDistance;
 
-            var search = new BestFirstFrontierSearchAlgorithm<TVertex, TEdge>(
-                graph,
+            var search = graph.CreateBestFirstFrontierSearchAlgorithm(
                 _ => 1.0,
                 distanceRelaxer);
             bool targetReached = false;
@@ -62,8 +61,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
             IDistanceRelaxer distanceRelaxer = DistanceRelaxers.ShortestDistance;
 
-            var search = new BestFirstFrontierSearchAlgorithm<TVertex, TEdge>(
-                graph,
+            var search = graph.CreateBestFirstFrontierSearchAlgorithm(
                 EdgeWeights,
                 distanceRelaxer);
             var recorder = new VertexDistanceRecorderObserver<TVertex, TEdge>(EdgeWeights);
@@ -88,10 +86,10 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void Constructor()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.ShortestDistance);
+            var algorithm = graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.ShortestDistance);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.ShortestDistance, null);
+            algorithm = graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.ShortestDistance, null);
             algorithm.AssertAlgorithmState(graph);
         }
 
@@ -100,45 +98,33 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            var graph = new BidirectionalGraph<int, IEdge<int>>();
+            BidirectionalGraph<int, IEdge<int>> graph = new (), nullGraph = null;
 
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, _ => 1.0, DistanceRelaxers.ShortestDistance));
+                () => nullGraph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.ShortestDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    graph, null, DistanceRelaxers.ShortestDistance));
+                () => graph.CreateDijkstraShortestPathAlgorithm(null, DistanceRelaxers.ShortestDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    graph, _ => 1.0, null));
+                () => graph.CreateDijkstraShortestPathAlgorithm(_ => 1.0, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, null, DistanceRelaxers.ShortestDistance));
+                () => nullGraph.CreateBestFirstFrontierSearchAlgorithm(null, DistanceRelaxers.ShortestDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    graph, null, null));
+                () => graph.CreateDijkstraShortestPathAlgorithm(null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, null, null));
+                () => nullGraph.CreateBestFirstFrontierSearchAlgorithm(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, _ => 1.0, DistanceRelaxers.ShortestDistance, null));
+                () => nullGraph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.ShortestDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    graph, null, DistanceRelaxers.ShortestDistance, null));
+                () => graph.CreateDijkstraShortestPathAlgorithm(null, DistanceRelaxers.ShortestDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    graph, _ => 1.0, null, null));
+                () => graph.CreateDijkstraShortestPathAlgorithm(_ => 1.0, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, null, DistanceRelaxers.ShortestDistance, null));
+                () => nullGraph.CreateBestFirstFrontierSearchAlgorithm(null, DistanceRelaxers.ShortestDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    graph, null, null, null));
+                () => graph.CreateDijkstraShortestPathAlgorithm(null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, null, null, null));
+                () => nullGraph.CreateBestFirstFrontierSearchAlgorithm(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -149,7 +135,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void TryGetRootVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm = graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             TryGetRootVertex_Test(algorithm);
         }
 
@@ -157,7 +143,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void SetRootVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm = graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             SetRootVertex_Test(algorithm);
         }
 
@@ -165,7 +151,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void SetRootVertex_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm = graph.CreateDijkstraShortestPathAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -173,7 +159,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ClearRootVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm = graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
@@ -183,7 +169,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             ComputeWithoutRoot_Throws_Test(
                 graph,
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance));
+                () => graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance));
         }
 
         #endregion
@@ -194,7 +180,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void TryGetTargetVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm = graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             TryGetTargetVertex_Test(algorithm);
         }
 
@@ -202,7 +188,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void SetTargetVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm = graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             SetTargetVertex_Test(algorithm);
         }
 
@@ -210,7 +196,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void SetTargetVertex_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            DijkstraShortestPathAlgorithm<TestVertex, IEdge<TestVertex>> algorithm = graph.CreateDijkstraShortestPathAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             SetTargetVertex_Throws_Test(algorithm);
         }
 
@@ -218,7 +204,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ClearTargetVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm = graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             ClearTargetVertex_Test(algorithm);
         }
 
@@ -227,7 +213,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVertexRange( 0, 1 );
-            var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm = graph.CreateBestFirstFrontierSearchAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             ComputeWithRootAndTarget_Test(algorithm);
         }
 
@@ -235,11 +221,11 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ComputeWithRootAndTarget_Throws()
         {
             var graph1 = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm1 = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph1, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm1 = graph1.CreateDijkstraShortestPathAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             ComputeWithRootAndTarget_Throws_Test(graph1, algorithm1);
 
             var graph2 = new BidirectionalGraph<TestVertex, IEdge<TestVertex>>();
-            var algorithm2 = new BestFirstFrontierSearchAlgorithm<TestVertex, IEdge<TestVertex>>(graph2, _ => 1.0, DistanceRelaxers.EdgeShortestDistance);
+            var algorithm2 = graph2.CreateDijkstraShortestPathAlgorithm(_ => 1.0, DistanceRelaxers.EdgeShortestDistance);
             ComputeWithRootAndTarget_Throws_Test(algorithm2);
         }
 

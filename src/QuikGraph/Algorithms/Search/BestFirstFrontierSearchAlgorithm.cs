@@ -8,14 +8,23 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.Search
 {
-    /// <summary>
-    /// Best first frontier search algorithm.
-    /// </summary>
+    /// <inheritdoc cref="CreateBestFirstFrontierSearchAlgorithm"/>
+    public static class BestFirstFrontierSearchAlgorithm
+    {
+        /// <summary> Creates a new <see cref="BestFirstFrontierSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static BestFirstFrontierSearchAlgorithm<TVertex
+            , TEdge> CreateBestFirstFrontierSearchAlgorithm<TVertex, TEdge>(
+            [NotNull] this IBidirectionalIncidenceGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [NotNull] IDistanceRelaxer distanceRelaxer,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new BestFirstFrontierSearchAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
+
+    }
+    /// <summary> Best first frontier search algorithm. </summary>
     /// <remarks>
     /// Algorithm from Frontier Search, Korkf, Zhand, Thayer, Hohwald.
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class BestFirstFrontierSearchAlgorithm<TVertex, TEdge>
         : RootedSearchAlgorithmBase<TVertex, IBidirectionalIncidenceGraph<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>
@@ -30,9 +39,7 @@ namespace QuikGraph.Algorithms.Search
         [NotNull]
         private readonly IDistanceRelaxer _distanceRelaxer;
 
-        /// <summary>
-        /// Initializes a new <see cref="BestFirstFrontierSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new <see cref="BestFirstFrontierSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that for a given edge provide its weight.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
@@ -40,7 +47,7 @@ namespace QuikGraph.Algorithms.Search
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public BestFirstFrontierSearchAlgorithm(
+        internal BestFirstFrontierSearchAlgorithm(
             [NotNull] IBidirectionalIncidenceGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [NotNull] IDistanceRelaxer distanceRelaxer,
