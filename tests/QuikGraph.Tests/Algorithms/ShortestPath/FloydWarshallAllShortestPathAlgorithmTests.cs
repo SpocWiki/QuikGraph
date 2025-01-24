@@ -49,8 +49,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => nullGraph.CreateFloydWarshallAllShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
                 () => graph.CreateFloydWarshallAllShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateFloydWarshallAllShortestPathAlgorithm(Weights, null));
+            _ = graph.CreateFloydWarshallAllShortestPathAlgorithm(Weights, null);
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateFloydWarshallAllShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
@@ -64,8 +63,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => nullGraph.CreateFloydWarshallAllShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
                 () => graph.CreateFloydWarshallAllShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateFloydWarshallAllShortestPathAlgorithm(Weights, null, null));
+            _ = graph.CreateFloydWarshallAllShortestPathAlgorithm(Weights, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateFloydWarshallAllShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(

@@ -424,7 +424,7 @@ namespace QuikGraph.Algorithms
             if (root == null)
                 throw new ArgumentNullException(nameof(root));
 
-            var algorithm = new DagShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights);
+            var algorithm = graph.CreateDagShortestPathAlgorithm(edgeWeights);
             return RunDirectedRootedAlgorithm<TVertex, TEdge, DagShortestPathAlgorithm<TVertex, TEdge>>(algorithm, root);
         }
 
