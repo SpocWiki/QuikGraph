@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.Annotations;
 using QuikGraph.Algorithms.Services;
@@ -7,11 +6,20 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.Search
 {
-    /// <summary>
-    /// A breath first search algorithm for undirected graphs.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <inheritdoc cref="UndirectedBreadthFirstSearchAlgorithm"/>
+    public static class UndirectedBreadthFirstSearchAlgorithm
+    {
+        /// <summary> Creates a new <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static UndirectedBreadthFirstSearchAlgorithm<TVertex
+            , TEdge> CreateUndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge>(
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IQueue<TVertex> vertexQueue = null,
+            [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, vertexQueue, verticesColors, host);
+    }
+
+    /// <summary> breath first search algorithm for undirected graphs. </summary>
     public sealed class UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IUndirectedGraph<TVertex, TEdge>>
         , IUndirectedVertexPredecessorRecorderAlgorithm<TVertex, TEdge>
@@ -22,37 +30,7 @@ namespace QuikGraph.Algorithms.Search
         [NotNull]
         private readonly IQueue<TVertex> _vertexQueue;
 
-        /// <summary>
-        /// Initializes a new <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public UndirectedBreadthFirstSearchAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, new Collections.Queue<TVertex>(), new Dictionary<TVertex, GraphColor>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="vertexQueue">Queue of vertices to treat.</param>
-        /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexQueue"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public UndirectedBreadthFirstSearchAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IQueue<TVertex> vertexQueue,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : this(visitedGraph, vertexQueue, verticesColors, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="vertexQueue">Queue of vertices to treat.</param>
         /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
@@ -60,15 +38,15 @@ namespace QuikGraph.Algorithms.Search
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexQueue"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public UndirectedBreadthFirstSearchAlgorithm(
+        internal UndirectedBreadthFirstSearchAlgorithm(
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IQueue<TVertex> vertexQueue,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors,
+            [CanBeNull] IQueue<TVertex> vertexQueue = null,
+            [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            VerticesColors = verticesColors ?? throw new ArgumentNullException(nameof(verticesColors));
-            _vertexQueue = vertexQueue ?? throw new ArgumentNullException(nameof(vertexQueue));
+            VerticesColors = verticesColors ?? new Dictionary<TVertex, GraphColor>(visitedGraph.VertexCount);
+            _vertexQueue = vertexQueue ?? new Collections.Queue<TVertex>(); //visitedGraph.VertexCount);
         }
 
         #region Events

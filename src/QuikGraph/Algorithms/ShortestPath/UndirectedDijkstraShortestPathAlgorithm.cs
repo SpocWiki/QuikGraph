@@ -188,12 +188,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge> bfs = null;
             try
             {
-                bfs = new UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge>(
-                    VisitedGraph,
-                    _vertexQueue,
-                    VerticesColors,
-                    this);
-
+                bfs = VisitedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(_vertexQueue, VerticesColors, this);
                 bfs.InitializeVertex += InitializeVertex;
                 bfs.DiscoverVertex += DiscoverVertex;
                 bfs.StartVertex += StartVertex;
