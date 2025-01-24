@@ -30,7 +30,7 @@ namespace QuikGraph
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalAdapterGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="BidirectionalAdapterGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="baseGraph">Wrapped graph.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="baseGraph"/> is <see langword="null"/>.</exception>

@@ -9,7 +9,7 @@ namespace QuikGraph
     /// <inheritdoc cref="CreateReversedBidirectionalGraph{TVertex, TEdge}"/>
     public static class ReversedBidirectionalGraph
     {
-        /// <summary> Creates a new instance of the <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Creates a new <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> class. </summary>
         public static ReversedBidirectionalGraph<TVertex, TEdge> CreateReversedBidirectionalGraph<TVertex, TEdge>
             ([NotNull] this IBidirectionalGraph<TVertex, TEdge> originalGraph) where TEdge : IEdge<TVertex>
             => new ReversedBidirectionalGraph<TVertex, TEdge>(originalGraph);
@@ -33,7 +33,7 @@ namespace QuikGraph
         [CanBeNull]
         private Func<TVertex, TVertex, bool> areVerticesEqual;
 
-        /// <summary> Initializes a new instance of the <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="originalGraph">Original graph to reverse.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="originalGraph"/> is <see langword="null"/>.</exception>
         internal ReversedBidirectionalGraph([NotNull] IBidirectionalGraph<TVertex, TEdge> originalGraph)

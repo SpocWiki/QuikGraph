@@ -18,7 +18,7 @@ namespace QuikGraph.Algorithms.Cliques
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MaximumCliqueAlgorithmBase{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="MaximumCliqueAlgorithmBase{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
@@ -31,7 +31,7 @@ namespace QuikGraph.Algorithms.Cliques
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MaximumCliqueAlgorithmBase{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="MaximumCliqueAlgorithmBase{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>

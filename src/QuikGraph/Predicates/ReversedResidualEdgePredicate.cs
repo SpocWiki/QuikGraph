@@ -9,7 +9,7 @@ namespace QuikGraph.Predicates
         //where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReversedResidualEdgePredicate{TEdge}"/> class.
+        /// Initializes a new <see cref="ReversedResidualEdgePredicate{TEdge}"/> class.
         /// </summary>
         /// <param name="residualCapacities">Residual capacities per edge.</param>
         /// <param name="reversedEdges">Map of edges and their reversed edges.</param>

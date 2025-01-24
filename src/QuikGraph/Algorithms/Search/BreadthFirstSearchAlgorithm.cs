@@ -10,7 +10,7 @@ namespace QuikGraph.Algorithms.Search
     /// <inheritdoc cref="CreateBreadthFirstSearchAlgorithm"/>
     public static class BreadthFirstSearchAlgorithm
     {
-        /// <summary>Creates a new instance of the <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.</summary>
+        /// <summary>Creates a new <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.</summary>
         public static BreadthFirstSearchAlgorithm<TVertex, TEdge> CreateBreadthFirstSearchAlgorithm<TVertex
             , TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
@@ -50,7 +50,7 @@ namespace QuikGraph.Algorithms.Search
         private readonly IQueue<TVertex> _vertexQueue;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="vertexQueue">Queue of vertices to treat.</param>

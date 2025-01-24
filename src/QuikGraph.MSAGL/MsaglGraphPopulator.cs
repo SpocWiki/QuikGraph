@@ -14,7 +14,7 @@ namespace QuikGraph.MSAGL
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MsaglGraphPopulator{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="MsaglGraphPopulator{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to convert to MSAGL graph.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>

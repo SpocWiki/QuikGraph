@@ -33,7 +33,7 @@ namespace QuikGraph.Predicates
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FilteredEdgeListGraph{TVertex,TEdge,TGraph}"/> class.
+        /// Initializes a new <see cref="FilteredEdgeListGraph{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
         /// <param name="baseGraph">Graph in which applying predicates.</param>
         /// <param name="vertexPredicate">Predicate to match vertex that should be taken into account.</param>

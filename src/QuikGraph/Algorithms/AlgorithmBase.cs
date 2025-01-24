@@ -23,7 +23,7 @@ namespace QuikGraph.Algorithms
         public TGraph VisitedGraph { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AlgorithmBase{TGraph}"/> class (with optional host).
+        /// Initializes a new <see cref="AlgorithmBase{TGraph}"/> class (with optional host).
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>

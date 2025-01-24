@@ -36,7 +36,7 @@ namespace QuikGraph
         private Func<TVertex, TVertex, bool> areVerticesEqual;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClusteredAdjacencyGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="ClusteredAdjacencyGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="wrappedGraph">Graph to wrap.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="wrappedGraph"/> is <see langword="null"/>.</exception>
@@ -48,7 +48,7 @@ namespace QuikGraph
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClusteredAdjacencyGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="ClusteredAdjacencyGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="parentGraph">Parent graph.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="parentGraph"/> is <see langword="null"/>.</exception>

@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
         private readonly IIncidenceGraph<TVertex, TEdge> _visitedGraph;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SinkVertexPredicate{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="SinkVertexPredicate{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to consider.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>

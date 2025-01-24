@@ -13,7 +13,7 @@ namespace QuikGraph.MSAGL
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MsaglEdgeEventArgs{TVertex, TEdge}"/> class.
+        /// Initializes a new <see cref="MsaglEdgeEventArgs{TVertex, TEdge}"/> class.
         /// </summary>
         /// <param name="edge">Concerned edge.</param>
         /// <param name="msaglEdge">Concerned <see cref="T:Microsoft.Msagl.Drawing.Edge"/>.</param>

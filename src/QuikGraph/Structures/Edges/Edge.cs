@@ -39,7 +39,7 @@ namespace QuikGraph
     public class Edge<TVertex> : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Edge{TVertex}"/> class.
+        /// Initializes a new <see cref="Edge{TVertex}"/> class.
         /// </summary>
         protected internal Edge([NotNull] TVertex source, [NotNull] TVertex target)
         {

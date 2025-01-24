@@ -43,7 +43,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         private int _dfsTime;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="components">pre-determined Graph components.</param>

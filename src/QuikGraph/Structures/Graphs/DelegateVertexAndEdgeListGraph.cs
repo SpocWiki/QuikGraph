@@ -16,7 +16,7 @@ namespace QuikGraph
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateVertexAndEdgeListGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="DelegateVertexAndEdgeListGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="vertices">Graph vertices.</param>
         /// <param name="tryGetOutEdges">Getter of out-edges.</param>

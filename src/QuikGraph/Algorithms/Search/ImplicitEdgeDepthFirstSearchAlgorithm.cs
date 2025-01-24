@@ -24,7 +24,7 @@ namespace QuikGraph.Algorithms.Search
         public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ImplicitEdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="ImplicitEdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>

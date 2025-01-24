@@ -6,12 +6,10 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.Search
 {
-    /// <summary>
-    /// A depth and height first search algorithm for directed graphs.
-    /// </summary>
+    /// <summary> A depth and height first search algorithm for directed graphs. </summary>
     /// <remarks>
     /// This is a modified version of the classic DFS algorithm
-    /// where the search is performed both in depth and height.
+    /// where the search is performed in both depth and height.
     /// </remarks>
     /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type.</typeparam>
@@ -26,7 +24,7 @@ namespace QuikGraph.Algorithms.Search
         public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>

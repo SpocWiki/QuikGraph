@@ -47,7 +47,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         private int _currentComponent;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="WeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="components">Graph components.</param>

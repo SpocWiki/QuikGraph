@@ -26,7 +26,7 @@ namespace QuikGraph.Algorithms.Search
         public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="EdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
@@ -37,7 +37,7 @@ namespace QuikGraph.Algorithms.Search
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="EdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgesColors">Edges associated to their colors (treatment states).</param>
@@ -51,7 +51,7 @@ namespace QuikGraph.Algorithms.Search
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="EdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgesColors">Edges associated to their colors (treatment states).</param>

@@ -28,7 +28,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         private IDictionary<TVertex, double> _distances;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedShortestPathAlgorithmBase{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="UndirectedShortestPathAlgorithmBase{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>

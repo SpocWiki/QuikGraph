@@ -44,7 +44,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         : GraphAugmentorAlgorithmBase<TVertex, TEdge, IMutableVertexAndEdgeSet<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary> Initializes a new instance of the <see cref="BipartiteToMaximumFlowGraphAugmentorAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="BipartiteToMaximumFlowGraphAugmentorAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="sourceToVertices">Vertices to which creating augmented edge from super source.</param>
         /// <param name="verticesToSink">Vertices from which creating augmented edge to super sink.</param>

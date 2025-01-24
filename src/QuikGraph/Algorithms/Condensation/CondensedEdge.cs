@@ -19,7 +19,7 @@ namespace QuikGraph.Algorithms.Condensation
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CondensedEdge{TVertex,TEdge,TGraph}"/> class.
+        /// Initializes a new <see cref="CondensedEdge{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
         /// <param name="source">The source graph.</param>
         /// <param name="target">The target graph.</param>

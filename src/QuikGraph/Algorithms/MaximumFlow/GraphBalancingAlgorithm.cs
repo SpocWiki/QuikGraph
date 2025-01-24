@@ -19,7 +19,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         private readonly Dictionary<TEdge, int> _preFlow = new Dictionary<TEdge, int>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="source">Flow source vertex.</param>
@@ -67,7 +67,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="source">Flow source vertex.</param>

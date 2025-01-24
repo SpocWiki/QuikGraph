@@ -14,7 +14,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AllVerticesGraphAugmentorAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="AllVerticesGraphAugmentorAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="vertexFactory">Vertex factory method.</param>

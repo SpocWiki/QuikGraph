@@ -66,7 +66,7 @@ namespace QuikGraph.Collections
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SortedSet{T}"/> class.
+        /// Initializes a new <see cref="SortedSet{T}"/> class.
         /// </summary>
         public SortedSet()
         {
@@ -74,7 +74,7 @@ namespace QuikGraph.Collections
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SortedSet{T}"/> class
+        /// Initializes a new <see cref="SortedSet{T}"/> class
         /// using the given <paramref name="comparer"/>, or <see cref="Comparer{T}.Default"/> otherwise.
         /// </summary>
         /// <param name="comparer"><see cref="Comparer{T}"/> to use.</param>
@@ -84,7 +84,7 @@ namespace QuikGraph.Collections
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SortedSet{T}"/> class
+        /// Initializes a new <see cref="SortedSet{T}"/> class
         /// with given <paramref name="collection"/>.
         /// </summary>
         /// <param name="collection">Initial elements to add.</param>
@@ -95,7 +95,7 @@ namespace QuikGraph.Collections
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SortedSet{T}"/> class
+        /// Initializes a new <see cref="SortedSet{T}"/> class
         /// with given <paramref name="collection"/>.
         /// Uses the given <paramref name="comparer"/>, or <see cref="Comparer{T}.Default"/> otherwise.
         /// </summary>

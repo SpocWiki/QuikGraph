@@ -29,7 +29,7 @@ namespace QuikGraph.Algorithms.TSP
         public double BestCost { get; private set; } = double.PositiveInfinity;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TSP{TVertex,TEdge,TGraph}"/> class.
+        /// Initializes a new <see cref="TSP{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>

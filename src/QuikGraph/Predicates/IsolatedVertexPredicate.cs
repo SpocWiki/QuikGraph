@@ -15,7 +15,7 @@ namespace QuikGraph.Predicates
         private readonly IBidirectionalGraph<TVertex, TEdge> _visitedGraph;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsolatedVertexPredicate{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="IsolatedVertexPredicate{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to consider.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>

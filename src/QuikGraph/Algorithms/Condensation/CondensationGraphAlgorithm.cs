@@ -25,7 +25,7 @@ namespace QuikGraph.Algorithms.Condensation
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class.
+        /// Initializes a new <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         public CondensationGraphAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph, bool stronglyConnected = true)

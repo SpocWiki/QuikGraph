@@ -77,7 +77,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
@@ -91,7 +91,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
@@ -108,7 +108,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>

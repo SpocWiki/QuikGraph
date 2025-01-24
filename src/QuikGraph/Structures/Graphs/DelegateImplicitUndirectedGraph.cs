@@ -23,7 +23,7 @@ namespace QuikGraph
         private Func<TVertex, TVertex, bool> areVerticesEqual;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateImplicitUndirectedGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="DelegateImplicitUndirectedGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="tryGetAdjacentEdges">Getter of adjacent edges.</param>
         /// <param name="allowParallelEdges">

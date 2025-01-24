@@ -16,7 +16,7 @@ namespace QuikGraph
     public class EquatableEdge<TVertex> : Edge<TVertex>, IEquatable<EquatableEdge<TVertex>>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EquatableEdge{TVertex}"/> class.
+        /// Initializes a new <see cref="EquatableEdge{TVertex}"/> class.
         /// </summary>
         /// <param name="source">The source vertex.</param>
         /// <param name="target">The target vertex.</param>

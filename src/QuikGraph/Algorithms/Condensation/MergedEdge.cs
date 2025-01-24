@@ -14,7 +14,7 @@ namespace QuikGraph.Algorithms.Condensation
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MergedEdge{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="MergedEdge{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="source">The source vertex.</param>
         /// <param name="target">The target vertex.</param>

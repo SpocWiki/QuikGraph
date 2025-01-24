@@ -18,7 +18,7 @@ namespace QuikGraph.Algorithms.RandomWalks
         public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RandomWalkAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="RandomWalkAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
@@ -28,7 +28,7 @@ namespace QuikGraph.Algorithms.RandomWalks
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RandomWalkAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="RandomWalkAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeChain">Edge chain strategy to use.</param>

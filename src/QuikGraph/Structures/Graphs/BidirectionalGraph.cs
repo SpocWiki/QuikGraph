@@ -43,7 +43,7 @@ namespace QuikGraph
         private Func<TVertex, TVertex, bool> areVerticesEqual;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="BidirectionalGraph{TVertex,TEdge}"/> class.
         /// </summary>
         public BidirectionalGraph()
             : this(true)
@@ -51,7 +51,7 @@ namespace QuikGraph
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="BidirectionalGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         public BidirectionalGraph(bool allowParallelEdges)
@@ -60,7 +60,7 @@ namespace QuikGraph
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="BidirectionalGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         /// <param name="capacity">Vertex capacity.</param>
@@ -70,7 +70,7 @@ namespace QuikGraph
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="BidirectionalGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         /// <param name="vertexCapacity">Vertex capacity.</param>

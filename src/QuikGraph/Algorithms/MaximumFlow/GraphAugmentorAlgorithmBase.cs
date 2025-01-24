@@ -17,7 +17,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GraphAugmentorAlgorithmBase{TVertex,TEdge,TGraph}"/> class.
+        /// Initializes a new <see cref="GraphAugmentorAlgorithmBase{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="vertexFactory">Vertex factory method.</param>

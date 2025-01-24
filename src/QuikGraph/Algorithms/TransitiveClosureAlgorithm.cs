@@ -8,7 +8,7 @@ namespace QuikGraph.Algorithms
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TransitiveClosureAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="TransitiveClosureAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeFactory">Function that create an edge between the 2 given vertices.</param>

@@ -24,7 +24,7 @@ namespace QuikGraph.Algorithms
         private bool _hasTargetVertex;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RootedSearchAlgorithmBase{TVertex,TGraph}"/> class.
+        /// Initializes a new <see cref="RootedSearchAlgorithmBase{TVertex,TGraph}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>

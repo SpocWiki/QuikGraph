@@ -54,7 +54,7 @@ namespace QuikGraph
         private Func<TVertex, TVertex, bool> areVerticesEqual;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArrayBidirectionalGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="ArrayBidirectionalGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="baseGraph">Wrapped graph.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="baseGraph"/> is <see langword="null"/>.</exception>

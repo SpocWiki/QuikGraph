@@ -21,7 +21,7 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
         private readonly Func<TEdge, double> _edgeWeights;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PrimMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="PrimMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>

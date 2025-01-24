@@ -39,7 +39,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         private readonly ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> _reverserAlgorithm;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EdmondsKarpMaximumFlowAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="EdmondsKarpMaximumFlowAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacities">Function that given an edge return the capacity of this edge.</param>

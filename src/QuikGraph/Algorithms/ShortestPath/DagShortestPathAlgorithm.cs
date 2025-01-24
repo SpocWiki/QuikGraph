@@ -18,7 +18,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>

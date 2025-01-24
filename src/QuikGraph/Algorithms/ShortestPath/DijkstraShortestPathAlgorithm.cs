@@ -34,7 +34,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         private FibonacciQueue<TVertex, double> _vertexQueue;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="DijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>

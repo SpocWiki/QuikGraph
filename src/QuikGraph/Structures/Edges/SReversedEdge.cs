@@ -48,7 +48,7 @@ namespace QuikGraph
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SReversedEdge{TVertex, TEdge}"/> struct.
+        /// Initializes a new <see cref="SReversedEdge{TVertex, TEdge}"/> struct.
         /// </summary>
         /// <param name="originalEdge">Original edge.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="originalEdge"/> is <see langword="null"/>.</exception>

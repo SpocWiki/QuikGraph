@@ -8,7 +8,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
     /// <inheritdoc cref="CreateUndirectedTopologicalSortAlgorithm"/>
     public static class UndirectedTopologicalSortAlgorithm
     {
-        /// <summary>Creates a new instance of the <see cref="UndirectedTopologicalSortAlgorithm{TVertex,TEdge}"/> class.</summary>
+        /// <summary>Creates a new <see cref="UndirectedTopologicalSortAlgorithm{TVertex,TEdge}"/> class.</summary>
         public static UndirectedTopologicalSortAlgorithm<TVertex, TEdge>
             CreateUndirectedTopologicalSortAlgorithm<TVertex, TEdge>(
             [NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph,
@@ -26,7 +26,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
         [NotNull, ItemNotNull]
         private readonly IList<TVertex> _sortedVertices;
 
-        /// <summary>Initializes a new instance of the <see cref="UndirectedTopologicalSortAlgorithm{TVertex,TEdge}"/> class.</summary>
+        /// <summary>Initializes a new <see cref="UndirectedTopologicalSortAlgorithm{TVertex,TEdge}"/> class.</summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacity">Sorted vertices capacity.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>

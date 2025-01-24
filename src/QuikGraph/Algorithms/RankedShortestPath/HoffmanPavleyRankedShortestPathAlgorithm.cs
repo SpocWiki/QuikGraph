@@ -13,7 +13,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
     /// <inheritdoc cref="CreateHoffmanPavleyRankedShortestPathAlgorithm"/>
     public static class HoffmanPavleyRankedShortestPathAlgorithm
     {
-        /// <summary> Creates a new instance of the <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Creates a new <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
         public static HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge> CreateHoffmanPavleyRankedShortestPathAlgorithm<TVertex
             , TEdge>([NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
@@ -39,7 +39,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
         private readonly Func<TEdge, double> _edgeWeights;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that for a given edge provide its weight.</param>

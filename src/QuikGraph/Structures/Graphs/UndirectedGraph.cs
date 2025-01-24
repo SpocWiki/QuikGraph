@@ -49,7 +49,7 @@ namespace QuikGraph
             new VertexEdgeDictionary<TVertex, TEdge>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="UndirectedGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <remarks>Allow parallel edges and gets the best edge equality comparer.</remarks>
         public UndirectedGraph()
@@ -58,7 +58,7 @@ namespace QuikGraph
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="UndirectedGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <remarks>Gets the best edge equality comparer.</remarks>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
@@ -68,7 +68,7 @@ namespace QuikGraph
             AllowParallelEdges = allowParallelEdges;
         }
 
-        /// <summary> Initializes a new, empty instance of the <see cref="UndirectedGraph{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new, empty <see cref="UndirectedGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         /// <param name="edgeEqualityComparer">Equality comparer to use to compare edges.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeEqualityComparer"/> is <see langword="null"/>.</exception>

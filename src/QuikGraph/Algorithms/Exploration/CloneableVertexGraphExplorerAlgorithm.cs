@@ -23,7 +23,7 @@ namespace QuikGraph.Algorithms.Exploration
         public IGraph<TVertex, TEdge> VisitededGraph => (IGraph<TVertex, TEdge>)base.VisitedGraph;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
@@ -312,14 +312,14 @@ namespace QuikGraph.Algorithms.Exploration
         public sealed class DefaultFinishedPredicate
         {
             /// <summary>
-            /// Initializes a new instance of the <see cref="DefaultFinishedPredicate"/> class.
+            /// Initializes a new <see cref="DefaultFinishedPredicate"/> class.
             /// </summary>
             public DefaultFinishedPredicate()
             {
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="DefaultFinishedPredicate"/> class.
+            /// Initializes a new <see cref="DefaultFinishedPredicate"/> class.
             /// </summary>
             /// <param name="maxVertexCount">Maximum number of vertices.</param>
             /// <param name="maxEdgeCount">Maximum number of edges.</param>

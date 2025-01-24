@@ -19,7 +19,7 @@ namespace QuikGraph
     public class SEdge<TVertex> : IEdge<TVertex>, IEquatable<SEdge<TVertex>>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SEdge{TVertex}"/> struct.
+        /// Initializes a new <see cref="SEdge{TVertex}"/> struct.
         /// </summary>
         /// <param name="source">The source vertex.</param>
         /// <param name="target">The target vertex.</param>

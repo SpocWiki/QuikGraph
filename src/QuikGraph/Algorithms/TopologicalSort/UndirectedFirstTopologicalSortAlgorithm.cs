@@ -22,7 +22,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
         private readonly IList<TVertex> _sortedVertices;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="UndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacity">Sorted vertices capacity.</param>

@@ -13,12 +13,12 @@ namespace QuikGraph.Collections
 #endif
     public sealed class EdgeList<TEdge> : List<TEdge>, IEdgeList<TEdge>
     {
-        /// <summary> Initializes a new instance of the <see cref="EdgeList{TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="EdgeList{TEdge}"/> class. </summary>
         public EdgeList()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="EdgeList{TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="EdgeList{TEdge}"/> class. </summary>
         /// <param name="capacity">List capacity.</param>
         /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="capacity"/> is negative.</exception>
         public EdgeList(int capacity)

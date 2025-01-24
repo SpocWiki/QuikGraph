@@ -11,7 +11,7 @@ namespace QuikGraph.Algorithms.ShortestPath
     /// <inheritdoc cref="CreateYenShortestPathsAlgorithm"/>
     public static class YenShortestPathsAlgorithm
     {
-        /// <summary>Initializes a new instance of the <see cref="YenShortestPathsAlgorithm{TVertex}"/> class.</summary>
+        /// <summary>Initializes a new <see cref="YenShortestPathsAlgorithm{TVertex}"/> class.</summary>
         public static YenShortestPathsAlgorithm<TVertex> CreateYenShortestPathsAlgorithm<TVertex>(
             [NotNull] this AdjacencyGraph<TVertex, EquatableTaggedEdge<TVertex, double>> graph,
             [NotNull] TVertex source,
@@ -40,7 +40,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         [NotNull]
         private readonly IMutableVertexAndEdgeListGraph<TVertex, EquatableTaggedEdge<TVertex, double>> _graph;
 
-        /// <summary>Initializes a new instance of the <see cref="YenShortestPathsAlgorithm{TVertex}"/> class.</summary>
+        /// <summary>Initializes a new <see cref="YenShortestPathsAlgorithm{TVertex}"/> class.</summary>
         /// <remarks>
         /// <see cref="T:System.Double"/> for tag type (edge) which comes from Dijkstra’s algorithm, which is used to get one shortest path.
         /// </remarks>

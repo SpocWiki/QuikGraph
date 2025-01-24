@@ -33,7 +33,7 @@ namespace QuikGraph
         private Func<int, int, bool> areVerticesEqual;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalMatrixGraph{TEdge}"/> class.
+        /// Initializes a new <see cref="BidirectionalMatrixGraph{TEdge}"/> class.
         /// </summary>
         /// <param name="vertexCount">Number of vertices.</param>
         /// <exception cref="T:System.ArgumentException"><paramref name="vertexCount"/> is is negative or equal to 0.</exception>

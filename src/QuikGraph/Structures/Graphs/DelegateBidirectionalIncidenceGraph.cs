@@ -12,7 +12,7 @@ namespace QuikGraph
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateBidirectionalIncidenceGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="DelegateBidirectionalIncidenceGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="tryGetOutEdges">Getter of out-edges.</param>
         /// <param name="tryGetInEdges">Getter of in-edges.</param>

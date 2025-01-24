@@ -15,7 +15,7 @@ namespace QuikGraph.Algorithms.Condensation
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="EdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="condensedGraph">Graph that will contain the condensation of the <paramref name="visitedGraph"/>.</param>

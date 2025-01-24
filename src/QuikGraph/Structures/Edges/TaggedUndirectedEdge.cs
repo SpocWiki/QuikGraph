@@ -18,7 +18,7 @@ namespace QuikGraph
     public class TaggedUndirectedEdge<TVertex, TTag> : UndirectedEdge<TVertex>, ITagged<TTag>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TaggedUndirectedEdge{TVertex, TTag}"/> class.
+        /// Initializes a new <see cref="TaggedUndirectedEdge{TVertex, TTag}"/> class.
         /// </summary>
         /// <param name="source">The source vertex.</param>
         /// <param name="target">The target vertex.</param>

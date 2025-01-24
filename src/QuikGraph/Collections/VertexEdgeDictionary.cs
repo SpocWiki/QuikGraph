@@ -23,14 +23,14 @@ namespace QuikGraph.Collections
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VertexEdgeDictionary{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="VertexEdgeDictionary{TVertex,TEdge}"/> class.
         /// </summary>
         public VertexEdgeDictionary()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VertexEdgeDictionary{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="VertexEdgeDictionary{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="capacity">Dictionary capacity.</param>
         /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="capacity"/> is negative.</exception>

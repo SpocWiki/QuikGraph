@@ -29,7 +29,7 @@ namespace QuikGraph
         private static Func<TVertex, TVertex, bool> areVerticesEqual;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SEquatableTaggedEdge{TVertex, TTag}"/> struct.
+        /// Initializes a new <see cref="SEquatableTaggedEdge{TVertex, TTag}"/> struct.
         /// </summary>
         /// <param name="source">The source vertex.</param>
         /// <param name="target">The target vertex.</param>

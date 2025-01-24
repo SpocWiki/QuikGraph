@@ -33,7 +33,7 @@ namespace QuikGraph.Algorithms.RandomWalks
         /// <summary> The processed Graph </summary>
         public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
 
-        /// <summary> Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeChain">Edge chain strategy to use.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>

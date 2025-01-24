@@ -31,7 +31,7 @@ namespace QuikGraph.Algorithms.Search
         private readonly IDistanceRelaxer _distanceRelaxer;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BestFirstFrontierSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="BestFirstFrontierSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that for a given edge provide its weight.</param>

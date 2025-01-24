@@ -36,7 +36,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
         private readonly IList<TVertex> _sortedVertices;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TopologicalSortAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="TopologicalSortAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacity">Sorted vertices capacity.</param>

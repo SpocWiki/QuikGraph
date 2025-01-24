@@ -30,7 +30,7 @@ namespace QuikGraph.Algorithms.Search
         /// <summary> The processed Graph </summary>
         public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
 
-        /// <summary> Initializes a new instance of the <see cref="DepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="DepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="verticesColors"> optional Vertices associated to their colors (treatment states).</param>

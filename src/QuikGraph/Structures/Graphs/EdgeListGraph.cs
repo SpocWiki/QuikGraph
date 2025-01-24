@@ -37,14 +37,14 @@ namespace QuikGraph
         private Func<TVertex, TVertex, bool> areVerticesEqual;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EdgeListGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="EdgeListGraph{TVertex,TEdge}"/> class.
         /// </summary>
         public EdgeListGraph()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EdgeListGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="EdgeListGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="isDirected">Indicates if the graph is directed.</param>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>

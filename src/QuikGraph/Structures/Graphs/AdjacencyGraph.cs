@@ -34,20 +34,20 @@ namespace QuikGraph
         [CanBeNull]
         private Func<TVertex, TVertex, bool> areVerticesEqual;
 
-        /// <summary> Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
         public AdjacencyGraph()
             : this(true)
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         public AdjacencyGraph(bool allowParallelEdges)
             : this(allowParallelEdges, -1)
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         /// <param name="capacity">Vertex capacity.</param>
         public AdjacencyGraph(bool allowParallelEdges, int capacity)
@@ -55,7 +55,7 @@ namespace QuikGraph
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Initializes a new <see cref="AdjacencyGraph{TVertex,TEdge}"/> class. </summary>
         /// <param name="allowParallelEdges">Indicates if parallel edges are allowed.</param>
         /// <param name="vertexCapacity">Vertex capacity.</param>
         /// <param name="edgeCapacity">Edge capacity.</param>

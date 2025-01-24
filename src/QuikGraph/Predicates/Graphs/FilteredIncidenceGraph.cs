@@ -19,7 +19,7 @@ namespace QuikGraph.Predicates
         where TGraph : IIncidenceGraph<TVertex, TEdge>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FilteredIncidenceGraph{TVertex,TEdge,TGraph}"/> class.
+        /// Initializes a new <see cref="FilteredIncidenceGraph{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
         /// <param name="baseGraph">Graph in which applying predicates.</param>
         /// <param name="vertexPredicate">Predicate to match vertex that should be taken into account.</param>

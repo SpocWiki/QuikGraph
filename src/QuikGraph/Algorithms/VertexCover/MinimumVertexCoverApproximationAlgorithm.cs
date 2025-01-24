@@ -23,7 +23,7 @@ namespace QuikGraph.Algorithms.VertexCover
         private readonly Random _rng;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MinimumVertexCoverApproximationAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="MinimumVertexCoverApproximationAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <remarks>This constructor will use <see cref="CryptoRandom"/> ad random number generator.</remarks>
         /// <param name="graph">Graph to compute the cover.</param>
@@ -35,7 +35,7 @@ namespace QuikGraph.Algorithms.VertexCover
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MinimumVertexCoverApproximationAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="MinimumVertexCoverApproximationAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="graph">Graph to compute the cover.</param>
         /// <param name="rng">Random number generator.</param>

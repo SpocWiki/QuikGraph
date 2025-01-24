@@ -28,7 +28,7 @@ namespace QuikGraph.Algorithms.GraphPartition
         private SortedSet<TVertex> _unSwappedSetB;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="KernighanLinAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="KernighanLinAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="nbIterations">Number of iterations to perform.</param>

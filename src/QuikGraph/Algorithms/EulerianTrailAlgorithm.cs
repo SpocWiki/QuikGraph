@@ -126,7 +126,7 @@ namespace QuikGraph.Algorithms
             return true;
         }
 
-        /// <summary> Creates a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Creates a new <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class. </summary>
         public static EulerianTrailAlgorithm<TVertex
             , TEdge> CreateEulerianTrailAlgorithm<TVertex, TEdge>(this IMutableVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
@@ -160,7 +160,7 @@ namespace QuikGraph.Algorithms
         [NotNull, ItemNotNull]
         private List<TEdge> _temporaryEdges = new List<TEdge>();
 
-        /// <summary> Creates a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <summary> Creates a new <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>

@@ -37,7 +37,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         private Dictionary<TVertex, double> _costs;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AStarShortestPathAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="AStarShortestPathAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>

@@ -23,7 +23,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         private readonly List<EquatableTaggedEdge<TVertex, double>> _edges;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SortedPath{TVertex}"/> struct.
+        /// Initializes a new <see cref="SortedPath{TVertex}"/> struct.
         /// </summary>
         public SortedPath([NotNull, ItemNotNull] IEnumerable<EquatableTaggedEdge<TVertex, double>> edges)
         {

@@ -23,7 +23,7 @@ namespace QuikGraph.Algorithms.Search
         private readonly IQueue<TVertex> _vertexQueue;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
@@ -34,7 +34,7 @@ namespace QuikGraph.Algorithms.Search
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="vertexQueue">Queue of vertices to treat.</param>
@@ -51,7 +51,7 @@ namespace QuikGraph.Algorithms.Search
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="vertexQueue">Queue of vertices to treat.</param>

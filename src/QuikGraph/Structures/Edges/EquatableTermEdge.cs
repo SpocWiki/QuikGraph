@@ -25,7 +25,7 @@ namespace QuikGraph
         private static Func<TVertex, TVertex, bool> areVerticesEqual;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EquatableTermEdge{TVertex}"/> class
+        /// Initializes a new <see cref="EquatableTermEdge{TVertex}"/> class
         /// using source/target vertices and zero terminals.
         /// </summary>
         /// <param name="source">The source vertex.</param>
@@ -38,7 +38,7 @@ namespace QuikGraph
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EquatableTermEdge{TVertex}"/> class
+        /// Initializes a new <see cref="EquatableTermEdge{TVertex}"/> class
         /// using source/target vertices and source/target terminals.
         /// </summary>
         /// <param name="source">The source vertex.</param>

@@ -14,7 +14,7 @@ namespace QuikGraph
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateIncidenceGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="DelegateIncidenceGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="tryGetOutEdges">Getter of out-edges.</param>
         /// <param name="allowParallelEdges">

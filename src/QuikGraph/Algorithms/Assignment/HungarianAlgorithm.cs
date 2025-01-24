@@ -69,7 +69,7 @@ namespace QuikGraph.Algorithms.Assignment
         private Location[] _path;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HungarianAlgorithm"/> class.
+        /// Initializes a new <see cref="HungarianAlgorithm"/> class.
         /// </summary>
         /// <param name="costs">Costs matrix.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="costs"/> is <see langword="null"/>.</exception>

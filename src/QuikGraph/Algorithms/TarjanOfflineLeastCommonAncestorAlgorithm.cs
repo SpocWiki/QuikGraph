@@ -44,7 +44,7 @@ namespace QuikGraph.Algorithms
             new Dictionary<SEquatableEdge<TVertex>, TVertex>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TarjanOfflineLeastCommonAncestorAlgorithm{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="TarjanOfflineLeastCommonAncestorAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>

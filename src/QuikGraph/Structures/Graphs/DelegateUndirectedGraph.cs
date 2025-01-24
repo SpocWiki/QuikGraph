@@ -16,7 +16,7 @@ namespace QuikGraph
         where TEdge : IEdge<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateUndirectedGraph{TVertex,TEdge}"/> class.
+        /// Initializes a new <see cref="DelegateUndirectedGraph{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="vertices">Graph vertices.</param>
         /// <param name="tryGetAdjacentEdges">Getter of adjacent edges.</param>

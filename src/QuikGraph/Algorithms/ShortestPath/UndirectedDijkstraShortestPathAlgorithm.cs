@@ -31,7 +31,7 @@ namespace QuikGraph.Algorithms.ShortestPath
     {
         private IPriorityQueue<TVertex> _vertexQueue;
 
-        /// <summary>Initializes a new instance of the <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <summary>Initializes a new <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>

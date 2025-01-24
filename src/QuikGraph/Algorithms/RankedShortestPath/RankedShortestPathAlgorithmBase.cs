@@ -13,7 +13,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
         where TGraph : IGraph<TVertex, TEdge>, IImplicitVertexSet<TVertex>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RankedShortestPathAlgorithmBase{TVertex,TEdge,TGraph}"/> class.
+        /// Initializes a new <see cref="RankedShortestPathAlgorithmBase{TVertex,TEdge,TGraph}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>

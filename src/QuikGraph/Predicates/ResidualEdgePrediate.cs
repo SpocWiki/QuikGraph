@@ -11,7 +11,7 @@ namespace QuikGraph.Predicates
     public sealed class ResidualEdgePredicate<TEdge>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResidualEdgePredicate{TEdge}"/> class.
+        /// Initializes a new <see cref="ResidualEdgePredicate{TEdge}"/> class.
         /// </summary>
         /// <param name="residualCapacities">Residual capacities per edge.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="residualCapacities"/> is <see langword="null"/>.</exception>
