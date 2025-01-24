@@ -35,7 +35,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             where TGraph : IVertexSet<TVertex>
         {
             // Compute all paths
-            var algorithm = new FloydWarshallAllShortestPathAlgorithm<TVertex, TEdge>(graph, getDistances);
+            var algorithm = graph.CreateFloydWarshallAllShortestPathAlgorithm(getDistances);
             algorithm.Compute();
 
             TVertex[] vertices = graph.Vertices.ToArray();

@@ -6,13 +6,23 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.Search
 {
+    /// <inheritdoc cref="BidirectionalDepthFirstSearchAlgorithm"/>
+    public static class BidirectionalDepthFirstSearchAlgorithm
+    {
+        /// <summary> Creates a new <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static BidirectionalDepthFirstSearchAlgorithm<TVertex
+            , TEdge> CreateBidirectionalDepthFirstSearchAlgorithm<TVertex, TEdge>(
+            [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new BidirectionalDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, verticesColors, host);
+
+    }
     /// <summary> A depth and height first search algorithm for directed graphs. </summary>
     /// <remarks>
     /// This is a modified version of the classic DFS algorithm
     /// where the search is performed in both depth and height.
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class BidirectionalDepthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IBidirectionalGraph<TVertex, TEdge>>
         , IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>
@@ -23,9 +33,7 @@ namespace QuikGraph.Algorithms.Search
         /// <summary> The processed Graph </summary>
         public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
 
-        /// <summary>
-        /// Initializes a new <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Creates a new <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
