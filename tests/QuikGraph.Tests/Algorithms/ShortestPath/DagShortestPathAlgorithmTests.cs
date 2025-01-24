@@ -137,7 +137,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             algorithm = new DagShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, Weights, DistanceRelaxers.CriticalDistance);
 
-            algorithm = new DagShortestPathAlgorithm<int, IEdge<int>>(null, graph, Weights, DistanceRelaxers.CriticalDistance);
+            algorithm = new DagShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance, null);
             AssertAlgorithmProperties(algorithm, graph, Weights, DistanceRelaxers.CriticalDistance);
 
             #region Local function
@@ -196,16 +196,16 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, null, Weights, DistanceRelaxers.CriticalDistance));
+                () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, graph, null, DistanceRelaxers.CriticalDistance));
-            _ = new DagShortestPathAlgorithm<int, IEdge<int>>(null, graph, Weights, null);
+                () => new DagShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance, null));
+            _ = new DagShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null);
             Assert.Throws<ArgumentNullException>(
-                () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, null, null, DistanceRelaxers.CriticalDistance));
+                () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, null, Weights, null));
+                () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, graph, null, null));
+                () => new DagShortestPathAlgorithm<int, IEdge<int>>(graph, null, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

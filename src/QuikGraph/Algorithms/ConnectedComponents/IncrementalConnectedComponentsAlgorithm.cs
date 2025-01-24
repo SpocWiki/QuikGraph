@@ -28,19 +28,19 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         public IncrementalConnectedComponentsAlgorithm(
             [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph)
-            : this(null, visitedGraph)
+            : this(visitedGraph, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IncrementalConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         public IncrementalConnectedComponentsAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph)
+            [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
         }

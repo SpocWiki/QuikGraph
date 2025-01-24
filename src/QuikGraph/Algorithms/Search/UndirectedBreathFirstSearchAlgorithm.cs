@@ -46,25 +46,25 @@ namespace QuikGraph.Algorithms.Search
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IQueue<TVertex> vertexQueue,
             [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : this(null, visitedGraph, vertexQueue, verticesColors)
+            : this(visitedGraph, vertexQueue, verticesColors, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="vertexQueue">Queue of vertices to treat.</param>
         /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexQueue"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
         public UndirectedBreadthFirstSearchAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IQueue<TVertex> vertexQueue,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
+            [NotNull] IDictionary<TVertex, GraphColor> verticesColors,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
             VerticesColors = verticesColors ?? throw new ArgumentNullException(nameof(verticesColors));

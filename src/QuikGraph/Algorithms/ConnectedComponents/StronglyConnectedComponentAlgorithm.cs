@@ -54,7 +54,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            ComponentIndex = components ?? new Dictionary<TVertex, int>();
+            ComponentIndex = components ?? new Dictionary<TVertex, int>(visitedGraph.VertexCount);
             Roots = new Dictionary<TVertex, TVertex>();
             DiscoverTimes = new Dictionary<TVertex, int>();
             _stack = new Stack<TVertex>();

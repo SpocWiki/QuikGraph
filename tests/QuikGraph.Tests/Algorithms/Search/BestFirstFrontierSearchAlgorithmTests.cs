@@ -91,7 +91,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.ShortestDistance);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(null, graph, _ => 1.0, DistanceRelaxers.ShortestDistance);
+            algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.ShortestDistance, null);
             algorithm.AssertAlgorithmState(graph);
         }
 
@@ -123,19 +123,19 @@ namespace QuikGraph.Tests.Algorithms.Search
 
             Assert.Throws<ArgumentNullException>(
                 () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, null, _ => 1.0, DistanceRelaxers.ShortestDistance));
+                    null, _ => 1.0, DistanceRelaxers.ShortestDistance, null));
             Assert.Throws<ArgumentNullException>(
                 () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, graph, null, DistanceRelaxers.ShortestDistance));
+                    graph, null, DistanceRelaxers.ShortestDistance, null));
             Assert.Throws<ArgumentNullException>(
                 () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, graph, _ => 1.0, null));
+                    graph, _ => 1.0, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, null, null, DistanceRelaxers.ShortestDistance));
+                    null, null, DistanceRelaxers.ShortestDistance, null));
             Assert.Throws<ArgumentNullException>(
                 () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, graph, null, null));
+                    graph, null, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
                     null, null, null, null));

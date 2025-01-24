@@ -62,7 +62,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
             [NotNull] [ItemNotNull] IEnumerable<TVertex> verticesToSink,
             [NotNull] VertexFactory<TVertex> vertexFactory,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
-            : base(host, visitedGraph, vertexFactory, edgeFactory)
+            : base(visitedGraph, vertexFactory, edgeFactory, host)
         {
             SourceToVertices = sourceToVertices ?? throw new ArgumentNullException(nameof(sourceToVertices));
             VerticesToSink = verticesToSink ?? throw new ArgumentNullException(nameof(verticesToSink));

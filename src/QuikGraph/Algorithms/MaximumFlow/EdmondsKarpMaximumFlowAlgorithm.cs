@@ -56,7 +56,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
             [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm,
             [CanBeNull] IAlgorithmComponent host = null)
-            : base(host, visitedGraph, capacities, edgeFactory)
+            : base(visitedGraph, capacities, edgeFactory, host)
         {
             if (reverseEdgesAugmentorAlgorithm is null)
                 throw new ArgumentNullException(nameof(reverseEdgesAugmentorAlgorithm));

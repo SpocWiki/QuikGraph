@@ -58,7 +58,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             [CanBeNull] IDictionary<TVertex, int> components = null, [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            ComponentIndex = components ?? new Dictionary<TVertex, int>();
+            ComponentIndex = components ?? new Dictionary<TVertex, int>(visitedGraph.VertexCount);
         }
 
         [ItemNotNull]

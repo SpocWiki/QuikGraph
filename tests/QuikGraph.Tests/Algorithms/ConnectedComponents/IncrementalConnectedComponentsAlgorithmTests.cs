@@ -20,7 +20,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             var algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null);
             algorithm.AssertAlgorithmState(graph);
         }
 

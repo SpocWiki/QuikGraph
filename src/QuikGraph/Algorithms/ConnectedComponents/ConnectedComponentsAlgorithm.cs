@@ -65,41 +65,17 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         /// Initializes a new instance of the <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public ConnectedComponentsAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, new Dictionary<TVertex, int>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="components">Graph components.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public ConnectedComponentsAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components)
-            : this(null, visitedGraph, components)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="components">Graph components.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
         public ConnectedComponentsAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components)
+            [CanBeNull] IDictionary<TVertex, int> components = null,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            ComponentIndex = components ?? throw new ArgumentNullException(nameof(components));
+            ComponentIndex = components ?? new Dictionary<TVertex, int>(visitedGraph.VertexCount);
         }
 
         #region AlgorithmBase<TGraph>
@@ -123,10 +99,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge> dfs = null;
             try
             {
-                dfs = new UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>(
-                    this,
-                    VisitedGraph,
-                    new Dictionary<TVertex, GraphColor>(VisitedGraph.VertexCount));
+                dfs = VisitedGraph.CreateUndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>(host: this);
 
                 dfs.StartVertex += OnStartVertex;
                 dfs.DiscoverVertex += OnVertexDiscovered;

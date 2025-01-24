@@ -103,7 +103,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var algorithm = new ImplicitEdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new ImplicitEdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm = new ImplicitEdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null);
             AssertAlgorithmProperties(algorithm, graph);
 
             algorithm.MaxDepth = 12;

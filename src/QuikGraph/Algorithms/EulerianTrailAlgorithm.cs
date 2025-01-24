@@ -577,7 +577,7 @@ namespace QuikGraph.Algorithms
 
             // Create trail
             var trail = new List<TEdge>();
-            var bfs = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph);
+            var bfs = VisitedGraph.CreateBreadthFirstSearchAlgorithm();
             var vis = new VertexPredecessorRecorderObserver<TVertex, TEdge>(VisitedGraph.AreVerticesEqual);
             using (vis.Attach(bfs))
             {

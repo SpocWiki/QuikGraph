@@ -27,27 +27,13 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        public KruskalMinimumSpanningTreeAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights)
-            : this(null, visitedGraph, edgeWeights)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KruskalMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         public KruskalMinimumSpanningTreeAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights)
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
             _edgeWeights = edgeWeights ?? throw new ArgumentNullException(nameof(edgeWeights));

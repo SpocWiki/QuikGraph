@@ -16,13 +16,10 @@ namespace QuikGraph.Tests.Algorithms.Cliques
         private class TestMaximumCliqueAlgorithm<TVertex, TEdge> : MaximumCliqueAlgorithmBase<TVertex, TEdge>
             where TEdge : IEdge<TVertex>
         {
-            public TestMaximumCliqueAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
-                : base(visitedGraph)
-            {
-            }
-
-            public TestMaximumCliqueAlgorithm([CanBeNull] IAlgorithmComponent host, [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
-                : base(host, visitedGraph)
+            public TestMaximumCliqueAlgorithm(
+                [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IAlgorithmComponent host = null)
+                : base(visitedGraph, host)
             {
             }
 
@@ -40,7 +37,7 @@ namespace QuikGraph.Tests.Algorithms.Cliques
             var algorithm = new TestMaximumCliqueAlgorithm<int, IEdge<int>>(graph);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new TestMaximumCliqueAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm = new TestMaximumCliqueAlgorithm<int, IEdge<int>>(graph, null);
             algorithm.AssertAlgorithmState(graph);
         }
 
