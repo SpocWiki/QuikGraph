@@ -252,7 +252,7 @@ namespace QuikGraph.Algorithms
             [NotNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(graph, edgeChain);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(edgeChain);
             return RunDirectedRootedAlgorithm<TVertex, TEdge, CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>>(algorithm, root);
         }
 

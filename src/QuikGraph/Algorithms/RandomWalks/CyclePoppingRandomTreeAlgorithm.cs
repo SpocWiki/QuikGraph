@@ -39,7 +39,7 @@ namespace QuikGraph.Algorithms.RandomWalks
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeChain"/> is <see langword="null"/>.</exception>
-        public CyclePoppingRandomTreeAlgorithm(
+        internal CyclePoppingRandomTreeAlgorithm(
             [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain = null,
             [CanBeNull] IAlgorithmComponent host = null)
