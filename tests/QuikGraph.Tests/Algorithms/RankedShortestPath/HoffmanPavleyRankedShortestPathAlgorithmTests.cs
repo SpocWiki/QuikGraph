@@ -99,7 +99,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
 
             Assert.Throws<ArgumentNullException>(() => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(() => graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(() => graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, null));
+            _ = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, null);
             Assert.Throws<ArgumentNullException>(() => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(() => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, null));
             Assert.Throws<ArgumentNullException>(() => graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, null));
@@ -107,7 +107,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
 
             Assert.Throws<ArgumentNullException>(() => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(() => graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(() => graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, null, null));
+            _ = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, null, null);
             Assert.Throws<ArgumentNullException>(() => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(() => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, null, null));
             Assert.Throws<ArgumentNullException>(() => graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, null, null));

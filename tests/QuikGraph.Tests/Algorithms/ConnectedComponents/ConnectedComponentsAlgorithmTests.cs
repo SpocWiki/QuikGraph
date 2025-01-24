@@ -89,15 +89,13 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             Assert.Throws<ArgumentNullException>(
                 () => new ConnectedComponentsAlgorithm<int, IEdge<int>>(null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => new ConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null));
+            _ = new ConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null);
             Assert.Throws<ArgumentNullException>(
                 () => new ConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
                 () => new ConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => new ConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null));
+            _ = new ConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => new ConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
             Assert.Throws<ArgumentNullException>(

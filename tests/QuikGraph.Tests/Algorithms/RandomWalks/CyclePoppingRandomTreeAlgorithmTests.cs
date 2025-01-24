@@ -142,15 +142,13 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             Assert.Throws<ArgumentNullException>(
                 () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, null));
+            _ = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, null);
             Assert.Throws<ArgumentNullException>(
                 () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, chain));
             Assert.Throws<ArgumentNullException>(
                 () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, null, null));
+            _ = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, chain, null));
             Assert.Throws<ArgumentNullException>(

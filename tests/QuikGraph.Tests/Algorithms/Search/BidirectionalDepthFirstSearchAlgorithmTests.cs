@@ -176,8 +176,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.Throws<ArgumentNullException>(
                 () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null));
+            _ = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null);
             Assert.Throws<ArgumentNullException>(
                 () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors));
             Assert.Throws<ArgumentNullException>(
@@ -185,8 +184,7 @@ namespace QuikGraph.Tests.Algorithms.Search
 
             Assert.Throws<ArgumentNullException>(
                 () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null));
+            _ = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

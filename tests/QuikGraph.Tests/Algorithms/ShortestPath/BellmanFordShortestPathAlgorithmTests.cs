@@ -136,7 +136,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
 
             Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(() => graph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(() => graph.CreateBellmanFordShortestPathAlgorithm(Weights, null, null));
+            _ = graph.CreateBellmanFordShortestPathAlgorithm(Weights, null, null);
             Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(() => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, null, null));
             Assert.Throws<ArgumentNullException>(() => graph.CreateBellmanFordShortestPathAlgorithm(null, null, null));

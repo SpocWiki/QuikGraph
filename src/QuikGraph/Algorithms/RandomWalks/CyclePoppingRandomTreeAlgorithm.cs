@@ -8,6 +8,17 @@ using QuikGraph.Utils;
 
 namespace QuikGraph.Algorithms.RandomWalks
 {
+    /// <inheritdoc cref="CreateCyclePoppingRandomTreeAlgorithm"/>
+    public static class CyclePoppingRandomTreeAlgorithm
+    {
+        /// <summary> Creates a new <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/>. </summary>
+        public static CyclePoppingRandomTreeAlgorithm<TVertex, TEdge> CreateCyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain = null,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(visitedGraph, edgeChain, host);
+    }
+
     /// <summary>
     /// Wilson-Propp Cycle-Popping algorithm for Random Tree Generation.
     /// </summary>
@@ -22,9 +33,7 @@ namespace QuikGraph.Algorithms.RandomWalks
         /// <summary> The processed Graph </summary>
         public IGraph<TVertex, TEdge> VisitededGraph => base.VisitedGraph;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeChain">Edge chain strategy to use.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>

@@ -263,7 +263,7 @@ namespace QuikGraph.Tests.Extensions
             Assert.Throws<ArgumentNullException>(
                 () => ((IVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>>)null).TreeCyclePoppingRandom(vertex, chain));
             Assert.Throws<ArgumentNullException>(() => graph.TreeCyclePoppingRandom(null, chain));
-            Assert.Throws<ArgumentNullException>(() => graph.TreeCyclePoppingRandom(vertex, null));
+            Assert.Throws<ArgumentException>(() => graph.TreeCyclePoppingRandom(vertex, null));
             Assert.Throws<ArgumentNullException>(
                 () => ((IVertexAndEdgeListGraph<TestVertex, IEdge<TestVertex>>)null).TreeCyclePoppingRandom(null, chain));
             Assert.Throws<ArgumentNullException>(
@@ -1058,8 +1058,7 @@ namespace QuikGraph.Tests.Extensions
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => graph.ConnectedComponents(null));
+            _ = graph.ConnectedComponents(null);
             Assert.Throws<ArgumentNullException>(
                 () => AlgorithmExtensions.ConnectedComponents<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
