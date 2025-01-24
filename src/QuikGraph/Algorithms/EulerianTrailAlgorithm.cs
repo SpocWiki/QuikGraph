@@ -115,7 +115,7 @@ namespace QuikGraph.Algorithms
             if (pathCount == 0)
                 return false;
 
-            var algorithm = new EulerianTrailAlgorithm<TVertex, TEdge>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             algorithm.AddTemporaryEdges((s, t) => edgeFactory(s, t));
             algorithm.Compute();
             trails = algorithm.Trails().ToArray();
@@ -125,6 +125,12 @@ namespace QuikGraph.Algorithms
             circuit = algorithm.Circuit;
             return true;
         }
+
+        /// <summary> Creates a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static EulerianTrailAlgorithm<TVertex
+            , TEdge> CreateEulerianTrailAlgorithm<TVertex, TEdge>(this IMutableVertexAndEdgeListGraph<TVertex, TEdge> graph,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new EulerianTrailAlgorithm<TVertex, TEdge>(graph, host);
     }
 
     /// <summary> Algorithm that finds Eulerian <seealso cref="Trails()"/> and <see cref="Circuit"/> in a graph, starting from the <see cref="RootedAlgorithmBase{TVertex,TGraph}.TryGetRootVertex"/>. </summary>
@@ -154,13 +160,11 @@ namespace QuikGraph.Algorithms
         [NotNull, ItemNotNull]
         private List<TEdge> _temporaryEdges = new List<TEdge>();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Creates a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public EulerianTrailAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+        internal EulerianTrailAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {

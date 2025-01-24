@@ -589,7 +589,7 @@ namespace QuikGraph.Algorithms
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
 
-            var algorithm = new UndirectedTopologicalSortAlgorithm<TVertex, TEdge>(graph, graph.VertexCount);
+            var algorithm = graph.CreateUndirectedTopologicalSortAlgorithm(graph.VertexCount);
             algorithm.Compute();
             return algorithm.SortedVertices.AsEnumerable();
         }
