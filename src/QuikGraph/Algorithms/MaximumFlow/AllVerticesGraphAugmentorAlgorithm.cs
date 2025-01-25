@@ -3,12 +3,8 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.MaximumFlow
 {
-    /// <summary>
-    /// Algorithm that augment all vertices of a graph by adding edge between
-    /// all vertices from super source and to super sink.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Augments all vertices of a graph
+    /// by adding edge between all vertices from super source and to super sink. </summary>
     public sealed class AllVerticesGraphAugmentorAlgorithm<TVertex, TEdge>
         : GraphAugmentorAlgorithmBase<TVertex, TEdge, IMutableVertexAndEdgeSet<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
