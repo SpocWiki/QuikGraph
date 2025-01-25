@@ -133,8 +133,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateImplicitEdgeDepthFirstSearchAlgorithm());
 
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateImplicitEdgeDepthFirstSearchAlgorithm(null));
+            _ = graph.CreateImplicitEdgeDepthFirstSearchAlgorithm(null);
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
 
@@ -188,7 +187,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVertex(0);
-            var algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEdgeDepthFirstSearchAlgorithm();
             ComputeWithRoot_Test(algorithm);
         }
 
