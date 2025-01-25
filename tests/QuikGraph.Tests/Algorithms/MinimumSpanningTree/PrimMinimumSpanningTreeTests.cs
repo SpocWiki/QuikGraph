@@ -15,33 +15,33 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
         public void Constructor()
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
-            var algorithm = new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreatePrimMinimumSpanningTreeAlgorithm(_ => 1.0);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, _ => 1.0, null);
+            algorithm = graph.CreatePrimMinimumSpanningTreeAlgorithm(_ => 1.0, null);
             algorithm.AssertAlgorithmState(graph);
         }
 
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new UndirectedGraph<int, IEdge<int>>();
+            UndirectedGraph<int, IEdge<int>> graph = new (), nullGraph = null;
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, _ => 1.0));
+                () => nullGraph.CreatePrimMinimumSpanningTreeAlgorithm(_ => 1.0));
             Assert.Throws<ArgumentNullException>(
-                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, null));
+                () => graph.CreatePrimMinimumSpanningTreeAlgorithm(null));
             Assert.Throws<ArgumentNullException>(
-                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.CreatePrimMinimumSpanningTreeAlgorithm(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, _ => 1.0, null));
+                () => nullGraph.CreatePrimMinimumSpanningTreeAlgorithm(_ => 1.0, null));
             Assert.Throws<ArgumentNullException>(
-                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => graph.CreatePrimMinimumSpanningTreeAlgorithm(null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.CreatePrimMinimumSpanningTreeAlgorithm(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

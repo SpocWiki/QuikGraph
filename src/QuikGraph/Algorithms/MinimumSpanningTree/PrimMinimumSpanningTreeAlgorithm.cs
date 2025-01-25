@@ -8,6 +8,18 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.MinimumSpanningTree
 {
+    /// <inheritdoc cref="CreatePrimMinimumSpanningTreeAlgorithm"/>
+    public static class PrimMinimumSpanningTreeAlgorithm
+    {
+        /// <summary> Creates a new <see cref="PrimMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static PrimMinimumSpanningTreeAlgorithm<TVertex, TEdge>
+            CreatePrimMinimumSpanningTreeAlgorithm<TVertex, TEdge> (
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new PrimMinimumSpanningTreeAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, host);
+    }
+
     /// <summary> Prim minimum spanning tree algorithm implementation. </summary>
     public sealed class PrimMinimumSpanningTreeAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
@@ -20,15 +32,13 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
         [NotNull]
         private readonly Func<TEdge, double> _edgeWeights;
 
-        /// <summary>
-        /// Initializes a new <see cref="PrimMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Creates a new <see cref="PrimMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        public PrimMinimumSpanningTreeAlgorithm(
+        internal PrimMinimumSpanningTreeAlgorithm(
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [CanBeNull] IAlgorithmComponent host = null)
