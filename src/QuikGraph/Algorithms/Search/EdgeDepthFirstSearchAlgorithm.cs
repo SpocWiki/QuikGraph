@@ -12,7 +12,7 @@ namespace QuikGraph.Algorithms.Search
         /// <summary> Creates a new <see cref="EdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
         public static EdgeDepthFirstSearchAlgorithm<TVertex, TEdge> CreateEdgeDepthFirstSearchAlgorithm<TVertex, TEdge>(
             [NotNull] this IEdgeListAndIncidenceGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TEdge, GraphColor> edgesColors,
+            [CanBeNull] IDictionary<TEdge, GraphColor> edgesColors = null,
             [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
             => new EdgeDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, edgesColors, host);
     }
@@ -40,7 +40,7 @@ namespace QuikGraph.Algorithms.Search
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgesColors"/> is <see langword="null"/>.</exception>
-        public EdgeDepthFirstSearchAlgorithm(
+        internal EdgeDepthFirstSearchAlgorithm(
             [NotNull] IEdgeListAndIncidenceGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IDictionary<TEdge, GraphColor> edgesColors = null,
             [CanBeNull] IAlgorithmComponent host = null)
