@@ -75,7 +75,7 @@ namespace QuikGraph
         /// <inheritdoc />
         public override string ToString()
         {
-            return string.Format(EdgeConstants.EdgeFormatString, Source, Target);
+            return string.Format(EdgeFormats.String, Source, Target);
         }
     }
 }

@@ -5,12 +5,10 @@ using QuikGraph.Algorithms.ShortestPath;
 
 namespace QuikGraph.Algorithms.TSP
 {
-    /// <summary> Finding a path that best link all vertices. </summary>
-    /// <remarks>
-    /// This is the TSP (Travelling Salesman Problem).
-    /// </remarks>
+    /// <summary> TSP (Travelling Salesman Problem); Finding a path that best link all vertices. </summary>
     // ReSharper disable once InconsistentNaming
-    public class TSP<TVertex, TEdge, TGraph> : ShortestPathAlgorithmBase<TVertex, TEdge, TGraph>
+    public class TSP<TVertex, TEdge, TGraph>
+        : ShortestPathAlgorithmBase<TVertex, TEdge, TGraph>
         where TEdge : EquatableEdge<TVertex>
         where TGraph : BidirectionalGraph<TVertex, TEdge>
     {

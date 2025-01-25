@@ -52,6 +52,6 @@ namespace QuikGraph
         public override int GetHashCode() => (Source.GetHashCode() << 1) ^ Target.GetHashCode();
 
         /// <inheritdoc />
-        public override string ToString() => string.Format(EdgeConstants.EdgeFormatString, Source, Target);
+        public override string ToString() => string.Format(EdgeFormats.String, Source, Target);
     }
 }

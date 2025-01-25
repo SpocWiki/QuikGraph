@@ -2,8 +2,29 @@
 
 namespace QuikGraph.Algorithms
 {
+    /// <inheritdoc cref="TransitiveReductionAlgorithm{TVertex, TEdge}.TransitiveReduction"/>
+    public static class TransitiveReductionAlgorithm
+    {
+        /// <inheritdoc cref="TransitiveReductionAlgorithm{TVertex, TEdge}.TransitiveReduction"/>
+        [Pure]
+        [NotNull]
+        public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveReduction<TVertex, TEdge>(
+            [NotNull] this IEdgeListGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
+        {
+            TransitiveReductionAlgorithm<TVertex, TEdge> algorithm = CreateTransitiveReduction(graph);
+            algorithm.Compute();
+            return algorithm.TransitiveReduction;
+        }
+
+        /// <inheritdoc cref="TransitiveReductionAlgorithm{TVertex, TEdge}.TransitiveReduction"/>
+        public static TransitiveReductionAlgorithm<TVertex, TEdge> CreateTransitiveReduction<TVertex, TEdge>(
+            [NotNull] this IEdgeListGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
+            => new TransitiveReductionAlgorithm<TVertex, TEdge>(graph);
+    }
+
     /// <inheritdoc cref="TransitiveReduction"/>
-    public class TransitiveReductionAlgorithm<TVertex, TEdge> : AlgorithmBase<IEdgeListGraph<TVertex, TEdge>>
+    public class TransitiveReductionAlgorithm<TVertex, TEdge>
+        : AlgorithmBase<IEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
         /// <summary>

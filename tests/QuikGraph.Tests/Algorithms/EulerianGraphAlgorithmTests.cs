@@ -148,14 +148,15 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void IsEulerian_Throws()
         {
+            IUndirectedGraph<int, UndirectedEdge<int>> graph = null;
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new IsEulerianGraphAlgorithm<int, UndirectedEdge<int>>(null));
+                () => graph.IsEulerian());
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<ArgumentNullException>(
-                () => IsEulerianGraphAlgorithm.IsEulerian<int, UndirectedEdge<int>>(null));
+                () => graph.CreateEulerianGraphAlgorithm());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

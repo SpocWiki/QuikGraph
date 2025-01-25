@@ -635,7 +635,7 @@ namespace QuikGraph.Algorithms
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
 
-            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>(graph, graph.VertexCount);
+            var algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm(false, graph.VertexCount);
             algorithm.Compute();
             return algorithm.SortedVertices.AsEnumerable();
         }
@@ -1219,31 +1219,6 @@ namespace QuikGraph.Algorithms
             flowPredecessors = flow.Predecessors.TryGetValue;
 
             return flow.MaxFlow;
-        }
-
-        /// <inheritdoc cref="TransitiveReductionAlgorithm{TVertex, TEdge}.TransitiveReduction"/>
-        [Pure]
-        [NotNull]
-        public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveReduction<TVertex, TEdge>(
-            [NotNull] this IEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new TransitiveReductionAlgorithm<TVertex, TEdge>(graph);
-            algorithm.Compute();
-            return algorithm.TransitiveReduction;
-        }
-
-        /// <inheritdoc cref="TransitiveClosureAlgorithm{TVertex,TEdge}.TransitiveClosure"/>
-        [Pure]
-        [NotNull]
-        public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveClosure<TVertex, TEdge>(
-            [NotNull] this IEdgeListGraph<TVertex, TEdge> graph,
-            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new TransitiveClosureAlgorithm<TVertex, TEdge>(graph, edgeFactory);
-            algorithm.Compute();
-            return algorithm.TransitiveClosure;
         }
 
         /// <summary>

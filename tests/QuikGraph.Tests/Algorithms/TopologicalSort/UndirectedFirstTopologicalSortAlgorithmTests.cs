@@ -22,11 +22,7 @@ namespace QuikGraph.Tests.Algorithms
             [NotNull] IUndirectedGraph<TVertex, TEdge> graph, bool allowCycles)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>(graph)
-            {
-                AllowCyclicGraph = allowCycles
-            };
-
+            var algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm(allowCycles);
             algorithm.Compute();
 
             Assert.IsNotNull(algorithm.SortedVertices);
@@ -38,20 +34,17 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor()
         {
-            var graph = new UndirectedGraph<int, IEdge<int>>();
-            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            UndirectedGraph<int, IEdge<int>> graph = new (), nullGraph = null;
+            var algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph)
-            {
-                AllowCyclicGraph = true
-            };
+            algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm(true);
             AssertAlgorithmProperties(algorithm, graph, true);
 
-            algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, 0);
+            algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm(capacity: 0);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, 10);
+            algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm(capacity: 10);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -69,15 +62,10 @@ namespace QuikGraph.Tests.Algorithms
             }
 
             #endregion
-        }
 
-        [Test]
-        public void Constructor_Throws()
-        {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateUndirectedFirstTopologicalSortAlgorithm());
         }
 
         [Test]
@@ -94,7 +82,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(7, 8)
             );
 
-            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm();
             algorithm.Compute();
 
             // Order in undirected graph is some strange thing, here the order
@@ -115,7 +103,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             );
 
-            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm();
             algorithm.Compute();
 
             // Order in undirected graph is some strange thing, here the order
@@ -138,7 +126,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(5, 6)
             );
 
-            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm();
             algorithm.Compute();
 
             // Order in undirected graph is some strange thing, here the order
@@ -161,13 +149,10 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             );
 
-            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm();
             Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
 
-            algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph)
-            {
-                AllowCyclicGraph = true
-            };
+            algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm(true);
             algorithm.Compute();
 
             // Order in undirected graph is some strange thing, here the order
@@ -195,13 +180,10 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 1)
             );
 
-            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
+            var algorithm = cyclicGraph.CreateUndirectedFirstTopologicalSortAlgorithm();
             Assert.Throws<CyclicGraphException>(() => algorithm.Compute());
 
-            algorithm = new UndirectedFirstTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph)
-            {
-                AllowCyclicGraph = true
-            };
+            algorithm = cyclicGraph.CreateUndirectedFirstTopologicalSortAlgorithm(true);
             Assert.DoesNotThrow(() => algorithm.Compute());
         }
     }

@@ -1,10 +1,25 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using JetBrains.Annotations;
 using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Algorithms
 {
+    /// <inheritdoc cref="IsEulerian{TVertex,TEdge}"/>
+    public static class IsEulerianGraphAlgorithm
+    {
+        /// <summary> Creates a new <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> </summary>
+        public static IsEulerianGraphAlgorithm<TVertex, TEdge> CreateEulerianGraphAlgorithm<TVertex, TEdge>(
+            this IUndirectedGraph<TVertex, TEdge> graph)
+            where TEdge : IUndirectedEdge<TVertex> => new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph);
+
+        /// <summary> Returns true if the <paramref name="graph"/> is Eulerian, otherwise false. </summary>
+        /// <inheritdoc cref="IsEulerianGraphAlgorithm{TVertex,TEdge}.IsEulerian"/>
+        [Pure]
+        public static bool IsEulerian<TVertex, TEdge>(
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
+            where TEdge : IUndirectedEdge<TVertex> => CreateEulerianGraphAlgorithm(graph).IsEulerian();
+    }
+
     /// <inheritdoc cref="IsEulerianGraphAlgorithm{TVertex, TEdge}(IUndirectedGraph{TVertex, TEdge})"/>
     public class IsEulerianGraphAlgorithm<TVertex, TEdge>
         where TEdge : IUndirectedEdge<TVertex>
@@ -17,7 +32,7 @@ namespace QuikGraph.Algorithms
         /// </summary>
         /// <param name="graph">Graph to check; is not modified, but copied.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        public IsEulerianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
+        internal IsEulerianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
             => _simpleGraph = graph.RemoveParallelAndSelfEdges();
 
         /// <summary> Gets the components except for single Nodes in the current graph. </summary>
@@ -52,21 +67,5 @@ namespace QuikGraph.Algorithms
                 default: return false; // Many components
             }
         }
-    }
-
-    /// <inheritdoc cref="IsEulerian{TVertex,TEdge}"/>
-    public static class IsEulerianGraphAlgorithm
-    {
-        /// <summary> Creates a new <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> </summary>
-        public static IsEulerianGraphAlgorithm<TVertex, TEdge> CreateEulerianGraphAlgorithm<TVertex, TEdge>(
-            this IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IUndirectedEdge<TVertex> => new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph);
-
-        /// <summary> Returns true if the <paramref name="graph"/> is Eulerian, otherwise false. </summary>
-        /// <inheritdoc cref="IsEulerianGraphAlgorithm{TVertex,TEdge}.IsEulerian"/>
-        [Pure]
-        public static bool IsEulerian<TVertex, TEdge>(
-            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IUndirectedEdge<TVertex> => CreateEulerianGraphAlgorithm(graph).IsEulerian();
     }
 }

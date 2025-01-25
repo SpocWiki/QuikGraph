@@ -72,7 +72,7 @@ namespace QuikGraph
         /// <inheritdoc />
         public override string ToString()
         {
-            return string.Format(EdgeConstants.EdgeTerminalFormatString, Source, SourceTerminal, Target, TargetTerminal);
+            return string.Format(EdgeFormats.Terminal, Source, SourceTerminal, Target, TargetTerminal);
         }
     }
 }

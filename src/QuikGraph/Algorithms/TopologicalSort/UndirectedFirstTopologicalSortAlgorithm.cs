@@ -7,12 +7,19 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.TopologicalSort
 {
-    /// <summary>
-    /// Undirected topological sort algorithm.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    public sealed class UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge> : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
+    /// <inheritdoc cref="CreateUndirectedFirstTopologicalSortAlgorithm"/>
+    public static class UndirectedFirstTopologicalSortAlgorithm
+    {
+        /// <summary> Creates a new <see cref="UndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>
+            CreateUndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge> (
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph, bool allowCyclicGraph = false,
+            int capacity = -1) where TEdge : IEdge<TVertex>
+            => new UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph, allowCyclicGraph, capacity);
+    }
+    /// <summary> Undirected topological sort algorithm. </summary>
+    public sealed class UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>
+        : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
         [NotNull]
@@ -21,19 +28,18 @@ namespace QuikGraph.Algorithms.TopologicalSort
         [NotNull, ItemNotNull]
         private readonly IList<TVertex> _sortedVertices;
 
-        /// <summary>
-        /// Initializes a new <see cref="UndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Creates a new <see cref="UndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
+        /// <param name="allowCyclicGraph"></param>
         /// <param name="capacity">Sorted vertices capacity.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public UndirectedFirstTopologicalSortAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            int capacity = -1)
+        internal UndirectedFirstTopologicalSortAlgorithm(
+            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph, bool allowCyclicGraph = false, int capacity = -1)
             : base(visitedGraph)
         {
             _heap = new BinaryQueue<TVertex, int>(vertex => Degrees[vertex]);
             _sortedVertices = capacity > 0 ? new List<TVertex>(capacity) : new List<TVertex>();
+            AllowCyclicGraph = allowCyclicGraph;
         }
 
         /// <summary>
@@ -51,7 +57,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
         /// <summary>
         /// Gets or sets the flag that indicates if cyclic graph are supported or not.
         /// </summary>
-        public bool AllowCyclicGraph { get; set; }
+        public bool AllowCyclicGraph { get; }
 
         /// <summary>
         /// Fired when a vertex is added to the set of sorted vertices.

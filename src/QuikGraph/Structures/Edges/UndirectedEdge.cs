@@ -48,7 +48,7 @@ namespace QuikGraph
         /// <inheritdoc />
         public override string ToString()
         {
-            return string.Format(EdgeConstants.UndirectedEdgeFormatString, Source, Target);
+            return string.Format(EdgeFormats.Undirected, Source, Target);
         }
     }
 }
