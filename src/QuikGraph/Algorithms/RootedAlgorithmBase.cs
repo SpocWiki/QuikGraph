@@ -22,7 +22,8 @@ namespace QuikGraph.Algorithms
         [CanBeNull]
         private TVertex _root;
 
-        /// <summary> Needs a separate Flag, because <typeparamref name="TVertex"/> can be a struct and often is the default Value </summary>
+        /// <summary> Needs a separate Flag to support Nullability for structs </summary>
+        /// <remarks> Because <typeparamref name="TVertex"/> can be a struct and often is the default Value. </remarks>
         private bool _hasRootVertex;
 
         /// <summary>
