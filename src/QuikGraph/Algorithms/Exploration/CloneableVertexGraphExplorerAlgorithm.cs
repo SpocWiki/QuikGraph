@@ -14,7 +14,7 @@ namespace QuikGraph.Algorithms.Exploration
         /// <summary> Creates a new <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class. </summary>
         public static CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>
             CreateCloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>(
-            [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
+            [NotNull] this IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
                 where TVertex : ICloneable
                 where TEdge : IEdge<TVertex>
@@ -35,7 +35,7 @@ namespace QuikGraph.Algorithms.Exploration
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public CloneableVertexGraphExplorerAlgorithm(
+        internal CloneableVertexGraphExplorerAlgorithm(
             [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)

@@ -63,10 +63,10 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void Constructor()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph, null);
+            algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm(null);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -91,15 +91,15 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         [Test]
         public void Constructor_Throws()
         {
+            AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>> graph = new (), nullGraph = null;
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(null));
+                () => nullGraph.CreateCloneableVertexGraphExplorerAlgorithm());
             Assert.Throws<ArgumentNullException>(
-                () => new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(null, null));
+                () => nullGraph.CreateCloneableVertexGraphExplorerAlgorithm(null));
 
-            var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             Assert.Throws<ArgumentNullException>(() => algorithm.AddEdgePredicate = null);
             Assert.Throws<ArgumentNullException>(() => algorithm.ExploreVertexPredicate = null);
             Assert.Throws<ArgumentNullException>(() => algorithm.AddEdgePredicate = null);
@@ -114,7 +114,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void TryGetRootVertex()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             TryGetRootVertex_Test(algorithm);
         }
 
@@ -122,7 +122,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void SetRootVertex()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             int rootVertexChangeCount = 0;
             algorithm.RootVertexChanged += (_, _) => ++rootVertexChangeCount;
@@ -155,7 +155,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void SetRootVertex_Throws()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             SetRootVertex_Null_Should_Throw_ArgumentNullException(algorithm);
         }
 
@@ -163,7 +163,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void ClearRootVertex()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             ClearRootVertex_RaisesVertexChanged_Test(algorithm);
         }
 
@@ -171,7 +171,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void ComputeWithoutRoot_Throws()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             Assert.Throws<InvalidOperationException>(algorithm.Compute);
         }
 
@@ -180,7 +180,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         {
             var graph = new AdjacencyGraph<EquatableCloneableTestVertex, Edge<EquatableCloneableTestVertex>>();
             graph.AddVertexRange( new EquatableCloneableTestVertex() );
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<EquatableCloneableTestVertex, Edge<EquatableCloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             ComputeWithRoot_Test(algorithm);
         }
 
@@ -188,7 +188,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void ComputeWithRoot_Throws()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.Compute(null));
@@ -203,7 +203,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void AddTransitionFactory()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, IEdge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, IEdge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             var vertex1 = new CloneableTestVertex("1");
             var factory1 = new TestTransitionFactory<CloneableTestVertex>(vertex1, Enumerable.Empty<IEdge<CloneableTestVertex>>());
@@ -226,7 +226,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void AddTransitionFactory_Throws()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.AddTransitionFactory(null));
         }
@@ -235,7 +235,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void AddTransitionFactories()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, IEdge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, IEdge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             var vertex1 = new CloneableTestVertex("1");
             var vertex2 = new CloneableTestVertex("2");
@@ -259,7 +259,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void AddTransitionFactories_Throws()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.AddTransitionFactories(null));
         }
@@ -268,7 +268,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void RemoveTransitionFactories()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, IEdge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, IEdge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             Assert.IsFalse(algorithm.RemoveTransitionFactory(null));
 
@@ -302,7 +302,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void ContainsTransitionFactories()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, IEdge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, IEdge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             var vertex1 = new CloneableTestVertex("1");
             var factory1 = new TestTransitionFactory<CloneableTestVertex>(vertex1, Enumerable.Empty<IEdge<CloneableTestVertex>>());
@@ -334,7 +334,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void ClearTransitionFactories()
         {
             var graph = new AdjacencyGraph<CloneableTestVertex, IEdge<CloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, IEdge<CloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             var vertex1 = new CloneableTestVertex("1");
             var vertex2 = new CloneableTestVertex("2");
@@ -368,7 +368,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void GraphExploration()
         {
             var graph = new AdjacencyGraph<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             IEnumerable<ITransitionFactory<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>> factories =
                 GenerateTransitionFactories(
@@ -402,7 +402,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void GraphExplorationWithPredicates()
         {
             var graph = new AdjacencyGraph<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             IEnumerable<ITransitionFactory<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>> factories =
                 GenerateTransitionFactories(
@@ -444,7 +444,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void GraphExplorationWithEarlyEndingVertex()
         {
             var graph = new AdjacencyGraph<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             IEnumerable<ITransitionFactory<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>> factories =
                 GenerateTransitionFactories(
@@ -486,7 +486,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
         public void GraphExplorationWithEarlyEndingEdge()
         {
             var graph = new AdjacencyGraph<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>();
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>(graph);
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
 
             IEnumerable<ITransitionFactory<EquatableCloneableTestVertex, IEdge<EquatableCloneableTestVertex>>> factories =
                 GenerateTransitionFactories(
@@ -532,10 +532,8 @@ namespace QuikGraph.Tests.Algorithms.Exploration
             var graph = new AdjacencyGraph<CloneableTestVertex, Edge<CloneableTestVertex>>();
             graph.AddVertex(vertex1);
 
-            var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph)
-            {
-                AddVertexPredicate = vertex => vertex != vertex1
-            };
+            var algorithm = graph.CreateCloneableVertexGraphExplorerAlgorithm();
+            algorithm.AddVertexPredicate = vertex => vertex != vertex1;
 
             Assert.Throws<InvalidOperationException>(() => algorithm.Compute(vertex1));
         }
