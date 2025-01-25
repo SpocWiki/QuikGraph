@@ -6,11 +6,19 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.MinimumSpanningTree
 {
-    /// <summary>
-    /// Kruskal minimum spanning tree algorithm implementation.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <inheritdoc cref="CreateKruskalMinimumSpanningTreeAlgorithm"/>
+    public static class KruskalMinimumSpanningTreeAlgorithm
+    {
+        /// <summary> Creates a new <see cref="KruskalMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static KruskalMinimumSpanningTreeAlgorithm<TVertex, TEdge>
+            CreateKruskalMinimumSpanningTreeAlgorithm<TVertex, TEdge>(
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new KruskalMinimumSpanningTreeAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, host);
+    }
+
+    /// <summary> Kruskal minimum spanning tree algorithm implementation. </summary>
     public sealed class KruskalMinimumSpanningTreeAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         , IMinimumSpanningTreeAlgorithm<TVertex, TEdge>
@@ -22,9 +30,7 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
         [NotNull]
         private readonly Func<TEdge, double> _edgeWeights;
 
-        /// <summary>
-        /// Initializes a new <see cref="KruskalMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Creates a new <see cref="KruskalMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
