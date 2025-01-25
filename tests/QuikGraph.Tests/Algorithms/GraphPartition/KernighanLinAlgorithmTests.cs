@@ -18,19 +18,14 @@ namespace QuikGraph.Tests.Algorithms.GraphPartitioning
         [Test]
         public void Constructor()
         {
-            var graph = new UndirectedGraph<int, TaggedUndirectedEdge<int, double>>();
-            var algorithm = new KernighanLinAlgorithm<int, TaggedUndirectedEdge<int, double>>(graph, 42);
+            UndirectedGraph<int, TaggedUndirectedEdge<int, double>> graph = new (), nullGraph = null;
+            var algorithm = graph.CreateKernighanLinAlgorithm(42);
             algorithm.AssertAlgorithmState(graph);
             Assert.AreEqual(default(Partition<int>), algorithm.Partition);
-        }
 
-        [Test]
-        public void Constructor_Throws()
-        {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => new KernighanLinAlgorithm<int, TaggedUndirectedEdge<int, double>>(null, 42));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateKernighanLinAlgorithm(42));
         }
 
         [Test]
@@ -46,9 +41,7 @@ namespace QuikGraph.Tests.Algorithms.GraphPartitioning
 
             UndirectedGraph<int, TaggedUndirectedEdge<int, double>> graph = CreateUndirectedGraph<int, TaggedUndirectedEdge<int, double>>(edges);
 
-            var algorithm = new KernighanLinAlgorithm<int, TaggedUndirectedEdge<int, double>>(
-                graph,
-                1);
+            var algorithm = graph.CreateKernighanLinAlgorithm(1);
             algorithm.Compute();
 
             var setA = new SortedSet<int>();
@@ -76,7 +69,7 @@ namespace QuikGraph.Tests.Algorithms.GraphPartitioning
 
             UndirectedGraph<int, TaggedUndirectedEdge<int, double>> graph = CreateUndirectedGraph<int, TaggedUndirectedEdge<int, double>>(edges);
 
-            var algorithm = new KernighanLinAlgorithm<int, TaggedUndirectedEdge<int, double>>(graph, 1);
+            var algorithm = graph.CreateKernighanLinAlgorithm(1);
             algorithm.Compute();
 
             var setA = new SortedSet<int>();
@@ -132,7 +125,7 @@ namespace QuikGraph.Tests.Algorithms.GraphPartitioning
 
             UndirectedGraph<int, TaggedUndirectedEdge<int, double>> graph = CreateUndirectedGraph<int, TaggedUndirectedEdge<int, double>>(edges);
 
-            var algorithm = new KernighanLinAlgorithm<int, TaggedUndirectedEdge<int, double>>(graph, 1);
+            var algorithm = graph.CreateKernighanLinAlgorithm(1);
             algorithm.Compute();
 
             var setA = new SortedSet<int>();

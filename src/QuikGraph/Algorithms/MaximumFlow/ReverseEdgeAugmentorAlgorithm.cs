@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.MaximumFlow
 {
-        /// <inheritdoc cref="CreateReversedEdgeAugmentorAlgorithm{TVertex,TEdge}"/>
+    /// <inheritdoc cref="CreateReversedEdgeAugmentorAlgorithm{TVertex,TEdge}"/>
     public static class ReversedEdgeAugmentorAlgorithm
     {
         /// <summary> Creates a new ReversedEdgeAugmentorAlgorithm </summary>

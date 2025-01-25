@@ -15,8 +15,7 @@ namespace QuikGraph.Tests.Algorithms
         public static void RunSourceFirstTopologicalSortAndCheck<TVertex, TEdge>([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<TVertex, TEdge>(graph);
-            algorithm.Compute();
+            var algorithm = graph.ComputeSourceFirstTopologicalSort();
 
             Assert.IsNotNull(algorithm.SortedVertices);
             Assert.AreEqual(graph.VertexCount, algorithm.SortedVertices.Length);
@@ -27,17 +26,17 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor()
         {
-            var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            AdjacencyGraph<int, IEdge<int>> graph = new (), nullGraph = null;
+            var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, -10);
+            algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm(-10);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, 0);
+            algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm(0);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, 10);
+            algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm(10);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -53,15 +52,11 @@ namespace QuikGraph.Tests.Algorithms
             }
 
             #endregion
-        }
 
-        [Test]
-        public void Constructor_Throws()
-        {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(null));
+                () => nullGraph.CreateSourceFirstTopologicalSortAlgorithm());
         }
 
         [Test]
@@ -80,8 +75,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(7, 8)
             );
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            algorithm.Compute();
+            var algorithm = graph.ComputeSourceFirstTopologicalSort();
 
             CollectionAssert.AreEqual(
                 new[] { 1, 7, 4, 2, 5, 8, 3, 6 },
@@ -100,8 +94,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             );
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            algorithm.Compute();
+            var algorithm = graph.ComputeSourceFirstTopologicalSort();
 
             CollectionAssert.AreEqual(
                 new[] { 0, 1, 2, 3, 4 },
@@ -122,8 +115,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(5, 6)
             );
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
-            algorithm.Compute();
+            var algorithm = graph.ComputeSourceFirstTopologicalSort();
 
             CollectionAssert.AreEqual(
                 new[] { 0, 5, 1, 6, 2, 3, 4 },
@@ -143,7 +135,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             );
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm();
             Assert.Throws<CyclicGraphException>(algorithm.Compute);
         }
 
@@ -165,7 +157,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 1)
             );
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
+            var algorithm = cyclicGraph.CreateSourceFirstTopologicalSortAlgorithm();
             Assert.Throws<CyclicGraphException>(algorithm.Compute);
         }
     }

@@ -13,9 +13,7 @@ using static QuikGraph.Tests.QuikGraphUnitTestsHelpers;
 
 namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
 {
-    /// <summary>
-    /// Base class for minimum spanning tree tests.
-    /// </summary>
+    /// <summary> Base class for minimum spanning tree tests. </summary>
     internal abstract class MinimumSpanningTreeTestsBase
     {
         #region Test helpers

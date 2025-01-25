@@ -5,8 +5,20 @@ using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Algorithms.Condensation
 {
-    /// <summary> Cannot determine the TGraph type, as it is not provided in the constructor. </summary>
-    public static class CondensationGraphAlgorithm { }
+    /// <inheritdoc cref="CreateCondensationGraphAlgorithm"/>
+    public static class CondensationGraphAlgorithm {
+
+        /// <summary> Creates a new <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
+        /// <remarks>
+        /// Cannot determine the TGraph type, as it is not provided in the constructor.
+        /// </remarks>
+        public static CondensationGraphAlgorithm<TVertex, TEdge, TGraph>
+            CreateCondensationGraphAlgorithm<TVertex, TEdge, TGraph>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph, bool stronglyConnected = true)
+                where TEdge : IEdge<TVertex>
+                where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
+                => new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(visitedGraph, stronglyConnected);
+    }
 
     /// <summary> Condensates the <see cref="AlgorithmBase{TGraph}.VisitedGraph"/> into its <see cref="StronglyConnected"/> components. </summary>
     /// <remarks>
@@ -20,16 +32,15 @@ namespace QuikGraph.Algorithms.Condensation
     ///
     /// This is a very important Algorithm to abstract from the Details of a Graph.
     /// </remarks>
-    public sealed class CondensationGraphAlgorithm<TVertex, TEdge, TGraph> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
+    public sealed class CondensationGraphAlgorithm<TVertex, TEdge, TGraph>
+        : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
     {
-        /// <summary>
-        /// Initializes a new <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class.
-        /// </summary>
+        /// <summary> Creates a new <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public CondensationGraphAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph, bool stronglyConnected = true)
-            : base(visitedGraph)
+        internal CondensationGraphAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph
+            , bool stronglyConnected = true) : base(visitedGraph)
         {
             StronglyConnected = stronglyConnected;
         }

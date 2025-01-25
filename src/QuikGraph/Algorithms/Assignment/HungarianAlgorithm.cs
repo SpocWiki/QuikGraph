@@ -4,47 +4,34 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.Assignment
 {
-    /// <summary>
-    /// A combinatorial optimization algorithm that solves the assignment problem, meaning
-    /// finding, in a weighted bipartite graph, a matching in which the sum of weights of the
-    /// edges is as large as possible.
+    /// <summary> A combinatorial optimization algorithm that solves the assignment problem.,
     /// </summary>
+    /// <remarks>
+    /// Finding, in a weighted bipartite graph, a matching
+    /// in which the sum of weights of the edges is as large as possible.
+    /// </remarks>
     public sealed class HungarianAlgorithm
     {
-        /// <summary>
-        /// Hungarian algorithm steps.
-        /// </summary>
+        /// <summary> Hungarian algorithm steps. </summary>
         /// <remarks>See https://en.wikipedia.org/wiki/Hungarian_algorithm </remarks>
         public enum Steps
         {
-            /// <summary>
-            /// Initialization step.
-            /// </summary>
+            /// <summary> Initialization step. </summary>
             Init,
 
-            /// <summary>
-            /// Step 1.
-            /// </summary>
+            /// <summary> Step 1.</summary>
             Step1,
 
-            /// <summary>
-            /// Step 2.
-            /// </summary>
+            /// <summary> Step 2.</summary>
             Step2,
 
-            /// <summary>
-            /// Step 3.
-            /// </summary>
+            /// <summary> Step 3.</summary>
             Step3,
 
-            /// <summary>
-            /// Step 4.
-            /// </summary>
+            /// <summary> Step 4.</summary>
             Step4,
 
-            /// <summary>
-            /// End step.
-            /// </summary>
+            /// <summary> End step. </summary>
             End
         }
 

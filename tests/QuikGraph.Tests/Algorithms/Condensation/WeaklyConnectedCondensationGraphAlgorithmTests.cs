@@ -43,16 +43,16 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm1 = new CondensationGraphAlgorithm<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph);
+            var algorithm1 = graph.CreateCondensationGraphAlgorithm<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>();
             AssertAlgorithmProperties(algorithm1, graph);
 
-            algorithm1 = new CondensationGraphAlgorithm<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(graph, false);
+            algorithm1 = graph.CreateCondensationGraphAlgorithm<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(false);
             AssertAlgorithmProperties(algorithm1, graph, false);
 
-            var algorithm2 = new CondensationGraphAlgorithm<int, IEdge<int>, BidirectionalGraph<int, IEdge<int>>>(graph);
+            var algorithm2 = graph.CreateCondensationGraphAlgorithm<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>();
             AssertAlgorithmProperties(algorithm2, graph);
 
-            algorithm2 = new CondensationGraphAlgorithm<int, IEdge<int>, BidirectionalGraph<int, IEdge<int>>>(graph, false);
+            algorithm2 = graph.CreateCondensationGraphAlgorithm<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(false);
             AssertAlgorithmProperties(algorithm2, graph, false);
 
             #region Local function

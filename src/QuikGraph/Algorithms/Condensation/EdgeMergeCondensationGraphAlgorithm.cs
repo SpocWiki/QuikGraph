@@ -5,18 +5,12 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.Condensation
 {
-    /// <summary>
-    /// Algorithm that condensate edges of a graph.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Condensates edges of a graph. </summary>
     public sealed class EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new <see cref="EdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Creates a new <see cref="EdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="condensedGraph">Graph that will contain the condensation of the <paramref name="visitedGraph"/>.</param>
         /// <param name="vertexPredicate">Vertex predicate used to filter the vertices to put in the condensed graph.</param>
