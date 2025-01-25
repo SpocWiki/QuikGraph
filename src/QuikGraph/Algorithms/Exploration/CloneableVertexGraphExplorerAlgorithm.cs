@@ -8,11 +8,20 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.Exploration
 {
-    /// <summary>
-    /// Algorithm that explores a graph starting from a given vertex.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <inheritdoc cref="CreateCloneableVertexGraphExplorerAlgorithm"/>
+    public static class CloneableVertexGraphExplorerAlgorithm
+    {
+        /// <summary> Creates a new <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>
+            CreateCloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>(
+            [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null)
+                where TVertex : ICloneable
+                where TEdge : IEdge<TVertex>
+            => new CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>(visitedGraph, host);
+
+    }
+    /// <summary> Explores a graph starting from a given vertex.</summary>
     public sealed class CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IMutableVertexAndEdgeSet<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>
@@ -22,9 +31,7 @@ namespace QuikGraph.Algorithms.Exploration
         /// <summary> The processed Graph </summary>
         public IGraph<TVertex, TEdge> VisitededGraph => (IGraph<TVertex, TEdge>)base.VisitedGraph;
 
-        /// <summary>
-        /// Initializes a new <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Creates a new <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
