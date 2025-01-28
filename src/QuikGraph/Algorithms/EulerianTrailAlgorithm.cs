@@ -339,7 +339,7 @@ namespace QuikGraph.Algorithms
                 throw new ArgumentNullException(nameof(edgeFactory));
 
             // First gather odd edges
-            List<TVertex> oddVertices = VisitedGraph.OddVertices().ToList();
+            var oddVertices = VisitedGraph.OddVertices().ToList();
 
             // Check that there are an even number of them
             if (oddVertices.Count % 2 != 0)
