@@ -12,7 +12,6 @@ namespace QuikGraph
     /// <summary>
     /// Mutable bidirectional graph data structure based on a matrix.
     /// </summary>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

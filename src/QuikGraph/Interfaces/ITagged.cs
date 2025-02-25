@@ -5,8 +5,7 @@ namespace QuikGraph
 {
     /// <summary>
     /// Represents an object that is able to be tagged.
-    /// </summary>
-    /// <typeparam name="TTag">Tag type.</typeparam>
+    /// </summary>>
     public interface ITagged<TTag>
     {
         /// <summary>

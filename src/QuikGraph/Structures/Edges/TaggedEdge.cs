@@ -8,8 +8,7 @@ namespace QuikGraph
 {
     /// <summary>
     /// The default implementation of an <see cref="IEdge{TVertex}"/> that supports tagging (directed edge).
-    /// </summary>
-    /// <typeparam name="TTag">Tag type.</typeparam>
+    /// </summary>>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

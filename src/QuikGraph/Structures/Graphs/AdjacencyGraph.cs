@@ -17,7 +17,6 @@ namespace QuikGraph
     /// It is efficient for sparse graph representation
     /// where out-edge need to be enumerated only.
     /// </remarks>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

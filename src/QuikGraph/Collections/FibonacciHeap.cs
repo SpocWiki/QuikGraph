@@ -10,7 +10,9 @@ namespace QuikGraph.Collections
     /// <summary>
     /// Heap following Fibonacci rules.
     /// </summary>
-    /// <typeparam name="TPriority">Priority metric type.</typeparam>
+    /// <remarks>
+    /// <typeparamref name="TPriority">Priority metric type.</typeparamref>
+    /// </remarks>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

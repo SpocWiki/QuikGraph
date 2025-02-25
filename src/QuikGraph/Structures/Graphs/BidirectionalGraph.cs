@@ -18,7 +18,6 @@ namespace QuikGraph
     /// where out-edge and in-edges need to be enumerated.
     /// Requires twice as much memory as the <see cref="AdjacencyGraph{TVertex,TEdge}"/>.
     /// </remarks>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

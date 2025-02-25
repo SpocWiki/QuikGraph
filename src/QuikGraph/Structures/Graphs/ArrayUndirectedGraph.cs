@@ -13,7 +13,6 @@ namespace QuikGraph
     /// <summary>
     /// Immutable undirected graph data structure.
     /// </summary>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

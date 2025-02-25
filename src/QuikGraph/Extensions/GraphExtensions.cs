@@ -46,34 +46,34 @@ namespace QuikGraph
         /// <summary>
         /// Wraps a dictionary into a vertex and edge list graph.
         /// </summary>
-        /// <typeparam name="TEdges">Type of the enumerable of out-edges.</typeparam>
         /// <param name="dictionary">Vertices and edges mapping.</param>
         /// <returns>A corresponding <see cref="DelegateVertexAndEdgeListGraph{TVertex,TEdge}"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// <typeparamref name="TEdges">Type of the enumerable of out-edges.</typeparamref>
+        /// </remarks>
         [Pure]
         [NotNull]
-        public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge,
-            TEdges>(
+        public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge, TEdges>(
             [NotNull] this IDictionary<TVertex, TEdges> dictionary)
             where TEdge : IEdge<TVertex>
             where TEdges : IEnumerable<TEdge>
-        {
-            return ToDelegateVertexAndEdgeListGraph(dictionary, kv => kv.Value);
-        }
+            => ToDelegateVertexAndEdgeListGraph(dictionary, kv => kv.Value);
 
         /// <summary>
         /// Wraps a dictionary into a <see cref="DelegateVertexAndEdgeListGraph{TVertex,TEdge}"/> with the given edge conversion to get edges.
         /// </summary>
-        /// <typeparam name="TValue">Type of the enumerable of out-edges.</typeparam>
         /// <param name="dictionary">Vertices and edges mapping.</param>
         /// <param name="keyValueToOutEdges">Converter of vertex/edge mapping to enumerable of edges.</param>
         /// <returns>A corresponding <see cref="DelegateVertexAndEdgeListGraph{TVertex,TEdge}"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="keyValueToOutEdges"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// <typeparamref name="TValue">Type of the enumerable of out-edges.</typeparamref>
+        /// </remarks>
         [Pure]
         [NotNull]
-        public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge,
-            TValue>(
+        public static DelegateVertexAndEdgeListGraph<TVertex, TEdge> ToDelegateVertexAndEdgeListGraph<TVertex, TEdge, TValue>(
             [NotNull] this IDictionary<TVertex, TValue> dictionary,
 #if SUPPORTS_CONVERTER
             [NotNull] Converter<KeyValuePair<TVertex, TValue>, IEnumerable<TEdge>> keyValueToOutEdges)

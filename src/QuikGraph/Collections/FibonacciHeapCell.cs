@@ -9,7 +9,9 @@ namespace QuikGraph.Collections
     /// <summary>
     /// Represents a cell that stores a value with its priority.
     /// </summary>
-    /// <typeparam name="TPriority">Priority type.</typeparam>
+    /// <remarks>
+    /// <typeparamref name="TPriority">Priority type.</typeparamref>
+    /// </remarks>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

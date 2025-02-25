@@ -11,7 +11,6 @@ namespace QuikGraph
     /// Wrapper of a graph adapting it to become bidirectional.
     /// </summary>
     /// <remarks>Vertex list graph for out-edges only and dictionary cache for in-edges.</remarks>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

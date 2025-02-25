@@ -14,7 +14,6 @@ namespace QuikGraph
     /// Mutable edge list graph data structure.
     /// </summary>
     /// <remarks>Only mutable by its edges, vertices are not stored but computed on demand.</remarks>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

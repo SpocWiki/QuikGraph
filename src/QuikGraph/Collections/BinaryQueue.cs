@@ -8,7 +8,9 @@ namespace QuikGraph.Collections
     /// <summary>
     /// Priority queue to sort vertices by distance priority (use <see cref="BinaryHeap{TPriority,TValue}"/>).
     /// </summary>
-    /// <typeparam name="TDistance">Distance type.</typeparam>
+    /// <remarks>
+    /// <typeparamref name="TDistance">Distance type.</typeparamref>
+    /// </remarks>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

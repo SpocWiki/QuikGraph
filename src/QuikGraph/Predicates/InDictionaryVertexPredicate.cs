@@ -7,7 +7,9 @@ namespace QuikGraph.Predicates
     /// <summary>
     /// Predicate that tests if a vertex is a vertex map.
     /// </summary>
-    /// <typeparam name="TValue">Type of the value associated to vertices.</typeparam>
+    /// <remarks>
+    /// <typeparamref name="TValue">Type of the value associated to vertices.</typeparamref>
+    /// </remarks>
     public sealed class InDictionaryVertexPredicate<TVertex, TValue>
     {
         [NotNull]

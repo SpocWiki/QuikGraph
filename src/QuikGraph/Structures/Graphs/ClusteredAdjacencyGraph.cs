@@ -14,7 +14,6 @@ namespace QuikGraph
     /// <summary>
     /// Mutable clustered adjacency graph data structure.
     /// </summary>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

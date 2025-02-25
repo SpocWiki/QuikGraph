@@ -17,7 +17,6 @@ namespace QuikGraph
     /// Mutable bidirectional undirected graph data structure.
     /// </summary>
     /// <remarks>It is mutable via the wrapped graph.</remarks>
-    /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

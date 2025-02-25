@@ -9,8 +9,7 @@ namespace QuikGraph
 {
     /// <summary>
     /// The default implementation of an <see cref="IUndirectedEdge{TVertex}"/> that supports tagging (struct).
-    /// </summary>
-    /// <typeparam name="TTag">Tag type.</typeparam>
+    /// </summary>>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

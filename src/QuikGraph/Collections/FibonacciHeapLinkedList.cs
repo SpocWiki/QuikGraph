@@ -1,4 +1,4 @@
-#if SUPPORTS_SERIALIZATION
+﻿#if SUPPORTS_SERIALIZATION
 using System;
 #endif
 using System.Collections;
@@ -11,7 +11,9 @@ namespace QuikGraph.Collections
     /// <summary>
     /// Represents a list of <see cref="FibonacciHeapCell{TPriority,TValue}"/>.
     /// </summary>
-    /// <typeparam name="TPriority">Priority type.</typeparam>
+    /// <remarks>
+    /// <typeparamref name="TPriority">Priority type.</typeparamref>
+    /// </remarks>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

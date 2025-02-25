@@ -18,11 +18,12 @@ namespace QuikGraph.Collections
     /// parent index: (index - 1)/2
     /// left child: 2 * index + 1
     /// right child: 2 * index + 2
+    ///
+    /// <typeparamref name="TPriority">Priority metric type.</typeparamref>
     /// 
     /// Reference:
     /// http://dotnetslackers.com/Community/files/folders/data-structures-and-algorithms/entry28722.aspx
     /// </remarks>
-    /// <typeparam name="TPriority">Priority metric type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
