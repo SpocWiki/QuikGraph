@@ -25,14 +25,10 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Extensions related to algorithms, to run them.
-    /// </summary>
+    /// <summary> Extensions related to algorithms, to run them. </summary>
     public static class AlgorithmExtensions
     {
-        /// <summary>
-        /// Returns the method that implement the access indexer.
-        /// </summary>
+        /// <summary> Returns the method that implement the access indexer. </summary>
         /// <typeparam name="TKey">Key type.</typeparam>
         /// <typeparam name="TValue">Value type.</typeparam>
         /// <param name="dictionary">Dictionary on which getting the key access method.</param>
@@ -137,11 +133,13 @@ namespace QuikGraph.Algorithms
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Pure]
         [NotNull]
-        private static TryFunc<TVertex, IEnumerable<TEdge>> RunDirectedRootedAlgorithm<TVertex, TEdge, TAlgorithm>(
-            [NotNull] TVertex source,
-            [NotNull] TAlgorithm algorithm)
+        public static TryFunc<TVertex, IEnumerable<TEdge>> RunDirectedRootedAlgorithm<TVertex, TEdge, TAlgorithm>(
+            [NotNull] this TAlgorithm algorithm, [NotNull] TVertex source)
             where TEdge : IEdge<TVertex>
             where TAlgorithm : RootedAlgorithmBase<TVertex, IVertexListGraph<TVertex, TEdge>>, ITreeBuilderAlgorithm<TVertex, TEdge>
         {
@@ -157,10 +155,8 @@ namespace QuikGraph.Algorithms
             return (TVertex vertex, out IEnumerable<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
         }
 
-        /// <summary>
-        /// Computes a breadth first tree and gets a function that allow to get edges
-        /// connected to a vertex in a directed graph.
-        /// </summary>
+        /// <summary>Computes a breadth first tree and gets a function
+        /// that allow to get edges connected to a vertex in a directed graph. </summary>
         /// <remarks>Uses <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
         /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <typeparam name="TEdge">Edge type.</typeparam>
@@ -176,17 +172,11 @@ namespace QuikGraph.Algorithms
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(graph);
-            return RunDirectedRootedAlgorithm<TVertex, TEdge, BreadthFirstSearchAlgorithm<TVertex, TEdge>>(
-                root,
-                algorithm);
-        }
+            => new BreadthFirstSearchAlgorithm<TVertex, TEdge>(graph)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, BreadthFirstSearchAlgorithm<TVertex, TEdge>>(root);
 
-        /// <summary>
-        /// Computes a depth first tree and gets a function that allow to get edges
-        /// connected to a vertex in a directed graph.
-        /// </summary>
+        /// <summary> Computes a depth first tree and gets a function
+        /// that allow to get edges connected to a vertex in a directed graph. </summary>
         /// <remarks>Uses <see cref="DepthFirstSearchAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
         /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <typeparam name="TEdge">Edge type.</typeparam>
@@ -200,19 +190,12 @@ namespace QuikGraph.Algorithms
         [NotNull]
         public static TryFunc<TVertex, IEnumerable<TEdge>> TreeDepthFirstSearch<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
-            [NotNull] TVertex root)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
-            return RunDirectedRootedAlgorithm<TVertex, TEdge, DepthFirstSearchAlgorithm<TVertex, TEdge>>(
-                root,
-                algorithm);
-        }
+            [NotNull] TVertex root) where TEdge : IEdge<TVertex>
+            => new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, DepthFirstSearchAlgorithm<TVertex, TEdge>>(root);
 
-        /// <summary>
-        /// Computes a cycle popping tree and gets a function that allow to get edges
-        /// connected to a vertex in a directed graph.
-        /// </summary>
+        /// <summary> Computes a cycle popping tree
+        /// and gets a function that allow to get edges connected to a vertex in a directed graph. </summary>
         /// <remarks>Uses <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> algorithm and
         /// <see cref="NormalizedMarkovEdgeChain{TVertex,TEdge}"/>.</remarks>
         /// <typeparam name="TVertex">Vertex type.</typeparam>
@@ -227,16 +210,11 @@ namespace QuikGraph.Algorithms
         [NotNull]
         public static TryFunc<TVertex, IEnumerable<TEdge>> TreeCyclePoppingRandom<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
-            [NotNull] TVertex root)
-            where TEdge : IEdge<TVertex>
-        {
-            return TreeCyclePoppingRandom(graph, root, new NormalizedMarkovEdgeChain<TVertex, TEdge>());
-        }
+            [NotNull] TVertex root) where TEdge : IEdge<TVertex>
+            => graph.TreeCyclePoppingRandom(root, new NormalizedMarkovEdgeChain<TVertex, TEdge>());
 
-        /// <summary>
-        /// Computes a cycle popping tree and gets a function that allow to get edges
-        /// connected to a vertex in a directed graph.
-        /// </summary>
+        /// <summary> Computes a cycle popping tree
+        /// and gets a function that allow to get edges connected to a vertex in a directed graph. </summary>
         /// <remarks>Uses <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
         /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <typeparam name="TEdge">Edge type.</typeparam>
@@ -256,12 +234,8 @@ namespace QuikGraph.Algorithms
             [NotNull] TVertex root,
             [NotNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain)
             where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(graph, edgeChain);
-            return RunDirectedRootedAlgorithm<TVertex, TEdge, CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>>(
-                root,
-                algorithm);
-        }
+            => new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(graph, edgeChain)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>>(root);
 
         #region Shortest paths
 
@@ -287,12 +261,8 @@ namespace QuikGraph.Algorithms
             [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new DijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights);
-            return RunDirectedRootedAlgorithm<TVertex, TEdge, DijkstraShortestPathAlgorithm<TVertex, TEdge>>(
-                root,
-                algorithm);
-        }
+            => new DijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, DijkstraShortestPathAlgorithm<TVertex, TEdge>>(root);
 
         /// <summary>
         /// Computes shortest path with the Dijkstra algorithm and gets a function that allows
@@ -351,14 +321,9 @@ namespace QuikGraph.Algorithms
             [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
             [NotNull, InstantHandle] Func<TVertex, double> costHeuristic,
-            [NotNull] TVertex root)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new AStarShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights, costHeuristic);
-            return RunDirectedRootedAlgorithm<TVertex, TEdge, AStarShortestPathAlgorithm<TVertex, TEdge>>(
-                root,
-                algorithm);
-        }
+            [NotNull] TVertex root) where TEdge : IEdge<TVertex>
+            => new AStarShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights, costHeuristic)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, AStarShortestPathAlgorithm<TVertex, TEdge>>(root);
 
         /// <summary>
         /// Computes shortest path with the Bellman Ford algorithm and gets a function that allows
@@ -435,10 +400,8 @@ namespace QuikGraph.Algorithms
             if (root == null)
                 throw new ArgumentNullException(nameof(root));
 
-            var algorithm = new DagShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights);
-            return RunDirectedRootedAlgorithm<TVertex, TEdge, DagShortestPathAlgorithm<TVertex, TEdge>>(
-                root,
-                algorithm);
+            return new DagShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, DagShortestPathAlgorithm<TVertex, TEdge>>(root);
         }
 
         #endregion
@@ -868,9 +831,7 @@ namespace QuikGraph.Algorithms
 
         #endregion
 
-        /// <summary>
-        /// Gets odd vertices of the given <paramref name="graph"/>.
-        /// </summary>
+        /// <summary> Gets odd vertices of the given <paramref name="graph"/>. </summary>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Enumerable of odd vertices.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>

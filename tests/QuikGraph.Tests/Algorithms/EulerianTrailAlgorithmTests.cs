@@ -8,9 +8,7 @@ using static QuikGraph.Tests.QuikGraphUnitTestsHelpers;
 
 namespace QuikGraph.Tests.Algorithms
 {
-    /// <summary>
-    /// Tests for <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/>.
-    /// </summary>
+    /// <summary> Tests for <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/>. </summary>
     [TestFixture]
     internal sealed class EulerianTrailAlgorithmTests : RootedAlgorithmTestsBase
     {
@@ -266,9 +264,7 @@ namespace QuikGraph.Tests.Algorithms
 
         [TestCaseSource(nameof(ComputeEulerianPathCountTestCases))]
         public int ComputeEulerianPathCount([NotNull] AdjacencyGraph<int, IEdge<int>> graph)
-        {
-            return EulerianTrailAlgorithm<int, IEdge<int>>.ComputeEulerianPathCount(graph);
-        }
+            => EulerianTrailAlgorithm<int, IEdge<int>>.ComputeEulerianPathCount(graph);
 
         [Test]
         public void ComputeEulerianPathCount_Throws()
@@ -286,7 +282,6 @@ namespace QuikGraph.Tests.Algorithms
             {
                 var emptyGraph = new AdjacencyGraph<int, EquatableEdge<int>>();
                 yield return new TestCaseData(emptyGraph, new EquatableEdge<int>[0]);
-
 
                 var evenVerticesGraph = new AdjacencyGraph<int, EquatableEdge<int>>();
                 evenVerticesGraph.AddVertexRange([1, 2, 3, 4]);
