@@ -38,7 +38,7 @@ namespace QuikGraph.Algorithms.TSP
         public TSP(
             [NotNull] TGraph visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights)
-            : base(null, visitedGraph, edgeWeights)
+            : base(visitedGraph, edgeWeights)
         {
         }
 

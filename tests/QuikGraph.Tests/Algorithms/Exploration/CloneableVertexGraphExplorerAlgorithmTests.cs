@@ -66,7 +66,7 @@ namespace QuikGraph.Tests.Algorithms.Exploration
             var algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(null, graph);
+            algorithm = new CloneableVertexGraphExplorerAlgorithm<CloneableTestVertex, Edge<CloneableTestVertex>>(graph, null);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function

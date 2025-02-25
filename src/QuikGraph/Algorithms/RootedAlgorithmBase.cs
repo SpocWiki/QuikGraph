@@ -27,13 +27,11 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Initializes a new instance of the <see cref="RootedAlgorithmBase{TVertex,TGraph}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        protected RootedAlgorithmBase(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] TGraph visitedGraph)
-            : base(host, visitedGraph)
+        protected RootedAlgorithmBase([NotNull] TGraph visitedGraph, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
         }
 

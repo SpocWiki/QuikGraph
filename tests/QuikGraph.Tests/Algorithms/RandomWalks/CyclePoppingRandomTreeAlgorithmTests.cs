@@ -99,7 +99,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, markovChain2);
             AssertAlgorithmProperties(algorithm, graph, markovChain2);
 
-            algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, graph, markovChain1);
+            algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, markovChain1, null);
             AssertAlgorithmProperties(algorithm, graph, markovChain1);
 
             var random = new Random(123456);
@@ -150,9 +150,9 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
                 () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, graph, null));
+                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, null, chain));
+                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, chain, null));
             Assert.Throws<ArgumentNullException>(
                 () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, null, null));
 

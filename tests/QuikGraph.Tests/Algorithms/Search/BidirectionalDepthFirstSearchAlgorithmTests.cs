@@ -134,7 +134,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, verticesColors);
+            algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors, null);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
             algorithm.MaxDepth = 12;
@@ -184,9 +184,9 @@ namespace QuikGraph.Tests.Algorithms.Search
                 () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors));
+                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null));
+                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

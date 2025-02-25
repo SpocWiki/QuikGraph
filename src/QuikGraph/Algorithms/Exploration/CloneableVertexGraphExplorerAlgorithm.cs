@@ -21,23 +21,11 @@ namespace QuikGraph.Algorithms.Exploration
         /// Initializes a new instance of the <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public CloneableVertexGraphExplorerAlgorithm(
-            [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph)
-            : this(null, visitedGraph)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public CloneableVertexGraphExplorerAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph)
-            : base(host, visitedGraph)
+        public CloneableVertexGraphExplorerAlgorithm([NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
         }
 
@@ -45,8 +33,8 @@ namespace QuikGraph.Algorithms.Exploration
         /// Transitions factories.
         /// </summary>
         [NotNull, ItemNotNull]
-        private readonly List<ITransitionFactory<TVertex, TEdge>> _transitionFactories =
-            new List<ITransitionFactory<TVertex, TEdge>>();
+        private readonly List<ITransitionFactory<TVertex, TEdge>> _transitionFactories
+            = new List<ITransitionFactory<TVertex, TEdge>>();
 
         [NotNull]
         private VertexPredicate<TVertex> _addVertexPredicate = vertex => true;

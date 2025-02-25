@@ -46,23 +46,21 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         public StronglyConnectedComponentsAlgorithm(
             [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IDictionary<TVertex, int> components)
-            : this(null, visitedGraph, components)
+            : this(visitedGraph, components, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="components">pre-determined Graph components.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public StronglyConnectedComponentsAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components)
-            : base(host, visitedGraph)
+        public StronglyConnectedComponentsAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] IDictionary<TVertex, int> components, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             Components = components ?? throw new ArgumentNullException(nameof(components));
             Roots = new Dictionary<TVertex, TVertex>();
@@ -174,10 +172,8 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             DepthFirstSearchAlgorithm<TVertex, TEdge> dfs = null;
             try
             {
-                dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(
-                    this,
-                    VisitedGraph,
-                    new Dictionary<TVertex, GraphColor>(VisitedGraph.VertexCount));
+                dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph,
+                    new Dictionary<TVertex, GraphColor>(VisitedGraph.VertexCount), this);
                 dfs.DiscoverVertex += OnVertexDiscovered;
                 dfs.FinishVertex += OnVertexFinished;
 

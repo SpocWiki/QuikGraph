@@ -7,9 +7,33 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.Search
 {
-    /// <summary>
-    /// A breath first search algorithm for directed graphs.
-    /// </summary>
+    /// <summary> Extension Methods </summary>
+    public static class BreadthFirstSearchAlgorithm
+    {
+        /// <summary> Creates a <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> </summary>
+        public static BreadthFirstSearchAlgorithm<TVertex, TEdge> CreateBreadthFirstSearchAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph)
+            where TEdge : IEdge<TVertex> => new BreadthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph);
+
+        /// <summary> Creates a <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> </summary>
+        public static BreadthFirstSearchAlgorithm<TVertex, TEdge> CreateBreadthFirstSearchAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] IQueue<TVertex> vertexQueue,
+            [NotNull] IDictionary<TVertex, GraphColor> verticesColors,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+        => new BreadthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, vertexQueue, verticesColors, host);
+
+        /// <summary> Creates a <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> </summary>
+        public static BreadthFirstSearchAlgorithm<TVertex, TEdge> CreateBreadthFirstSearchAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] IQueue<TVertex> vertexQueue,
+            [NotNull] IDictionary<TVertex, GraphColor> verticesColors,
+            [NotNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+        => new BreadthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, vertexQueue, verticesColors, host);
+    }
+
+    /// <summary> A breath first search algorithm for directed graphs. </summary>
     /// <remarks>
     /// This is a modified version of the classic DFS algorithm
     /// where the search is performed both in depth and height.
@@ -29,7 +53,7 @@ namespace QuikGraph.Algorithms.Search
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public BreadthFirstSearchAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph)
+        internal BreadthFirstSearchAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph)
             : this(visitedGraph, new Collections.Queue<TVertex>(), new Dictionary<TVertex, GraphColor>())
         {
         }
@@ -43,52 +67,50 @@ namespace QuikGraph.Algorithms.Search
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexQueue"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public BreadthFirstSearchAlgorithm(
+        internal BreadthFirstSearchAlgorithm(
             [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IQueue<TVertex> vertexQueue,
             [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : this(null, visitedGraph, vertexQueue, verticesColors)
+            : this(visitedGraph, vertexQueue, verticesColors, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="vertexQueue">Queue of vertices to treat.</param>
         /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexQueue"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public BreadthFirstSearchAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        internal BreadthFirstSearchAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IQueue<TVertex> vertexQueue,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : this(host, visitedGraph, vertexQueue, verticesColors, edges => edges)
+            [NotNull] IDictionary<TVertex, GraphColor> verticesColors,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : this(visitedGraph, vertexQueue, verticesColors, edges => edges, host)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="vertexQueue">Queue of vertices to treat.</param>
         /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
         /// <param name="outEdgesFilter">Function that is used filter out-edges of a vertex.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexQueue"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="outEdgesFilter"/> is <see langword="null"/>.</exception>
-        public BreadthFirstSearchAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        internal BreadthFirstSearchAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IQueue<TVertex> vertexQueue,
             [NotNull] IDictionary<TVertex, GraphColor> verticesColors,
-            [NotNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter)
-            : base(host, visitedGraph)
+            [NotNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             VerticesColors = verticesColors ?? throw new ArgumentNullException(nameof(verticesColors));
             _vertexQueue = vertexQueue ?? throw new ArgumentNullException(nameof(vertexQueue));

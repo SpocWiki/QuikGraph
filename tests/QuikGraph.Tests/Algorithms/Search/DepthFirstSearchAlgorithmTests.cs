@@ -4,7 +4,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Search;
-
 using static QuikGraph.Tests.GraphTestHelpers;
 
 namespace QuikGraph.Tests.Algorithms.Search
@@ -117,13 +116,15 @@ namespace QuikGraph.Tests.Algorithms.Search
             algorithm = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, verticesColors);
+            algorithm = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, verticesColors, edges => edges.Where(e => e != null));
+            algorithm = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors, null
+                , edges => edges.Where(e => e != null));
+
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
             algorithm.MaxDepth = 12;
@@ -167,37 +168,14 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.Throws<ArgumentNullException>(
                 () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null));
 
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null));
+            _ = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<ArgumentNullException>(
                 () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors));
             Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>((IVertexListGraph<int, IEdge<int>>)null, null));
+                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, (IVertexListGraph<int, IEdge<int>>)null));
-
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors));
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null));
-
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors, Filter));
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null, Filter));
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, verticesColors, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, Filter));
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, null));
+                () => new DepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors, null, Filter));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
 

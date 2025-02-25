@@ -21,16 +21,12 @@ namespace QuikGraph.Algorithms
 
         private bool _hasTargetVertex;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RootedSearchAlgorithmBase{TVertex,TGraph}"/> class.
-        /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
+        /// <summary> Initializes a new instance of the <see cref="RootedSearchAlgorithmBase{TVertex,TGraph}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        protected RootedSearchAlgorithmBase(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] TGraph visitedGraph)
-            : base(host, visitedGraph)
+        protected RootedSearchAlgorithmBase([NotNull] TGraph visitedGraph, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
         }
 

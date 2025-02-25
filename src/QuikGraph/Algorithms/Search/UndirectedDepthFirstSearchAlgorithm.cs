@@ -17,69 +17,25 @@ namespace QuikGraph.Algorithms.Search
         , IVertexTimeStamperAlgorithm<TVertex>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public UndirectedDepthFirstSearchAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, new Dictionary<TVertex, GraphColor>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public UndirectedDepthFirstSearchAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : this(null, visitedGraph, verticesColors)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public UndirectedDepthFirstSearchAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : this(host, visitedGraph, verticesColors, edges => edges)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
         /// <param name="adjacentEdgesFilter">
-        /// Delegate that takes the enumeration of out-edges and filters/reorders
-        /// them. All vertices passed to the method should be enumerated once and only once.
+        ///     Delegate that takes the enumeration of out-edges and filters/reorders
+        ///     them. All vertices passed to the method should be enumerated once and only once.
         /// </param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="adjacentEdgesFilter"/> is <see langword="null"/>.</exception>
-        public UndirectedDepthFirstSearchAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors,
-            [NotNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> adjacentEdgesFilter)
-            : base(host, visitedGraph)
+        public UndirectedDepthFirstSearchAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
+            [CanBeNull] IAlgorithmComponent host = null,
+            [CanBeNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> adjacentEdgesFilter = null)
+            : base(visitedGraph, host)
         {
-            VerticesColors = verticesColors ?? throw new ArgumentNullException(nameof(verticesColors));
-            AdjacentEdgesFilter = adjacentEdgesFilter ?? throw new ArgumentNullException(nameof(adjacentEdgesFilter));
+            VerticesColors = verticesColors ?? new Dictionary<TVertex, GraphColor>(visitedGraph.VertexCount);
+            AdjacentEdgesFilter = adjacentEdgesFilter ?? (edges => edges);
         }
 
         /// <summary>

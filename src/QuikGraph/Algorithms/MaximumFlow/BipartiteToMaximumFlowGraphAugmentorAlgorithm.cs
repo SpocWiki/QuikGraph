@@ -35,32 +35,31 @@ namespace QuikGraph.Algorithms.MaximumFlow
             [NotNull, ItemNotNull] IEnumerable<TVertex> verticesToSink,
             [NotNull] VertexFactory<TVertex> vertexFactory,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory)
-            : this(null, visitedGraph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory)
+            : this(visitedGraph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BipartiteToMaximumFlowGraphAugmentorAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="sourceToVertices">Vertices to which creating augmented edge from super source.</param>
         /// <param name="verticesToSink">Vertices from which creating augmented edge to super sink.</param>
         /// <param name="vertexFactory">Vertex factory method.</param>
         /// <param name="edgeFactory">Edge factory method.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="sourceToVertices"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesToSink"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexFactory"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         public BipartiteToMaximumFlowGraphAugmentorAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
             [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
-            [NotNull, ItemNotNull] IEnumerable<TVertex> sourceToVertices,
-            [NotNull, ItemNotNull] IEnumerable<TVertex> verticesToSink,
+            [NotNull] [ItemNotNull] IEnumerable<TVertex> sourceToVertices,
+            [NotNull] [ItemNotNull] IEnumerable<TVertex> verticesToSink,
             [NotNull] VertexFactory<TVertex> vertexFactory,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory)
-            : base(host, visitedGraph, vertexFactory, edgeFactory)
+            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, vertexFactory, edgeFactory, host)
         {
             SourceToVertices = sourceToVertices ?? throw new ArgumentNullException(nameof(sourceToVertices));
             VerticesToSink = verticesToSink ?? throw new ArgumentNullException(nameof(verticesToSink));

@@ -74,56 +74,22 @@ namespace QuikGraph.Algorithms.ShortestPath
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        public FloydWarshallAllShortestPathAlgorithm(
-            [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights)
-            : this(visitedGraph, edgeWeights, DistanceRelaxers.ShortestDistance)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public FloydWarshallAllShortestPathAlgorithm(
-            [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : this(null, visitedGraph, edgeWeights, distanceRelaxer)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="distanceRelaxer">Distance relaxer.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public FloydWarshallAllShortestPathAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+        public FloydWarshallAllShortestPathAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : base(host, visitedGraph)
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             _weights = edgeWeights ?? throw new ArgumentNullException(nameof(edgeWeights));
-            _distanceRelaxer = distanceRelaxer ?? throw new ArgumentNullException(nameof(distanceRelaxer));
+            _distanceRelaxer = distanceRelaxer ?? DistanceRelaxers.ShortestDistance;
             _data = new Dictionary<SEquatableEdge<TVertex>, VertexData>();
         }
 

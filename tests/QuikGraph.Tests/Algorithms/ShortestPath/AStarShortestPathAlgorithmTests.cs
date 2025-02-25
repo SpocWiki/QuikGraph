@@ -91,7 +91,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             algorithm = new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, Heuristic, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, Heuristic, Weights, DistanceRelaxers.CriticalDistance);
 
-            algorithm = new AStarShortestPathAlgorithm<int, IEdge<int>>(null, graph, Weights, Heuristic, DistanceRelaxers.CriticalDistance);
+            algorithm = new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, Heuristic, DistanceRelaxers.CriticalDistance, null);
             AssertAlgorithmProperties(algorithm, graph, Heuristic, Weights, DistanceRelaxers.CriticalDistance);
 
             #region Local function
@@ -181,31 +181,31 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, Weights, Heuristic, DistanceRelaxers.CriticalDistance));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, Weights, Heuristic, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, graph, null, Heuristic, DistanceRelaxers.CriticalDistance));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, null, Heuristic, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, graph, Weights, null, DistanceRelaxers.CriticalDistance));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, graph, Weights, Heuristic, null));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, Heuristic, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, graph, Weights, null, null));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, graph, null, Heuristic, null));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, null, Heuristic, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, graph, null, null, DistanceRelaxers.CriticalDistance));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, null, null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, Weights, Heuristic, null));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, Weights, Heuristic, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, Weights, null, DistanceRelaxers.CriticalDistance));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, null, Heuristic, DistanceRelaxers.CriticalDistance));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, Heuristic, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, Weights, null, null));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, null, Heuristic, null));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, Heuristic, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, null, null, DistanceRelaxers.CriticalDistance));
+                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
                 () => new AStarShortestPathAlgorithm<int, IEdge<int>>(null, null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

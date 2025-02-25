@@ -196,7 +196,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             algorithm = new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, queue, verticesColors);
+            algorithm = new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, verticesColors, null);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
             #region Local function
@@ -245,17 +245,17 @@ namespace QuikGraph.Tests.Algorithms.Search
                 () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, queue, verticesColors));
+                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, verticesColors, null));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null, verticesColors));
+                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, verticesColors, null));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, queue, null));
+                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, verticesColors));
+                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors, null));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, queue, null));
+                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null, null));
+                () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new UndirectedBreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, null)); 
             // ReSharper restore AssignNullToNotNullAttribute

@@ -18,7 +18,7 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
             var algorithm = new KruskalMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new KruskalMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, graph, _ => 1.0);
+            algorithm = new KruskalMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, _ => 1.0, null);
             algorithm.AssertAlgorithmState(graph);
         }
 
@@ -37,9 +37,9 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
                 () => new KruskalMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new KruskalMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, null, _ => 1.0));
+                () => new KruskalMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, _ => 1.0, null));
             Assert.Throws<ArgumentNullException>(
-                () => new KruskalMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, graph, null));
+                () => new KruskalMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new KruskalMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

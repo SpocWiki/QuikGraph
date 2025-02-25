@@ -15,53 +15,19 @@ namespace QuikGraph.Algorithms.ShortestPath
         , IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        public DagShortestPathAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights)
-            : this(visitedGraph, edgeWeights, DistanceRelaxers.ShortestDistance)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public DagShortestPathAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : this(null, visitedGraph, edgeWeights, distanceRelaxer)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="distanceRelaxer">Distance relaxer.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public DagShortestPathAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        public DagShortestPathAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : base(host, visitedGraph, edgeWeights, distanceRelaxer)
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, edgeWeights, distanceRelaxer ?? DistanceRelaxers.ShortestDistance, host)
         {
         }
 

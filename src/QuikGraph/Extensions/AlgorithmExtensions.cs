@@ -165,7 +165,7 @@ namespace QuikGraph.Algorithms
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
-            => new BreadthFirstSearchAlgorithm<TVertex, TEdge>(graph)
+            => graph.CreateBreadthFirstSearchAlgorithm()
                 .RunDirectedRootedAlgorithm<TVertex, TEdge, BreadthFirstSearchAlgorithm<TVertex, TEdge>>(root);
 
         /// <summary> Computes a depth first tree and gets a function

@@ -35,30 +35,29 @@ namespace QuikGraph.Algorithms.MaximumFlow
             [NotNull] Func<TEdge, double> capacities,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
             [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm)
-            : this(null, visitedGraph, capacities, edgeFactory, reverseEdgesAugmentorAlgorithm)
+            : this(visitedGraph, capacities, edgeFactory, reverseEdgesAugmentorAlgorithm, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EdmondsKarpMaximumFlowAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacities">Function that given an edge return the capacity of this edge.</param>
         /// <param name="edgeFactory">Edge factory method.</param>
         /// <param name="reverseEdgesAugmentorAlgorithm">Algorithm that is in of charge augmenting the graph (creating missing reversed edges).</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="capacities"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="reverseEdgesAugmentorAlgorithm"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="reverseEdgesAugmentorAlgorithm"/> targets a graph different from <paramref name="visitedGraph"/>.</exception>
-        public EdmondsKarpMaximumFlowAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+        public EdmondsKarpMaximumFlowAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> capacities,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
-            [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm)
-            : base(host, visitedGraph, capacities, edgeFactory)
+            [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, capacities, edgeFactory, host)
         {
             if (reverseEdgesAugmentorAlgorithm is null)
                 throw new ArgumentNullException(nameof(reverseEdgesAugmentorAlgorithm));
@@ -155,10 +154,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
             {
                 var verticesPredecessors = new VertexPredecessorRecorderObserver<TVertex, TEdge>(Predecessors);
                 var queue = new Collections.Queue<TVertex>();
-                var bfs = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(
-                    ResidualGraph,
-                    queue,
-                    VerticesColors);
+                var bfs = ResidualGraph.CreateBreadthFirstSearchAlgorithm(queue, VerticesColors);
 
                 using (verticesPredecessors.Attach(bfs))
                     bfs.Compute(Source);

@@ -41,23 +41,21 @@ namespace QuikGraph.Algorithms.Search
         public BidirectionalDepthFirstSearchAlgorithm(
             [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : this(null, visitedGraph, verticesColors)
+            : this(visitedGraph, verticesColors, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public BidirectionalDepthFirstSearchAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : base(host, visitedGraph)
+        public BidirectionalDepthFirstSearchAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] IDictionary<TVertex, GraphColor> verticesColors, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             VerticesColors = verticesColors ?? throw new ArgumentNullException(nameof(verticesColors));
         }

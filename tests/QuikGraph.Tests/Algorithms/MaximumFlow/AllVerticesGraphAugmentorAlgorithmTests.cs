@@ -91,7 +91,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var algorithm = new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
 
-            algorithm = new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, vertexFactory, edgeFactory);
+            algorithm = new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory, null);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
 
             #region Local function
@@ -140,17 +140,17 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, vertexFactory, edgeFactory));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, edgeFactory));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, vertexFactory, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, edgeFactory));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, vertexFactory, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, null));
+                () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new AllVerticesGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

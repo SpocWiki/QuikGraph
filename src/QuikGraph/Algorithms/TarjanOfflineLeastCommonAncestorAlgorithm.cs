@@ -32,27 +32,13 @@ namespace QuikGraph.Algorithms
         public IDictionary<SEquatableEdge<TVertex>, TVertex> Ancestors { get; } = 
             new Dictionary<SEquatableEdge<TVertex>, TVertex>();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TarjanOfflineLeastCommonAncestorAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="TarjanOfflineLeastCommonAncestorAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public TarjanOfflineLeastCommonAncestorAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph)
-            : this(null, visitedGraph)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TarjanOfflineLeastCommonAncestorAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public TarjanOfflineLeastCommonAncestorAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph)
-            : base(host, visitedGraph)
+        public TarjanOfflineLeastCommonAncestorAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
         }
 
@@ -75,10 +61,8 @@ namespace QuikGraph.Algorithms
             var graph = _pairs.ToAdjacencyGraph();
             var disjointSet = new ForestDisjointSet<TVertex>();
             var verticesAncestors = new Dictionary<TVertex, TVertex>();
-            var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(
-                this, 
-                VisitedGraph, 
-                new Dictionary<TVertex, GraphColor>(VisitedGraph.VertexCount));
+            var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph, 
+                new Dictionary<TVertex, GraphColor>(VisitedGraph.VertexCount), this);
 
             dfs.InitializeVertex += vertex => disjointSet.MakeSet(vertex);
             dfs.DiscoverVertex += vertex => verticesAncestors[vertex] = vertex;

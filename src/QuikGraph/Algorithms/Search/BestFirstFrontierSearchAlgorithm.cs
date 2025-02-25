@@ -38,26 +38,24 @@ namespace QuikGraph.Algorithms.Search
             [NotNull] IBidirectionalIncidenceGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [NotNull] IDistanceRelaxer distanceRelaxer)
-            : this(null, visitedGraph, edgeWeights, distanceRelaxer)
+            : this(visitedGraph, edgeWeights, distanceRelaxer, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BestFirstFrontierSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that for a given edge provide its weight.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public BestFirstFrontierSearchAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IBidirectionalIncidenceGraph<TVertex, TEdge> visitedGraph,
+        public BestFirstFrontierSearchAlgorithm([NotNull] IBidirectionalIncidenceGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : base(host, visitedGraph)
+            [NotNull] IDistanceRelaxer distanceRelaxer, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             _edgeWeights = edgeWeights ?? throw new ArgumentNullException(nameof(edgeWeights));
             _distanceRelaxer = distanceRelaxer ?? throw new ArgumentNullException(nameof(distanceRelaxer));
@@ -81,11 +79,10 @@ namespace QuikGraph.Algorithms.Search
                 return; // Found it
             }
 
-            var open = new BinaryHeap<double, TVertex>(_distanceRelaxer.Compare);
-
             // (1) Place the initial node in Open, with all its operators marked unused
-            open.Add(0, root);
-            Dictionary<TEdge, GraphColor> operators = VisitedGraph.OutEdges(root).ToDictionary(edge => edge, edge => GraphColor.White);
+            var open = new BinaryHeap<double, TVertex>(_distanceRelaxer.Compare) { { 0, root } };
+
+            var operators = VisitedGraph.OutEdges(root).ToDictionary(edge => edge, edge => GraphColor.White);
 
             while (open.Count > 0)
             {

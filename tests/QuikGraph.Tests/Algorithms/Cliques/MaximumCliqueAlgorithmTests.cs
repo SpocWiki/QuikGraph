@@ -13,19 +13,12 @@ namespace QuikGraph.Tests.Algorithms.Cliques
     [TestFixture]
     internal sealed class MaximumCliqueAlgorithmTests
     {
-        private class TestMaximumCliqueAlgorithm<TVertex, TEdge> : MaximumCliqueAlgorithmBase<TVertex, TEdge>
+        private class TestMaximumCliqueAlgorithm<TVertex, TEdge>(
+            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : MaximumCliqueAlgorithmBase<TVertex, TEdge>(visitedGraph, host)
             where TEdge : IEdge<TVertex>
         {
-            public TestMaximumCliqueAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
-                : base(visitedGraph)
-            {
-            }
-
-            public TestMaximumCliqueAlgorithm([CanBeNull] IAlgorithmComponent host, [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
-                : base(host, visitedGraph)
-            {
-            }
-
             /// <inheritdoc />
             protected override void InternalCompute()
             {
@@ -40,7 +33,7 @@ namespace QuikGraph.Tests.Algorithms.Cliques
             var algorithm = new TestMaximumCliqueAlgorithm<int, IEdge<int>>(graph);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new TestMaximumCliqueAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm = new TestMaximumCliqueAlgorithm<int, IEdge<int>>(graph, null);
             algorithm.AssertAlgorithmState(graph);
         }
 

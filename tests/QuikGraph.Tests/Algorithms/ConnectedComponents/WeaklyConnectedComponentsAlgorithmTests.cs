@@ -54,7 +54,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             algorithm = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, components);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, graph, components);
+            algorithm = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, components, null);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -92,9 +92,9 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, graph, null));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, components));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
             Assert.Throws<ArgumentNullException>(
                 () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

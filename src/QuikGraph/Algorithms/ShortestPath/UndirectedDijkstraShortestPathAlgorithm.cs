@@ -19,53 +19,19 @@ namespace QuikGraph.Algorithms.ShortestPath
     {
         private IPriorityQueue<TVertex> _vertexQueue;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        public UndirectedDijkstraShortestPathAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights)
-            : base(null, visitedGraph, edgeWeights)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public UndirectedDijkstraShortestPathAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : this(null, visitedGraph, edgeWeights, distanceRelaxer)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="distanceRelaxer">Distance relaxer.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public UndirectedDijkstraShortestPathAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
+        public UndirectedDijkstraShortestPathAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : base(host, visitedGraph, edgeWeights, distanceRelaxer)
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, edgeWeights, distanceRelaxer, host)
         {
         }
 
@@ -209,11 +175,9 @@ namespace QuikGraph.Algorithms.ShortestPath
             UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge> bfs = null;
             try
             {
-                bfs = new UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge>(
-                    this,
-                    VisitedGraph,
+                bfs = new UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph,
                     _vertexQueue,
-                    VerticesColors);
+                    VerticesColors, this);
 
                 bfs.InitializeVertex += InitializeVertex;
                 bfs.DiscoverVertex += DiscoverVertex;

@@ -41,23 +41,21 @@ namespace QuikGraph.Algorithms.Search
         public EdgeDepthFirstSearchAlgorithm(
             [NotNull] IEdgeListAndIncidenceGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IDictionary<TEdge, GraphColor> edgesColors)
-            : this(null, visitedGraph, edgesColors)
+            : this(visitedGraph, edgesColors, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgesColors">Edges associated to their colors (treatment states).</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgesColors"/> is <see langword="null"/>.</exception>
-        public EdgeDepthFirstSearchAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IEdgeListAndIncidenceGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TEdge, GraphColor> edgesColors)
-            : base(host, visitedGraph)
+        public EdgeDepthFirstSearchAlgorithm([NotNull] IEdgeListAndIncidenceGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] IDictionary<TEdge, GraphColor> edgesColors, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             EdgesColors = edgesColors ?? throw new ArgumentNullException(nameof(edgesColors));
         }

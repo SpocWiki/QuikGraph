@@ -21,41 +21,15 @@ namespace QuikGraph.Algorithms.RandomWalks
         /// Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public CyclePoppingRandomTreeAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, new NormalizedMarkovEdgeChain<TVertex, TEdge>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeChain">Edge chain strategy to use.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeChain"/> is <see langword="null"/>.</exception>
-        public CyclePoppingRandomTreeAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain)
-            : this(null, visitedGraph, edgeChain)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeChain">Edge chain strategy to use.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeChain"/> is <see langword="null"/>.</exception>
-        public CyclePoppingRandomTreeAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain)
-            : base(host, visitedGraph)
+        public CyclePoppingRandomTreeAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain = null, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
-            EdgeChain = edgeChain ?? throw new ArgumentNullException(nameof(edgeChain));
+            EdgeChain = edgeChain ?? new NormalizedMarkovEdgeChain<TVertex, TEdge>();
         }
 
         /// <summary>

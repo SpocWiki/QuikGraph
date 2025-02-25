@@ -106,7 +106,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null);
             AssertAlgorithmProperties(algorithm, graph);
 
             algorithm.MaxDepth = 12;

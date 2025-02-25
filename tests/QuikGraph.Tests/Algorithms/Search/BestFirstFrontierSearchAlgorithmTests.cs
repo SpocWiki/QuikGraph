@@ -92,7 +92,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.ShortestDistance);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(null, graph, _ => 1.0, DistanceRelaxers.ShortestDistance);
+            algorithm = new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, DistanceRelaxers.ShortestDistance, null);
             algorithm.AssertAlgorithmState(graph);
         }
 
@@ -123,23 +123,17 @@ namespace QuikGraph.Tests.Algorithms.Search
                     null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, null, _ => 1.0, DistanceRelaxers.ShortestDistance));
+                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(null, _ => 1.0, DistanceRelaxers.ShortestDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, graph, null, DistanceRelaxers.ShortestDistance));
+                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.ShortestDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, graph, _ => 1.0, null));
+                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, _ => 1.0, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, null, null, DistanceRelaxers.ShortestDistance));
+                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.ShortestDistance, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, graph, null, null));
+                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(graph, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(
-                    null, null, null, null));
+                () => new BestFirstFrontierSearchAlgorithm<int, IEdge<int>>(null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

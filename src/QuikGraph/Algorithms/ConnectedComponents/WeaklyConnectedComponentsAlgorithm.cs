@@ -50,23 +50,21 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         public WeaklyConnectedComponentsAlgorithm(
             [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IDictionary<TVertex, int> components)
-            : this(null, visitedGraph, components)
+            : this(visitedGraph, components, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="components">Graph components.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public WeaklyConnectedComponentsAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components)
-            : base(host, visitedGraph)
+        public WeaklyConnectedComponentsAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] IDictionary<TVertex, int> components, [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             Components = components ?? throw new ArgumentNullException(nameof(components));
         }

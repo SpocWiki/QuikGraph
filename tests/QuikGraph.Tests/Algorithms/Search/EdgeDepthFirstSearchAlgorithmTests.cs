@@ -113,7 +113,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, edgesColors);
             AssertAlgorithmProperties(algorithm, graph, edgesColors);
 
-            algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, edgesColors);
+            algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, edgesColors, null);
             AssertAlgorithmProperties(algorithm, graph, edgesColors);
 
             algorithm.MaxDepth = 12;
@@ -163,9 +163,9 @@ namespace QuikGraph.Tests.Algorithms.Search
                 () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, edgesColors));
+                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, edgesColors, null));
             Assert.Throws<ArgumentNullException>(
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null));
+                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

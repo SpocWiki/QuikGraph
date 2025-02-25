@@ -106,7 +106,7 @@ namespace QuikGraph.Tests.Algorithms
             var algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph, null);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function

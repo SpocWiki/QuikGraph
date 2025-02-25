@@ -97,9 +97,9 @@ namespace QuikGraph.Tests.Algorithms.Condensation
                 () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, graph, null));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, components));
+                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
             Assert.Throws<ArgumentNullException>(
                 () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

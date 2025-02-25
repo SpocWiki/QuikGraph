@@ -49,7 +49,7 @@ namespace QuikGraph.Tests.Algorithms
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(null, graph);
+            algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph, null);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function

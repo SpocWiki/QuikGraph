@@ -116,10 +116,10 @@ namespace QuikGraph.Tests.Algorithms.Search
             algorithm = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, verticesColors);
+            algorithm = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors, null);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, verticesColors, edges => edges.Where(e => e != null));
+            algorithm = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors, null, edges => edges.Where(e => e != null));
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
             algorithm.MaxDepth = 12;
@@ -171,24 +171,24 @@ namespace QuikGraph.Tests.Algorithms.Search
                 () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors));
+                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors, null));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null));
+                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors, Filter));
+                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors, null, Filter));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null, Filter));
+                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null, Filter));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, verticesColors, null));
+                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, graph, null, null));
+                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, Filter));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors, null));
+                () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

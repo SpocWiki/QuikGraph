@@ -36,13 +36,11 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 vertexFactory,
                 edgeFactory);
 
-            algorithm = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(
-                null,
-                graph,
+            algorithm = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph,
                 sourceToVertices,
                 verticesToSink,
                 vertexFactory,
-                edgeFactory);
+                edgeFactory, null);
             AssertAlgorithmProperties(
                 algorithm,
                 graph,
@@ -150,63 +148,63 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, sourceToVertices, verticesToSink, vertexFactory, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, sourceToVertices, verticesToSink, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, verticesToSink, vertexFactory, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, verticesToSink, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, sourceToVertices, null, vertexFactory, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, sourceToVertices, null, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, sourceToVertices, verticesToSink, null, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, sourceToVertices, verticesToSink, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, sourceToVertices, verticesToSink, vertexFactory, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, sourceToVertices, verticesToSink, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, verticesToSink, vertexFactory, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, verticesToSink, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, sourceToVertices, null, vertexFactory, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, sourceToVertices, null, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, sourceToVertices, verticesToSink, null, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, sourceToVertices, verticesToSink, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, sourceToVertices, verticesToSink, vertexFactory, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, sourceToVertices, verticesToSink, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, null, vertexFactory, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, verticesToSink, null, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, verticesToSink, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, verticesToSink, vertexFactory, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, verticesToSink, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, sourceToVertices, null, null, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, sourceToVertices, null, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, sourceToVertices, null, vertexFactory, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, sourceToVertices, null, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, sourceToVertices, verticesToSink, null, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, sourceToVertices, verticesToSink, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, null, vertexFactory, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, verticesToSink, null, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, verticesToSink, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, verticesToSink, vertexFactory, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, verticesToSink, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, sourceToVertices, null, null, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, sourceToVertices, null, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, sourceToVertices, null, vertexFactory, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, sourceToVertices, null, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, sourceToVertices, verticesToSink, null, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, sourceToVertices, verticesToSink, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, null, null, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, null, vertexFactory, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, sourceToVertices, null, null, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, sourceToVertices, null, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, null, null, edgeFactory));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, null, vertexFactory, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, verticesToSink, null, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, verticesToSink, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, sourceToVertices, null, null, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, sourceToVertices, null, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, graph, null, null, null, null));
+                () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null, null, null, null));
             Assert.Throws<ArgumentNullException>(
                 () => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute

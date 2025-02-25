@@ -33,20 +33,19 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         public EulerianTrailAlgorithm(
             [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
-            : this(null, visitedGraph)
+            : this(visitedGraph, null)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <param name="visitedGraph">Graph to visit.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public EulerianTrailAlgorithm(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
-            : base(host, visitedGraph)
+        public EulerianTrailAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             _currentVertex = default(TVertex);
         }
@@ -503,7 +502,7 @@ namespace QuikGraph.Algorithms
 
             // Create trail
             var trail = new List<TEdge>();
-            var bfs = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph);
+            var bfs = VisitedGraph.CreateBreadthFirstSearchAlgorithm();
             var vis = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             using (vis.Attach(bfs))
             {

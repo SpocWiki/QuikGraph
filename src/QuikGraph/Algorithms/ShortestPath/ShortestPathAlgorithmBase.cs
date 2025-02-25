@@ -23,41 +23,22 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// </summary>
         private IDictionary<TVertex, double> _distances;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShortestPathAlgorithmBase{TVertex,TEdge,TGraph}"/> class.
-        /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        protected ShortestPathAlgorithmBase(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] TGraph visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights)
-            : this(host, visitedGraph, edgeWeights, DistanceRelaxers.ShortestDistance)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShortestPathAlgorithmBase{TVertex,TEdge,TGraph}"/> class.
-        /// </summary>
-        /// <param name="host">Host to use if set, otherwise use this reference.</param>
+        /// <summary> Initializes a new instance of the <see cref="ShortestPathAlgorithmBase{TVertex,TEdge,TGraph}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        protected ShortestPathAlgorithmBase(
-            [CanBeNull] IAlgorithmComponent host,
-            [NotNull] TGraph visitedGraph,
+        protected ShortestPathAlgorithmBase([NotNull] TGraph visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] IDistanceRelaxer distanceRelaxer)
-            : base(host, visitedGraph)
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, host)
         {
             Weights = edgeWeights ?? throw new ArgumentNullException(nameof(edgeWeights));
-            DistanceRelaxer = distanceRelaxer ?? throw new ArgumentNullException(nameof(distanceRelaxer));
+            DistanceRelaxer = distanceRelaxer ?? DistanceRelaxers.ShortestDistance;
         }
 
         /// <summary>
