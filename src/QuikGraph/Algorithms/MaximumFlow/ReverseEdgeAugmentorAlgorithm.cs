@@ -11,8 +11,6 @@ namespace QuikGraph.Algorithms.MaximumFlow
     /// or <see cref="MaximumBipartiteMatchingAlgorithm{TVertex,TEdge}.InternalCompute"/>. 
     /// Remember to call <see cref="RemoveReversedEdges()"/> to remove auxiliary edges.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> : IDisposable
         where TEdge : IEdge<TVertex>
     {

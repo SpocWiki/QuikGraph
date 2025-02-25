@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms.Observers
     /// <summary>
     /// A distance recorder for <see cref="IUndirectedTreeBuilderAlgorithm{TVertex,TEdge}"/> algorithms.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class UndirectedVertexDistanceRecorderObserver<TVertex, TEdge>
         : IObserver<IUndirectedTreeBuilderAlgorithm<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>

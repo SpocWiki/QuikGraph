@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms.RandomWalks
     /// <summary>
     /// Base class for Markov chain with weight.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public abstract class WeightedMarkovEdgeChainBase<TVertex, TEdge> : MarkovEdgeChainBase<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

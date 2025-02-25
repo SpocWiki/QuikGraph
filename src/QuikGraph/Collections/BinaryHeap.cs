@@ -22,7 +22,6 @@ namespace QuikGraph.Collections
     /// Reference:
     /// http://dotnetslackers.com/Community/files/folders/data-structures-and-algorithms/entry28722.aspx
     /// </remarks>
-    /// <typeparam name="TValue">Value type.</typeparam>
     /// <typeparam name="TPriority">Priority metric type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]

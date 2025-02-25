@@ -12,7 +12,6 @@ namespace QuikGraph.Algorithms.Exploration
     /// Implementation for a graph data structure that support growth
     /// by transitions made by out edges of its vertices.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]

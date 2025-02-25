@@ -11,8 +11,6 @@ namespace QuikGraph.Collections
     /// creation of heap, inserting an element merging two heaps,
     /// deleting an element and finding the element with minimum key.
     /// </summary>
-    /// <typeparam name="TKey">Key type.</typeparam>
-    /// <typeparam name="TValue">Value type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

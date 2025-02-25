@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms.Search
     /// <summary>
     /// A depth first search algorithm for implicit directed graphs.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class ImplicitDepthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IIncidenceGraph<TVertex, TEdge>>
         , IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>

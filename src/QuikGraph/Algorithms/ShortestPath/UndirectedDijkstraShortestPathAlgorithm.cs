@@ -11,8 +11,6 @@ namespace QuikGraph.Algorithms.ShortestPath
     /// A single source shortest path algorithm for undirected graph
     /// with positive distances.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>
         : UndirectedShortestPathAlgorithmBase<TVertex, TEdge>
         , IUndirectedVertexPredecessorRecorderAlgorithm<TVertex, TEdge>

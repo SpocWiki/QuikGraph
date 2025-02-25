@@ -14,8 +14,6 @@ namespace QuikGraph.Algorithms.Search
     /// This is a modified version of the classic DFS algorithm
     /// where the search is performed both in depth and height.
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class BreadthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IVertexListGraph<TVertex, TEdge>>
         , IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>

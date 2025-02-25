@@ -97,8 +97,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Populates a DGML graph from a graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert to <see cref="DirectedGraph"/>.</param>
         /// <returns>Converted graph.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -117,8 +115,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Populates a DGML graph from a graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert to <see cref="DirectedGraph"/>.</param>
         /// <param name="verticesColors">Function that gives the color of a vertex.</param>
         /// <returns>Converted graph.</returns>
@@ -160,8 +156,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Populates a DGML graph from a graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert to <see cref="DirectedGraph"/>.</param>
         /// <param name="vertexIdentity">Vertex identity method.</param>
         /// <param name="edgeIdentity">Edge identity method.</param>
@@ -188,8 +182,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Populates a DGML graph from a graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert to <see cref="DirectedGraph"/>.</param>
         /// <param name="vertexIdentity">Vertex identity method.</param>
         /// <param name="edgeIdentity">Edge identity method.</param>
@@ -232,8 +224,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Saves and opens the given <paramref name="graph"/> as DGML.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to open.</param>
         /// <param name="filePath">Path to the file to save.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>

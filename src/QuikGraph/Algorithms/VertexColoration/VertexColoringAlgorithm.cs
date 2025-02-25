@@ -8,8 +8,6 @@ namespace QuikGraph.Algorithms.VertexColoring
     /// <summary>
     /// Algorithm that walk through a graph and color vertices with the minimum number of colors possible.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class VertexColoringAlgorithm<TVertex, TEdge> : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

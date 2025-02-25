@@ -6,7 +6,6 @@ namespace QuikGraph.Algorithms
     /// <summary>
     /// Represents an object that stores information about distances between vertices.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     public interface IDistancesCollection<TVertex>
     {
         /// <summary>

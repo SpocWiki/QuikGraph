@@ -9,8 +9,6 @@ namespace QuikGraph
     /// <summary>
     /// The default struct based reversed <see cref="IEdge{TVertex}"/> implementation.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

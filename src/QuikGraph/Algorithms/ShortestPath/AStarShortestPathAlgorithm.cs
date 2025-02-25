@@ -11,8 +11,6 @@ namespace QuikGraph.Algorithms.ShortestPath
     /// <summary>
     /// A* single source shortest path algorithm for directed graph with positive distance.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class AStarShortestPathAlgorithm<TVertex, TEdge>
         : ShortestPathAlgorithmBase<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
         , IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>

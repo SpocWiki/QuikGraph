@@ -5,11 +5,7 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.Condensation
 {
-    /// <summary>
-    /// Algorithm that condensate edges of a graph.
-    /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
+    /// <summary> Algorithm that condensate edges of a graph. </summary>
     public sealed class EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge> : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

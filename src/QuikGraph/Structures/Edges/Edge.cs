@@ -19,7 +19,6 @@ namespace QuikGraph
     /// <summary>
     /// The default <see cref="IEdge{TVertex}"/> implementation (directed edge).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

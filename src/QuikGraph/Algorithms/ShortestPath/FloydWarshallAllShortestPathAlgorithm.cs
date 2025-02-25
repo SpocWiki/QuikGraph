@@ -12,8 +12,6 @@ namespace QuikGraph.Algorithms.ShortestPath
     /// <summary>
     /// Floyd-Warshall all shortest path algorithm.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public class FloydWarshallAllShortestPathAlgorithm<TVertex, TEdge> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

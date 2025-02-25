@@ -13,7 +13,6 @@ namespace QuikGraph
     /// Directed graph data structure using a compressed sparse row representation.
     /// (http://www.cs.utk.edu/~dongarra/etemplates/node373.html)
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
@@ -58,7 +57,6 @@ namespace QuikGraph
         /// Converts the given <paramref name="graph"/> to a <see cref="CompressedSparseRowGraph{TVertex}"/>.
         /// </summary>
         /// <param name="graph">Graph to convert.</param>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <returns>A corresponding <see cref="CompressedSparseRowGraph{TVertex}"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         [NotNull]

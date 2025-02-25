@@ -11,8 +11,6 @@ namespace QuikGraph.Algorithms.RandomWalks
     /// <summary>
     /// Wilson-Propp Cycle-Popping algorithm for Random Tree Generation.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IVertexListGraph<TVertex, TEdge>>
         , IVertexColorizerAlgorithm<TVertex>

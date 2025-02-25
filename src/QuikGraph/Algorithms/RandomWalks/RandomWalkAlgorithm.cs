@@ -7,8 +7,6 @@ namespace QuikGraph.Algorithms.RandomWalks
     /// <summary>
     /// Random walk algorithm (using edge chain).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class RandomWalkAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IImplicitGraph<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>

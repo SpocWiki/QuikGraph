@@ -15,7 +15,6 @@ namespace QuikGraph
         /// <summary>
         /// Gets a value indicating if the edge is a self edge.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="edge">Edge to check.</param>
         /// <returns>True if edge is a self one, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edge"/> is <see langword="null"/>.</exception>
@@ -31,7 +30,6 @@ namespace QuikGraph
         /// <summary>
         /// Given a <paramref name="vertex"/>, returns the other vertex in the edge.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="edge">The edge.</param>
         /// <param name="vertex">The source or target vertex of the <paramref name="edge"/>.</param>
         /// <returns>The other edge vertex.</returns>
@@ -53,7 +51,6 @@ namespace QuikGraph
         /// Gets a value indicating if the <paramref name="vertex"/> is adjacent to the
         /// <paramref name="edge"/> (is the source or target).
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="edge">The edge.</param>
         /// <param name="vertex">Source or target <paramref name="edge"/> vertex.</param>
         /// <returns>True if the <paramref name="vertex"/> is adjacent to this <paramref name="edge"/>, false otherwise.</returns>
@@ -74,8 +71,6 @@ namespace QuikGraph
         /// <summary>
         /// Checks if this sequence of edges makes a path.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="path">Sequence of edges.</param>
         /// <returns>True if the set makes a complete path, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
@@ -110,8 +105,6 @@ namespace QuikGraph
         /// Checks if this sequence of edges makes a cycle.
         /// </summary>
         /// <remarks>Note that this function only work when given a path.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="path">Sequence of edges that forms a path.</param>
         /// <returns>True if the set makes a cycle, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
@@ -148,8 +141,6 @@ namespace QuikGraph
         /// <summary>
         /// Checks if this path of edges does not make a cycle.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="path">Path of edges.</param>
         /// <returns>True if the path makes a cycle, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
@@ -192,7 +183,6 @@ namespace QuikGraph
         /// <summary>
         /// Creates a vertex pair (source, target) from this edge.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="edge">The edge.</param>
         /// <returns>A <see cref="SEquatableEdge{TVertex}"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edge"/> is <see langword="null"/>.</exception>
@@ -207,8 +197,6 @@ namespace QuikGraph
         /// <summary>
         /// Checks that the <paramref name="root"/> is a predecessor of the given <paramref name="vertex"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="predecessors">Predecessors map.</param>
         /// <param name="root">Root vertex.</param>
         /// <param name="vertex">Ending vertex.</param>
@@ -250,8 +238,6 @@ namespace QuikGraph
         /// <summary>
         /// Tries to get the predecessor path, if reachable.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="predecessors">Predecessors map.</param>
         /// <param name="vertex">Path ending vertex.</param>
         /// <param name="path">Path to the ending vertex.</param>
@@ -300,8 +286,6 @@ namespace QuikGraph
         /// the (source, target) pair has to be compared; if not, (source, target) and (target, source)
         /// have to be compared.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <returns>The best edge equality comparer.</returns>
         [Pure]
         [NotNull]
@@ -321,7 +305,6 @@ namespace QuikGraph
         /// <paramref name="source"/> and <paramref name="target"/>
         /// or <paramref name="target"/> and <paramref name="source"/> vertices.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="edge">The edge.</param>
         /// <param name="source">Source vertex.</param>
         /// <param name="target">Target vertex.</param>
@@ -366,7 +349,6 @@ namespace QuikGraph
         /// Gets a value indicating if the vertices of this edge match
         /// <paramref name="source"/> and <paramref name="target"/> vertices.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="edge">The edge.</param>
         /// <param name="source">Source vertex.</param>
         /// <param name="target">Target vertex.</param>
@@ -408,8 +390,6 @@ namespace QuikGraph
         /// <summary>
         /// Returns an enumeration of reversed edges.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="edges">Edges to reversed.</param>
         /// <returns>Reversed edges.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edges"/> is <see langword="null"/>.</exception>

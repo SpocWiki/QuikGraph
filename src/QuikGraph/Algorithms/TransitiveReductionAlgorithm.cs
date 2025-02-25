@@ -6,8 +6,6 @@ namespace QuikGraph.Algorithms
     /// Algorithm that computes the transitive reduction of a graph, which is another directed graph
     /// with the same vertices and as few edges as possible.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public class TransitiveReductionAlgorithm<TVertex, TEdge> : AlgorithmBase<IEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

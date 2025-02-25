@@ -12,7 +12,6 @@ namespace QuikGraph.Algorithms
     /// <summary>
     /// Base class for all graph algorithm.
     /// </summary>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

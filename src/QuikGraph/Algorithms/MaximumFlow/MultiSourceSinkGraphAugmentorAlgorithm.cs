@@ -6,8 +6,6 @@ namespace QuikGraph.Algorithms.MaximumFlow
     /// <summary>
     /// Multi source and sink graph augmentor algorithm.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class MultiSourceSinkGraphAugmentorAlgorithm<TVertex, TEdge>
         : GraphAugmentorAlgorithmBase<TVertex, TEdge, IMutableBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>

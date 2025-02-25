@@ -11,8 +11,6 @@ namespace QuikGraph.Algorithms
     /// <summary>
     /// Helper for transitive algorithms.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     internal sealed class TransitiveAlgorithmHelper<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

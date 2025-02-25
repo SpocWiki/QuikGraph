@@ -9,8 +9,6 @@ namespace QuikGraph.Collections
     /// <summary>
     /// Represents a cloneable list of edges.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface IEdgeList<TVertex, TEdge> : IList<TEdge>
 #if SUPPORTS_CLONEABLE
         , ICloneable

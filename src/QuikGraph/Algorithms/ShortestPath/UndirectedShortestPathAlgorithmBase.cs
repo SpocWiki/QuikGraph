@@ -10,8 +10,6 @@ namespace QuikGraph.Algorithms.ShortestPath
     /// <summary>
     /// Base class for all shortest path finder algorithms in undirected graphs.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public abstract class UndirectedShortestPathAlgorithmBase<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IUndirectedGraph<TVertex, TEdge>>
         , IVertexColorizerAlgorithm<TVertex>

@@ -14,8 +14,6 @@ namespace QuikGraph.Algorithms.Search
     /// <remarks>
     /// Algorithm from Frontier Search, Korkf, Zhand, Thayer, Hohwald.
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class BestFirstFrontierSearchAlgorithm<TVertex, TEdge>
         : RootedSearchAlgorithmBase<TVertex, IBidirectionalIncidenceGraph<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>

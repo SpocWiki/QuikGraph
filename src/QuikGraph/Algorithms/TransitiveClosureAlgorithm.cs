@@ -7,8 +7,6 @@ namespace QuikGraph.Algorithms
     /// Algorithm that computes the transitive closure of a graph, which is another directed graph
     /// with the same vertices and every reachable vertices by a given one linked by a single edge.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public class TransitiveClosureAlgorithm<TVertex, TEdge> : AlgorithmBase<IEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

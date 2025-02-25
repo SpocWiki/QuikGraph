@@ -8,8 +8,6 @@ namespace QuikGraph.Algorithms.MaximumFlow
     /// <summary>
     /// Base class for all maximum flow algorithms.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public abstract class MaximumFlowAlgorithm<TVertex, TEdge> 
         : AlgorithmBase<IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
         , IVertexColorizerAlgorithm<TVertex>

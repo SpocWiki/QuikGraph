@@ -6,8 +6,6 @@ namespace QuikGraph.MSAGL
     /// <summary>
     /// MSAGL graph populator (with string formatting).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class MsaglToStringGraphPopulator<TVertex, TEdge> : MsaglDefaultGraphPopulator<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

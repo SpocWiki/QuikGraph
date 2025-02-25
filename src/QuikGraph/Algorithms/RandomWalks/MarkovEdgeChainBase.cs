@@ -7,8 +7,6 @@ namespace QuikGraph.Algorithms.RandomWalks
     /// <summary>
     /// Base class for any implementation of a Markov chain.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

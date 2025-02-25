@@ -6,8 +6,6 @@ namespace QuikGraph
     /// <summary>
     /// Base class for arguments of an event related to an edge.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

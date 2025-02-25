@@ -10,8 +10,6 @@ namespace QuikGraph.Algorithms.MaximumFlow
     /// Algorithm that computes a the graph balancing by finding vertices
     /// causing surplus or deficits.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class GraphBalancerAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

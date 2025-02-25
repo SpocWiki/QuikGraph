@@ -12,8 +12,6 @@ namespace QuikGraph.Algorithms.MaximumFlow
     /// related graph is computed, the edges used for the flow are also those which make up
     /// the maximum match for the bipartite graph.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     internal sealed class BipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>
         : GraphAugmentorAlgorithmBase<TVertex, TEdge, IMutableVertexAndEdgeSet<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>

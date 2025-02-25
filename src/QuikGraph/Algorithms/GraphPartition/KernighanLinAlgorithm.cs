@@ -13,8 +13,6 @@ namespace QuikGraph.Algorithms.GraphPartition
     /// Algorithm that separate a graph into two disjoint subsets A and B of equal (or nearly equal) in size,
     /// in a way that minimizes the sum of the weights of the subset of edges that cross from A to B.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class KernighanLinAlgorithm<TVertex, TEdge> : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         where TEdge : IUndirectedEdge<TVertex>, ITagged<double>
     {

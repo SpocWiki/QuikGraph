@@ -10,7 +10,6 @@ namespace QuikGraph.Collections
     /// <summary>
     /// Priority queue to sort vertices by distance priority (use <see cref="FibonacciHeap{TPriority,TValue}"/>).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TDistance">Distance type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]

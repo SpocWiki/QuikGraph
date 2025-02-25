@@ -6,8 +6,6 @@ namespace QuikGraph
     /// <summary>
     /// A mutable vertex and edge set.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface IMutableVertexAndEdgeSet<TVertex,TEdge>
         : IMutableVertexSet<TVertex>
         , IMutableEdgeListGraph<TVertex, TEdge>

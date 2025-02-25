@@ -12,7 +12,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Gets a random vertex within the given <paramref name="graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="graph">The graph.</param>
         /// <param name="rng">Random number generator.</param>
         /// <returns>Chosen vertex.</returns>
@@ -32,7 +31,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Gets a random vertex within the given set of <paramref name="vertices"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="vertices">Set of vertices.</param>
         /// <param name="count">Number of vertices in the set.</param>
         /// <param name="rng">Random number generator.</param>
@@ -70,8 +68,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Gets a random edge within the given <paramref name="graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph.</param>
         /// <param name="rng">Random number generator.</param>
         /// <returns>Chosen vertex.</returns>
@@ -92,8 +88,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Gets a random edge within the given set of <paramref name="edges"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="edges">Set of edges.</param>
         /// <param name="count">Number of edges in the set.</param>
         /// <param name="rng">Random number generator.</param>
@@ -182,8 +176,6 @@ namespace QuikGraph.Algorithms
         /// Fills the given <paramref name="graph"/> with <paramref name="vertexCount"/> vertices
         /// and <paramref name="edgeCount"/> edges created randomly between vertices (directed graph).
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to fill.</param>
         /// <param name="vertexFactory">Vertex factory method.</param>
         /// <param name="edgeFactory">Edge factory method.</param>
@@ -214,8 +206,6 @@ namespace QuikGraph.Algorithms
         /// Fills the given <paramref name="graph"/> with <paramref name="vertexCount"/> vertices
         /// and <paramref name="edgeCount"/> edges created randomly between vertices (undirected graph).
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to fill.</param>
         /// <param name="vertexFactory">Vertex factory method.</param>
         /// <param name="edgeFactory">Edge factory method.</param>

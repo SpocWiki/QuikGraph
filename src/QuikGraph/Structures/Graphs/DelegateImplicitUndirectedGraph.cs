@@ -8,8 +8,6 @@ namespace QuikGraph
     /// <summary>
     /// A delegate-based undirected implicit graph data structure.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateImplicitUndirectedGraph<TVertex, TEdge> : IImplicitUndirectedGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

@@ -12,8 +12,6 @@ namespace QuikGraph.Collections
     /// <summary>
     /// A cloneable dictionary of vertices associated to their edges.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface IVertexEdgeDictionary<TVertex, TEdge> : IDictionary<TVertex, IEdgeList<TVertex, TEdge>>
 #if SUPPORTS_CLONEABLE
         , ICloneable

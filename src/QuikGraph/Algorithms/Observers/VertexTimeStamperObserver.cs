@@ -9,7 +9,6 @@ namespace QuikGraph.Algorithms.Observers
     /// <summary>
     /// Recorder of vertices discover timestamps.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

@@ -15,8 +15,6 @@ namespace QuikGraph.Graphviz
         /// <summary>
         /// Renders a graph to the Graphviz DOT format.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert.</param>
         /// <returns>Graph serialized in DOT format.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -32,8 +30,6 @@ namespace QuikGraph.Graphviz
         /// <summary>
         /// Renders a graph to the Graphviz DOT format.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert.</param>
         /// <param name="initAlgorithm">Delegate that initializes the DOT generation algorithm.</param>
         /// <returns>Graph serialized in DOT format.</returns>
@@ -66,8 +62,6 @@ namespace QuikGraph.Graphviz
         /// SVG (Scalable Vector Graphics) file by calling Agl through
         /// the https://rise4fun.com/ REST services.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert.</param>
         /// <returns>The svg graph.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -85,8 +79,6 @@ namespace QuikGraph.Graphviz
         /// SVG (Scalable Vector Graphics) file by calling Agl through
         /// the https://rise4fun.com/ REST services.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert.</param>
         /// <param name="initAlgorithm">Delegate that initializes the DOT generation algorithm.</param>
         /// <returns>The svg graph.</returns>

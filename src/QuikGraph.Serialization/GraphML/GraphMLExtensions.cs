@@ -23,9 +23,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Serializes the given <paramref name="graph"/> into GraphML in a file at given <paramref name="filePath"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph instance to serialize.</param>
         /// <param name="filePath">Path to the file where serializing the graph.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -52,9 +49,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Serializes the given <paramref name="graph"/> into GraphML in a file at given <paramref name="filePath"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph instance to serialize.</param>
         /// <param name="filePath">Path to the file where serializing the graph.</param>
         /// <param name="vertexIdentity">Vertex identity method.</param>
@@ -87,9 +81,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Serializes the given <paramref name="graph"/> into GraphML in the given <paramref name="writer"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph instance to serialize.</param>
         /// <param name="writer">The XML writer.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -114,9 +105,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Serializes the given <paramref name="graph"/> into GraphML in the given <paramref name="writer"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph instance to serialize.</param>
         /// <param name="writer">The XML writer.</param>
         /// <param name="vertexIdentity">Vertex identity method.</param>
@@ -146,9 +134,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Deserializes from XML <paramref name="reader"/> (GraphML graph) into the given <paramref name="graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph instance to fill.</param>
         /// <param name="reader">The XML reader.</param>
         /// <param name="vertexFactory">Vertex factory method.</param>
@@ -176,9 +161,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Deserializes from the given <paramref name="reader"/> (GraphML graph) into the given <paramref name="graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph instance to fill.</param>
         /// <param name="reader">Reader stream.</param>
         /// <param name="vertexFactory">Vertex factory method.</param>
@@ -225,9 +207,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Deserializes the given file at <paramref name="filePath"/> (GraphML graph) into the given <paramref name="graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph instance to fill.</param>
         /// <param name="filePath">Path to the file to load.</param>
         /// <param name="vertexFactory">Vertex factory method.</param>
@@ -262,9 +241,6 @@ namespace QuikGraph.Serialization
         /// Deserializes from the given <paramref name="reader"/> (GraphML graph) into the given <paramref name="graph"/>
         /// and checks if content is valid.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph instance to fill.</param>
         /// <param name="reader">Reader stream.</param>
         /// <param name="vertexFactory">Vertex factory method.</param>

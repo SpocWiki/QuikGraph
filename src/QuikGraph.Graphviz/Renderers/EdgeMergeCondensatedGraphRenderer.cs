@@ -7,8 +7,6 @@ namespace QuikGraph.Graphviz
     /// <summary>
     /// Edge merge condensation graph to DOT renderer.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public class EdgeMergeCondensatedGraphRenderer<TVertex, TEdge> : GraphRendererBase<TVertex, MergedEdge<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

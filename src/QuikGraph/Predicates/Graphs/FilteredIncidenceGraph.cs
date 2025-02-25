@@ -9,9 +9,6 @@ namespace QuikGraph.Predicates
     /// Incidence graph data structure that is filtered with a vertex and an edge
     /// predicate. This means only vertex and edge matching predicates are "accessible".
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
     public class FilteredIncidenceGraph<TVertex, TEdge, TGraph>
         : FilteredImplicitGraph<TVertex, TEdge, TGraph>
         , IIncidenceGraph<TVertex, TEdge>

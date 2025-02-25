@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms.ShortestPath
     /// <summary>
     /// A single source shortest path algorithm for directed acyclic graphs.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class DagShortestPathAlgorithm<TVertex, TEdge>
         : ShortestPathAlgorithmBase<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
         , IDistanceRecorderAlgorithm<TVertex>

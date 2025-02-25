@@ -15,8 +15,6 @@ namespace QuikGraph
         /// Uses the provided <paramref name="vertexEquality"/> and <paramref name="edgeEquality"/>
         /// comparer to respectively compare vertices and edges.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="g">First graph to compare.</param>
         /// <param name="h">Second graph to compare.</param>
         /// <param name="vertexEquality">Vertex equality comparer.</param>
@@ -73,8 +71,6 @@ namespace QuikGraph
         /// Checks if both graphs <paramref name="g"/> and <paramref name="h"/> content are equal.
         /// Uses the default comparer for vertices and edges.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="g">First graph to compare.</param>
         /// <param name="h">Second graph to compare.</param>
         /// <returns>True if both graphs are equal, false otherwise.</returns>

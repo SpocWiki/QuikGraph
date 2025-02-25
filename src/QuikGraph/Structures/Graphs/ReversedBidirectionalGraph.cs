@@ -10,7 +10,6 @@ namespace QuikGraph
     /// Mutable reversed bidirectional graph data structure.
     /// </summary>
     /// <remarks>It is mutable via the original graph.</remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     /// <typeparam name="TEdge">Edge type</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]

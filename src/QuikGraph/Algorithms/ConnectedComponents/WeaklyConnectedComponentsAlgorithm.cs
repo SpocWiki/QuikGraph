@@ -19,8 +19,6 @@ namespace QuikGraph.Algorithms.ConnectedComponents
     /// every pair of vertices (u,v) in the sub graph, there is an undirected path from u to v
     /// and a directed path from v to u.
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>
         , IConnectedComponentAlgorithm<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>

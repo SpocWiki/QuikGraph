@@ -10,8 +10,6 @@ namespace QuikGraph.Algorithms.Observers
     /// <summary>
     /// Recorder of encountered edges.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

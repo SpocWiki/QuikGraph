@@ -7,8 +7,6 @@ namespace QuikGraph.Algorithms.RandomWalks
     /// <summary>
     /// Round Robin chain implementation.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class RoundRobinEdgeChain<TVertex, TEdge> : IEdgeChain<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

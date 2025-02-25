@@ -10,8 +10,6 @@ namespace QuikGraph
     /// A delegate-based directed graph data structure.
     /// This graph is vertex immutable.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateVertexAndEdgeListGraph<TVertex, TEdge> : DelegateIncidenceGraph<TVertex, TEdge>, IVertexAndEdgeListGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

@@ -7,9 +7,6 @@ namespace QuikGraph.Graphviz
     /// <summary>
     /// Condensation graph to DOT renderer.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
     public class CondensatedGraphRenderer<TVertex, TEdge, TGraph> : GraphRendererBase<TGraph, CondensedEdge<TVertex, TEdge, TGraph>>
         where TEdge : IEdge<TVertex>
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()

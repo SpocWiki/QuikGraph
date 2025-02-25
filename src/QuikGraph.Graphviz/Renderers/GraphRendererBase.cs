@@ -8,8 +8,6 @@ namespace QuikGraph.Graphviz
     /// <summary>
     /// Base class for Graph to DOT renderer.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public abstract class GraphRendererBase<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

@@ -9,9 +9,6 @@ namespace QuikGraph.Serialization
     /// <summary>
     /// A base class that creates a proxy to a graph that is serializable in XML.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

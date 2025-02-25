@@ -6,7 +6,6 @@ namespace QuikGraph
     /// <summary>
     /// Represents a mutable set of vertices.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     public interface IMutableVertexSet<TVertex> : IVertexSet<TVertex>
     {
         /// <summary>

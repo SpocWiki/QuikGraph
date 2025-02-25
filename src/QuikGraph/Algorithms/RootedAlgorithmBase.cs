@@ -13,8 +13,6 @@ namespace QuikGraph.Algorithms
     /// Base class for all graph algorithm requiring a starting vertex (root).
     /// </summary>
     /// <remarks>Requires a starting vertex (root).</remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

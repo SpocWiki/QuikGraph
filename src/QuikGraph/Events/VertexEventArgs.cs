@@ -6,7 +6,6 @@ namespace QuikGraph
     /// <summary>
     /// Base class for arguments of an event related to a vertex.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

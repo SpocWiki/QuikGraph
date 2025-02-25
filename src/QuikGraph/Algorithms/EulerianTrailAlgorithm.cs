@@ -12,8 +12,6 @@ namespace QuikGraph.Algorithms
     /// <summary>
     /// Algorithm that find Eulerian path in a graph.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class EulerianTrailAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>

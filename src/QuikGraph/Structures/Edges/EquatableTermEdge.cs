@@ -8,7 +8,6 @@ namespace QuikGraph
     /// <summary>
     /// An <see cref="ITermEdge{TVertex}"/> implementation that supports equality (directed edge).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

@@ -13,8 +13,6 @@ namespace QuikGraph.Algorithms.Search
     /// This is a variant of the classic DFS algorithm where the
     /// edges are color marked instead of the vertices.
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class EdgeDepthFirstSearchAlgorithm<TVertex, TEdge> 
         : RootedAlgorithmBase<TVertex, IEdgeListAndIncidenceGraph<TVertex, TEdge>>
         , IEdgeColorizerAlgorithm<TVertex, TEdge>

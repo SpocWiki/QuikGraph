@@ -10,8 +10,6 @@ namespace QuikGraph.Algorithms
     /// Algorithm that checks if a graph is Eulerian.
     /// (has a path using all edges one and only one time).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public class IsEulerianGraphAlgorithm<TVertex, TEdge>
         where TEdge : IUndirectedEdge<TVertex>
     {
@@ -136,8 +134,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Returns true if the <paramref name="graph"/> is Eulerian, otherwise false.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to check.</param>
         /// <returns>True if the <paramref name="graph"/> is Eulerian, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>

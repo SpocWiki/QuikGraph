@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms.TopologicalSort
     /// <summary>
     /// Topological sort algorithm (can be performed on an acyclic graph).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class SourceFirstTopologicalSortAlgorithm<TVertex, TEdge> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

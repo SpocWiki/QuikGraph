@@ -29,8 +29,6 @@ namespace QuikGraph.Algorithms
     public static class AlgorithmExtensions
     {
         /// <summary> Returns the method that implement the access indexer. </summary>
-        /// <typeparam name="TKey">Key type.</typeparam>
-        /// <typeparam name="TValue">Value type.</typeparam>
         /// <param name="dictionary">Dictionary on which getting the key access method.</param>
         /// <returns>A function allowing key indexed access.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="dictionary"/> is <see langword="null"/>.</exception>
@@ -58,7 +56,6 @@ namespace QuikGraph.Algorithms
         /// Returns more efficient methods for primitive types,
         /// otherwise builds a dictionary.
         /// </remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="graph">The graph.</param>
         /// <returns>A function that computes a vertex identity for the given <paramref name="graph"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -108,8 +105,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Gets the edge identity.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph.</param>
         /// <returns>A function that computes an edge identity for the given <paramref name="graph"/>.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -158,8 +153,6 @@ namespace QuikGraph.Algorithms
         /// <summary>Computes a breadth first tree and gets a function
         /// that allow to get edges connected to a vertex in a directed graph. </summary>
         /// <remarks>Uses <see cref="BreadthFirstSearchAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="root">Starting vertex.</param>
         /// <returns>A function that allow to get edges connected to a given vertex.</returns>
@@ -178,8 +171,6 @@ namespace QuikGraph.Algorithms
         /// <summary> Computes a depth first tree and gets a function
         /// that allow to get edges connected to a vertex in a directed graph. </summary>
         /// <remarks>Uses <see cref="DepthFirstSearchAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="root">Starting vertex.</param>
         /// <returns>A function that allow to get edges connected to a given vertex.</returns>
@@ -198,8 +189,6 @@ namespace QuikGraph.Algorithms
         /// and gets a function that allow to get edges connected to a vertex in a directed graph. </summary>
         /// <remarks>Uses <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> algorithm and
         /// <see cref="NormalizedMarkovEdgeChain{TVertex,TEdge}"/>.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="root">Starting vertex.</param>
         /// <returns>A function that allow to get edges connected to a given vertex.</returns>
@@ -216,8 +205,6 @@ namespace QuikGraph.Algorithms
         /// <summary> Computes a cycle popping tree
         /// and gets a function that allow to get edges connected to a vertex in a directed graph. </summary>
         /// <remarks>Uses <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="root">Starting vertex.</param>
         /// <param name="edgeChain">Markov edge chain.</param>
@@ -244,8 +231,6 @@ namespace QuikGraph.Algorithms
         /// to get paths in a directed graph.
         /// </summary>
         /// <remarks>Uses <see cref="DijkstraShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="root">Starting vertex.</param>
@@ -269,8 +254,6 @@ namespace QuikGraph.Algorithms
         /// to get paths in an undirected graph.
         /// </summary>
         /// <remarks>Uses <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="root">Starting vertex.</param>
@@ -303,8 +286,6 @@ namespace QuikGraph.Algorithms
         /// to get paths in a directed graph.
         /// </summary>
         /// <remarks>Uses <see cref="AStarShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="costHeuristic">Function that computes a cost for a given vertex.</param>
@@ -330,8 +311,6 @@ namespace QuikGraph.Algorithms
         /// to get paths in a directed graph.
         /// </summary>
         /// <remarks>Uses <see cref="BellmanFordShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="root">Starting vertex.</param>
@@ -375,8 +354,6 @@ namespace QuikGraph.Algorithms
         /// that allows to get paths.
         /// </summary>
         /// <remarks>Uses <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="root">Starting vertex.</param>
@@ -412,8 +389,6 @@ namespace QuikGraph.Algorithms
         /// Computes k-shortest path with the Hoffman Pavley algorithm and gets those paths.
         /// </summary>
         /// <remarks>Uses <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="root">Starting vertex.</param>
@@ -450,8 +425,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Gets set of sink vertices.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sink vertices.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -469,8 +442,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Gets set of root vertices.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Root vertices.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -495,8 +466,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Gets set of root vertices.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Root vertices.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -514,8 +483,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Gets set of isolated vertices (no incoming nor outcoming vertices).
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Root vertices.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -535,8 +502,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Creates a topological sort of a directed acyclic graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -558,8 +523,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Creates a topological sort of an undirected acyclic graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -581,8 +544,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Creates a topological sort (source first) of a directed acyclic graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -604,8 +565,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Creates a topological sort (source first) of an undirected acyclic graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -628,8 +587,6 @@ namespace QuikGraph.Algorithms
         /// Creates a topological sort (source first) of a bidirectional directed acyclic graph.
         /// Uses the <see cref="TopologicalSortDirection.Forward"/> direction.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -645,8 +602,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Creates a topological sort (source first) of a bidirectional directed acyclic graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="direction">Topological sort direction.</param>
         /// <returns>Sorted vertices (topological sort).</returns>
@@ -674,8 +629,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Computes the connected components of an undirected graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="components">Found components.</param>
         /// <returns>Number of component found.</returns>
@@ -696,8 +649,6 @@ namespace QuikGraph.Algorithms
         /// Each call to the delegate re-computes the component dictionary. The returned dictionary
         /// is shared across multiple calls of the method.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="getComponents">A function retrieve components of the <paramref name="graph"/>.</param>
         /// <returns>A <see cref="T:System.IDisposable"/> of the used algorithm.</returns>
@@ -718,8 +669,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Computes the strongly connected components of a directed graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="components">Found components.</param>
         /// <returns>Number of component found.</returns>
@@ -738,8 +687,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Computes the weakly connected components of a directed graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="components">Found components.</param>
         /// <returns>Number of component found.</returns>
@@ -758,9 +705,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Condensates the strongly connected components of a directed graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>The condensed graph.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -782,9 +726,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Condensates the weakly connected components of a directed graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>The condensed graph.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -806,8 +747,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Condensates the given bidirectional directed graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="vertexPredicate">Vertex predicate used to filter the vertices to put in the condensed graph.</param>
         /// <returns>The condensed graph.</returns>
@@ -910,8 +849,6 @@ namespace QuikGraph.Algorithms
         /// Builds an <see cref="AdjacencyGraph{TVertex,TEdge}"/> from <paramref name="edges"/>
         /// and performs a depth first search to look for cycles.
         /// </remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="edges">Edges of forming the graph to visit.</param>
         /// <returns>True if the graph contains a cycle, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException">
@@ -933,8 +870,6 @@ namespace QuikGraph.Algorithms
         /// <remarks>
         /// Performs a depth first search to look for cycles.
         /// </remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>True if the graph contains a cycle, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -995,8 +930,6 @@ namespace QuikGraph.Algorithms
         /// Builds an <see cref="UndirectedGraph{TVertex,TEdge}"/> from <paramref name="edges"/>
         /// and performs a depth first search to look for cycles.
         /// </remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="edges">Edges of forming the graph to visit.</param>
         /// <returns>True if the graph contains a cycle, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException">
@@ -1015,8 +948,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Checks whether the <paramref name="graph"/> is acyclic or not.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>True if the graph contains a cycle, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -1033,8 +964,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Given a edge cost map, computes the corresponding predecessor costs.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="predecessors">Predecessors map.</param>
         /// <param name="edgeCosts">Costs map.</param>
         /// <param name="target">Target vertex.</param>
@@ -1070,8 +999,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Computes disjoint sets of the given <paramref name="graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>Found disjoint sets.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -1102,8 +1029,6 @@ namespace QuikGraph.Algorithms
         /// Computes the minimum spanning tree using Prim algorithm.
         /// </summary>
         /// <remarks>Prim algorithm is simply implemented by calling Dijkstra shortest path.</remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <returns>Edges part of the minimum spanning tree.</returns>
@@ -1138,8 +1063,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Computes the minimum spanning tree using Kruskal algorithm.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <returns>Edges part of the minimum spanning tree.</returns>
@@ -1180,8 +1103,6 @@ namespace QuikGraph.Algorithms
         /// In Proceedings of the Fifteenth Annual ACM Symposium on theory of Computing STOC '83. ACM, New York, NY, 246-251.
         /// DOI= http://doi.acm.org/10.1145/800061.808753 
         /// </remarks>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="root">Starting vertex.</param>
         /// <param name="pairs">Vertices pairs.</param>
@@ -1219,8 +1140,6 @@ namespace QuikGraph.Algorithms
         /// Computes the maximum flow for a graph with positive capacities and flows
         /// using Edmonds-Karp algorithm.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="edgeCapacities">Function that given an edge return the capacity of this edge.</param>
         /// <param name="source">The source vertex.</param>
@@ -1264,8 +1183,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Computes the transitive reduction of the given <paramref name="graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to compute the reduction.</param>
         /// <returns>Transitive graph reduction.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -1283,8 +1200,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Computes the transitive close of the given <paramref name="graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to compute the closure.</param>
         /// <param name="edgeFactory">Function that create an edge between the 2 given vertices.</param>
         /// <returns>Transitive graph closure.</returns>
@@ -1305,8 +1220,6 @@ namespace QuikGraph.Algorithms
         /// <summary>
         /// Clones a graph to another graph.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to clone.</param>
         /// <param name="vertexCloner">Delegate to clone a vertex.</param>
         /// <param name="edgeCloner">Delegate to clone an edge.</param>

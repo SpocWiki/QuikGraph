@@ -8,8 +8,6 @@ namespace QuikGraph
     /// and terminal edges of type <typeparamref name="TEdge"/>, that is efficient
     /// to traverse both in and out edges.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface ITermBidirectionalGraph<TVertex, TEdge> : IBidirectionalGraph<TVertex, TEdge>
         where TEdge : ITermEdge<TVertex>
     {

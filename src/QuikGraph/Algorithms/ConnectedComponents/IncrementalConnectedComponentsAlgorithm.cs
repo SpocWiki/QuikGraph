@@ -10,8 +10,6 @@ namespace QuikGraph.Algorithms.ConnectedComponents
     /// <summary>
     /// Algorithm that incrementally computes connected components of a growing graph.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class IncrementalConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IMutableVertexAndEdgeSet<TVertex, TEdge>>
         , IDisposable

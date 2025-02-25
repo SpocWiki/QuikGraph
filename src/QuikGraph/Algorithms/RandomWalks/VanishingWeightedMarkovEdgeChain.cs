@@ -7,8 +7,6 @@ namespace QuikGraph.Algorithms.RandomWalks
     /// <summary>
     /// Markov chain with weight vanishing based on a factor.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class VanishingWeightedMarkovEdgeChain<TVertex, TEdge> : WeightedMarkovEdgeChainBase<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

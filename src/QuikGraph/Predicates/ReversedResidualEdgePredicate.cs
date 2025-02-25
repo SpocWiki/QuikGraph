@@ -7,8 +7,6 @@ namespace QuikGraph.Predicates
     /// <summary>
     /// Predicate that tests if an edge's reverse is residual.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class ReversedResidualEdgePredicate<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

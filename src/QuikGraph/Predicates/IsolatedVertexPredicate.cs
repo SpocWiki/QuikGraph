@@ -6,8 +6,6 @@ namespace QuikGraph.Predicates
     /// <summary>
     /// Predicate that detects if a vertex is isolated (without any input or output edges).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class IsolatedVertexPredicate<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

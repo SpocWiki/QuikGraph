@@ -10,7 +10,6 @@ namespace QuikGraph.Algorithms.GraphPartition
     /// <summary>
     /// Represents a graph partition in two sub sets.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     public struct Partition<TVertex>
     {
         /// <summary>
@@ -73,7 +72,6 @@ namespace QuikGraph.Algorithms.GraphPartition
         /// <summary>
         /// Checks if both partitions are equals or equivalent.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
         /// <param name="partition1">First partition.</param>
         /// <param name="partition2">Second partition.</param>
         /// <returns>True if both partitions are at least equivalent, false otherwise.</returns>

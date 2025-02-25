@@ -3,7 +3,6 @@ namespace QuikGraph.Algorithms
     /// <summary>
     /// An algorithm that exposes events to compute a distance map between vertices.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     public interface IDistanceRecorderAlgorithm<out TVertex>
     {
         /// <summary>

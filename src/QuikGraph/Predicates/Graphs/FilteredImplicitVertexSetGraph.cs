@@ -7,9 +7,6 @@ namespace QuikGraph.Predicates
     /// Implicit vertex set graph data structure that is filtered with a vertex and an edge
     /// predicate. This means only vertex and edge matching predicates are "accessible".
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
     public class FilteredImplicitVertexSet<TVertex, TEdge, TGraph>
         : FilteredGraph<TVertex, TEdge, TGraph>
         , IImplicitVertexSet<TVertex>

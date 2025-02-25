@@ -8,7 +8,6 @@ namespace QuikGraph.Serialization
     /// <summary>
     /// XML serializable edge class.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

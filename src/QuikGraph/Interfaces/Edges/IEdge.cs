@@ -5,7 +5,6 @@ namespace QuikGraph
     /// <summary>
     /// Represents a directed edge.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     public interface IEdge<out TVertex> //: IEquatable<IEdge<TVertex>>
     {
         /// <summary>

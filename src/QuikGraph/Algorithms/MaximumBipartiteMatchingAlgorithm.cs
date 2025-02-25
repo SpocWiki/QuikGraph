@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms
     /// Algorithm that computes a maximum bipartite matching in a graph, meaning
     /// the maximum number of edges not sharing any vertex.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class MaximumBipartiteMatchingAlgorithm<TVertex, TEdge> : AlgorithmBase<IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

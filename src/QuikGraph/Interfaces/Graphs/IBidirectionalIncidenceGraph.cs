@@ -8,8 +8,6 @@ namespace QuikGraph
     /// and edges of type <typeparamref name="TEdge"/>, that is efficient
     /// to traverse both in and out edges.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface IBidirectionalIncidenceGraph<TVertex, TEdge> : IIncidenceGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
     /// <summary>
     /// Kruskal minimum spanning tree algorithm implementation.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class KruskalMinimumSpanningTreeAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         , IMinimumSpanningTreeAlgorithm<TVertex, TEdge>

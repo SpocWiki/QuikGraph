@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms.Cliques
     /// <summary>
     /// Base class for all maximum clique graph algorithm.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

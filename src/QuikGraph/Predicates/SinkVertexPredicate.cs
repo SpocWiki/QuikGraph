@@ -6,8 +6,6 @@ namespace QuikGraph.Predicates
     /// <summary>
     /// Predicate that tests if a vertex is a sink vertex (no output edge).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class SinkVertexPredicate<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

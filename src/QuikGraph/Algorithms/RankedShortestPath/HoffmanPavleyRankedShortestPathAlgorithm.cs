@@ -18,8 +18,6 @@ namespace QuikGraph.Algorithms.RankedShortestPath
     /// Hoffman, W. and Pavley, R. 1959. A Method for the Solution of the Nth Best Path Problem. 
     /// J. ACM 6, 4 (Oct. 1959), 506-514. DOI= http://doi.acm.org/10.1145/320998.321004
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>
         : RankedShortestPathAlgorithmBase<TVertex, TEdge, IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>

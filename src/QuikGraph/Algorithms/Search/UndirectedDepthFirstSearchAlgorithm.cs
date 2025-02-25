@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms.Search
     /// <summary>
     /// A depth first search algorithm for undirected graph.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IUndirectedGraph<TVertex, TEdge>>
         , IDistanceRecorderAlgorithm<TVertex>

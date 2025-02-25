@@ -8,8 +8,6 @@ namespace QuikGraph.MSAGL
     /// <summary>
     /// Base class for MSAGL graph populator.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public abstract class MsaglGraphPopulator<TVertex, TEdge> : AlgorithmBase<IEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

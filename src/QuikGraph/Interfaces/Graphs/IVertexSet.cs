@@ -6,7 +6,6 @@ namespace QuikGraph
     /// <summary>
     /// Represents a set of vertices.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     public interface IVertexSet<TVertex> : IImplicitVertexSet<TVertex>
     {
         /// <summary>

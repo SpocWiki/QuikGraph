@@ -12,8 +12,6 @@ namespace QuikGraph.Algorithms.MaximumFlow
     /// <summary>
     /// Edmond and Karp maximum flow algorithm for directed graph with positive capacities and flows.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge> : MaximumFlowAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

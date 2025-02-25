@@ -9,9 +9,6 @@ namespace QuikGraph.Algorithms.TSP
     /// Algorithm to answer the TSP (Travelling Salesman Problem), meaning finding a path that best link
     /// every vertices.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
     // ReSharper disable once InconsistentNaming
     public class TSP<TVertex, TEdge, TGraph> : ShortestPathAlgorithmBase<TVertex, TEdge, TGraph>
         where TEdge : EquatableEdge<TVertex>

@@ -6,8 +6,6 @@ namespace QuikGraph.Algorithms.RandomWalks
     /// <summary>
     /// Normalized Markov chain implementation.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class NormalizedMarkovEdgeChain<TVertex, TEdge> : MarkovEdgeChainBase<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

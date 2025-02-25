@@ -15,8 +15,6 @@ namespace QuikGraph.Algorithms.ConnectedComponents
     /// A strongly connected component is a sub graph where there is a path from every
     /// vertex to every other vertices.
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class StronglyConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IVertexListGraph<TVertex, TEdge>>
         , IConnectedComponentAlgorithm<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>

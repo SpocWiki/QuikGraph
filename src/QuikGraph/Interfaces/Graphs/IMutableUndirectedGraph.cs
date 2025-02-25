@@ -6,8 +6,6 @@ namespace QuikGraph
     /// A mutable indirect graph with vertices of type <typeparamref name="TVertex"/>
     /// and edges of type <typeparamref name="TEdge"/>.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface IMutableUndirectedGraph<TVertex, TEdge>
         : IUndirectedGraph<TVertex, TEdge>
         , IMutableVertexAndEdgeSet<TVertex, TEdge>

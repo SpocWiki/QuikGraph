@@ -5,7 +5,6 @@ namespace QuikGraph.Algorithms
     /// <summary>
     /// Represents an algorithm that puts colors on vertices and allow to get that color.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     public interface IVertexColorizerAlgorithm<in TVertex>
     {
         /// <summary>

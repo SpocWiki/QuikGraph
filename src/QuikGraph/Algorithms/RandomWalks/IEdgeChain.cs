@@ -6,8 +6,6 @@ namespace QuikGraph.Algorithms.RandomWalks
     /// <summary>
     /// Set of edges forming chain of edges.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface IEdgeChain<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

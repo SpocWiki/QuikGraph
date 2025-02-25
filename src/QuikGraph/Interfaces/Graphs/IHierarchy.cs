@@ -6,8 +6,6 @@ namespace QuikGraph
     /// <summary>
     /// Represents a hierarchy of graphs.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface IHierarchy<TVertex, TEdge> : IMutableVertexAndEdgeListGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

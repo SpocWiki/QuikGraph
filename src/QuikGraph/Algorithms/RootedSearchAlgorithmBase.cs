@@ -10,8 +10,6 @@ namespace QuikGraph.Algorithms
     /// Base class for all graph algorithm performing a search in a graph.
     /// </summary>
     /// <remarks>Requires a starting vertex (root) and an ending vertex (target).</remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

@@ -8,8 +8,6 @@ namespace QuikGraph
     /// <summary>
     /// A delegate-based directed incidence graph data structure.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public class DelegateIncidenceGraph<TVertex, TEdge> : DelegateImplicitGraph<TVertex, TEdge>, IIncidenceGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

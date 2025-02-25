@@ -9,8 +9,6 @@ namespace QuikGraph.Collections
     /// <summary>
     /// Stores a list of edges.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

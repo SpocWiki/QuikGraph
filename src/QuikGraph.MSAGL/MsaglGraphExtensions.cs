@@ -12,8 +12,6 @@ namespace QuikGraph.MSAGL
         /// <summary>
         /// Creates an <see cref="MsaglGraphPopulator{TVertex,TEdge}"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert to MSAGL graph.</param>
         /// <returns>Graph populator.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -27,8 +25,6 @@ namespace QuikGraph.MSAGL
         /// <summary>
         /// Creates an <see cref="MsaglGraphPopulator{TVertex,TEdge}"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert to MSAGL graph.</param>
         /// <param name="format">Graph format.</param>
         /// <param name="formatProvider">Graph format provider.</param>
@@ -46,8 +42,6 @@ namespace QuikGraph.MSAGL
         /// <summary>
         /// Creates an <see cref="MsaglGraphPopulator{TVertex,TEdge}"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert to MSAGL graph.</param>
         /// <param name="vertexIdentity">Delegate that given a vertex return its identifier.</param>
         /// <returns>Graph populator.</returns>
@@ -64,8 +58,6 @@ namespace QuikGraph.MSAGL
         /// <summary>
         /// Converts <paramref name="graph"/> to an <see cref="T:Microsoft.Msagl.Drawing.Graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert to MSAGL graph.</param>
         /// <param name="nodeAdded">Node added delegate.</param>
         /// <param name="edgeAdded">Edge added delegate.</param>
@@ -110,8 +102,6 @@ namespace QuikGraph.MSAGL
         /// <summary>
         /// Converts <paramref name="graph"/> to an <see cref="T:Microsoft.Msagl.Drawing.Graph"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">Graph to convert to MSAGL graph.</param>
         /// <param name="vertexIdentity">Delegate that given a vertex return its identifier.</param>
         /// <param name="nodeAdded">Node added delegate.</param>

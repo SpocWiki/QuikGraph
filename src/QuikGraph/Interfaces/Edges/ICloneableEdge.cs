@@ -5,8 +5,6 @@ namespace QuikGraph
     /// <summary>
     /// Represents a cloneable edge.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface ICloneableEdge<TVertex, out TEdge> : IEdge<TVertex>
         where TEdge : IEdge<TVertex>
     {

@@ -9,7 +9,6 @@ namespace QuikGraph.Collections
     /// <summary>
     /// Stores a list of vertices.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

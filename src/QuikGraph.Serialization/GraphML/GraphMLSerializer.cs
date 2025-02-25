@@ -15,9 +15,6 @@ namespace QuikGraph.Serialization
     /// <summary>
     /// A GraphML (http://graphml.graphdrawing.org/) format serializer.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
     /// <remarks>
     /// <para>
     /// Custom vertex, edge and graph attributes can be specified by 

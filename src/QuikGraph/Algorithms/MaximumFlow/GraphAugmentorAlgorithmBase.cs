@@ -9,9 +9,6 @@ namespace QuikGraph.Algorithms.MaximumFlow
     /// <summary>
     /// Base class for all graph augmentor algorithms.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
-    /// <typeparam name="TGraph">Graph type.</typeparam>
     public abstract class GraphAugmentorAlgorithmBase<TVertex, TEdge, TGraph> : AlgorithmBase<TGraph>, IDisposable
         where TEdge : IEdge<TVertex>
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>

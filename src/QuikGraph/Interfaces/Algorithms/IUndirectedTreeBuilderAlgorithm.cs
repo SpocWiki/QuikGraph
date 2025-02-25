@@ -3,8 +3,6 @@ namespace QuikGraph.Algorithms
     /// <summary>
     /// An algorithm that exposes an event to build an edge tree (in undirected graph).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface IUndirectedTreeBuilderAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

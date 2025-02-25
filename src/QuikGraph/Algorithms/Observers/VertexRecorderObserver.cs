@@ -10,7 +10,6 @@ namespace QuikGraph.Algorithms.Observers
     /// <summary>
     /// Recorder of encountered vertices.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

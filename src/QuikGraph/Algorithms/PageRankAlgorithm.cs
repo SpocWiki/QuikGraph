@@ -9,8 +9,6 @@ namespace QuikGraph.Algorithms.Ranking
     /// <summary>
     /// Algorithm that computes the page rank of a graph.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class PageRankAlgorithm<TVertex, TEdge> : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {

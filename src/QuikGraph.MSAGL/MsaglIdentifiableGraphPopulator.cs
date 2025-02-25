@@ -7,8 +7,6 @@ namespace QuikGraph.MSAGL
     /// <summary>
     /// MSAGL graph populator (using identifiable vertices).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class MsaglIdentifiableGraphPopulator<TVertex, TEdge> : MsaglGraphPopulator<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

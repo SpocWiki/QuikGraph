@@ -9,7 +9,6 @@ namespace QuikGraph
     /// <summary>
     /// A struct based <see cref="IUndirectedEdge{TVertex}"/> implementation (it is by design an equatable edge).
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

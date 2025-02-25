@@ -5,8 +5,6 @@ using JetBrains.Annotations;
 namespace QuikGraph.Algorithms.Condensation
 {
     /// <summary> An edge that merge several other edges. </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

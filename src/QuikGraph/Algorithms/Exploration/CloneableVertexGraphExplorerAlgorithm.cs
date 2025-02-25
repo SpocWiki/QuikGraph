@@ -11,8 +11,6 @@ namespace QuikGraph.Algorithms.Exploration
     /// <summary>
     /// Algorithm that explores a graph starting from a given vertex.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IMutableVertexAndEdgeSet<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>

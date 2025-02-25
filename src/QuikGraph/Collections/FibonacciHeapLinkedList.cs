@@ -12,7 +12,6 @@ namespace QuikGraph.Collections
     /// Represents a list of <see cref="FibonacciHeapCell{TPriority,TValue}"/>.
     /// </summary>
     /// <typeparam name="TPriority">Priority type.</typeparam>
-    /// <typeparam name="TValue">Value type.</typeparam>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

@@ -7,8 +7,6 @@ namespace QuikGraph
     /// A mutable edge list graph with vertices of type <typeparamref name="TVertex"/>
     /// and edges of type <typeparamref name="TEdge"/>.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public interface IMutableEdgeListGraph<TVertex, TEdge> : IMutableGraph<TVertex, TEdge>, IEdgeListGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

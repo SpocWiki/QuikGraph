@@ -8,8 +8,6 @@ namespace QuikGraph.Algorithms.Exploration
     /// <summary>
     /// Represents a transition factory.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
 #if SUPPORTS_ENUMERABLE_COVARIANT
     public interface ITransitionFactory<in TVertex, out TEdge>
 #else

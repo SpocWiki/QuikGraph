@@ -13,7 +13,6 @@ namespace QuikGraph.Algorithms.ShortestPath
     /// A single-source K-shortest loopless paths algorithm for graphs
     /// with non negative edge cost.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
     public class YenShortestPathsAlgorithm<TVertex>
     {
         /// <summary>

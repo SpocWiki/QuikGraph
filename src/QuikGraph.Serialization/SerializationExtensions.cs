@@ -19,8 +19,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Serializes the <paramref name="graph"/> to the <paramref name="stream"/> using the .NET serialization binary formatter.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
         /// <param name="graph">The graph to serialize.</param>
         /// <param name="stream">Stream in which serializing the graph.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -50,9 +48,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Deserializes a graph instance from a <paramref name="stream"/> that was serialized using the .NET serialization binary formatter.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="stream">Stream from which deserializing the graph.</param>
         /// <param name="binder">
         /// <para>
@@ -171,9 +166,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Deserializes a graph instance from a generic XML stream, using an <see cref="T:System.Xml.XPath.XPathDocument"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="document">Input XML document.</param>
         /// <param name="graphXPath">XPath expression to the graph node. The first node is considered.</param>
         /// <param name="vertexXPath">XPath expression from the graph node to the vertex nodes.</param>
@@ -234,9 +226,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Deserializes a graph instance from a generic XML stream, using an <see cref="T:System.Xml.XmlReader"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="reader">Input XML reader.</param>
         /// <param name="graphPredicate">Predicate that returns a value indicating if the current XML node is a graph. The first match is considered.</param>
         /// <param name="vertexPredicate">Predicate that returns a value indicating if the current XML node is a vertex.</param>
@@ -286,9 +275,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Deserializes a graph from a generic XML stream, using an <see cref="T:System.Xml.XmlReader"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="reader">Input XML reader.</param>
         /// <param name="namespaceUri">XML namespace.</param>
         /// <param name="graphElementName">Name of the XML node holding graph information. The first node is considered.</param>
@@ -342,9 +328,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Serializes a graph instance to a generic XML stream, using an <see cref="T:System.Xml.XmlWriter"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph to serialize.</param>
         /// <param name="writer">XML writer.</param>
         /// <param name="vertexIdentity">The vertex identity.</param>
@@ -390,9 +373,6 @@ namespace QuikGraph.Serialization
         /// <summary>
         /// Serializes a graph instance to a generic XML stream, using an <see cref="T:System.Xml.XmlWriter"/>.
         /// </summary>
-        /// <typeparam name="TVertex">Vertex type.</typeparam>
-        /// <typeparam name="TEdge">Edge type.</typeparam>
-        /// <typeparam name="TGraph">Graph type.</typeparam>
         /// <param name="graph">Graph to serialize.</param>
         /// <param name="writer">XML writer.</param>
         /// <param name="vertexIdentity">The vertex identity.</param>

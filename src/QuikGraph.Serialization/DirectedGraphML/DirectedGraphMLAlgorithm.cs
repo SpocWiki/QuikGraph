@@ -11,8 +11,6 @@ namespace QuikGraph.Serialization
     /// Algorithm that creates a <see cref="DirectedGraphML.DirectedGraph"/>
     /// from a given directed graph.
     /// </summary>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     [CLSCompliant(false)]
     public sealed class DirectedGraphMLAlgorithm<TVertex, TEdge> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>

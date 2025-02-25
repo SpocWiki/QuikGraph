@@ -18,8 +18,6 @@ namespace QuikGraph.Algorithms
     /// on theory of Computing STOC '83. ACM, New York, NY, 246-251. 
     /// DOI= http://doi.acm.org/10.1145/800061.808753 
     /// </remarks>
-    /// <typeparam name="TVertex">Vertex type.</typeparam>
-    /// <typeparam name="TEdge">Edge type.</typeparam>
     public sealed class TarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IVertexListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
