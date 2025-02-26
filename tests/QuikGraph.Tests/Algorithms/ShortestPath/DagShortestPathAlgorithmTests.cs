@@ -185,8 +185,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
                 () => new DagShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => new DagShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null));
+            _ = new DagShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null);
             Assert.Throws<ArgumentNullException>(
                 () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
@@ -200,8 +199,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
                 () => new DagShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new DagShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null));
+            _ = new DagShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => new DagShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(

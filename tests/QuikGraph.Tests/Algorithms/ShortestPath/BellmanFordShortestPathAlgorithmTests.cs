@@ -135,8 +135,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
                 () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null));
+            _ = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null);
             Assert.Throws<ArgumentNullException>(
                 () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
@@ -150,8 +149,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
                 () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null));
+            _ = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(

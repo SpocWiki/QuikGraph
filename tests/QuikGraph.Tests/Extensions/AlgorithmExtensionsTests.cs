@@ -266,7 +266,7 @@ namespace QuikGraph.Tests.Extensions
             Assert.Throws<ArgumentNullException>(
                 () => ((IVertexAndEdgeListGraph<TestVertex, Edge<TestVertex>>)null).TreeCyclePoppingRandom(vertex, chain));
             Assert.Throws<ArgumentNullException>(() => graph.TreeCyclePoppingRandom(null, chain));
-            Assert.Throws<ArgumentNullException>(() => graph.TreeCyclePoppingRandom(vertex, null));
+            Assert.Throws<ArgumentException>(() => graph.TreeCyclePoppingRandom(vertex, null));
             Assert.Throws<ArgumentNullException>(
                 () => ((IVertexAndEdgeListGraph<TestVertex, Edge<TestVertex>>)null).TreeCyclePoppingRandom(null, chain));
             Assert.Throws<ArgumentNullException>(

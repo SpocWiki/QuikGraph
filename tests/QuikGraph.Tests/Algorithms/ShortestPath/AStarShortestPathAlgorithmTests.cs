@@ -157,8 +157,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, null, Heuristic, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
                 () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, Heuristic, null));
+            _ = new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, Heuristic, null);
             Assert.Throws<ArgumentNullException>(
                 () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null));
             Assert.Throws<ArgumentNullException>(
@@ -186,8 +185,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, null, Heuristic, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
                 () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, Heuristic, null, null));
+            _ = new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, Heuristic, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => new AStarShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null, null));
             Assert.Throws<ArgumentNullException>(

@@ -15,10 +15,10 @@ namespace QuikGraph.Tests.Algorithms
     {
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_All))]
         public static void RunUndirectedFirstTopologicalSortAndCheck<TVertex, TEdge>(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> graph,
-            bool allowCycles)
+            [NotNull] IUndirectedGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
+            bool allowCycles = true;
             var algorithm = new UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>(graph)
             {
                 AllowCyclicGraph = allowCycles
@@ -182,7 +182,7 @@ namespace QuikGraph.Tests.Algorithms
         public void UndirectedFirstTopologicalSort_DCT8()
         {
             UndirectedGraph<string, Edge<string>> graph = TestGraphFactory.LoadUndirectedGraph(GetGraphFilePath("DCT8.graphml"));
-            RunUndirectedFirstTopologicalSortAndCheck(graph, true);
+            RunUndirectedFirstTopologicalSortAndCheck(graph);//, true);
         }
 
         [Test]

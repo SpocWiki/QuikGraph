@@ -148,10 +148,10 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.InvalidOperationException">Something went wrong when running the algorithm.</exception>
         public virtual void Compute([NotNull] TVertex root)
         {
-            SetRootVertex(root);
             if (!VisitedGraph.ContainsVertex(root))
                 throw new ArgumentException("Graph does not contain the provided root vertex.", nameof(root));
 
+            SetRootVertex(root);
             Compute();
         }
     }

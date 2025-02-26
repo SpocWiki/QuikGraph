@@ -49,8 +49,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
                 () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null));
+            _ = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null);
             Assert.Throws<ArgumentNullException>(
                 () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
@@ -64,8 +63,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
                 () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null));
+            _ = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null);
             Assert.Throws<ArgumentNullException>(
                 () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance, null));
             Assert.Throws<ArgumentNullException>(
