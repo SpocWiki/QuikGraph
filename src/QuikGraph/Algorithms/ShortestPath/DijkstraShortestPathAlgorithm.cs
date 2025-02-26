@@ -190,7 +190,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             {
                 bfs = new BreadthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph,
                     _vertexQueue,
-                    VerticesColors, this);
+                    VerticesColors, null, this);
 
                 bfs.InitializeVertex += InitializeVertex;
                 bfs.DiscoverVertex += DiscoverVertex;
