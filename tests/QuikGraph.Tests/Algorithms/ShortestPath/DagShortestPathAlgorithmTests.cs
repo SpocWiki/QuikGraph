@@ -88,8 +88,8 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 Assert.AreEqual(GraphColor.Black, algorithm.VerticesColors[vertex]);
             };
 
-            var predecessors = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
-            using (predecessors.Attach(algorithm))
+            var predecessors = algorithm.AttachVertexPredecessorRecorderObserver();
+            using (predecessors)
                 algorithm.Compute(root);
 
             Assert.AreEqual(graph.VertexCount, algorithm.VerticesColors.Count);

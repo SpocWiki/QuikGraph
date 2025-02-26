@@ -18,16 +18,16 @@ namespace QuikGraph.Tests.Algorithms
     {
         #region Test helpers
 
-        public void RunTarjanOfflineLeastCommonAncestorAndCheck<TVertex, TEdge>(
+        public static void RunTarjanOfflineLeastCommonAncestorAndCheck<TVertex, TEdge>(
             [NotNull] IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex root,
             [NotNull] SEquatableEdge<TVertex>[] pairs)
             where TEdge : IEdge<TVertex>
         {
             TryFunc<SEquatableEdge<TVertex>, TVertex> lca = graph.OfflineLeastCommonAncestor(root, pairs);
-            var predecessors = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
             var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
-            using (predecessors.Attach(dfs))
+            var predecessors = dfs.AttachVertexPredecessorRecorderObserver();
+            using (predecessors)
                 dfs.Compute(root);
 
             foreach (SEquatableEdge<TVertex> pair in pairs)
@@ -49,7 +49,7 @@ namespace QuikGraph.Tests.Algorithms
             var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph, null);
+            algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -74,7 +74,7 @@ namespace QuikGraph.Tests.Algorithms
             Assert.Throws<ArgumentNullException>(
                 () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(null));
             Assert.Throws<ArgumentNullException>(
-                () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(null, null));
+                () => new TarjanOfflineLeastCommonAncestorAlgorithm<int, IEdge<int>>(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

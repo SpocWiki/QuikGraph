@@ -2,57 +2,66 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.Annotations;
-using static QuikGraph.Utils.DisposableHelpers;
 
 namespace QuikGraph.Algorithms.Observers
 {
-    /// <summary>
-    /// Recorder of vertices predecessors (undirected).
-    /// </summary>
+    /// <inheritdoc cref="CreateVertexPredecessorRecorderObserver{TVertex,TEdge}"/>
+    public static class VertexPredecessorRecorderObserverX
+    {
+        /// <summary> Creates a new instance of the <see cref="VertexDistanceRecorderObserver{TVertex,TEdge}"/> class. </summary>
+        public static VertexPredecessorRecorderObserver<TVertex, TEdge> CreateVertexPredecessorRecorderObserver<TVertex,
+            TEdge>([CanBeNull] this IDictionary<TVertex, TEdge> verticesPredecessors) where TEdge : IEdge<TVertex>
+            => new VertexPredecessorRecorderObserver<TVertex, TEdge>(verticesPredecessors);
+
+        /// <summary> Attaches a new VertexDistanceRecorderObserver </summary>
+        public static VertexPredecessorRecorderObserver<TVertex, TEdge> AttachVertexPredecessorRecorderObserver<TVertex, TEdge>(
+            this ITreeBuilderAlgorithm<TVertex, TEdge> shortestPath
+            , [CanBeNull] IDictionary<TVertex, TEdge> verticesPredecessors = null) where TEdge : IEdge<TVertex>
+        {
+            var ret = verticesPredecessors.CreateVertexPredecessorRecorderObserver();
+            ret.Attach(shortestPath);
+            return ret;
+        }
+    }
+
+    /// <summary> Recorder of vertices predecessors (undirected). </summary>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
-    public sealed class VertexPredecessorRecorderObserver<TVertex, TEdge> : IObserver<ITreeBuilderAlgorithm<TVertex, TEdge>>
+    public sealed class VertexPredecessorRecorderObserver<TVertex, TEdge>
+        : IObserver<ITreeBuilderAlgorithm<TVertex, TEdge>>, IDisposable
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VertexPredecessorRecorderObserver{TVertex,TEdge}"/> class.
-        /// </summary>
-        public VertexPredecessorRecorderObserver()
-            : this(new Dictionary<TVertex, TEdge>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VertexPredecessorRecorderObserver{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="VertexPredecessorRecorderObserver{TVertex,TEdge}"/> class. </summary>
         /// <param name="verticesPredecessors">Vertices predecessors.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesPredecessors"/> is <see langword="null"/>.</exception>
-        public VertexPredecessorRecorderObserver(
-            [NotNull] IDictionary<TVertex, TEdge> verticesPredecessors)
+        internal VertexPredecessorRecorderObserver([CanBeNull] IDictionary<TVertex, TEdge> verticesPredecessors = null)
         {
-            VerticesPredecessors = verticesPredecessors ?? throw new ArgumentNullException(nameof(verticesPredecessors));
+            VerticesPredecessors = verticesPredecessors ?? new Dictionary<TVertex, TEdge>();
         }
 
-        /// <summary>
-        /// Vertices predecessors.
-        /// </summary>
+        /// <summary> Vertices predecessors. </summary>
         [NotNull]
         public IDictionary<TVertex, TEdge> VerticesPredecessors { get; }
 
-        #region IObserver<TAlgorithm>
+        private ITreeBuilderAlgorithm<TVertex, TEdge> _algorithm;
 
         /// <inheritdoc />
         public IDisposable Attach(ITreeBuilderAlgorithm<TVertex, TEdge> algorithm)
         {
-            if (algorithm is null)
-                throw new ArgumentNullException(nameof(algorithm));
+            if (_algorithm != null)
+                throw new InvalidOperationException("Already attached to " + _algorithm);
 
+            _algorithm = algorithm.ShouldNotBeNull();
             algorithm.TreeEdge += OnEdgeDiscovered;
-            return Finally(() => algorithm.TreeEdge -= OnEdgeDiscovered);
+            return this;
         }
 
-        #endregion
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            _algorithm.TreeEdge -= OnEdgeDiscovered;
+        }
 
         private void OnEdgeDiscovered([NotNull] TEdge edge)
         {
@@ -70,9 +79,7 @@ namespace QuikGraph.Algorithms.Observers
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
         [ContractAnnotation("=> true, path:notnull;=> false, path:null")]
-        public bool TryGetPath([NotNull] TVertex vertex, [ItemNotNull] out IEnumerable<TEdge> path)
-        {
-            return VerticesPredecessors.TryGetPath(vertex, out path);
-        }
+        public bool TryGetPath([NotNull] TVertex vertex, [ItemNotNull] out IEnumerable<TEdge> path) => VerticesPredecessors.TryGetPath(vertex, out path);
+
     }
 }

@@ -6,6 +6,16 @@ using JetBrains.Annotations;
 
 namespace QuikGraph
 {
+    /// <inheritdoc cref="CreateReversedBidirectionalGraph{TVertex,TEdge}"/>
+    public static class ReversedBidirectionalGraphX
+    {
+        /// <summary> Creates the <see cref="ReversedBidirectionalGraph{TVertex,TEdge}"/> for <paramref name="originalGraph"/> </summary>
+        public static ReversedBidirectionalGraph<TVertex, TEdge> CreateReversedBidirectionalGraph<TVertex, TEdge>(
+            this IBidirectionalGraph<TVertex, TEdge> originalGraph)
+            where TEdge : IEdge<TVertex>
+            => new ReversedBidirectionalGraph<TVertex, TEdge>(originalGraph);
+    }
+
     /// <summary>
     /// Mutable reversed bidirectional graph data structure.
     /// </summary>

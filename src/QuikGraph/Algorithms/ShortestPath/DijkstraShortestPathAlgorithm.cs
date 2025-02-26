@@ -7,10 +7,20 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// Dijkstra single source shortest path algorithm for directed graph
-    /// with positive distance.
-    /// </summary>
+    /// <inheritdoc cref="CreateDijkstraShortestPathAlgorithm{TVertex,TEdge}"/>
+    public static class DijkstraShortestPathAlgorithmX
+    {
+        /// <summary> Creates a Dijkstra single source shortest path algorithm for directed graph with positive distance. </summary>
+        public static DijkstraShortestPathAlgorithm<TVertex, TEdge> CreateDijkstraShortestPathAlgorithm<TVertex, TEdge>
+        ([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new DijkstraShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
+
+    }
+
+    /// <summary> Dijkstra single source shortest path algorithm for directed graph with positive distance. </summary>
     public sealed class DijkstraShortestPathAlgorithm<TVertex, TEdge>
         : ShortestPathAlgorithmBase<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
         , IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>
@@ -19,9 +29,7 @@ namespace QuikGraph.Algorithms.ShortestPath
     {
         private FibonacciQueue<TVertex, double> _vertexQueue;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="DijkstraShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="distanceRelaxer">Distance relaxer.</param>
@@ -29,7 +37,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public DijkstraShortestPathAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        internal DijkstraShortestPathAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
             [CanBeNull] IAlgorithmComponent host = null)

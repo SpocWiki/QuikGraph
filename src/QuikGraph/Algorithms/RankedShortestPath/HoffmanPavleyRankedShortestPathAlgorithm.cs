@@ -10,9 +10,7 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.RankedShortestPath
 {
-    /// <summary>
-    /// Hoffman and Pavley K-shortest path algorithm.
-    /// </summary>
+    /// <summary> Hoffman and Pavley K-shortest path algorithm. </summary>
     /// <remarks>
     /// Reference:
     /// Hoffman, W. and Pavley, R. 1959. A Method for the Solution of the Nth Best Path Problem. 
@@ -27,6 +25,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
 
         [NotNull]
         private readonly Func<TEdge, double> _edgeWeights;
+        double ReversedEdgeWeight(SReversedEdge<TVertex, TEdge> edge) => _edgeWeights(edge.OriginalEdge);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> class.
@@ -211,37 +210,18 @@ namespace QuikGraph.Algorithms.RankedShortestPath
         {
             Debug.Assert(target != null);
 
-            var reversedGraph =
-                new ReversedBidirectionalGraph<TVertex, TEdge>(VisitedGraph);
-            var successorsObserver =
-                new VertexPredecessorRecorderObserver<TVertex, SReversedEdge<TVertex, TEdge>>();
-            var distancesObserver =
-                new VertexDistanceRecorderObserver<TVertex, SReversedEdge<TVertex, TEdge>>(ReversedEdgeWeight);
-            var shortestPath =
-                new DijkstraShortestPathAlgorithm<TVertex, SReversedEdge<TVertex, TEdge>>(reversedGraph,
-                    ReversedEdgeWeight,
-                    DistanceRelaxer, this);
+            var reversedGraph = VisitedGraph.CreateReversedBidirectionalGraph();
+            var shortestPath = reversedGraph.CreateDijkstraShortestPathAlgorithm(ReversedEdgeWeight, DistanceRelaxer, this);
+            var distancesObserver = shortestPath.AttachVertexDistanceRecorderObserver(ReversedEdgeWeight);
+            var successorsObserver = shortestPath.AttachVertexPredecessorRecorderObserver();
 
-            using (successorsObserver.Attach(shortestPath))
-            using (distancesObserver.Attach(shortestPath))
+            using (successorsObserver) 
+            using (distancesObserver)
                 shortestPath.Compute(target);
 
-            successors = new Dictionary<TVertex, TEdge>();
-            foreach (KeyValuePair<TVertex, SReversedEdge<TVertex, TEdge>> pair in successorsObserver.VerticesPredecessors)
-            {
-                successors.Add(pair.Key, pair.Value.OriginalEdge);
-            }
+            successors = successorsObserver.VerticesPredecessors.ToDictionary(pair => pair.Key, pair => pair.Value.OriginalEdge);
 
             distances = distancesObserver.Distances;
-
-            #region Local function
-
-            double ReversedEdgeWeight(SReversedEdge<TVertex, TEdge> edge)
-            {
-                return _edgeWeights(edge.OriginalEdge);
-            }
-
-            #endregion
         }
 
         private void EnqueueDeviationPaths(

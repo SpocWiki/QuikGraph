@@ -12,30 +12,31 @@ namespace QuikGraph.Tests.Algorithms.Observers
     [TestFixture]
     internal sealed class VertexPredecessorRecorderObserverTests : ObserverTestsBase
     {
+        readonly Dictionary<int, IEdge<int>> _nullPredecessors = null;
         [Test]
         public void Constructor()
         {
-            var recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>();
+            var recorder = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
             CollectionAssert.IsEmpty(recorder.VerticesPredecessors);
 
             var predecessors = new Dictionary<int, IEdge<int>>();
-            recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>(predecessors);
+            recorder = predecessors.CreateVertexPredecessorRecorderObserver();
             Assert.AreSame(predecessors, recorder.VerticesPredecessors);
 
             predecessors = new Dictionary<int, IEdge<int>>
             {
                 [1] = Edge.Create(2, 1)
             };
-            recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>(predecessors);
+            recorder = predecessors.CreateVertexPredecessorRecorderObserver();
             Assert.AreSame(predecessors, recorder.VerticesPredecessors);
         }
 
         [Test]
-        public void Constructor_Throws()
+        public void Constructor_Throws_Not()
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new VertexPredecessorRecorderObserver<int, IEdge<int>>(null));
+            _ = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
         }
 
         [Test]
@@ -44,7 +45,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
             // DFS is used for tests but result may change if using another search algorithm
             // or another starting point
             {
-                var recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>();
+                var recorder = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
 
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
 
@@ -58,7 +59,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>();
+                var recorder = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
 
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
                 graph.AddVertexRange([1, 2]);
@@ -73,7 +74,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>();
+                var recorder = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
 
                 // Graph without cycle
                 var edge12 = Edge.Create(1, 2);
@@ -106,7 +107,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>();
+                var recorder = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
 
                 // Graph with cycle
                 var edge12 = Edge.Create(1, 2);
@@ -143,14 +144,14 @@ namespace QuikGraph.Tests.Algorithms.Observers
         [Test]
         public void Attach_Throws()
         {
-            Attach_Throws_Test(new VertexPredecessorRecorderObserver<int, IEdge<int>>());
+            Attach_Throws_Test(_nullPredecessors.CreateVertexPredecessorRecorderObserver());
         }
 
         [Test]
         public void TryGetPath()
         {
             {
-                var recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>();
+                var recorder = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
 
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
 
@@ -165,7 +166,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>();
+                var recorder = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
 
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
                 graph.AddVertexRange([1, 2]);
@@ -180,7 +181,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>();
+                var recorder = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
 
                 // Graph without cycle
                 var edge12 = Edge.Create(1, 2);
@@ -207,7 +208,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
             }
 
             {
-                var recorder = new VertexPredecessorRecorderObserver<int, IEdge<int>>();
+                var recorder = _nullPredecessors.CreateVertexPredecessorRecorderObserver();
 
                 // Graph with cycle
                 var edge12 = Edge.Create(1, 2);
@@ -240,7 +241,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new VertexPredecessorRecorderObserver<TestVertex, Edge<TestVertex>>().TryGetPath(null, out _));
+                () => VertexPredecessorRecorderObserverX.CreateVertexPredecessorRecorderObserver<TestVertex, Edge<TestVertex>>(null).TryGetPath(null, out _));
         }
     }
 }

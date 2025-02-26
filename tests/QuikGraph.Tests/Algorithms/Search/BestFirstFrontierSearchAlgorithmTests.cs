@@ -38,7 +38,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             TVertex root = graph.Vertices.First();
             TVertex target = graph.Vertices.Last();
 
-            var recorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
+            var recorder = VertexPredecessorRecorderObserverX.CreateVertexPredecessorRecorderObserver<TVertex, TEdge>(null);
             using (recorder.Attach(search))
                 search.Compute(root, target);
 
@@ -67,13 +67,13 @@ namespace QuikGraph.Tests.Algorithms.Search
                 graph,
                 EdgeWeights,
                 distanceRelaxer);
-            var recorder = new VertexDistanceRecorderObserver<TVertex, TEdge>(EdgeWeights);
-            using (recorder.Attach(search))
+            var recorder = search.AttachVertexDistanceRecorderObserver(EdgeWeights);
+            using (recorder)
                 search.Compute(root, target);
 
-            var dijkstra = new DijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, EdgeWeights, distanceRelaxer);
-            var dijkstraRecorder = new VertexDistanceRecorderObserver<TVertex, TEdge>(EdgeWeights);
-            using (dijkstraRecorder.Attach(dijkstra))
+            var dijkstra = graph.CreateDijkstraShortestPathAlgorithm(EdgeWeights, distanceRelaxer);
+            var dijkstraRecorder = dijkstra.AttachVertexDistanceRecorderObserver(EdgeWeights);
+            using (dijkstraRecorder)
                 dijkstra.Compute(root);
 
             IDictionary<TVertex, double> bffsVerticesDistances = recorder.Distances;

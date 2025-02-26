@@ -140,8 +140,8 @@ namespace QuikGraph.Algorithms
         {
             Debug.Assert(algorithm != null);
 
-            var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
-            using (predecessorRecorder.Attach(algorithm))
+            var predecessorRecorder = algorithm.AttachVertexPredecessorRecorderObserver();
+            using (predecessorRecorder)
             {
                 algorithm.Compute(source);
             }
@@ -246,7 +246,7 @@ namespace QuikGraph.Algorithms
             [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
             [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
-            => new DijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights)
+            => graph.CreateDijkstraShortestPathAlgorithm(edgeWeights)
                 .RunDirectedRootedAlgorithm<TVertex, TEdge, DijkstraShortestPathAlgorithm<TVertex, TEdge>>(root);
 
         /// <summary>
@@ -337,8 +337,8 @@ namespace QuikGraph.Algorithms
                 throw new ArgumentNullException(nameof(root));
 
             var algorithm = new BellmanFordShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights);
-            var predecessorRecorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
-            using (predecessorRecorder.Attach(algorithm))
+            var predecessorRecorder = algorithm.AttachVertexPredecessorRecorderObserver();
+            using (predecessorRecorder)
             {
                 algorithm.Compute(root);
             }

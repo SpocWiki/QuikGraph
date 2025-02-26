@@ -137,8 +137,8 @@ namespace QuikGraph.Tests.Algorithms.Search
 
             distances[sourceVertex] = 0;
 
-            var recorder = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
-            using (recorder.Attach(algorithm))
+            var recorder = algorithm.AttachVertexPredecessorRecorderObserver();
+            using (recorder)
             {
                 algorithm.Compute(sourceVertex);
             }
@@ -180,13 +180,13 @@ namespace QuikGraph.Tests.Algorithms.Search
 
             var verticesColors = new Dictionary<int, GraphColor>();
             var queue = new BinaryQueue<int, double>(_ => 1.0);
-            algorithm = graph.CreateBreadthFirstSearchAlgorithm<int, IEdge<int>>(queue, verticesColors);
+            algorithm = graph.CreateBreadthFirstSearchAlgorithm(queue, verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, verticesColors, null);
+            algorithm = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, verticesColors, edges => edges.Where(e => e != null), null);
+            algorithm = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, verticesColors, edges => edges.Where(e => e != null));
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
             #region Local function
@@ -223,64 +223,51 @@ namespace QuikGraph.Tests.Algorithms.Search
 
             Assert.Throws<ArgumentNullException>(
                 () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, verticesColors));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, verticesColors));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, null));
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, verticesColors);
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue);
             Assert.Throws<ArgumentNullException>(
                 () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors));
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue));
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, verticesColors, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, verticesColors));
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, verticesColors);
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue);
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, verticesColors, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors));
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, null, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue));
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, verticesColors, Filter, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, verticesColors, Filter));
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, verticesColors, Filter);
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, null, Filter);
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, verticesColors);
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, verticesColors, Filter, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors, Filter));
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, null, Filter, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, null, Filter));
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, verticesColors, null, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, verticesColors));
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null, Filter);
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, verticesColors);
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue);
+            _ = new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors, Filter, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue));
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, null, Filter, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors));
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, verticesColors, null, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, Filter));
             Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null, Filter, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, verticesColors, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, queue, null, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, queue, null, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, verticesColors, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, Filter, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null, null, null));
+                () => new BreadthFirstSearchAlgorithm<int, IEdge<int>>(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

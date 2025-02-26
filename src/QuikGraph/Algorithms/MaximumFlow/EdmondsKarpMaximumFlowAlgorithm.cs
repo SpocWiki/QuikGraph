@@ -152,11 +152,10 @@ namespace QuikGraph.Algorithms.MaximumFlow
             VerticesColors[Sink] = GraphColor.Gray;
             while (VerticesColors[Sink] != GraphColor.White)
             {
-                var verticesPredecessors = new VertexPredecessorRecorderObserver<TVertex, TEdge>(Predecessors);
                 var queue = new Collections.Queue<TVertex>();
                 var bfs = ResidualGraph.CreateBreadthFirstSearchAlgorithm(queue, VerticesColors);
-
-                using (verticesPredecessors.Attach(bfs))
+                var verticesPredecessors = bfs.AttachVertexPredecessorRecorderObserver(Predecessors);
+                using (verticesPredecessors)
                     bfs.Compute(Source);
 
                 if (VerticesColors[Sink] != GraphColor.White)

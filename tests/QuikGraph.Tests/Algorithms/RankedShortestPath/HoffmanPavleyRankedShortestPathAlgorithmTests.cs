@@ -10,9 +10,7 @@ using static QuikGraph.Tests.AssertHelpers;
 
 namespace QuikGraph.Tests.Algorithms.RankedShortestPath
 {
-    /// <summary>
-    /// Tests for <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/>.
-    /// </summary>
+    /// <summary> Tests for <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/>. </summary>
     [TestFixture]
     internal sealed class HoffmanPavleyRankedShortestPathAlgorithmTests : RootedAlgorithmTestsBase
     {

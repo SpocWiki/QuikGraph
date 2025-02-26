@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -7,9 +7,7 @@ using static QuikGraph.Tests.TestHelpers;
 
 namespace QuikGraph.Tests.Algorithms
 {
-    /// <summary>
-    /// Tests for <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/>.
-    /// </summary>
+    /// <summary> Tests for <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/>. </summary>
     [TestFixture]
     internal sealed class EulerianGraphAlgorithmTests
     {

@@ -9,9 +9,7 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Algorithm that find Eulerian path in a graph.
-    /// </summary>
+    /// <summary> Algorithm that find Eulerian path in a graph. </summary>
     public sealed class EulerianTrailAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>
@@ -503,8 +501,8 @@ namespace QuikGraph.Algorithms
             // Create trail
             var trail = new List<TEdge>();
             var bfs = VisitedGraph.CreateBreadthFirstSearchAlgorithm();
-            var vis = new VertexPredecessorRecorderObserver<TVertex, TEdge>();
-            using (vis.Attach(bfs))
+            var vis = bfs.AttachVertexPredecessorRecorderObserver();
+            using (vis)
             {
                 bfs.Compute(startingVertex);
 

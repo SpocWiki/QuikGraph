@@ -4,9 +4,7 @@ using NUnit.Framework;
 
 namespace QuikGraph.Serialization.Tests
 {
-    /// <summary>
-    /// Test case sources for serialization tests.
-    /// </summary>
+    /// <summary> Test case sources for serialization tests. </summary>
     internal static class SerializationTestCaseSources
     {
         [NotNull, ItemNotNull]
