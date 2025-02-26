@@ -6,6 +6,18 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.Search
 {
+    /// <inheritdoc cref="CreateDepthFirstSearchAlgorithm{TVertex,TEdge}"/>
+    public static class DepthFirstSearchAlgorithm
+    {
+        /// <summary> Creates a depth first search algorithm for directed graph. </summary>
+        public static DepthFirstSearchAlgorithm<TVertex, TEdge> CreateDepthFirstSearchAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
+            [CanBeNull] IAlgorithmComponent host = null,
+            [CanBeNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter = null) where TEdge : IEdge<TVertex>
+            => new DepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, verticesColors, host, outEdgesFilter);
+    }
+
     /// <summary> A depth first search algorithm for directed graph. </summary>
     public sealed class DepthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IVertexListGraph<TVertex, TEdge>>
@@ -28,7 +40,7 @@ namespace QuikGraph.Algorithms.Search
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="outEdgesFilter"/> is <see langword="null"/>.</exception>
-        public DepthFirstSearchAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        internal DepthFirstSearchAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
             [CanBeNull] IAlgorithmComponent host = null,
             [CanBeNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter = null) : base(visitedGraph, host)
@@ -37,9 +49,7 @@ namespace QuikGraph.Algorithms.Search
             OutEdgesFilter = outEdgesFilter ?? (edges => edges);
         }
 
-        /// <summary>
-        /// Filter of edges.
-        /// </summary>
+        /// <summary> Filter of edges. </summary>
         [NotNull]
         public Func<IEnumerable<TEdge>, IEnumerable<TEdge>> OutEdgesFilter { get; }
 

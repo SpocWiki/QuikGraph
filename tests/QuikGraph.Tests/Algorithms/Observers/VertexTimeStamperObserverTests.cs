@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using QuikGraph.Algorithms.Observers;
@@ -89,7 +89,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
 
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
 
-                var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+                var dfs = graph.CreateDepthFirstSearchAlgorithm();
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -105,7 +105,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var graph = new AdjacencyGraph<int, IEdge<int>>();
                 graph.AddVertexRange([1, 2]);
 
-                var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+                var dfs = graph.CreateDepthFirstSearchAlgorithm();
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -139,7 +139,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                     Edge.Create(3, 4)
                 ]);
 
-                var dfs = new DepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+                var dfs = graph.CreateDepthFirstSearchAlgorithm();
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();

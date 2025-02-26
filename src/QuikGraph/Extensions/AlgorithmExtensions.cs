@@ -182,7 +182,7 @@ namespace QuikGraph.Algorithms
         public static TryFunc<TVertex, IEnumerable<TEdge>> TreeDepthFirstSearch<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex root) where TEdge : IEdge<TVertex>
-            => new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph)
+            => graph.CreateDepthFirstSearchAlgorithm()
                 .RunDirectedRootedAlgorithm<TVertex, TEdge, DepthFirstSearchAlgorithm<TVertex, TEdge>>(root);
 
         /// <summary> Computes a cycle popping tree
@@ -451,7 +451,7 @@ namespace QuikGraph.Algorithms
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
+            var dfs = graph.CreateDepthFirstSearchAlgorithm();
             var notRoots = new Dictionary<TVertex, bool>(graph.VertexCount);
             dfs.ExamineEdge += edge => notRoots[edge.Target] = false;
             dfs.Compute();
@@ -811,7 +811,7 @@ namespace QuikGraph.Algorithms
             {
                 Debug.Assert(graph != null);
 
-                var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
+                var dfs = graph.CreateDepthFirstSearchAlgorithm();
                 try
                 {
                     dfs.BackEdge += DfsBackEdge;

@@ -69,8 +69,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
             DepthFirstSearchAlgorithm<TVertex, TEdge> dfs = null;
             try
             {
-                dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph,
-                    new Dictionary<TVertex, GraphColor>(VisitedGraph.VertexCount), this);
+                dfs = VisitedGraph.CreateDepthFirstSearchAlgorithm(null, this);
                 dfs.BackEdge += OnBackEdge;
                 dfs.FinishVertex += OnVertexFinished;
                 dfs.DiscoverVertex += DiscoverVertex;

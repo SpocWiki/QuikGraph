@@ -76,7 +76,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         {
             IVertexListGraph<TVertex, TEdge> graph = MakeGraph(root, successors);
 
-            var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
+            var dfs = graph.CreateDepthFirstSearchAlgorithm();
             dfs.BackEdge += _ => Assert.Fail("Random constructed tree contains a cycle.");
             dfs.Compute();
         }

@@ -18,7 +18,7 @@ namespace QuikGraph.Tests.Algorithms.Search
     {
         #region Test helpers
 
-        public void RunBFSAndCheck<TVertex, TEdge>(
+        public static void RunBFSAndCheck<TVertex, TEdge>(
             [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [NotNull] TVertex sourceVertex)
             where TEdge : IEdge<TVertex>
@@ -161,7 +161,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             }
 
             // The shortest path to a child should be one longer than
-            // shortest path to the parent.
+            // the shortest path to the parent.
             foreach (TVertex vertex in graph.Vertices)
             {
                 if (!parents[vertex].Equals(vertex)) // Not the root of the BFS tree

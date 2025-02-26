@@ -125,7 +125,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             if (VisitedGraph.IsVerticesEmpty)
                 return;
 
-            var dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph);
+            var dfs = VisitedGraph.CreateDepthFirstSearchAlgorithm();
             try
             {
                 dfs.StartVertex += OnStartVertex;

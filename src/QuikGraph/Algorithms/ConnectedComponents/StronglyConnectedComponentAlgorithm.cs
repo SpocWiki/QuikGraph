@@ -172,8 +172,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             DepthFirstSearchAlgorithm<TVertex, TEdge> dfs = null;
             try
             {
-                dfs = new DepthFirstSearchAlgorithm<TVertex, TEdge>(VisitedGraph,
-                    new Dictionary<TVertex, GraphColor>(VisitedGraph.VertexCount), this);
+                dfs = VisitedGraph.CreateDepthFirstSearchAlgorithm(null, this);
                 dfs.DiscoverVertex += OnVertexDiscovered;
                 dfs.FinishVertex += OnVertexFinished;
 
