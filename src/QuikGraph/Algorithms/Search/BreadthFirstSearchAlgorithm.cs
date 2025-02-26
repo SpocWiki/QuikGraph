@@ -17,7 +17,7 @@ namespace QuikGraph.Algorithms.Search
             [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
             [CanBeNull] IAlgorithmComponent host = null,
             [CanBeNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> outEdgesFilter = null) where TEdge : IEdge<TVertex>
-        => new BreadthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, vertexQueue, verticesColors, outEdgesFilter, host);
+            => new BreadthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, vertexQueue, verticesColors, outEdgesFilter, host);
     }
 
     /// <summary> A breath first search algorithm for directed graphs. </summary>
