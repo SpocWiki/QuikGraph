@@ -5,13 +5,28 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.Condensation
 {
+    /// <inheritdoc cref="CreateEdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/>
+    public static class EdgeMergeCondensationGraphAlgorithmX
+    {
+        /// <summary> Initializes a new instance of the <see cref="EdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <param name="visitedGraph">Graph to visit.</param>
+        /// <param name="condensedGraph">Graph that will contain the condensation of the <paramref name="visitedGraph"/>.</param>
+        /// <param name="vertexPredicate">Vertex predicate used to filter the vertices to put in the condensed graph.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="condensedGraph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexPredicate"/> is <see langword="null"/>.</exception>
+        public static EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge> CreateEdgeMergeCondensationGraphAlgorithm<TVertex, TEdge>(
+            [NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> condensedGraph,
+            [NotNull] VertexPredicate<TVertex> vertexPredicate) where TEdge : IEdge<TVertex>
+            => null;
+
+    }
     /// <summary> Algorithm that condensate edges of a graph. </summary>
     public sealed class EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge> : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="EdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="condensedGraph">Graph that will contain the condensation of the <paramref name="visitedGraph"/>.</param>
         /// <param name="vertexPredicate">Vertex predicate used to filter the vertices to put in the condensed graph.</param>

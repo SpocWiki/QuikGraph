@@ -2,9 +2,7 @@
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Implementation of several distance relaxers.
-    /// </summary>
+    /// <summary> Implementation of several distance relaxers. </summary>
     public static class DistanceRelaxers
     {
         /// <summary>

@@ -48,7 +48,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 () => _nullEdgeWeights.CreateVertexDistanceRecorderObserver(null, new Dictionary<int, double>()));
             _ = _edgeWeights.CreateVertexDistanceRecorderObserver();
             Assert.Throws<ArgumentNullException>(
-                () => _nullEdgeWeights.CreateVertexDistanceRecorderObserver(null, null));
+                () => _nullEdgeWeights.CreateVertexDistanceRecorderObserver());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

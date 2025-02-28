@@ -18,7 +18,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             UndirectedGraph<int, UndirectedEdge<int>> graph = CreateUndirectedGraph(Enumerable.Empty<Vertices>());
 
-            var algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsFalse(algorithm.IsHamiltonian());
         }
 
@@ -35,7 +35,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(3, 4)
             ]);
 
-            var algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsTrue(algorithm.IsHamiltonian());
 
             // Not Hamiltonian
@@ -47,7 +47,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(3, 4)
             ]);
 
-            algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsFalse(algorithm.IsHamiltonian());
         }
 
@@ -59,7 +59,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(1, 1)
             ]);
 
-            var algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsTrue(algorithm.IsHamiltonian());
         }
 
@@ -72,7 +72,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(1, 2)
             ]);
 
-            var algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsTrue(algorithm.IsHamiltonian());
 
             // Not Hamiltonian
@@ -82,7 +82,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(2, 2)
             ]);
 
-            algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsFalse(algorithm.IsHamiltonian());
         }
 
@@ -100,7 +100,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(3, 3)
             ]);
 
-            var algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsFalse(algorithm.IsHamiltonian());
         }
 
@@ -115,7 +115,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(3, 4)
             ]);
 
-            var algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsFalse(algorithm.IsHamiltonian());
         }
 
@@ -156,7 +156,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(9, 10)
             ]);
 
-            var algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsTrue(algorithm.IsHamiltonian());
         }
 
@@ -195,7 +195,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(9, 10)
             ]);
 
-            var algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
             Assert.IsTrue(algorithm.IsHamiltonian());
         }
 
@@ -277,7 +277,7 @@ namespace QuikGraph.Tests.Algorithms
                 new Vertices(9, 10)
             ]);
 
-            var algorithm = new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsHamiltonianGraphAlgorithm();
 
             var hashSet = new HashSet<List<int>>(new SequenceComparer<int>());
             hashSet.UnionWith(algorithm.GetPermutations());
@@ -290,12 +290,13 @@ namespace QuikGraph.Tests.Algorithms
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
+            IUndirectedGraph<int, UndirectedEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new IsHamiltonianGraphAlgorithm<int, UndirectedEdge<int>>(null));
+                () => nullGraph.CreateIsHamiltonianGraphAlgorithm());
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<ArgumentNullException>(
-                () => IsHamiltonianGraphAlgorithm.IsHamiltonian<int, UndirectedEdge<int>>(null));
+                () => nullGraph.IsHamiltonian());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

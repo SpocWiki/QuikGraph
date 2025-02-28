@@ -5,19 +5,26 @@ using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Algorithms.Condensation
 {
-    /// <summary>
-    /// Algorithm that condensate a graph with strongly (or not) connected components.
-    /// </summary>
+    /// <summary> Initializes new instances of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
+    public static class CondensationGraphAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
+        /// <param name="visitedGraph">Graph to visit.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
+        public static CondensationGraphAlgorithm<TVertex, TEdge, TGraph> CreateCondensationGraphAlgorithm<TVertex, TEdge, TGraph>
+            ([NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph) where TEdge : IEdge<TVertex>
+            where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
+            => null;// new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(visitedGraph);
+    }
+    /// <summary> Algorithm that condensate a graph with strongly (or not) connected components. </summary>
     public sealed class CondensationGraphAlgorithm<TVertex, TEdge, TGraph> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
         where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public CondensationGraphAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
+        internal CondensationGraphAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
             : base(visitedGraph)
         {
         }

@@ -28,7 +28,7 @@ namespace QuikGraph.Tests.Algorithms
             if (circuitCount == 0)
                 return;
 
-            var algorithm = new EulerianTrailAlgorithm<TVertex, TEdge>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             algorithm.AddTemporaryEdges((s, t) => edgeFactory(s, t));
             algorithm.Compute();
             trails = algorithm.Trails().ToArray();
@@ -67,7 +67,7 @@ namespace QuikGraph.Tests.Algorithms
 
             TEdge[] graphEdges = graph.Edges.ToArray();
 
-            var algorithm = new EulerianTrailAlgorithm<TVertex, TEdge>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             algorithm.AddTemporaryEdges((s, t) => edgeFactory(s, t));
             TEdge[] augmentedGraphEdges = graph.Edges.ToArray();
             Assert.GreaterOrEqual(augmentedGraphEdges.Length, graphEdges.Length);
@@ -103,10 +103,10 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
 
-            var algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph, null);
+            algorithm = graph.CreateEulerianTrailAlgorithm(null);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -128,10 +128,9 @@ namespace QuikGraph.Tests.Algorithms
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
+            IMutableVertexAndEdgeListGraph<int, IEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new EulerianTrailAlgorithm<int, IEdge<int>>(null));
-            Assert.Throws<ArgumentNullException>(
-                () => new EulerianTrailAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.CreateEulerianTrailAlgorithm());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -142,7 +141,7 @@ namespace QuikGraph.Tests.Algorithms
         public void TryGetRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             TryGetRootVertex_Test(algorithm);
         }
 
@@ -150,7 +149,7 @@ namespace QuikGraph.Tests.Algorithms
         public void SetRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             SetRootVertex_Test(algorithm);
         }
 
@@ -158,7 +157,7 @@ namespace QuikGraph.Tests.Algorithms
         public void SetRootVertex_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new EulerianTrailAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             SetRootVertex_Throws_Test(algorithm);
         }
 
@@ -166,7 +165,7 @@ namespace QuikGraph.Tests.Algorithms
         public void ClearRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             ClearRootVertex_Test(algorithm);
         }
 
@@ -176,7 +175,7 @@ namespace QuikGraph.Tests.Algorithms
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             ComputeWithoutRoot_NoThrows_Test(
                 graph,
-                () => new EulerianTrailAlgorithm<int, IEdge<int>>(graph));
+                () => graph.CreateEulerianTrailAlgorithm());
         }
 
         [Test]
@@ -184,7 +183,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVertex(0);
-            var algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             ComputeWithRoot_Test(algorithm);
         }
 
@@ -193,7 +192,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             ComputeWithRoot_Throws_Test(
-                () => new EulerianTrailAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+                () => graph.CreateEulerianTrailAlgorithm());
         }
 
         #endregion
@@ -357,7 +356,7 @@ namespace QuikGraph.Tests.Algorithms
             [NotNull] AdjacencyGraph<int, EquatableEdge<int>> graph,
             [NotNull, ItemNotNull] EquatableEdge<int>[] expectedTemporaryEdges)
         {
-            var algorithm = new EulerianTrailAlgorithm<int, EquatableEdge<int>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             int edgeCount = graph.EdgeCount;
             EquatableEdge<int>[] tmpEdges = algorithm.AddTemporaryEdges(
                 (source, target) => new EquatableEdge<int>(source, target));
@@ -375,7 +374,7 @@ namespace QuikGraph.Tests.Algorithms
         public void AddTemporaryEdges_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new EulerianTrailAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
 
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.AddTemporaryEdges(null));
@@ -431,7 +430,7 @@ namespace QuikGraph.Tests.Algorithms
         [TestCaseSource(nameof(RemoveTemporaryEdgesTestCases))]
         public void RemoveTemporaryEdges([NotNull] AdjacencyGraph<int, EquatableEdge<int>> graph)
         {
-            var algorithm = new EulerianTrailAlgorithm<int, EquatableEdge<int>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             int edgeCount = graph.EdgeCount;
             EquatableEdge<int>[] tmpEdges = algorithm.AddTemporaryEdges(
                 (source, target) => new EquatableEdge<int>(source, target));
@@ -771,7 +770,7 @@ namespace QuikGraph.Tests.Algorithms
         public void RootedEulerianTrails_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new EulerianTrailAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var algorithm = graph.CreateEulerianTrailAlgorithm();
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.Trails(null));
         }

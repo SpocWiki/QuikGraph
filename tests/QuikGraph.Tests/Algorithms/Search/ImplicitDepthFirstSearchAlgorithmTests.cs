@@ -106,7 +106,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null);
+            algorithm = new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
             AssertAlgorithmProperties(algorithm, graph);
 
             algorithm.MaxDepth = 12;
@@ -139,7 +139,7 @@ namespace QuikGraph.Tests.Algorithms.Search
                 () => new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null));
+                () => new ImplicitDepthFirstSearchAlgorithm<int, IEdge<int>>(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
 

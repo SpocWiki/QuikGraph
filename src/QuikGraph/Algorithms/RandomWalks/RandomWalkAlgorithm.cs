@@ -32,7 +32,7 @@ namespace QuikGraph.Algorithms.RandomWalks
         public RandomWalkAlgorithm(
             [NotNull] IImplicitGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IEdgeChain<TVertex, TEdge> edgeChain)
-            : base(visitedGraph, null)
+            : base(visitedGraph)
         {
             _edgeChain = edgeChain ?? throw new ArgumentNullException(nameof(edgeChain));
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.Observers
@@ -10,10 +11,11 @@ namespace QuikGraph.Algorithms.Observers
     {
         /// <summary> throws when <paramref name="item"/> is null </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public static T ShouldNotBeNull<T>([CanBeNull] this T item) where T : class
+        public static T ShouldNotBeNull<T>([CanBeNull] this T item, //[CallerArgumentExpression("item")]
+            string argName = "") where T : class
         {
             if (item == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(argName);
             return item;
         }
 

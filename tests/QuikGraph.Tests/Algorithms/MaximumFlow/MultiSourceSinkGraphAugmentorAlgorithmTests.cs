@@ -109,7 +109,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
 
-            algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory, null);
+            algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
 
             #region Local function
@@ -158,19 +158,19 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, edgeFactory, null));
+                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, edgeFactory, null));
+                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, null, null));
+                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, edgeFactory, null));
+                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, null, null));
+                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null, null));
+                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null, null));
+                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

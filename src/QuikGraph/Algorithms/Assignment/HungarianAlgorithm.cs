@@ -4,10 +4,9 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.Assignment
 {
-    /// <summary>
-    /// A combinatorial optimization algorithm that solves the assignment problem, meaning
-    /// finding, in a weighted bipartite graph, a matching in which the sum of weights of the
-    /// edges is as large as possible.
+    /// <summary> A combinatorial optimization algorithm that solves the assignment problem,
+    /// meaning finding, in a weighted bipartite graph, a 1:1 matching
+    /// in which the sum of weights of the edges is as large as possible.
     /// </summary>
     public sealed class HungarianAlgorithm
     {

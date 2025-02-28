@@ -33,7 +33,7 @@ namespace QuikGraph.Tests.Algorithms.Cliques
             var algorithm = new TestMaximumCliqueAlgorithm<int, IEdge<int>>(graph);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new TestMaximumCliqueAlgorithm<int, IEdge<int>>(graph, null);
+            algorithm = new TestMaximumCliqueAlgorithm<int, IEdge<int>>(graph);
             algorithm.AssertAlgorithmState(graph);
         }
 
@@ -46,7 +46,7 @@ namespace QuikGraph.Tests.Algorithms.Cliques
                 () => new TestMaximumCliqueAlgorithm<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new TestMaximumCliqueAlgorithm<int, IEdge<int>>(null, null));
+                () => new TestMaximumCliqueAlgorithm<int, IEdge<int>>(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

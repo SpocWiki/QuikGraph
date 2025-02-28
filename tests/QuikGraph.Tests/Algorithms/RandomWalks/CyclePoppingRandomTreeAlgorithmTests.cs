@@ -99,7 +99,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, markovChain2);
             AssertAlgorithmProperties(algorithm, graph, markovChain2);
 
-            algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, markovChain1, null);
+            algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, markovChain1);
             AssertAlgorithmProperties(algorithm, graph, markovChain1);
 
             var random = new Random(123456);
@@ -142,17 +142,17 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             Assert.Throws<ArgumentNullException>(
                 () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null));
 
-            _ = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, null);
+            _ = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<ArgumentNullException>(
                 () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, chain));
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, null));
+                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null));
 
-            _ = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, null, null);
+            _ = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph);
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, chain, null));
+                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, chain));
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, null, null));
+                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null));
 
             var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, chain);
             Assert.Throws<ArgumentNullException>(() => algorithm.Rand = null);

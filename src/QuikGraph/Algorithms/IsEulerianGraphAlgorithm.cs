@@ -6,22 +6,41 @@ using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Algorithm that checks if a graph is Eulerian.
+    /// <inheritdoc cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/>
+    public static class IsEulerianGraphAlgorithm
+    {
+        /// <summary> Returns true if the <paramref name="graph"/> is Eulerian, otherwise false. </summary>
+        /// <param name="graph">Graph to check.</param>
+        /// <returns>True if the <paramref name="graph"/> is Eulerian, false otherwise.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        [Pure]
+        public static bool IsEulerian<TVertex, TEdge>(
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
+            where TEdge : IUndirectedEdge<TVertex>
+            => graph.CreateIsEulerianGraphAlgorithm().IsEulerian();
+
+        /// <summary> Initializes a new instance of the <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <param name="graph">Graph to check.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        public static IsEulerianGraphAlgorithm<TVertex, TEdge> CreateIsEulerianGraphAlgorithm<TVertex, TEdge>
+            ([NotNull] this IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IUndirectedEdge<TVertex>
+            => null;//new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph);
+    }
+
+    /// <summary> Algorithm that checks if a graph is Eulerian. </summary>
+    /// <remarks>
     /// (has a path using all edges one and only one time).
-    /// </summary>
+    /// </remarks>
     public class IsEulerianGraphAlgorithm<TVertex, TEdge>
         where TEdge : IUndirectedEdge<TVertex>
     {
         [NotNull]
         private readonly UndirectedGraph<TVertex, TEdge> _graph;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="graph">Graph to check.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        public IsEulerianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
+         IsEulerianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
         {
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
@@ -122,27 +141,6 @@ namespace QuikGraph.Algorithms
                 default:
                     return false;
             }
-        }
-    }
-
-    /// <summary>
-    /// Algorithm that checks if a graph is Eulerian.
-    /// (has a path use all edges one and only one time).
-    /// </summary>
-    public static class IsEulerianGraphAlgorithm
-    {
-        /// <summary>
-        /// Returns true if the <paramref name="graph"/> is Eulerian, otherwise false.
-        /// </summary>
-        /// <param name="graph">Graph to check.</param>
-        /// <returns>True if the <paramref name="graph"/> is Eulerian, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        [Pure]
-        public static bool IsEulerian<TVertex, TEdge>(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IUndirectedEdge<TVertex>
-        {
-            return new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph).IsEulerian();
         }
     }
 }

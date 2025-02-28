@@ -9,6 +9,19 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms
 {
+    /// <inheritdoc cref="CreateEulerianTrailAlgorithm{TVertex,TEdge}"/>
+    public static class EulerianTrailAlgorithmX
+    {
+        /// <summary> Initializes a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <param name="visitedGraph">Graph to visit.</param>
+        /// <param name="host">Host to use if set, otherwise use this reference.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
+        public static EulerianTrailAlgorithm<TVertex, TEdge> CreateEulerianTrailAlgorithm<TVertex, TEdge>(
+            [NotNull] this IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new EulerianTrailAlgorithm<TVertex, TEdge>(visitedGraph, host);
+    }
+
     /// <summary> Algorithm that find Eulerian path in a graph. </summary>
     public sealed class EulerianTrailAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
@@ -24,24 +37,12 @@ namespace QuikGraph.Algorithms
         [NotNull, ItemNotNull]
         private List<TEdge> _temporaryEdges = new List<TEdge>();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public EulerianTrailAlgorithm(
-            [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, null)
-        {
-        }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="EulerianTrailAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public EulerianTrailAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+        internal EulerianTrailAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {

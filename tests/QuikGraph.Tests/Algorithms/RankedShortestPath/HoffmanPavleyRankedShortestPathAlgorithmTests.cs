@@ -59,7 +59,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, DistanceRelaxers.CriticalDistance);
 
-            algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance, null);
+            algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, DistanceRelaxers.CriticalDistance);
 
             #region Local function
@@ -115,19 +115,19 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
                 () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance, null));
+                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance, null));
+                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null));
+                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance, null));
+                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null, null));
+                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, null, null, null));
+                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null, null, null));
+                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null, null));
 
             var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
             Assert.Throws<ArgumentOutOfRangeException>(() => algorithm.ShortestPathCount = 0);

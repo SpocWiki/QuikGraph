@@ -18,7 +18,7 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
             var algorithm = new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, _ => 1.0, null);
+            algorithm = new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
             algorithm.AssertAlgorithmState(graph);
         }
 
@@ -37,11 +37,11 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
                 () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, _ => 1.0, null));
+                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, _ => 1.0));
             Assert.Throws<ArgumentNullException>(
-                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(graph, null));
             Assert.Throws<ArgumentNullException>(
-                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, null, null));
+                () => new PrimMinimumSpanningTreeAlgorithm<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

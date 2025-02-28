@@ -5,10 +5,35 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms
 {
+
     /// <summary>
     /// Algorithm that checks if a graph is Hamiltonian
     /// (has a path that links all vertices and pass one and only one time by each vertex).
     /// </summary>
+    public static class IsHamiltonianGraphAlgorithm
+    {
+        /// <summary> Returns true if the <paramref name="graph"/> is Hamiltonian, otherwise false. </summary>
+        /// <param name="graph">Graph to check.</param>
+        /// <returns>True if the <paramref name="graph"/> is Hamiltonian, false otherwise.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        [Pure]
+        public static bool IsHamiltonian<TVertex, TEdge>(
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
+            where TEdge : IUndirectedEdge<TVertex> =>
+            CreateIsHamiltonianGraphAlgorithm(graph).IsHamiltonian();
+
+        /// <summary> Initializes a new instance of the <see cref="IsHamiltonianGraphAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <param name="graph">Graph to check.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        public static IsHamiltonianGraphAlgorithm<TVertex, TEdge> CreateIsHamiltonianGraphAlgorithm<TVertex, TEdge>(
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IUndirectedEdge<TVertex>
+            => new IsHamiltonianGraphAlgorithm<TVertex, TEdge>(graph);
+    }
+
+    /// <summary> Algorithm that checks if a graph is Hamiltonian </summary>
+    /// <remarks>
+    /// (has a path that links all vertices and pass one and only one time by each vertex).
+    /// </remarks>
     public class IsHamiltonianGraphAlgorithm<TVertex, TEdge>
         where TEdge : IUndirectedEdge<TVertex>
     {
@@ -17,12 +42,10 @@ namespace QuikGraph.Algorithms
 
         private readonly double _threshold;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IsHamiltonianGraphAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="IsHamiltonianGraphAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="graph">Graph to check.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        public IsHamiltonianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
+        internal IsHamiltonianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
         {
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
@@ -127,26 +150,5 @@ namespace QuikGraph.Algorithms
         }
 
         #endregion
-    }
-
-    /// <summary>
-    /// Algorithm that checks if a graph is Hamiltonian
-    /// (has a path that links all vertices and pass one and only one time by each vertex).
-    /// </summary>
-    public static class IsHamiltonianGraphAlgorithm
-    {
-        /// <summary>
-        /// Returns true if the <paramref name="graph"/> is Hamiltonian, otherwise false.
-        /// </summary>
-        /// <param name="graph">Graph to check.</param>
-        /// <returns>True if the <paramref name="graph"/> is Hamiltonian, false otherwise.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        [Pure]
-        public static bool IsHamiltonian<TVertex, TEdge>(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IUndirectedEdge<TVertex>
-        {
-            return new IsHamiltonianGraphAlgorithm<TVertex, TEdge>(graph).IsHamiltonian();
-        }
     }
 }

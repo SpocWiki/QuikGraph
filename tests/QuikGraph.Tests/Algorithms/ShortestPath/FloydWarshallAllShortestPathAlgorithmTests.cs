@@ -25,7 +25,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance, null);
+            algorithm = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
             algorithm.AssertAlgorithmState(graph);
         }
 
@@ -49,29 +49,29 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
                 () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
-            _ = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null);
+            _ = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
             Assert.Throws<ArgumentNullException>(
                 () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance, null));
-            _ = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null);
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
+            _ = new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null, null, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(graph, null));
             Assert.Throws<ArgumentNullException>(
-                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null, null, null));
+                () => new FloydWarshallAllShortestPathAlgorithm<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

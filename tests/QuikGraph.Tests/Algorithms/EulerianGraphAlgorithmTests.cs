@@ -17,7 +17,7 @@ namespace QuikGraph.Tests.Algorithms
             bool expectedEulerian,
             [NotNull] IUndirectedGraph<int, UndirectedEdge<int>> graph)
         {
-            var algorithm = new IsEulerianGraphAlgorithm<int, UndirectedEdge<int>>(graph);
+            var algorithm = graph.CreateIsEulerianGraphAlgorithm();
             Assert.AreEqual(expectedEulerian, algorithm.IsEulerian());
             Assert.AreEqual(expectedEulerian, IsEulerianGraphAlgorithm.IsEulerian(graph));
         }
@@ -161,12 +161,13 @@ namespace QuikGraph.Tests.Algorithms
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
+            IUndirectedGraph<int, UndirectedEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new IsEulerianGraphAlgorithm<int, UndirectedEdge<int>>(null));
+                () => nullGraph.CreateIsEulerianGraphAlgorithm());
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<ArgumentNullException>(
-                () => IsEulerianGraphAlgorithm.IsEulerian<int, UndirectedEdge<int>>(null));
+                () => nullGraph.IsEulerian());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

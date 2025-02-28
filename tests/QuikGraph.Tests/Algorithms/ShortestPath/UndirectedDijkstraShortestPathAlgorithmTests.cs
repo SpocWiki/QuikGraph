@@ -84,7 +84,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             algorithm = new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, Weights, DistanceRelaxers.CriticalDistance);
 
-            algorithm = new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance, null);
+            algorithm = new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, Weights, DistanceRelaxers.CriticalDistance);
 
             #region Local function
@@ -132,29 +132,29 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
                 () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
-            _ = new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null);
+            _ = new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
             Assert.Throws<ArgumentNullException>(
                 () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null));
+                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, null));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, null, null));
+                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance, null));
+                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance, null));
-            _ = new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null, null);
+                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
+            _ = new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance, null));
+                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null, null));
+                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, null, null, null));
+                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(graph, null));
             Assert.Throws<ArgumentNullException>(
-                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, null, null, null));
+                () => new UndirectedDijkstraShortestPathAlgorithm<int, IEdge<int>>(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

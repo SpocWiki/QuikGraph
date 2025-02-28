@@ -17,9 +17,7 @@ namespace QuikGraph.Algorithms
 #endif
     public abstract class AlgorithmBase<TGraph> : IAlgorithm<TGraph>, IAlgorithmComponent
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AlgorithmBase{TGraph}"/> class (with optional host).
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="AlgorithmBase{TGraph}"/> class (with optional host). </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
@@ -28,12 +26,8 @@ namespace QuikGraph.Algorithms
             if (visitedGraph == null)
                 throw new ArgumentNullException(nameof(visitedGraph));
 
-            if (host is null)
-            {
-                host = this;
-            }
             VisitedGraph = visitedGraph;
-            _algorithmServices = new AlgorithmServices(host);
+            _algorithmServices = new AlgorithmServices(host ?? this);
         }
 
         /// <summary>
