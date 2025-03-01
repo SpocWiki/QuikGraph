@@ -56,7 +56,7 @@ namespace QuikGraph.Algorithms.RandomWalks
                 [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
                 [CanBeNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain = null,
                 [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
-            => null;// new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(visitedGraph, edgeChain, host);
+            => new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(visitedGraph, edgeChain, host);
 
     }
 
@@ -73,7 +73,7 @@ namespace QuikGraph.Algorithms.RandomWalks
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeChain"/> is <see langword="null"/>.</exception>
-        CyclePoppingRandomTreeAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        internal CyclePoppingRandomTreeAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain = null, [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {

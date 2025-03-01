@@ -8,9 +8,19 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.MinimumSpanningTree
 {
-    /// <summary>
-    /// Prim minimum spanning tree algorithm implementation.
-    /// </summary>
+    /// <inheritdoc cref="CreatePrimMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/>
+    public static class PrimMinimumSpanningTreeAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="PrimMinimumSpanningTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static PrimMinimumSpanningTreeAlgorithm<TVertex, TEdge>
+            CreatePrimMinimumSpanningTreeAlgorithm<TVertex, TEdge>(
+                [NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph,
+                [NotNull] Func<TEdge, double> edgeWeights, [CanBeNull] IAlgorithmComponent host = null)
+            where TEdge : IEdge<TVertex>
+            => new PrimMinimumSpanningTreeAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, host);
+    }
+
+    /// <summary> Prim minimum spanning tree algorithm implementation. </summary>
     public sealed class PrimMinimumSpanningTreeAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
             , IMinimumSpanningTreeAlgorithm<TVertex, TEdge>
