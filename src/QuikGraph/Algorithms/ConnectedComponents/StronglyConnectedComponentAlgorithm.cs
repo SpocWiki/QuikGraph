@@ -10,6 +10,22 @@ namespace QuikGraph.Algorithms.ConnectedComponents
     /// <inheritdoc cref="CreateStronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/>
     public static class StronglyConnectedComponentsAlgorithm
     {
+        /// <summary> Computes the strongly connected components of a directed graph. </summary>
+        /// <param name="graph">Graph to visit.</param>
+        /// <param name="components">Found components.</param>
+        /// <returns>Number of component found.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
+        public static int StronglyConnectedComponents<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
+            [CanBeNull] IDictionary<TVertex, int> components = null)
+            where TEdge : IEdge<TVertex>
+        {
+            var algorithm = graph.CreateStronglyConnectedComponentsAlgorithm(components);
+            algorithm.Compute();
+            return algorithm.ComponentCount;
+        }
+
         /// <summary> Initializes a new instance of the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class. </summary>
         public static StronglyConnectedComponentsAlgorithm<TVertex, TEdge>
             CreateStronglyConnectedComponentsAlgorithm<TVertex, TEdge>(

@@ -20,7 +20,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             var algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null);
+            algorithm = new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
             algorithm.AssertAlgorithmState(graph);
         }
 
@@ -33,7 +33,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 () => new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
+                () => new IncrementalConnectedComponentsAlgorithm<int, IEdge<int>>(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

@@ -89,13 +89,13 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(components));
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm());
 
             _ = adjacencyGraph.CreateWeaklyConnectedComponentsAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(components, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(components));
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(null, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

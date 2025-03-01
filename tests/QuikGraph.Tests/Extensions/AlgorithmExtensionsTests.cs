@@ -1149,17 +1149,18 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void ConnectedComponents_Throws()
         {
-            var graph = new UndirectedGraph<int, IEdge<int>>();
+            IUndirectedGraph<int, IEdge<int>> nullGraph = null;
+            var undirectedGraph = new UndirectedGraph<int, IEdge<int>>();
             var components = new Dictionary<int, int>();
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
+            _ = undirectedGraph.ConnectedComponents(null);
+
             Assert.Throws<ArgumentNullException>(
-                () => graph.ConnectedComponents(null));
+                () => nullGraph.ConnectedComponents(components));
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.ConnectedComponents<int, IEdge<int>>(null, components));
-            Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.ConnectedComponents<int, IEdge<int>>(null, null));
+                () => nullGraph.ConnectedComponents(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -1247,7 +1248,7 @@ namespace QuikGraph.Tests.Extensions
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.StronglyConnectedComponents(components));
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.StronglyConnectedComponents(null));
+                () => nullGraph.StronglyConnectedComponents());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
@@ -1298,11 +1299,11 @@ namespace QuikGraph.Tests.Extensions
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            _ = adjacencyGraph.WeaklyConnectedComponents(null);
+            _ = adjacencyGraph.WeaklyConnectedComponents();
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.WeaklyConnectedComponents(components));
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.WeaklyConnectedComponents(null));
+                () => nullGraph.WeaklyConnectedComponents());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }

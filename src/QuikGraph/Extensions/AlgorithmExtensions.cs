@@ -348,27 +348,7 @@ namespace QuikGraph.Algorithms
             return incrementalComponents;
         }
 
-        /// <summary>
-        /// Computes the strongly connected components of a directed graph.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <param name="components">Found components.</param>
-        /// <returns>Number of component found.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public static int StronglyConnectedComponents<TVertex, TEdge>(
-            [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
-            [CanBeNull] IDictionary<TVertex, int> components = null)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = graph.CreateStronglyConnectedComponentsAlgorithm(components);
-            algorithm.Compute();
-            return algorithm.ComponentCount;
-        }
-
-        /// <summary>
-        /// Condensates the strongly connected components of a directed graph.
-        /// </summary>
+        /// <summary> Condensates the strongly connected components of a directed graph. </summary>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>The condensed graph.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>

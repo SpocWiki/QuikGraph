@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Condensation;
+using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Tests.Algorithms.Condensation
 {

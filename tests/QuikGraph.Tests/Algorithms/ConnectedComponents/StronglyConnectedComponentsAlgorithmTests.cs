@@ -76,7 +76,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             algorithm = graph.CreateStronglyConnectedComponentsAlgorithm(components);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = graph.CreateStronglyConnectedComponentsAlgorithm(components, null);
+            algorithm = graph.CreateStronglyConnectedComponentsAlgorithm(components);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -112,17 +112,17 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             Assert.Throws<ArgumentNullException>(
                 () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
 
-            _ = graph.CreateStronglyConnectedComponentsAlgorithm(null);
+            _ = graph.CreateStronglyConnectedComponentsAlgorithm();
             Assert.Throws<ArgumentNullException>(
                 () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
-                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
+                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
 
-            _ = graph.CreateStronglyConnectedComponentsAlgorithm(null, null);
+            _ = graph.CreateStronglyConnectedComponentsAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
+                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
-                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
+                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
