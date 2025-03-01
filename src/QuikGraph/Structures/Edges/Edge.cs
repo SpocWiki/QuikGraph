@@ -14,6 +14,9 @@ namespace QuikGraph
         /// It can also be registered with an IoC Container to dynamically create new Edges. 
         /// </remarks>
         public static IEdge<TVertex> Create<TVertex>(TVertex source, TVertex target) => new Edge<TVertex>(source, target);
+
+        /// <summary> Converts <see cref="IEdge{TVertex}"/> to <see cref="Edge{TVertex}"/> </summary>
+        public static Edge<T> AsEdge<T>(this IEdge<T> e) => new Edge<T>(e.Source, e.Target);
     }
 
     /// <summary>

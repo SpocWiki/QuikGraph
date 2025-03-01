@@ -35,7 +35,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             int k,
             [CanBeNull] Func<EquatableTaggedEdge<TVertex, double>, double> edgeWeights = null,
             [CanBeNull] Func<IEnumerable<SortedPath<TVertex>>, IEnumerable<SortedPath<TVertex>>> filter = null)
-            => null;// new YenShortestPathsAlgorithm<TVertex>(graph, source, target, k, edgeWeights, filter);
+            => new YenShortestPathsAlgorithm<TVertex>(graph, source, target, k, edgeWeights, filter);
     }
 
         /// <summary> A single-source K-shortest loopless paths algorithm for graphs with non negative edge cost. </summary>
@@ -74,7 +74,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="T:System.ArgumentException"><paramref name="source"/> is not part of <paramref name="graph"/>.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="target"/> is not part of <paramref name="graph"/>.</exception>
         /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="k"/> is lower than 1.</exception>
-        YenShortestPathsAlgorithm(
+        internal YenShortestPathsAlgorithm(
             [NotNull] AdjacencyGraph<TVertex, EquatableTaggedEdge<TVertex, double>> graph,
             [NotNull] TVertex source,
             [NotNull] TVertex target,

@@ -4,6 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
+using QuikGraph.Algorithms.Condensation;
 using QuikGraph.Algorithms.MaximumFlow;
 using QuikGraph.Algorithms.RandomWalks;
 using QuikGraph.Algorithms.ShortestPath;
@@ -1047,13 +1048,12 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void SourceFirstTopologicalSort_Throws()
         {
+            IVertexAndEdgeListGraph<int, IEdge<int>> nullEdgeListGraph = null;
+            IUndirectedGraph<int, IEdge<int>> undirectedGraph = null;
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => ((IVertexAndEdgeListGraph<int, IEdge<int>>)null).SourceFirstTopologicalSort());
-
-            Assert.Throws<ArgumentNullException>(
-                () => ((IUndirectedGraph<int, IEdge<int>>)null).SourceFirstTopologicalSort());
+            Assert.Throws<ArgumentNullException>(() => nullEdgeListGraph.SourceFirstTopologicalSort());
+            Assert.Throws<ArgumentNullException>(() => undirectedGraph.SourceFirstTopologicalSort());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }

@@ -20,7 +20,7 @@ namespace QuikGraph.Algorithms.ShortestPath
                 [NotNull] Func<TEdge, double> edgeWeights,
                 [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
                 [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
-            => null;// new UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
+            => new UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
 
         /// <summary>
         /// Computes shortest path with the Dijkstra algorithm and gets a function that allows
@@ -106,7 +106,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        UndirectedDijkstraShortestPathAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
+        internal UndirectedDijkstraShortestPathAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
             [CanBeNull] IAlgorithmComponent host = null)

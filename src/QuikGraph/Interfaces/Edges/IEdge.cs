@@ -2,9 +2,7 @@
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// Represents a directed edge.
-    /// </summary>
+    /// <summary> Represents a directed edge. </summary>
     public interface IEdge<out TVertex> //: IEquatable<IEdge<TVertex>>
     {
         /// <summary>

@@ -279,7 +279,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             [NotNull] ContractScenario<T> scenario)
         {
             var graph = new UndirectedGraph<T, Edge<T>>();
-            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
+            graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(Edge.AsEdge));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
             double Weights(Edge<T> e) => 1.0;
@@ -289,5 +289,6 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 algorithm.Compute(scenario.Root);
             return algorithm;
         }
+
     }
 }

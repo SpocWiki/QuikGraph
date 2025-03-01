@@ -6,9 +6,39 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// A single source shortest path algorithm for directed acyclic graphs.
-    /// </summary>
+    /// <inheritdoc cref="CreateDagShortestPathAlgorithm{TVertex,TEdge}"/>
+    public static class DagShortestPathAlgorithm
+    {
+        /// <summary> Computes shortest path with an algorithm made for DAG (Directed ACyclic graph)
+        /// and gets a function that allows to get paths. </summary>
+        /// <remarks>Uses <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
+        /// <param name="graph">The graph to visit.</param>
+        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
+        /// <param name="root">Starting vertex.</param>
+        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsDag<TVertex, TEdge>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
+            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
+            [NotNull] TVertex root)
+            where TEdge : IEdge<TVertex> => graph.CreateDagShortestPathAlgorithm(edgeWeights)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, DagShortestPathAlgorithm<TVertex, TEdge>>(root);
+
+        /// <summary> Creates a new instance of the <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static DagShortestPathAlgorithm<TVertex, TEdge> CreateDagShortestPathAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new DagShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
+    }
+
+    /// <summary> A single source shortest path algorithm for directed acyclic graphs. </summary>
     public sealed class DagShortestPathAlgorithm<TVertex, TEdge>
         : ShortestPathAlgorithmBase<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
         , IDistanceRecorderAlgorithm<TVertex>
@@ -23,7 +53,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public DagShortestPathAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        internal DagShortestPathAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
             [CanBeNull] IAlgorithmComponent host = null)

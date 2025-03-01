@@ -27,9 +27,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             foreach (TEdge edge in graph.Edges)
                 distances[edge] = graph.OutDegree(edge.Source) + 1;
 
-            var algorithm = new BellmanFordShortestPathAlgorithm<TVertex, TEdge>(
-                graph,
-                e => distances[e]);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(e => distances[e]);
 
             algorithm.InitializeVertex += vertex =>
             {
@@ -80,13 +78,13 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             Func<IEdge<int>, double> Weights = _ => 1.0;
 
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(Weights);
             AssertAlgorithmProperties(algorithm, graph, Weights);
 
-            algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
+            algorithm = graph.CreateBellmanFordShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, Weights, DistanceRelaxers.CriticalDistance);
 
-            algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
+            algorithm = graph.CreateBellmanFordShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, Weights, DistanceRelaxers.CriticalDistance);
 
             #region Local function
@@ -120,44 +118,45 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var adjacencyGraph = new AdjacencyGraph<int, IEdge<int>>();
 
             Func<IEdge<int>, double> Weights = _ => 1.0;
 
+            IVertexAndEdgeListGraph<int, IEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, Weights));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, null));
+                () => adjacencyGraph.CreateBellmanFordShortestPathAlgorithm(null));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
-            _ = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
+                () => adjacencyGraph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
+            _ = adjacencyGraph.CreateBellmanFordShortestPathAlgorithm(Weights);
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, Weights));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, null));
+                () => adjacencyGraph.CreateBellmanFordShortestPathAlgorithm(null));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
-            _ = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
+                () => adjacencyGraph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
+            _ = adjacencyGraph.CreateBellmanFordShortestPathAlgorithm(Weights);
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, Weights));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, null));
+                () => adjacencyGraph.CreateBellmanFordShortestPathAlgorithm(null));
             Assert.Throws<ArgumentNullException>(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.CreateBellmanFordShortestPathAlgorithm(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -168,7 +167,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void TryGetRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(_ => 1.0);
             TryGetRootVertex_Test(algorithm);
         }
 
@@ -176,7 +175,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void SetRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(_ => 1.0);
             SetRootVertex_Test(algorithm);
         }
 
@@ -184,7 +183,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void SetRootVertex_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new BellmanFordShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(_ => 1.0);
             SetRootVertex_Throws_Test(algorithm);
         }
 
@@ -192,7 +191,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void ClearRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(_ => 1.0);
             ClearRootVertex_Test(algorithm);
         }
 
@@ -201,7 +200,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             ComputeWithoutRoot_Throws_Test(
-                () => new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0));
+                () => graph.CreateBellmanFordShortestPathAlgorithm(_ => 1.0));
         }
 
         [Test]
@@ -209,7 +208,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVertex(0);
-            var algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(_ => 1.0);
             ComputeWithRoot_Test(algorithm);
         }
 
@@ -218,7 +217,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             ComputeWithRoot_Throws_Test(
-                () => new BellmanFordShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0));
+                () => graph.CreateBellmanFordShortestPathAlgorithm(_ => 1.0));
         }
 
         #endregion
@@ -229,7 +228,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdge(Edge.Create(1, 2));
 
-            var algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(_ => 1.0);
             algorithm.Compute(1);
 
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(1));
@@ -258,8 +257,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 edge12, edge23, edge34
             ]);
 
-            var algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(
-                negativeWeightGraph,
+            var algorithm = negativeWeightGraph.CreateBellmanFordShortestPathAlgorithm(
                 e =>
                 {
                     if (e == edge12)
@@ -282,8 +280,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 edge12, edge23, edge34, edge41
             ]);
 
-            algorithm = new BellmanFordShortestPathAlgorithm<int, IEdge<int>>(
-                negativeCycleGraph,
+            algorithm = negativeCycleGraph.CreateBellmanFordShortestPathAlgorithm(
                 e =>
                 {
                     if (e == edge12)
@@ -310,7 +307,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
             double Weights(Edge<T> e) => 1.0;
-            var algorithm = new BellmanFordShortestPathAlgorithm<T, Edge<T>>(graph, Weights);
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(Weights);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

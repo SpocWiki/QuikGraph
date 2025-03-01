@@ -14,8 +14,9 @@ namespace QuikGraph.Algorithms.Condensation
         public static CondensationGraphAlgorithm<TVertex, TEdge, TGraph> CreateCondensationGraphAlgorithm<TVertex, TEdge, TGraph>
             ([NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph) where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
-            => null;// new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(visitedGraph);
+            => new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(visitedGraph);
     }
+
     /// <summary> Algorithm that condensate a graph with strongly (or not) connected components. </summary>
     public sealed class CondensationGraphAlgorithm<TVertex, TEdge, TGraph> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>

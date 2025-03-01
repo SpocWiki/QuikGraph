@@ -9,9 +9,20 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// Floyd-Warshall all shortest path algorithm.
-    /// </summary>
+    /// <summary> Floyd-Warshall all shortest path algorithm. </summary>
+    public static class FloydWarshallAllShortestPathAlgorithm
+    {
+        /// <summary> Creates a new instance of the <see cref="FloydWarshallAllShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static FloydWarshallAllShortestPathAlgorithm<TVertex, TEdge> CreateFloydWarshallAllShortestPathAlgorithm<TVertex, TEdge>
+        ([NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null)
+        where TEdge : IEdge<TVertex>
+            => new FloydWarshallAllShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
+    }
+
+    /// <summary> Floyd-Warshall all shortest path algorithm. </summary>
     public class FloydWarshallAllShortestPathAlgorithm<TVertex, TEdge> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
@@ -82,7 +93,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public FloydWarshallAllShortestPathAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+        internal FloydWarshallAllShortestPathAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
             [CanBeNull] IAlgorithmComponent host = null)

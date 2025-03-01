@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Condensation;
 
 
@@ -43,7 +42,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             VertexPredicate<int> vertexPredicate = _ => true;
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             var condensedGraph = new BidirectionalGraph<int, MergedEdge<int, IEdge<int>>>();
-            var algorithm = new EdgeMergeCondensationGraphAlgorithm<int, IEdge<int>>(graph, condensedGraph, vertexPredicate);
+            var algorithm = graph.CreateEdgeMergeCondensationGraphAlgorithm(condensedGraph, vertexPredicate);
             AssertAlgorithmProperties(algorithm, graph, condensedGraph, vertexPredicate);
 
             #region Local function
@@ -67,18 +66,19 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         public void Constructor_Throws()
         {
             VertexPredicate<int> vertexPredicate = _ => true;
-            var graph = new BidirectionalGraph<int, IEdge<int>>();
+            var bidirectionalGraph = new BidirectionalGraph<int, IEdge<int>>();
             var condensedGraph = new BidirectionalGraph<int, MergedEdge<int, IEdge<int>>>();
+            IBidirectionalGraph<int, IEdge<int>> nullGraph = null;
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new EdgeMergeCondensationGraphAlgorithm<int, IEdge<int>>(graph, condensedGraph, null));
-            Assert.Throws<ArgumentNullException>(() => new EdgeMergeCondensationGraphAlgorithm<int, IEdge<int>>(graph, null, vertexPredicate));
-            Assert.Throws<ArgumentNullException>(() => new EdgeMergeCondensationGraphAlgorithm<int, IEdge<int>>(null, condensedGraph, vertexPredicate));
-            Assert.Throws<ArgumentNullException>(() => new EdgeMergeCondensationGraphAlgorithm<int, IEdge<int>>(graph, null, null));
-            Assert.Throws<ArgumentNullException>(() => new EdgeMergeCondensationGraphAlgorithm<int, IEdge<int>>(null, condensedGraph, null));
-            Assert.Throws<ArgumentNullException>(() => new EdgeMergeCondensationGraphAlgorithm<int, IEdge<int>>(null, null, vertexPredicate));
-            Assert.Throws<ArgumentNullException>(() => new EdgeMergeCondensationGraphAlgorithm<int, IEdge<int>>(null, null, null));
+            Assert.Throws<ArgumentNullException>(() => bidirectionalGraph.CreateEdgeMergeCondensationGraphAlgorithm(condensedGraph, null));
+            Assert.Throws<ArgumentNullException>(() => bidirectionalGraph.CreateEdgeMergeCondensationGraphAlgorithm(null, vertexPredicate));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateEdgeMergeCondensationGraphAlgorithm(condensedGraph, vertexPredicate));
+            Assert.Throws<ArgumentNullException>(() => bidirectionalGraph.CreateEdgeMergeCondensationGraphAlgorithm(null, null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateEdgeMergeCondensationGraphAlgorithm(condensedGraph, null));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateEdgeMergeCondensationGraphAlgorithm(null, vertexPredicate));
+            Assert.Throws<ArgumentNullException>(() => nullGraph.CreateEdgeMergeCondensationGraphAlgorithm(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

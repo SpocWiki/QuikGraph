@@ -24,7 +24,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         public static IsEulerianGraphAlgorithm<TVertex, TEdge> CreateIsEulerianGraphAlgorithm<TVertex, TEdge>
             ([NotNull] this IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IUndirectedEdge<TVertex>
-            => null;//new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph);
+            => new IsEulerianGraphAlgorithm<TVertex, TEdge>(graph);
     }
 
     /// <summary> Algorithm that checks if a graph is Eulerian. </summary>
@@ -40,7 +40,7 @@ namespace QuikGraph.Algorithms
         /// <summary> Initializes a new instance of the <see cref="IsEulerianGraphAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="graph">Graph to check.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-         IsEulerianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
+        internal IsEulerianGraphAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> graph)
         {
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));

@@ -226,10 +226,8 @@ namespace QuikGraph.Algorithms
 
         #region Shortest paths
 
-        /// <summary>
-        /// Computes shortest path with the A* algorithm and gets a function that allows
-        /// to get paths in a directed graph.
-        /// </summary>
+        /// <summary> Computes shortest path with the A* algorithm
+        /// and gets a function that allows to get paths in a directed graph. </summary>
         /// <remarks>Uses <see cref="AStarShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
@@ -251,88 +249,11 @@ namespace QuikGraph.Algorithms
             => new AStarShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights, costHeuristic)
                 .RunDirectedRootedAlgorithm<TVertex, TEdge, AStarShortestPathAlgorithm<TVertex, TEdge>>(root);
 
-        /// <summary>
-        /// Computes shortest path with the Bellman Ford algorithm and gets a function that allows
-        /// to get paths in a directed graph.
-        /// </summary>
-        /// <remarks>Uses <see cref="BellmanFordShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <param name="graph">The graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="root">Starting vertex.</param>
-        /// <param name="hasNegativeCycle">Indicates if a negative cycle has been found or not.</param>
-        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsBellmanFord<TVertex, TEdge>(
-            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
-            [NotNull] TVertex root,
-            out bool hasNegativeCycle)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-            if (edgeWeights is null)
-                throw new ArgumentNullException(nameof(edgeWeights));
-            if (root == null)
-                throw new ArgumentNullException(nameof(root));
-
-            var algorithm = new BellmanFordShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights);
-            var predecessorRecorder = algorithm.AttachVertexPredecessorRecorderObserver();
-            using (predecessorRecorder)
-            {
-                algorithm.Compute(root);
-            }
-
-            hasNegativeCycle = algorithm.FoundNegativeCycle;
-
-            IDictionary<TVertex, TEdge> predecessors = predecessorRecorder.VerticesPredecessors;
-            return (TVertex vertex, out IEnumerable<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
-        }
-
-        /// <summary>
-        /// Computes shortest path with an algorithm made for DAG (Directed ACyclic graph) and gets a function
-        /// that allows to get paths.
-        /// </summary>
-        /// <remarks>Uses <see cref="DagShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <param name="graph">The graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="root">Starting vertex.</param>
-        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsDag<TVertex, TEdge>(
-            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
-            [NotNull] TVertex root)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-            if (edgeWeights is null)
-                throw new ArgumentNullException(nameof(edgeWeights));
-            if (root == null)
-                throw new ArgumentNullException(nameof(root));
-
-            return new DagShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights)
-                .RunDirectedRootedAlgorithm<TVertex, TEdge, DagShortestPathAlgorithm<TVertex, TEdge>>(root);
-        }
-
         #endregion
 
         #region K-Shortest path
 
-        /// <summary>
-        /// Computes k-shortest path with the Hoffman Pavley algorithm and gets those paths.
-        /// </summary>
+        /// <summary> Computes k-shortest path with the Hoffman Pavley algorithm and gets those paths. </summary>
         /// <remarks>Uses <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
@@ -587,9 +508,7 @@ namespace QuikGraph.Algorithms
             return algorithm.CondensedGraph;
         }
 
-        /// <summary>
-        /// Condensates the weakly connected components of a directed graph.
-        /// </summary>
+        /// <summary> Condensates the weakly connected components of a directed graph. </summary>
         /// <param name="graph">Graph to visit.</param>
         /// <returns>The condensed graph.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
@@ -606,30 +525,6 @@ namespace QuikGraph.Algorithms
             };
             algorithm.Compute();
             return algorithm.CondensedGraph;
-        }
-
-        /// <summary>
-        /// Condensates the given bidirectional directed graph.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <param name="vertexPredicate">Vertex predicate used to filter the vertices to put in the condensed graph.</param>
-        /// <returns>The condensed graph.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexPredicate"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> CondensateEdges<TVertex, TEdge>(
-            [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate)
-            where TEdge : IEdge<TVertex>
-        {
-            var condensedGraph = new BidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>>();
-            var algorithm = new EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge>(
-                graph,
-                condensedGraph,
-                vertexPredicate);
-            algorithm.Compute();
-            return condensedGraph;
         }
 
         #endregion

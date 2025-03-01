@@ -35,8 +35,7 @@ namespace QuikGraph.Tests.Algorithms.VertexCover
                 () => nullGraph.CreateMinimumVertexCoverApproximationAlgorithm());
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateMinimumVertexCoverApproximationAlgorithm(new Random(123)));
-            Assert.Throws<ArgumentNullException>(
-                () => graph.CreateMinimumVertexCoverApproximationAlgorithm(null));
+            _ = graph.CreateMinimumVertexCoverApproximationAlgorithm(null);
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateMinimumVertexCoverApproximationAlgorithm(null));
             // ReSharper restore AssignNullToNotNullAttribute

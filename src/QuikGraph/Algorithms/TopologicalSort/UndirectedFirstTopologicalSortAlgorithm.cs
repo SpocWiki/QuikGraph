@@ -34,7 +34,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
         /// <summary> Creates a new instance of the <see cref="UndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class. </summary>
         public static UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge> CreateUndirectedFirstTopologicalSortAlgorithm<TVertex,
             TEdge>([NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph, int capacity = -1)
-            where TEdge : IEdge<TVertex> => null; //new UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph, capacity);
+            where TEdge : IEdge<TVertex> => new UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph, capacity);
     }
 
     /// <summary> Undirected topological sort algorithm. </summary>
@@ -51,7 +51,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacity">Sorted vertices capacity.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        UndirectedFirstTopologicalSortAlgorithm(
+        internal UndirectedFirstTopologicalSortAlgorithm(
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             int capacity = -1)
             : base(visitedGraph)

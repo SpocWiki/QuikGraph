@@ -14,7 +14,7 @@ namespace QuikGraph.Algorithms.Ranking
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         public static PageRankAlgorithm<TVertex, TEdge> CreatePageRankAlgorithm<TVertex, TEdge>
             ([NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph) where TEdge : IEdge<TVertex>
-            => null;//new PageRankAlgorithm<TVertex, TEdge>(visitedGraph);
+            => new PageRankAlgorithm<TVertex, TEdge>(visitedGraph);
     }
 
     /// <summary> Algorithm that computes the page rank of a graph. </summary>
@@ -24,7 +24,7 @@ namespace QuikGraph.Algorithms.Ranking
         /// <summary> Initializes a new instance of the <see cref="PageRankAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-         PageRankAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph)
+        internal PageRankAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph)
             : base(visitedGraph)
         {
         }

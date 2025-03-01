@@ -1,14 +1,60 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
+using QuikGraph.Algorithms.Observers;
 using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// Bellman Ford shortest path algorithm.
-    /// </summary>
+    /// <inheritdoc cref="CreateBellmanFordShortestPathAlgorithm{TVertex,TEdge}"/>
+    public static class BellmanFordShortestPathAlgorithm
+    {
+        /// <summary> Computes shortest path with the Bellman Ford algorithm
+        /// and gets a function that allows to get paths in a directed graph. </summary>
+        /// <remarks>Uses <see cref="BellmanFordShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
+        /// <param name="graph">The graph to visit.</param>
+        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
+        /// <param name="root">Starting vertex.</param>
+        /// <param name="hasNegativeCycle">Indicates if a negative cycle has been found or not.</param>
+        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsBellmanFord<TVertex, TEdge>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
+            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
+            [NotNull] TVertex root,
+            out bool hasNegativeCycle)
+            where TEdge : IEdge<TVertex>
+        {
+            var algorithm = graph.CreateBellmanFordShortestPathAlgorithm(edgeWeights);
+            var predecessorRecorder = algorithm.AttachVertexPredecessorRecorderObserver();
+            using (predecessorRecorder)
+            {
+                algorithm.Compute(root);
+            }
+
+            hasNegativeCycle = algorithm.FoundNegativeCycle;
+
+            IDictionary<TVertex, TEdge> predecessors = predecessorRecorder.VerticesPredecessors;
+            return (TVertex vertex, out IEnumerable<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
+        }
+
+        /// <summary> Creates a new instance of the <see cref="BellmanFordShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static BellmanFordShortestPathAlgorithm<TVertex, TEdge> CreateBellmanFordShortestPathAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new BellmanFordShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
+    }
+
+    /// <summary> Bellman Ford shortest path algorithm. </summary>
     /// <remarks>
     /// <para>
     /// The Bellman-Ford algorithm solves the single-source shortest paths
@@ -36,7 +82,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public BellmanFordShortestPathAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+        internal BellmanFordShortestPathAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
             [CanBeNull] IAlgorithmComponent host = null)

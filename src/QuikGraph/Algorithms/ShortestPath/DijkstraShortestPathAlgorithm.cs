@@ -19,10 +19,8 @@ namespace QuikGraph.Algorithms.ShortestPath
             [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
             => new DijkstraShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
 
-        /// <summary>
-        /// Computes shortest path with the Dijkstra algorithm and gets a function that allows
-        /// to get paths in a directed graph.
-        /// </summary>
+        /// <summary> Computes shortest path with the Dijkstra algorithm
+        /// and gets a function that allows to get paths in a directed graph. </summary>
         /// <remarks>Uses <see cref="DijkstraShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>

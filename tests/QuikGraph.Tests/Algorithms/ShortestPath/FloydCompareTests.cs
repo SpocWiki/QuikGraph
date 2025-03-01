@@ -34,7 +34,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             where TGraph : IVertexSet<TVertex>
         {
             // Compute all paths
-            var algorithm = new FloydWarshallAllShortestPathAlgorithm<TVertex, TEdge>(graph, getDistances);
+            var algorithm = graph.CreateFloydWarshallAllShortestPathAlgorithm(getDistances);
             algorithm.Compute();
 
             TVertex[] vertices = graph.Vertices.ToArray();
@@ -88,7 +88,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         public void FloydVsBellmannGraphML(AdjacencyGraph<string, Edge<string>> graph)
         {
             CompareAlgorithms(graph, _ => 1.0, (g, d)
-                => new BellmanFordShortestPathAlgorithm<string, Edge<string>>(g, d));
+                => g.CreateBellmanFordShortestPathAlgorithm(d));
         }
 
         [Test]

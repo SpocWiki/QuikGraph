@@ -8,6 +8,25 @@ namespace QuikGraph.Algorithms.Condensation
     /// <inheritdoc cref="CreateEdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/>
     public static class EdgeMergeCondensationGraphAlgorithmX
     {
+        /// <summary> Condensates the given bidirectional directed graph. </summary>
+        /// <param name="graph">Graph to visit.</param>
+        /// <param name="vertexPredicate">Vertex predicate used to filter the vertices to put in the condensed graph.</param>
+        /// <returns>The condensed graph.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexPredicate"/> is <see langword="null"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> CondensateEdges<TVertex, TEdge>(
+            [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph,
+            [NotNull] VertexPredicate<TVertex> vertexPredicate)
+            where TEdge : IEdge<TVertex>
+        {
+            var condensedGraph = new BidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>>();
+            var algorithm = graph.CreateEdgeMergeCondensationGraphAlgorithm(condensedGraph, vertexPredicate);
+            algorithm.Compute();
+            return condensedGraph;
+        }
+
         /// <summary> Initializes a new instance of the <see cref="EdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="condensedGraph">Graph that will contain the condensation of the <paramref name="visitedGraph"/>.</param>
@@ -15,11 +34,12 @@ namespace QuikGraph.Algorithms.Condensation
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="condensedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexPredicate"/> is <see langword="null"/>.</exception>
-        public static EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge> CreateEdgeMergeCondensationGraphAlgorithm<TVertex, TEdge>(
+        public static EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge> CreateEdgeMergeCondensationGraphAlgorithm<
+            TVertex, TEdge>(
             [NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> condensedGraph,
             [NotNull] VertexPredicate<TVertex> vertexPredicate) where TEdge : IEdge<TVertex>
-            => null;
+            => new EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge>(visitedGraph, condensedGraph, vertexPredicate);
 
     }
     /// <summary> Algorithm that condensate edges of a graph. </summary>
@@ -33,7 +53,7 @@ namespace QuikGraph.Algorithms.Condensation
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="condensedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexPredicate"/> is <see langword="null"/>.</exception>
-        public EdgeMergeCondensationGraphAlgorithm(
+        internal EdgeMergeCondensationGraphAlgorithm(
             [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> condensedGraph,
             [NotNull] VertexPredicate<TVertex> vertexPredicate)
