@@ -53,7 +53,7 @@ namespace QuikGraph.Algorithms.Search
             : base(visitedGraph, host)
         {
             VerticesColors = verticesColors ?? new Dictionary<TVertex, GraphColor>();
-            _vertexQueue = vertexQueue ?? new Collections.Queue<TVertex>();
+            _vertexQueue = vertexQueue ?? new Collections.Queue<TVertex>(visitedGraph.VertexCount);
             OutEdgesFilter = outEdgesFilter ?? (edges => edges);
         }
 

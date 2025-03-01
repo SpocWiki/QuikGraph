@@ -10,5 +10,10 @@ namespace QuikGraph.Collections
 #endif
     public sealed class Queue<T> : System.Collections.Generic.Queue<T>, IQueue<T>
     {
+        //public Queue() {}
+
+        /// <summary> Creates a new Queue with minimum <paramref name="capacity"/> </summary>
+        /// <param name="capacity"></param>
+        public Queue(int capacity) : base(capacity){ }
     }
 }

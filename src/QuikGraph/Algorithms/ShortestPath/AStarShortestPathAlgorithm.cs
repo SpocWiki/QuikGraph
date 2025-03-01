@@ -8,9 +8,43 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// A* single source shortest path algorithm for directed graph with positive distance.
-    /// </summary>
+    /// <inheritdoc cref="CreateAStarShortestPathAlgorithm{TVertex,TEdge}"/>
+    public static class AStarShortestPathAlgorithm
+    {
+        /// <summary> Computes shortest path with the A* algorithm
+        /// and gets a function that allows to get paths in a directed graph. </summary>
+        /// <remarks>Uses <see cref="AStarShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
+        /// <param name="graph">The graph to visit.</param>
+        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
+        /// <param name="costHeuristic">Function that computes a cost for a given vertex.</param>
+        /// <param name="root">Starting vertex.</param>
+        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="costHeuristic"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsAStar<TVertex, TEdge>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
+            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
+            [NotNull, InstantHandle] Func<TVertex, double> costHeuristic,
+            [NotNull] TVertex root) where TEdge : IEdge<TVertex>
+            => graph.CreateAStarShortestPathAlgorithm(edgeWeights, costHeuristic)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, AStarShortestPathAlgorithm<TVertex, TEdge>>(root);
+
+        /// <summary> Creates a new instance of the <see cref="AStarShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static AStarShortestPathAlgorithm<TVertex, TEdge> CreateAStarShortestPathAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TEdge, double> edgeWeights,
+            [NotNull] Func<TVertex, double> costHeuristic,
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new AStarShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, costHeuristic, distanceRelaxer, host);
+    }
+
+    /// <summary> A* single source shortest path algorithm for directed graph with positive distance. </summary>
     public sealed class AStarShortestPathAlgorithm<TVertex, TEdge>
         : ShortestPathAlgorithmBase<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>>
         , IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>
@@ -31,7 +65,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="costHeuristic"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public AStarShortestPathAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        internal AStarShortestPathAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [NotNull] Func<TVertex, double> costHeuristic,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null,

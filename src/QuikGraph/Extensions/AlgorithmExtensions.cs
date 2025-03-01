@@ -224,33 +224,6 @@ namespace QuikGraph.Algorithms
             => new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(graph, edgeChain)
                 .RunDirectedRootedAlgorithm<TVertex, TEdge, CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>>(root);
 
-        #region Shortest paths
-
-        /// <summary> Computes shortest path with the A* algorithm
-        /// and gets a function that allows to get paths in a directed graph. </summary>
-        /// <remarks>Uses <see cref="AStarShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <param name="graph">The graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="costHeuristic">Function that computes a cost for a given vertex.</param>
-        /// <param name="root">Starting vertex.</param>
-        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="costHeuristic"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsAStar<TVertex, TEdge>(
-            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
-            [NotNull, InstantHandle] Func<TVertex, double> costHeuristic,
-            [NotNull] TVertex root) where TEdge : IEdge<TVertex>
-            => new AStarShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights, costHeuristic)
-                .RunDirectedRootedAlgorithm<TVertex, TEdge, AStarShortestPathAlgorithm<TVertex, TEdge>>(root);
-
-        #endregion
-
         #region K-Shortest path
 
         /// <summary> Computes k-shortest path with the Hoffman Pavley algorithm and gets those paths. </summary>
@@ -652,7 +625,7 @@ namespace QuikGraph.Algorithms
             {
                 Debug.Assert(graph != null);
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>(graph);
+                var dfs = graph.CreateUndirectedDepthFirstSearchAlgorithm();
                 try
                 {
                     dfs.BackEdge += DfsBackEdge;

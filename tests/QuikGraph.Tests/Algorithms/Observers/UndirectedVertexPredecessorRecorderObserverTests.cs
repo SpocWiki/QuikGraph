@@ -48,7 +48,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
 
                 var graph = new UndirectedGraph<int, IEdge<int>>();
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+                var dfs = graph.CreateUndirectedDepthFirstSearchAlgorithm();
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -63,7 +63,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var graph = new UndirectedGraph<int, IEdge<int>>();
                 graph.AddVertexRange([1, 2]);
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+                var dfs = graph.CreateUndirectedDepthFirstSearchAlgorithm();
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -87,7 +87,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                     edge12, edge14, edge31, edge33, edge34, edge42
                 ]);
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+                var dfs = graph.CreateUndirectedDepthFirstSearchAlgorithm();
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -118,7 +118,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
 
                 var graph = new UndirectedGraph<int, IEdge<int>>();
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+                var dfs = graph.CreateUndirectedDepthFirstSearchAlgorithm();
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -134,7 +134,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                 var graph = new UndirectedGraph<int, IEdge<int>>();
                 graph.AddVertexRange([1, 2]);
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+                var dfs = graph.CreateUndirectedDepthFirstSearchAlgorithm();
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();
@@ -158,7 +158,7 @@ namespace QuikGraph.Tests.Algorithms.Observers
                     edge12, edge14, edge31, edge33, edge34, edge42
                 ]);
 
-                var dfs = new UndirectedDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+                var dfs = graph.CreateUndirectedDepthFirstSearchAlgorithm();
                 using (recorder.Attach(dfs))
                 {
                     dfs.Compute();

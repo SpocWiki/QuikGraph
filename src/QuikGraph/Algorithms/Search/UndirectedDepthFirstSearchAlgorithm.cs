@@ -6,9 +6,20 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.Search
 {
-    /// <summary>
-    /// A depth first search algorithm for undirected graph.
-    /// </summary>
+    /// <inheritdoc cref="CreateUndirectedDepthFirstSearchAlgorithm{TVertex,TEdge}"/>
+    public static class UndirectedDepthFirstSearchAlgorithm
+    {
+        /// <summary> Creates a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>
+            CreateUndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>(
+                [NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
+                [CanBeNull] IAlgorithmComponent host = null,
+                [CanBeNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> adjacentEdgesFilter = null)
+            where TEdge : IEdge<TVertex>
+            => new UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, verticesColors, host, adjacentEdgesFilter);
+    }
+    /// <summary> A depth first search algorithm for undirected graph. </summary>
     public sealed class UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IUndirectedGraph<TVertex, TEdge>>
         , IDistanceRecorderAlgorithm<TVertex>
@@ -28,7 +39,7 @@ namespace QuikGraph.Algorithms.Search
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="adjacentEdgesFilter"/> is <see langword="null"/>.</exception>
-        public UndirectedDepthFirstSearchAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
+        internal UndirectedDepthFirstSearchAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
             [CanBeNull] IAlgorithmComponent host = null,
             [CanBeNull] Func<IEnumerable<TEdge>, IEnumerable<TEdge>> adjacentEdgesFilter = null)
