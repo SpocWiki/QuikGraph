@@ -109,7 +109,7 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
             foreach (TEdge edge in graph.Edges)
                 distances[edge] = edgeWeights(edge);
 
-            var prim = new PrimMinimumSpanningTreeAlgorithm<TVertex, TEdge>(graph, e => distances[e]);
+            var prim = graph.CreatePrimMinimumSpanningTreeAlgorithm(e => distances[e]);
             AssertMinimumSpanningTree(graph, prim);
         }
 

@@ -35,7 +35,7 @@ namespace QuikGraph.Algorithms.MinimumSpanningTree
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        public PrimMinimumSpanningTreeAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
+        internal PrimMinimumSpanningTreeAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights, [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
