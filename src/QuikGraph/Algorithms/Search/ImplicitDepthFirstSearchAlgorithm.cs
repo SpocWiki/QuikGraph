@@ -6,9 +6,18 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.Search
 {
-    /// <summary>
-    /// A depth first search algorithm for implicit directed graphs.
-    /// </summary>
+    /// <inheritdoc cref="CreateImplicitDepthFirstSearchAlgorithm{TVertex,TEdge}"/>
+    public static class ImplicitDepthFirstSearchAlgorithm
+    {
+        /// <summary> Creates a new instance of the <see cref="ImplicitDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static ImplicitDepthFirstSearchAlgorithm<TVertex, TEdge>
+            CreateImplicitDepthFirstSearchAlgorithm<TVertex, TEdge>(
+                [NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new ImplicitDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, host);
+    }
+
+    /// <summary> A depth first search algorithm for implicit directed graphs. </summary>
     public sealed class ImplicitDepthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IIncidenceGraph<TVertex, TEdge>>
         , IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>

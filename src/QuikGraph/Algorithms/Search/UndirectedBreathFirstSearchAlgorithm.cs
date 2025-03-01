@@ -6,6 +6,17 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.Search
 {
+    /// <inheritdoc cref="CreateUndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/>
+    public static class UndirectedBreadthFirstSearchAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="UndirectedBreadthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge> CreateUndirectedBreadthFirstSearchAlgorithm
+            <TVertex, TEdge>([NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IQueue<TVertex> vertexQueue = null,
+                [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
+                [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, vertexQueue, verticesColors, host);
+    }
     /// <summary> A breath first search algorithm for undirected graphs. </summary>
     public sealed class UndirectedBreadthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IUndirectedGraph<TVertex, TEdge>>
@@ -25,7 +36,7 @@ namespace QuikGraph.Algorithms.Search
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexQueue"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public UndirectedBreadthFirstSearchAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
+        internal UndirectedBreadthFirstSearchAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IQueue<TVertex> vertexQueue = null,
             [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
             [CanBeNull] IAlgorithmComponent host = null)
