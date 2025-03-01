@@ -26,14 +26,12 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         {
             QuikGraphAssert.TrueForAll(graph.Edges, edgeWeights.ContainsKey);
 
-            var target = new HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>(graph, e => edgeWeights[e])
-            {
-                ShortestPathCount = pathCount
-            };
-            target.Compute(rootVertex, targetVertex);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(e => edgeWeights[e]);
+            algorithm.ShortestPathCount = pathCount;
+            algorithm.Compute(rootVertex, targetVertex);
 
             double lastWeight = double.MinValue;
-            foreach (TEdge[] path in target.ComputedShortestPaths.Select(p => p.ToArray()))
+            foreach (TEdge[] path in algorithm.ComputedShortestPaths.Select(p => p.ToArray()))
             {
                 double weight = path.Sum(e => edgeWeights[e]);
                 Assert.IsTrue(lastWeight <= weight, $"{lastWeight} <= {weight}");
@@ -53,13 +51,13 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             Func<IEdge<int>, double> Weights = _ => 1.0;
 
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
+            algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, DistanceRelaxers.CriticalDistance);
 
-            algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, DistanceRelaxers.CriticalDistance);
+            algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance);
             AssertAlgorithmProperties(algorithm, graph, DistanceRelaxers.CriticalDistance);
 
             #region Local function
@@ -88,48 +86,49 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            var graph = new BidirectionalGraph<int, IEdge<int>>();
+            var bidirectionalGraph = new BidirectionalGraph<int, IEdge<int>>();
 
             Func<IEdge<int>, double> Weights = _ => 1.0;
 
+            IBidirectionalGraph<int, IEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, Weights));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, null));
+                () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
+                () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null));
+                () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, Weights, DistanceRelaxers.CriticalDistance));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, null, DistanceRelaxers.CriticalDistance));
+                () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights, null));
+                () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null, DistanceRelaxers.CriticalDistance));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, Weights, null));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null));
             Assert.Throws<ArgumentNullException>(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null));
 
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, Weights);
+            var algorithm = bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights);
             Assert.Throws<ArgumentOutOfRangeException>(() => algorithm.ShortestPathCount = 0);
             Assert.Throws<ArgumentOutOfRangeException>(() => algorithm.ShortestPathCount = -1);
             // ReSharper restore AssignNullToNotNullAttribute
@@ -142,7 +141,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         public void TryGetRootVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
             TryGetRootVertex_Test(algorithm);
         }
 
@@ -150,7 +149,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         public void SetRootVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
             SetRootVertex_Test(algorithm);
         }
 
@@ -158,7 +157,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         public void SetRootVertex_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
             SetRootVertex_Throws_Test(algorithm);
         }
 
@@ -166,7 +165,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         public void ClearRootVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
             ClearRootVertex_Test(algorithm);
         }
 
@@ -175,21 +174,21 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             ComputeWithoutRoot_Throws_Test(
-                () => new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0));
+                () => graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0));
 
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
             Assert.Throws<InvalidOperationException>(algorithm.Compute);
 
             // Source (and target) vertex set but not to a vertex in the graph
             const int vertex1 = 1;
-            algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
             algorithm.SetRootVertex(vertex1);
             algorithm.SetTargetVertex(vertex1);
             Assert.Throws<VertexNotFoundException>(algorithm.Compute);
 
             const int vertex2 = 2;
             graph.AddVertex(vertex1);
-            algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
             algorithm.SetRootVertex(vertex1);
             algorithm.SetTargetVertex(vertex2);
             Assert.Throws<VertexNotFoundException>(algorithm.Compute);
@@ -203,7 +202,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         public void TryGetTargetVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
 
             Assert.IsFalse(algorithm.TryGetTargetVertex(out _));
 
@@ -217,7 +216,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         public void SetTargetVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
 
             const int vertex1 = 0;
             algorithm.SetTargetVertex(vertex1);
@@ -239,7 +238,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         public void SetTargetVertex_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph, _ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
 
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm.SetTargetVertex(null));
@@ -253,7 +252,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
 
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVertexRange([start, end]);
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph, _ => 1.0);
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
 
             Assert.DoesNotThrow(() => algorithm.Compute(start, end));
             Assert.IsTrue(algorithm.TryGetRootVertex(out int root));
@@ -269,7 +268,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             const int end1 = 2;
 
             var graph1 = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm1 = new HoffmanPavleyRankedShortestPathAlgorithm<int, IEdge<int>>(graph1, _ => 1.0);
+            var algorithm1 = graph1.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
 
             Assert.Throws<ArgumentException>(() => algorithm1.Compute(start1));
             graph1.AddVertex(start1);
@@ -282,7 +281,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             var end2 = new TestVertex("2");
 
             var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm2 = new HoffmanPavleyRankedShortestPathAlgorithm<TestVertex, Edge<TestVertex>>(graph2, _ => 1.0);
+            var algorithm2 = graph2.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
 
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => algorithm2.Compute(null));
@@ -383,10 +382,8 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         {
             BidirectionalGraph<int, TaggedEdge<int, int>> graph = CreateGraph();
 
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, TaggedEdge<int, int>>(graph, _ => 1.0)
-            {
-                ShortestPathCount = 5
-            };
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
+            algorithm.ShortestPathCount = 5;
             algorithm.Compute(1626, 1965);
             Assert.AreEqual(4, algorithm.ComputedShortestPathCount);
 
@@ -500,10 +497,8 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
         {
             BidirectionalGraph<int, TaggedEdge<int, int>> graph = CreateGraph();
 
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<int, TaggedEdge<int, int>>(graph, _ => 1.0)
-            {
-                ShortestPathCount = 5
-            };
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(_ => 1.0);
+            algorithm.ShortestPathCount = 5;
             Assert.DoesNotThrow(() => algorithm.Compute(5, 2));
 
             #region Local function

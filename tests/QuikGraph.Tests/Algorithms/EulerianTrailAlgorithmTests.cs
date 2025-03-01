@@ -106,7 +106,7 @@ namespace QuikGraph.Tests.Algorithms
             var algorithm = graph.CreateEulerianTrailAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = graph.CreateEulerianTrailAlgorithm(null);
+            algorithm = graph.CreateEulerianTrailAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function

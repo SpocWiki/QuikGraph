@@ -106,14 +106,14 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEdgeDepthFirstSearchAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
             var edgesColors = new Dictionary<IEdge<int>, GraphColor>();
-            algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, edgesColors);
+            algorithm = graph.CreateEdgeDepthFirstSearchAlgorithm(edgesColors);
             AssertAlgorithmProperties(algorithm, graph, edgesColors);
 
-            algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, edgesColors, null);
+            algorithm = graph.CreateEdgeDepthFirstSearchAlgorithm(edgesColors);
             AssertAlgorithmProperties(algorithm, graph, edgesColors);
 
             algorithm.MaxDepth = 12;
@@ -152,26 +152,25 @@ namespace QuikGraph.Tests.Algorithms.Search
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var edgesColors = new Dictionary<IEdge<int>, GraphColor>();
 
+            IEdgeListAndIncidenceGraph<int, IEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null));
+                () => nullGraph.CreateEdgeDepthFirstSearchAlgorithm());
+
+            _ = graph.CreateEdgeDepthFirstSearchAlgorithm();
+            Assert.Throws<ArgumentNullException>(
+                () => nullGraph.CreateEdgeDepthFirstSearchAlgorithm(edgesColors));
+            Assert.Throws<ArgumentNullException>(
+                () => nullGraph.CreateEdgeDepthFirstSearchAlgorithm());
 
             Assert.Throws<ArgumentNullException>(
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null));
+                () => nullGraph.CreateEdgeDepthFirstSearchAlgorithm(edgesColors));
+            _ = graph.CreateEdgeDepthFirstSearchAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, edgesColors));
-            Assert.Throws<ArgumentNullException>(
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null));
-
-            Assert.Throws<ArgumentNullException>(
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, edgesColors, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.CreateEdgeDepthFirstSearchAlgorithm());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph).MaxDepth = -1);
+            Assert.Throws<ArgumentOutOfRangeException>(() => graph.CreateEdgeDepthFirstSearchAlgorithm().MaxDepth = -1);
         }
 
         #region Rooted algorithm
@@ -180,7 +179,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void TryGetRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEdgeDepthFirstSearchAlgorithm();
             TryGetRootVertex_Test(algorithm);
         }
 
@@ -188,7 +187,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void SetRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEdgeDepthFirstSearchAlgorithm();
             SetRootVertex_Test(algorithm);
         }
 
@@ -204,7 +203,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ClearRootVertex()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEdgeDepthFirstSearchAlgorithm();
             ClearRootVertex_Test(algorithm);
         }
 
@@ -214,7 +213,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             ComputeWithoutRoot_NoThrows_Test(
                 graph,
-                () => new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph));
+                () => graph.CreateEdgeDepthFirstSearchAlgorithm());
         }
 
         [Test]
@@ -222,7 +221,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVertex(0);
-            var algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateEdgeDepthFirstSearchAlgorithm();
             ComputeWithRoot_Test(algorithm);
         }
 
@@ -266,10 +265,8 @@ namespace QuikGraph.Tests.Algorithms.Search
                 edge67, edge68, edge86
             ]);
 
-            var algorithm = new EdgeDepthFirstSearchAlgorithm<int, IEdge<int>>(graph)
-            {
-                ProcessAllComponents = processAll
-            };
+            var algorithm = graph.CreateEdgeDepthFirstSearchAlgorithm();
+            algorithm.ProcessAllComponents = processAll;
             algorithm.Compute(1);
 
             if (processAll)

@@ -10,6 +10,50 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.RankedShortestPath
 {
+    /// <inheritdoc cref="CreateHoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/>
+    public static class HoffmanPavleyRankedShortestPathAlgorithm
+    {
+        /// <summary> Computes k-shortest path with the Hoffman Pavley algorithm and gets those paths. </summary>
+        /// <remarks>Uses <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
+        /// <param name="graph">The graph to visit.</param>
+        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
+        /// <param name="root">Starting vertex.</param>
+        /// <param name="target">Target vertex.</param>
+        /// <param name="maxCount">Maximal number of path to search.</param>
+        /// <returns>Enumeration of paths to go from <paramref name="root"/> vertex to <paramref name="target"/>.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> or <paramref name="target"/> are not part of <paramref name="graph"/>.</exception>
+        /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maxCount"/> is lower or equal to 1.</exception>
+        [Pure]
+        [NotNull, ItemNotNull]
+        public static IEnumerable<IEnumerable<TEdge>> RankedShortestPathHoffmanPavley<TVertex, TEdge>(
+            [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph,
+            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
+            [NotNull] TVertex root,
+            [NotNull] TVertex target,
+            int maxCount = 3)
+            where TEdge : IEdge<TVertex>
+        {
+            var algorithm = graph.CreateHoffmanPavleyRankedShortestPathAlgorithm(edgeWeights);
+            algorithm.ShortestPathCount = maxCount;
+            algorithm.Compute(root, target);
+
+            return algorithm.ComputedShortestPaths;
+        }
+
+        /// <summary> Initializes a new instance of the <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>
+            CreateHoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>(
+                [NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph,
+                [NotNull] Func<TEdge, double> edgeWeights,
+                [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+                [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => null;// new HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
+    }
+
     /// <summary> Hoffman and Pavley K-shortest path algorithm. </summary>
     /// <remarks>
     /// Reference:
@@ -27,20 +71,6 @@ namespace QuikGraph.Algorithms.RankedShortestPath
         private readonly Func<TEdge, double> _edgeWeights;
         double ReversedEdgeWeight(SReversedEdge<TVertex, TEdge> edge) => _edgeWeights(edge.OriginalEdge);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that for a given edge provide its weight.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        public HoffmanPavleyRankedShortestPathAlgorithm(
-            [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] Func<TEdge, double> edgeWeights)
-            : this(visitedGraph, edgeWeights, DistanceRelaxers.ShortestDistance)
-        {
-        }
-
         /// <summary> Initializes a new instance of the <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that for a given edge provide its weight.</param>
@@ -49,10 +79,11 @@ namespace QuikGraph.Algorithms.RankedShortestPath
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        public HoffmanPavleyRankedShortestPathAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
+        HoffmanPavleyRankedShortestPathAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
-            [NotNull] IDistanceRelaxer distanceRelaxer, [CanBeNull] IAlgorithmComponent host = null)
-            : base(visitedGraph, distanceRelaxer, host)
+            [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
+            [CanBeNull] IAlgorithmComponent host = null)
+            : base(visitedGraph, distanceRelaxer ?? DistanceRelaxers.ShortestDistance, host)
         {
             _edgeWeights = edgeWeights ?? throw new ArgumentNullException(nameof(edgeWeights));
         }

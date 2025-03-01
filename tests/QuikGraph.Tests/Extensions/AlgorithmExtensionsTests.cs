@@ -7,6 +7,7 @@ using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Condensation;
 using QuikGraph.Algorithms.MaximumFlow;
 using QuikGraph.Algorithms.RandomWalks;
+using QuikGraph.Algorithms.RankedShortestPath;
 using QuikGraph.Algorithms.ShortestPath;
 using QuikGraph.Algorithms.TopologicalSort;
 using QuikGraph.Collections;
@@ -1079,7 +1080,7 @@ namespace QuikGraph.Tests.Extensions
 
             CollectionAssert.AreEqual(
                 new[] { 6, 3, 1, 5, 2, 7, 4 },
-                graph.SourceFirstBidirectionalTopologicalSort(TopologicalSortDirection.Forward));
+                graph.SourceFirstBidirectionalTopologicalSort());
 
             CollectionAssert.AreEqual(
                 new[] { 4, 7, 2, 5, 1, 3, 6 },
@@ -1095,7 +1096,7 @@ namespace QuikGraph.Tests.Extensions
                 () => ((IBidirectionalGraph<int, IEdge<int>>)null).SourceFirstBidirectionalTopologicalSort());
 
             Assert.Throws<ArgumentNullException>(
-                () => ((IBidirectionalGraph<int, IEdge<int>>)null).SourceFirstBidirectionalTopologicalSort(TopologicalSortDirection.Forward));
+                () => ((IBidirectionalGraph<int, IEdge<int>>)null).SourceFirstBidirectionalTopologicalSort());
             Assert.Throws<ArgumentNullException>(
                 () => ((IBidirectionalGraph<int, IEdge<int>>)null).SourceFirstBidirectionalTopologicalSort(TopologicalSortDirection.Backward));
             // ReSharper restore AssignNullToNotNullAttribute

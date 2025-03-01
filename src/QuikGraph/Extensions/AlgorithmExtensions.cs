@@ -224,43 +224,6 @@ namespace QuikGraph.Algorithms
             => new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(graph, edgeChain)
                 .RunDirectedRootedAlgorithm<TVertex, TEdge, CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>>(root);
 
-        #region K-Shortest path
-
-        /// <summary> Computes k-shortest path with the Hoffman Pavley algorithm and gets those paths. </summary>
-        /// <remarks>Uses <see cref="HoffmanPavleyRankedShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <param name="graph">The graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="root">Starting vertex.</param>
-        /// <param name="target">Target vertex.</param>
-        /// <param name="maxCount">Maximal number of path to search.</param>
-        /// <returns>Enumeration of paths to go from <paramref name="root"/> vertex to <paramref name="target"/>.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> or <paramref name="target"/> are not part of <paramref name="graph"/>.</exception>
-        /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maxCount"/> is lower or equal to 1.</exception>
-        [Pure]
-        [NotNull, ItemNotNull]
-        public static IEnumerable<IEnumerable<TEdge>> RankedShortestPathHoffmanPavley<TVertex, TEdge>(
-            [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
-            [NotNull] TVertex root,
-            [NotNull] TVertex target,
-            int maxCount = 3)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights)
-            {
-                ShortestPathCount = maxCount
-            };
-            algorithm.Compute(root, target);
-
-            return algorithm.ComputedShortestPaths;
-        }
-
-        #endregion
-
         /// <summary>
         /// Gets set of sink vertices.
         /// </summary>

@@ -24,10 +24,8 @@ namespace QuikGraph.Tests.Algorithms.Search
             var discoverTimes = new Dictionary<TVertex, int>();
             var finishTimes = new Dictionary<TVertex, int>();
             int time = 0;
-            var dfs = new BidirectionalDepthFirstSearchAlgorithm<TVertex, TEdge>(graph)
-            {
-                MaxDepth = maxDepth
-            };
+            var dfs = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
+            dfs.MaxDepth = maxDepth;
 
             dfs.InitializeVertex += vertex =>
             {
@@ -127,14 +125,14 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void Constructor()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
             var verticesColors = new Dictionary<int, GraphColor>();
-            algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors);
+            algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm(verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, verticesColors, null);
+            algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm(verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
             algorithm.MaxDepth = 12;
@@ -170,29 +168,27 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
-            var graph = new BidirectionalGraph<int, IEdge<int>>();
+            var bidirectionalGraph = new BidirectionalGraph<int, IEdge<int>>();
             var verticesColors = new Dictionary<int, GraphColor>();
 
+            _ = bidirectionalGraph.CreateBidirectionalDepthFirstSearchAlgorithm();
+
+            _ = bidirectionalGraph.CreateBidirectionalDepthFirstSearchAlgorithm();
+            IBidirectionalGraph<int, IEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null));
+                () => nullGraph.CreateBidirectionalDepthFirstSearchAlgorithm(verticesColors));
+            Assert.Throws<ArgumentNullException>(
+                () => nullGraph.CreateBidirectionalDepthFirstSearchAlgorithm());
 
             Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null));
+                () => nullGraph.CreateBidirectionalDepthFirstSearchAlgorithm(verticesColors));
+            _ = bidirectionalGraph.CreateBidirectionalDepthFirstSearchAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors));
-            Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null));
-
-            Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, verticesColors, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph, null, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.CreateBidirectionalDepthFirstSearchAlgorithm());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph).MaxDepth = -1);
+            Assert.Throws<ArgumentOutOfRangeException>(() => bidirectionalGraph.CreateBidirectionalDepthFirstSearchAlgorithm().MaxDepth = -1);
         }
 
         #region Rooted algorithm
@@ -201,7 +197,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void TryGetRootVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
             TryGetRootVertex_Test(algorithm);
         }
 
@@ -209,7 +205,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void SetRootVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
             SetRootVertex_Test(algorithm);
         }
 
@@ -217,7 +213,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void SetRootVertex_Throws()
         {
             var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
             SetRootVertex_Throws_Test(algorithm);
         }
 
@@ -225,7 +221,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void ClearRootVertex()
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
             ClearRootVertex_Test(algorithm);
         }
 
@@ -235,7 +231,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             ComputeWithoutRoot_NoThrows_Test(
                 graph,
-                () => new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph));
+                () => graph.CreateBidirectionalDepthFirstSearchAlgorithm());
         }
 
         [Test]
@@ -243,7 +239,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVertex(0);
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
             ComputeWithRoot_Test(algorithm);
         }
 
@@ -252,7 +248,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             ComputeWithRoot_Throws_Test(
-                () => new BidirectionalDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+                () => graph.CreateBidirectionalDepthFirstSearchAlgorithm());
         }
 
         #endregion
@@ -263,7 +259,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVerticesAndEdge(Edge.Create(1, 2));
 
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
             // Algorithm not run
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             Assert.Throws<VertexNotFoundException>(() => algorithm.GetVertexColor(1));
@@ -300,10 +296,8 @@ namespace QuikGraph.Tests.Algorithms.Search
                 Edge.Create(8, 6)
             ]);
 
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<int, IEdge<int>>(graph)
-            {
-                ProcessAllComponents = processAll
-            };
+            var algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
+            algorithm.ProcessAllComponents = processAll;
             algorithm.Compute(1);
 
             if (processAll)
@@ -330,7 +324,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             graph.AddVerticesAndEdgeRange(scenario.EdgesInGraph.Select(e => new Edge<T>(e.Source, e.Target)));
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
 
-            var algorithm = new BidirectionalDepthFirstSearchAlgorithm<T, Edge<T>>(graph);
+            var algorithm = graph.CreateBidirectionalDepthFirstSearchAlgorithm();
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

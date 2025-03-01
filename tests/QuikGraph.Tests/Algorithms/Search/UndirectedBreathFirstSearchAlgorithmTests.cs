@@ -196,7 +196,7 @@ namespace QuikGraph.Tests.Algorithms.Search
             algorithm = graph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
-            algorithm = graph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, verticesColors, null);
+            algorithm = graph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, verticesColors);
             AssertAlgorithmProperties(algorithm, graph, verticesColors);
 
             #region Local function
@@ -233,26 +233,26 @@ namespace QuikGraph.Tests.Algorithms.Search
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, verticesColors));
             _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, verticesColors);
-            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, null);
+            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue);
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, verticesColors));
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, null));
-            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, null);
+                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue));
+            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, null));
+                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm());
 
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, verticesColors, null));
-            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, verticesColors, null);
-            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, null, null);
+                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, verticesColors));
+            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, verticesColors);
+            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue);
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, verticesColors, null));
+                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, verticesColors));
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue, null, null));
-            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, null, null);
+                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(queue));
+            _ = undirectedGraph.CreateUndirectedBreadthFirstSearchAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm(null, null, null)); 
+                () => nullGraph.CreateUndirectedBreadthFirstSearchAlgorithm()); 
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

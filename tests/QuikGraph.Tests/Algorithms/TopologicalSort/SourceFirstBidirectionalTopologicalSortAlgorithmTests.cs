@@ -37,7 +37,7 @@ namespace QuikGraph.Tests.Algorithms
             var algorithm = graph.CreateSourceFirstBidirectionalTopologicalSortAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = graph.CreateSourceFirstBidirectionalTopologicalSortAlgorithm(TopologicalSortDirection.Forward);
+            algorithm = graph.CreateSourceFirstBidirectionalTopologicalSortAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
             algorithm = graph.CreateSourceFirstBidirectionalTopologicalSortAlgorithm(TopologicalSortDirection.Forward, -10);
@@ -85,7 +85,7 @@ namespace QuikGraph.Tests.Algorithms
             Assert.Throws<ArgumentNullException>(
                 () => graph.CreateSourceFirstBidirectionalTopologicalSortAlgorithm());
             Assert.Throws<ArgumentNullException>(
-                () => graph.CreateSourceFirstBidirectionalTopologicalSortAlgorithm(TopologicalSortDirection.Forward));
+                () => graph.CreateSourceFirstBidirectionalTopologicalSortAlgorithm());
             Assert.Throws<ArgumentNullException>(
                 () => graph.CreateSourceFirstBidirectionalTopologicalSortAlgorithm(TopologicalSortDirection.Backward));
             // ReSharper restore AssignNullToNotNullAttribute

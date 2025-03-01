@@ -9,7 +9,7 @@ using QuikGraph.Collections;
 namespace QuikGraph.Algorithms.Search
 {
     /// <inheritdoc cref="CreateBestFirstFrontierSearchAlgorithm{TVertex, TEdge}"/>
-    public static class BestFirstFrontierSearchAlgorithmX
+    public static class BestFirstFrontierSearchAlgorithm
     {
         /// <summary> Initializes a new instance of the <see cref="BestFirstFrontierSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>

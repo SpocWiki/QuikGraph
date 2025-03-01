@@ -6,9 +6,19 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.Search
 {
-    /// <summary>
-    /// A depth and height first search algorithm for directed graphs.
-    /// </summary>
+    /// <inheritdoc cref="CreateBidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/>
+    public static class BidirectionalDepthFirstSearchAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static BidirectionalDepthFirstSearchAlgorithm<TVertex, TEdge>
+            CreateBidirectionalDepthFirstSearchAlgorithm<TVertex, TEdge>(
+                [NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
+                [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new BidirectionalDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, verticesColors, host);
+    }
+
+    /// <summary> A depth and height first search algorithm for directed graphs. </summary>
     /// <remarks>
     /// This is a modified version of the classic DFS algorithm
     /// where the search is performed both in depth and height.
@@ -20,44 +30,18 @@ namespace QuikGraph.Algorithms.Search
         , IVertexColorizerAlgorithm<TVertex>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public BidirectionalDepthFirstSearchAlgorithm(
-            [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, new Dictionary<TVertex, GraphColor>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public BidirectionalDepthFirstSearchAlgorithm(
-            [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors)
-            : this(visitedGraph, verticesColors, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="BidirectionalDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="verticesColors">Vertices associated to their colors (treatment states).</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesColors"/> is <see langword="null"/>.</exception>
-        public BidirectionalDepthFirstSearchAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, GraphColor> verticesColors, [CanBeNull] IAlgorithmComponent host = null)
+        internal BidirectionalDepthFirstSearchAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IDictionary<TVertex, GraphColor> verticesColors = null,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            VerticesColors = verticesColors ?? throw new ArgumentNullException(nameof(verticesColors));
+            VerticesColors = verticesColors ?? new Dictionary<TVertex, GraphColor>();
         }
 
         /// <summary>
