@@ -1,54 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using QuikGraph.Algorithms.Search;
 using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.ConnectedComponents
 {
+    /// <inheritdoc cref="CreateConnectedComponentsAlgorithm{TVertex,TEdge}"/>
+    public static class ConnectedComponentsAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static ConnectedComponentsAlgorithm<TVertex, TEdge>
+            CreateConnectedComponentsAlgorithm<TVertex, TEdge>(
+                [NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IDictionary<TVertex, int> components = null,
+                [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new ConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, components, host);
+    }
+
     /// <summary> computes connected components of a graph. </summary>
     public sealed class ConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         , IConnectedComponentAlgorithm<TVertex, TEdge, IUndirectedGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public ConnectedComponentsAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, new Dictionary<TVertex, int>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="components">Graph components.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public ConnectedComponentsAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components)
-            : this(visitedGraph, components, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="ConnectedComponentsAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="components">Graph components.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public ConnectedComponentsAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components, [CanBeNull] IAlgorithmComponent host = null)
+        internal ConnectedComponentsAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IDictionary<TVertex, int> components = null,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            Components = components ?? throw new ArgumentNullException(nameof(components));
+            Components = components ?? new Dictionary<TVertex, int>();
         }
 
         #region AlgorithmBase<TGraph>

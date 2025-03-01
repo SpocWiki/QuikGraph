@@ -99,7 +99,7 @@ namespace QuikGraph.Algorithms
         [Pure]
         public ComponentWithEdges CheckComponentsWithEdges()
         {
-            var componentsAlgorithm = new ConnectedComponentsAlgorithm<TVertex, TEdge>(_graph);
+            var componentsAlgorithm = _graph.CreateConnectedComponentsAlgorithm();
             componentsAlgorithm.Compute();
 
             bool[] hasEdgesInComponent = new bool[componentsAlgorithm.ComponentCount];

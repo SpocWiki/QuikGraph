@@ -321,7 +321,7 @@ namespace QuikGraph.Algorithms
             [NotNull] IDictionary<TVertex, int> components)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new ConnectedComponentsAlgorithm<TVertex, TEdge>(graph, components);
+            var algorithm = graph.CreateConnectedComponentsAlgorithm(components);
             algorithm.Compute();
             return algorithm.ComponentCount;
         }
