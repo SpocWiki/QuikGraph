@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
@@ -8,9 +7,20 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.ConnectedComponents
 {
-    /// <summary>
-    /// Algorithm that computes strongly connected components of a graph.
-    /// </summary>
+    /// <inheritdoc cref="CreateStronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/>
+    public static class StronglyConnectedComponentsAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static StronglyConnectedComponentsAlgorithm<TVertex, TEdge>
+            CreateStronglyConnectedComponentsAlgorithm<TVertex, TEdge>(
+                [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IDictionary<TVertex, int> components = null,
+                [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, components, host);
+
+    }
+
+    /// <summary> Algorithm that computes strongly connected components of a graph. </summary>
     /// <remarks>
     /// A strongly connected component is a sub graph where there is a path from every
     /// vertex to every other vertices.
@@ -25,44 +35,19 @@ namespace QuikGraph.Algorithms.ConnectedComponents
 
         private int _dfsTime;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public StronglyConnectedComponentsAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, new Dictionary<TVertex, int>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="components">Graph components.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public StronglyConnectedComponentsAlgorithm(
-            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components)
-            : this(visitedGraph, components, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="StronglyConnectedComponentsAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="components">pre-determined Graph components.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public StronglyConnectedComponentsAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IDictionary<TVertex, int> components, [CanBeNull] IAlgorithmComponent host = null)
+        internal StronglyConnectedComponentsAlgorithm(
+            [NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IDictionary<TVertex, int> components = null,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            Components = components ?? throw new ArgumentNullException(nameof(components));
+            Components = components ?? new Dictionary<TVertex, int>();
             Roots = new Dictionary<TVertex, TVertex>();
             DiscoverTimes = new Dictionary<TVertex, int>();
             _stack = new Stack<TVertex>();
@@ -70,15 +55,11 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             _dfsTime = 0;
         }
 
-        /// <summary>
-        /// Root vertices associated to their minimal linked vertex.
-        /// </summary>
+        /// <summary> Root vertices associated to their minimal linked vertex. </summary>
         [NotNull]
         public IDictionary<TVertex, TVertex> Roots { get; }
 
-        /// <summary>
-        /// Times of vertices discover.
-        /// </summary>
+        /// <summary> Times of vertices discover. </summary>
         [NotNull]
         public IDictionary<TVertex, int> DiscoverTimes { get; }
 

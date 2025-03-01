@@ -81,27 +81,26 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var adjacencyGraph = new AdjacencyGraph<int, IEdge<int>>();
             var components = new Dictionary<int, int>();
+            IVertexListGraph<int, IEdge<int>> nullGraph = null;
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm());
 
+            _ = adjacencyGraph.CreateWeaklyConnectedComponentsAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(components));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
-            Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm());
 
+            _ = adjacencyGraph.CreateWeaklyConnectedComponentsAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(components));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm());
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

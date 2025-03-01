@@ -9,11 +9,22 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.GraphPartition
 {
-    /// <summary>
-    /// Algorithm that separate a graph into two disjoint subsets A and B of equal (or nearly equal) in size,
+    /// <inheritdoc cref="CreateKernighanLinAlgorithm{TVertex,TEdge}"/>
+    public static class KernighanLinAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="KernighanLinAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static KernighanLinAlgorithm<TVertex, TEdge> CreateKernighanLinAlgorithm<TVertex, TEdge>(
+            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph, int nbIterations)
+            where TEdge : IUndirectedEdge<TVertex>, ITagged<double>
+            => new KernighanLinAlgorithm<TVertex, TEdge>(visitedGraph, nbIterations);
+    }
+
+    /// <summary> Algorithm that separate a graph into two disjoint subsets A and B of equal (or nearly equal) in size, </summary>
+    /// <remarks>
     /// in a way that minimizes the sum of the weights of the subset of edges that cross from A to B.
-    /// </summary>
-    public sealed class KernighanLinAlgorithm<TVertex, TEdge> : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
+    /// </remarks>
+    public sealed class KernighanLinAlgorithm<TVertex, TEdge>
+        : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         where TEdge : IUndirectedEdge<TVertex>, ITagged<double>
     {
         private readonly int _nbIterations;
@@ -25,15 +36,11 @@ namespace QuikGraph.Algorithms.GraphPartition
         private SortedSet<TVertex> _unSwappedSetA;
         private SortedSet<TVertex> _unSwappedSetB;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KernighanLinAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="KernighanLinAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="nbIterations">Number of iterations to perform.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public KernighanLinAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
-            int nbIterations)
+        public KernighanLinAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph, int nbIterations)
             : base(visitedGraph)
         {
             _nbIterations = nbIterations;

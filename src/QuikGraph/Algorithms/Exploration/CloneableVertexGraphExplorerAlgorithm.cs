@@ -8,22 +8,29 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.Exploration
 {
-    /// <summary>
-    /// Algorithm that explores a graph starting from a given vertex.
-    /// </summary>
+    /// <inheritdoc cref="CreateCloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/>
+    public static class CloneableVertexGraphExplorerAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>
+            CreateCloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>(
+                [NotNull] this IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IAlgorithmComponent host = null)
+            where TVertex : ICloneable where TEdge : IEdge<TVertex>
+            => new CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>(visitedGraph, host);
+    }
+    /// <summary> Algorithm that explores a graph starting from a given vertex. </summary>
     public sealed class CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IMutableVertexAndEdgeSet<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>
         where TVertex : ICloneable
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="CloneableVertexGraphExplorerAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public CloneableVertexGraphExplorerAlgorithm([NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
+        internal CloneableVertexGraphExplorerAlgorithm([NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {

@@ -7,9 +7,18 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ConnectedComponents
 {
-    /// <summary>
-    /// Algorithm that incrementally computes connected components of a growing graph.
-    /// </summary>
+    /// <inheritdoc cref="CreateIncrementalConnectedComponentsAlgorithm{TVertex,TEdge}"/>
+    public static class IncrementalConnectedComponentsAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="IncrementalConnectedComponentsAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static IncrementalConnectedComponentsAlgorithm<TVertex, TEdge>
+            CreateIncrementalConnectedComponentsAlgorithm<TVertex, TEdge>(
+                [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new IncrementalConnectedComponentsAlgorithm<TVertex, TEdge>(visitedGraph, host);
+    }
+
+    /// <summary> Algorithm that incrementally computes connected components of a growing graph. </summary>
     public sealed class IncrementalConnectedComponentsAlgorithm<TVertex, TEdge>
         : AlgorithmBase<IMutableVertexAndEdgeSet<TVertex, TEdge>>
         , IDisposable
@@ -19,20 +28,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
 
         private bool _hooked;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IncrementalConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public IncrementalConnectedComponentsAlgorithm(
-            [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IncrementalConnectedComponentsAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="IncrementalConnectedComponentsAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>

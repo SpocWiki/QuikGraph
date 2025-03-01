@@ -358,28 +358,10 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
         public static int StronglyConnectedComponents<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
-            [NotNull] IDictionary<TVertex, int> components)
+            [CanBeNull] IDictionary<TVertex, int> components = null)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(graph, components);
-            algorithm.Compute();
-            return algorithm.ComponentCount;
-        }
-
-        /// <summary>
-        /// Computes the weakly connected components of a directed graph.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <param name="components">Found components.</param>
-        /// <returns>Number of component found.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="components"/> is <see langword="null"/>.</exception>
-        public static int WeaklyConnectedComponents<TVertex, TEdge>(
-            [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
-            [NotNull] IDictionary<TVertex, int> components)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(graph, components);
+            var algorithm = graph.CreateStronglyConnectedComponentsAlgorithm(components);
             algorithm.Compute();
             return algorithm.ComponentCount;
         }

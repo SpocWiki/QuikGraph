@@ -16,7 +16,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         public void RunWeaklyConnectedComponentsAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(graph);
+            var algorithm = graph.CreateWeaklyConnectedComponentsAlgorithm();
             algorithm.Compute();
 
             Assert.AreEqual(graph.VertexCount, algorithm.Components.Count);
@@ -48,13 +48,13 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var components = new Dictionary<int, int>();
-            var algorithm = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateWeaklyConnectedComponentsAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, components);
+            algorithm = graph.CreateWeaklyConnectedComponentsAlgorithm(components);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, components, null);
+            algorithm = graph.CreateWeaklyConnectedComponentsAlgorithm(components);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -76,27 +76,26 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var adjacencyGraph = new AdjacencyGraph<int, IEdge<int>>();
             var components = new Dictionary<int, int>();
+            IVertexListGraph<int, IEdge<int>> nullGraph = null;
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm());
 
+            _ = adjacencyGraph.CreateWeaklyConnectedComponentsAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(components));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
-            Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(null));
 
+            _ = adjacencyGraph.CreateWeaklyConnectedComponentsAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(components, null));
             Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.CreateWeaklyConnectedComponentsAlgorithm(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -114,7 +113,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 Edge.Create(4, 3)
             ]);
 
-            var algorithm = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateWeaklyConnectedComponentsAlgorithm();
             algorithm.Compute();
 
             Assert.AreEqual(1, algorithm.ComponentCount);
@@ -150,7 +149,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 Edge.Create(7, 6)
             ]);
 
-            var algorithm = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateWeaklyConnectedComponentsAlgorithm();
             algorithm.Compute();
 
             Assert.AreEqual(2, algorithm.ComponentCount);
@@ -195,7 +194,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             ]);
             graph.AddVertex(10);
 
-            var algorithm = new WeaklyConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateWeaklyConnectedComponentsAlgorithm();
             algorithm.Compute();
 
             Assert.AreEqual(4, algorithm.ComponentCount);

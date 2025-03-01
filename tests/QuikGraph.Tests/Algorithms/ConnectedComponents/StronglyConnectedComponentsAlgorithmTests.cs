@@ -14,7 +14,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         public void RunStronglyConnectedComponentsAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(graph);
+            var algorithm = graph.CreateStronglyConnectedComponentsAlgorithm();
             algorithm.Compute();
 
             Assert.AreEqual(graph.VertexCount, algorithm.Components.Count);
@@ -70,13 +70,13 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var components = new Dictionary<int, int>();
-            var algorithm = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateStronglyConnectedComponentsAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, components);
+            algorithm = graph.CreateStronglyConnectedComponentsAlgorithm(components);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, components, null);
+            algorithm = graph.CreateStronglyConnectedComponentsAlgorithm(components, null);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -110,21 +110,19 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
+                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null));
 
+            _ = graph.CreateStronglyConnectedComponentsAlgorithm(null);
             Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null));
+                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
             Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components));
-            Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
+                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null));
 
+            _ = graph.CreateStronglyConnectedComponentsAlgorithm(null, null);
             Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
             Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, components, null));
-            Assert.Throws<ArgumentNullException>(
-                () => new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
+                () => StronglyConnectedComponentsAlgorithm.CreateStronglyConnectedComponentsAlgorithm<int, IEdge<int>>(null, null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -139,7 +137,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 Edge.Create(3, 1)
             );
 
-            var algorithm = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(cyclicGraph);
+            var algorithm = cyclicGraph.CreateStronglyConnectedComponentsAlgorithm();
             algorithm.Compute();
 
             Assert.AreEqual(1, algorithm.ComponentCount);
@@ -178,7 +176,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 Edge.Create(4, 5)
             );
 
-            var algorithm = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateStronglyConnectedComponentsAlgorithm();
             algorithm.Compute();
 
             Assert.AreEqual(3, algorithm.ComponentCount);
@@ -226,7 +224,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             );
             graph.AddVertex(10);
 
-            var algorithm = new StronglyConnectedComponentsAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateStronglyConnectedComponentsAlgorithm();
             algorithm.Compute();
 
             Assert.AreEqual(4, algorithm.ComponentCount);

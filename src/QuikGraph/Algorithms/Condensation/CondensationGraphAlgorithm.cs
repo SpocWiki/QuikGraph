@@ -115,13 +115,11 @@ namespace QuikGraph.Algorithms.Condensation
             IConnectedComponentAlgorithm<TVertex, TEdge, IVertexListGraph<TVertex, TEdge>> componentAlgorithm;
             if (StronglyConnected)
             {
-                componentAlgorithm = new StronglyConnectedComponentsAlgorithm<TVertex, TEdge>(VisitedGraph,
-                    components, this);
+                componentAlgorithm = VisitedGraph.CreateStronglyConnectedComponentsAlgorithm(components, this);
             }
             else
             {
-                componentAlgorithm = new WeaklyConnectedComponentsAlgorithm<TVertex, TEdge>(VisitedGraph,
-                    components, this);
+                componentAlgorithm = VisitedGraph.CreateWeaklyConnectedComponentsAlgorithm(components, this);
             }
 
             componentAlgorithm.Compute();
