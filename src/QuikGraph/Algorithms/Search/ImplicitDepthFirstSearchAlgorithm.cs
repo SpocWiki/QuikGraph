@@ -12,7 +12,7 @@ namespace QuikGraph.Algorithms.Search
         /// <summary> Creates a new instance of the <see cref="ImplicitDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
         public static ImplicitDepthFirstSearchAlgorithm<TVertex, TEdge>
             CreateImplicitDepthFirstSearchAlgorithm<TVertex, TEdge>(
-                [NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph,
+                [NotNull] this IIncidenceGraph<TVertex, TEdge> visitedGraph,
                 [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
             => new ImplicitDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, host);
     }
@@ -28,7 +28,7 @@ namespace QuikGraph.Algorithms.Search
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public ImplicitDepthFirstSearchAlgorithm([NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph,
+        internal ImplicitDepthFirstSearchAlgorithm([NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {

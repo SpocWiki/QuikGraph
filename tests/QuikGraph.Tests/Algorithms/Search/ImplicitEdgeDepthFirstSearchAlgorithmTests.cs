@@ -27,10 +27,8 @@ namespace QuikGraph.Tests.Algorithms.Search
             var discoverTimes = new Dictionary<TEdge, int>();
             var finishTimes = new Dictionary<TEdge, int>();
             int time = 0;
-            var dfs = new ImplicitEdgeDepthFirstSearchAlgorithm<TVertex, TEdge>(graph)
-            {
-                MaxDepth = maxDepth
-            };
+            var dfs = graph.CreateImplicitEdgeDepthFirstSearchAlgorithm();
+            dfs.MaxDepth = maxDepth;
 
             dfs.StartEdge += edge =>
             {
@@ -166,7 +164,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         public void SetRootVertex_Throws()
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
-            var algorithm = new ImplicitEdgeDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph);
+            var algorithm = graph.CreateImplicitEdgeDepthFirstSearchAlgorithm();
             SetRootVertex_Throws_Test(algorithm);
         }
 
@@ -200,7 +198,7 @@ namespace QuikGraph.Tests.Algorithms.Search
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             ComputeWithRoot_Throws_Test(
-                () => new ImplicitEdgeDepthFirstSearchAlgorithm<TestVertex, Edge<TestVertex>>(graph));
+                () => graph.CreateImplicitEdgeDepthFirstSearchAlgorithm());
         }
 
         #endregion
