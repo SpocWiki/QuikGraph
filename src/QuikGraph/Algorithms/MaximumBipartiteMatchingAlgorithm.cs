@@ -117,7 +117,7 @@ namespace QuikGraph.Algorithms
                 ThrowIfCancellationRequested();
 
                 // Augmenting the graph
-                augmentor = new BipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>(VisitedGraph,
+                augmentor = VisitedGraph.CreateBipartiteToMaximumFlowGraphAugmentorAlgorithm(
                     SourceToVertices,
                     VerticesToSink,
                     VertexFactory,
@@ -133,8 +133,7 @@ namespace QuikGraph.Algorithms
                 ThrowIfCancellationRequested();
 
                 // Compute maximum flow
-                var flow = new EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge>(VisitedGraph,
-                    edge => 1.0,
+                var flow = VisitedGraph.CreateEdmondsKarpMaximumFlowAlgorithm(edge => 1.0,
                     EdgeFactory,
                     reverser, this);
 

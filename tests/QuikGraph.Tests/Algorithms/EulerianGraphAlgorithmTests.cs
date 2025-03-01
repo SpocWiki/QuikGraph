@@ -19,7 +19,7 @@ namespace QuikGraph.Tests.Algorithms
         {
             var algorithm = graph.CreateIsEulerianGraphAlgorithm();
             Assert.AreEqual(expectedEulerian, algorithm.IsEulerian());
-            Assert.AreEqual(expectedEulerian, IsEulerianGraphAlgorithm.IsEulerian(graph));
+            Assert.AreEqual(expectedEulerian, graph.IsEulerian());
         }
 
         #endregion

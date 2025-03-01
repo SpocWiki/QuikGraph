@@ -714,11 +714,7 @@ namespace QuikGraph.Algorithms
                 throw new ArgumentException($"{nameof(source)} and {nameof(sink)} must be different.");
 
             // Compute maximum flow
-            var flow = new EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge>(
-                graph,
-                edgeCapacities,
-                edgeFactory,
-                reversedEdgeAugmentorAlgorithm);
+            var flow = graph.CreateEdmondsKarpMaximumFlowAlgorithm(edgeCapacities, edgeFactory, reversedEdgeAugmentorAlgorithm);
             flow.Compute(source, sink);
             flowPredecessors = flow.Predecessors.TryGetValue;
 

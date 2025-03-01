@@ -18,7 +18,7 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
             var algorithm = graph.CreateKruskalMinimumSpanningTreeAlgorithm(_ => 1.0);
             algorithm.AssertAlgorithmState(graph);
 
-            algorithm = graph.CreateKruskalMinimumSpanningTreeAlgorithm(_ => 1.0, null);
+            algorithm = graph.CreateKruskalMinimumSpanningTreeAlgorithm(_ => 1.0);
             algorithm.AssertAlgorithmState(graph);
         }
 
@@ -38,11 +38,11 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
                 () => graph.CreateKruskalMinimumSpanningTreeAlgorithm(null));
 
             Assert.Throws<ArgumentNullException>(
-                () => graph.CreateKruskalMinimumSpanningTreeAlgorithm(_ => 1.0, null));
+                () => graph.CreateKruskalMinimumSpanningTreeAlgorithm(_ => 1.0));
             Assert.Throws<ArgumentNullException>(
-                () => undirectedGraph.CreateKruskalMinimumSpanningTreeAlgorithm(null, null));
+                () => undirectedGraph.CreateKruskalMinimumSpanningTreeAlgorithm(null));
             Assert.Throws<ArgumentNullException>(
-                () => graph.CreateKruskalMinimumSpanningTreeAlgorithm(null, null));
+                () => graph.CreateKruskalMinimumSpanningTreeAlgorithm(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

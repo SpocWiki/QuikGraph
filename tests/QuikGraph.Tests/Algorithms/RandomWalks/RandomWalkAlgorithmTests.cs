@@ -184,7 +184,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             IImplicitGraph<int, IEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateRandomWalkAlgorithm());
-            _ = adjacencyGraph.CreateRandomWalkAlgorithm(null);
+            _ = adjacencyGraph.CreateRandomWalkAlgorithm();
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateRandomWalkAlgorithm(chain));
             Assert.Throws<ArgumentNullException>(

@@ -47,7 +47,7 @@ namespace QuikGraph.Algorithms.RandomWalks
             [NotNull] TVertex root,
             [NotNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain)
             where TEdge : IEdge<TVertex>
-            => graph.CreateCyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(edgeChain)
+            => graph.CreateCyclePoppingRandomTreeAlgorithm(edgeChain)
                 .RunDirectedRootedAlgorithm<TVertex, TEdge, CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>>(root);
 
         /// <summary> Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
