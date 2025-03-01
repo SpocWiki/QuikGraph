@@ -4,37 +4,33 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.RandomWalks
 {
-    /// <summary>
-    /// Random walk algorithm (using edge chain).
-    /// </summary>
+    /// <inheritdoc cref="CreateRandomWalkAlgorithm{TVertex,TEdge}"/>
+    public static class RandomWalkAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="RandomWalkAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static RandomWalkAlgorithm<TVertex, TEdge> CreateRandomWalkAlgorithm<TVertex, TEdge>(
+            [NotNull] this IImplicitGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IEdgeChain<TVertex, TEdge> edgeChain = null) where TEdge : IEdge<TVertex>
+            => new RandomWalkAlgorithm<TVertex, TEdge>(visitedGraph, edgeChain);
+    }
+
+    /// <summary> Random walk algorithm (using edge chain). </summary>
     public sealed class RandomWalkAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IImplicitGraph<TVertex, TEdge>>
         , ITreeBuilderAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RandomWalkAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public RandomWalkAlgorithm([NotNull] IImplicitGraph<TVertex, TEdge> visitedGraph)
-            : this(visitedGraph, new NormalizedMarkovEdgeChain<TVertex, TEdge>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RandomWalkAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="RandomWalkAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeChain">Edge chain strategy to use.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeChain"/> is <see langword="null"/>.</exception>
-        public RandomWalkAlgorithm(
+        internal RandomWalkAlgorithm(
             [NotNull] IImplicitGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] IEdgeChain<TVertex, TEdge> edgeChain)
+            [CanBeNull] IEdgeChain<TVertex, TEdge> edgeChain = null)
             : base(visitedGraph)
         {
-            _edgeChain = edgeChain ?? throw new ArgumentNullException(nameof(edgeChain));
+            _edgeChain = edgeChain ?? new NormalizedMarkovEdgeChain<TVertex, TEdge>();
         }
 
         [NotNull]

@@ -102,8 +102,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
                 () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
                 () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights));
+            _ = bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights);
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
@@ -117,8 +116,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
                 () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(
                 () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
-            Assert.Throws<ArgumentNullException>(
-                () => bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights));
+            _ = bidirectionalGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(Weights);
             Assert.Throws<ArgumentNullException>(
                 () => nullGraph.CreateHoffmanPavleyRankedShortestPathAlgorithm(null, DistanceRelaxers.CriticalDistance));
             Assert.Throws<ArgumentNullException>(

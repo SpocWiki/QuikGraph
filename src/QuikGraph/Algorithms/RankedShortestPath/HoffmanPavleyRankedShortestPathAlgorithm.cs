@@ -51,7 +51,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
                 [NotNull] Func<TEdge, double> edgeWeights,
                 [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
                 [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
-            => null;// new HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
+            => new HoffmanPavleyRankedShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
     }
 
     /// <summary> Hoffman and Pavley K-shortest path algorithm. </summary>
@@ -79,7 +79,7 @@ namespace QuikGraph.Algorithms.RankedShortestPath
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="distanceRelaxer"/> is <see langword="null"/>.</exception>
-        HoffmanPavleyRankedShortestPathAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
+        internal HoffmanPavleyRankedShortestPathAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> edgeWeights,
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
             [CanBeNull] IAlgorithmComponent host = null)
