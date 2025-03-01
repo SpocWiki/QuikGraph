@@ -28,10 +28,8 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
                 Rand = randomChain
             };
             var randomAlgorithm = new Random(123456);
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(graph, chain)
-            {
-                Rand = randomAlgorithm
-            };
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm();
+            algorithm.Rand = randomAlgorithm;
             algorithm.InitializeVertex += vertex =>
             {
                 Assert.AreEqual(GraphColor.White, algorithm.VerticesColors[vertex]);
@@ -90,16 +88,16 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             IMarkovEdgeChain<int, IEdge<int>> markovChain1 = new NormalizedMarkovEdgeChain<int, IEdge<int>>();
             IMarkovEdgeChain<int, IEdge<int>> markovChain2 = new WeightedMarkovEdgeChain<int, IEdge<int>>(new Dictionary<IEdge<int>, double>());
 
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, markovChain1);
+            algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(markovChain1);
             AssertAlgorithmProperties(algorithm, graph, markovChain1);
 
-            algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, markovChain2);
+            algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(markovChain2);
             AssertAlgorithmProperties(algorithm, graph, markovChain2);
 
-            algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, markovChain1);
+            algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(markovChain1);
             AssertAlgorithmProperties(algorithm, graph, markovChain1);
 
             var random = new Random(123456);
@@ -134,27 +132,28 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var adjacencyGraph = new AdjacencyGraph<int, IEdge<int>>();
             var chain = new NormalizedMarkovEdgeChain<int, IEdge<int>>();
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
+            IVertexListGraph<int, IEdge<int>> graph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null));
+                () => graph.CreateCyclePoppingRandomTreeAlgorithm());
 
-            _ = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph);
+            _ = adjacencyGraph.CreateCyclePoppingRandomTreeAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, chain));
+                () => graph.CreateCyclePoppingRandomTreeAlgorithm(chain));
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null));
+                () => graph.CreateCyclePoppingRandomTreeAlgorithm());
 
-            _ = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph);
+            _ = adjacencyGraph.CreateCyclePoppingRandomTreeAlgorithm();
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null, chain));
+                () => graph.CreateCyclePoppingRandomTreeAlgorithm(chain));
             Assert.Throws<ArgumentNullException>(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(null));
+                () => graph.CreateCyclePoppingRandomTreeAlgorithm());
 
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, chain);
+            var algorithm = adjacencyGraph.CreateCyclePoppingRandomTreeAlgorithm(chain);
             Assert.Throws<ArgumentNullException>(() => algorithm.Rand = null);
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
@@ -167,7 +166,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var chain = new NormalizedMarkovEdgeChain<int, IEdge<int>>();
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, chain);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(chain);
             TryGetRootVertex_Test(algorithm);
         }
 
@@ -176,7 +175,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var chain = new NormalizedMarkovEdgeChain<int, IEdge<int>>();
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, chain);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(chain);
             SetRootVertex_Test(algorithm);
         }
 
@@ -185,7 +184,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         {
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             var chain = new NormalizedMarkovEdgeChain<TestVertex, Edge<TestVertex>>();
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<TestVertex, Edge<TestVertex>>(graph, chain);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(chain);
             SetRootVertex_Throws_Test(algorithm);
         }
 
@@ -194,7 +193,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var chain = new NormalizedMarkovEdgeChain<int, IEdge<int>>();
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, chain);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(chain);
             ClearRootVertex_Test(algorithm);
         }
 
@@ -204,7 +203,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var chain = new NormalizedMarkovEdgeChain<int, IEdge<int>>();
             ComputeWithoutRoot_Throws_Test(
-                () => new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, chain));
+                () => graph.CreateCyclePoppingRandomTreeAlgorithm(chain));
         }
 
         [Test]
@@ -213,7 +212,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             var chain = new NormalizedMarkovEdgeChain<int, IEdge<int>>();
             graph.AddVertex(0);
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, chain);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(chain);
             ComputeWithRoot_Test(algorithm);
         }
 
@@ -223,7 +222,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             var graph = new AdjacencyGraph<TestVertex, Edge<TestVertex>>();
             var chain = new NormalizedMarkovEdgeChain<TestVertex, Edge<TestVertex>>();
             ComputeWithRoot_Throws_Test(
-                () => new CyclePoppingRandomTreeAlgorithm<TestVertex, Edge<TestVertex>>(graph, chain));
+                () => graph.CreateCyclePoppingRandomTreeAlgorithm(chain));
         }
 
         #endregion
@@ -235,7 +234,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             graph.AddVerticesAndEdge(Edge.Create(1, 2));
             var chain = new NormalizedMarkovEdgeChain<int, IEdge<int>>();
 
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, chain);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(chain);
             algorithm.Compute(1);
 
             Assert.AreEqual(GraphColor.Black, algorithm.GetVertexColor(1));
@@ -295,10 +294,8 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
                 Rand = randomChain
             };
             var randomAlgorithm = new Random(123456);
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph, chain)
-            {
-                Rand = randomAlgorithm
-            };
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(chain);
+            algorithm.Rand = randomAlgorithm;
 
             Assert.DoesNotThrow(() => algorithm.Compute(2));
             // Successors is not a spanning tree...
@@ -365,7 +362,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             graph.AddVertex(0);
             graph.AddVertex(1);
 
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm();
             algorithm.RandomTree();
             AssertIsTree(0, algorithm.Successors);
             AssertIsTree(1, algorithm.Successors);
@@ -378,7 +375,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             graph.AddVertex(0);
             graph.AddVertex(1);
 
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm();
             algorithm.RandomTreeWithRoot(0);
             AssertIsTree(0, algorithm.Successors);
         }
@@ -391,7 +388,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             graph.AddVertex(1);
             graph.AddEdge(Edge.Create(0, 1));
 
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm();
             algorithm.RandomTreeWithRoot(0);
             AssertIsTree(0, algorithm.Successors);
         }
@@ -406,7 +403,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             graph.AddVertexRange(scenario.SingleVerticesInGraph);
             var chain = new NormalizedMarkovEdgeChain<T, Edge<T>>();
 
-            var algorithm = new CyclePoppingRandomTreeAlgorithm<T, Edge<T>>(graph, chain);
+            var algorithm = graph.CreateCyclePoppingRandomTreeAlgorithm(chain);
 
             if (scenario.DoComputation)
                 algorithm.Compute(scenario.Root);

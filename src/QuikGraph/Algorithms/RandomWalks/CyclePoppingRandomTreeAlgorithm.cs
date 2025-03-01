@@ -8,24 +8,72 @@ using QuikGraph.Utils;
 
 namespace QuikGraph.Algorithms.RandomWalks
 {
-    /// <summary>
-    /// Wilson-Propp Cycle-Popping algorithm for Random Tree Generation.
-    /// </summary>
+    /// <inheritdoc cref="CreateCyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/>
+    public static class CyclePoppingRandomTreeAlgorithm
+    {
+        /// <summary> Computes a cycle popping tree
+        /// and gets a function that allow to get edges connected to a vertex in a directed graph. </summary>
+        /// <remarks>Uses <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> algorithm and
+        /// <see cref="NormalizedMarkovEdgeChain{TVertex,TEdge}"/>.</remarks>
+        /// <param name="graph">The graph to visit.</param>
+        /// <param name="root">Starting vertex.</param>
+        /// <returns>A function that allow to get edges connected to a given vertex.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static TryFunc<TVertex, IEnumerable<TEdge>> TreeCyclePoppingRandom<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
+            [NotNull] TVertex root) where TEdge : IEdge<TVertex>
+            => graph.TreeCyclePoppingRandom(root, new NormalizedMarkovEdgeChain<TVertex, TEdge>());
+
+        /// <summary> Computes a cycle popping tree
+        /// and gets a function that allow to get edges connected to a vertex in a directed graph. </summary>
+        /// <remarks>Uses <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
+        /// <param name="graph">The graph to visit.</param>
+        /// <param name="root">Starting vertex.</param>
+        /// <param name="edgeChain">Markov edge chain.</param>
+        /// <returns>A function that allow to get edges connected to a given vertex.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeChain"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
+        /// <exception cref="T:System.InvalidOperationException">Something went wrong when running the algorithm.</exception>
+        [Pure]
+        [NotNull]
+        public static TryFunc<TVertex, IEnumerable<TEdge>> TreeCyclePoppingRandom<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
+            [NotNull] TVertex root,
+            [NotNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain)
+            where TEdge : IEdge<TVertex>
+            => graph.CreateCyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(edgeChain)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>>(root);
+
+        /// <summary> Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>
+            CreateCyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(
+                [NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain = null,
+                [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => null;// new CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>(visitedGraph, edgeChain, host);
+
+    }
+
+    /// <summary> Wilson-Propp Cycle-Popping algorithm for Random Tree Generation. </summary>
     public sealed class CyclePoppingRandomTreeAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IVertexListGraph<TVertex, TEdge>>
         , IVertexColorizerAlgorithm<TVertex>
         , ITreeBuilderAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="CyclePoppingRandomTreeAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeChain">Edge chain strategy to use.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeChain"/> is <see langword="null"/>.</exception>
-        public CyclePoppingRandomTreeAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        CyclePoppingRandomTreeAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IMarkovEdgeChain<TVertex, TEdge> edgeChain = null, [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
