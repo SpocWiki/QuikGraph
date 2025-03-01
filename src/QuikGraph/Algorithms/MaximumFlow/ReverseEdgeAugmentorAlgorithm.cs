@@ -6,22 +6,32 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.MaximumFlow
 {
-    /// <summary>
-    /// Routines to add and remove auxiliary edges when using <see cref="EdmondsKarpMaximumFlowAlgorithm{TVertex, TEdge}"/> 
+    /// <inheritdoc cref="CreateReversedEdgeAugmentorAlgorithm{TVertex,TEdge}"/>
+    public static class ReversedEdgeAugmentorAlgorithm
+    {
+        /// <summary> Creates a new instance of the <see cref="ReversedEdgeAugmentorAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static ReversedEdgeAugmentorAlgorithm<TVertex, TEdge>
+            CreateReversedEdgeAugmentorAlgorithm<TVertex, TEdge>(
+                [NotNull] this IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+                [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory) where TEdge : IEdge<TVertex>
+            => new ReversedEdgeAugmentorAlgorithm<TVertex, TEdge>(visitedGraph, edgeFactory);
+    }
+
+    /// <summary> Routines to add and remove auxiliary edges </summary>
+    /// <remarks>
+    /// when using <see cref="EdmondsKarpMaximumFlowAlgorithm{TVertex, TEdge}"/> 
     /// or <see cref="MaximumBipartiteMatchingAlgorithm{TVertex,TEdge}.InternalCompute"/>. 
     /// Remember to call <see cref="RemoveReversedEdges()"/> to remove auxiliary edges.
-    /// </summary>
+    /// </remarks>
     public sealed class ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> : IDisposable
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReversedEdgeAugmentorAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="ReversedEdgeAugmentorAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeFactory">Edge factory method.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
-        public ReversedEdgeAugmentorAlgorithm(
+        internal ReversedEdgeAugmentorAlgorithm(
             [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory)
         {

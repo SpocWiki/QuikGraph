@@ -1882,7 +1882,7 @@ namespace QuikGraph.Tests.Extensions
             graph.AddVertexRange([1, 2]);
             Func<IEdge<int>, double> capacities = _ => 1.0;
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
-            var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>(graph, edgeFactory);
+            var reverseEdgesAlgorithm = graph.CreateReversedEdgeAugmentorAlgorithm(edgeFactory);
 
             Assert.Throws<ArgumentException>(
                 () => graph.MaximumFlow(capacities, 1, 1, out _, edgeFactory, reverseEdgesAlgorithm));
