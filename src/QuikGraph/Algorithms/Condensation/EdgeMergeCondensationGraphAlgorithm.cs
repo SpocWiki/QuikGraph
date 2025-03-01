@@ -40,8 +40,8 @@ namespace QuikGraph.Algorithms.Condensation
             [NotNull] IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> condensedGraph,
             [NotNull] VertexPredicate<TVertex> vertexPredicate) where TEdge : IEdge<TVertex>
             => new EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge>(visitedGraph, condensedGraph, vertexPredicate);
-
     }
+
     /// <summary> Algorithm that condensate edges of a graph. </summary>
     public sealed class EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge> : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>

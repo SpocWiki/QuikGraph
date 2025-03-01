@@ -359,10 +359,8 @@ namespace QuikGraph.Algorithms
             where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
         {
-            var algorithm = new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(graph)
-            {
-                StronglyConnected = true
-            };
+            var algorithm = graph.CreateCondensationGraphAlgorithm<TVertex, TEdge, TGraph>();
+            algorithm.StronglyConnected = true;
             algorithm.Compute();
             return algorithm.CondensedGraph;
         }
@@ -378,10 +376,8 @@ namespace QuikGraph.Algorithms
             where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
         {
-            var algorithm = new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(graph)
-            {
-                StronglyConnected = false
-            };
+            var algorithm = graph.CreateCondensationGraphAlgorithm<TVertex, TEdge, TGraph>();
+            algorithm.StronglyConnected = false;
             algorithm.Compute();
             return algorithm.CondensedGraph;
         }

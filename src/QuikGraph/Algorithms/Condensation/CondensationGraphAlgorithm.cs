@@ -11,8 +11,10 @@ namespace QuikGraph.Algorithms.Condensation
         /// <summary> Initializes a new instance of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public static CondensationGraphAlgorithm<TVertex, TEdge, TGraph> CreateCondensationGraphAlgorithm<TVertex, TEdge, TGraph>
-            ([NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph) where TEdge : IEdge<TVertex>
+        public static CondensationGraphAlgorithm<TVertex, TEdge, TGraph> CreateCondensationGraphAlgorithm
+            <TVertex, TEdge, TGraph>
+            ([NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
+            where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
             => new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(visitedGraph);
     }
