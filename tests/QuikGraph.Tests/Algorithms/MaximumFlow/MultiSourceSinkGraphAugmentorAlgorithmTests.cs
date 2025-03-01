@@ -24,9 +24,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             string[] noInEdgesVertices = graph.Vertices.Where(graph.IsInEdgesEmpty).ToArray();
             string[] noOutEdgesVertices = graph.Vertices.Where(graph.IsOutEdgesEmpty).ToArray();
 
-            using (var augmentor = new MultiSourceSinkGraphAugmentorAlgorithm<string, Edge<string>>(
-                graph,
-                () => (vertexId++).ToString(),
+            using (var augmentor = graph.CreateMultiSourceSinkGraphAugmentorAlgorithm(() => (vertexId++).ToString(),
                 (s, t) => new Edge<string>(s, t)))
             {
                 bool added = false;
@@ -106,10 +104,10 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             VertexFactory<int> vertexFactory = () => 1;
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
-            var algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, edgeFactory);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
 
-            algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
+            algorithm = graph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, edgeFactory);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
 
             #region Local function
@@ -136,41 +134,42 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new BidirectionalGraph<int, IEdge<int>>();
+            var bidirectionalGraph = new BidirectionalGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
+            IMutableBidirectionalGraph<int, IEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, edgeFactory));
+                () => nullGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, edgeFactory));
+                () => bidirectionalGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, null));
+                () => bidirectionalGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, edgeFactory));
+                () => nullGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, null));
+                () => nullGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => bidirectionalGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(null, null));
 
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, edgeFactory));
+                () => nullGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, edgeFactory));
+                () => bidirectionalGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, null));
+                () => bidirectionalGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, edgeFactory));
+                () => nullGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, vertexFactory, null));
+                () => nullGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, null, null));
+                () => bidirectionalGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(null, null, null));
+                () => nullGraph.CreateMultiSourceSinkGraphAugmentorAlgorithm(null, null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -184,7 +183,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
-            var algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, edgeFactory);
 
             CreateAndSetSuperSource_Test(algorithm);
         }
@@ -196,7 +195,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
-            var algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, edgeFactory);
 
             CreateAndSetSuperSink_Test(algorithm);
         }
@@ -209,7 +208,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             RunAugmentation_Test(
-                graph => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory));
+                graph => graph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, edgeFactory));
         }
 
         [Test]
@@ -219,7 +218,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
-            var algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateMultiSourceSinkGraphAugmentorAlgorithm(vertexFactory, edgeFactory);
 
             RunAugmentation_Throws_Test(algorithm);
         }
