@@ -7,9 +7,7 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// Base class for all shortest path finder algorithms in undirected graphs.
-    /// </summary>
+    /// <summary> Base class for all shortest path finder algorithms in undirected graphs. </summary>
     public abstract class UndirectedShortestPathAlgorithmBase<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IUndirectedGraph<TVertex, TEdge>>
         , IVertexColorizerAlgorithm<TVertex>

@@ -15,7 +15,7 @@ namespace QuikGraph.Tests.Algorithms
         public static void RunSourceFirstTopologicalSortAndCheck<TVertex, TEdge>([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<TVertex, TEdge>(graph);
+            var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm();
             algorithm.Compute();
 
             Assert.IsNotNull(algorithm.SortedVertices);
@@ -28,16 +28,16 @@ namespace QuikGraph.Tests.Algorithms
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm();
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, -10);
+            algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm(-10);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, 0);
+            algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm(0);
             AssertAlgorithmProperties(algorithm, graph);
 
-            algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph, 10);
+            algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm(10);
             AssertAlgorithmProperties(algorithm, graph);
 
             #region Local function
@@ -58,10 +58,11 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor_Throws()
         {
+            IVertexAndEdgeListGraph<int, IEdge<int>> graph = null;
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(null));
+                () => graph.CreateSourceFirstTopologicalSortAlgorithm());
         }
 
         [Test]
@@ -81,7 +82,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(7, 8)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm();
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
@@ -102,7 +103,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm();
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
@@ -125,7 +126,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(5, 6)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm();
             algorithm.Compute();
 
             CollectionAssert.AreEqual(
@@ -147,7 +148,7 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 4)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm();
             Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
         }
 
@@ -170,8 +171,8 @@ namespace QuikGraph.Tests.Algorithms
                 Edge.Create(3, 1)
             ]);
 
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<int, IEdge<int>>(cyclicGraph);
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            var algorithm = cyclicGraph.CreateSourceFirstTopologicalSortAlgorithm();
+            Assert.Throws<NonAcyclicGraphException>(algorithm.Compute);
         }
     }
 }

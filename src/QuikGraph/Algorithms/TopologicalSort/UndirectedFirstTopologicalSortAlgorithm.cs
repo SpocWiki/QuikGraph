@@ -7,9 +7,37 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.TopologicalSort
 {
-    /// <summary>
-    /// Undirected topological sort algorithm.
-    /// </summary>
+    /// <inheritdoc cref="CreateUndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/>
+    public static class UndirectedFirstTopologicalSortAlgorithm
+    {
+        /// <summary>
+        /// Creates a topological sort (source first) of an undirected acyclic graph.
+        /// </summary>
+        /// <param name="graph">Graph to visit.</param>
+        /// <returns>Sorted vertices (topological sort).</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
+        [Pure]
+        [NotNull, ItemNotNull]
+        public static TVertex[] SourceFirstTopologicalSort<TVertex, TEdge>(
+            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
+            where TEdge : IEdge<TVertex>
+        {
+            if (graph is null)
+                throw new ArgumentNullException(nameof(graph));
+
+            var algorithm = graph.CreateUndirectedFirstTopologicalSortAlgorithm(graph.VertexCount);
+            algorithm.Compute();
+            return algorithm.SortedVertices;
+        }
+
+        /// <summary> Creates a new instance of the <see cref="UndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge> CreateUndirectedFirstTopologicalSortAlgorithm<TVertex,
+            TEdge>([NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph, int capacity = -1)
+            where TEdge : IEdge<TVertex> => null; //new UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph, capacity);
+    }
+
+    /// <summary> Undirected topological sort algorithm. </summary>
     public sealed class UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge> : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
@@ -19,13 +47,11 @@ namespace QuikGraph.Algorithms.TopologicalSort
         [NotNull, ItemNotNull]
         private readonly IList<TVertex> _sortedVertices;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="UndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacity">Sorted vertices capacity.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public UndirectedFirstTopologicalSortAlgorithm(
+        UndirectedFirstTopologicalSortAlgorithm(
             [NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph,
             int capacity = -1)
             : base(visitedGraph)
@@ -34,26 +60,18 @@ namespace QuikGraph.Algorithms.TopologicalSort
             _sortedVertices = capacity > 0 ? new List<TVertex>(capacity) : new List<TVertex>();
         }
 
-        /// <summary>
-        /// Sorted vertices.
-        /// </summary>
+        /// <summary> Sorted vertices. </summary>
         [ItemNotNull]
         public TVertex[] SortedVertices { get; private set; }
 
-        /// <summary>
-        /// Vertices degrees.
-        /// </summary>
+        /// <summary> Vertices degrees. </summary>
         [NotNull]
         public IDictionary<TVertex, int> Degrees { get; } = new Dictionary<TVertex, int>();
 
-        /// <summary>
-        /// Gets or sets the flag that indicates if cyclic graph are supported or not.
-        /// </summary>
+        /// <summary> Gets or sets the flag that indicates if cyclic graph are supported or not. </summary>
         public bool AllowCyclicGraph { get; set; }
 
-        /// <summary>
-        /// Fired when a vertex is added to the set of sorted vertices.
-        /// </summary>
+        /// <summary> Fired when a vertex is added to the set of sorted vertices. </summary>
         public event VertexAction<TVertex> VertexAdded;
 
         private void OnVertexAdded([NotNull] TVertex vertex)

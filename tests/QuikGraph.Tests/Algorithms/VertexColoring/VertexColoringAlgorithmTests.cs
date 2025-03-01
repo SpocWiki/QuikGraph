@@ -17,7 +17,7 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
         public void Constructor()
         {
             var graph = new UndirectedGraph<int, IEdge<int>>();
-            var algorithm = new VertexColoringAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateVertexColoringAlgorithm();
             algorithm.AssertAlgorithmState(graph);
             CollectionAssert.IsEmpty(algorithm.Colors);
         }
@@ -27,15 +27,15 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
         {
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(
-                () => new VertexColoringAlgorithm<int, IEdge<int>>(null));
+            IUndirectedGraph<int, IEdge<int>> graph = null;
+            Assert.Throws<ArgumentNullException>(() => graph.CreateVertexColoringAlgorithm());
         }
 
         [Test]
         public void VertexColoringEmptyGraph()
         {
             var graph = new UndirectedGraph<char, Edge<char>>(true);
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var algorithm = graph.CreateVertexColoringAlgorithm();
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;
@@ -58,7 +58,7 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
                                       (2)
             */
             UndirectedGraph<char, Edge<char>> graph = CreateTestGraph();
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var algorithm = graph.CreateVertexColoringAlgorithm();
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;
@@ -113,7 +113,7 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
                                                   (2)
             */
             UndirectedGraph<char, Edge<char>> graph = CreateTestGraph();
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var algorithm = graph.CreateVertexColoringAlgorithm();
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;
@@ -177,7 +177,7 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
             (this graph has a minimum number of vertex colors only if to swap (1) and (4) vertices)
             */
             UndirectedGraph<char, Edge<char>> graph = CreateTestGraph();
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var algorithm = graph.CreateVertexColoringAlgorithm();
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;
@@ -246,7 +246,7 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
                                                 \____(3)____/
             */
             UndirectedGraph<char, Edge<char>> graph = CreateTestGraph();
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var algorithm = graph.CreateVertexColoringAlgorithm();
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;
@@ -323,7 +323,7 @@ namespace QuikGraph.Tests.Algorithms.GraphColoring
             */
 
             UndirectedGraph<char, Edge<char>> graph = CreateTestGraph();
-            var algorithm = new VertexColoringAlgorithm<char, Edge<char>>(graph);
+            var algorithm = graph.CreateVertexColoringAlgorithm();
             algorithm.Compute();
 
             IDictionary<char, int?> coloredVertices = algorithm.Colors;

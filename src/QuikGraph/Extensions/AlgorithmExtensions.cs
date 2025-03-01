@@ -227,61 +227,6 @@ namespace QuikGraph.Algorithms
         #region Shortest paths
 
         /// <summary>
-        /// Computes shortest path with the Dijkstra algorithm and gets a function that allows
-        /// to get paths in a directed graph.
-        /// </summary>
-        /// <remarks>Uses <see cref="DijkstraShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <param name="graph">The graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="root">Starting vertex.</param>
-        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsDijkstra<TVertex, TEdge>(
-            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
-            [NotNull] TVertex root)
-            where TEdge : IEdge<TVertex>
-            => graph.CreateDijkstraShortestPathAlgorithm(edgeWeights)
-                .RunDirectedRootedAlgorithm<TVertex, TEdge, DijkstraShortestPathAlgorithm<TVertex, TEdge>>(root);
-
-        /// <summary>
-        /// Computes shortest path with the Dijkstra algorithm and gets a function that allows
-        /// to get paths in an undirected graph.
-        /// </summary>
-        /// <remarks>Uses <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
-        /// <param name="graph">The graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <param name="root">Starting vertex.</param>
-        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsDijkstra<TVertex, TEdge>(
-            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
-            [NotNull] TVertex root)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights);
-            var predecessorRecorder = new UndirectedVertexPredecessorRecorderObserver<TVertex, TEdge>();
-            using (predecessorRecorder.Attach(algorithm))
-            {
-                algorithm.Compute(root);
-            }
-
-            IDictionary<TVertex, TEdge> predecessors = predecessorRecorder.VerticesPredecessors;
-            return (TVertex vertex, out IEnumerable<TEdge> edges) => predecessors.TryGetPath(vertex, out edges);
-        }
-
-        /// <summary>
         /// Computes shortest path with the A* algorithm and gets a function that allows
         /// to get paths in a directed graph.
         /// </summary>
@@ -508,7 +453,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
         [Pure]
         [NotNull, ItemNotNull]
-        public static IEnumerable<TVertex> TopologicalSort<TVertex, TEdge>(
+        public static TVertex[] TopologicalSort<TVertex, TEdge>(
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
@@ -517,7 +462,7 @@ namespace QuikGraph.Algorithms
 
             var algorithm = new TopologicalSortAlgorithm<TVertex, TEdge>(graph, graph.VertexCount);
             algorithm.Compute();
-            return algorithm.SortedVertices.AsEnumerable();
+            return algorithm.SortedVertices;
         }
 
         /// <summary>
@@ -529,7 +474,7 @@ namespace QuikGraph.Algorithms
         /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
         [Pure]
         [NotNull, ItemNotNull]
-        public static IEnumerable<TVertex> TopologicalSort<TVertex, TEdge>(
+        public static TVertex[] TopologicalSort<TVertex, TEdge>(
             [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
@@ -538,88 +483,7 @@ namespace QuikGraph.Algorithms
 
             var algorithm = new UndirectedTopologicalSortAlgorithm<TVertex, TEdge>(graph, graph.VertexCount);
             algorithm.Compute();
-            return algorithm.SortedVertices.AsEnumerable();
-        }
-
-        /// <summary>
-        /// Creates a topological sort (source first) of a directed acyclic graph.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <returns>Sorted vertices (topological sort).</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
-        [Pure]
-        [NotNull, ItemNotNull]
-        public static IEnumerable<TVertex> SourceFirstTopologicalSort<TVertex, TEdge>(
-            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-
-            var algorithm = new SourceFirstTopologicalSortAlgorithm<TVertex, TEdge>(graph, graph.VertexCount);
-            algorithm.Compute();
-            return algorithm.SortedVertices.AsEnumerable();
-        }
-
-        /// <summary>
-        /// Creates a topological sort (source first) of an undirected acyclic graph.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <returns>Sorted vertices (topological sort).</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
-        [Pure]
-        [NotNull, ItemNotNull]
-        public static IEnumerable<TVertex> SourceFirstTopologicalSort<TVertex, TEdge>(
-            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-
-            var algorithm = new UndirectedFirstTopologicalSortAlgorithm<TVertex, TEdge>(graph, graph.VertexCount);
-            algorithm.Compute();
-            return algorithm.SortedVertices.AsEnumerable();
-        }
-
-        /// <summary>
-        /// Creates a topological sort (source first) of a bidirectional directed acyclic graph.
-        /// Uses the <see cref="TopologicalSortDirection.Forward"/> direction.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <returns>Sorted vertices (topological sort).</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
-        [Pure]
-        public static IEnumerable<TVertex> SourceFirstBidirectionalTopologicalSort<TVertex, TEdge>(
-            [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-        {
-            return SourceFirstBidirectionalTopologicalSort(graph, TopologicalSortDirection.Forward);
-        }
-
-        /// <summary>
-        /// Creates a topological sort (source first) of a bidirectional directed acyclic graph.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <param name="direction">Topological sort direction.</param>
-        /// <returns>Sorted vertices (topological sort).</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
-        [Pure]
-        [NotNull, ItemNotNull]
-        public static IEnumerable<TVertex> SourceFirstBidirectionalTopologicalSort<TVertex, TEdge>(
-            [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph,
-            TopologicalSortDirection direction)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-
-            var algorithm = new SourceFirstBidirectionalTopologicalSortAlgorithm<TVertex, TEdge>(graph, direction, graph.VertexCount);
-            algorithm.Compute();
-            return algorithm.SortedVertices.AsEnumerable();
+            return algorithm.SortedVertices;
         }
 
         #endregion
@@ -1025,44 +889,7 @@ namespace QuikGraph.Algorithms
             return sets;
         }
 
-        /// <summary>
-        /// Computes the minimum spanning tree using Prim algorithm.
-        /// </summary>
-        /// <remarks>Prim algorithm is simply implemented by calling Dijkstra shortest path.</remarks>
-        /// <param name="graph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <returns>Edges part of the minimum spanning tree.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull, ItemNotNull]
-        public static IEnumerable<TEdge> MinimumSpanningTreePrim<TVertex, TEdge>(
-            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-            if (edgeWeights is null)
-                throw new ArgumentNullException(nameof(edgeWeights));
-
-            if (graph.VertexCount == 0)
-                return Enumerable.Empty<TEdge>();
-
-            IDistanceRelaxer distanceRelaxer = DistanceRelaxers.Prim;
-            var dijkstra = new UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>(graph, edgeWeights, distanceRelaxer);
-            var edgeRecorder = new UndirectedVertexPredecessorRecorderObserver<TVertex, TEdge>();
-            using (edgeRecorder.Attach(dijkstra))
-            {
-                dijkstra.Compute();
-            }
-
-            return edgeRecorder.VerticesPredecessors.Values;
-        }
-
-        /// <summary>
-        /// Computes the minimum spanning tree using Kruskal algorithm.
-        /// </summary>
+        /// <summary> Computes the minimum spanning tree using Kruskal algorithm. </summary>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <returns>Edges part of the minimum spanning tree.</returns>

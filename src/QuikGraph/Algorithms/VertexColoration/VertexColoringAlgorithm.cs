@@ -5,18 +5,25 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.VertexColoring
 {
-    /// <summary>
-    /// Algorithm that walk through a graph and color vertices with the minimum number of colors possible.
-    /// </summary>
+    /// <inheritdoc cref="CreateVertexColoringAlgorithm{TVertex,TEdge}"/>
+    public static class VertexColoringAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="VertexColoringAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <param name="visitedGraph">Graph to visit.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
+        public static VertexColoringAlgorithm<TVertex, TEdge> CreateVertexColoringAlgorithm<TVertex, TEdge>
+            ([NotNull] this IUndirectedGraph<TVertex, TEdge> visitedGraph) where TEdge : IEdge<TVertex>
+            => new VertexColoringAlgorithm<TVertex, TEdge>(visitedGraph);
+    }
+
+    /// <summary> Algorithm that walk through a graph and color vertices with the minimum number of colors possible. </summary>
     public sealed class VertexColoringAlgorithm<TVertex, TEdge> : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VertexColoringAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="VertexColoringAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public VertexColoringAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
+        internal VertexColoringAlgorithm([NotNull] IUndirectedGraph<TVertex, TEdge> visitedGraph)
             : base(visitedGraph)
         {
         }

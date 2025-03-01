@@ -9,96 +9,38 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// A single-source K-shortest loopless paths algorithm for graphs
-    /// with non negative edge cost.
-    /// </summary>
-    public class YenShortestPathsAlgorithm<TVertex>
+    /// <summary> A single-source K-shortest loopless paths algorithm for graphs with non negative edge cost. </summary>
+    public static class YenShortestPathsAlgorithm
     {
-        /// <summary>
-        /// Class representing a sorted path.
-        /// </summary>
-        public struct SortedPath : IEnumerable<EquatableTaggedEdge<TVertex, double>>, IEquatable<SortedPath>
-        {
-            [NotNull, ItemNotNull]
-            private readonly List<EquatableTaggedEdge<TVertex, double>> _edges;
+        /// <summary> Creates a new instance of the <see cref="YenShortestPathsAlgorithm{TVertex}"/> class. </summary>
+        /// <remarks>
+        /// <see cref="T:System.Double"/> for tag type (edge) which comes from Dijkstra’s algorithm, which is used to get one shortest path.
+        /// </remarks>
+        /// <param name="graph">Graph to visit.</param>
+        /// <param name="source">Source vertex.</param>
+        /// <param name="target">Target vertex.</param>
+        /// <param name="k">Maximum number of path to search.</param>
+        /// <param name="edgeWeights">Optional function that computes the weight for a given edge.</param>
+        /// <param name="filter">Optional filter of found paths.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="source"/> is not part of <paramref name="graph"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="target"/> is not part of <paramref name="graph"/>.</exception>
+        /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="k"/> is lower than 1.</exception>
+        public static YenShortestPathsAlgorithm<TVertex> CreateYenShortestPathsAlgorithm<TVertex>(
+            [NotNull] this AdjacencyGraph<TVertex, EquatableTaggedEdge<TVertex, double>> graph,
+            [NotNull] TVertex source,
+            [NotNull] TVertex target,
+            int k,
+            [CanBeNull] Func<EquatableTaggedEdge<TVertex, double>, double> edgeWeights = null,
+            [CanBeNull] Func<IEnumerable<SortedPath<TVertex>>, IEnumerable<SortedPath<TVertex>>> filter = null)
+            => null;// new YenShortestPathsAlgorithm<TVertex>(graph, source, target, k, edgeWeights, filter);
+    }
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="SortedPath"/> struct.
-            /// </summary>
-            public SortedPath([NotNull, ItemNotNull] IEnumerable<EquatableTaggedEdge<TVertex, double>> edges)
-            {
-                _edges = edges.ToList();
-            }
-
-            /// <summary>
-            /// Number of edges in this path.
-            /// </summary>
-            public int Count => _edges.Count;
-
-            [Pure]
-            [NotNull]
-            internal TVertex GetVertex(int i)
-            {
-                Debug.Assert(i >= 0 && i < _edges.Count);
-
-                return _edges[i].Source;
-            }
-
-            [Pure]
-            [NotNull]
-            internal EquatableTaggedEdge<TVertex, double> GetEdge(int i)
-            {
-                Debug.Assert(i >= 0 && i < _edges.Count);
-
-                return _edges[i];
-            }
-
-            [Pure]
-            [NotNull, ItemNotNull]
-            internal EquatableTaggedEdge<TVertex, double>[] GetEdges(int count)
-            {
-                if (count > _edges.Count)
-                {
-                    count = _edges.Count;
-                }
-
-                Debug.Assert(count >= 0 && count <= _edges.Count);
-
-                return _edges.GetRange(0, count).ToArray();
-            }
-
-            /// <inheritdoc />
-            public override bool Equals(object obj)
-            {
-                return obj is SortedPath path && Equals(path);
-            }
-
-            /// <inheritdoc />
-            public bool Equals(SortedPath other)
-            {
-                return _edges.SequenceEqual(other._edges);
-            }
-
-            /// <inheritdoc />
-            public override int GetHashCode()
-            {
-                return _edges.GetHashCode();
-            }
-
-            /// <inheritdoc />
-            public IEnumerator<EquatableTaggedEdge<TVertex, double>> GetEnumerator()
-            {
-                return _edges.GetEnumerator();
-            }
-
-            /// <inheritdoc />
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-        }
-
+        /// <summary> A single-source K-shortest loopless paths algorithm for graphs with non negative edge cost. </summary>
+        public class YenShortestPathsAlgorithm<TVertex>
+    {
         private readonly TVertex _sourceVertex;
         private readonly TVertex _targetVertex;
 
@@ -106,7 +48,7 @@ namespace QuikGraph.Algorithms.ShortestPath
         private readonly Func<EquatableTaggedEdge<TVertex, double>, double> _weights;
 
         [NotNull]
-        private readonly Func<IEnumerable<SortedPath>, IEnumerable<SortedPath>> _filter;
+        private readonly Func<IEnumerable<SortedPath<TVertex>>, IEnumerable<SortedPath<TVertex>>> _filter;
 
         // Limit for the amount of paths
         private readonly int _k;
@@ -132,13 +74,13 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="T:System.ArgumentException"><paramref name="source"/> is not part of <paramref name="graph"/>.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="target"/> is not part of <paramref name="graph"/>.</exception>
         /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="k"/> is lower than 1.</exception>
-        public YenShortestPathsAlgorithm(
+        YenShortestPathsAlgorithm(
             [NotNull] AdjacencyGraph<TVertex, EquatableTaggedEdge<TVertex, double>> graph,
             [NotNull] TVertex source,
             [NotNull] TVertex target,
             int k,
             [CanBeNull] Func<EquatableTaggedEdge<TVertex, double>, double> edgeWeights = null,
-            [CanBeNull] Func<IEnumerable<SortedPath>, IEnumerable<SortedPath>> filter = null)
+            [CanBeNull] Func<IEnumerable<SortedPath<TVertex>>, IEnumerable<SortedPath<TVertex>>> filter = null)
         {
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
@@ -163,28 +105,19 @@ namespace QuikGraph.Algorithms.ShortestPath
 
         [Pure]
         [NotNull]
-        private static IEnumerable<SortedPath> DefaultFilter([NotNull] IEnumerable<SortedPath> paths)
-        {
-            return paths;
-        }
+        private static IEnumerable<SortedPath<TVertex>> DefaultFilter([NotNull] IEnumerable<SortedPath<TVertex>> paths) => paths;
 
         [Pure]
-        private static double DefaultGetWeights([NotNull] EquatableTaggedEdge<TVertex, double> edge)
-        {
-            return edge.Tag;
-        }
+        private static double DefaultGetWeights([NotNull] EquatableTaggedEdge<TVertex, double> edge) => edge.Tag;
 
         [Pure]
-        private double GetPathDistance([ItemNotNull] SortedPath edges)
-        {
-            return edges.Sum(edge => _weights(edge));
-        }
+        private double GetPathDistance([ItemNotNull] SortedPath<TVertex> edges) => edges.Sum(edge => _weights(edge));
 
         [Pure]
-        private SortedPath GetInitialShortestPath()
+        private SortedPath<TVertex> GetInitialShortestPath()
         {
             // Find the first shortest way from source to target
-            SortedPath? shortestPath = GetShortestPathInGraph(_graph, _sourceVertex, _targetVertex);
+            SortedPath<TVertex>? shortestPath = GetShortestPathInGraph(_graph, _sourceVertex, _targetVertex);
             // In case of Dijkstra’s algorithm couldn't find any ways
             if (!shortestPath.HasValue)
                 throw new NoPathFoundException();
@@ -194,7 +127,7 @@ namespace QuikGraph.Algorithms.ShortestPath
 
         [Pure]
         [CanBeNull]
-        private SortedPath? GetShortestPathInGraph(
+        private SortedPath<TVertex>? GetShortestPathInGraph(
             [NotNull] IVertexListGraph<TVertex, EquatableTaggedEdge<TVertex, double>> graph,
             [NotNull] TVertex source,
             [NotNull] TVertex target)
@@ -213,18 +146,18 @@ namespace QuikGraph.Algorithms.ShortestPath
 
             // Get shortest path from start (source) vertex to target
             return recorder.TryGetPath(target, out IEnumerable<EquatableTaggedEdge<TVertex, double>> path)
-                ? new SortedPath(path)
-                : (SortedPath?)null;
+                ? new SortedPath<TVertex>(path)
+                : (SortedPath<TVertex>?)null;
         }
 
         [Pure]
         [CanBeNull]
-        private static SortedPath? ExtractShortestPathCandidate(
-            [NotNull] List<SortedPath> shortestPaths,
-            [NotNull] IQueue<SortedPath> shortestPathCandidates)
+        private static SortedPath<TVertex>? ExtractShortestPathCandidate(
+            [NotNull] List<SortedPath<TVertex>> shortestPaths,
+            [NotNull] IQueue<SortedPath<TVertex>> shortestPathCandidates)
         {
             bool isNewPath = false;
-            SortedPath? newPath = null;
+            SortedPath<TVertex>? newPath = null;
             while (shortestPathCandidates.Count > 0 && !isNewPath)
             {
                 newPath = shortestPathCandidates.Dequeue();
@@ -242,9 +175,9 @@ namespace QuikGraph.Algorithms.ShortestPath
 
         [Pure]
         private bool SearchAndAddKthShortestPath(
-            SortedPath previousPath,
-            [NotNull] List<SortedPath> shortestPaths,
-            [NotNull] IQueue<SortedPath> shortestPathCandidates)
+            SortedPath<TVertex> previousPath,
+            [NotNull] List<SortedPath<TVertex>> shortestPaths,
+            [NotNull] IQueue<SortedPath<TVertex>> shortestPathCandidates)
         {
             // Iterate over all of the nodes in the (k-1)st shortest path except for the target node
             // For each node (up to) one new candidate path is generated by temporarily modifying
@@ -258,7 +191,7 @@ namespace QuikGraph.Algorithms.ShortestPath
                 // The sequence of nodes from the source to the spur node of the previous k-shortest path
                 EquatableTaggedEdge<TVertex, double>[] rootPath = previousPath.GetEdges(i);
 
-                foreach (SortedPath path in shortestPaths.Where(path => rootPath.SequenceEqual(path.GetEdges(i))))
+                foreach (SortedPath<TVertex> path in shortestPaths.Where(path => rootPath.SequenceEqual(path.GetEdges(i))))
                 {
                     // Remove the links that are part of the previous shortest paths which share the same root path
                     EquatableTaggedEdge<TVertex, double> edgeToRemove = path.GetEdge(i);
@@ -279,11 +212,11 @@ namespace QuikGraph.Algorithms.ShortestPath
                     }
                 }
 
-                SortedPath? spurPath = GetShortestPathInGraph(_graph, spurVertex, _targetVertex);
+                SortedPath<TVertex>? spurPath = GetShortestPathInGraph(_graph, spurVertex, _targetVertex);
                 if (spurPath.HasValue)
                 {
                     // Entire path is made up of the root path and spur path
-                    var totalPath = new SortedPath(previousPath.GetEdges(i).Concat(spurPath.Value));
+                    var totalPath = new SortedPath<TVertex>(previousPath.GetEdges(i).Concat(spurPath.Value));
 
                     // Add the potential k-shortest path to the heap
                     if (!shortestPathCandidates.Contains(totalPath))
@@ -299,7 +232,7 @@ namespace QuikGraph.Algorithms.ShortestPath
             }
 
             // Identify the candidate path with the shortest cost
-            SortedPath? newPath = ExtractShortestPathCandidate(shortestPaths, shortestPathCandidates);
+            SortedPath<TVertex>? newPath = ExtractShortestPathCandidate(shortestPaths, shortestPathCandidates);
             if (newPath is null)
             {
                 // This handles the case of there being no spur paths, or no spur paths left.
@@ -321,17 +254,17 @@ namespace QuikGraph.Algorithms.ShortestPath
         /// <exception cref="NoPathFoundException">No shortest path was found.</exception>
         [Pure]
         [NotNull]
-        public IEnumerable<SortedPath> Execute()
+        public IEnumerable<SortedPath<TVertex>> Execute()
         {
-            SortedPath initialPath = GetInitialShortestPath();
-            var shortestPaths = new List<SortedPath> { initialPath };
+            SortedPath<TVertex> initialPath = GetInitialShortestPath();
+            var shortestPaths = new List<SortedPath<TVertex>> { initialPath };
 
             // Initialize the set to store the potential k-th shortest path
-            var shortestPathCandidates = new BinaryQueue<SortedPath, double>(GetPathDistance);
+            var shortestPathCandidates = new BinaryQueue<SortedPath<TVertex>, double>(GetPathDistance);
 
             for (int k = 1; k < _k; ++k)
             {
-                SortedPath previousPath = shortestPaths[k - 1];
+                SortedPath<TVertex> previousPath = shortestPaths[k - 1];
 
                 if (!SearchAndAddKthShortestPath(previousPath, shortestPaths, shortestPathCandidates))
                     break;
@@ -348,5 +281,74 @@ namespace QuikGraph.Algorithms.ShortestPath
         {
             _edgesToRestore.Add(edge);
         }
+    }
+
+    /// <summary>
+    /// Class representing a sorted path.
+    /// </summary>
+    public struct SortedPath<T> : IEnumerable<EquatableTaggedEdge<T, double>>, IEquatable<SortedPath<T>>
+    {
+        [NotNull, ItemNotNull]
+        private readonly List<EquatableTaggedEdge<T, double>> _edges;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SortedPath{T}"/> struct.
+        /// </summary>
+        public SortedPath([NotNull, ItemNotNull] IEnumerable<EquatableTaggedEdge<T, double>> edges)
+        {
+            _edges = edges.ToList();
+        }
+
+        /// <summary>
+        /// Number of edges in this path.
+        /// </summary>
+        public int Count => _edges.Count;
+
+        [Pure]
+        [NotNull]
+        internal T GetVertex(int i)
+        {
+            Debug.Assert(i >= 0 && i < _edges.Count);
+
+            return _edges[i].Source;
+        }
+
+        [Pure]
+        [NotNull]
+        internal EquatableTaggedEdge<T, double> GetEdge(int i)
+        {
+            Debug.Assert(i >= 0 && i < _edges.Count);
+
+            return _edges[i];
+        }
+
+        [Pure]
+        [NotNull, ItemNotNull]
+        internal EquatableTaggedEdge<T, double>[] GetEdges(int count)
+        {
+            if (count > _edges.Count)
+            {
+                count = _edges.Count;
+            }
+
+            Debug.Assert(count >= 0 && count <= _edges.Count);
+
+            return _edges.GetRange(0, count).ToArray();
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object obj) => obj is SortedPath<T> path && Equals(path);
+
+        /// <inheritdoc />
+        public bool Equals(SortedPath<T> other) => _edges.SequenceEqual(other._edges);
+
+        /// <inheritdoc />
+        public override int GetHashCode() => _edges.GetHashCode();
+
+        /// <inheritdoc />
+        public IEnumerator<EquatableTaggedEdge<T, double>> GetEnumerator() => _edges.GetEnumerator();
+
+        /// <inheritdoc />
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

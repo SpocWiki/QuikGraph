@@ -105,34 +105,31 @@ namespace QuikGraph.Serialization.Tests
                 graph,
                 g =>
                 {
-                    using (var writer = new StringWriter())
+                    using var writer = new StringWriter();
+                    var settings = new XmlWriterSettings { Indent = true };
+                    using (var xmlWriter = XmlWriter.Create(writer, settings))
                     {
-                        var settings = new XmlWriterSettings { Indent = true };
-                        using (XmlWriter xmlWriter = XmlWriter.Create(writer, settings))
-                        {
-                            var serializer = new GraphMLSerializer<EquatableTestVertex, EquatableTestEdge, EquatableTestGraph>
-                            {
-                                EmitDocumentDeclaration = emitDeclarationOnDeserialize
-                            };
-
-                            serializer.Serialize(
-                                xmlWriter,
-                                g,
-                                vertex => vertex.ID,
-                                edge => edge.ID);
-                        }
-
-                        return writer.ToString();
-                    }
-                },
-                graphml =>
-                {
-                    using (var reader = new StringReader(graphml))
-                    {
-                        var serializer = new GraphMLDeserializer<EquatableTestVertex, EquatableTestEdge, EquatableTestGraph>
+                        var serializer = new GraphMLSerializer<EquatableTestVertex, EquatableTestEdge, EquatableTestGraph>
                         {
                             EmitDocumentDeclaration = emitDeclarationOnDeserialize
                         };
+
+                        serializer.Serialize(
+                            xmlWriter,
+                            g,
+                            vertex => vertex.ID,
+                            edge => edge.ID);
+                    }
+
+                    return writer.ToString();
+                },
+                graphml =>
+                {
+                    using var reader = new StringReader(graphml);
+                    var serializer = new GraphMLDeserializer<EquatableTestVertex, EquatableTestEdge, EquatableTestGraph>
+                    {
+                        EmitDocumentDeclaration = emitDeclarationOnDeserialize
+                    };
 
 #if SUPPORTS_XML_DTD_PROCESSING
                         var settings = new XmlReaderSettings
@@ -142,22 +139,21 @@ namespace QuikGraph.Serialization.Tests
                             DtdProcessing = DtdProcessing.Ignore
                         };
 
-                        using (XmlReader xmlReader = XmlReader.Create(reader, settings))
+                        using (var xmlReader = XmlReader.Create(reader, settings))
                         {
 #else
-                        var xmlReader = new XmlTextReader(reader);
-                        {
-                            xmlReader.ProhibitDtd = false;
-                            xmlReader.XmlResolver = null;
+                    var xmlReader = new XmlTextReader(reader);
+                    {
+                        xmlReader.ProhibitDtd = false;
+                        xmlReader.XmlResolver = null;
 #endif
-                            var g = new EquatableTestGraph();
-                            serializer.Deserialize(
-                                xmlReader,
-                                g,
-                                id => new EquatableTestVertex(id),
-                                (source, target, id) => new EquatableTestEdge(source, target, id));
-                            return g;
-                        }
+                        var g = new EquatableTestGraph();
+                        serializer.Deserialize(
+                            xmlReader,
+                            g,
+                            id => new EquatableTestVertex(id),
+                            (source, target, id) => new EquatableTestEdge(source, target, id));
+                        return g;
                     }
                 });
 
@@ -225,29 +221,27 @@ namespace QuikGraph.Serialization.Tests
                     vertex => vertex.ID,
                     edge => edge.ID));
 
-            using (XmlWriter writer = XmlWriter.Create(WriteThrowsTestFilePath))
-            {
-                Assert.Throws<ArgumentNullException>(
-                    () => ((AdjacencyGraph<TestVertex, TestEdge>)null).SerializeToGraphML<TestVertex, TestEdge, AdjacencyGraph<TestVertex, TestEdge>>(writer));
+            using var writer = XmlWriter.Create(WriteThrowsTestFilePath);
+            Assert.Throws<ArgumentNullException>(
+                () => ((AdjacencyGraph<TestVertex, TestEdge>)null).SerializeToGraphML<TestVertex, TestEdge, AdjacencyGraph<TestVertex, TestEdge>>(writer));
 
-                Assert.Throws<ArgumentNullException>(
-                    () => ((AdjacencyGraph<TestVertex, TestEdge>)null).SerializeToGraphML<TestVertex, TestEdge, AdjacencyGraph<TestVertex, TestEdge>>(
-                        writer,
-                        vertex => vertex.ID,
-                        edge => edge.ID));
+            Assert.Throws<ArgumentNullException>(
+                () => ((AdjacencyGraph<TestVertex, TestEdge>)null).SerializeToGraphML<TestVertex, TestEdge, AdjacencyGraph<TestVertex, TestEdge>>(
+                    writer,
+                    vertex => vertex.ID,
+                    edge => edge.ID));
 
-                Assert.Throws<ArgumentNullException>(
-                    () => graph.SerializeToGraphML<TestVertex, TestEdge, AdjacencyGraph<TestVertex, TestEdge>>(
-                        writer,
-                        null,
-                        edge => edge.ID));
+            Assert.Throws<ArgumentNullException>(
+                () => graph.SerializeToGraphML<TestVertex, TestEdge, AdjacencyGraph<TestVertex, TestEdge>>(
+                    writer,
+                    null,
+                    edge => edge.ID));
 
-                Assert.Throws<ArgumentNullException>(
-                    () => graph.SerializeToGraphML<TestVertex, TestEdge, AdjacencyGraph<TestVertex, TestEdge>>(
-                        writer,
-                        vertex => vertex.ID,
-                        null));
-            }
+            Assert.Throws<ArgumentNullException>(
+                () => graph.SerializeToGraphML<TestVertex, TestEdge, AdjacencyGraph<TestVertex, TestEdge>>(
+                    writer,
+                    vertex => vertex.ID,
+                    null));
             // ReSharper restore AssignNullToNotNullAttribute
         }
 
@@ -333,7 +327,7 @@ namespace QuikGraph.Serialization.Tests
                     ValidationFlags = XmlSchemaValidationFlags.ReportValidationWarnings
                 };
 
-                using (XmlReader reader = XmlReader.Create(graphMLFilePath, settings))
+                using (var reader = XmlReader.Create(graphMLFilePath, settings))
                 {
 #else
                 using (var reader = new XmlTextReader(graphMLFilePath))
@@ -586,50 +580,44 @@ namespace QuikGraph.Serialization.Tests
         [NotNull]
         private static string SerializeGraph3([NotNull] TestGraph graph)
         {
-            using (var writer = new StringWriter())
+            using var writer = new StringWriter();
+            var settings = new XmlWriterSettings { Indent = true };
+            using (var xmlWriter = XmlWriter.Create(writer, settings))
             {
-                var settings = new XmlWriterSettings { Indent = true };
-                using (XmlWriter xmlWriter = XmlWriter.Create(writer, settings))
-                {
-                    graph.SerializeToGraphML<TestVertex, TestEdge, TestGraph>(xmlWriter);
-                }
-
-                return writer.ToString();
+                graph.SerializeToGraphML<TestVertex, TestEdge, TestGraph>(xmlWriter);
             }
+
+            return writer.ToString();
         }
 
         [Pure]
         [NotNull]
         private static string SerializeGraph4([NotNull] TestGraph graph)
         {
-            using (var writer = new StringWriter())
+            using var writer = new StringWriter();
+            var settings = new XmlWriterSettings { Indent = true };
+            using (var xmlWriter = XmlWriter.Create(writer, settings))
             {
-                var settings = new XmlWriterSettings { Indent = true };
-                using (XmlWriter xmlWriter = XmlWriter.Create(writer, settings))
-                {
-                    graph.SerializeToGraphML<TestVertex, TestEdge, TestGraph>(
-                        xmlWriter,
-                        vertex => vertex.ID,
-                        edge => edge.ID);
-                }
-
-                return writer.ToString();
+                graph.SerializeToGraphML<TestVertex, TestEdge, TestGraph>(
+                    xmlWriter,
+                    vertex => vertex.ID,
+                    edge => edge.ID);
             }
+
+            return writer.ToString();
         }
 
         [Pure]
         [NotNull]
         private static TestGraph DeserializeGraph([NotNull] string graphml)
         {
-            using (var reader = new StringReader(graphml))
-            {
-                var serializedGraph = new TestGraph();
-                serializedGraph.DeserializeAndValidateFromGraphML(
-                    reader,
-                    id => new TestVertex(id),
-                    (source, target, id) => new TestEdge(source, target, id));
-                return serializedGraph;
-            }
+            using var reader = new StringReader(graphml);
+            var serializedGraph = new TestGraph();
+            serializedGraph.DeserializeAndValidateFromGraphML(
+                reader,
+                id => new TestVertex(id),
+                (source, target, id) => new TestEdge(source, target, id));
+            return serializedGraph;
         }
 
         [Pure]
@@ -637,9 +625,7 @@ namespace QuikGraph.Serialization.Tests
         private static TestGraph VerifySerialization(
             [NotNull] TestGraph graph,
             [NotNull, InstantHandle] Func<TestGraph, string> serializeGraph)
-        {
-            return VerifySerialization(graph, serializeGraph, DeserializeGraph);
-        }
+            => VerifySerialization(graph, serializeGraph, DeserializeGraph);
 
         #endregion
 
@@ -942,27 +928,25 @@ namespace QuikGraph.Serialization.Tests
         {
             Assert.IsNotNull(graph);
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            // Serialize
+            using (var writer = XmlWriter.Create(stream))
             {
-                // Serialize
-                using (XmlWriter writer = XmlWriter.Create(stream))
-                {
-                    graph.SerializeToGraphML(
-                        writer,
-                        vertexIdentity,
-                        graph.GetEdgeIdentity());
-                }
+                graph.SerializeToGraphML(
+                    writer,
+                    vertexIdentity,
+                    graph.GetEdgeIdentity());
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                // Deserialize
-                using (XmlReader reader = XmlReader.Create(stream))
-                {
-                    TOutGraph deserializedGraph = deserialize(reader);
-                    Assert.IsNotNull(deserializedGraph);
-                    Assert.AreNotSame(graph, deserializedGraph);
-                    return deserializedGraph;
-                }
+            // Deserialize
+            using (var reader = XmlReader.Create(stream))
+            {
+                TOutGraph deserializedGraph = deserialize(reader);
+                Assert.IsNotNull(deserializedGraph);
+                Assert.AreNotSame(graph, deserializedGraph);
+                return deserializedGraph;
             }
         }
 

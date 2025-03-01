@@ -6,9 +6,36 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.TopologicalSort
 {
-    /// <summary>
-    /// Topological sort algorithm (can be performed on an acyclic graph).
-    /// </summary>
+    /// <inheritdoc cref="CreateSourceFirstTopologicalSortAlgorithm{TVertex,TEdge}"/>
+    public static class SourceFirstTopologicalSortAlgorithm
+    {
+        /// <summary> Creates a topological sort (source first) of a directed acyclic graph. </summary>
+        /// <param name="graph">Graph to visit.</param>
+        /// <returns>Sorted vertices (topological sort).</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
+        [Pure]
+        [NotNull, ItemNotNull]
+        public static TVertex[] SourceFirstTopologicalSort<TVertex, TEdge>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
+            where TEdge : IEdge<TVertex>
+        {
+            var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm(graph.VertexCount);
+            algorithm.Compute();
+            return algorithm.SortedVertices;
+        }
+
+        /// <summary> Initializes a new instance of the <see cref="SourceFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <param name="visitedGraph">Graph to visit.</param>
+        /// <param name="capacity">Sorted vertices capacity.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
+        public static SourceFirstTopologicalSortAlgorithm<TVertex, TEdge> CreateSourceFirstTopologicalSortAlgorithm<TVertex, TEdge>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+            int? capacity = null) where TEdge : IEdge<TVertex>
+        => null; //new SourceFirstTopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph, capacity);
+    }
+
+    /// <summary> Topological sort algorithm (can be performed on an acyclic graph). </summary>
     public sealed class SourceFirstTopologicalSortAlgorithm<TVertex, TEdge> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
@@ -18,19 +45,17 @@ namespace QuikGraph.Algorithms.TopologicalSort
         [NotNull, ItemNotNull]
         private readonly IList<TVertex> _sortedVertices;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SourceFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="SourceFirstTopologicalSortAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacity">Sorted vertices capacity.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public SourceFirstTopologicalSortAlgorithm(
+        SourceFirstTopologicalSortAlgorithm(
             [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
-            int capacity = -1)
+            int? capacity = null)
             : base(visitedGraph)
         {
             _heap = new BinaryQueue<TVertex, int>(vertex => InDegrees[vertex]);
-            _sortedVertices = capacity > 0 ? new List<TVertex>(capacity) : new List<TVertex>();
+            _sortedVertices = capacity > 0 ? new List<TVertex>(capacity.Value) : new List<TVertex>(visitedGraph.VertexCount);
         }
 
         /// <summary>

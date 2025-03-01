@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.Annotations;
 using QuikGraph.Algorithms.Search;
@@ -17,6 +18,29 @@ namespace QuikGraph.Algorithms.ShortestPath
             [CanBeNull] IDistanceRelaxer distanceRelaxer = null,
             [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
             => new DijkstraShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
+
+        /// <summary>
+        /// Computes shortest path with the Dijkstra algorithm and gets a function that allows
+        /// to get paths in a directed graph.
+        /// </summary>
+        /// <remarks>Uses <see cref="DijkstraShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
+        /// <param name="graph">The graph to visit.</param>
+        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
+        /// <param name="root">Starting vertex.</param>
+        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="root"/> is not part of <paramref name="graph"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static TryFunc<TVertex, IEnumerable<TEdge>> ShortestPathsDijkstra<TVertex, TEdge>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph,
+            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights,
+            [NotNull] TVertex root)
+            where TEdge : IEdge<TVertex>
+            => graph.CreateDijkstraShortestPathAlgorithm(edgeWeights)
+                .RunDirectedRootedAlgorithm<TVertex, TEdge, DijkstraShortestPathAlgorithm<TVertex, TEdge>>(root);
 
     }
 

@@ -7,6 +7,7 @@ using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.MinimumSpanningTree;
 using QuikGraph.Algorithms.Observers;
+using QuikGraph.Algorithms.ShortestPath;
 using QuikGraph.Collections;
 using QuikGraph.Serialization;
 using static QuikGraph.Tests.QuikGraphUnitTestsHelpers;

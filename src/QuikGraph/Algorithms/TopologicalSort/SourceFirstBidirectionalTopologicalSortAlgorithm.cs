@@ -6,9 +6,37 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms.TopologicalSort
 {
-    /// <summary>
-    /// Topological sort algorithm (can be performed on an acyclic bidirectional graph).
-    /// </summary>
+    /// <inheritdoc cref="CreateSourceFirstBidirectionalTopologicalSortAlgorithm{TVertex,TEdge}"/>
+    public static class SourceFirstBidirectionalTopologicalSortAlgorithm
+    {
+        /// <summary> Creates a topological sort (source first) of a bidirectional directed acyclic graph. </summary>
+        /// <param name="graph">Graph to visit.</param>
+        /// <param name="direction">Topological sort direction.</param>
+        /// <returns>Sorted vertices (topological sort).</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>
+        [Pure]
+        [NotNull, ItemNotNull]
+        public static TVertex[] SourceFirstBidirectionalTopologicalSort<TVertex, TEdge>(
+            [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph,
+            TopologicalSortDirection direction = TopologicalSortDirection.Forward)
+            where TEdge : IEdge<TVertex>
+        {
+            var algorithm = graph.CreateSourceFirstBidirectionalTopologicalSortAlgorithm(direction, graph.VertexCount);
+            algorithm.Compute();
+            return algorithm.SortedVertices;
+        }
+
+        /// <summary> Creates a new instance of the <see cref="SourceFirstBidirectionalTopologicalSortAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static SourceFirstBidirectionalTopologicalSortAlgorithm<TVertex, TEdge>
+            CreateSourceFirstBidirectionalTopologicalSortAlgorithm<TVertex, TEdge>(
+                [NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph,
+                TopologicalSortDirection direction = TopologicalSortDirection.Forward,
+                int? capacity = null) where TEdge : IEdge<TVertex>
+            => null;// new SourceFirstBidirectionalTopologicalSortAlgorithm<TVertex, TEdge>(visitedGraph, direction, capacity);
+    }
+
+    /// <summary> Topological sort algorithm (can be performed on an acyclic bidirectional graph). </summary>
     public sealed class SourceFirstBidirectionalTopologicalSortAlgorithm<TVertex, TEdge> : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
@@ -20,35 +48,20 @@ namespace QuikGraph.Algorithms.TopologicalSort
         [NotNull, ItemNotNull]
         private readonly IList<TVertex> _sortedVertices;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SourceFirstBidirectionalTopologicalSortAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <param name="capacity">Sorted vertices capacity.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public SourceFirstBidirectionalTopologicalSortAlgorithm(
-            [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
-            int capacity = -1)
-            : this(visitedGraph, TopologicalSortDirection.Forward, capacity)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SourceFirstBidirectionalTopologicalSortAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="SourceFirstBidirectionalTopologicalSortAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="direction">Sort direction.</param>
         /// <param name="capacity">Sorted vertices capacity.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public SourceFirstBidirectionalTopologicalSortAlgorithm(
+        SourceFirstBidirectionalTopologicalSortAlgorithm(
             [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
-            TopologicalSortDirection direction,
-            int capacity = -1)
+            TopologicalSortDirection direction = TopologicalSortDirection.Forward,
+            int? capacity = null)
             : base(visitedGraph)
         {
             _direction = direction;
             _heap = new BinaryQueue<TVertex, int>(vertex => InDegrees[vertex]);
-            _sortedVertices = capacity > 0 ? new List<TVertex>(capacity) : new List<TVertex>();
+            _sortedVertices = capacity > 0 ? new List<TVertex>(capacity.Value) : new List<TVertex>(visitedGraph.VertexCount);
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.MaximumFlow;
 using QuikGraph.Algorithms.RandomWalks;
+using QuikGraph.Algorithms.ShortestPath;
 using QuikGraph.Algorithms.TopologicalSort;
 using QuikGraph.Collections;
 using QuikGraph.Tests.Structures;
