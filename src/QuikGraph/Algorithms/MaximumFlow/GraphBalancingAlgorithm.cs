@@ -6,19 +6,37 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.MaximumFlow
 {
-    /// <summary>
-    /// Algorithm that computes a the graph balancing by finding vertices
-    /// causing surplus or deficits.
-    /// </summary>
+    /// <inheritdoc cref="CreateGraphBalancerAlgorithm{TVertex,TEdge}(QuikGraph.IMutableBidirectionalGraph{TVertex,TEdge},TVertex,TVertex,QuikGraph.VertexFactory{TVertex},QuikGraph.EdgeFactory{TVertex,TEdge})"/>
+    public static class GraphBalancerAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static GraphBalancerAlgorithm<TVertex, TEdge> CreateGraphBalancerAlgorithm<TVertex, TEdge>(
+            [NotNull] this IMutableBidirectionalGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] TVertex source,
+            [NotNull] TVertex sink,
+            [NotNull] VertexFactory<TVertex> vertexFactory,
+            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory) where TEdge : IEdge<TVertex>
+            => new GraphBalancerAlgorithm<TVertex, TEdge>(visitedGraph, source, sink, vertexFactory, edgeFactory);
+
+        /// <summary> Initializes a new instance of the <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static GraphBalancerAlgorithm<TVertex, TEdge> CreateGraphBalancerAlgorithm<TVertex, TEdge>(
+            [NotNull] this IMutableBidirectionalGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] TVertex source,
+            [NotNull] TVertex sink,
+            [NotNull] VertexFactory<TVertex> vertexFactory,
+            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
+            [NotNull] IDictionary<TEdge, double> capacities) where TEdge : IEdge<TVertex>
+        => new GraphBalancerAlgorithm<TVertex, TEdge>(visitedGraph, source, sink, vertexFactory, edgeFactory, capacities);
+    }
+
+    /// <summary> Algorithm that computes a graph balancing by finding vertices causing surplus or deficits. </summary>
     public sealed class GraphBalancerAlgorithm<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
         [NotNull]
         private readonly Dictionary<TEdge, int> _preFlow = new Dictionary<TEdge, int>();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="source">Flow source vertex.</param>
         /// <param name="sink">Flow sink vertex.</param>
@@ -31,7 +49,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="visitedGraph"/> does not contain <paramref name="source"/> vertex.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="visitedGraph"/> does not contain <paramref name="sink"/> vertex.</exception>
-        public GraphBalancerAlgorithm(
+        internal GraphBalancerAlgorithm(
             [NotNull] IMutableBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] TVertex source,
             [NotNull] TVertex sink,
@@ -64,9 +82,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="GraphBalancerAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="source">Flow source vertex.</param>
         /// <param name="sink">Flow sink vertex.</param>
@@ -81,7 +97,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <exception cref="T:System.ArgumentNullException"><paramref name="capacities"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="visitedGraph"/> does not contain <paramref name="source"/> vertex.</exception>
         /// <exception cref="T:System.ArgumentException"><paramref name="visitedGraph"/> does not contain <paramref name="sink"/> vertex.</exception>
-        public GraphBalancerAlgorithm(
+        internal GraphBalancerAlgorithm(
             [NotNull] IMutableBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] TVertex source,
             [NotNull] TVertex sink,

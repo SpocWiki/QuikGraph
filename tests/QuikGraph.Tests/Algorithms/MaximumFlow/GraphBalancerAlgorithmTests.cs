@@ -21,7 +21,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             var capacities = new Dictionary<IEdge<int>, double>();
 
-            var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 2, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateGraphBalancerAlgorithm(1, 2, vertexFactory, edgeFactory);
             Assert.AreSame(graph, algorithm.VisitedGraph);
             Assert.AreSame(vertexFactory, algorithm.VertexFactory);
             Assert.AreSame(edgeFactory, algorithm.EdgeFactory);
@@ -39,7 +39,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             Assert.AreEqual(default(int), algorithm.BalancingSink);
             Assert.AreEqual(default(Edge<int>), algorithm.BalancingSinkEdge);
 
-            algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 2, vertexFactory, edgeFactory, capacities);
+            algorithm = graph.CreateGraphBalancerAlgorithm(1, 2, vertexFactory, edgeFactory, capacities);
             Assert.AreSame(graph, algorithm.VisitedGraph);
             Assert.AreSame(vertexFactory, algorithm.VertexFactory);
             Assert.AreSame(edgeFactory, algorithm.EdgeFactory);
@@ -63,7 +63,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var vertex1 = new TestVertex("1");
             var vertex2 = new TestVertex("2");
 
-            var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
+            var bidirectionalGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             var graphWithVertex1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             graphWithVertex1.AddVertex(vertex1);
             VertexFactory<TestVertex> vertexFactory = () => new TestVertex();
@@ -72,200 +72,201 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
+            IMutableBidirectionalGraph<TestVertex, Edge<TestVertex>> graph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, vertexFactory, edgeFactory));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, vertexFactory, edgeFactory));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, vertexFactory, edgeFactory));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, null, edgeFactory));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, vertexFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, vertexFactory, edgeFactory));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, vertexFactory, edgeFactory));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, null, edgeFactory));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, vertexFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, vertexFactory, edgeFactory));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, null, edgeFactory));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, vertexFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, null, edgeFactory));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, vertexFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, vertexFactory, edgeFactory));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, null, edgeFactory));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, vertexFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, null, edgeFactory));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, vertexFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, null, edgeFactory));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, vertexFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, null, edgeFactory));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, null, edgeFactory));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, vertexFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, null, null));
 
             Assert.Throws<ArgumentException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, vertexFactory, edgeFactory));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, edgeFactory));
             Assert.Throws<ArgumentException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graphWithVertex1, vertex1, vertex2, vertexFactory, edgeFactory));
+                () => graphWithVertex1.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, edgeFactory));
 
 
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, vertexFactory, edgeFactory, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, vertexFactory, edgeFactory, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, vertexFactory, edgeFactory, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, null, edgeFactory, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, vertexFactory, null, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, vertexFactory, edgeFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, vertexFactory, edgeFactory, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, vertexFactory, edgeFactory, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, null, edgeFactory, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, vertexFactory, null, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, vertexFactory, edgeFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, vertexFactory, edgeFactory, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, null, edgeFactory, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, null, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, vertexFactory, null, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, vertexFactory, edgeFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, null, edgeFactory, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, null, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, vertexFactory, null, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, vertexFactory, edgeFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, null, null, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, null, edgeFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, vertexFactory, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, vertexFactory, edgeFactory, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, null, edgeFactory, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, null, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, vertexFactory, null, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, vertexFactory, edgeFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, null, edgeFactory, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, null, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, vertexFactory, null, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, vertexFactory, edgeFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, null, null, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, null, edgeFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, vertex2, vertexFactory, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, null, edgeFactory, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, null, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, vertexFactory, null, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, vertexFactory, edgeFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, null, null, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, null, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, null, edgeFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, vertexFactory, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, null, null, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, null, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, null, null, edgeFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, null, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, null, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, null, edgeFactory, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, null, edgeFactory, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, vertexFactory, null, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, vertexFactory, edgeFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, null, null, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, null, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, null, edgeFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, vertexFactory, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, null, null, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, null, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, null, edgeFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, vertexFactory, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, null, null, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, null, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, vertex2, null, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, vertex2, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, vertexFactory, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, null, edgeFactory, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, null, null, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, null, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, null, edgeFactory, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, null, edgeFactory, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, vertexFactory, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, vertexFactory, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, vertex2, null, null, capacities));
+                () => graph.CreateGraphBalancerAlgorithm(null, vertex2, null, null, capacities));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, vertex1, null, null, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(vertex1, null, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, null, null, null, null, null));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(null, null, null, null, null));
             Assert.Throws<ArgumentNullException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(null, null, null, null, null, null));
+                () => graph.CreateGraphBalancerAlgorithm(null, null, null, null, null));
 
             Assert.Throws<ArgumentException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graph, vertex1, vertex2, vertexFactory, edgeFactory, capacities));
+                () => bidirectionalGraph.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, edgeFactory, capacities));
             Assert.Throws<ArgumentException>(
-                () => new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(graphWithVertex1, vertex1, vertex2, vertexFactory, edgeFactory, capacities));
+                () => graphWithVertex1.CreateGraphBalancerAlgorithm(vertex1, vertex2, vertexFactory, edgeFactory, capacities));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }
@@ -296,7 +297,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             VertexFactory<int> vertexFactory = () => vertexID++;
             EdgeFactory<int, EquatableEdge<int>> edgeFactory = (s, t) => new EquatableEdge<int>(s, t);
 
-            var algorithm = new GraphBalancerAlgorithm<int, EquatableEdge<int>>(graph, source, sink, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateGraphBalancerAlgorithm(source, sink, vertexFactory, edgeFactory);
             algorithm.BalancingSourceAdded += vertex => Assert.AreEqual(source, vertex);
             algorithm.BalancingSinkAdded += vertex => Assert.AreEqual(sink, vertex);
             var surplusSet = new HashSet<int> { 2, 5, 8 };
@@ -341,7 +342,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             VertexFactory<int> vertexFactory = () => 1;
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
-            var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 2, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateGraphBalancerAlgorithm(1, 2, vertexFactory, edgeFactory);
 
             Assert.DoesNotThrow(() => algorithm.Balance());
             Assert.Throws<InvalidOperationException>(() => algorithm.Balance());
@@ -366,7 +367,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             VertexFactory<int> vertexFactory = () => vertexID++;
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
-            var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 3, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateGraphBalancerAlgorithm(1, 3, vertexFactory, edgeFactory);
             algorithm.Balance();
 
             Assert.IsTrue(algorithm.Balanced);
@@ -394,7 +395,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             VertexFactory<int> vertexFactory = () => 1;
             EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
-            var algorithm = new GraphBalancerAlgorithm<int, IEdge<int>>(graph, 1, 2, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateGraphBalancerAlgorithm(1, 2, vertexFactory, edgeFactory);
 
             Assert.Throws<InvalidOperationException>(() => algorithm.UnBalance());
         }
@@ -409,8 +410,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             VertexFactory<TestVertex> vertexFactory = () => new TestVertex();
             EdgeFactory<TestVertex, Edge<TestVertex>> edgeFactory = (s, t) => new Edge<TestVertex>(s, t);
 
-            var algorithm = new GraphBalancerAlgorithm<TestVertex, Edge<TestVertex>>(
-                graph, source, sink, vertexFactory, edgeFactory);
+            var algorithm = graph.CreateGraphBalancerAlgorithm(source, sink, vertexFactory, edgeFactory);
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable once AssignNullToNotNullAttribute

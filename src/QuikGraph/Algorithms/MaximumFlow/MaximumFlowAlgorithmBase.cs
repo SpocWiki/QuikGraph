@@ -25,7 +25,8 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         protected MaximumFlowAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> capacities,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
+            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
+            [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
             Capacities = capacities ?? throw new ArgumentNullException(nameof(capacities));
