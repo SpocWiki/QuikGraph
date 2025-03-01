@@ -6,9 +6,18 @@ using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.Search
 {
-    /// <summary>
-    /// An edge depth first search algorithm for implicit directed graphs.
-    /// </summary>
+    /// <inheritdoc cref="CreateImplicitEdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/>
+    public static class ImplicitEdgeDepthFirstSearchAlgorithm
+    {
+        /// <summary> Creates a new instance of the <see cref="ImplicitEdgeDepthFirstSearchAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static ImplicitEdgeDepthFirstSearchAlgorithm<TVertex, TEdge> CreateImplicitEdgeDepthFirstSearchAlgorithm<
+            TVertex, TEdge>
+        ([NotNull] this IIncidenceGraph<TVertex, TEdge> visitedGraph,
+            [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => null;// new ImplicitEdgeDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, host);
+    }
+
+    /// <summary> An edge depth first search algorithm for implicit directed graphs. </summary>
     /// <remarks>
     /// This is a variant of the classic DFS where the edges are color marked.
     /// </remarks>
@@ -22,7 +31,7 @@ namespace QuikGraph.Algorithms.Search
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public ImplicitEdgeDepthFirstSearchAlgorithm([NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph,
+        ImplicitEdgeDepthFirstSearchAlgorithm([NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
@@ -30,9 +39,7 @@ namespace QuikGraph.Algorithms.Search
 
         private int _maxDepth = int.MaxValue;
 
-        /// <summary>
-        /// Gets or sets the maximum exploration depth, from the start vertex.
-        /// </summary>
+        /// <summary> Gets or sets the maximum exploration depth, from the start vertex. </summary>
         /// <remarks>
         /// Defaulted to <see cref="F:int.MaxValue"/>.
         /// </remarks>
