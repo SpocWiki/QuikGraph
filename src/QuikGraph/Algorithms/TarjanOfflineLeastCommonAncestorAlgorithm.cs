@@ -8,14 +8,54 @@ using QuikGraph.Collections;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Offline least common ancestor in a rooted tree.
-    /// </summary>
+    /// <inheritdoc cref="CreateTarjanOfflineLeastCommonAncestorAlgorithm{TVertex,TEdge}"/>
+    public static class TarjanOfflineLeastCommonAncestorAlgorithm
+    {
+        /// <summary> Computes the offline least common ancestor between pairs of vertices in a rooted tree using Tarjan algorithm. </summary>
+        /// <remarks>
+        /// Reference:
+        /// Gabow, H. N. and Tarjan, R. E. 1983. A linear-time algorithm for a special case of disjoint set union.
+        /// In Proceedings of the Fifteenth Annual ACM Symposium on theory of Computing STOC '83. ACM, New York, NY, 246-251.
+        /// DOI= http://doi.acm.org/10.1145/800061.808753 
+        /// </remarks>
+        /// <param name="graph">Graph to visit.</param>
+        /// <param name="root">Starting vertex.</param>
+        /// <param name="pairs">Vertices pairs.</param>
+        /// <returns>A function that allow to get least common ancestor for a pair of vertices.</returns>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="pairs"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentException">At least one of <paramref name="pairs"/> vertices is not part of <paramref name="graph"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static TryFunc<SEquatableEdge<TVertex>, TVertex> OfflineLeastCommonAncestor<TVertex, TEdge>(
+            [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
+            [NotNull] TVertex root,
+            [NotNull] IEnumerable<SEquatableEdge<TVertex>> pairs)
+            where TEdge : IEdge<TVertex>
+        {
+            var algorithm = graph.CreateTarjanOfflineLeastCommonAncestorAlgorithm();
+            algorithm.Compute(root, pairs);
+
+            IDictionary<SEquatableEdge<TVertex>, TVertex> ancestors = algorithm.Ancestors;
+            return (SEquatableEdge<TVertex> pair, out TVertex vertex) => ancestors.TryGetValue(pair, out vertex);
+        }
+
+        /// <summary> Creates a new instance of the <see cref="TarjanOfflineLeastCommonAncestorAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static TarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>
+            CreateTarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>
+            ([NotNull] this IVertexListGraph<TVertex, TEdge> visitedGraph,
+                [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
+            => new TarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>(visitedGraph, host);
+    }
+
+    /// <summary> Offline least common ancestor in a rooted tree. </summary>
     /// <remarks>
     /// Reference:
-    /// Gabow, H. N. and Tarjan, R. E. 1983. A linear-time algorithm for a special case 
-    /// of disjoint set union. In Proceedings of the Fifteenth Annual ACM Symposium 
-    /// on theory of Computing STOC '83. ACM, New York, NY, 246-251. 
+    /// Gabow, H. N. and Tarjan, R. E. 1983.
+    /// A linear-time algorithm for a special case of disjoint set union.
+    /// In Proceedings of the Fifteenth Annual ACM
+    /// Symposium on theory of Computing STOC '83. ACM, New York, NY, 246-251. 
     /// DOI= http://doi.acm.org/10.1145/800061.808753 
     /// </remarks>
     public sealed class TarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>
@@ -25,9 +65,7 @@ namespace QuikGraph.Algorithms
         [CanBeNull]
         private SEquatableEdge<TVertex>[] _pairs;
 
-        /// <summary>
-        /// Ancestors of vertices pairs.
-        /// </summary>
+        /// <summary> Ancestors of vertices pairs. </summary>
         [NotNull]
         public IDictionary<SEquatableEdge<TVertex>, TVertex> Ancestors { get; } = 
             new Dictionary<SEquatableEdge<TVertex>, TVertex>();
@@ -36,7 +74,7 @@ namespace QuikGraph.Algorithms
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public TarjanOfflineLeastCommonAncestorAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
+        internal TarjanOfflineLeastCommonAncestorAlgorithm([NotNull] IVertexListGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {

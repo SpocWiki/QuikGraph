@@ -6,12 +6,22 @@ using QuikGraph.Utils;
 
 namespace QuikGraph.Algorithms.VertexCover
 {
-    /// <summary>
-    /// A minimum vertices cover approximation algorithm for undirected graphs.
-    /// </summary>
+    /// <inheritdoc cref="CreateMinimumVertexCoverApproximationAlgorithm{TVertex,TEdge}"/>
+    public static class MinimumVertexCoverApproximationAlgorithm
+    {
+        /// <summary> Creates a new instance of the <see cref="MinimumVertexCoverApproximationAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static MinimumVertexCoverApproximationAlgorithm<TVertex, TEdge>
+            CreateMinimumVertexCoverApproximationAlgorithm<TVertex, TEdge>(
+                [NotNull] this IUndirectedGraph<TVertex, TEdge> graph,
+                [CanBeNull] Random rng = null)
+            where TEdge : IEdge<TVertex>
+            => new MinimumVertexCoverApproximationAlgorithm<TVertex, TEdge>(graph, rng);
+    }
+
+    /// <summary> A minimum vertices cover approximation algorithm for undirected graphs. </summary>
     /// <remarks>
-    /// This is a modified version (by Batov Nikita) of the original
-    /// Mihalis Yannakakis and Fanica Gavril algorithm.
+    /// This is a modified version (by Batov Nikita)
+    /// of the original Mihalis Yannakakis and Fanica Gavril algorithm.
     /// </remarks>
     public sealed class MinimumVertexCoverApproximationAlgorithm<TVertex, TEdge> : AlgorithmBase<IUndirectedGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
@@ -25,28 +35,16 @@ namespace QuikGraph.Algorithms.VertexCover
         /// <summary>
         /// Initializes a new instance of the <see cref="MinimumVertexCoverApproximationAlgorithm{TVertex,TEdge}"/> class.
         /// </summary>
-        /// <remarks>This constructor will use <see cref="CryptoRandom"/> ad random number generator.</remarks>
-        /// <param name="graph">Graph to compute the cover.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        public MinimumVertexCoverApproximationAlgorithm(
-            [NotNull] IUndirectedGraph<TVertex, TEdge> graph)
-            : this(graph, new CryptoRandom())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MinimumVertexCoverApproximationAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
         /// <param name="graph">Graph to compute the cover.</param>
         /// <param name="rng">Random number generator.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="rng"/> is <see langword="null"/>.</exception>
-        public MinimumVertexCoverApproximationAlgorithm(
+        internal MinimumVertexCoverApproximationAlgorithm(
             [NotNull] IUndirectedGraph<TVertex, TEdge> graph,
-            [NotNull] Random rng)
+            [CanBeNull] Random rng = null)
             : base(graph)
         {
-            _rng = rng ?? throw new ArgumentNullException(nameof(rng));
+            _rng = rng ?? new CryptoRandom();
         }
 
         /// <summary>

@@ -35,7 +35,7 @@ namespace QuikGraph.Tests.Predicates
             AssertHasVertices(filteredGraph, [1, 2]);
         }
 
-        public void Edges_Test<TGraph>(
+        public static void Edges_Test<TGraph>(
             [NotNull] TGraph wrappedGraph,
             [NotNull] Func<VertexPredicate<int>, EdgePredicate<int, IEdge<int>>, IEdgeSet<int, IEdge<int>>> createFilteredGraph)
             where TGraph : IMutableVertexAndEdgeSet<int, IEdge<int>>, IMutableGraph<int, IEdge<int>>

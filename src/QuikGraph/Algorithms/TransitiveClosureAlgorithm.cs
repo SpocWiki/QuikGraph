@@ -3,21 +3,30 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Algorithm that computes the transitive closure of a graph, which is another directed graph
-    /// with the same vertices and every reachable vertices by a given one linked by a single edge.
-    /// </summary>
+    /// <inheritdoc cref="CreateTransitiveClosureAlgorithm{TVertex,TEdge}"/>
+    public static class TransitiveClosureAlgorithm
+    {
+        /// <summary> Creates a new instance of the <see cref="TransitiveClosureAlgorithm{TVertex,TEdge}"/> class. </summary>
+        public static TransitiveClosureAlgorithm<TVertex, TEdge> CreateTransitiveClosureAlgorithm<TVertex, TEdge>(
+            [NotNull] this IEdgeListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory) where TEdge : IEdge<TVertex>
+            => new TransitiveClosureAlgorithm<TVertex, TEdge>(visitedGraph, edgeFactory);
+    }
+
+    /// <summary> Algorithm that computes the transitive closure of a graph </summary>
+    /// <remarks>
+    /// which is another directed graph with the same vertices
+    /// and every reachable vertices by a given one linked by a direct single edge.
+    /// </remarks>
     public class TransitiveClosureAlgorithm<TVertex, TEdge> : AlgorithmBase<IEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TransitiveClosureAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="TransitiveClosureAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="edgeFactory">Function that create an edge between the 2 given vertices.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
-        public TransitiveClosureAlgorithm(
+        internal TransitiveClosureAlgorithm(
             [NotNull] IEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory)
             : base(visitedGraph)
@@ -26,9 +35,7 @@ namespace QuikGraph.Algorithms
             _createEdge = edgeFactory ?? throw new ArgumentNullException(nameof(edgeFactory));
         }
 
-        /// <summary>
-        /// Transitive closure graph.
-        /// </summary>
+        /// <summary> Transitive closure graph. </summary>
         public BidirectionalGraph<TVertex, TEdge> TransitiveClosure { get; }
 
         [NotNull]

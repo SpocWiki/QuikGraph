@@ -5,16 +5,10 @@ using QuikGraph.Algorithms.MaximumFlow;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Algorithm that computes a maximum bipartite matching in a graph, meaning
-    /// the maximum number of edges not sharing any vertex.
-    /// </summary>
-    public sealed class MaximumBipartiteMatchingAlgorithm<TVertex, TEdge> : AlgorithmBase<IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
-        where TEdge : IEdge<TVertex>
+    /// <inheritdoc cref="CreateMaximumBipartiteMatchingAlgorithm{TVertex,TEdge}"/>
+    public static class MaximumBipartiteMatchingAlgorithm
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MaximumBipartiteMatchingAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Creates a new instance of the <see cref="MaximumBipartiteMatchingAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="sourceToVertices">Vertices to which creating augmented edge from super source.</param>
         /// <param name="verticesToSink">Vertices from which creating augmented edge to super sink.</param>
@@ -25,7 +19,36 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesToSink"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexFactory"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
-        public MaximumBipartiteMatchingAlgorithm(
+        /// <inheritdoc cref="CreateMaximumBipartiteMatchingAlgorithm{TVertex,TEdge}"/>
+        public static MaximumBipartiteMatchingAlgorithm<TVertex, TEdge> CreateMaximumBipartiteMatchingAlgorithm<TVertex,
+            TEdge>(
+            [NotNull] this IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
+            [NotNull, ItemNotNull] IEnumerable<TVertex> sourceToVertices,
+            [NotNull, ItemNotNull] IEnumerable<TVertex> verticesToSink,
+            [NotNull] VertexFactory<TVertex> vertexFactory,
+            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory) where TEdge : IEdge<TVertex>
+            => new MaximumBipartiteMatchingAlgorithm<TVertex, TEdge>(visitedGraph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory);
+
+    }
+    /// <summary>
+    /// Algorithm that computes a maximum bipartite matching in a graph, meaning
+    /// the maximum number of edges not sharing any vertex.
+    /// </summary>
+    public sealed class MaximumBipartiteMatchingAlgorithm<TVertex, TEdge> : AlgorithmBase<IMutableVertexAndEdgeListGraph<TVertex, TEdge>>
+        where TEdge : IEdge<TVertex>
+    {
+        /// <summary> Initializes a new instance of the <see cref="MaximumBipartiteMatchingAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <param name="visitedGraph">Graph to visit.</param>
+        /// <param name="sourceToVertices">Vertices to which creating augmented edge from super source.</param>
+        /// <param name="verticesToSink">Vertices from which creating augmented edge to super sink.</param>
+        /// <param name="vertexFactory">Vertex factory method.</param>
+        /// <param name="edgeFactory">Edge factory method.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="sourceToVertices"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="verticesToSink"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexFactory"/> is <see langword="null"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
+        internal MaximumBipartiteMatchingAlgorithm(
             [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull, ItemNotNull] IEnumerable<TVertex> sourceToVertices,
             [NotNull, ItemNotNull] IEnumerable<TVertex> verticesToSink,

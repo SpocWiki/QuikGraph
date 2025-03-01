@@ -6,9 +6,7 @@ using static QuikGraph.Tests.GraphTestHelpers;
 
 namespace QuikGraph.Tests.Algorithms
 {
-    /// <summary>
-    /// Tests for <see cref="TransitiveClosureAlgorithm{TVertex,TEdge}"/>.
-    /// </summary>
+    /// <summary> Tests for <see cref="TransitiveClosureAlgorithm{TVertex,TEdge}"/>. </summary>
     [TestFixture]
     internal sealed class TransitiveClosureAlgorithmTests
     {
@@ -16,7 +14,7 @@ namespace QuikGraph.Tests.Algorithms
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new TransitiveClosureAlgorithm<int, IEdge<int>>(graph, (v1, v2) => Edge.Create(v1, v2));
+            var algorithm = graph.CreateTransitiveClosureAlgorithm(Edge.Create);
             algorithm.AssertAlgorithmState(graph);
             Assert.IsNotNull(algorithm.TransitiveClosure);
         }
@@ -24,15 +22,16 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor_Throws()
         {
-            var graph = new AdjacencyGraph<int, IEdge<int>>();
+            var graphAdj = new AdjacencyGraph<int, IEdge<int>>();
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
+            IEdgeListGraph<int, IEdge<int>> nullGraph = null;
             Assert.Throws<ArgumentNullException>(
-                () => new TransitiveClosureAlgorithm<int, IEdge<int>>(null, (v1, v2) => Edge.Create(v1, v2)));
+                () => nullGraph.CreateTransitiveClosureAlgorithm(Edge.Create));
             Assert.Throws<ArgumentNullException>(
-                () => new TransitiveClosureAlgorithm<int, IEdge<int>>(graph, null));
+                () => graphAdj.CreateTransitiveClosureAlgorithm(null));
             Assert.Throws<ArgumentNullException>(
-                () => new TransitiveClosureAlgorithm<int, IEdge<int>>(null, null));
+                () => nullGraph.CreateTransitiveClosureAlgorithm(null));
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore ObjectCreationAsStatement
         }

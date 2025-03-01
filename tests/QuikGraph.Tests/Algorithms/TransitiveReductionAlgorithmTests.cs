@@ -16,7 +16,7 @@ namespace QuikGraph.Tests.Algorithms
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            var algorithm = new TransitiveReductionAlgorithm<int, IEdge<int>>(graph);
+            var algorithm = graph.CreateTransitiveReductionAlgorithm();
             algorithm.AssertAlgorithmState(graph);
             Assert.IsNotNull(algorithm.TransitiveReduction);
         }
@@ -24,10 +24,11 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void Constructor_Throws()
         {
+            IEdgeListGraph<int, IEdge<int>> nullGraph = null;
             // ReSharper disable once ObjectCreationAsStatement
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => new TransitiveReductionAlgorithm<int, IEdge<int>>(null));
+                () => nullGraph.CreateTransitiveReductionAlgorithm());
         }
 
         [Test]

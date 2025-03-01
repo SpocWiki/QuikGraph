@@ -30,20 +30,6 @@ namespace QuikGraph.Algorithms
             _algorithmServices = new AlgorithmServices(host ?? this);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AlgorithmBase{TGraph}"/> class.
-        /// </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        protected AlgorithmBase([NotNull] TGraph visitedGraph)
-        {
-            if (visitedGraph == null)
-                throw new ArgumentNullException(nameof(visitedGraph));
-
-            VisitedGraph = visitedGraph;
-            _algorithmServices = new AlgorithmServices(this);
-        }
-
         #region IComputation
 
         /// <inheritdoc />

@@ -24,9 +24,7 @@ namespace QuikGraph.Algorithms
 
         private bool _hasRootVertex;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RootedAlgorithmBase{TVertex,TGraph}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="RootedAlgorithmBase{TVertex,TGraph}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>

@@ -390,7 +390,7 @@ namespace QuikGraph.Tests.Structures
 
         #region Merge
 
-        public void Merge_Test(
+        public static void Merge_Test(
             [NotNull] IEnumerable<int> setupVertices,
             [NotNull, ItemNotNull] IEnumerable<EquatableEdge<int>> setupEdges,
             int vertexToMerge,
@@ -531,7 +531,7 @@ namespace QuikGraph.Tests.Structures
         {
             var graph1 = new BidirectionalGraph<int, IEdge<int>>();
             Assert.Throws<VertexNotFoundException>(
-                () => graph1.MergeVertex(1, (source, target) => Edge.Create(source, target)));
+                () => graph1.MergeVertex(1, Edge.Create));
 
             var graph2 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             Assert.Throws<ArgumentNullException>(
@@ -544,7 +544,7 @@ namespace QuikGraph.Tests.Structures
             // ReSharper restore AssignNullToNotNullAttribute
         }
 
-        public void MergeIf_Test(
+        public static void MergeIf_Test(
             [NotNull] IEnumerable<int> setupVertices,
             [NotNull, ItemNotNull] IEnumerable<EquatableEdge<int>> setupEdges,
             [NotNull, InstantHandle] VertexPredicate<int> vertexPredicate,
@@ -713,7 +713,7 @@ namespace QuikGraph.Tests.Structures
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             // ReSharper disable AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, (source, target) => Edge.Create(source, target)));
+            Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, Edge.Create));
             Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(_ => true, null));
             Assert.Throws<ArgumentNullException>(() => graph.MergeVerticesIf(null, null));
             // ReSharper restore AssignNullToNotNullAttribute

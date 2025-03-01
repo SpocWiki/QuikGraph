@@ -104,7 +104,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             var algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
@@ -138,7 +138,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
@@ -183,7 +183,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             var algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
 
             CreateAndSetSuperSource_Test(algorithm);
@@ -195,7 +195,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             var algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
 
             CreateAndSetSuperSink_Test(algorithm);
@@ -206,7 +206,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
 
             RunAugmentation_Test(
                 graph => new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory));
@@ -218,7 +218,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             int vertexID = 0;
             VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             var algorithm = new MultiSourceSinkGraphAugmentorAlgorithm<int, IEdge<int>>(graph, vertexFactory, edgeFactory);
 
             RunAugmentation_Throws_Test(algorithm);

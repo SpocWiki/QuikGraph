@@ -540,9 +540,7 @@ namespace QuikGraph.Tests.Algorithms
                 edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, edge9
             ]);
 
-            ComputeTrails(
-                graph,
-                (s, t) => Edge.Create(s, t),
+            ComputeTrails(graph, Edge.Create,
                 out ICollection<IEdge<int>>[] trails,
                 out IEdge<int>[] circuit);
 
@@ -575,7 +573,7 @@ namespace QuikGraph.Tests.Algorithms
 
             ComputeTrails(
                 graph,
-                (s, t) => Edge.Create(s, t),
+                Edge.Create,
                 out ICollection<IEdge<int>>[] trails,
                 out IEdge<int>[] circuit);
 

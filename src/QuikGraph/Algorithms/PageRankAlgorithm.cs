@@ -6,18 +6,25 @@ using QuikGraph.Predicates;
 
 namespace QuikGraph.Algorithms.Ranking
 {
-    /// <summary>
-    /// Algorithm that computes the page rank of a graph.
-    /// </summary>
+    /// <inheritdoc cref="CreatePageRankAlgorithm{TVertex,TEdge}"/>
+    public static class PageRankAlgorithm
+    {
+        /// <summary> Initializes a new instance of the <see cref="PageRankAlgorithm{TVertex,TEdge}"/> class. </summary>
+        /// <param name="visitedGraph">Graph to visit.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
+        public static PageRankAlgorithm<TVertex, TEdge> CreatePageRankAlgorithm<TVertex, TEdge>
+            ([NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph) where TEdge : IEdge<TVertex>
+            => null;//new PageRankAlgorithm<TVertex, TEdge>(visitedGraph);
+    }
+
+    /// <summary> Algorithm that computes the page rank of a graph. </summary>
     public sealed class PageRankAlgorithm<TVertex, TEdge> : AlgorithmBase<IBidirectionalGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PageRankAlgorithm{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="PageRankAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public PageRankAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph)
+         PageRankAlgorithm([NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph)
             : base(visitedGraph)
         {
         }

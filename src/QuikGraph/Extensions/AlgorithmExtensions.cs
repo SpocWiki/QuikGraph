@@ -1094,49 +1094,6 @@ namespace QuikGraph.Algorithms
         }
 
         /// <summary>
-        /// Computes the offline least common ancestor between pairs of vertices in a
-        /// rooted tree using Tarjan algorithm.
-        /// </summary>
-        /// <remarks>
-        /// Reference:
-        /// Gabow, H. N. and Tarjan, R. E. 1983. A linear-time algorithm for a special case of disjoint set union.
-        /// In Proceedings of the Fifteenth Annual ACM Symposium on theory of Computing STOC '83. ACM, New York, NY, 246-251.
-        /// DOI= http://doi.acm.org/10.1145/800061.808753 
-        /// </remarks>
-        /// <param name="graph">Graph to visit.</param>
-        /// <param name="root">Starting vertex.</param>
-        /// <param name="pairs">Vertices pairs.</param>
-        /// <returns>A function that allow to get least common ancestor for a pair of vertices.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="pairs"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentException">At least one of <paramref name="pairs"/> vertices is not part of <paramref name="graph"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static TryFunc<SEquatableEdge<TVertex>, TVertex> OfflineLeastCommonAncestor<TVertex, TEdge>(
-            [NotNull] this IVertexListGraph<TVertex, TEdge> graph,
-            [NotNull] TVertex root,
-            [NotNull] IEnumerable<SEquatableEdge<TVertex>> pairs)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-            if (pairs is null)
-                throw new ArgumentNullException(nameof(pairs));
-            SEquatableEdge<TVertex>[] pairsArray = pairs.ToArray();
-            if (pairsArray.Any(pair => !graph.ContainsVertex(pair.Source)))
-                throw new ArgumentException($"All pairs sources must be in the {nameof(graph)}.", nameof(pairs));
-            if (pairsArray.Any(pair => !graph.ContainsVertex(pair.Target)))
-                throw new ArgumentException($"All pairs targets must be in the {nameof(graph)}.", nameof(pairs));
-
-            var algorithm = new TarjanOfflineLeastCommonAncestorAlgorithm<TVertex, TEdge>(graph);
-            algorithm.Compute(root, pairsArray);
-
-            IDictionary<SEquatableEdge<TVertex>, TVertex> ancestors = algorithm.Ancestors;
-            return (SEquatableEdge<TVertex> pair, out TVertex vertex) => ancestors.TryGetValue(pair, out vertex);
-        }
-
-        /// <summary>
         /// Computes the maximum flow for a graph with positive capacities and flows
         /// using Edmonds-Karp algorithm.
         /// </summary>
@@ -1181,23 +1138,6 @@ namespace QuikGraph.Algorithms
         }
 
         /// <summary>
-        /// Computes the transitive reduction of the given <paramref name="graph"/>.
-        /// </summary>
-        /// <param name="graph">Graph to compute the reduction.</param>
-        /// <returns>Transitive graph reduction.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static BidirectionalGraph<TVertex, TEdge> ComputeTransitiveReduction<TVertex, TEdge>(
-            [NotNull] this IEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-        {
-            var algorithm = new TransitiveReductionAlgorithm<TVertex, TEdge>(graph);
-            algorithm.Compute();
-            return algorithm.TransitiveReduction;
-        }
-
-        /// <summary>
         /// Computes the transitive close of the given <paramref name="graph"/>.
         /// </summary>
         /// <param name="graph">Graph to compute the closure.</param>
@@ -1212,7 +1152,7 @@ namespace QuikGraph.Algorithms
             [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory)
             where TEdge : IEdge<TVertex>
         {
-            var algorithm = new TransitiveClosureAlgorithm<TVertex, TEdge>(graph, edgeFactory);
+            var algorithm = graph.CreateTransitiveClosureAlgorithm(edgeFactory);
             algorithm.Compute();
             return algorithm.TransitiveClosure;
         }

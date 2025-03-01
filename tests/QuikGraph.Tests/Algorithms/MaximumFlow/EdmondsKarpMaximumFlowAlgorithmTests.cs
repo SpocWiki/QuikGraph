@@ -65,7 +65,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             Func<IEdge<int>, double> capacities = _ => 1.0;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>(graph, edgeFactory);
 
             var algorithm = new EdmondsKarpMaximumFlowAlgorithm<int, IEdge<int>>(
@@ -122,7 +122,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph1 = new AdjacencyGraph<int, IEdge<int>>();
             var graph2 = new AdjacencyGraph<int, IEdge<int>>();
             Func<IEdge<int>, double> capacities = _ => 1.0;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             var reverseEdgesAlgorithm1 = new ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>(graph1, edgeFactory);
             var reverseEdgesAlgorithm2 = new ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>(graph2, edgeFactory);
 
@@ -356,7 +356,7 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             graph.AddVertex(3);
 
             Func<IEdge<int>, double> capacities = _ => 1.0;
-            EdgeFactory<int, IEdge<int>> edgeFactory = (source, target) => Edge.Create(source, target);
+            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
             var reverseEdgesAlgorithm = new ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>(graph, edgeFactory);
             reverseEdgesAlgorithm.AddReversedEdges();
 

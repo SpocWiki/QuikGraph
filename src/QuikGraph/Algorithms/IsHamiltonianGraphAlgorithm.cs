@@ -6,10 +6,10 @@ using JetBrains.Annotations;
 namespace QuikGraph.Algorithms
 {
 
-    /// <summary>
-    /// Algorithm that checks if a graph is Hamiltonian
+    /// <summary> Algorithm that checks if a graph is Hamiltonian </summary>
+    /// <remarks>
     /// (has a path that links all vertices and pass one and only one time by each vertex).
-    /// </summary>
+    /// </remarks>
     public static class IsHamiltonianGraphAlgorithm
     {
         /// <summary> Returns true if the <paramref name="graph"/> is Hamiltonian, otherwise false. </summary>

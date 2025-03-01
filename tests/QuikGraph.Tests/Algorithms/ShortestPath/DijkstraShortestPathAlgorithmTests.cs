@@ -450,7 +450,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
             var e13 = Edge.Create(1, 3); graph.AddEdge(e13);
 
             var algorithm = graph.CreateDijkstraShortestPathAlgorithm(_ => 1);
-            var vis = algorithm.AttachVertexPredecessorRecorderObserver<int, IEdge<int>>();
+            var vis = algorithm.AttachVertexPredecessorRecorderObserver();
             using (vis)
                 algorithm.Compute(1);
 
