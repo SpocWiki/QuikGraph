@@ -681,37 +681,6 @@ namespace QuikGraph.Algorithms
             return sets;
         }
 
-        /// <summary> Computes the minimum spanning tree using Kruskal algorithm. </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
-        /// <returns>Edges part of the minimum spanning tree.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull, ItemNotNull]
-        public static IEnumerable<TEdge> MinimumSpanningTreeKruskal<TVertex, TEdge>(
-            [NotNull] this IUndirectedGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] Func<TEdge, double> edgeWeights)
-            where TEdge : IEdge<TVertex>
-        {
-            if (graph is null)
-                throw new ArgumentNullException(nameof(graph));
-            if (edgeWeights is null)
-                throw new ArgumentNullException(nameof(edgeWeights));
-
-            if (graph.VertexCount == 0)
-                return Enumerable.Empty<TEdge>();
-
-            var kruskal = new KruskalMinimumSpanningTreeAlgorithm<TVertex, TEdge>(graph, edgeWeights);
-            var edgeRecorder = new EdgeRecorderObserver<TVertex, TEdge>();
-            using (edgeRecorder.Attach(kruskal))
-            {
-                kruskal.Compute();
-            }
-
-            return edgeRecorder.Edges;
-        }
-
         /// <summary>
         /// Computes the maximum flow for a graph with positive capacities and flows
         /// using Edmonds-Karp algorithm.

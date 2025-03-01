@@ -6,6 +6,7 @@ using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Condensation;
 using QuikGraph.Algorithms.MaximumFlow;
+using QuikGraph.Algorithms.MinimumSpanningTree;
 using QuikGraph.Algorithms.RandomWalks;
 using QuikGraph.Algorithms.RankedShortestPath;
 using QuikGraph.Algorithms.ShortestPath;

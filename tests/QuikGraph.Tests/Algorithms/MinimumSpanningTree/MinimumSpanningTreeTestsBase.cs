@@ -132,7 +132,7 @@ namespace QuikGraph.Tests.Algorithms.MinimumSpanningTree
             foreach (TEdge edge in graph.Edges)
                 distances[edge] = edgeWeights(edge);
 
-            var kruskal = new KruskalMinimumSpanningTreeAlgorithm<TVertex, TEdge>(graph, e => distances[e]);
+            var kruskal = graph.CreateKruskalMinimumSpanningTreeAlgorithm(e => distances[e]);
             AssertMinimumSpanningTree(graph, kruskal);
         }
 
