@@ -14,7 +14,7 @@ namespace QuikGraph.Algorithms.Search
             TVertex, TEdge>
         ([NotNull] this IIncidenceGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
-            => null;// new ImplicitEdgeDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, host);
+            => new ImplicitEdgeDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, host);
     }
 
     /// <summary> An edge depth first search algorithm for implicit directed graphs. </summary>
@@ -31,7 +31,7 @@ namespace QuikGraph.Algorithms.Search
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        ImplicitEdgeDepthFirstSearchAlgorithm([NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph,
+        internal ImplicitEdgeDepthFirstSearchAlgorithm([NotNull] IIncidenceGraph<TVertex, TEdge> visitedGraph,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
