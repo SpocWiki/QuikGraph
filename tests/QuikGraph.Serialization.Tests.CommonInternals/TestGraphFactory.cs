@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
+using QuikGraph.Helpers;
 using QuikGraph.Serialization;
 
 namespace QuikGraph.Tests
@@ -44,7 +45,7 @@ namespace QuikGraph.Tests
         /// <summary> Creates an adjacency graph from the <paramref name="graphMLFilePath"/>. </summary>
         [Pure]
         [NotNull]
-        public static AdjacencyGraph<string, Edge<string>> LoadGraph([NotNull] string graphMLFilePath)
+        public static AdjacencyGraph<string, Edge<string>> LoadAdjacencyGraph([NotNull] string graphMLFilePath)
         {
             var graph = new AdjacencyGraph<string, Edge<string>>();
             using (var reader = new StreamReader(graphMLFilePath))
@@ -82,29 +83,36 @@ namespace QuikGraph.Tests
         [NotNull]
         public static UndirectedGraph<string, Edge<string>> LoadUndirectedGraph([NotNull] string graphMLFilePath)
         {
-            AdjacencyGraph<string, Edge<string>> graph = LoadGraph(graphMLFilePath);
+            AdjacencyGraph<string, Edge<string>> graph = LoadAdjacencyGraph(graphMLFilePath);
             var undirectedGraph = new UndirectedGraph<string, Edge<string>>();
             undirectedGraph.AddVerticesAndEdgeRange(graph.Edges);
             return undirectedGraph;
         }
 
+
         /// <summary> Creates adjacency graphs (filterable). </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        private static IEnumerable<AdjacencyGraph<string, Edge<string>>> GetAdjacencyGraphsInternal(
+        private static IEnumerable<KeyValuePair<string, AdjacencyGraph<string, Edge<string>>>> GetAdjacencyGraphsInternal(
             [CanBeNull, InstantHandle] Func<string, int, bool> filter = null)
         {
-            yield return new AdjacencyGraph<string, Edge<string>>();
+            yield return KVPair.Create("Empty", new AdjacencyGraph<string, Edge<string>>());
             foreach (string graphMLFilePath in GetGraphMLFilePaths(filter))
             {
-                yield return LoadGraph(graphMLFilePath);
+                yield return KVPair.Create(Path.GetFileNameWithoutExtension(graphMLFilePath), LoadAdjacencyGraph(graphMLFilePath));
             }
         }
 
         /// <summary> Creates adjacency graphs. </summary>
         [Pure]
         [NotNull, ItemNotNull]
-        public static IEnumerable<AdjacencyGraph<string, Edge<string>>> GetAdjacencyGraphs_All() => GetAdjacencyGraphsInternal();
+        public static IEnumerable<AdjacencyGraph<string, Edge<string>>> GetAdjacencyGraphs_All()
+            => GetAdjacencyGraphsInternal().Select(p => p.Value);
+
+        /// <summary> Creates adjacency graphs. </summary>
+        [Pure]
+        [NotNull, ItemNotNull]
+        public static IEnumerable<KeyValuePair<string, AdjacencyGraph<string, Edge<string>>>> GetNamedAdjacencyGraphs_All() => GetAdjacencyGraphsInternal();
 
         /// <summary> Creates adjacency graphs (version manageable with define for slow tests). </summary>
         [Pure]
@@ -119,7 +127,7 @@ namespace QuikGraph.Tests
                 // 1 over SlowTestRate
                 (_, i) => i % r == 0
 #endif
-            );
+            ).Select(p => p.Value);
         }
 
         /// <summary> Creates bidirectional graphs (filterable). </summary>

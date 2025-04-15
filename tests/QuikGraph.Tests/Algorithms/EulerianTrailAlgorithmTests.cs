@@ -445,7 +445,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void NotEulerianTrailGraph()
         {
-            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadGraph(GetGraphFilePath("g.42.34.graphml"));
+            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadAdjacencyGraph(GetGraphFilePath("g.42.34.graphml"));
             // No trails in tests graphs there
             ComputeTrails(
                 graph,
@@ -604,7 +604,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void RootedNotEulerianTrailGraph_Throws()
         {
-            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadGraph(GetGraphFilePath("g.10.0.graphml"));
+            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadAdjacencyGraph(GetGraphFilePath("g.10.0.graphml"));
             Assert.Throws<InvalidOperationException>(() =>
             {
                 ComputeTrails(

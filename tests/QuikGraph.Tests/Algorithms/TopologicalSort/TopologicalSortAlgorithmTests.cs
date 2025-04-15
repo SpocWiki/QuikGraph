@@ -167,7 +167,7 @@ namespace QuikGraph.Tests.Algorithms
         [Test]
         public void TopologicalSort_DCT8()
         {
-            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadGraph(GetGraphFilePath("DCT8.graphml"));
+            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadAdjacencyGraph(GetGraphFilePath("DCT8.graphml"));
             RunTopologicalSortAndCheck(graph);
         }
 

@@ -202,11 +202,7 @@ namespace QuikGraph.Algorithms
             return graph.Vertices.Where(graph.IsOutEdgesEmpty);
         }
 
-        /// <summary>
-        /// Gets set of root vertices.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <returns>Root vertices.</returns>
+        /// <summary> Gets set of root vertices of <paramref name="graph"/>. </summary>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         [Pure]
         [NotNull, ItemNotNull]
@@ -218,7 +214,6 @@ namespace QuikGraph.Algorithms
             var notRoots = new Dictionary<TVertex, bool>(graph.VertexCount);
             dfs.ExamineEdge += edge => notRoots[edge.Target] = false;
             dfs.Compute();
-
             foreach (TVertex vertex in graph.Vertices)
             {
                 if (!notRoots.TryGetValue(vertex, out _))

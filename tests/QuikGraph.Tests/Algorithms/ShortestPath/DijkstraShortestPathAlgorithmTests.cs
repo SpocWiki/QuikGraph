@@ -360,7 +360,7 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
         [Category(TestCategories.CISkip)]
         public void DijkstraRepro12359()
         {
-            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadGraph(GetGraphFilePath("repro12359.graphml"));
+            AdjacencyGraph<string, Edge<string>> graph = TestGraphFactory.LoadAdjacencyGraph(GetGraphFilePath("repro12359.graphml"));
             int cut = 0;
             foreach (string root in graph.Vertices)
             {
