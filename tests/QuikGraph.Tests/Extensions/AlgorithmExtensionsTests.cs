@@ -736,14 +736,13 @@ namespace QuikGraph.Tests.Extensions
                 () => ((IVertexListGraph<int, IEdge<int>>)null).Sinks().ToArray());
         }
 
+        /// <summary> Returns Test Cases of Graphs and its expected Root Nodes </summary>
         [Pure]
         [NotNull, ItemNotNull]
         private static IEnumerable<TestCaseData> CreateRootsTestCases(
             [NotNull, InstantHandle] Func<IMutableVertexAndEdgeSet<int, IEdge<int>>> createGraph)
         {
-            yield return new TestCaseData(
-                createGraph(),
-                Enumerable.Empty<int>());
+            yield return new TestCaseData(createGraph(), Enumerable.Empty<int>());
 
             var edge12 = Edge.Create(1, 2);
             var edge14 = Edge.Create(1, 4);
@@ -757,60 +756,29 @@ namespace QuikGraph.Tests.Extensions
             var edge46 = Edge.Create(4, 6);
 
             IMutableVertexAndEdgeSet<int, IEdge<int>> cycleGraph = createGraph();
-            cycleGraph.AddVerticesAndEdgeRange(
-            [
-                edge12, edge24, edge41
-            ]);
-            yield return new TestCaseData(
-                cycleGraph,
-                Enumerable.Empty<int>());
+            cycleGraph.AddVerticesAndEdgeRange([edge12, edge24, edge41]);
+            yield return new TestCaseData(cycleGraph, Enumerable.Empty<int>());
 
             IMutableVertexAndEdgeSet<int, IEdge<int>> cycleGraph2 = createGraph();
-            cycleGraph2.AddVerticesAndEdgeRange(
-            [
-                edge12, edge24, edge25, edge35, edge41, edge22
-            ]);
-            yield return new TestCaseData(
-                cycleGraph2,
-                (int[]) [3]);
+            cycleGraph2.AddVerticesAndEdgeRange([edge12, edge24, edge25, edge35, edge41, edge22]);
+            yield return new TestCaseData(cycleGraph2, (int[]) [3]);
 
             IMutableVertexAndEdgeSet<int, IEdge<int>> graph1 = createGraph();
-            graph1.AddVerticesAndEdgeRange(
-            [
-                edge22
-            ]);
-            yield return new TestCaseData(
-                graph1,
-                Enumerable.Empty<int>());
+            graph1.AddVerticesAndEdgeRange([edge22]);
+            yield return new TestCaseData(graph1, Enumerable.Empty<int>());
 
             IMutableVertexAndEdgeSet<int, IEdge<int>> graph2 = createGraph();
-            graph2.AddVerticesAndEdgeRange(
-            [
-                edge12, edge14, edge23, edge24, edge35, edge45
-            ]);
-            yield return new TestCaseData(
-                graph2,
-                (int[]) [1]);
+            graph2.AddVerticesAndEdgeRange([edge12, edge14, edge23, edge24, edge35, edge45]);
+            yield return new TestCaseData(graph2, (int[]) [1]);
 
             IMutableVertexAndEdgeSet<int, IEdge<int>> graph3 = createGraph();
-            graph3.AddVerticesAndEdgeRange(
-            [
-                edge12, edge14, edge24, edge35, edge45, edge46
-            ]);
-            yield return new TestCaseData(
-                graph3,
-                (int[]) [1, 3]);
+            graph3.AddVerticesAndEdgeRange([edge12, edge14, edge24, edge35, edge45, edge46]);
+            yield return new TestCaseData(graph3, (int[]) [1, 3]);
         }
 
         [NotNull, ItemNotNull]
-        private static IEnumerable<TestCaseData> RootsTestCases
-        {
-            [UsedImplicitly]
-            get
-            {
-                return CreateRootsTestCases(() => new AdjacencyGraph<int, IEdge<int>>());
-            }
-        }
+        private static IEnumerable<TestCaseData> RootsTestCases => CreateRootsTestCases(()
+            => new AdjacencyGraph<int, IEdge<int>>());
 
         [TestCaseSource(nameof(RootsTestCases))]
         public void Roots_NotBidirectional(

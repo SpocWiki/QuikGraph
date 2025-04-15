@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Linq;
+using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Condensation;
@@ -10,28 +11,25 @@ namespace QuikGraph.Tests.Algorithms.Condensation
     /// </summary>
     internal abstract class CondensationGraphAlgorithmTestsBase
     {
+        /// <summary> Checks that the Sum of the vertex count of the condensed graph is equal to the original graph's vertex count. </summary>
         protected static void CheckVertexCount<TVertex, TEdge>(
             [NotNull] IVertexSet<TVertex> graph,
             [NotNull] IVertexSet<AdjacencyGraph<TVertex, TEdge>> condensedGraph)
             where TEdge : IEdge<TVertex>
         {
-            int count = 0;
-            foreach (AdjacencyGraph<TVertex, TEdge> vertices in condensedGraph.Vertices)
-                count += vertices.VertexCount;
+            int count = condensedGraph.Vertices.Sum(vertices => vertices.VertexCount);
             Assert.AreEqual(graph.VertexCount, count, $"{nameof(graph.VertexCount)} does not match.");
         }
 
+        /// <summary> Checks that the Sum of the edge count of the condensed graph is equal to the original graph's edge count. </summary>
         protected static void CheckEdgeCount<TVertex, TEdge>(
             [NotNull] IEdgeSet<TVertex, TEdge> graph,
             [NotNull] IEdgeListGraph<AdjacencyGraph<TVertex, TEdge>, CondensedEdge<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>> condensedGraph)
             where TEdge : IEdge<TVertex>
         {
             // Check edge count
-            int count = 0;
-            foreach (CondensedEdge<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>> edges in condensedGraph.Edges)
-                count += edges.Edges.Count;
-            foreach (AdjacencyGraph<TVertex, TEdge> vertices in condensedGraph.Vertices)
-                count += vertices.EdgeCount;
+            int count = condensedGraph.Edges.Sum(edges => edges.Edges.Count)
+                      + condensedGraph.Vertices.Sum(vertices => vertices.EdgeCount);
             Assert.AreEqual(graph.EdgeCount, count, $"{nameof(graph.EdgeCount)} does not match.");
         }
 

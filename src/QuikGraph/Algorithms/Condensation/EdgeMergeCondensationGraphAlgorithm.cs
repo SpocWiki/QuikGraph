@@ -8,7 +8,7 @@ namespace QuikGraph.Algorithms.Condensation
     /// <inheritdoc cref="CreateEdgeMergeCondensationGraphAlgorithm{TVertex,TEdge}"/>
     public static class EdgeMergeCondensationGraphAlgorithmX
     {
-        /// <summary> Condensates the given bidirectional directed graph. </summary>
+        /// <summary> Condensates the given bidirectional directed graph by merging all parallel Edges into a single <see cref="MergedEdge{TVertex,TEdge}"/>. </summary>
         /// <param name="graph">Graph to visit.</param>
         /// <param name="vertexPredicate">Vertex predicate used to filter the vertices to put in the condensed graph.</param>
         /// <returns>The condensed graph.</returns>
@@ -18,7 +18,7 @@ namespace QuikGraph.Algorithms.Condensation
         [NotNull]
         public static IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> CondensateEdges<TVertex, TEdge>(
             [NotNull] this IBidirectionalGraph<TVertex, TEdge> graph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate)
+            [CanBeNull] VertexPredicate<TVertex> vertexPredicate = null)
             where TEdge : IEdge<TVertex>
         {
             var condensedGraph = new BidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>>();
@@ -38,7 +38,7 @@ namespace QuikGraph.Algorithms.Condensation
             TVertex, TEdge>(
             [NotNull] this IBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> condensedGraph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate) where TEdge : IEdge<TVertex>
+            [CanBeNull] VertexPredicate<TVertex> vertexPredicate = null) where TEdge : IEdge<TVertex>
             => new EdgeMergeCondensationGraphAlgorithm<TVertex, TEdge>(visitedGraph, condensedGraph, vertexPredicate);
     }
 
@@ -56,11 +56,11 @@ namespace QuikGraph.Algorithms.Condensation
         internal EdgeMergeCondensationGraphAlgorithm(
             [NotNull] IBidirectionalGraph<TVertex, TEdge> visitedGraph,
             [NotNull] IMutableBidirectionalGraph<TVertex, MergedEdge<TVertex, TEdge>> condensedGraph,
-            [NotNull] VertexPredicate<TVertex> vertexPredicate)
+            [CanBeNull] VertexPredicate<TVertex> vertexPredicate = null)
             : base(visitedGraph)
         {
             CondensedGraph = condensedGraph ?? throw new ArgumentNullException(nameof(condensedGraph));
-            VertexPredicate = vertexPredicate ?? throw new ArgumentNullException(nameof(vertexPredicate));
+            VertexPredicate = vertexPredicate ?? (_ => true);
         }
 
         /// <summary>

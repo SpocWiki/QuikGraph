@@ -344,7 +344,6 @@ namespace QuikGraph.Algorithms
         }
 
         /// <summary> Condensates the strongly connected components of a directed graph. </summary>
-        /// <param name="graph">Graph to visit.</param>
         /// <returns>The condensed graph.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         [Pure]

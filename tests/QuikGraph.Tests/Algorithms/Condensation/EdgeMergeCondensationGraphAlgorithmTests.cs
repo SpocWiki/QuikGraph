@@ -138,8 +138,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
         [TestCaseSource(nameof(EdgeCondensationAllVerticesTestCases))]
         public void EdgeCondensationAllVertices([NotNull] IBidirectionalGraph<int, IEdge<int>> graph)
         {
-            IMutableBidirectionalGraph<int, MergedEdge<int, IEdge<int>>> condensedGraph =
-                graph.CondensateEdges(_ => true);
+            IMutableBidirectionalGraph<int, MergedEdge<int, IEdge<int>>> condensedGraph = graph.CondensateEdges();
 
             Assert.IsNotNull(condensedGraph);
             Assert.AreEqual(graph.VertexCount, condensedGraph.VertexCount);

@@ -34,9 +34,7 @@ namespace QuikGraph.Algorithms.Condensation
 
     }
 
-    /// <summary>
-    /// Helpers for <see cref="MergedEdge{TVertex,TEdge}"/>.
-    /// </summary>
+    /// <summary> Helpers for <see cref="MergedEdge{TVertex,TEdge}"/>. </summary>
     public static class MergedEdge
     {
         /// <summary> Merges the <paramref name="mergedInEdge"/> and the <paramref name="mergedOutEdge"/>. </summary>

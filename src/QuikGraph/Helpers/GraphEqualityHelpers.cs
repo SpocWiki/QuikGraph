@@ -52,19 +52,12 @@ namespace QuikGraph
             if (g.EdgeCount != h.EdgeCount)
                 return false;
 
-            foreach (TVertex vertex in g.Vertices)
+            if (g.Vertices.Any(vertex => !h.Vertices.Any(v => vertexEquality.Equals(v, vertex))))
             {
-                if (!h.Vertices.Any(v => vertexEquality.Equals(v, vertex)))
-                    return false;
+                return false;
             }
 
-            foreach (TEdge edge in g.Edges)
-            {
-                if (!h.Edges.Any(e => edgeEquality.Equals(e, edge)))
-                    return false;
-            }
-
-            return true;
+            return g.Edges.All(edge => h.Edges.Any(e => edgeEquality.Equals(e, edge)));
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Linq;
+using JetBrains.Annotations;
 using NUnit.Framework;
 
 namespace QuikGraph.Tests.Graphs
@@ -10,9 +11,7 @@ namespace QuikGraph.Tests.Graphs
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_All))]
         public static void AssertDegreeSumEqualsTwiceEdgeCount<TVertex, TEdge>([NotNull] IBidirectionalGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
         {
-            int totalDegree = 0;
-            foreach (TVertex vertex in graph.Vertices)
-                totalDegree += graph.Degree(vertex);
+            int totalDegree = graph.Vertices.Sum(graph.Degree);
 
             Assert.AreEqual(graph.EdgeCount * 2, totalDegree);
         }
@@ -22,9 +21,7 @@ namespace QuikGraph.Tests.Graphs
             [NotNull] IBidirectionalGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            int totalInDegree = 0;
-            foreach (TVertex vertex in graph.Vertices)
-                totalInDegree += graph.InDegree(vertex);
+            int totalInDegree = graph.Vertices.Sum(graph.InDegree);
 
             Assert.AreEqual(graph.EdgeCount, totalInDegree);
         }
@@ -33,9 +30,7 @@ namespace QuikGraph.Tests.Graphs
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetBidirectionalGraphs_All))]
         public static void OutDegreeSumEqualsEdgeCount<TVertex, TEdge>([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
         {
-            int totalOutDegree = 0;
-            foreach (TVertex vertex in graph.Vertices)
-                totalOutDegree += graph.OutDegree(vertex);
+            int totalOutDegree = graph.Vertices.Sum(graph.OutDegree);
 
             Assert.AreEqual(graph.EdgeCount, totalOutDegree);
         }
@@ -43,9 +38,7 @@ namespace QuikGraph.Tests.Graphs
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetUndirectedGraphs_All))]
         public static void AssertAdjacentDegreeSumEqualsTwiceEdgeCount<TVertex, TEdge>([NotNull] IUndirectedGraph<TVertex, TEdge> graph) where TEdge : IEdge<TVertex>
         {
-            int totalAdjacentDegree = 0;
-            foreach (TVertex vertex in graph.Vertices)
-                totalAdjacentDegree += graph.AdjacentDegree(vertex);
+            int totalAdjacentDegree = graph.Vertices.Sum(graph.AdjacentDegree);
 
             Assert.AreEqual(graph.EdgeCount * 2, totalAdjacentDegree);
         }

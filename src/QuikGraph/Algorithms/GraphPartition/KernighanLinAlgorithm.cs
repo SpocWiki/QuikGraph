@@ -198,19 +198,7 @@ namespace QuikGraph.Algorithms.GraphPartition
         }
 
         [Pure]
-        private double GetCutCost()
-        {
-            double cost = 0;
-            foreach (TEdge edge in VisitedGraph.Edges)
-            {
-                if (_vertexSetA.Contains(edge.Source) != _vertexSetA.Contains(edge.Target))
-                {
-                    cost += edge.Tag;
-                }
-            }
-
-            return cost;
-        }
+        private double GetCutCost() => VisitedGraph.Edges.Where(edge => _vertexSetA.Contains(edge.Source) != _vertexSetA.Contains(edge.Target)).Sum(edge => edge.Tag);
 
         /// <summary>
         /// Searches for an edge that links <paramref name="vertexFromA"/> and <paramref name="vertexFromB"/>.

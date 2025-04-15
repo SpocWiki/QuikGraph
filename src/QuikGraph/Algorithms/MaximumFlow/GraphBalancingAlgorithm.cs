@@ -299,13 +299,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
 
             int balancingIndex = VisitedGraph.OutEdges(vertex).Sum(edge => _preFlow[edge]);
 
-            foreach (TEdge edge in VisitedGraph.InEdges(vertex))
-            {
-                int preFlow = _preFlow[edge];
-                balancingIndex -= preFlow;
-            }
-
-            return balancingIndex;
+            return VisitedGraph.InEdges(vertex).Select(edge => _preFlow[edge]).Aggregate(balancingIndex, (current, preFlow) => current - preFlow);
         }
 
         /// <summary>

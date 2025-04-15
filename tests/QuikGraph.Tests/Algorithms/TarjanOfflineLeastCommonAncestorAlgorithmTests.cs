@@ -195,19 +195,13 @@ namespace QuikGraph.Tests.Algorithms
             if (graph.VertexCount == 0)
                 return;
 
-            var pairs = new List<SEquatableEdge<string>>();
-            foreach (string u in graph.Vertices)
-            {
-                foreach (string v in graph.Vertices)
-                {
-                    if (!u.Equals(v))
-                        pairs.Add(new SEquatableEdge<string>(u, v));
-                }
-            }
-
             int count = 0;
             foreach (string root in graph.Vertices)
             {
+                var pairs = graph.Vertices
+                    .SelectMany(u => graph.Vertices, (u, v) => new { u, v })
+                    .Where(@t => !@t.u.Equals(@t.v))
+                    .Select(@t => new SEquatableEdge<string>(@t.u, @t.v));
                 RunTarjanOfflineLeastCommonAncestorAndCheck(
                     graph,
                     root,

@@ -298,9 +298,7 @@ namespace QuikGraph.Tests.Algorithms.RankedShortestPath
             if (graph.VertexCount == 0)
                 return;
 
-            var weights = new Dictionary<Edge<string>, double>();
-            foreach (Edge<string> edge in graph.Edges)
-                weights.Add(edge, graph.OutDegree(edge.Source) + 1);
+            var weights = graph.Edges.ToDictionary<Edge<string>, Edge<string>, double>(edge => edge, edge => graph.OutDegree(edge.Source) + 1);
 
             RunHoffmanPavleyRankedShortestPathAndCheck(
                 graph,

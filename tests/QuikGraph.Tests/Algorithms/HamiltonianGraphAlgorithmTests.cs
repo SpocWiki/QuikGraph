@@ -226,12 +226,7 @@ namespace QuikGraph.Tests.Algorithms
 #else
             public int GetHashCode(List<T> seq)
 #endif
-            {
-                int hash = 1234567;
-                foreach (T elem in seq)
-                    hash = hash * 37 + elem.GetHashCode();
-                return hash;
-            }
+                => seq.Aggregate(1234567, (current, elem) => current * 37 + elem.GetHashCode());
         }
 
         private static int Factorial(int i)

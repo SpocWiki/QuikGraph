@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection.Emit;
 #if SUPPORTS_XML_DTD_PROCESSING
 using System.Linq;
@@ -314,9 +315,7 @@ namespace QuikGraph.Serialization.Tests
                         (source, target, _) => new Edge<string>(source, target));
                 }
 
-                var vertices = new Dictionary<string, string>();
-                foreach (string vertex in graph.Vertices)
-                    vertices.Add(vertex, vertex);
+                var vertices = graph.Vertices.ToDictionary(vertex => vertex);
 
                 // Check all nodes are loaded
 #if SUPPORTS_XML_DTD_PROCESSING
