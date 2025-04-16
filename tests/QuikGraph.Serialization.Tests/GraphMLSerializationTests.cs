@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 #if SUPPORTS_XML_DTD_PROCESSING
-using System.Linq;
 using System.Xml.Schema;
 #endif
 using System.Xml;

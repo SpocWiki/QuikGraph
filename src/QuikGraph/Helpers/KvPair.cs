@@ -16,30 +16,39 @@ namespace QuikGraph.Helpers
         }
 
         /// <summary> Writes a Dictionary of items to the <paramref name="writer"/> in C# format. </summary>
+        /// <remarks>
+        /// </remarks>
         public static void WriteDict<TK, TV>(this IEnumerable<KeyValuePair<TK,TV>> items, TextWriter writer
-            , string prefix = "{\"", string infix = "\",\"", string suffix = "\"}", string empty = "{}")
+            , string prefix = "{\"" //, string infix1 = "\", new Dictionary<string, int> { { \""
+            , string infixPair = "\", "
+            , string infixDict = " }, { \"", string suffix = "}", string empty = "{}")
         {
-            WriteDict(items.GetEnumerator(), writer, prefix, infix, suffix, empty);
+            WriteDict(items.GetEnumerator(), writer, prefix, infixPair, infixDict, suffix, empty);
         }
 
+
+        private static readonly Dictionary<string, Dictionary<string, int>> GraphRoots = new Dictionary<string, Dictionary<string, int>>()
+        {
+            { "Empty", new Dictionary<string, int> { } },
+};
         /// <summary> Writes a Dictionary of items to the <paramref name="writer"/> in C# format. </summary>
-        /// <remarks>             { "graph", new Dictionary {string, int} { { "node", 4 }, { "node", 4 }, } }, </remarks>
-        public static void WriteDict<TK, TV>(this IEnumerator<KeyValuePair<TK, TV>> items, TextWriter writer
+/// <remarks>             { "graph", new Dictionary {string, int} { { "node", 4 }, { "node", 4 }, } }, </remarks>
+public static void WriteDict<TK, TV>(this IEnumerator<KeyValuePair<TK, TV>> items, TextWriter writer
             , string prefix = "{\"" //, string infix1 = "\", new Dictionary<string, int> { { \""
-            , string infix2 = "\", "
-            , string infix = " }, { \"", string suffix = "}", string empty = "{}")
+            , string infixPair = "\", "
+            , string infixDict = " }, { \"", string suffix = "}", string empty = "{}")
         {
             if (items.MoveNext())
             {
                 writer.Write(prefix);
                 writer.Write((items.Current.Key + "").Replace(@"\", @"\\").Replace("\"", "\"\""));
-                writer.Write(infix2);
+                writer.Write(infixPair);
                 writer.Write(items.Current.Value);
                 while (items.MoveNext())
                 {
-                    writer.Write(infix);
+                    writer.Write(infixDict);
                     writer.Write((items.Current.Key + "").Replace(@"\", @"\\").Replace("\"", "\"\""));
-                    writer.Write(infix2);
+                    writer.Write(infixPair);
                     writer.Write(items.Current.Value);
                 }
                 writer.Write(suffix);
