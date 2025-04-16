@@ -343,39 +343,6 @@ namespace QuikGraph.Algorithms
             return incrementalComponents;
         }
 
-        /// <summary> Condensates the strongly connected components of a directed graph. </summary>
-        /// <returns>The condensed graph.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static IMutableBidirectionalGraph<TGraph, CondensedEdge<TVertex, TEdge, TGraph>> CondensateStronglyConnected<TVertex, TEdge, TGraph>(
-            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-            where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
-        {
-            var algorithm = graph.CreateCondensationGraphAlgorithm<TVertex, TEdge, TGraph>();
-            algorithm.StronglyConnected = true;
-            algorithm.Compute();
-            return algorithm.CondensedGraph;
-        }
-
-        /// <summary> Condensates the weakly connected components of a directed graph. </summary>
-        /// <param name="graph">Graph to visit.</param>
-        /// <returns>The condensed graph.</returns>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
-        [Pure]
-        [NotNull]
-        public static IMutableBidirectionalGraph<TGraph, CondensedEdge<TVertex, TEdge, TGraph>> CondensateWeaklyConnected<TVertex, TEdge, TGraph>(
-            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
-            where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
-        {
-            var algorithm = graph.CreateCondensationGraphAlgorithm<TVertex, TEdge, TGraph>();
-            algorithm.StronglyConnected = false;
-            algorithm.Compute();
-            return algorithm.CondensedGraph;
-        }
-
         #endregion
 
         /// <summary> Gets odd vertices of the given <paramref name="graph"/>. </summary>

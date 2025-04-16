@@ -66,7 +66,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            Components = components ?? new Dictionary<TVertex, int>();
+            ComponentNo = components ?? new Dictionary<TVertex, int>();
         }
 
         [ItemNotNull]
@@ -86,9 +86,9 @@ namespace QuikGraph.Algorithms.ConnectedComponents
                     _graphs[i] = new BidirectionalGraph<TVertex, TEdge>();
                 }
 
-                foreach (TVertex componentName in Components.Keys)
+                foreach (TVertex componentName in ComponentNo.Keys)
                 {
-                    _graphs[Components[componentName]].AddVertex(componentName);
+                    _graphs[ComponentNo[componentName]].AddVertex(componentName);
                 }
 
                 foreach (TVertex vertex in VisitedGraph.Vertices)
@@ -96,9 +96,9 @@ namespace QuikGraph.Algorithms.ConnectedComponents
                     foreach (TEdge edge in VisitedGraph.OutEdges(vertex))
                     {
 
-                        if (Components[vertex] == Components[edge.Target])
+                        if (ComponentNo[vertex] == ComponentNo[edge.Target])
                         {
-                            _graphs[Components[vertex]].AddEdge(edge);
+                            _graphs[ComponentNo[vertex]].AddEdge(edge);
                         }
                     }
                 }
@@ -115,7 +115,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             ComponentCount = 0;
             _currentComponent = 0;
             _componentEquivalences.Clear();
-            Components.Clear();
+            ComponentNo.Clear();
         }
 
         /// <inheritdoc />
@@ -165,18 +165,18 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             Debug.Assert(ComponentCount >= 0 && ComponentCount <= VisitedGraph.VertexCount);
             Debug.Assert(
                 VisitedGraph.Vertices.All(
-                    vertex => Components[vertex] >= 0 && Components[vertex] < ComponentCount));
+                    vertex => ComponentNo[vertex] >= 0 && ComponentNo[vertex] < ComponentCount));
         }
 
         private void MergeEquivalentComponents()
         {
             foreach (TVertex vertex in VisitedGraph.Vertices)
             {
-                int component = Components[vertex];
+                int component = ComponentNo[vertex];
                 int equivalent = GetComponentEquivalence(component);
                 if (component != equivalent)
                 {
-                    Components[vertex] = equivalent;
+                    ComponentNo[vertex] = equivalent;
                 }
             }
         }
@@ -185,7 +185,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         {
             // Extract unique component indexes (sorted)
             var components = new SortedSet<int>();
-            foreach (int componentNumber in Components.Values)
+            foreach (int componentNumber in ComponentNo.Values)
             {
                 components.Add(componentNumber);
             }
@@ -206,10 +206,10 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             // Apply the reduction of component indexes
             foreach (TVertex vertex in VisitedGraph.Vertices)
             {
-                int component = Components[vertex];
+                int component = ComponentNo[vertex];
                 if (_componentEquivalences.TryGetValue(component, out int newComponentValue))
                 {
-                    Components[vertex] = newComponentValue;
+                    ComponentNo[vertex] = newComponentValue;
                 }
             }
         }
@@ -222,7 +222,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         public int ComponentCount { get; private set; }
 
         /// <inheritdoc />
-        public IDictionary<TVertex, int> Components { get; }
+        public IDictionary<TVertex, int> ComponentNo { get; }
 
         #endregion
 
@@ -232,19 +232,19 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             _currentComponent = _componentEquivalences.Count;
             _componentEquivalences.Add(_currentComponent, _currentComponent);
             ++ComponentCount;
-            Components.Add(vertex, _currentComponent);
+            ComponentNo.Add(vertex, _currentComponent);
         }
 
         private void OnEdgeDiscovered([NotNull] TEdge edge)
         {
             // New edge, we store with the current component number
-            Components.Add(edge.Target, _currentComponent);
+            ComponentNo.Add(edge.Target, _currentComponent);
         }
 
         private void OnForwardOrCrossEdge([NotNull] TEdge edge)
         {
             // We have touched another tree, updating count and current component
-            int otherComponent = GetComponentEquivalence(Components[edge.Target]);
+            int otherComponent = GetComponentEquivalence(ComponentNo[edge.Target]);
             if (otherComponent != _currentComponent)
             {
                 --ComponentCount;

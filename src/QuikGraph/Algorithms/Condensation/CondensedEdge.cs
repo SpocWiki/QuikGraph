@@ -13,7 +13,7 @@ namespace QuikGraph.Algorithms.Condensation
 #endif
     public sealed class CondensedEdge<TVertex, TEdge, TGraph> : Edge<TGraph>
         where TEdge : IEdge<TVertex>
-        where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
+        where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CondensedEdge{TVertex,TEdge,TGraph}"/> class.

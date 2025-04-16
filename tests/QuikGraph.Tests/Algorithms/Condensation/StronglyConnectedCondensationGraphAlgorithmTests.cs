@@ -8,9 +8,13 @@ using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Tests.Algorithms.Condensation
 {
-    /// <summary>
-    /// Tests for <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> (strongly connected).
-    /// </summary>
+    /// <summary> Tests <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> (strongly connected). </summary>
+    /// <remarks>
+    /// The condensed Graph is a Graph of Graphs that when flattened has 
+    /// - the same Vertices and
+    /// - the same Edges
+    /// as the original graph.
+    /// </remarks>
     [TestFixture]
     internal sealed class StronglyConnectedCondensationGraphAlgorithmTests : CondensationGraphAlgorithmTestsBase
     {
@@ -19,8 +23,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            IMutableBidirectionalGraph<AdjacencyGraph<TVertex, TEdge>, CondensedEdge<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>> condensedGraph =
-                graph.CondensateStronglyConnected<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>();
+            var condensedGraph = graph.CondensateStronglyConnected<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>();
 
             Assert.IsNotNull(condensedGraph);
             CheckVertexCount(graph, condensedGraph);

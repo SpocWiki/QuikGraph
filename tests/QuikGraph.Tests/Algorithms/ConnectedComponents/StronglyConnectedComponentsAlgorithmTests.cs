@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.ConnectedComponents;
+using QuikGraph.Helpers;
 
 namespace QuikGraph.Tests.Algorithms.ConnectedComponents
 {
@@ -10,17 +12,23 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
     [TestFixture]
     internal sealed class StronglyConnectedComponentsAlgorithmTests
     {
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
-        public void RunStronglyConnectedComponentsAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+        private static readonly TextWriter Writer = new StreamWriter(@"C:\_tmp\ConnComp.txt");
+
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetNamedAdjacencyGraphs_All))]
+        public void RunStronglyConnectedComponentsAndCheck(KeyValuePair<string, AdjacencyGraph<string, Edge<string>>> namedGraph)
         {
-            var algorithm = graph.CreateStronglyConnectedComponentsAlgorithm();
+            var algorithm = namedGraph.Value.CreateStronglyConnectedComponentsAlgorithm();
             algorithm.Compute();
 
-            Assert.AreEqual(graph.VertexCount, algorithm.Components.Count);
-            Assert.AreEqual(graph.VertexCount, algorithm.Roots.Count);
-            Assert.AreEqual(graph.VertexCount, algorithm.DiscoverTimes.Count);
-            if (graph.VertexCount == 0)
+            Writer.Write("{ \"" + namedGraph.Key + "\", new Dictionary<string, int> { \"");
+            algorithm.ComponentNo.WriteDict(Writer);
+            Writer.WriteLine(" },");
+            Writer.Flush();
+
+            Assert.AreEqual(namedGraph.Value.VertexCount, algorithm.ComponentNo.Count);
+            Assert.AreEqual(namedGraph.Value.VertexCount, algorithm.Roots.Count);
+            Assert.AreEqual(namedGraph.Value.VertexCount, algorithm.DiscoverTimes.Count);
+            if (namedGraph.Value.VertexCount == 0)
             {
                 Assert.AreEqual(0, algorithm.Steps);
                 Assert.IsTrue(algorithm.ComponentCount == 0);
@@ -28,29 +36,29 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             }
 
             Assert.Positive(algorithm.ComponentCount);
-            Assert.LessOrEqual(algorithm.ComponentCount, graph.VertexCount);
-            foreach (TVertex vertex in algorithm.VisitedGraph.Vertices)
+            Assert.LessOrEqual(algorithm.ComponentCount, namedGraph.Value.VertexCount);
+            foreach (var vertex in algorithm.VisitedGraph.Vertices)
             {
-                Assert.IsTrue(algorithm.Components.ContainsKey(vertex));
+                Assert.IsTrue(algorithm.ComponentNo.ContainsKey(vertex));
                 Assert.IsTrue(algorithm.DiscoverTimes.ContainsKey(vertex));
             }
 
             Assert.Positive(algorithm.Steps);
             AssertStepsProperties();
-            foreach (KeyValuePair<TVertex, int> pair in algorithm.Components)
+            foreach (var pair in algorithm.ComponentNo)
             {
                 Assert.GreaterOrEqual(pair.Value, 0);
                 Assert.IsTrue(pair.Value < algorithm.ComponentCount, $"{pair.Value} < {algorithm.ComponentCount}");
             }
 
-            foreach (KeyValuePair<TVertex, int> time in algorithm.DiscoverTimes)
+            foreach (var time in algorithm.DiscoverTimes)
             {
                 Assert.IsNotNull(time.Key);
             }
 
-            foreach (TVertex vertex in graph.Vertices)
+            foreach (var vertex in namedGraph.Value.Vertices)
             {
-                Assert.GreaterOrEqual(algorithm.Components[vertex], 0);
+                Assert.GreaterOrEqual(algorithm.ComponentNo[vertex], 0);
             }
 
             #region Local function
@@ -88,7 +96,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
             {
                 algo.AssertAlgorithmState(g);
                 Assert.AreEqual(0, algo.ComponentCount);
-                CollectionAssert.IsEmpty(algo.Components);
+                CollectionAssert.IsEmpty(algo.ComponentNo);
                 CollectionAssert.IsEmpty(algo.Graphs);
                 CollectionAssert.IsEmpty(algo.Roots);
 
@@ -148,7 +156,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                     [2] = 0,
                     [3] = 0
                 },
-                algorithm.Components);
+                algorithm.ComponentNo);
             Assert.AreEqual(1, algorithm.Graphs.Length);
             CollectionAssert.AreEquivalent(
                 new[] { 1, 2, 3 },
@@ -189,7 +197,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                     [4] = 1,
                     [5] = 0
                 },
-                algorithm.Components);
+                algorithm.ComponentNo);
             Assert.AreEqual(3, algorithm.Graphs.Length);
             CollectionAssert.AreEquivalent(
                 new[] { 5 },
@@ -241,7 +249,7 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                     [8] = 1,
                     [10] = 3
                 },
-                algorithm.Components);
+                algorithm.ComponentNo);
             Assert.AreEqual(4, algorithm.Graphs.Length);
             CollectionAssert.AreEquivalent(
                 new[] { 4, 6 },
@@ -256,6 +264,11 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
                 new[] { 10 },
                 algorithm.Graphs[3].Vertices);
         }
+
+        private static readonly Dictionary<string, Dictionary<string, int>> GraphRoots = new()
+        {
+            { "graph", new Dictionary<string, int> { { "node", 4 }, } },
+        };
 
     }
 }

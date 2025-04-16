@@ -96,10 +96,10 @@ namespace QuikGraph.Tests
         private static IEnumerable<KeyValuePair<string, AdjacencyGraph<string, Edge<string>>>> GetAdjacencyGraphsInternal(
             [CanBeNull, InstantHandle] Func<string, int, bool> filter = null)
         {
-            yield return KVPair.Create("Empty", new AdjacencyGraph<string, Edge<string>>());
+            yield return KvPair.Create("Empty", new AdjacencyGraph<string, Edge<string>>());
             foreach (string graphMLFilePath in GetGraphMLFilePaths(filter))
             {
-                yield return KVPair.Create(Path.GetFileNameWithoutExtension(graphMLFilePath), LoadAdjacencyGraph(graphMLFilePath));
+                yield return KvPair.Create(Path.GetFileNameWithoutExtension(graphMLFilePath), LoadAdjacencyGraph(graphMLFilePath));
             }
         }
 

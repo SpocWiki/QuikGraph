@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Condensation;
 using QuikGraph.Algorithms.ConnectedComponents;
 
 namespace QuikGraph.Tests.Algorithms.Condensation
 {
-    /// <summary>
-    /// Tests for <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> (weakly connected).
-    /// </summary>
+    /// <summary> Tests for <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> (weakly connected). </summary>
     [TestFixture]
     internal sealed class WeaklyConnectedCondensationGraphAlgorithmTests : CondensationGraphAlgorithmTestsBase
     {
@@ -20,8 +17,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             [NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
-            IMutableBidirectionalGraph<AdjacencyGraph<TVertex, TEdge>, CondensedEdge<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>> condensedGraph =
-                graph.CondensateWeaklyConnected<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>();
+            var condensedGraph = graph.CondensateWeaklyConnected<TVertex, TEdge, AdjacencyGraph<TVertex, TEdge>>();
 
             Assert.IsNotNull(condensedGraph);
             CheckVertexCount(graph, condensedGraph);
@@ -167,6 +163,7 @@ namespace QuikGraph.Tests.Algorithms.Condensation
             Assert.IsNotNull(condensedGraph);
             Assert.AreEqual(3, condensedGraph.VertexCount);
             Assert.AreEqual(0, condensedGraph.EdgeCount);
+
             CollectionAssert.AreEquivalent(
                 new[] { 1, 2, 3, 4 },
                 condensedGraph.Vertices.ElementAt(0).Vertices);

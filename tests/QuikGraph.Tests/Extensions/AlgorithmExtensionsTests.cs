@@ -800,7 +800,7 @@ namespace QuikGraph.Tests.Extensions
             }
             else
             {
-                Writer.Write("{ \"" + namedGraph.Key + "\", new List<string> ");
+                Writer.Write("{ \"" + namedGraph.Key + "\", new string[] ");
                 roots.WriteList(Writer);
                 Writer.WriteLine(" },");
                 Writer.Flush();
@@ -1299,7 +1299,7 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.CondensateStronglyConnected<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(null));
+                () => CondensationGraphAlgorithm.CondensateStronglyConnected<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(null));
         }
 
         [Test]
@@ -1308,7 +1308,7 @@ namespace QuikGraph.Tests.Extensions
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
-                () => AlgorithmExtensions.CondensateWeaklyConnected<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(null));
+                () => CondensationGraphAlgorithm.CondensateWeaklyConnected<int, IEdge<int>, AdjacencyGraph<int, IEdge<int>>>(null));
         }
 
         [Test]

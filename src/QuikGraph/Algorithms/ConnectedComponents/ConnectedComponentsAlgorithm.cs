@@ -34,7 +34,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            Components = components ?? new Dictionary<TVertex, int>();
+            ComponentNo = components ?? new Dictionary<TVertex, int>();
         }
 
         #region AlgorithmBase<TGraph>
@@ -44,7 +44,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         {
             base.Initialize();
 
-            Components.Clear();
+            ComponentNo.Clear();
             ComponentCount = 0;
         }
 
@@ -83,7 +83,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         public int ComponentCount { get; private set; }
 
         /// <inheritdoc />
-        public IDictionary<TVertex, int> Components { get; }
+        public IDictionary<TVertex, int> ComponentNo { get; }
 
         #endregion
 
@@ -94,7 +94,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
 
         private void OnVertexDiscovered([NotNull] TVertex vertex)
         {
-            Components[vertex] = ComponentCount;
+            ComponentNo[vertex] = ComponentCount;
         }
     }
 }

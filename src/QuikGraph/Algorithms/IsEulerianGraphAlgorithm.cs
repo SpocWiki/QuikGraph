@@ -103,7 +103,7 @@ namespace QuikGraph.Algorithms
             componentsAlgorithm.Compute();
 
             bool[] hasEdgesInComponent = new bool[componentsAlgorithm.ComponentCount];
-            foreach (KeyValuePair<TVertex, int> verticesAndComponent in componentsAlgorithm.Components)
+            foreach (KeyValuePair<TVertex, int> verticesAndComponent in componentsAlgorithm.ComponentNo)
             {
                 hasEdgesInComponent[verticesAndComponent.Value] = !_graph.IsAdjacentEdgesEmpty(verticesAndComponent.Key);
             }

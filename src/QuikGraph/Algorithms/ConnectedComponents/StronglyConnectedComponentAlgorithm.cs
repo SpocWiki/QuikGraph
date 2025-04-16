@@ -63,7 +63,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
-            Components = components ?? new Dictionary<TVertex, int>();
+            ComponentNo = components ?? new Dictionary<TVertex, int>();
             Roots = new Dictionary<TVertex, TVertex>();
             DiscoverTimes = new Dictionary<TVertex, int>();
             _stack = new Stack<TVertex>();
@@ -75,13 +75,11 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         [NotNull]
         public IDictionary<TVertex, TVertex> Roots { get; }
 
-        /// <summary> Times of vertices discover. </summary>
+        /// <summary> Number of vertex discovery. </summary>
         [NotNull]
         public IDictionary<TVertex, int> DiscoverTimes { get; }
 
-        /// <summary>
-        /// Number of steps spent.
-        /// </summary>
+        /// <summary> Number of steps spent. </summary>
         public int Steps { get; private set; }
 
         /// <summary>
@@ -111,9 +109,9 @@ namespace QuikGraph.Algorithms.ConnectedComponents
                     _graphs[i] = new BidirectionalGraph<TVertex, TEdge>();
                 }
 
-                foreach (TVertex componentName in Components.Keys)
+                foreach (TVertex componentName in ComponentNo.Keys)
                 {
-                    _graphs[Components[componentName]].AddVertex(componentName);
+                    _graphs[ComponentNo[componentName]].AddVertex(componentName);
                 }
 
                 foreach (TVertex vertex in VisitedGraph.Vertices)
@@ -121,9 +119,9 @@ namespace QuikGraph.Algorithms.ConnectedComponents
                     foreach (TEdge edge in VisitedGraph.OutEdges(vertex))
                     {
 
-                        if (Components[vertex] == Components[edge.Target])
+                        if (ComponentNo[vertex] == ComponentNo[edge.Target])
                         {
-                            _graphs[Components[vertex]].AddEdge(edge);
+                            _graphs[ComponentNo[vertex]].AddEdge(edge);
                         }
                     }
                 }
@@ -155,7 +153,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
             ComponentsPerStep = new List<int>();
             VerticesPerStep = new List<TVertex>();
 
-            Components.Clear();
+            ComponentNo.Clear();
             Roots.Clear();
             DiscoverTimes.Clear();
             _stack.Clear();
@@ -186,9 +184,9 @@ namespace QuikGraph.Algorithms.ConnectedComponents
 
             Debug.Assert(ComponentCount >= 0);
             Debug.Assert(VisitedGraph.VertexCount >= 0 || ComponentCount == 0);
-            Debug.Assert(VisitedGraph.Vertices.All(v => Components.ContainsKey(v)));
-            Debug.Assert(VisitedGraph.VertexCount == Components.Count);
-            Debug.Assert(Components.Values.All(c => c <= ComponentCount));
+            Debug.Assert(VisitedGraph.Vertices.All(v => ComponentNo.ContainsKey(v)));
+            Debug.Assert(VisitedGraph.VertexCount == ComponentNo.Count);
+            Debug.Assert(ComponentNo.Values.All(c => c <= ComponentCount));
         }
 
         #endregion
@@ -199,14 +197,14 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         public int ComponentCount { get; private set; }
 
         /// <inheritdoc />
-        public IDictionary<TVertex, int> Components { get; }
+        public IDictionary<TVertex, int> ComponentNo { get; }
 
         #endregion
 
         private void OnVertexDiscovered([NotNull] TVertex vertex)
         {
             Roots[vertex] = vertex;
-            Components[vertex] = int.MaxValue;
+            ComponentNo[vertex] = int.MaxValue;
 
             ComponentsPerStep.Add(ComponentCount);
             VerticesPerStep.Add(vertex);
@@ -220,7 +218,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         {
             foreach (TVertex target in VisitedGraph.OutEdges(vertex).Select(edge => edge.Target))
             {
-                if (Components[target] == int.MaxValue)
+                if (ComponentNo[target] == int.MaxValue)
                 {
                     Roots[vertex] = MinDiscoverTime(Roots[vertex], Roots[target]);
                 }
@@ -232,7 +230,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
                 do
                 {
                     w = _stack.Pop();
-                    Components[w] = ComponentCount;
+                    ComponentNo[w] = ComponentCount;
 
                     ComponentsPerStep.Add(ComponentCount);
                     VerticesPerStep.Add(w);

@@ -8,28 +8,86 @@ namespace QuikGraph.Algorithms.Condensation
     /// <summary> Initializes new instances of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
     public static class CondensationGraphAlgorithm
     {
+        /// <summary> Condensates the weakly connected components of a directed graph. </summary>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static IMutableBidirectionalGraph<TGraph, CondensedEdge<TVertex, TEdge, TGraph>>
+            CondensateWeaklyConnected<TVertex, TEdge, TGraph>([NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
+            where TEdge : IEdge<TVertex>
+            where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
+            => graph.CondensateWeaklyConnected(() => new TGraph());
+
+        /// <summary> Condensates the weakly connected components of a directed graph. </summary>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static IMutableBidirectionalGraph<TGraph, CondensedEdge<TVertex, TEdge, TGraph>> CondensateWeaklyConnected<TVertex, TEdge, TGraph>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph, Func<TGraph> createSubGraph)
+            where TEdge : IEdge<TVertex>
+            where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>
+        {
+            var algorithm = graph.CreateCondensationGraphAlgorithm(createSubGraph);
+            algorithm.StronglyConnected = false;
+            algorithm.Compute();
+            return algorithm.CondensedGraph;
+        }
+
+        /// <summary> Condensates the strongly connected components of a directed graph. </summary>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
+        [Pure]
+        [NotNull]
+        public static IMutableBidirectionalGraph<TGraph, CondensedEdge<TVertex, TEdge, TGraph>> CondensateStronglyConnected<TVertex, TEdge, TGraph>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph)
+            where TEdge : IEdge<TVertex>
+            where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
+            => graph.CondensateStronglyConnected(() => new TGraph());
+
+        /// <summary> Gets the condensed graph of the strongly connected components of a directed graph. </summary>
+        [Pure]
+        [NotNull]
+        public static IMutableBidirectionalGraph<TGraph, CondensedEdge<TVertex, TEdge, TGraph>> CondensateStronglyConnected<TVertex, TEdge, TGraph>(
+            [NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> graph, Func<TGraph> create)
+            where TEdge : IEdge<TVertex>
+            where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge> {
+            var algorithm = graph.CreateCondensationGraphAlgorithm(create);
+            algorithm.StronglyConnected = true;
+            algorithm.Compute();
+            return algorithm.CondensedGraph;
+        }
+
         /// <summary> Initializes a new instance of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        public static CondensationGraphAlgorithm<TVertex, TEdge, TGraph> CreateCondensationGraphAlgorithm
-            <TVertex, TEdge, TGraph>
+        public static CondensationGraphAlgorithm<TVertex, TEdge, TGraph> CreateCondensationGraphAlgorithm<TVertex, TEdge, TGraph>
             ([NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
             where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
-            => new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(visitedGraph);
+            => new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(visitedGraph, () => new TGraph());
+
+        /// <summary> Initializes a new instance of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
+        public static CondensationGraphAlgorithm<TVertex, TEdge, TGraph> CreateCondensationGraphAlgorithm
+            <TVertex, TEdge, TGraph>
+            ([NotNull] this IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph, Func<TGraph> create)
+            where TEdge : IEdge<TVertex>
+            where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>
+            => new CondensationGraphAlgorithm<TVertex, TEdge, TGraph>(visitedGraph, create);
     }
 
     /// <summary> Algorithm that condensate a graph with strongly (or not) connected components. </summary>
     public sealed class CondensationGraphAlgorithm<TVertex, TEdge, TGraph> : AlgorithmBase<IVertexAndEdgeListGraph<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
-        where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>, new()
+        where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>
     {
+        /// <summary> Factory for new Sub-Graphs </summary>
+        public Func<TGraph> Create { get; }
+
         /// <summary> Initializes a new instance of the <see cref="CondensationGraphAlgorithm{TVertex,TEdge,TGraph}"/> class. </summary>
-        /// <param name="visitedGraph">Graph to visit.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
-        internal CondensationGraphAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph)
+        internal CondensationGraphAlgorithm([NotNull] IVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph, Func<TGraph> create)
             : base(visitedGraph)
         {
+            Create = create;
         }
 
         /// <summary>
@@ -63,7 +121,7 @@ namespace QuikGraph.Algorithms.Condensation
             var condensedVertices = new Dictionary<int, TGraph>(componentCount);
             for (int i = 0; i < componentCount; ++i)
             {
-                var vertex = new TGraph();
+                var vertex = Create();
                 condensedVertices.Add(i, vertex);
                 CondensedGraph.AddVertex(vertex);
             }
