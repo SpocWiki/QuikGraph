@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace QuikGraph.Helpers
 {
@@ -26,6 +27,10 @@ namespace QuikGraph.Helpers
             WriteDict(items.GetEnumerator(), writer, prefix, infixPair, infixDict, suffix, empty);
         }
 
+        /// <summary> Compares if both dictionaries are equal </summary>
+        public static bool IsEqualTo<TKey, TValue>(
+            this IDictionary<TKey, TValue> d1,
+            IDictionary<TKey, TValue> d2) => d1.Count == d2.Count && !d1.Except(d2).Any(); //comp
 
         private static readonly Dictionary<string, Dictionary<string, int>> GraphRoots = new Dictionary<string, Dictionary<string, int>>()
         {

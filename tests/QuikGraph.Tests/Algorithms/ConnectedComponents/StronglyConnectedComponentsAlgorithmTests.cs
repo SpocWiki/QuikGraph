@@ -18,12 +18,17 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
         {
             var algorithm = namedGraph.Value.CreateStronglyConnectedComponentsAlgorithm();
             algorithm.Compute();
-
-            Writer.Write("{ \"" + namedGraph.Key + "\", new Dictionary<string, int> { ");
-            algorithm.ComponentNo.WriteDict(Writer);
-            Writer.WriteLine(" } },");
-            Writer.Flush();
-
+            if (GraphRoots.TryGetValue(namedGraph.Key, out var expected))
+            {
+                Assert.IsTrue(algorithm.ComponentNo.IsEqualTo(expected));
+            }
+            else
+            {
+                Writer.Write("{ \"" + namedGraph.Key + "\", new Dictionary<string, int> { ");
+                algorithm.ComponentNo.WriteDict(Writer);
+                Writer.WriteLine(" } },");
+                Writer.Flush();
+            }
             Assert.AreEqual(namedGraph.Value.VertexCount, algorithm.ComponentNo.Count);
             Assert.AreEqual(namedGraph.Value.VertexCount, algorithm.Roots.Count);
             Assert.AreEqual(namedGraph.Value.VertexCount, algorithm.DiscoverTimes.Count);
