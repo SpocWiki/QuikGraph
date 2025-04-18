@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using QuikGraph.Algorithms.ConnectedComponents;
+using QuikGraph.Helpers;
 
 namespace QuikGraph.Tests.Algorithms.ConnectedComponents
 {
@@ -10,14 +12,28 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
     /// Tests for <see cref="WeaklyConnectedComponentsAlgorithm{TVertex,TEdge}"/>.
     /// </summary>
     [TestFixture]
-    internal sealed class WeaklyConnectedComponentsAlgorithmTests
+    internal sealed partial class WeaklyConnectedComponentsAlgorithmTests
     {
-        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetAdjacencyGraphs_All))]
-        public void RunWeaklyConnectedComponentsAndCheck<TVertex, TEdge>([NotNull] IVertexListGraph<TVertex, TEdge> graph)
-            where TEdge : IEdge<TVertex>
+        private static readonly TextWriter Writer = new StreamWriter(@"C:\_tmp\ConnComp.txt");
+
+        [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetNamedAdjacencyGraphs_All))]
+        public void RunWeaklyConnectedComponentsAndCheck(KeyValuePair<string, AdjacencyGraph<string, Edge<string>>> namedGraph)
         {
+            var graph = namedGraph.Value;
             var algorithm = graph.CreateWeaklyConnectedComponentsAlgorithm();
             algorithm.Compute();
+
+            if (GraphRoots.TryGetValue(namedGraph.Key, out var expected))
+            {
+                Assert.IsTrue(algorithm.ComponentNo.IsEqualTo(expected));
+            }
+            else
+            {
+                Writer.Write("{ \"" + namedGraph.Key + "\", new Dictionary<string, int> { ");
+                algorithm.ComponentNo.WriteDict(Writer);
+                Writer.WriteLine(" } },");
+                Writer.Flush();
+            }
 
             Assert.AreEqual(graph.VertexCount, algorithm.ComponentNo.Count);
             if (graph.VertexCount == 0)
@@ -28,15 +44,15 @@ namespace QuikGraph.Tests.Algorithms.ConnectedComponents
 
             Assert.Positive(algorithm.ComponentCount);
             Assert.LessOrEqual(algorithm.ComponentCount, graph.VertexCount);
-            foreach (KeyValuePair<TVertex, int> pair in algorithm.ComponentNo)
+            foreach (var pair in algorithm.ComponentNo)
             {
                 Assert.GreaterOrEqual(pair.Value, 0);
                 Assert.IsTrue(pair.Value < algorithm.ComponentCount, $"{pair.Value} < {algorithm.ComponentCount}");
             }
 
-            foreach (TVertex vertex in graph.Vertices)
+            foreach (string vertex in graph.Vertices)
             {
-                foreach (TEdge edge in graph.OutEdges(vertex))
+                foreach (var edge in graph.OutEdges(vertex))
                 {
                     Assert.AreEqual(algorithm.ComponentNo[edge.Source], algorithm.ComponentNo[edge.Target]);
                 }
