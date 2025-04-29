@@ -18,19 +18,17 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacities">Function that given an edge return the capacity of this edge.</param>
-        /// <param name="edgeFactory">Edge factory method.</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="capacities"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         protected MaximumFlowAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> capacities,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
+            //[NotNull] Func<TVertex, TVertex, TEdge> edgeFactory,
             [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
             Capacities = capacities ?? throw new ArgumentNullException(nameof(capacities));
-            EdgeFactory = edgeFactory ?? throw new ArgumentNullException(nameof(edgeFactory));
+            //EdgeFactory = edgeFactory ?? throw new ArgumentNullException(nameof(edgeFactory));
         }
 
         #region Properties
@@ -53,11 +51,11 @@ namespace QuikGraph.Algorithms.MaximumFlow
         [NotNull]
         public Dictionary<TEdge, double> ResidualCapacities { get; } = new Dictionary<TEdge, double>();
 
-        /// <summary>
-        /// Edge factory method.
-        /// </summary>
-        [NotNull]
-        public EdgeFactory<TVertex, TEdge> EdgeFactory { get; }
+        ///// <summary>
+        ///// Edge factory method.
+        ///// </summary>
+        //[NotNull]
+        //public Func<TVertex, TVertex, TEdge> EdgeFactory { get; }
 
         /// <summary>
         /// Graph reversed edges.

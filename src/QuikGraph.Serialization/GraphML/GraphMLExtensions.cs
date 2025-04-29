@@ -149,8 +149,8 @@ namespace QuikGraph.Serialization
         public static void DeserializeFromGraphML<TVertex, TEdge, TGraph>(
             [NotNull] this TGraph graph,
             [NotNull] XmlReader reader,
-            [NotNull] IdentifiableVertexFactory<TVertex> vertexFactory,
-            [NotNull] IdentifiableEdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull] Func<string, TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, string, TEdge> edgeFactory)
             where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>
         {
@@ -176,8 +176,8 @@ namespace QuikGraph.Serialization
         public static void DeserializeFromGraphML<TVertex, TEdge, TGraph>(
             [NotNull] this TGraph graph,
             [NotNull] TextReader reader,
-            [NotNull] IdentifiableVertexFactory<TVertex> vertexFactory,
-            [NotNull] IdentifiableEdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull] Func<string, TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, string, TEdge> edgeFactory)
             where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>
         {
@@ -222,8 +222,8 @@ namespace QuikGraph.Serialization
         public static void DeserializeFromGraphML<TVertex, TEdge, TGraph>(
             [NotNull] this TGraph graph,
             [NotNull] string filePath,
-            [NotNull] IdentifiableVertexFactory<TVertex> vertexFactory,
-            [NotNull] IdentifiableEdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull] Func<string, TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, string, TEdge> edgeFactory)
             where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>
         {
@@ -256,8 +256,8 @@ namespace QuikGraph.Serialization
         public static void DeserializeAndValidateFromGraphML<TVertex, TEdge, TGraph>(
             [NotNull] this TGraph graph,
             [NotNull] TextReader reader,
-            [NotNull] IdentifiableVertexFactory<TVertex> vertexFactory,
-            [NotNull] IdentifiableEdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull] Func<string, TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, string, TEdge> edgeFactory)
             where TEdge : IEdge<TVertex>
             where TGraph : IMutableVertexAndEdgeSet<TVertex, TEdge>
         {

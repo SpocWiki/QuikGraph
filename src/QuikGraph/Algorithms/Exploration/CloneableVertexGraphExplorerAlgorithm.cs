@@ -36,9 +36,7 @@ namespace QuikGraph.Algorithms.Exploration
         {
         }
 
-        /// <summary>
-        /// Transitions factories.
-        /// </summary>
+        /// <summary> Transitions factories. </summary>
         [NotNull, ItemNotNull]
         private readonly List<ITransitionFactory<TVertex, TEdge>> _transitionFactories
             = new List<ITransitionFactory<TVertex, TEdge>>();
@@ -46,9 +44,7 @@ namespace QuikGraph.Algorithms.Exploration
         [NotNull]
         private VertexPredicate<TVertex> _addVertexPredicate = vertex => true;
 
-        /// <summary>
-        /// Predicate that a vertex must match to be added in the graph.
-        /// </summary>
+        /// <summary> Predicate that a vertex must match to be added in the graph. </summary>
         /// <exception cref="T:System.ArgumentNullException">Set value is <see langword="null"/>.</exception>
         [NotNull]
         public VertexPredicate<TVertex> AddVertexPredicate
@@ -60,9 +56,7 @@ namespace QuikGraph.Algorithms.Exploration
         [NotNull]
         private VertexPredicate<TVertex> _exploreVertexPredicate = vertex => true;
 
-        /// <summary>
-        /// Predicate that checks if a given vertex should be explored or ignored.
-        /// </summary>
+        /// <summary>Predicate that checks if a given vertex should be explored or ignored. </summary>
         /// <exception cref="T:System.ArgumentNullException">Set value is <see langword="null"/>.</exception>
         [NotNull]
         public VertexPredicate<TVertex> ExploreVertexPredicate
@@ -74,9 +68,7 @@ namespace QuikGraph.Algorithms.Exploration
         [NotNull]
         private EdgePredicate<TVertex, TEdge> _addEdgePredicate = edge => true;
 
-        /// <summary>
-        /// Predicate that an edge must match to be added in the graph.
-        /// </summary>
+        /// <summary>Predicate that an edge must match to be added in the graph. </summary>
         /// <exception cref="T:System.ArgumentNullException">Set value is <see langword="null"/>.</exception>
         [NotNull]
         public EdgePredicate<TVertex, TEdge> AddEdgePredicate
@@ -89,9 +81,7 @@ namespace QuikGraph.Algorithms.Exploration
         private Predicate<CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>> _finishedPredicate =
             new DefaultFinishedPredicate().Test;
 
-        /// <summary>
-        /// Predicate that checks if the exploration is finished or not.
-        /// </summary>
+        /// <summary>Predicate that checks if the exploration is finished or not. </summary>
         /// <exception cref="T:System.ArgumentNullException">Set value is <see langword="null"/>.</exception>
         [NotNull]
         public Predicate<CloneableVertexGraphExplorerAlgorithm<TVertex, TEdge>> FinishedPredicate
@@ -103,22 +93,16 @@ namespace QuikGraph.Algorithms.Exploration
         [NotNull, ItemNotNull]
         private readonly Queue<TVertex> _unExploredVertices = new Queue<TVertex>();
 
-        /// <summary>
-        /// Gets the enumeration of unexplored vertices.
-        /// </summary>
+        /// <summary> Gets the enumeration of unexplored vertices. </summary>
         [NotNull, ItemNotNull]
         public IEnumerable<TVertex> UnExploredVertices => _unExploredVertices.AsEnumerable();
 
-        /// <summary>
-        /// Indicates if the algorithm finished successfully or not.
-        /// </summary>
+        /// <summary>Indicates if the algorithm finished successfully or not. </summary>
         public bool FinishedSuccessfully { get; private set; }
 
         #region Events
 
-        /// <summary>
-        /// Fired when a vertex is discovered.
-        /// </summary>
+        /// <summary> Fired when a vertex is discovered. </summary>
         public event VertexAction<TVertex> DiscoverVertex;
 
         private void OnVertexDiscovered([NotNull] TVertex vertex)
@@ -131,9 +115,7 @@ namespace QuikGraph.Algorithms.Exploration
             DiscoverVertex?.Invoke(vertex);
         }
 
-        /// <summary>
-        /// Fired when an edge is encountered.
-        /// </summary>
+        /// <summary> Fired when an edge is encountered. </summary>
         public event EdgeAction<TVertex, TEdge> TreeEdge;
 
         private void OnTreeEdge([NotNull] TEdge edge)
@@ -143,9 +125,7 @@ namespace QuikGraph.Algorithms.Exploration
             TreeEdge?.Invoke(edge);
         }
 
-        /// <summary>
-        /// Fired when a back edge is encountered.
-        /// </summary>
+        /// <summary> Fired when a back edge is encountered. </summary>
         public event EdgeAction<TVertex, TEdge> BackEdge;
 
         private void OnBackEdge([NotNull] TEdge edge)
@@ -155,9 +135,7 @@ namespace QuikGraph.Algorithms.Exploration
             BackEdge?.Invoke(edge);
         }
 
-        /// <summary>
-        /// Fired when an edge was skipped from exploration due to failed vertex or edge predicate check.
-        /// </summary>
+        /// <summary> Fired when an edge was skipped from exploration due to failed vertex or edge predicate check. </summary>
         public event EdgeAction<TVertex, TEdge> EdgeSkipped;
 
         private void OnEdgeSkipped([NotNull] TEdge edge)
@@ -169,9 +147,7 @@ namespace QuikGraph.Algorithms.Exploration
 
         #endregion
 
-        /// <summary>
-        /// Adds a new <see cref="ITransitionFactory{TVertex,TEdge}"/> to this algorithm.
-        /// </summary>
+        /// <summary>Adds a new <see cref="ITransitionFactory{TVertex,TEdge}"/> to this algorithm. </summary>
         /// <param name="transitionFactory">Transition factory to add.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="transitionFactory"/> is <see langword="null"/>.</exception>
         public void AddTransitionFactory([NotNull] ITransitionFactory<TVertex, TEdge> transitionFactory)
@@ -182,9 +158,7 @@ namespace QuikGraph.Algorithms.Exploration
             _transitionFactories.Add(transitionFactory);
         }
 
-        /// <summary>
-        /// Adds new <see cref="ITransitionFactory{TVertex,TEdge}"/>s to this algorithm.
-        /// </summary>
+        /// <summary> Adds new <see cref="ITransitionFactory{TVertex,TEdge}"/>s to this algorithm. </summary>
         /// <param name="transitionFactories">Transition factories to add.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="transitionFactories"/> is <see langword="null"/>.</exception>
         public void AddTransitionFactories(
@@ -196,26 +170,20 @@ namespace QuikGraph.Algorithms.Exploration
             _transitionFactories.AddRange(transitionFactories);
         }
 
-        /// <summary>
-        /// Removes the given <paramref name="transitionFactory"/> from this algorithm.
-        /// </summary>
+        /// <summary> Removes the given <paramref name="transitionFactory"/> from this algorithm. </summary>
         /// <param name="transitionFactory">Transition factory to remove.</param>
         public bool RemoveTransitionFactory([CanBeNull] ITransitionFactory<TVertex, TEdge> transitionFactory)
         {
             return _transitionFactories.Remove(transitionFactory);
         }
 
-        /// <summary>
-        /// Clears all <see cref="ITransitionFactory{TVertex,TEdge}"/> from this algorithm.
-        /// </summary>
+        /// <summary> Clears all <see cref="ITransitionFactory{TVertex,TEdge}"/> from this algorithm. </summary>
         public void ClearTransitionFactories()
         {
             _transitionFactories.Clear();
         }
 
-        /// <summary>
-        /// Checks if this algorithm contains the given <paramref name="transitionFactory"/>.
-        /// </summary>
+        /// <summary> Checks if this algorithm contains the given <paramref name="transitionFactory"/>. </summary>
         /// <param name="transitionFactory">Transition factory to check.</param>
         [Pure]
         public bool ContainsTransitionFactory([CanBeNull] ITransitionFactory<TVertex, TEdge> transitionFactory)

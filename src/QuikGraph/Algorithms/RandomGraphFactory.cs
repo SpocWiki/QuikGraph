@@ -125,8 +125,8 @@ namespace QuikGraph.Algorithms
 
         private static void CreateInternal<TVertex, TEdge>(
             [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] VertexFactory<TVertex> vertexFactory,
-            [NotNull, InstantHandle] EdgeFactory<TVertex, TEdge> edgeFactory,
+            [NotNull, InstantHandle] Func<TVertex> vertexFactory,
+            [NotNull, InstantHandle] Func<TVertex, TVertex, TEdge> edgeFactory,
             [NotNull] Random rng,
             int vertexCount,
             int edgeCount,
@@ -191,8 +191,8 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="edgeCount"/> is negative.</exception>
         public static void Create<TVertex, TEdge>(
             [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] VertexFactory<TVertex> vertexFactory,
-            [NotNull, InstantHandle] EdgeFactory<TVertex, TEdge> edgeFactory,
+            [NotNull, InstantHandle] Func<TVertex> vertexFactory,
+            [NotNull, InstantHandle] Func<TVertex, TVertex, TEdge> edgeFactory,
             [NotNull] Random rng,
             int vertexCount,
             int edgeCount,
@@ -221,8 +221,8 @@ namespace QuikGraph.Algorithms
         /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="edgeCount"/> is negative.</exception>
         public static void Create<TVertex, TEdge>(
             [NotNull] IMutableUndirectedGraph<TVertex, TEdge> graph,
-            [NotNull, InstantHandle] VertexFactory<TVertex> vertexFactory,
-            [NotNull, InstantHandle] EdgeFactory<TVertex, TEdge> edgeFactory,
+            [NotNull, InstantHandle] Func<TVertex> vertexFactory,
+            [NotNull, InstantHandle] Func<TVertex, TVertex, TEdge> edgeFactory,
             [NotNull] Random rng,
             int vertexCount,
             int edgeCount,

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using QuikGraph.Tests.Algorithms;
@@ -25,7 +26,7 @@ namespace QuikGraph.Tests
         public static IEnumerable<Edge<TVertex>> CreateAllPairwiseEdges<TVertex>(
             [NotNull, ItemNotNull] IEnumerable<TVertex> leftVertices,
             [NotNull, ItemNotNull] IEnumerable<TVertex> rightVertices,
-            [NotNull] EdgeFactory<TVertex, Edge<TVertex>> edgeFactory)
+            [NotNull] Func<TVertex, TVertex, Edge<TVertex>> edgeFactory)
         {
             TVertex[] rightVerticesArray = rightVertices.ToArray();
 

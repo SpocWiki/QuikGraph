@@ -7,9 +7,18 @@ using static QuikGraph.Utils.DisposableHelpers;
 
 namespace QuikGraph.Algorithms.Observers
 {
-    /// <summary>
-    /// Recorder of vertices predecessors paths.
-    /// </summary>
+    /// <inheritdoc cref="Create" />
+    public static class VertexPredecessorPathRecorderObserver
+    {
+
+        /// <summary> Creates a Recorder of vertices predecessors paths. </summary>
+        public static VertexPredecessorPathRecorderObserver<TVertex, TEdge> Create<TVertex, TEdge>
+            (this IDictionary<TVertex, TEdge> vertexPredecessors)
+        where TEdge : IEdge<TVertex>
+        => new VertexPredecessorPathRecorderObserver<TVertex, TEdge>(vertexPredecessors);
+    }
+
+    /// <summary> Recorder of vertices predecessors paths. </summary>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif
@@ -17,9 +26,7 @@ namespace QuikGraph.Algorithms.Observers
         IObserver<IVertexPredecessorRecorderAlgorithm<TVertex, TEdge>>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VertexPredecessorPathRecorderObserver{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="VertexPredecessorPathRecorderObserver{TVertex,TEdge}"/> class. </summary>
         public VertexPredecessorPathRecorderObserver()
             : this(new Dictionary<TVertex, TEdge>())
         {

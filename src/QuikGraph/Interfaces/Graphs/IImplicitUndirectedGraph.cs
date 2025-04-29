@@ -10,9 +10,7 @@ namespace QuikGraph
     public interface IImplicitUndirectedGraph<TVertex, TEdge> : IImplicitVertexSet<TVertex>, IGraph<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Comparer for edges.
-        /// </summary>
+        /// <summary> Comparer for edges.</summary>
         [NotNull]
         EdgeEqualityComparer<TVertex> EdgeEqualityComparer { get; }
 

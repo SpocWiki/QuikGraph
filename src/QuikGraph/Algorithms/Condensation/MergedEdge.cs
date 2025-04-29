@@ -11,9 +11,7 @@ namespace QuikGraph.Algorithms.Condensation
     public sealed class MergedEdge<TVertex, TEdge> : Edge<TVertex>
         where TEdge : IEdge<TVertex>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MergedEdge{TVertex,TEdge}"/> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="MergedEdge{TVertex,TEdge}"/> class.</summary>
         /// <param name="source">The source vertex.</param>
         /// <param name="target">The target vertex.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>

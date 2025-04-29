@@ -1,12 +1,10 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using JetBrains.Annotations;
 
 namespace QuikGraph.Utils
 {
-    /// <summary>
-    /// Helpers to work with <see cref="IDisposable"/>.
-    /// </summary>
+    /// <summary>Helpers to work with <see cref="IDisposable"/>.</summary>
     internal static class DisposableHelpers
     {
         /// <summary>
@@ -16,10 +14,7 @@ namespace QuikGraph.Utils
         /// <returns>A <see cref="IDisposable"/> object to give to a using clause.</returns>
         [Pure]
         [NotNull]
-        public static IDisposable Finally([NotNull] Action action)
-        {
-            return new FinallyScope(action);
-        }
+        public static IDisposable Finally([NotNull] Action action) => new FinallyScope(action);
 
         private struct FinallyScope : IDisposable
         {

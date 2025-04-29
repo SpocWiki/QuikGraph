@@ -292,7 +292,7 @@ namespace QuikGraph.Algorithms
         private bool FindAdjacentOddVertex(
             [NotNull] TVertex u,
             [NotNull, ItemNotNull] ICollection<TVertex> oddVertices,
-            [NotNull, InstantHandle] EdgeFactory<TVertex, TEdge> edgeFactory,
+            [NotNull, InstantHandle] Func<TVertex, TVertex, TEdge> edgeFactory,
             out bool foundAdjacent)
         {
             bool found = false;
@@ -329,7 +329,7 @@ namespace QuikGraph.Algorithms
         /// or failed to compute eulerian trail.
         /// </exception>
         [NotNull, ItemNotNull]
-        public TEdge[] AddTemporaryEdges([NotNull, InstantHandle] EdgeFactory<TVertex, TEdge> edgeFactory)
+        public TEdge[] AddTemporaryEdges([NotNull, InstantHandle] Func<TVertex, TVertex, TEdge> edgeFactory)
         {
             if (edgeFactory is null)
                 throw new ArgumentNullException(nameof(edgeFactory));
@@ -377,7 +377,7 @@ namespace QuikGraph.Algorithms
             [NotNull] TVertex u,
             [NotNull] TVertex v,
             [NotNull, ItemNotNull] ICollection<TVertex> oddVertices,
-            [NotNull, InstantHandle] EdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull, InstantHandle] Func<TVertex, TVertex, TEdge> edgeFactory)
         {
             TEdge tempEdge = edgeFactory(u, v);
             if (!VisitedGraph.AddEdge(tempEdge))

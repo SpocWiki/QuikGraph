@@ -46,7 +46,7 @@ namespace QuikGraph.Tests.Algorithms
                 Assert.AreEqual(graph.EdgeCount, edges.Count);
                 QuikGraphAssert.TrueForAll(
                     trail,
-                    edge => edges.Contains(edge));
+                    edges.Contains);
             }
         }
 

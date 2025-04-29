@@ -341,9 +341,7 @@ namespace QuikGraph.Tests.Predicates
         {
             #region Part 1
 
-            IEdgeSet<int, EquatableEdge<int>> filteredGraph = createFilteredGraph(
-                _ => true,
-                _ => true);
+            IEdgeSet<int, EquatableEdge<int>> filteredGraph = createFilteredGraph(_ => true, _ => true);
 
             ContainsEdge_EquatableEdge_Test(
                 filteredGraph,

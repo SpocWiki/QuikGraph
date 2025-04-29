@@ -235,9 +235,7 @@ namespace QuikGraph
             return false;
         }
 
-        /// <summary>
-        /// Tries to get the predecessor path, if reachable.
-        /// </summary>
+        /// <summary> Reconstructs the path from the <paramref name="predecessors"/>, if reachable. </summary>
         /// <param name="predecessors">Predecessors map.</param>
         /// <param name="vertex">Path ending vertex.</param>
         /// <param name="path">Path to the ending vertex.</param>

@@ -10,13 +10,10 @@ using QuikGraph.Algorithms.ShortestPath;
 
 namespace QuikGraph.Tests.Algorithms.ShortestPath
 {
-    /// <summary>
-    /// Tests for <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/>.
-    /// </summary>
+    /// <summary>Tests for <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/>.</summary>
     [TestFixture]
     internal sealed class UndirectedDijkstraShortestPathAlgorithmTests : RootedAlgorithmTestsBase
     {
-        #region Test helpers
 
         private static void RunUndirectedDijkstraAndCheck<TVertex, TEdge>([NotNull] IUndirectedGraph<TVertex, TEdge> graph, [NotNull] TVertex root)
             where TEdge : IEdge<TVertex>
@@ -26,8 +23,8 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 distances[edge] = graph.AdjacentDegree(edge.Source) + 1;
 
             var algorithm = graph.CreateUndirectedDijkstraShortestPathAlgorithm(e => distances[e]);
-            var predecessors = new UndirectedVertexPredecessorRecorderObserver<TVertex, TEdge>();
-            using (predecessors.Attach(algorithm))
+            var predecessors = algorithm.AttachUndirectedVertexPredecessorRecorderObserver();
+            using (predecessors)
                 algorithm.Compute(root);
 
             algorithm.InitializeVertex += vertex =>
@@ -69,8 +66,6 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 Assert.GreaterOrEqual(currentDistance, predecessorDistance);
             }
         }
-
-        #endregion
 
         [Test]
         public void Constructor()
@@ -289,6 +284,5 @@ namespace QuikGraph.Tests.Algorithms.ShortestPath
                 algorithm.Compute(scenario.Root);
             return algorithm;
         }
-
     }
 }

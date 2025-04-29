@@ -266,11 +266,10 @@ namespace QuikGraph
             if (ContainsVertex(vertex))
                 return false;
 
-            _vertexEdges.Add(
-                vertex,
-                EdgeCapacity > 0
+            EdgeList<TVertex, TEdge> list = EdgeCapacity > 0
                     ? new EdgeList<TVertex, TEdge>(EdgeCapacity)
-                    : new EdgeList<TVertex, TEdge>());
+                    : new EdgeList<TVertex, TEdge>();
+            _vertexEdges.Add(vertex, list);
 
             OnVertexAdded(vertex);
 

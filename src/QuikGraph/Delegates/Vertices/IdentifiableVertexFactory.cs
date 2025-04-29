@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace QuikGraph
 {
@@ -8,5 +8,5 @@ namespace QuikGraph
     /// <param name="id">Vertex id.</param>
     /// <returns>The created vertex.</returns>
     [NotNull]
-    public delegate TVertex IdentifiableVertexFactory<out TVertex>([NotNull] string id);
+    public delegate TVertex IdentifiableFunc<out TVertex>([NotNull] string id);
 }

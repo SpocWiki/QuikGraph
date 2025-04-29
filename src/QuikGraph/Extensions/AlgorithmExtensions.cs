@@ -210,6 +210,7 @@ namespace QuikGraph.Algorithms
             [NotNull] this IVertexListGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
+            //return graph.Vertices.Where(graph.IsInEdgesEmpty);
             var dfs = graph.CreateDepthFirstSearchAlgorithm();
             var notRoots = new Dictionary<TVertex, bool>(graph.VertexCount);
             dfs.ExamineEdge += edge => notRoots[edge.Target] = false;
@@ -273,7 +274,7 @@ namespace QuikGraph.Algorithms
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
 
-            var algorithm = new TopologicalSortAlgorithm<TVertex, TEdge>(graph, graph.VertexCount);
+            var algorithm = graph.CreateTopologicalSortAlgorithm(graph.VertexCount);
             algorithm.Compute();
             return algorithm.SortedVertices;
         }
@@ -625,7 +626,7 @@ namespace QuikGraph.Algorithms
             [NotNull] TVertex source,
             [NotNull] TVertex sink,
             [NotNull] out TryFunc<TVertex, TEdge> flowPredecessors,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
+            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory,
             [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reversedEdgeAugmentorAlgorithm)
             where TEdge : IEdge<TVertex>
         {
@@ -633,7 +634,7 @@ namespace QuikGraph.Algorithms
                 throw new ArgumentException($"{nameof(source)} and {nameof(sink)} must be different.");
 
             // Compute maximum flow
-            var flow = graph.CreateEdmondsKarpMaximumFlowAlgorithm(edgeCapacities, edgeFactory, reversedEdgeAugmentorAlgorithm);
+            var flow = graph.CreateEdmondsKarpMaximumFlowAlgorithm(edgeCapacities, reversedEdgeAugmentorAlgorithm.ReversedEdges);
             flow.Compute(source, sink);
             flowPredecessors = flow.Predecessors.TryGetValue;
 

@@ -17,8 +17,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVertexRange([1, 2]);
             graph.AddVerticesAndEdge(Edge.Create(1, 3));
-            VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => 1;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
             var capacities = new Dictionary<IEdge<int>, double>();
 
             var algorithm = graph.CreateGraphBalancerAlgorithm(1, 2, vertexFactory, edgeFactory);
@@ -66,8 +66,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var bidirectionalGraph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             var graphWithVertex1 = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             graphWithVertex1.AddVertex(vertex1);
-            VertexFactory<TestVertex> vertexFactory = () => new TestVertex();
-            EdgeFactory<TestVertex, Edge<TestVertex>> edgeFactory = (source, target) => new Edge<TestVertex>(source, target);
+            Func<TestVertex> vertexFactory = () => new TestVertex();
+            Func<TestVertex, TestVertex, Edge<TestVertex>> edgeFactory = (source, target) => new Edge<TestVertex>(source, target);
             var capacities = new Dictionary<Edge<TestVertex>, double>();
 
             // ReSharper disable ObjectCreationAsStatement
@@ -294,8 +294,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 edge35, edge42, edge55, edge67, edge78
             ]);
             int vertexID = 9;
-            VertexFactory<int> vertexFactory = () => vertexID++;
-            EdgeFactory<int, EquatableEdge<int>> edgeFactory = (s, t) => new EquatableEdge<int>(s, t);
+            Func<int> vertexFactory = () => vertexID++;
+            Func<int, int, EquatableEdge<int>> edgeFactory = (s, t) => new EquatableEdge<int>(s, t);
 
             var algorithm = graph.CreateGraphBalancerAlgorithm(source, sink, vertexFactory, edgeFactory);
             algorithm.BalancingSourceAdded += vertex => Assert.AreEqual(source, vertex);
@@ -339,13 +339,13 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVertexRange([1, 2]);
-            VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => 1;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
 
             var algorithm = graph.CreateGraphBalancerAlgorithm(1, 2, vertexFactory, edgeFactory);
 
-            Assert.DoesNotThrow(() => algorithm.Balance());
-            Assert.Throws<InvalidOperationException>(() => algorithm.Balance());
+            Assert.DoesNotThrow(algorithm.Balance);
+            Assert.Throws<InvalidOperationException>(algorithm.Balance);
         }
 
         [Test]
@@ -364,8 +364,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
                 edge12, edge13, edge23, edge32, edge34, edge56
             ]);
             int vertexID = 6;
-            VertexFactory<int> vertexFactory = () => vertexID++;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => vertexID++;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
 
             var algorithm = graph.CreateGraphBalancerAlgorithm(1, 3, vertexFactory, edgeFactory);
             algorithm.Balance();
@@ -392,12 +392,12 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new BidirectionalGraph<int, IEdge<int>>();
             graph.AddVertexRange([1, 2]);
-            VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => 1;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
 
             var algorithm = graph.CreateGraphBalancerAlgorithm(1, 2, vertexFactory, edgeFactory);
 
-            Assert.Throws<InvalidOperationException>(() => algorithm.UnBalance());
+            Assert.Throws<InvalidOperationException>(algorithm.UnBalance);
         }
 
         [Test]
@@ -407,8 +407,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             var sink = new TestVertex("2");
             var graph = new BidirectionalGraph<TestVertex, Edge<TestVertex>>();
             graph.AddVertexRange([source, sink]);
-            VertexFactory<TestVertex> vertexFactory = () => new TestVertex();
-            EdgeFactory<TestVertex, Edge<TestVertex>> edgeFactory = (s, t) => new Edge<TestVertex>(s, t);
+            Func<TestVertex> vertexFactory = () => new TestVertex();
+            Func<TestVertex, TestVertex, Edge<TestVertex>> edgeFactory = (s, t) => new Edge<TestVertex>(s, t);
 
             var algorithm = graph.CreateGraphBalancerAlgorithm(source, sink, vertexFactory, edgeFactory);
 

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms.Observers
 {
     /// <inheritdoc cref="CreateVertexDistanceRecorderObserver{TVertex,TEdge}"/>
-    public static class VertexDistanceRecorderObserverX
+    public static class VertexDistanceRecorderObserver
     {
         /// <summary> throws when <paramref name="item"/> is null </summary>
         /// <exception cref="ArgumentNullException"></exception>
@@ -74,15 +73,12 @@ namespace QuikGraph.Algorithms.Observers
         }
 
         /// <summary> Distance relaxer. </summary>
-        [NotNull]
         public IDistanceRelaxer DistanceRelaxer { get; }
 
         /// <summary> Function that computes the weight for a given edge. </summary>
-        [NotNull]
         public Func<TEdge, double> EdgeWeights { get; }
 
         /// <summary> Distances per vertex. </summary>
-        [NotNull]
         public IDictionary<TVertex, double> Distances { get; }
 
         private ITreeBuilderAlgorithm<TVertex, TEdge> _algorithm;

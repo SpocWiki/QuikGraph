@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using QuikGraph.Algorithms.Services;
 
 namespace QuikGraph.Algorithms.MaximumFlow
@@ -10,8 +11,8 @@ namespace QuikGraph.Algorithms.MaximumFlow
         public static AllVerticesGraphAugmentorAlgorithm<TVertex, TEdge>
             CreateAllVerticesGraphAugmentorAlgorithm<TVertex, TEdge>(
                 [NotNull] this IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
-                [NotNull] VertexFactory<TVertex> vertexFactory,
-                [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
+                [NotNull] Func<TVertex> vertexFactory,
+                [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
             where TEdge : IEdge<TVertex>
             => new AllVerticesGraphAugmentorAlgorithm<TVertex, TEdge>(visitedGraph, vertexFactory, edgeFactory, host);
     }
@@ -32,8 +33,8 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexFactory"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         internal AllVerticesGraphAugmentorAlgorithm([NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
-            [NotNull] VertexFactory<TVertex> vertexFactory,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
+            [NotNull] Func<TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, vertexFactory, edgeFactory, host)
         {
         }

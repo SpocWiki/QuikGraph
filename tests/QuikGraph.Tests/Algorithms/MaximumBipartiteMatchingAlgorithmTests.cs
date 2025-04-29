@@ -17,7 +17,7 @@ namespace QuikGraph.Tests.Algorithms
         #region Test helpers
 
         [NotNull]
-        private readonly EdgeFactory<string, Edge<string>> _edgeFactory =
+        private readonly Func<string, string, Edge<string>> _edgeFactory =
             (source, target) => new Edge<string>(source, target);
 
         private static void AssertThatMaxMatchEdgesAreValid<TVertex, TEdge>(
@@ -39,8 +39,8 @@ namespace QuikGraph.Tests.Algorithms
             [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> graph,
             [NotNull, ItemNotNull] TVertex[] vertexSetA,
             [NotNull, ItemNotNull] TVertex[] vertexSetB,
-            [NotNull] VertexFactory<TVertex> vertexFactory,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
+            [NotNull] Func<TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory,
             int expectedMatchSize)
             where TEdge : IEdge<TVertex>
         {
@@ -80,7 +80,7 @@ namespace QuikGraph.Tests.Algorithms
                     graph,
                     setA.ToArray(),
                     setB.ToArray(),
-                    () => vertexFactory.CreateVertex(),
+                    vertexFactory.CreateVertex,
                     _edgeFactory,
                     expectedMatchSize);
             }
@@ -120,8 +120,8 @@ namespace QuikGraph.Tests.Algorithms
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => 1;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
 
             int[] sourceToVertices = [1, 2];
             int[] verticesToSink = [1, 2];
@@ -145,8 +145,8 @@ namespace QuikGraph.Tests.Algorithms
                 IMutableVertexAndEdgeListGraph<TVertex, TEdge> g,
                 IEnumerable<TVertex> soToV,
                 IEnumerable<TVertex> vToSi,
-                VertexFactory<int> vFactory,
-                EdgeFactory<int, IEdge<int>> eFactory)
+                Func<int> vFactory,
+                Func<int, int, IEdge<int>> eFactory)
                 where TEdge : IEdge<TVertex>
             {
                 algo.AssertAlgorithmState(g);
@@ -164,8 +164,8 @@ namespace QuikGraph.Tests.Algorithms
         public void Constructor_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => 1;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
 
             int[] sourceToVertices = [1, 2];
             int[] verticesToSink = [1, 2];

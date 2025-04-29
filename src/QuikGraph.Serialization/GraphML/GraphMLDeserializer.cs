@@ -265,8 +265,8 @@ namespace QuikGraph.Serialization
         public void Deserialize(
             [NotNull] XmlReader reader,
             [NotNull] TGraph graph,
-            [NotNull] IdentifiableVertexFactory<TVertex> vertexFactory,
-            [NotNull] IdentifiableEdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull] Func<string, TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, string, TEdge> edgeFactory)
         {
             if (reader is null)
                 throw new ArgumentNullException(nameof(reader));
@@ -290,10 +290,10 @@ namespace QuikGraph.Serialization
             private readonly TGraph _graph;
 
             [NotNull]
-            private readonly IdentifiableVertexFactory<TVertex> _vertexFactory;
+            private readonly Func<string, TVertex> _vertexFactory;
 
             [NotNull]
-            private readonly IdentifiableEdgeFactory<TVertex, TEdge> _edgeFactory;
+            private readonly Func<TVertex, TVertex, string, TEdge> _edgeFactory;
 
             [NotNull]
             private string _graphMLNamespace = string.Empty;
@@ -301,8 +301,8 @@ namespace QuikGraph.Serialization
             public ReaderWorker(
                 [NotNull] XmlReader reader,
                 [NotNull] TGraph graph,
-                [NotNull] IdentifiableVertexFactory<TVertex> vertexFactory,
-                [NotNull] IdentifiableEdgeFactory<TVertex, TEdge> edgeFactory)
+                [NotNull] Func<string, TVertex> vertexFactory,
+                [NotNull] Func<TVertex, TVertex, string, TEdge> edgeFactory)
             {
                 Debug.Assert(reader != null);
                 Debug.Assert(graph != null);

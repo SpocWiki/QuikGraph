@@ -19,6 +19,7 @@ namespace QuikGraph.Algorithms.Search
             where TEdge : IEdge<TVertex>
             => new UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>(visitedGraph, verticesColors, host, adjacentEdgesFilter);
     }
+
     /// <summary> A depth first search algorithm for undirected graph. </summary>
     public sealed class UndirectedDepthFirstSearchAlgorithm<TVertex, TEdge>
         : RootedAlgorithmBase<TVertex, IUndirectedGraph<TVertex, TEdge>>

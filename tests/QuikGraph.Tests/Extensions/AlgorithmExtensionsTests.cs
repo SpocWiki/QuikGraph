@@ -730,8 +730,6 @@ namespace QuikGraph.Tests.Extensions
         [Test]
         public void Sinks_Throws()
         {
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(
                 () => ((IVertexListGraph<int, IEdge<int>>)null).Sinks().ToArray());
         }
@@ -784,17 +782,14 @@ namespace QuikGraph.Tests.Extensions
         public void Roots_NotBidirectional(
             [NotNull] IVertexListGraph<int, IEdge<int>> graph,
             [NotNull] IEnumerable<int> expectedRoots)
-        {
-            CollectionAssert.AreEquivalent(expectedRoots, graph.Roots());
-        }
-
+            => CollectionAssert.AreEquivalent(expectedRoots, graph.Roots());
 
 
         [TestCaseSource(typeof(TestGraphFactory), nameof(TestGraphFactory.GetNamedAdjacencyGraphs_All))]
-        public void AdjacencyGraphRoots<T>(KeyValuePair<string, AdjacencyGraph<T, Edge<T>>> namedGraph)
+        public void TestAdjacencyGraphRoots<T>(KeyValuePair<string, AdjacencyGraph<T, Edge<T>>> namedGraph)
         {
             var roots = new HashSet<T>(namedGraph.Value.Roots());
-            if (GraphRoots.TryGetValue(namedGraph.Key, out var expected))
+            if (GraphRoots.TryGetValue(namedGraph.Key, out string[] expected))
             {
                 CollectionAssert.AreEqual(roots, expected);
             }
@@ -812,22 +807,13 @@ namespace QuikGraph.Tests.Extensions
         private static TextWriter Writer = new StreamWriter(@"C:\_tmp\AdjacencyGraphRoots.cs");
 
         [NotNull, ItemNotNull]
-        private static IEnumerable<TestCaseData> BidirectionalRootsTestCases
-        {
-            [UsedImplicitly]
-            get
-            {
-                return CreateRootsTestCases(() => new BidirectionalGraph<int, IEdge<int>>());
-            }
-        }
+        [UsedImplicitly]
+        private static IEnumerable<TestCaseData> BidirectionalRootsTestCases => CreateRootsTestCases(() => new BidirectionalGraph<int, IEdge<int>>());
 
         [TestCaseSource(nameof(BidirectionalRootsTestCases))]
-        public void Roots_Bidirectional(
+        public void TestRoots_Bidirectional(
             [NotNull] IBidirectionalGraph<int, IEdge<int>> graph,
-            [NotNull] IEnumerable<int> expectedRoots)
-        {
-            CollectionAssert.AreEquivalent(expectedRoots, graph.Roots());
-        }
+            [NotNull] IEnumerable<int> expectedRoots) => CollectionAssert.AreEquivalent(expectedRoots, graph.Roots());
 
         [Test]
         public void Roots_Throws()
@@ -1868,7 +1854,7 @@ namespace QuikGraph.Tests.Extensions
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             graph.AddVertexRange([1, 2]);
             Func<IEdge<int>, double> capacities = _ => 1.0;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
             var reverseEdgesAlgorithm = graph.CreateReversedEdgeAugmentorAlgorithm(edgeFactory);
 
             Assert.Throws<ArgumentException>(

@@ -83,8 +83,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void Constructor()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => 1;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
 
             var algorithm = graph.CreateAllVerticesGraphAugmentorAlgorithm(vertexFactory, edgeFactory);
             AssertAlgorithmProperties(algorithm, graph, vertexFactory, edgeFactory);
@@ -97,8 +97,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
             void AssertAlgorithmProperties<TVertex, TEdge>(
                 AllVerticesGraphAugmentorAlgorithm<TVertex, TEdge> algo,
                 IMutableVertexAndEdgeSet<TVertex, TEdge> g,
-                VertexFactory<int> vFactory,
-                EdgeFactory<int, IEdge<int>> eFactory)
+                Func<int> vFactory,
+                Func<int, int, IEdge<int>> eFactory)
                 where TEdge : IEdge<TVertex>
             {
                 algo.AssertAlgorithmState(g);
@@ -117,8 +117,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void Constructor_Throws()
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
-            VertexFactory<int> vertexFactory = () => 1;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => 1;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
 
             // ReSharper disable ObjectCreationAsStatement
             // ReSharper disable AssignNullToNotNullAttribute
@@ -163,8 +163,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             int vertexID = 0;
-            VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => ++vertexID;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
             var algorithm = graph.CreateAllVerticesGraphAugmentorAlgorithm(vertexFactory, edgeFactory);
 
             CreateAndSetSuperSource_Test(algorithm);
@@ -175,8 +175,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             int vertexID = 0;
-            VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => ++vertexID;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
             var algorithm = graph.CreateAllVerticesGraphAugmentorAlgorithm(vertexFactory, edgeFactory);
 
             CreateAndSetSuperSink_Test(algorithm);
@@ -186,8 +186,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         public void RunAugmentation()
         {
             int vertexID = 0;
-            VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => ++vertexID;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
 
             RunAugmentation_Test(
                 graph => graph.CreateAllVerticesGraphAugmentorAlgorithm(vertexFactory, edgeFactory));
@@ -198,8 +198,8 @@ namespace QuikGraph.Tests.Algorithms.MaximumFlow
         {
             var graph = new AdjacencyGraph<int, IEdge<int>>();
             int vertexID = 0;
-            VertexFactory<int> vertexFactory = () => ++vertexID;
-            EdgeFactory<int, IEdge<int>> edgeFactory = Edge.Create;
+            Func<int> vertexFactory = () => ++vertexID;
+            Func<int, int, IEdge<int>> edgeFactory = Edge.Create;
             var algorithm = graph.CreateAllVerticesGraphAugmentorAlgorithm(vertexFactory, edgeFactory);
 
             RunAugmentation_Throws_Test(algorithm);

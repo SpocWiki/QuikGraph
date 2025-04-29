@@ -58,15 +58,11 @@ namespace QuikGraph.Algorithms.TopologicalSort
             _sortedVertices = capacity > 0 ? new List<TVertex>(capacity.Value) : new List<TVertex>(visitedGraph.VertexCount);
         }
 
-        /// <summary>
-        /// Sorted vertices.
-        /// </summary>
+        /// <summary> Sorted vertices. </summary>
         [ItemNotNull]
         public TVertex[] SortedVertices { get; private set; }
 
-        /// <summary>
-        /// Vertices in-degrees.
-        /// </summary>
+        /// <summary> Vertices in-degrees.</summary>
         [NotNull]
         public IDictionary<TVertex, int> InDegrees { get; } = new Dictionary<TVertex, int>();
 

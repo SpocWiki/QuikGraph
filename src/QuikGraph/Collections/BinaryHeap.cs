@@ -411,10 +411,7 @@ namespace QuikGraph.Collections
             return array;
         }
 
-        /// <summary>
-        /// Gets all values with their priorities.
-        /// </summary>
-        /// <returns>Array of heap priorities and values.</returns>
+        /// <summary> Gets all values with their priorities. </summary>
         [Pure]
         [NotNull]
         public KeyValuePair<TPriority, TValue>[] ToPairsArray()

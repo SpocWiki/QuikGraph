@@ -4,8 +4,7 @@ using JetBrains.Annotations;
 namespace QuikGraph.Predicates
 {
     /// <summary>
-    /// Predicate that detects if a vertex is isolated (without any input or output edges).
-    /// </summary>
+    /// Predicate that detects if a vertex is isolated (without any input or output edges).    /// </summary>
     public sealed class IsolatedVertexPredicate<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
@@ -31,12 +30,7 @@ namespace QuikGraph.Predicates
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertex"/> is <see langword="null"/>.</exception>
         [Pure]
         public bool Test([NotNull] TVertex vertex)
-        {
-            if (vertex == null)
-                throw new ArgumentNullException(nameof(vertex));
-
-            return _visitedGraph.IsInEdgesEmpty(vertex)
-                   && _visitedGraph.IsOutEdgesEmpty(vertex);
-        }
+            => _visitedGraph.IsInEdgesEmpty(vertex)
+            && _visitedGraph.IsOutEdgesEmpty(vertex);
     }
 }

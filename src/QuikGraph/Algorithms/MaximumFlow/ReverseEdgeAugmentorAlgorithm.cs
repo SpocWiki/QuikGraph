@@ -13,7 +13,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         public static ReversedEdgeAugmentorAlgorithm<TVertex, TEdge>
             CreateReversedEdgeAugmentorAlgorithm<TVertex, TEdge>(
                 [NotNull] this IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
-                [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory) where TEdge : IEdge<TVertex>
+                [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory) where TEdge : IEdge<TVertex>
             => new ReversedEdgeAugmentorAlgorithm<TVertex, TEdge>(visitedGraph, edgeFactory);
     }
 
@@ -33,7 +33,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         internal ReversedEdgeAugmentorAlgorithm(
             [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory)
         {
             VisitedGraph = visitedGraph ?? throw new ArgumentNullException(nameof(visitedGraph));
             EdgeFactory = edgeFactory ?? throw new ArgumentNullException(nameof(edgeFactory));
@@ -49,7 +49,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// Edge factory method.
         /// </summary>
         [NotNull]
-        public EdgeFactory<TVertex, TEdge> EdgeFactory { get; }
+        public Func<TVertex, TVertex, TEdge> EdgeFactory { get; }
 
         [NotNull, ItemNotNull]
         private readonly List<TEdge> _augmentedEdges = new List<TEdge>();
@@ -66,10 +66,8 @@ namespace QuikGraph.Algorithms.MaximumFlow
         [NotNull]
         public IDictionary<TEdge, TEdge> ReversedEdges { get; } = new Dictionary<TEdge, TEdge>();
 
-        /// <summary>
-        /// Gets the state augmented or not of the graph (reversed edges added or not).
-        /// </summary>
-        public bool Augmented { get; private set; }
+        /// <summary> Gets the state augmented or not of the graph (reversed edges added or not). </summary>
+        public bool IsAugmented { get; private set; }
 
         /// <summary>
         /// Fired when a reversed edge is added.
@@ -169,7 +167,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <exception cref="T:System.InvalidOperationException">If the graph is already augmented.</exception>
         public void AddReversedEdges()
         {
-            if (Augmented)
+            if (IsAugmented)
                 throw new InvalidOperationException("Graph already augmented.");
 
             // Step 1, find edges that need reversing
@@ -178,7 +176,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
             // Step 2, go over each not reversed edge, add reverse
             AddReversedEdges(notReversedEdges);
 
-            Augmented = true;
+            IsAugmented = true;
         }
 
         /// <summary>
@@ -187,7 +185,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <exception cref="T:System.InvalidOperationException">If the graph was not augmented yet.</exception>
         public void RemoveReversedEdges()
         {
-            if (!Augmented)
+            if (!IsAugmented)
                 throw new InvalidOperationException("Graph is not augmented yet.");
 
             foreach (TEdge edge in _augmentedEdges)
@@ -198,7 +196,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
             _augmentedEdges.Clear();
             ReversedEdges.Clear();
 
-            Augmented = false;
+            IsAugmented = false;
         }
 
         #region IDisposable
@@ -206,7 +204,7 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <inheritdoc />
         void IDisposable.Dispose()
         {
-            if (Augmented)
+            if (IsAugmented)
             {
                 RemoveReversedEdges();
             }

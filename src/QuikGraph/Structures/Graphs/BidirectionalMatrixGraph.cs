@@ -9,9 +9,7 @@ using JetBrains.Annotations;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// Mutable bidirectional graph data structure based on a matrix.
-    /// </summary>
+    /// <summary>Mutable bidirectional graph data structure based on a matrix.</summary>
 #if SUPPORTS_SERIALIZATION
     [Serializable]
 #endif

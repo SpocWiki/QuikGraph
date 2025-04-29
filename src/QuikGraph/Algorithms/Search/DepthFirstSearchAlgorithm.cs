@@ -53,12 +53,6 @@ namespace QuikGraph.Algorithms.Search
         [NotNull]
         public Func<IEnumerable<TEdge>, IEnumerable<TEdge>> OutEdgesFilter { get; }
 
-        /// <summary>
-        /// In case a root vertex has been set, indicates if the algorithm should
-        /// walk through graph parts of other components than the root component.
-        /// </summary>
-        public bool ProcessAllComponents { get; set; }
-
         private int _maxDepth = int.MaxValue;
 
         /// <summary>
@@ -191,6 +185,9 @@ namespace QuikGraph.Algorithms.Search
                 OnVertexInitialized(vertex);
             }
         }
+
+        /// <summary> In case a root vertex has been set, indicates if the algorithm should walk through graph parts of other components than the root component. </summary>
+        public bool ProcessAllComponents { get; set; }
 
         /// <inheritdoc />
         protected override void InternalCompute()

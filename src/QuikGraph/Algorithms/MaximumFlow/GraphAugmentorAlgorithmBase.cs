@@ -24,8 +24,8 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexFactory"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         protected GraphAugmentorAlgorithmBase([NotNull] TGraph visitedGraph,
-            [NotNull] VertexFactory<TVertex> vertexFactory,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
+            [NotNull] Func<TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, host)
         {
             VertexFactory = vertexFactory ?? throw new ArgumentNullException(nameof(vertexFactory));
@@ -36,13 +36,13 @@ namespace QuikGraph.Algorithms.MaximumFlow
         /// Vertex factory method.
         /// </summary>
         [NotNull]
-        public VertexFactory<TVertex> VertexFactory { get; }
+        public Func<TVertex> VertexFactory { get; }
 
         /// <summary>
         /// Edge factory method.
         /// </summary>
         [NotNull]
-        public EdgeFactory<TVertex, TEdge> EdgeFactory { get; }
+        public Func<TVertex, TVertex, TEdge> EdgeFactory { get; }
 
         /// <summary>
         /// Gets the flow source vertex.

@@ -22,15 +22,31 @@ namespace QuikGraph.Algorithms.ShortestPath
                 [CanBeNull] IAlgorithmComponent host = null) where TEdge : IEdge<TVertex>
             => new UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge>(visitedGraph, edgeWeights, distanceRelaxer, host);
 
-        /// <summary>
-        /// Computes shortest path with the Dijkstra algorithm and gets a function that allows
-        /// to get paths in an undirected graph.
-        /// </summary>
-        /// <remarks>Uses <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.</remarks>
+
+        /// <summary> Calculates the Predecessors using Dijkstras Shortest Paths</summary>
+        public static UndirectedVertexPredecessorRecorderObserver<TVertex, TEdge> GetPredecessorsDijkstra<TVertex, TEdge>
+            (this IUndirectedGraph<TVertex, TEdge> graph
+            , Dictionary<TEdge, double> distances, TVertex root
+            , out UndirectedDijkstraShortestPathAlgorithm<TVertex, TEdge> algorithm)
+            where TEdge : IEdge<TVertex>
+        {
+            algorithm = graph.CreateUndirectedDijkstraShortestPathAlgorithm(e => distances[e]);
+            var predecessors = algorithm.AttachUndirectedVertexPredecessorRecorderObserver();
+            algorithm.Compute(root);
+            return predecessors;
+        }
+
+        /// <summary> Computes shortest path with the Dijkstra algorithm
+        /// and returns a function that allows to get paths in an undirected graph. </summary>
+        /// <remarks>
+        /// Uses <see cref="UndirectedDijkstraShortestPathAlgorithm{TVertex,TEdge}"/> algorithm.
+        /// Since any sub-Path of a shortest Path is also a shortest Path to the Sub-Node,
+        /// you can trace the Steps back from any given Node, unless there is no path to the <paramref name="root"/>.
+        /// </remarks>
         /// <param name="graph">The graph to visit.</param>
         /// <param name="edgeWeights">Function that computes the weight for a given edge.</param>
         /// <param name="root">Starting vertex.</param>
-        /// <returns>A function that allow to get paths starting from <paramref name="root"/> vertex.</returns>
+        /// <returns>A function that allow to get the shortest paths starting from <paramref name="root"/> vertex.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeWeights"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="root"/> is <see langword="null"/>.</exception>

@@ -25,11 +25,12 @@ namespace QuikGraph.Algorithms
             [NotNull] this IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull, ItemNotNull] IEnumerable<TVertex> sourceToVertices,
             [NotNull, ItemNotNull] IEnumerable<TVertex> verticesToSink,
-            [NotNull] VertexFactory<TVertex> vertexFactory,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory) where TEdge : IEdge<TVertex>
+            [NotNull] Func<TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory) where TEdge : IEdge<TVertex>
             => new MaximumBipartiteMatchingAlgorithm<TVertex, TEdge>(visitedGraph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory);
 
     }
+
     /// <summary>
     /// Algorithm that computes a maximum bipartite matching in a graph, meaning
     /// the maximum number of edges not sharing any vertex.
@@ -52,8 +53,8 @@ namespace QuikGraph.Algorithms
             [NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull, ItemNotNull] IEnumerable<TVertex> sourceToVertices,
             [NotNull, ItemNotNull] IEnumerable<TVertex> verticesToSink,
-            [NotNull] VertexFactory<TVertex> vertexFactory,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull] Func<TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory)
             : base(visitedGraph)
         {
             SourceToVertices = sourceToVertices ?? throw new ArgumentNullException(nameof(sourceToVertices));
@@ -78,13 +79,13 @@ namespace QuikGraph.Algorithms
         /// Vertex factory method.
         /// </summary>
         [NotNull]
-        public VertexFactory<TVertex> VertexFactory { get; }
+        public Func<TVertex> VertexFactory { get; }
 
         /// <summary>
         /// Edge factory method.
         /// </summary>
         [NotNull]
-        public EdgeFactory<TVertex, TEdge> EdgeFactory { get; }
+        public Func<TVertex, TVertex, TEdge> EdgeFactory { get; }
 
 
         [NotNull, ItemNotNull]
@@ -133,9 +134,7 @@ namespace QuikGraph.Algorithms
                 ThrowIfCancellationRequested();
 
                 // Compute maximum flow
-                var flow = VisitedGraph.CreateEdmondsKarpMaximumFlowAlgorithm(edge => 1.0,
-                    EdgeFactory,
-                    reverser, this);
+                var flow = VisitedGraph.CreateEdmondsKarpMaximumFlowAlgorithm(edge => 1.0, reverser.ReversedEdges, this);
 
                 flow.Compute(augmentor.SuperSource, augmentor.SuperSink);
 
@@ -160,7 +159,7 @@ namespace QuikGraph.Algorithms
             }
             finally
             {
-                if (reverser != null && reverser.Augmented)
+                if (reverser != null && reverser.IsAugmented)
                 {
                     reverser.RemoveReversedEdges();
                 }

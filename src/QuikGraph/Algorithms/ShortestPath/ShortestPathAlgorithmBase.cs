@@ -89,9 +89,7 @@ namespace QuikGraph.Algorithms.ShortestPath
 
         /// <inheritdoc />
         public IEnumerable<KeyValuePair<TVertex, double>> GetDistances()
-        {
-            return _distances?.Select(pair => pair) ?? Enumerable.Empty<KeyValuePair<TVertex, double>>();
-        }
+            => _distances?.Select(pair => pair) ?? Enumerable.Empty<KeyValuePair<TVertex, double>>();
 
         /// <summary>
         /// Gets the function that gives access to distances from a vertex.

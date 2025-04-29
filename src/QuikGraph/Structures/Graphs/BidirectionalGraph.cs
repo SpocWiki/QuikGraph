@@ -771,7 +771,7 @@ namespace QuikGraph
         /// <exception cref="VertexNotFoundException"><paramref name="vertex"/> is not part of the graph.</exception>
         public void MergeVertex(
             [NotNull] TVertex vertex,
-            [NotNull, InstantHandle] EdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull, InstantHandle] Func<TVertex, TVertex, TEdge> edgeFactory)
         {
             if (vertex == null)
                 throw new ArgumentNullException(nameof(vertex));
@@ -812,7 +812,7 @@ namespace QuikGraph
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
         public void MergeVerticesIf(
             [NotNull, InstantHandle] VertexPredicate<TVertex> vertexPredicate,
-            [NotNull, InstantHandle] EdgeFactory<TVertex, TEdge> edgeFactory)
+            [NotNull, InstantHandle] Func<TVertex, TVertex, TEdge> edgeFactory)
         {
             if (vertexPredicate is null)
                 throw new ArgumentNullException(nameof(vertexPredicate));

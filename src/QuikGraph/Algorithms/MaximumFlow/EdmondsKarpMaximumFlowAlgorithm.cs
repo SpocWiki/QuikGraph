@@ -17,45 +17,32 @@ namespace QuikGraph.Algorithms.MaximumFlow
             TEdge>(
             [NotNull] this IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> capacities,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
-            [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm,
+            [NotNull] IDictionary<TEdge, TEdge> reversedEdges,
             [CanBeNull] IAlgorithmComponent host = null)
             where TEdge : IEdge<TVertex>
-            => new EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge>(visitedGraph, capacities, edgeFactory, reverseEdgesAugmentorAlgorithm, host);
+            => new EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge>(visitedGraph, capacities, reversedEdges, host);
     }
 
     /// <summary> Edmond and Karp maximum flow algorithm for directed graph with positive capacities and flows. </summary>
     public sealed class EdmondsKarpMaximumFlowAlgorithm<TVertex, TEdge>
         : MaximumFlowAlgorithm<TVertex, TEdge> where TEdge : IEdge<TVertex>
     {
-        [NotNull]
-        private readonly ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> _reverserAlgorithm;
 
         /// <summary> Initializes a new instance of the <see cref="EdmondsKarpMaximumFlowAlgorithm{TVertex,TEdge}"/> class. </summary>
         /// <param name="visitedGraph">Graph to visit.</param>
         /// <param name="capacities">Function that given an edge return the capacity of this edge.</param>
-        /// <param name="edgeFactory">Edge factory method.</param>
-        /// <param name="reverseEdgesAugmentorAlgorithm">Algorithm that is in of charge augmenting the graph (creating missing reversed edges).</param>
+        /// <param name="reverseEdges">Algorithm that is in of charge augmenting the graph (creating missing reversed edges).</param>
         /// <param name="host">Host to use if set, otherwise use this reference.</param>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="visitedGraph"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="capacities"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeFactory"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="reverseEdgesAugmentorAlgorithm"/> is <see langword="null"/>.</exception>
-        /// <exception cref="T:System.ArgumentException"><paramref name="reverseEdgesAugmentorAlgorithm"/> targets a graph different from <paramref name="visitedGraph"/>.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="reverseEdges"/> is <see langword="null"/>.</exception>
         internal EdmondsKarpMaximumFlowAlgorithm([NotNull] IMutableVertexAndEdgeListGraph<TVertex, TEdge> visitedGraph,
             [NotNull] Func<TEdge, double> capacities,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory,
-            [NotNull] ReversedEdgeAugmentorAlgorithm<TVertex, TEdge> reverseEdgesAugmentorAlgorithm,
+            [NotNull] IDictionary<TEdge, TEdge> reverseEdges,
             [CanBeNull] IAlgorithmComponent host = null)
-            : base(visitedGraph, capacities, edgeFactory, host)
+            : base(visitedGraph, capacities, host)
         {
-            if (reverseEdgesAugmentorAlgorithm is null)
-                throw new ArgumentNullException(nameof(reverseEdgesAugmentorAlgorithm));
-            if (!ReferenceEquals(visitedGraph, reverseEdgesAugmentorAlgorithm.VisitedGraph))
-                throw new ArgumentException("Must target the same graph.", nameof(reverseEdgesAugmentorAlgorithm));
-
-            _reverserAlgorithm = reverseEdgesAugmentorAlgorithm;
-            ReversedEdges = reverseEdgesAugmentorAlgorithm.ReversedEdges;
+            ReversedEdges = reverseEdges ?? throw new ArgumentNullException(nameof(reverseEdges));
         }
 
         [NotNull]
@@ -101,13 +88,6 @@ namespace QuikGraph.Algorithms.MaximumFlow
         protected override void Initialize()
         {
             base.Initialize();
-
-            if (!_reverserAlgorithm.Augmented)
-            {
-                throw new InvalidOperationException(
-                    $"The graph has not been augmented yet.{Environment.NewLine}" +
-                    $"Call {nameof(ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>)}.{nameof(ReversedEdgeAugmentorAlgorithm<int, IEdge<int>>.AddReversedEdges)}() before running this algorithm.");
-            }
 
             if (Source == null)
                 throw new InvalidOperationException("Source is not specified.");

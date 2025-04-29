@@ -5,20 +5,14 @@ using JetBrains.Annotations;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// Equality helpers for graphs.
-    /// </summary>
+    /// <summary> Equality helpers for graphs. </summary>
     public static class EquateGraphs
     {
-        /// <summary>
-        /// Checks if both graphs <paramref name="g"/> and <paramref name="h"/> content are equal.
+        /// <summary> Checks if both graphs <paramref name="g"/> and <paramref name="h"/> content are equal. </summary>
+        /// <remarks>
         /// Uses the provided <paramref name="vertexEquality"/> and <paramref name="edgeEquality"/>
         /// comparer to respectively compare vertices and edges.
-        /// </summary>
-        /// <param name="g">First graph to compare.</param>
-        /// <param name="h">Second graph to compare.</param>
-        /// <param name="vertexEquality">Vertex equality comparer.</param>
-        /// <param name="edgeEquality">Edge equality comparer.</param>
+        /// </remarks>
         /// <returns>True if both graphs are equal, false otherwise.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="vertexEquality"/> is <see langword="null"/>.</exception>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="edgeEquality"/> is <see langword="null"/>.</exception>

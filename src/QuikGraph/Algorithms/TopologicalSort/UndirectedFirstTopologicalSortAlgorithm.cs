@@ -10,10 +10,7 @@ namespace QuikGraph.Algorithms.TopologicalSort
     /// <inheritdoc cref="CreateUndirectedFirstTopologicalSortAlgorithm{TVertex,TEdge}"/>
     public static class UndirectedFirstTopologicalSortAlgorithm
     {
-        /// <summary>
-        /// Creates a topological sort (source first) of an undirected acyclic graph.
-        /// </summary>
-        /// <param name="graph">Graph to visit.</param>
+        /// <summary> Creates a topological sort (source first) of an undirected acyclic graph. </summary>
         /// <returns>Sorted vertices (topological sort).</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="graph"/> is <see langword="null"/>.</exception>
         /// <exception cref="NonAcyclicGraphException">If the input graph has a cycle.</exception>

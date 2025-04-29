@@ -280,7 +280,7 @@ namespace QuikGraph.Tests.Algorithms.RandomWalks
             algorithm.EndPredicate = edge => edge == edge4;
 
             var encounteredEdges = new List<IEdge<int>>();
-            algorithm.TreeEdge += edge => encounteredEdges.Add(edge);
+            algorithm.TreeEdge += encounteredEdges.Add;
             algorithm.EndVertex += vertex => Assert.AreEqual(3, vertex); 
 
             algorithm.Generate(1, int.MaxValue);

@@ -3,9 +3,7 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Algorithms
 {
-    /// <summary>
-    /// Represents an object that stores information about distances between vertices.
-    /// </summary>
+    /// <summary>Represents an object that stores information about distances between vertices. </summary>
     public interface IDistancesCollection<TVertex>
     {
         /// <summary>

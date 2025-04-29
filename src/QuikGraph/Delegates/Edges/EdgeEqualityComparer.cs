@@ -1,10 +1,8 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace QuikGraph
 {
-    /// <summary>
-    /// Delegate to compare edge source and target vertex with given ones.
-    /// </summary>
+    /// <summary> Delegate to compare edge source and target vertex with given ones.</summary>
     /// <param name="edge">Edge to compare.</param>
     /// <param name="source">Source vertex to compare with.</param>
     /// <param name="target">Target vertex to compare with.</param>

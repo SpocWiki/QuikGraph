@@ -43,12 +43,6 @@ namespace QuikGraph.Algorithms.Search
             EdgesColors = edgesColors ?? new Dictionary<TEdge, GraphColor>();
         }
 
-        /// <summary>
-        /// In case a root vertex has been set, indicates if the algorithm should
-        /// walk through graph parts of other components than the root component.
-        /// </summary>
-        public bool ProcessAllComponents { get; set; }
-
         private int _maxDepth = int.MaxValue;
 
         /// <summary>
@@ -183,6 +177,9 @@ namespace QuikGraph.Algorithms.Search
                 OnEdgeInitialized(edge);
             }
         }
+
+        /// <summary> In case a root vertex has been set, indicates if the algorithm should walk through graph parts of other components than the root component. </summary>
+        public bool ProcessAllComponents { get; set; }
 
         /// <inheritdoc />
         protected override void InternalCompute()

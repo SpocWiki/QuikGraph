@@ -149,7 +149,7 @@ namespace QuikGraph.Tests.Algorithms
             ]);
 
             var algorithm = graph.CreateSourceFirstTopologicalSortAlgorithm();
-            Assert.Throws<NonAcyclicGraphException>(() => algorithm.Compute());
+            Assert.Throws<NonAcyclicGraphException>(algorithm.Compute);
         }
 
         [Test]

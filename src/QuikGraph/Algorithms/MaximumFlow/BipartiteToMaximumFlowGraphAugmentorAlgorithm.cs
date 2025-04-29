@@ -14,8 +14,8 @@ namespace QuikGraph.Algorithms.MaximumFlow
                 [NotNull] this IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
                 [NotNull, ItemNotNull] IEnumerable<TVertex> sourceToVertices,
                 [NotNull, ItemNotNull] IEnumerable<TVertex> verticesToSink,
-                [NotNull] VertexFactory<TVertex> vertexFactory,
-                [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
+                [NotNull] Func<TVertex> vertexFactory,
+                [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
             where TEdge : IEdge<TVertex>
             => new BipartiteToMaximumFlowGraphAugmentorAlgorithm<TVertex, TEdge>(visitedGraph, sourceToVertices, verticesToSink, vertexFactory, edgeFactory, host);
 
@@ -48,23 +48,19 @@ namespace QuikGraph.Algorithms.MaximumFlow
             [NotNull] IMutableVertexAndEdgeSet<TVertex, TEdge> visitedGraph,
             [NotNull] [ItemNotNull] IEnumerable<TVertex> sourceToVertices,
             [NotNull] [ItemNotNull] IEnumerable<TVertex> verticesToSink,
-            [NotNull] VertexFactory<TVertex> vertexFactory,
-            [NotNull] EdgeFactory<TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
+            [NotNull] Func<TVertex> vertexFactory,
+            [NotNull] Func<TVertex, TVertex, TEdge> edgeFactory, [CanBeNull] IAlgorithmComponent host = null)
             : base(visitedGraph, vertexFactory, edgeFactory, host)
         {
             SourceToVertices = sourceToVertices ?? throw new ArgumentNullException(nameof(sourceToVertices));
             VerticesToSink = verticesToSink ?? throw new ArgumentNullException(nameof(verticesToSink));
         }
 
-        /// <summary>
-        /// Vertices to which augmented edge from super source are created with augmentation.
-        /// </summary>
+        /// <summary> Vertices to which augmented edge from super source are created with augmentation. </summary>
         [NotNull, ItemNotNull]
         public IEnumerable<TVertex> SourceToVertices { get; }
 
-        /// <summary>
-        /// Vertices from which augmented edge to super sink are created with augmentation.
-        /// </summary>
+        /// <summary>Vertices from which augmented edge to super sink are created with augmentation. </summary>
         [NotNull, ItemNotNull]
         public IEnumerable<TVertex> VerticesToSink { get; }
 

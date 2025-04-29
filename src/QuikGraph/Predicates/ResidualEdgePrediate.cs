@@ -4,9 +4,7 @@ using JetBrains.Annotations;
 
 namespace QuikGraph.Predicates
 {
-    /// <summary>
-    /// Predicate that tests if an edge is residual.
-    /// </summary>
+    /// <summary>Predicate that tests if an edge is residual. </summary>
     public sealed class ResidualEdgePredicate<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
